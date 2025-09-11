@@ -4,9 +4,8 @@ With the basic article creation functionality built, we need to enable multiple
 authors to work in our CMS. Previously, we built all the models, views and
 controllers by hand. This time around we're going to use
 [bake](/en/bake.md) to create our skeleton code. Bake is a powerful
-code generation :abbr:`CLI (Command Line Interface)` tool that leverages the
-conventions CakePHP uses to create skeleton :abbr:`CRUD (Create, Read, Update,
-Delete)` applications very efficiently. We're going to use `bake` to build our
+code generation <abbr title="Command Line Interface">CLI</abbr> tool that leverages the
+conventions CakePHP uses to create skeleton <abbr title="Create, Read, Update, Delete">CRUD</abbr> applications very efficiently. We're going to use `bake` to build our
 users code:
 
 

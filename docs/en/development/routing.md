@@ -951,7 +951,7 @@ their enclosing scopes.
 
 ### Grouping Middleware
 
-To help keep your route code :abbr:`DRY (Do not Repeat Yourself)` middleware can
+To help keep your route code <abbr title="Do not Repeat Yourself">DRY</abbr> middleware can
 be combined into groups. Once combined groups can be applied like middleware
 can
 ```php

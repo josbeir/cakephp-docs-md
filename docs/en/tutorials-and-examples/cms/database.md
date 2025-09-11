@@ -1,7 +1,6 @@
 # CMS Tutorial - Creating the Database
 
-Now that we have CakePHP installed, let's set up the database for our :abbr:`CMS
-(Content Management System)` application. If you haven't already done so, create
+Now that we have CakePHP installed, let's set up the database for our <abbr title="Content Management System">CMS</abbr> application. If you haven't already done so, create
 an empty database for use in this tutorial, with the name of your choice such as
 `cake_cms`.
 If you are using MySQL/MariaDB, you can execute the following SQL to create the

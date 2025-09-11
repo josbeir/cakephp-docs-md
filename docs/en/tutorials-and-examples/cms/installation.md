@@ -1,7 +1,6 @@
 # Content Management Tutorial
 
-This tutorial will walk you through the creation of a simple :abbr:`CMS (Content
-Management System)` application. To start with, we'll be installing CakePHP,
+This tutorial will walk you through the creation of a simple <abbr title="Content Management System">CMS</abbr> application. To start with, we'll be installing CakePHP,
 creating our database, and building simple article management.
 
 Here's what you'll need:
