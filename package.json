@@ -1,0 +1,17 @@
+{
+  "name": "cakephp-docs",
+  "version": "1.0.0",
+  "description": "CakePHP Documentation built with VitePress",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev --port 1574",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.0.0"
+  },
+  "keywords": ["cakephp", "documentation", "vitepress"],
+  "author": "CakePHP Team",
+  "license": "MIT"
+}
