@@ -524,7 +524,7 @@ echo "alert('I am in the JavaScript');";
 $this->Html->scriptEnd();
 ```
 Once you have buffered javascript, you can output it as you would any other
-[View Block](/en/views.md#view-blocks)
+[View Block](#view-blocks)
 ```php
 // In your layout
 echo $this->fetch('script');

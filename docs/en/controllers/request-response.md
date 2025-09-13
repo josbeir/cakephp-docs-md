@@ -60,10 +60,10 @@ $parameters = $this->request->getAttribute('params');
 
 ```
 
-All [route-elements](/en/development/routing.md#route-elements) are accessed through this interface.
+All [route-elements](#route-elements) are accessed through this interface.
 
-In addition to [route-elements](/en/development/routing.md#route-elements), you also often need access to
-[passed-arguments](/en/development/routing.md#passed-arguments). These are both available on the request object as
+In addition to [route-elements](#route-elements), you also often need access to
+[passed-arguments](#passed-arguments). These are both available on the request object as
 well
 ```php
 // Passed arguments
@@ -77,7 +77,7 @@ are also all found in the routing parameters:
   plugin.
 - `controller` The controller handling the current request.
 - `action` The action handling the current request.
-- `prefix` The prefix for the current action. See [prefix-routing](/en/development/routing.md#prefix-routing) for
+- `prefix` The prefix for the current action. See [prefix-routing](#prefix-routing) for
   more information.
 
 ### Query String Parameters
@@ -153,7 +153,7 @@ For non-existent names the `$default` value will be returned
 $foo = $this->request->getData('value.that.does.not.exist');
 // $foo == null
 ```
-You can also use [body-parser-middleware](/en/controllers/middleware.md#body-parser-middleware) to parse request body of different
+You can also use [body-parser-middleware](#body-parser-middleware) to parse request body of different
 content types into an array, so that it's accessible through `ServerRequest::getData()`.
 
 If you want to access all the data parameters you can use
@@ -272,7 +272,7 @@ $body = $request->getBody();
 $bodyString = (string)$request->getBody();
 ```
 If your requests contain XML or JSON request content, you should consider using
-[body-parser-middleware](/en/controllers/middleware.md#body-parser-middleware) to have CakePHP automatically parse those content
+[body-parser-middleware](#body-parser-middleware) to have CakePHP automatically parse those content
 types making the parsed data available in `$request->getData()` and
 `$request->getParsedBody()`.
 
@@ -685,7 +685,7 @@ $this->response = $this->response->withType('vcf');
 ```
 Usually, you'll want to map additional content types in your controller's
 `Controller::beforeFilter()` callback, so you can benefit from
-automatic view switching provided by [controller-viewclasses](/en/controllers.md#controller-viewclasses).
+automatic view switching provided by [controller-viewclasses](#controller-viewclasses).
 <a id="cake-response-file"></a>
 ### Sending Files
 
@@ -1062,7 +1062,7 @@ $this->response = $this->response->withCookie(Cookie::create(
     ]
 ));
 ```
-See the [creating-cookies](/en/controllers/request-response.md#creating-cookies) section for how to use the cookie object. You
+See the [creating-cookies](#creating-cookies) section for how to use the cookie object. You
 can use `withExpiredCookie()` to send an expired cookie in the response. This
 will make the browser remove its local cookie
 ```php
@@ -1370,7 +1370,7 @@ $response = $this->response->withCookie($cookie);
 $response = $this->response->withCookieCollection($cookies);
 ```
 Cookies set to responses can be encrypted using the
-[encrypted-cookie-middleware](/en/controllers/middleware.md#encrypted-cookie-middleware).
+[encrypted-cookie-middleware](#encrypted-cookie-middleware).
 
 ### Reading Cookies
 

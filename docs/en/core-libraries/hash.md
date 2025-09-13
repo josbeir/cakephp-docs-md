@@ -76,7 +76,7 @@ a matching path is not found the default value will be returned.
 
 
 `Hash::extract()` supports all expression, and matcher components of
-[hash-path-syntax](/en/core-libraries/hash.md#hash-path-syntax). You can use extract to retrieve data from arrays
+[hash-path-syntax](#hash-path-syntax). You can use extract to retrieve data from arrays
 or object implementing `ArrayAccess` interface, along arbitrary paths
 quickly without having to loop through the data structures. Instead you
     use path expressions to qualify which elements you want returned
@@ -670,7 +670,7 @@ $result = Hash::apply($data, '{n}[booked=true].date', 'array_count_values');
 #### Static Method `Cake\Utility\Hash::sort(array $data, $path, $dir, $type = 'regular')`
 
 
-Sorts an array by any value, determined by a [hash-path-syntax](/en/core-libraries/hash.md#hash-path-syntax)
+Sorts an array by any value, determined by a [hash-path-syntax](#hash-path-syntax)
 Only expression elements are supported by this method
 ```php
 $a = [

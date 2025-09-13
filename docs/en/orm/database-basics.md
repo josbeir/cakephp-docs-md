@@ -159,7 +159,7 @@ When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
 By default, all Table objects will use the `default` connection. To
-use a non-default connection, see [configuring-table-connections](/en/orm/table-objects.md#configuring-table-connections).
+use a non-default connection, see [configuring-table-connections](#configuring-table-connections).
 
 There are a number of keys supported in database configuration. A full list is
 as follows:
@@ -228,7 +228,7 @@ cacheMetadata
 Either boolean `true`, or a string containing the cache configuration to
 store meta data in. Having metadata caching disabled by setting it to `false`
 is not advised and can result in very poor performance. See the
-[database-metadata-cache](/en/orm/database-basics.md#database-metadata-cache) section for more information.
+[database-metadata-cache](#database-metadata-cache) section for more information.
 mask
 Set the permissions on the generated database file. (Only supported by SQLite)
 cache
@@ -318,7 +318,7 @@ defined in your configuration files at runtime
 ConnectionManager::setConfig('my_connection', $config);
 $connection = ConnectionManager::get('my_connection');
 ```
-See the [database-configuration](/en/orm/database-basics.md#database-configuration) for more information on the configuration
+See the [database-configuration](#database-configuration) for more information on the configuration
 data used when creating connections.
 <a id="database-data-types"></a>
 **Namespace:** `Cake\Database`
@@ -385,9 +385,9 @@ Maps to a native `DATE` column type. The return value of this column
 type is `Cake\I18n\Date` which emulates the date related
 methods of PHP's `DateTime` class.
 datetime
-    See [datetime-type](/en/orm/database-basics.md#datetime-type).
+    See [datetime-type](#datetime-type).
 datetimefractional
-    See [datetime-type](/en/orm/database-basics.md#datetime-type).
+    See [datetime-type](#datetime-type).
 timestamp
 Maps to the `TIMESTAMP` type.
 timestampfractional
@@ -397,7 +397,7 @@ Maps to a `TIME` type in all databases.
 json
 Maps to a `JSON` type if it's available, otherwise it maps to `TEXT`.
 enum
-    See [enum-type](/en/orm/database-basics.md#enum-type).
+    See [enum-type](#enum-type).
 geometry
 Maps to a generic geometry storage type.
 point
@@ -639,7 +639,7 @@ and define the SQL column type and reflection logic.
 
 Overwriting the reflected schema with our custom type will enable CakePHP's
 database layer to automatically convert PointMutation data when creating queries. In your
-Table's [getSchema() method](/en/orm/saving-data.md#saving-complex-types) add the
+Table's [getSchema() method](#saving-complex-types) add the
 
 following
 ```php
@@ -828,7 +828,7 @@ The above class does a few interesting things:
   something like `POINT(10.24, 12.34)`.
 
 Once we've built our custom type, we'll need to [connect our type
-to our table class](/en/orm/saving-data.md#saving-complex-types).
+to our table class](#saving-complex-types).
 
 ## Connection Classes
 
@@ -1040,7 +1040,7 @@ reason for this is identifier quoting has a few drawbacks:
 
 If you are using a legacy schema that requires identifier quoting you can enable
 it using the `quoteIdentifiers` setting in your
-[database-configuration](/en/orm/database-basics.md#database-configuration). You can also enable this feature at runtime
+[database-configuration](#database-configuration). You can also enable this feature at runtime
 ```php
 $connection->getDriver()->enableAutoQuoting();
 ```

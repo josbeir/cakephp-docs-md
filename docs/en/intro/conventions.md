@@ -47,7 +47,7 @@ $this->Html->link('link-title', [
 ]
 ```
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](/en/development/routing.md#routes-configuration).
+[routes-configuration](#routes-configuration).
 <a id="file-and-classname-conventions"></a>
 ## File and Class Name Conventions
 

@@ -72,7 +72,7 @@ class Article extends Entity
 ```
 Right now, our entity is quite slim; we've only set up the `_accessible`
 property, which controls how properties can be modified by
-[entities-mass-assignment](/en/orm/entities.md#entities-mass-assignment).
+[entities-mass-assignment](#entities-mass-assignment).
 
 > [!TIP]
 > The `ArticlesTable` and `Article` Entity classes can be generated from a

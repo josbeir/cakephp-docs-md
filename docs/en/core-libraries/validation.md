@@ -117,7 +117,7 @@ when a field can or cannot be empty:
 - `update` The field can be empty when validating an **update**
   operation.
 - A callback that returns `true` or `false` to indicate whether a field is
-  allowed to be empty. See the [conditional-validation](/en/core-libraries/validation.md#conditional-validation) section for examples on
+  allowed to be empty. See the [conditional-validation](#conditional-validation) section for examples on
   how to use this parameter.
 
 An example of these methods in action is
@@ -189,13 +189,13 @@ containing data related to the validation process:
 
 Closures should return boolean true if the validation passes. If it fails,
 return boolean false or for a custom error message return a string, see the
-[Conditional/Dynamic Error Messages](/en/core-libraries/validation.md#dynamic_validation_error_messages)
+[Conditional/Dynamic Error Messages](#dynamic_validation_error_messages)
 section for further details.
 <a id="dynamic_validation_error_messages"></a>
 ### Conditional/Dynamic Error Messages
 
-Validation rule methods, being it [custom callables](/en/core-libraries/validation.md#custom-validation-rules),
-or [methods supplied by providers](/en/core-libraries/validation.md#adding-validation-providers), can either
+Validation rule methods, being it [custom callables](#custom-validation-rules),
+or [methods supplied by providers](#adding-validation-providers), can either
 return a boolean, indicating whether the validation succeeded, or they can return
 a string, which means that the validation failed, and that the returned string
 should be used as the error message.
@@ -575,7 +575,7 @@ $valid = $this->Articles->newEntity($article, [
 Apart from validating user provided data maintaining integrity of data regardless
 where it came from is important. To solve this problem CakePHP offers a second
 level of validation which is called "application rules". You can read more about
-them in the [Applying Application Rules](/en/orm/validation.md#application-rules) section.
+them in the [Applying Application Rules](#application-rules) section.
 
 ## Core Validation Rules
 

@@ -19,7 +19,7 @@ options are supported:
 
 - `errorLevel` - int - The level of errors you are interested in capturing.
   Use the built-in PHP error constants, and bitmasks to select the level of
-  error you are interested in. See [deprecation-warnings](/en/development/errors.md#deprecation-warnings) to disable
+  error you are interested in. See [deprecation-warnings](#deprecation-warnings) to disable
   deprecation warnings.
 - `trace` - bool - Include stack traces for errors in log files. Stack
   traces will be included in the log after each error. This is helpful for
@@ -174,7 +174,7 @@ rendering to render the error page view and receives all the standard request
 life-cycle events. By modifying this class you can control which components are
 used and which templates are rendered.
 
-If your application uses [prefix-routing](/en/development/routing.md#prefix-routing) you can create custom error
+If your application uses [prefix-routing](#prefix-routing) you can create custom error
 controllers for each routing prefix. For example, if you had an `Admin`
 prefix. You could create the following class
 ```php

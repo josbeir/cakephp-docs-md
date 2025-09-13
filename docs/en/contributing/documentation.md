@@ -232,9 +232,9 @@ The resulting link would look like this: [External Link to php.net](https://php.
 
         More content here.
 
-    Elsewhere you could reference the above section using `[label-name](/en/contributing/documentation.md#label-name)`.
+    Elsewhere you could reference the above section using `[label-name](#label-name)`.
     The link's text would be the title that the link preceded. You can also
-    provide custom link text using `[Link text](/en/contributing/documentation.md#label-name)`.
+    provide custom link text using `[Link text](#label-name)`.
 
 #### Prevent Sphinx to Output Warnings
 

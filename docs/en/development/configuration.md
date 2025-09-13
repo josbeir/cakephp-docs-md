@@ -142,7 +142,7 @@ of paths for plugins, view templates and locale files respectively.
 App.uploadedFilesAsObjects
 Defines whether uploaded files are being represented as objects (`true`),
 or arrays (`false`). This option is being treated as enabled by default.
-See the [File Uploads section](/en/controllers/request-response.md#request-file-uploads) in the Request &
+See the [File Uploads section](#request-file-uploads) in the Request &
 Response Objects chapter for more information.
 Security.salt
 A random string used in hashing. This value is also used as the
@@ -181,37 +181,37 @@ If you set `App.imageBaseUrl` to ``https://mycdn.example.com/`:
 
 ### Database Configuration
 
-See the [Database Configuration](/en/orm/database-basics.md#database-configuration) for information
+See the [Database Configuration](#database-configuration) for information
 on configuring your database connections.
 
 ### Caching Configuration
 
-See the [Caching Configuration](/en/core-libraries/caching.md#cache-configuration) for information on
+See the [Caching Configuration](#cache-configuration) for information on
 configuring caching in CakePHP.
 
 ### Error and Exception Handling Configuration
 
-See the [Error and Exception Configuration](/en/development/errors.md#error-configuration) for
+See the [Error and Exception Configuration](#error-configuration) for
 information on configuring error and exception handlers.
 
 ### Logging Configuration
 
-See the [log-configuration](/en/core-libraries/logging.md#log-configuration) for information on configuring logging in
+See the [log-configuration](#log-configuration) for information on configuring logging in
 CakePHP.
 
 ### Email Configuration
 
-See the [Email Configuration](/en/core-libraries/email.md#email-configuration) for information on
+See the [Email Configuration](#email-configuration) for information on
 configuring email presets in CakePHP.
 
 ### Session Configuration
 
-See the [session-configuration](/en/development/sessions.md#session-configuration) for information on configuring session
+See the [session-configuration](#session-configuration) for information on configuring session
 handling in CakePHP.
 
 ### Routing configuration
 
-See the [Routes Configuration](/en/development/routing.md#routes-configuration) for more information
+See the [Routes Configuration](#routes-configuration) for more information
 on configuring routing and creating routes for your application.
 <a id="additional-class-paths"></a>
 ## Additional Class Paths
@@ -267,7 +267,7 @@ Paths should end with a directory separator, or they will not work properly.
 
 ## Inflection Configuration
 
-See the [inflection-configuration](/en/core-libraries/inflector.md#inflection-configuration) docs for more information.
+See the [inflection-configuration](#inflection-configuration) docs for more information.
 
 ## Configure Class
 

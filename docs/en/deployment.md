@@ -69,7 +69,7 @@ variables.
 If you're throwing your application out into the wild, it's a good idea to make
 sure it doesn't have any obvious leaks:
 
-- Ensure you are using the [csrf-middleware](/en/security/csrf.md#csrf-middleware) component or middleware.
+- Ensure you are using the [csrf-middleware](#csrf-middleware) component or middleware.
 - You may want to enable the [controllers/components/form-protection](/en/controllers/components/form-protection.md) component.
   It can help prevent several types of form tampering and reduce the possibility
   of mass-assignment issues.
@@ -86,7 +86,7 @@ keeping your code secure and your application safer. CakePHP applications
 should have the document root set to the application's `webroot`. This
 makes the application and configuration files inaccessible through a URL.
 Setting the document root is different for different webservers. See the
-[url-rewriting](/en/installation.md#url-rewriting) documentation for webserver specific
+[url-rewriting](#url-rewriting) documentation for webserver specific
 information.
 
 In all cases you will want to set the virtual host/domain's document to be

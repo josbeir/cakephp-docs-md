@@ -430,7 +430,7 @@ Possible keys for hasMany association arrays include:
   records not in the current set will be removed. If the foreign key is a nullable
   column or if `dependent` is true records will be orphaned.
 - **finder**: The finder method to use when loading associated records. See the
-  [association-finder](/en/orm/associations.md#association-finder) section for more information.
+  [association-finder](#association-finder) section for more information.
 
 Once this association has been defined, find operations on the Articles table
 can contain the Comment records if they exist
@@ -576,7 +576,7 @@ Possible keys for belongsToMany association arrays include:
   do a wipe and replace to create the links between the passed entities when
   saving.
 - **finder**: The finder method to use when loading associated records. See the
-  [association-finder](/en/orm/associations.md#association-finder) section for more information.
+  [association-finder](#association-finder) section for more information.
 
 Once this association has been defined, find operations on the Articles table can
 contain the Tag records if they exist
@@ -687,7 +687,7 @@ $query = $this->find(
 By default associations will load records based on the foreign key columns. If
 you want to define additional conditions for associations, you can use
 a `finder`. When an association is loaded the ORM will use your [custom
-finder](/en/orm/retrieving-data-and-resultsets.md#custom-find-methods) to load, update, or delete associated records.
+finder](#custom-find-methods) to load, update, or delete associated records.
 Using finders lets you encapsulate your queries and make them more reusable.
 There are some limitations when using finders to load data in associations that
 are loaded using joins (belongsTo/hasOne). Only the following aspects of the
@@ -722,4 +722,4 @@ $users = $role->users;
 
 ## Loading Associations
 
-Once you've defined your associations you can [eager load associations](/en/orm/retrieving-data-and-resultsets.md#eager-loading-associations) when fetching results.
+Once you've defined your associations you can [eager load associations](#eager-loading-associations) when fetching results.

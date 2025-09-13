@@ -86,5 +86,5 @@ class Application extends BaseApplication
 ```
 
 Loading plugins and events in `Application::bootstrap()` makes
-[integration-testing](/en/development/testing.md#integration-testing) easier as events and routes will be re-processed on
+[integration-testing](#integration-testing) easier as events and routes will be re-processed on
 each test method.

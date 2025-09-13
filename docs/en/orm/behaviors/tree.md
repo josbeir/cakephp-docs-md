@@ -99,7 +99,7 @@ While, if you're using custom `parent_id` you need to pass it in the
 'threaded' finder option (i.e. `parentField`) .
 
 > [!NOTE]
-> For more information on 'threaded' finder options see [Finding Threaded Data logic](/en/orm/retrieving-data-and-resultsets.md#finding-threaded-data)
+> For more information on 'threaded' finder options see [Finding Threaded Data logic](#finding-threaded-data)
 >
 ### Getting formatted tree lists
 

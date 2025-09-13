@@ -81,10 +81,10 @@ class AppController extends Controller
 
 When a request is made to a CakePHP application, CakePHP's
 `Cake\Routing\Router` and `Cake\Routing\Dispatcher`
-classes use [routes-configuration](/en/development/routing.md#routes-configuration) to find and create the correct
+classes use [routes-configuration](#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [cake-request](/en/controllers/request-response.md#cake-request) for more information on the
+property. See the section on [cake-request](#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -281,7 +281,7 @@ This would render **plugins/Users/templates/UserDetails/custom_file.php**
 
 Controllers can define a list of view classes they support. After the
 controller's action is complete CakePHP will use the view list to perform
-content-type negotiation with either [file-extensions](/en/development/routing.md#file-extensions) or `Accept`
+content-type negotiation with either [file-extensions](#file-extensions) or `Accept`
 headers. This enables your application to re-use the same controller action to
 render an HTML view or render a JSON or XML response. To define the list of
 supported view classes for a controller is done with the `addViewClasses()`
@@ -317,7 +317,7 @@ public function export(): void
 ```
 If within your controller actions you need to process the request or load data
 differently based on the content type you can use
-[check-the-request](/en/controllers/request-response.md#check-the-request)
+[check-the-request](#check-the-request)
 ```php
 // In a controller action
 
@@ -425,7 +425,7 @@ By using the second parameter you can define a status code for your redirect::
     // Do a 303 (see other)
     return $this->redirect('/order/confirm', 303);
 
-See the [redirect-component-events](/en/controllers/components.md#redirect-component-events) section for how to redirect out of
+See the [redirect-component-events](#redirect-component-events) section for how to redirect out of
 a life-cycle handler.
 
 ## Loading Additional Tables/Models
@@ -532,7 +532,7 @@ or inspect user permissions.
 >
 Returning a response from a `beforeFilter` method will not prevent other
 listeners of the same event from being called. You must explicitly
-[stop the event](/en/core-libraries/events.md#stopping-events).
+[stop the event](#stopping-events).
 
 #### Method `Cake\Controller\Controller::beforeRender(EventInterface $event)`
 

@@ -135,8 +135,8 @@ $middlewareQueue->insertAfter(
 );
 ```
 If your middleware is only applicable to a subset of routes or individual
-controllers you can use [Route scoped middleware](/en/development/routing.md#route-scoped-middleware),
-or [Controller middleware](/en/controllers.md#controller-middleware).
+controllers you can use [Route scoped middleware](#route-scoped-middleware),
+or [Controller middleware](#controller-middleware).
 
 ### Adding Middleware from Plugins
 

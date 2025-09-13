@@ -14,7 +14,7 @@ the behavior of a given table CakePHP will generate a Table instance for you to
 use.
 
 Before trying to use Table objects and the ORM, you should ensure that you have
-configured your [database connection](/en/orm/database-basics.md#database-configuration).
+configured your [database connection](#database-configuration).
 
 ## Basic Usage
 
@@ -100,7 +100,7 @@ $articles = $this->fetchTable('Articles');
 `TableLocator` provides the various dependencies for constructing
 a table, and maintains a registry of all the constructed table instances making
 it easier to build relations and configure the ORM. See
-[table-locator-usage](/en/orm/table-objects.md#table-locator-usage) for more information.
+[table-locator-usage](#table-locator-usage) for more information.
 
 If your table class is in a plugin, be sure to use the correct name for your
 table class. Failing to do so can result in validation rules, or callbacks not
@@ -206,7 +206,7 @@ This will call the `initializeEvent` when any `Table` class is constructed.
 
 
 The `Model.beforeMarshal` event is fired before request data is converted
-into entities. See the [before-marshal](/en/orm/saving-data.md#before-marshal) documentation for more information.
+into entities. See the [before-marshal](#before-marshal) documentation for more information.
 
 ### afterMarshal
 
@@ -251,7 +251,7 @@ fields, conditions, joins or result formatters. These options/features will be
 copied onto the root query.
 
 In previous versions of CakePHP there was an `afterFind` callback, this has
-been replaced with the [map-reduce](/en/orm/retrieving-data-and-resultsets.md#map-reduce) features and entity constructors.
+been replaced with the [map-reduce](#map-reduce) features and entity constructors.
 
 ### buildValidator
 

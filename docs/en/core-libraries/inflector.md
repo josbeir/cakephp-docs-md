@@ -63,7 +63,7 @@ when provided a multi-word argument:
 
 
 Both `pluralize` and `singularize()` work on most English nouns. If you need
-to support other languages, you can use [inflection-configuration](/en/core-libraries/inflector.md#inflection-configuration) to
+to support other languages, you can use [inflection-configuration](#inflection-configuration) to
 customize the rules used
 
 ```php

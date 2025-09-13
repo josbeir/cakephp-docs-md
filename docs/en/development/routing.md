@@ -142,7 +142,7 @@ $routes->connect(
 ```
 The first parameter is used to tell the router what sort of URL you're trying to
 control. The URL is a normal slash delimited string, but can also contain
-a wildcard (\*) or [route-elements](/en/development/routing.md#route-elements).  Using a wildcard tells the router
+a wildcard (\*) or [route-elements](#route-elements).  Using a wildcard tells the router
 that you are willing to accept any additional arguments supplied. Routes without
 a \* only match the exact template pattern supplied.
 
@@ -227,11 +227,11 @@ $routes->connect(
 ```
 This is telling the Router that any URL beginning with `/cooks/` should be
 sent to the `UsersController`. The action called will depend on the value of
-the `{action}` parameter. By using [route-elements](/en/development/routing.md#route-elements), you can create
+the `{action}` parameter. By using [route-elements](#route-elements), you can create
 variable routes, that accept user input or variables. The above route also uses
 the greedy star.  The greedy star indicates that this route should accept any
 additional positional arguments given. These arguments will be made available in
-the [passed-arguments](/en/development/routing.md#passed-arguments) array.
+the [passed-arguments](#passed-arguments) array.
 
 When generating URLs, routes are used too. Using
 `['controller' => 'Users', 'action' => 'some-action', 5]` as
@@ -270,7 +270,7 @@ will go to the 'update' action. There are HTTP helper methods for:
 - HEAD
 
 All of these methods return the route instance allowing you to leverage the
-[fluent setters](/en/development/routing.md#route-fluent-methods) to further configure your route.
+[fluent setters](#route-fluent-methods) to further configure your route.
 <a id="route-elements"></a>
 ### Route Elements
 
@@ -385,8 +385,8 @@ CakePHP, and should not be used unless you want the special meaning
 - `controller` Used to name the controller for a route.
 - `action` Used to name the controller action for a route.
 - `plugin` Used to name the plugin a controller is located in.
-- `prefix` Used for [prefix-routing](/en/development/routing.md#prefix-routing)
-- `_ext` Used for [File extentions routing](/en/development/routing.md#file-extensions).
+- `prefix` Used for [prefix-routing](#prefix-routing)
+- `_ext` Used for [File extentions routing](#file-extensions).
 - `_base` Set to `false` to remove the base path from the generated URL. If
   your application is not in the root directory, this can be used to generate
   URLs that are 'cake relative'.
@@ -395,12 +395,12 @@ CakePHP, and should not be used unless you want the special meaning
 - `_host` Set the host to use for the link.  Defaults to the current host.
 - `_port` Set the port if you need to create links on non-standard ports.
 - `_full`  If `true` the value of `App.fullBaseUrl` mentioned in
-  [general-configuration](/en/development/configuration.md#general-configuration) will be prepended to generated URLs.
+  [general-configuration](#general-configuration) will be prepended to generated URLs.
 - `#` Allows you to set URL hash fragments.
 - `_https` Set to `true` to convert the generated URL to https or `false`
   to force http. Prior to 4.5.0 use `_ssl`.
 - `_method` Define the HTTP verb/method to use. Useful when working with
-  [resource-routes](/en/development/routing.md#resource-routes).
+  [resource-routes](#resource-routes).
 - `_name` Name of route. If you have setup named routes, you can use this key
   to specify it.
 <a id="route-fluent-methods"></a>
@@ -438,7 +438,7 @@ $routes->connect(
 ```
 ### Passing Parameters to Action
 
-When connecting routes using [route-elements](/en/development/routing.md#route-elements) you may want to have routed
+When connecting routes using [route-elements](#route-elements) you may want to have routed
 elements be passed arguments instead. The `pass` option indicates which route
 elements should also be made available as arguments passed into the controller
 functions
@@ -738,7 +738,7 @@ When using scopes you can nest plugin scopes within prefix scopes::
 
 The above would create a route that looks like `/admin/debug-kit/{controller}`.
 It would have the `prefix`, and `plugin` route elements set. The
-[plugin-routes](/en/plugins.md#plugin-routes) section has more information on building plugin routes.
+[plugin-routes](#plugin-routes) section has more information on building plugin routes.
 
 ### Creating Links to Plugin Routes
 
@@ -900,7 +900,7 @@ only where it is needed allowing your middleware to not concern itself with
 how/where it is being applied.
 
 > [!NOTE]
-> Applied scoped middleware will be run by [RoutingMiddleware](/en/controllers/middleware.md#routing-middleware),
+> Applied scoped middleware will be run by [RoutingMiddleware](#routing-middleware),
 > normally at the end of your application's middleware queue.
 >
 Before middleware can be applied to a scope, it needs to be
@@ -1044,7 +1044,7 @@ $routes->scope('/api', function (RouteBuilder $routes) {
 The above would map the 'Comments' resource to the
 `App\Controller\Articles\CommentsController`. Having separate controllers lets
 you keep your controller logic simpler. The prefixes created this way are
-compatible with [prefix-routing](/en/development/routing.md#prefix-routing).
+compatible with [prefix-routing](#prefix-routing).
 
 > [!NOTE]
 > While you can nest resources as deeply as you require, it is not recommended
@@ -1286,7 +1286,7 @@ $this->Html->link(
     ['controller' => $controller, 'action' => 'view', $id]
 );
 ```
-Elements with numeric keys are treated as [passed-arguments](/en/development/routing.md#passed-arguments).
+Elements with numeric keys are treated as [passed-arguments](#passed-arguments).
 
 When using routing arrays, you can define both query string parameters and
 document fragments using special keys
@@ -1303,7 +1303,7 @@ $routes->url([
 ```
 You can also use any of the special route elements when generating URLs:
 
-- `_ext` Used for [file-extensions](/en/development/routing.md#file-extensions) routing.
+- `_ext` Used for [file-extensions](#file-extensions) routing.
 - `_base` Set to `false` to remove the base path from the generated URL. If
   your application is not in the root directory, this can be used to generate
   URLs that are 'cake relative'.
@@ -1313,7 +1313,7 @@ You can also use any of the special route elements when generating URLs:
 - `_port` Set the port if you need to create links on non-standard ports.
 - `_method` Define the HTTP verb the URL is for.
 - `_full`  If `true` the value of `App.fullBaseUrl` mentioned in
-  [general-configuration](/en/development/configuration.md#general-configuration) will be prepended to generated URLs.
+  [general-configuration](#general-configuration) will be prepended to generated URLs.
 - `_https` Set to `true` to convert the generated URL to https or `false`
   to force http. Prior to 4.5.0 use `_ssl`
 - `_name` Name of route. If you have setup named routes, you can use this key
@@ -1321,7 +1321,7 @@ You can also use any of the special route elements when generating URLs:
 
 ### Using `Router::reverse()`
 
-`Router::reverse()` allows you to use the [request-parameters](/en/controllers/request-response.md#request-parameters) in cases
+`Router::reverse()` allows you to use the [request-parameters](#request-parameters) in cases
 where the current URL with some modification is the basis for the destination
 and the elements of the current URL are unpredictable.
 
@@ -1652,7 +1652,7 @@ Router::url(['plugin' => 'MyPlugin', 'controller' => 'Locations', 'action' => 'i
 ```
 
 > [!WARNING]
-> If you are using the caching features of [routing-middleware](/en/controllers/middleware.md#routing-middleware) you must
+> If you are using the caching features of [routing-middleware](#routing-middleware) you must
 > define the URL filters in your application `bootstrap()` as filters are
 > not part of the cached data.
 >

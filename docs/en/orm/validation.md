@@ -79,7 +79,7 @@ class ArticlesTable extends Table
 }
 ```
 The available validation methods and rules come from the `Validator` class and
-are documented in the [creating-validators](/en/core-libraries/validation.md#creating-validators) section.
+are documented in the [creating-validators](#creating-validators) section.
 
 > [!NOTE]
 > Validation objects are intended primarily for validating user input, i.e.
@@ -249,7 +249,7 @@ public function initialize(array $config): void
 ## Applying Application Rules
 
 While basic data validation is done when [request data is converted into
-entities](/en/orm/validation.md#validating-request-data), many applications also have more complex
+entities](#validating-request-data), many applications also have more complex
 validation that should only be applied after basic validation has completed.
 
 Where validation ensures the form or syntax of your data is correct, rules
@@ -471,8 +471,8 @@ $rules->add(function ($entity, $options) use($rules) {
 ```
 ### Conditional/Dynamic Error Messages
 
-Rules, being it [custom callables](/en/orm/validation.md#creating-a-rules-checker), or
-[rule objects](/en/orm/validation.md#creating-custom-rule-objects), can either return a boolean, indicating
+Rules, being it [custom callables](#creating-a-rules-checker), or
+[rule objects](#creating-custom-rule-objects), can either return a boolean, indicating
 whether they passed, or they can return a string, which means that the rule did not pass,
 and that the returned string should be used as the error message.
 

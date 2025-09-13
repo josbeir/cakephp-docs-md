@@ -883,7 +883,7 @@ creating an instance of our `ArticlesTable` class, and then run our
 `find('published')` method. In `$expected` we set what we expect should be
 the proper result (that we know since we have defined which records are
 initially populated to the article table.) We test that the result equals our
-expectation by using the `assertEquals()` method. See the [running-tests](/en/development/testing.md#running-tests)
+expectation by using the `assertEquals()` method. See the [running-tests](#running-tests)
 section for more information on how to run your test case.
 
 Using the fixture factories, the test would now look like this
@@ -1128,14 +1128,14 @@ public function setUp(): void
     $this->configApplication('App\App', [CONFIG]);
 }
 ```
-You should also take care to try and use [application-bootstrap](/en/development/application.md#application-bootstrap) to load
+You should also take care to try and use [application-bootstrap](#application-bootstrap) to load
 any plugins containing events/routes. Doing so will ensure that your
 events/routes are connected for each test case. Alternatively if you wish to
 load plugins manually in a test you can use the `loadPlugins()` method.
 
 ### Testing with Encrypted Cookies
 
-If you use the [encrypted-cookie-middleware](/en/controllers/middleware.md#encrypted-cookie-middleware) in your
+If you use the [encrypted-cookie-middleware](#encrypted-cookie-middleware) in your
 application, there are helper methods for setting encrypted cookies in your
 test cases
 ```php
@@ -1557,16 +1557,16 @@ git status
 ```
 ## Console Integration Testing
 
-See [console-integration-testing](/en/console-commands/commands.md#console-integration-testing) for how to test console commands.
+See [console-integration-testing](#console-integration-testing) for how to test console commands.
 
 ## Mocking Injected Dependencies
 
-See [mocking-services-in-tests](/en/development/dependency-injection.md#mocking-services-in-tests) for how to replace services injected with
+See [mocking-services-in-tests](#mocking-services-in-tests) for how to replace services injected with
 the dependency injection container in your integration tests.
 
 ## Mocking HTTP Client Responses
 
-See [httpclient-testing](/en/core-libraries/httpclient.md#httpclient-testing) to know how to create mock responses to external APIs.
+See [httpclient-testing](#httpclient-testing) to know how to create mock responses to external APIs.
 
 ## Testing Views
 
@@ -1797,7 +1797,7 @@ class CartsTable extends Table
 ```
 > [!NOTE]
 > To assert that events are fired, you must first enable
-> [tracking-events](/en/core-libraries/events.md#tracking-events) on the event manager you wish to assert against.
+> [tracking-events](#tracking-events) on the event manager you wish to assert against.
 >
 To test the `OrdersTable` above, we enable tracking in `setUp()` then assert
 that the event was fired, and assert that the `$order` entity was passed in
@@ -1844,11 +1844,11 @@ $this->assertEventFiredWith('My.Global.Event', 'user', 1);
 ```
 ## Testing Email
 
-See [email-testing](/en/core-libraries/email.md#email-testing) for information on testing email.
+See [email-testing](#email-testing) for information on testing email.
 
 ## Testing Logging
 
-See [log-testing](/en/core-libraries/logging.md#log-testing) for information on testing log messages.
+See [log-testing](#log-testing) for information on testing log messages.
 
 ## Creating Test Suites
 
@@ -1905,7 +1905,7 @@ reference them using `plugin.pluginName.fixtureName` syntax in the
 directories you can use the following: `plugin.vendorName/pluginName.folderName/fixtureName`.
 
 Before you can use fixtures you should ensure you have the [fixture
-listener](/en/development/testing.md#fixture-phpunit-configuration) configured in your `phpunit.xml`
+listener](#fixture-phpunit-configuration) configured in your `phpunit.xml`
 file. You should also ensure that your fixtures are loadable. Ensure the
 following is present in your **composer.json** file
 ```json

@@ -6,7 +6,7 @@ keywords: "json,xml,presentation layer,view,ajax,logic,syntax,templates,cakephp"
 # JSON and XML views
 
 The `JsonView` and `XmlView` integration with CakePHP's
-[controller-viewclasses](/en/controllers.md#controller-viewclasses) features and  let you create JSON and XML responses.
+[controller-viewclasses](#controller-viewclasses) features and  let you create JSON and XML responses.
 
 These view classes are most commonly used alongside `Cake\Controller\Controller::viewClasses()`.
 
@@ -28,11 +28,11 @@ public function viewClasses(): array
 }
 ```
 You can optionally enable the json and/or xml extensions with
-[file-extensions](/en/development/routing.md#file-extensions). This will allow you to access the `JSON`, `XML` or
+[file-extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
 any other special format views by using a custom URL ending with the name of the
 response type as a file extension such as `http://example.com/articles.json`.
 
-By default, when not enabling [file-extensions](/en/development/routing.md#file-extensions), the `Accept`
+By default, when not enabling [file-extensions](#file-extensions), the `Accept`
 header in the request is used for selecting which type of format should be rendered to the
 user. An example `Accept` format that is used to render `JSON` responses is
 `application/json`.

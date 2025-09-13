@@ -437,7 +437,7 @@ It wraps the `Cake\\Chronos\\ChronosTime`` class.
 ## Accepting Localized Request Data
 
 When creating text inputs that manipulate dates, you'll probably want to accept
-and parse localized datetime strings. See the [parsing-localized-dates](/en/core-libraries/internationalization-and-localization.md#parsing-localized-dates).
+and parse localized datetime strings. See the [parsing-localized-dates](#parsing-localized-dates).
 
 ## Supported Timezones
 

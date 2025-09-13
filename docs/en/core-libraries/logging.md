@@ -20,7 +20,7 @@ being executed?
 Logging data in CakePHP is done with the `log()` function. It is provided by the
 `LogTrait`, which is the common ancestor for many CakePHP classes. If the
 context is a CakePHP class (Controller, Component, View,...), you can log your
-data.  You can also use `Log::write()` directly.  See [writing-to-logs](/en/core-libraries/logging.md#writing-to-logs).
+data.  You can also use `Log::write()` directly.  See [writing-to-logs](#writing-to-logs).
 <a id="log-configuration"></a>
 ## Logging Configuration
 
@@ -60,7 +60,7 @@ Log::setConfig('error', [
 The above creates three loggers, named `info`, `debug` and `error`.
 Each is configured to handle different levels of messages. They also store their
 log messages in separate files, so we can separate debug/notice/info logs
-from more serious errors. See the section on [logging-levels](/en/core-libraries/logging.md#logging-levels) for more
+from more serious errors. See the section on [logging-levels](#logging-levels) for more
 information on the different levels and what they mean.
 
 Once a configuration is created you cannot change it. Instead you should drop
@@ -271,7 +271,7 @@ following keys:
   logged message. For example: `%s - Web Server 1 - %s` will look like
   `error - Web Server 1 - An error occurred in this request` after
   replacing the placeholders. This option is deprecated. You should use
-  [logging-formatters](/en/core-libraries/logging.md#logging-formatters) instead.
+  [logging-formatters](#logging-formatters) instead.
 - `prefix`: An string that will be prefixed to every logged message.
 - `flag`: An integer flag to be used for opening the connection to the
   logger, by default `LOG_ODELAY` will be used. See `openlog` documentation
@@ -423,7 +423,7 @@ to drop a logger later on.
 :param array $config: Array of configuration information and
 constructor arguments for the logger.
 
-Get or set the configuration for a Logger. See [log-configuration](/en/core-libraries/logging.md#log-configuration) for
+Get or set the configuration for a Logger. See [log-configuration](#log-configuration) for
 more information.
 
 #### Static Method `Cake\Log\Log::configured()`

@@ -278,7 +278,7 @@ echo $user->get('full_name');
 ```
 Do bear in mind that virtual fields cannot be used in finds. If you want
 them to be part of JSON or array representations of your entities,
-see [exposing-virtual-fields](/en/orm/entities.md#exposing-virtual-fields).
+see [exposing-virtual-fields](#exposing-virtual-fields).
 
 ## Checking if an Entity Has Been Modified
 
@@ -325,7 +325,7 @@ To get a list of all dirty fields of an `Entity` you may call::
 
 ## Validation Errors
 
-After you [save an entity](/en/orm/saving-data.md#saving-entities) any validation errors will be
+After you [save an entity](#saving-entities) any validation errors will be
 stored on the entity itself. You can access any validation errors using the
 `getErrors()`, `getError()` or `hasErrors()` methods
 ```php
@@ -420,7 +420,7 @@ $article->setAccess('title', false);
 >
 When using the `newEntity()` and `patchEntity()` methods in the `Table`
 objects you can customize mass assignment protection with options. Please refer
-to the [changing-accessible-fields](/en/orm/saving-data.md#changing-accessible-fields) section for more information.
+to the [changing-accessible-fields](#changing-accessible-fields) section for more information.
 
 ### Bypassing Field Guarding
 
@@ -582,5 +582,5 @@ This list can be modified at runtime using the `setHidden()` method::
 
 Accessor & Mutator methods on entities are not intended to contain the logic for
 serializing and unserializing complex data coming from the database. Refer to
-the [saving-complex-types](/en/orm/saving-data.md#saving-complex-types) section to understand how your application can
+the [saving-complex-types](#saving-complex-types) section to understand how your application can
 store more complex data types like arrays and objects.

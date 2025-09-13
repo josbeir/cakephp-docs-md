@@ -73,7 +73,7 @@ or a XML formatted result for others to consume
     </li>
 <?php endforeach; ?>
 ```
-The View layer provides a number of extension points like [view-templates](/en/views.md#view-templates), [view-elements](/en/views.md#view-elements)
+The View layer provides a number of extension points like [view-templates](#view-templates), [view-elements](#view-elements)
 and [views/cells](/en/views/cells.md) to let you re-use your presentation logic.
 
 The View layer is not only limited to HTML or text representation of the data.

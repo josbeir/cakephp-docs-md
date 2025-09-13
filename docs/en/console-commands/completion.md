@@ -63,7 +63,7 @@ with the following command
 apt-get install bash-completion
 ```
 Create a file named **cake** in **/etc/bash_completion.d/** and put the
-[bash-completion-file-content](/en/console-commands/completion.md#bash-completion-file-content) inside it.
+[bash-completion-file-content](#bash-completion-file-content) inside it.
 
 Save the file, then restart your console.
 

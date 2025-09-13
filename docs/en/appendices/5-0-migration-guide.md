@@ -273,7 +273,7 @@ CakePHP 5 leverages the expanded type system feature available in PHP 8.1+.
 CakePHP also uses `assert()` to provide improved error messages and additional
 type soundness. In production mode, you can configure PHP to not generate
 code for `assert()` yielding improved application performance. See the
-[symlink-assets](/en/deployment.md#symlink-assets) for how to do this.
+[symlink-assets](#symlink-assets) for how to do this.
 
 ### Collection
 
@@ -284,7 +284,7 @@ code for `assert()` yielding improved application performance. See the
 ### Core
 
 - The `services()` method was added to `PluginInterface`.
-- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](/en/plugins.md#loading-a-plugin).
+- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](#loading-a-plugin).
 
 ### Database
 

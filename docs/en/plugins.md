@@ -434,7 +434,7 @@ also connect routes that use the following pattern
 /{prefix}/{plugin}/{controller}
 /{prefix}/{plugin}/{controller}/{action}
 ```
-See the section on [plugin-configuration](/en/plugins.md#plugin-configuration) for information on how to load
+See the section on [plugin-configuration](#plugin-configuration) for information on how to load
 plugin specific route files.
 <a id="plugin-models"></a>
 ## Plugin Models
@@ -550,7 +550,7 @@ following
 echo $this->element('Contacts.sidebar/helpbox');
 ```
 > [!NOTE]
-> See [view-elements](/en/views.md#view-elements) for more information on rendering elements.
+> See [view-elements](#view-elements) for more information on rendering elements.
 >
 >
 ### Overriding Plugin Templates from Inside Your Application
@@ -604,7 +604,7 @@ You may put any type of file in any directory, just like a regular webroot.
 
 > [!WARNING]
 > Handling static assets (such as images, JavaScript and CSS files)
-> through the Dispatcher is very inefficient. See [symlink-assets](/en/deployment.md#symlink-assets)
+> through the Dispatcher is very inefficient. See [symlink-assets](#symlink-assets)
 > for more information.
 >
 ### Linking to Assets in Plugins
@@ -623,7 +623,7 @@ echo $this->Html->image('ContactManager.logo');
 ```
 Plugin assets are served using the `AssetMiddleware` middleware by default.
 This is only recommended for development. In production you should
-[symlink plugin assets](/en/deployment.md#symlink-assets) to improve performance.
+[symlink plugin assets](#symlink-assets) to improve performance.
 
 If you are not using the helpers, you can prepend /plugin-name/ to the beginning
 of the URL for an asset within that plugin to serve it. Linking to

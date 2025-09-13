@@ -21,7 +21,7 @@ rendering scenarios:
 
 - To create XML or JSON webservices you can use the [views/json-and-xml-views](/en/views/json-and-xml-views.md).
 - To serve protected files, or dynamically generated files, you can use
-  [cake-response-file](/en/controllers/request-response.md#cake-response-file).
+  [cake-response-file](#cake-response-file).
 - To create multiple themed views, you can use [views/themes](/en/views/themes.md).
 <a id="app-view"></a>
 ## The App View
@@ -162,7 +162,7 @@ the)`h()`` function
 Views have a `set()` method that is analogous to the `set()` found in
 Controller objects. Using set() from your view file will add the variables to
 the layout and elements that will be rendered later. See
-[setting-view_variables](/en/controllers.md#setting-view_variables) for more information on using `set()`.
+[setting-view_variables](#setting-view_variables) for more information on using `set()`.
 
 In your view file you can do
 ```php
@@ -174,7 +174,7 @@ contain the value 'posts'.
 ### Extending Views
 
 View extending allows you to wrap one view in another. Combining this with
-[view blocks](/en/views.md#view-blocks) gives you a powerful way to keep your views
+[view blocks](#view-blocks) gives you a powerful way to keep your views
 :term:`DRY`. For example, your application has a sidebar that needs to change
 depending on the specific view being rendered. By extending a common view file,
 you can avoid repeating the common markup for your sidebar, and only define the
@@ -669,7 +669,7 @@ insert logic around the rendering life-cycle:
 - `View.afterLayout`
 
 You can attach application [event listeners](/en/core-libraries/events.md) to
-these events or use [Helper Callbacks](/en/views/helpers.md#helper-api).
+these events or use [Helper Callbacks](#helper-api).
 
 ## Creating Your Own View Classes
 

@@ -232,7 +232,7 @@ Next we'll update the `edit` action. Replace the edit method with the following:
     }
 
 Here we're modifying which properties can be mass-assigned, via the options
-for `patchEntity()`. See the [changing-accessible-fields](/en/orm/saving-data.md#changing-accessible-fields) section for
+for `patchEntity()`. See the [changing-accessible-fields](#changing-accessible-fields) section for
 more information. Remember to remove the `user_id` control from
 **templates/Articles/edit.php** as we no longer need it.
 

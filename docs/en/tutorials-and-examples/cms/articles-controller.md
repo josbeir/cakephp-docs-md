@@ -152,7 +152,7 @@ public function view($slug = null)
 ```
 While this is a simple action, we've used some powerful CakePHP features. We
 start our action off by using)`findBySlug()` which is
-a [Dynamic Finder](/en/orm/retrieving-data-and-resultsets.md#dynamic-finders). This method allows us to create a basic query that
+a [Dynamic Finder](#dynamic-finders). This method allows us to create a basic query that
 finds articles by a given slug. We then use `firstOrFail()` to either fetch
 the first record, or throw a `\Cake\Datasource\Exception\RecordNotFoundException`.
 
@@ -306,7 +306,7 @@ the following line
 If we were to save an Article right now, saving would fail as we are not
 creating a slug attribute, and the column is `NOT NULL`. Slug values are
 typically a URL-safe version of an article's title. We can use the
-[beforeSave() callback](/en/orm/table-objects.md#table-callbacks) of the ORM to populate our slug
+[beforeSave() callback](#table-callbacks) of the ORM to populate our slug
 ```php
 <?php
 // in src/Model/Table/ArticlesTable.php
@@ -424,7 +424,7 @@ articles:
 ## Update Validation Rules for Articles
 
 Up until this point our Articles had no input validation done. Lets fix that by
-using [a validator](/en/orm/validation.md#validating-request-data)
+using [a validator](#validating-request-data)
 ```php
 // src/Model/Table/ArticlesTable.php
 

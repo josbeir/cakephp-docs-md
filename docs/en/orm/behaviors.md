@@ -163,7 +163,7 @@ class SluggableBehavior extends Behavior
 The above code shows a few interesting features of behaviors:
 
 - Behaviors can define callback methods by defining methods that follow the
-  [table-callbacks](/en/orm/table-objects.md#table-callbacks) conventions.
+  [table-callbacks](#table-callbacks) conventions.
 - Behaviors can define a default configuration property. This property is merged
   with the overrides when a behavior is attached to the table.
 
@@ -186,7 +186,7 @@ Alternatively, you can return false from the callback. This has the same effect 
 
 Now that we are able to save articles with slug values, we should implement
 a finder method so we can fetch articles by their slug. Behavior finder
-methods, use the same conventions as [custom-find-methods](/en/orm/retrieving-data-and-resultsets.md#custom-find-methods) do. Our
+methods, use the same conventions as [custom-find-methods](#custom-find-methods) do. Our
 `find('slug')` method would look like
 ```php
 public function findSlug(SelectQuery $query, string $slug): SelectQuery

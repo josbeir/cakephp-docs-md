@@ -56,7 +56,7 @@ class ArticlesController extends AppController
 > [!TIP]
 > Default `order` options must be defined as an array.
 >
-You can also use [custom-find-methods](/en/orm/retrieving-data-and-resultsets.md#custom-find-methods) in pagination by using the `finder` option
+You can also use [custom-find-methods](#custom-find-methods) in pagination by using the `finder` option
 ```php
 class ArticlesController extends AppController
 {
@@ -158,7 +158,7 @@ paginate both tags and articles at the same time
 ```
 /dashboard?article[page]=1&tag[page]=3
 ```
-See the [paginator-helper-multiple](/en/views/helpers/paginator.md#paginator-helper-multiple) section for how to generate scoped HTML
+See the [paginator-helper-multiple](#paginator-helper-multiple) section for how to generate scoped HTML
 elements and URLs for pagination.
 
 ### Paginating the Same Model multiple Times

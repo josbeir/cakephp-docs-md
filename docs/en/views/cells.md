@@ -230,7 +230,7 @@ class FavoritesCell extends Cell
 }
 ```
 The above cell would paginate the `Messages` model using [scoped
-pagination parameters](/en/controllers/pagination.md#paginating-multiple-queries).
+pagination parameters](#paginating-multiple-queries).
 
 ## Cell Options
 

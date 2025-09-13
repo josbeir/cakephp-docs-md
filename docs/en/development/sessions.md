@@ -230,8 +230,8 @@ blocking users to e.g. open a second tab of your app to do something else
 in the meantime.
 
 To prevent this behavior you will have to change the way how sessions are being
-handled in CakePHP by using a different session handler like [sessions-cache-sessions](/en/development/sessions.md#sessions-cache-sessions)
-combined with the [Redis Engine](/en/core-libraries/caching.md#caching-redisengine) or another cache engine.
+handled in CakePHP by using a different session handler like [sessions-cache-sessions](#sessions-cache-sessions)
+combined with the [Redis Engine](#caching-redisengine) or another cache engine.
 
 > [!TIP]
 > If you want to read more about Session Locking see [here](https://ma.ttias.be/php-session-locking-prevent-sessions-blocking-in-requests/)

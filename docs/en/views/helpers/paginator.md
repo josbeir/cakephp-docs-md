@@ -268,7 +268,7 @@ If there were no previous pages you would get:
 ```html
 <li class="prev disabled"><a href="" onclick="return false;">&lt;&lt; previous</a></li>
 ```
-To change the templates used by this method see [paginator-templates](/en/views/helpers/paginator.md#paginator-templates).
+To change the templates used by this method see [paginator-templates](#paginator-templates).
 
 #### Method `Cake\View\Helper\PaginatorHelper(View $view, array $config = [])::next($title = 'Next >>', $options = [])`
 
@@ -518,7 +518,7 @@ $this->paginate = [
 ];
 ```
 For more information on using the `sortableFields` option, please see
-[control-which-fields-used-for-ordering](/en/controllers/pagination.md#control-which-fields-used-for-ordering).
+[control-which-fields-used-for-ordering](#control-which-fields-used-for-ordering).
 
 The final ingredient to pagination display in views is the addition of page
 navigation, also supplied by the PaginationHelper
@@ -544,7 +544,7 @@ markers
 <a id="paginator-helper-multiple"></a>
 ## Paginating Multiple Results
 
-If you are [paginating multiple queries](/en/controllers/pagination.md#paginating-multiple-queries)
+If you are [paginating multiple queries](#paginating-multiple-queries)
 you'll need to use `PaginatorHelper::setPaginated()` first before calling
 other methods of the helper, so that they generate expected output.
 

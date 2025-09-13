@@ -334,7 +334,7 @@ return an object. If there is no match return null.
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array that can include both
-  [control-specific-options](/en/views/helpers/form.md#control-specific-options), and options of the other methods (which
+  [control-specific-options](#control-specific-options), and options of the other methods (which
   `control()` employs internally to generate various HTML elements) as
   well as any valid HTML attributes.
 
@@ -452,7 +452,7 @@ A more extensive example showing some options for a date field::
         'max' => date('Y') - 18,
     ]);
 
-Besides the specific [control-specific-options](/en/views/helpers/form.md#control-specific-options),
+Besides the specific [control-specific-options](#control-specific-options),
 you also can specify any option accepted by corresponding specific method
 for the chosen (or inferred by CakePHP)
 control type and any HTML attribute (for instance `onfocus`).
@@ -504,7 +504,7 @@ Any dots in your field names will be converted into nested request data. For
 example, if you created a field with a name `0.comments.body` you would get
 a name attribute that looks like `0[comments][body]`. This convention matches
 the conventions you use with the ORM. Details for the various association types
-can be found in the [associated-form-inputs](/en/views/helpers/form.md#associated-form-inputs) section.
+can be found in the [associated-form-inputs](#associated-form-inputs) section.
 
 When creating datetime related controls, FormHelper will append a field-suffix.
 You may notice additional fields named `year`, `month`, `day`, `hour`,
@@ -521,7 +521,7 @@ as well as HTML attributes. This subsection will cover the options specific to
 
 - `$options['type']` - A string that specifies the widget type
   to be generated. In addition to the field types found in the
-  [automagic-form-elements](/en/views/helpers/form.md#automagic-form-elements), you can also create `'file'`,
+  [automagic-form-elements](#automagic-form-elements), you can also create `'file'`,
   `'password'`, and any other type supported by HTML5. By specifying a
   `'type'` you will force the type of the generated control, overriding model
   introspection. Defaults to `null`.
@@ -543,7 +543,7 @@ Output:
 </div>
 ```
 - `$options['label']` - Either a string caption or an array of
-  [options for the label](/en/views/helpers/form.md#create-label). You can set this key to the
+  [options for the label](#create-label). You can set this key to the
   string you would like to be displayed within the label that usually
   accompanies the `input` HTML element. Defaults to `null`.
 
@@ -599,7 +599,7 @@ Output:
 - `$options['options']` - You can provide in here an array containing
   the elements to be generated for widgets such as `radio` or `select`,
   which require an array of items as an argument (see
-  [create-radio-button](/en/views/helpers/form.md#create-radio-button) and [create-select-picker](/en/views/helpers/form.md#create-select-picker) for more details).
+  [create-radio-button](#create-radio-button) and [create-select-picker](#create-select-picker) for more details).
   Defaults to `null`.
 
 - `$options['error']` - Using this key allows you to override the default
@@ -640,7 +640,7 @@ $this->Form->control('name', [
   On the other hand you can set this to `true` for any control type to force the
   generated input element inside the label. If you change this for radio buttons
   then you need to also modify the default
-  [radioWrapper](/en/views/helpers/form.md#create-radio-button) template. Depending on the generated
+  [radioWrapper](#create-radio-button) template. Depending on the generated
   control type it defaults to `true` or `false`.
 
 - `$options['templates']` - The templates you want to use for this input. Any
@@ -731,7 +731,7 @@ however, this parameter is used primarily to specify HTML tag attributes
 
 - `$name` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 Creates a simple `input` HTML element of `text` type.
 
@@ -750,7 +750,7 @@ Will output:
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 Creates a simple `input` element of `password` type.
 
@@ -769,7 +769,7 @@ Will output:
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 Creates a hidden form input.
 
@@ -788,7 +788,7 @@ Will output:
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), of the specific textarea options (see below)
+  [general-control-options](#general-control-options), of the specific textarea options (see below)
   as well as any valid HTML attributes.
 
 Creates a textarea control field. The default widget template used is
@@ -816,7 +816,7 @@ Example:
 ```
 **Options for Textarea**
 
-In addition to the [general-control-options](/en/views/helpers/form.md#general-control-options), `textarea()` supports a
+In addition to the [general-control-options](#general-control-options), `textarea()` supports a
 couple of specific options:
 
 - `'escape'` - Determines whether or not the contents of the textarea should
@@ -1013,7 +1013,7 @@ $options = $examples->map(function ($value, $key) {
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the [checkbox-radio-select-options](/en/views/helpers/form.md#checkbox-radio-select-options)
+  [general-control-options](#general-control-options), or of the [checkbox-radio-select-options](#checkbox-radio-select-options)
   above, of the checkbox-specific options (see below), as well as any valid
   HTML attributes.
 
@@ -1077,7 +1077,7 @@ Will output:
   the hidden input (if `'hiddenField'` is `true`) or no element at all
   (if `'hiddenField'` is `false`).
 - `$attributes` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the [checkbox-radio-select-options](/en/views/helpers/form.md#checkbox-radio-select-options),
+  [general-control-options](#general-control-options), or of the [checkbox-radio-select-options](#checkbox-radio-select-options),
   of the radio button specific attributes (see below), as well as any valid
   HTML attributes.
 
@@ -1190,7 +1190,7 @@ If the `label` key is used on an option, the attributes in
   picker. When this array is missing, the method will generate only the
   empty `select` HTML element without any `option` elements inside it.
 - `$attributes` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the [checkbox-radio-select-options](/en/views/helpers/form.md#checkbox-radio-select-options),
+  [general-control-options](#general-control-options), or of the [checkbox-radio-select-options](#checkbox-radio-select-options),
   or of the select-specific attributes (see below), as well as any valid
   HTML attributes.
 
@@ -1436,7 +1436,7 @@ echo $this->Form->select('field', $options, [
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 Creates a file upload field in the form.
 The widget template used by default is
@@ -1501,7 +1501,7 @@ $fileobject->moveTo($destination);
 - `$fieldName` - A string that will be used as a prefix for the HTML `name`
   attribute of the `select` elements.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "datetime-local".
 
@@ -1531,7 +1531,7 @@ Output:
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` elements.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "date".
 
@@ -1551,7 +1551,7 @@ Output:
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` elements.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "time".
 
@@ -1571,7 +1571,7 @@ Output:
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` element.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "month".
 
@@ -1591,7 +1591,7 @@ Will output:
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` element.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
   Other valid options are:
 
   - ``min`: The lowest value to use in the year select picker.
@@ -1638,7 +1638,7 @@ If it was 2009, you would get the following:
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$text` - An optional string providing the label caption text.
 - `$options` - Optional. Array containing any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](#general-control-options) as well as any valid HTML attributes.
 
 Creates a `label` element. The argument `$fieldName` is used for generating
 the HTML `for` attribute of the element; if `$text` is undefined,
@@ -1727,7 +1727,7 @@ for the *Ticket* field, your form would output:
 > If you use a certain model field to generate multiple form fields via
 > `control()`, and you want the same validation error message displayed for
 > each one, you will probably be better off defining a custom error message
-> inside the respective [validator rules](/en/core-libraries/validation.md#creating-validators).
+> inside the respective [validator rules](#creating-validators).
 >
 ### Checking for Errors
 
@@ -1779,7 +1779,7 @@ You could then use JavaScript to set the `onvalid` and `oninvalid` events as you
 - `$caption` - An optional string providing the button's text caption or a
   path to an image. Defaults to `'Submit'`.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific submit options (see below)
+  [general-control-options](#general-control-options), or of the specific submit options (see below)
   as well as any valid HTML attributes.
 
 Creates an `input` element of `submit` type, with `$caption` as value.
@@ -1832,7 +1832,7 @@ more complex button content you should use `button()`.
 
 - `$title` - Mandatory string providing the button's text caption.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific button options (see below)
+  [general-control-options](#general-control-options), or of the specific button options (see below)
   as well as any valid HTML attributes.
 
 Creates an HTML button with the specified title and a default type
@@ -1932,7 +1932,7 @@ Will output:
   not HTML encoded.
 - `$url` - The URL of the form provided as a string or as array.
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific options (see below) as well
+  [general-control-options](#general-control-options), or of the specific options (see below) as well
   as any valid HTML attributes.
 
 Creates a `<button>` tag with a surrounding `<form>` element that submits
@@ -1986,7 +1986,7 @@ inside opened forms.
 - `$url` - Optional. String or array which contains the URL
   of the form (Cake-relative or external URL starting with `http://`).
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific options (see below) as well
+  [general-control-options](#general-control-options), or of the specific options (see below) as well
   as any valid HTML attributes.
 
 Creates an HTML link, but accesses the URL using the method you specify
@@ -2017,7 +2017,7 @@ Creates an HTML link, but accesses the URL using the method you specify
 
 This method creates a `<form>` element. If you want to use this method
 inside of an existing form, you must use the `block` option so that the
-new form is being set to a [view block](/en/views.md#view-blocks) that can be
+new form is being set to a [view block](#view-blocks) that can be
 rendered outside of the main form.
 
 If all you are looking for is a button to submit your form, then you should
@@ -2026,7 +2026,7 @@ use `Cake\View\Helper\FormHelper::button()` or
 
 > [!NOTE]
 > Be careful to not put a postLink inside an open form. Instead use the
-> `block` option to buffer the form into a [view block](/en/views.md#view-blocks)
+> `block` option to buffer the form into a [view block](#view-blocks)
 <a id="customizing-templates"></a>
 ### Creating DELETE Links
 
@@ -2038,7 +2038,7 @@ use `Cake\View\Helper\FormHelper::button()` or
 - `$url` - Optional. String or array which contains the URL
   of the form (Cake-relative or external URL starting with `http://`).
 - `$options` - An optional array including any of the
-  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific options (see below) as well
+  [general-control-options](#general-control-options), or of the specific options (see below) as well
   as any valid HTML attributes.
 
 Creates an HTML link, but accesses the URL using the method you specify
@@ -2395,7 +2395,7 @@ $this->Form->setTemplates([
     'autocomplete' => '<input type="autocomplete" name="{{name}}" {{attrs}} />'
 ]);
 ```
-For more information on string templates, see [customizing-templates](/en/views/helpers/form.md#customizing-templates).
+For more information on string templates, see [customizing-templates](#customizing-templates).
 
 ### Using Widgets
 

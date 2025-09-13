@@ -11,7 +11,7 @@ The main pieces of the schema system are `Cake\Database\Schema\Collection` and
 `Cake\Database\Schema\TableSchema`. These classes give you access to
 database-wide and individual Table object features respectively.
 
-The primary use of the schema system is for [test-fixtures](/en/development/testing.md#test-fixtures). However, it
+The primary use of the schema system is for [test-fixtures](#test-fixtures). However, it
 can also be used in your application if required.
 
 ## Schema\\TableSchema Objects
