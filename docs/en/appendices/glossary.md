@@ -25,7 +25,7 @@ DI Container
     In `Application::services()` you can configure application services
     and their dependencies. Application services are automatically injected
     into Controller actions, and Command Constructors. See
-    [Dependency Injection](/en/development/dependency-injection.md).
+    [development/dependency-injection](/en/development/dependency-injection.md).
 
 DSN
     Data Source Name. A connection string format that is formed like a URI.

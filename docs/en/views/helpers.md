@@ -240,7 +240,7 @@ supports the registry API used elsewhere in CakePHP.
 
 Helpers feature several callbacks that allow you to augment the view rendering
 process. See the [helper-api](/en/views/helpers.md#helper-api) and the
-[Events system](/en/core-libraries/events.md) documentation for more information.
+[core-libraries/events](/en/core-libraries/events.md) documentation for more information.
 
 ## Creating Helpers
 

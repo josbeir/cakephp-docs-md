@@ -166,15 +166,9 @@ key in the $attributes parameter to `true`, ie - `['block' => true]`.
 If you set the "type" attribute using the $attributes parameter,
 CakePHP contains a few shortcuts:
 
-=========  ======================
- type       translated value
-=========  ======================
-html       text/html
-rss        application/rss+xml
-atom       application/atom+xml
-icon       image/x-icon
-csrfToken  The current CSRF token
-=========  ======================
+| type | translated value |
+| --- | --- |
+| html rss atom icon csrfToken | text/html application/rss+xml application/atom+xml image/x-icon The current CSRF token |
 
 ```php
 echo $this->Html->meta(

@@ -610,7 +610,7 @@ Called during the `Controller.shutdown` event which is triggered after
 every controller action, and after rendering is complete. This is the last
 controller method to run.
 
-In addition to controller life-cycle callbacks, [Components](/en/controllers/components.md)
+In addition to controller life-cycle callbacks, [controllers/components](/en/controllers/components.md)
 also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks

@@ -21,45 +21,60 @@ You can try out the inflections online at [inflector.cakephp.org](https://inflec
 Quick summary of the Inflector built-in methods and the results they output
 when provided a multi-word argument:
 
-+-------------------+---------------+---------------+
-| Method            | Argument      | Output        |
-+===================+===============+===============+
-| `pluralize()`   | BigApple      | BigApples     |
+| Method | Argument | Output |
+| --- | --- | --- |
+| `pluralize()` | BigApple | BigApples |
+
 +                   +---------------+---------------+
 |                   | big_apple     | big_apples    |
-+-------------------+---------------+---------------+
-| `singularize()` | BigApples     | BigApple      |
+|  |  |  |
+| --- | --- | --- |
+| `singularize()` | BigApples | BigApple |
+
 +                   +---------------+---------------+
 |                   | big_apples    | big_apple     |
-+-------------------+---------------+---------------+
-| `camelize()`    | big_apples    | BigApples     |
+|  |  |  |
+| --- | --- | --- |
+| `camelize()` | big_apples | BigApples |
+
 +                   +---------------+---------------+
 |                   | big apple     | BigApple      |
-+-------------------+---------------+---------------+
-| `underscore()`  | BigApples     | big_apples    |
+|  |  |  |
+| --- | --- | --- |
+| `underscore()` | BigApples | big_apples |
+
 +                   +---------------+---------------+
 |                   | Big Apples    | big apples    |
-+-------------------+---------------+---------------+
-| `humanize()`    | big_apples    | Big Apples    |
+|  |  |  |
+| --- | --- | --- |
+| `humanize()` | big_apples | Big Apples |
+
 +                   +---------------+---------------+
 |                   | bigApple      | BigApple      |
-+-------------------+---------------+---------------+
-| `classify()`    | big_apples    | BigApple      |
+|  |  |  |
+| --- | --- | --- |
+| `classify()` | big_apples | BigApple |
+
 +                   +---------------+---------------+
 |                   | big apple     | BigApple      |
-+-------------------+---------------+---------------+
-| `dasherize()`   | BigApples     | big-apples    |
+|  |  |  |
+| --- | --- | --- |
+| `dasherize()` | BigApples | big-apples |
+
 +                   +---------------+---------------+
 |                   | big apple     | big apple     |
-+-------------------+---------------+---------------+
-| `tableize()`    | BigApple      | big_apples    |
+|  |  |  |
+| --- | --- | --- |
+| `tableize()` | BigApple | big_apples |
+
 +                   +---------------+---------------+
 |                   | Big Apple     | big apples    |
-+-------------------+---------------+---------------+
-| `variable()`    | big_apple     | bigApple      |
+|  |  |  |
+| --- | --- | --- |
+| `variable()` | big_apple | bigApple |
+
 +                   +---------------+---------------+
 |                   | big apples    | bigApples     |
-+-------------------+---------------+---------------+
 
 ## Creating Plural & Singular Forms
 

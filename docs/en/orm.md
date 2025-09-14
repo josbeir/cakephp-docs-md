@@ -115,7 +115,7 @@ CakePHP uses naming conventions to link the Table and Entity class together. If
 you need to customize which entity a table uses you can use the
 `entityClass()` method to set a specific classname.
 
-See the chapters on [Table Objects](/en/orm/table-objects.md) and [Entities](/en/orm/entities.md) for more
+See the chapters on [orm/table-objects](/en/orm/table-objects.md) and [orm/entities](/en/orm/entities.md) for more
 information on how to use table objects and entities in your application.
 
 ## More Information

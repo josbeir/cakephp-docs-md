@@ -52,7 +52,7 @@ process. Cache engine configurations are defined in **config/app.php**.
 For optimal performance CakePHP requires two cache engines to be defined.
 
 - `_cake_core_` is used for storing file maps, and parsed results of
-  [Internationalization & Localization](/en/core-libraries/internationalization-and-localization.md) files.
+  [core-libraries/internationalization-and-localization](/en/core-libraries/internationalization-and-localization.md) files.
 - `_cake_model_`, is used to store schema descriptions for your applications
   models.
 

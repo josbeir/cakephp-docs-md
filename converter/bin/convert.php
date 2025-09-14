@@ -2,7 +2,9 @@
 // phpcs:ignoreFile
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use Cake\DocsMD\ConvertSteps\RemoveIndexDirectives;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Cake\DocsMD\Converter;
 
@@ -82,6 +84,7 @@ function copyDirectory(string $src, string $dst): void
     if (!is_dir($dst)) {
         mkdir($dst, 0755, true);
     }
+
     while (($file = readdir($dir)) !== false) {
         if ($file !== '.' && $file !== '..') {
             if (is_dir($src . '/' . $file)) {
@@ -91,6 +94,7 @@ function copyDirectory(string $src, string $dst): void
             }
         }
     }
+
     closedir($dir);
 }
 
@@ -99,11 +103,13 @@ function removeDirectory(string $dir): void
     if (!is_dir($dir)) {
         return;
     }
+
     $files = array_diff(scandir($dir), ['.', '..']);
     foreach ($files as $file) {
         $path = $dir . '/' . $file;
         is_dir($path) ? removeDirectory($path) : unlink($path);
     }
+
     rmdir($dir);
 }
 
@@ -121,7 +127,7 @@ function convertFile(
     foreach ($pipeline as $step) {
         $content = $step($content);
         // Collect removed index directives if this step is RemoveIndexDirectives
-        if ($step instanceof \Cake\DocsMD\ConvertSteps\RemoveIndexDirectives) {
+        if ($step instanceof RemoveIndexDirectives) {
             $removedIndexDirectives = $step->getRemovedDirectives();
         }
     }
@@ -133,11 +139,13 @@ function convertFile(
         $inputDir = dirname($rstFile);
         $relativePath = str_replace(dirname($inputDir) . '/', '', $rstFile);
     }
+
     $mdFile = $outputDir . '/' . preg_replace('/\.rst$/', '.md', $relativePath);
     $mdDir = dirname($mdFile);
     if (!is_dir($mdDir)) {
         mkdir($mdDir, 0755, true);
     }
+
     file_put_contents($mdFile, $content);
     echo sprintf('Converted: %s -> %s%s', $rstFile, $mdFile, PHP_EOL);
 
@@ -156,9 +164,11 @@ function convertDirectory(string $inputDir, string $outputDir): void
         if (is_dir($outputStatic)) {
             removeDirectory($outputStatic);
         }
+
         copyDirectory($staticDir, $outputStatic);
         echo sprintf('Copied static files to %s%s', $outputStatic, PHP_EOL);
     }
+
     // Build label map
     $labelToDocumentMap = buildLabelToDocumentMap($inputDir);
     // Find and convert all RST files
@@ -168,7 +178,7 @@ function convertDirectory(string $inputDir, string $outputDir): void
     foreach ($rstFiles as $rstFile) {
         try {
             $removedDirectives = convertFile($rstFile, $outputDir, $basePath, $labelToDocumentMap, $inputDir);
-            if (!empty($removedDirectives)) {
+            if ($removedDirectives !== []) {
                 $relativePath = str_replace($inputDir . '/', '', $rstFile);
                 $allRemovedDirectives[$relativePath] = $removedDirectives;
             }
@@ -176,10 +186,11 @@ function convertDirectory(string $inputDir, string $outputDir): void
             echo sprintf('Error converting %s: ', $rstFile) . $e->getMessage() . "\n";
         }
     }
+
     echo 'Conversion complete. Processed ' . count($rstFiles) . " files.\n";
 
     // Display summary of removed index directives
-    if (!empty($allRemovedDirectives)) {
+    if ($allRemovedDirectives !== []) {
         echo "\n" . str_repeat('=', 60) . "\n";
         echo "SUMMARY: Removed Index Directives\n";
         echo str_repeat('=', 60) . "\n";
@@ -206,6 +217,7 @@ function main(): int
 
         return 0;
     }
+
     $inputDir = './en';
     $outputDir = './docs';
     $counter = count($argv);
@@ -219,12 +231,14 @@ function main(): int
             }
         }
     }
+
     if (!is_dir($inputDir)) {
         echo "Error: Input directory '{$inputDir}' does not exist\n";
         echo "Use -h or --help for usage information\n";
 
         return 1;
     }
+
     convertDirectory($inputDir, $outputDir);
 
     return 0;

@@ -9,8 +9,9 @@ use Rector\ValueObject\PhpVersion;
 return RectorConfig::configure()
     ->withPhpVersion(PhpVersion::PHP_83)
     ->withPaths([
-        __DIR__ . '/src',
-        __DIR__ . '/bin',
+        __DIR__ . '/converter/src',
+        __DIR__ . '/converter/bin',
+        __DIR__ . '/converter/test',
     ])
     ->withSkip([
         DisallowedEmptyRuleFixerRector::class,

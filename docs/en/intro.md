@@ -82,7 +82,7 @@ or a XML formatted result for others to consume
 ```
 
 The View layer provides a number of extension points like [view-templates](/en/views.md#view-templates), [view-elements](/en/views.md#view-elements)
-and [View Cells](/en/views/cells.md) to let you re-use your presentation logic.
+and [views/cells](/en/views/cells.md) to let you re-use your presentation logic.
 
 The View layer is not only limited to HTML or text representation of the data.
 It can be used to deliver common data formats like JSON, XML, and through

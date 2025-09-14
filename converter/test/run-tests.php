@@ -2,7 +2,10 @@
 // phpcs:ignoreFile
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use Cake\DocsMD\ConvertSteps\RemoveIndexDirectives;
+use Cake\DocsMD\ConvertSteps\NormalizeSpacing;
+
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Cake\DocsMD\Converter;
 use Cake\DocsMD\ConvertSteps\{
@@ -49,6 +52,7 @@ function runBasicTests(): void
         foreach ($pipeline as $step) {
             $content = $step($content);
         }
+
         return $content;
     }
 
@@ -114,10 +118,10 @@ function testConvertAdmonitions(): void
     // Test all admonition types
     $types = ['tip' => 'TIP', 'important' => 'IMPORTANT', 'caution' => 'CAUTION', 'seealso' => 'NOTE'];
     foreach ($types as $type => $expected_type) {
-        $input = ".. $type:: Test content";
-        $expected = "> [!$expected_type]\n> Test content";
+        $input = sprintf('.. %s:: Test content', $type);
+        $expected = "> [!{$expected_type}]\n> Test content";
         $result = $converter($input);
-        assert($result === $expected, "$type admonition failed");
+        assert($result === $expected, $type . ' admonition failed');
     }
 
     echo "✓ ConvertAdmonitions tests passed\n";
@@ -259,6 +263,139 @@ function testConvertLists(): void
     echo "✓ ConvertLists tests passed\n";
 }
 
+function testConvertTables(): void
+{
+    echo "Testing ConvertTables...\n";
+    $converter = new ConvertTables();
+
+    // Test grid table conversion
+    $input = "+--------+--------+--------+\n| Header | Header | Header |\n+========+========+========+\n| Row 1  | Data 1 | Data 2 |\n+--------+--------+--------+\n| Row 2  | Data 3 | Data 4 |\n+--------+--------+--------+";
+    $expected = "| Header | Header | Header |\n|--------|--------|--------|\n| Row 1 | Data 1 | Data 2 |\n| Row 2 | Data 3 | Data 4 |";
+    $result = $converter($input);
+    assert($result === $expected, "Grid table conversion failed");
+
+    // Test grid table without header separator
+    $input = "+--------+--------+--------+\n| Col 1  | Col 2  | Col 3  |\n+--------+--------+--------+\n| Data 1 | Data 2 | Data 3 |\n+--------+--------+--------+";
+    $expected = "| Col 1 | Col 2 | Col 3 |\n|--------|--------|--------|\n| Data 1 | Data 2 | Data 3 |";
+    $result = $converter($input);
+    assert($result === $expected, "Grid table without header separator failed");
+
+    // Test simple table with header separators
+    $input = "=======  ========\nColumn 1  Column 2\n=======  ========\nRow 1     Data 1\nRow 2     Data 2\n=======  ========";
+    $expected = "| Column 1 | Column 2 |\n|----------|----------|\n| Row 1 | Data 1 |\n| Row 2 | Data 2 |";
+    $result = $converter($input);
+    assert($result === $expected, "Simple table with header separators failed");
+
+    // Test simple table with header underlines
+    $input = "Column 1  Column 2  Column 3\n--------  --------  --------\nRow 1     Data 1    Value 1\nRow 2     Data 2    Value 2";
+    $expected = "| Column 1 | Column 2 | Column 3 |\n|----------|----------|----------|\n| Row 1 | Data 1 | Value 1 |\n| Row 2 | Data 2 | Value 2 |";
+    $result = $converter($input);
+    assert($result === $expected, "Simple table with header underlines failed");
+
+    // Test table with empty cells
+    $input = "+--------+--------+--------+\n| Name   | Age    | City   |\n+========+========+========+\n| John   | 25     |        |\n+--------+--------+--------+\n| Jane   |        | London |\n+--------+--------+--------+";
+    $expected = "| Name | Age | City |\n|------|-----|------|\n| John | 25 |  |\n| Jane |  | London |";
+    $result = $converter($input);
+    assert($result === $expected, "Table with empty cells failed");
+
+    // Test single row table
+    $input = "+--------+\n| Single |\n+========+\n| Row    |\n+--------+";
+    $expected = "| Single |\n|--------|\n| Row |";
+    $result = $converter($input);
+    assert($result === $expected, "Single row table failed");
+
+    // Test that non-table content is unchanged
+    $input = "Regular paragraph text\n\nAnother paragraph.";
+    $result = $converter($input);
+    assert($result === $input, "Non-table content should be unchanged");
+
+    // Test table with multi-line content
+    $input = "+--------+--------+--------+\n| Header | Header | Header |\n+========+========+========+\n| Line 1\n  Line 2 | Data 2 | Data 3 |\n+--------+--------+--------+\n| Data 4 | Data 5 | Data 6 |\n+--------+--------+--------+";
+    $expected = "| Header | Header | Header |\n|--------|--------|--------|\n| Line 1 Line 2 | Data 2 | Data 3 |\n| Data 4 | Data 5 | Data 6 |";
+    $result = $converter($input);
+    assert($result === $expected, "Table with multi-line content failed");
+
+    // Test complex table conversion
+    $input = "| Header 1 | Header 2 | Header 3 |\n| Data 1 | Data 2 | Data 3 |\n| Data 4 | Data 5 | Data 6 |";
+    $expected = "| Header 1 | Header 2 | Header 3 |\n|----------|----------|----------|\n| Data 1 | Data 2 | Data 3 |\n| Data 4 | Data 5 | Data 6 |";
+    $result = $converter($input);
+    assert($result === $expected, "Complex table conversion failed");
+
+    // NEW COMPREHENSIVE TABLE TESTS
+
+    // Test multi-line grid table cells (prevent \| issue)
+    $input = "+-------------+-------------------------------------------------------------+\n| Pattern     | Meaning                                                     |\n+=============+=============================================================+\n| ``{n}``     | Represents a numeric key. Will match any string or numeric |\n|             | key.                                                        |\n+-------------+-------------------------------------------------------------+\n| ``{s}``     | Represents a string. Will match any string or numeric key. |\n+-------------+-------------------------------------------------------------+";
+    $expected = "| Pattern | Meaning |\n| --- | --- |\n| `{n}` | Represents a numeric key. Will match any string or numeric key. |\n| `{s}` | Represents a string. Will match any string or numeric key. |";
+    $result = $converter($input);
+    assert($result === $expected, "Multi-line grid table cells failed");
+
+    // Test simple table with dash separators
+    $input = "Expression  Definition\n----------  ----------\n{n}         Numeric key\n{s}         String value\n----------  ----------";
+    $expected = "| Expression | Definition |\n| --- | --- |\n| {n} | Numeric key |\n| {s} | String value |";
+    $result = $converter($input);
+    assert($result === $expected, "Simple table with dash separators failed");
+
+    // Test simple table with equals separators (classic format)
+    $input = "==========  ==============\nExpression  Definition\n==========  ==============\n{n}         Numeric key\n{s}         String value\n==========  ==============";
+    $expected = "| Expression | Definition |\n| --- | --- |\n| {n} | Numeric key |\n| {s} | String value |";
+    $result = $converter($input);
+    assert($result === $expected, "Simple table with equals separators failed");
+
+    // Test table directive with caption
+    $input = ".. table:: Demonstration of simple table syntax.\n\n   =======  ========\n   Column 1  Column 2\n   =======  ========\n   Row 1     Data 1\n   Row 2     Data 2\n   =======  ========";
+    $expected = ": Demonstration of simple table syntax.\n\n| Column 1 | Column 2 |\n| --- | --- |\n| Row 1 | Data 1 |\n| Row 2 | Data 2 |";
+    $result = $converter($input);
+    assert($result === $expected, "Table directive with caption failed");
+
+    // Test header underline table format
+    $input = "Column One    Column Two    Column Three\n----------    ----------    ------------\nValue 1       Value 2       Value 3\nData A        Data B        Data C";
+    $expected = "| Column One | Column Two | Column Three |\n| --- | --- | --- |\n| Value 1 | Value 2 | Value 3 |\n| Data A | Data B | Data C |";
+    $result = $converter($input);
+    assert($result === $expected, "Header underline table format failed");
+
+    // Test grid table with pipes in content (should be escaped)
+    $input = "+--------+--------+--------+\n| Name   | Value  | Note   |\n+========+========+========+\n| Test   | a|b    | x|y|z  |\n+--------+--------+--------+";
+    $expected = "| Name | Value | Note |\n| --- | --- | --- |\n| Test | a\\|b | x\\|y\\|z |";
+    $result = $converter($input);
+    assert($result === $expected, "Grid table with pipes in content failed");
+
+    // Test empty table (should not crash)
+    $input = "+--------+\n+========+\n+--------+";
+    $result = $converter($input);
+    // Should not crash and should return something reasonable
+    assert(is_string($result), "Empty table should not crash");
+
+    // Test malformed table (should be ignored)
+    $input = "This is not a table\n+-------\nSome text\n| Invalid";
+    $result = $converter($input);
+    assert($result === $input, "Malformed table should be left unchanged");
+
+    // Test table within content (mixed content)
+    $input = "Paragraph before table.\n\n+--------+--------+\n| Header | Data   |\n+========+========+\n| Row 1  | Value  |\n+--------+--------+\n\nParagraph after table.";
+    $expected = "Paragraph before table.\n\n| Header | Data |\n| --- | --- |\n| Row 1 | Value |\n\nParagraph after table.";
+    $result = $converter($input);
+    assert($result === $expected, "Table within content failed");
+
+    // Test RST table with row separators - associations style (THIS IS THE BUG)
+    $input = "============= ===================== =======================================\nRelationship  Association Type      Example\n============= ===================== =======================================\none to one    hasOne                A user has one profile.\n------------- --------------------- ---------------------------------------\none to many   hasMany               A user can have multiple articles.\n------------- --------------------- ---------------------------------------\nmany to one   belongsTo             Many articles belong to a user.\n------------- --------------------- ---------------------------------------\nmany to many  belongsToMany         Tags belong to many articles.\n============= ===================== =======================================\n\nAssociations are defined during the initialize() method.";
+    
+    $result = $converter($input);
+    
+    // Should not contain content after table merged into cells
+    assert(!str_contains($result, 'Associations object. Metho'), "Content after table should not be merged into cells");
+    assert(!str_contains($result, 'are defined during the s matching'), "Content after table should not be merged into cells");
+    
+    // Should contain proper table structure
+    assert(str_contains($result, '| Relationship | Association Type | Example |'), "Should have proper table headers");
+    assert(str_contains($result, '| one to one | hasOne | A user has one profile. |'), "Should have first row");
+    assert(str_contains($result, '| many to many | belongsToMany | Tags belong to many articles. |'), "Should have last row");
+    
+    // Content after table should appear separately
+    assert(str_contains($result, 'Associations are defined during the initialize() method.'), "Content after table should appear normally");
+
+    echo "✓ ConvertTables tests passed\n";
+}
+
 function testConvertReferenceLabels(): void
 {
     echo "Testing ConvertReferenceLabels...\n";
@@ -307,6 +444,30 @@ function testHandleMetaDirective(): void
     $expected = "---\nkeywords: \"php, cakephp, framework\"\n---\n\nContent";
     $result = $converter($input);
     assert($result === $expected, "Meta with commas failed");
+
+    // Test with multiple meta fields
+    $input = ".. meta::\n    :title: CakePHP Guide\n    :description: Complete framework documentation\n    :keywords: php, framework, mvc\n    :author: CakePHP Team\n\nContent here";
+    $expected = "---\ntitle: \"CakePHP Guide\"\ndescription: \"Complete framework documentation\"\nkeywords: \"php, framework, mvc\"\nauthor: \"CakePHP Team\"\n---\n\nContent here";
+    $result = $converter($input);
+    assert($result === $expected, "Multiple meta fields failed");
+
+    // Test meta with special characters
+    $input = ".. meta::\n    :title: Guide: Advanced \"Topics\"\n    :description: Learn CakePHP's advanced features & techniques\n\nContent";
+    $expected = "---\ntitle: \"Guide: Advanced \\\"Topics\\\"\"\ndescription: \"Learn CakePHP's advanced features & techniques\"\n---\n\nContent";
+    $result = $converter($input);
+    assert($result === $expected, "Meta with special characters failed");
+
+    // Test meta at beginning of file with no content after
+    $input = ".. meta::\n    :title: Empty Page\n    :description: No content";
+    $expected = "---\ntitle: \"Empty Page\"\ndescription: \"No content\"\n---\n";
+    $result = $converter($input);
+    assert($result === $expected, "Meta with no content failed");
+
+    // Test meta with mixed indentation (should handle gracefully)
+    $input = ".. meta::\n    :title: Test\n        :description: Indented differently\n    :keywords: test\n\nContent";
+    $expected = "---\ntitle: \"Test\"\ndescription: \"Indented differently\"\nkeywords: \"test\"\n---\n\nContent";
+    $result = $converter($input);
+    assert($result === $expected, "Meta with mixed indentation failed");
 
     echo "✓ HandleMetaDirective tests passed\n";
 }
@@ -398,7 +559,7 @@ function testRemoveIndexDirectives(): void
 
     $rst = "Chapter Title\n=============\n\n.. index:: \$this->request\n\nSome content here.\n\n.. index:: nested commands, subcommands\n\nMore content.";
     $expected = "Chapter Title\n=============\n\nSome content here.\n\nMore content.";
-    $remover = new \Cake\DocsMD\ConvertSteps\RemoveIndexDirectives();
+    $remover = new RemoveIndexDirectives();
     $result = $remover($rst);
     assert($result === $expected, 'RemoveIndexDirectives test failed');
 
@@ -414,7 +575,7 @@ function testNormalizeSpacing(): void
 {
     echo "Testing NormalizeSpacing...\n";
 
-    $normalizer = new \Cake\DocsMD\ConvertSteps\NormalizeSpacing();
+    $normalizer = new NormalizeSpacing();
 
     // Test alert spacing
     $input = "Some text before.\n> [!NOTE]\n> This is a note.\nMore text immediately after.";
@@ -480,9 +641,9 @@ function testAdditionalConvertSteps(): void
     ];
 
     foreach ($converters as $name => $converter) {
-        $input = "Test content for $name";
+        $input = 'Test content for ' . $name;
         $result = $converter($input);
-        assert(is_string($result), "$name should return string");
+        assert(is_string($result), $name . ' should return string');
     }
 
     echo "✓ Additional ConvertSteps tests passed\n";
@@ -699,6 +860,7 @@ function testEdgeCases(): void
     foreach ($pipeline as $step) {
         $result = $step($result);
     }
+
     assert($result === '', 'Empty content should remain empty');
 
     // Test content with no RST directives
@@ -707,6 +869,7 @@ function testEdgeCases(): void
     foreach ($pipeline as $step) {
         $result = $step($result);
     }
+
     assert($result === $plainText, 'Plain text should be unchanged');
 
     // Test error handling
@@ -730,7 +893,7 @@ function runAllTests(): void
 {
     $testSections = [
         'Basic Tests' => 'runBasicTests',
-        'Unit Tests' => function() {
+        'Unit Tests' => function(): void {
             echo "Running ConvertSteps unit tests...\n";
             echo str_repeat('-', 50) . "\n";
 
@@ -741,6 +904,7 @@ function runAllTests(): void
             testConvertCrossReferences();
             testConvertImages();
             testConvertLists();
+            testConvertTables();
             testConvertReferenceLabels();
             testConvertRstInlineCode();
             testHandleMetaDirective();
@@ -754,7 +918,7 @@ function runAllTests(): void
 
             echo "✓ All unit tests passed\n\n";
         },
-        'Complex Scenarios' => function() {
+        'Complex Scenarios' => function(): void {
             echo "Running complex scenario tests...\n";
             echo str_repeat('-', 50) . "\n";
 
@@ -762,7 +926,7 @@ function runAllTests(): void
 
             echo "✓ Complex scenario tests passed\n\n";
         },
-        'Integration Tests' => function() {
+        'Integration Tests' => function(): void {
             echo "Running integration tests...\n";
             echo str_repeat('-', 50) . "\n";
 
@@ -784,14 +948,14 @@ function runAllTests(): void
             $testFunction();
             $passedSections++;
         } catch (Throwable $e) {
-            echo "✗ $sectionName failed: " . $e->getMessage() . "\n\n";
+            echo sprintf('✗ %s failed: ', $sectionName) . $e->getMessage() . "\n\n";
         }
     }
 
     echo "Test Results Summary\n";
     echo "==================\n";
-    echo "Total sections: $totalSections\n";
-    echo "Passed: $passedSections\n";
+    echo sprintf('Total sections: %d%s', $totalSections, PHP_EOL);
+    echo sprintf('Passed: %d%s', $passedSections, PHP_EOL);
     echo "Failed: " . ($totalSections - $passedSections) . "\n\n";
 
     if ($passedSections === $totalSections) {

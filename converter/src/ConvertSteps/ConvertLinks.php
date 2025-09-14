@@ -35,7 +35,7 @@ class ConvertLinks
         };
         $content = preg_replace_callback(
             '/(?<![:\w])`([^`<]+)\s*<([^>]+)>`__/',
-            function ($matches) use ($processUrl): string {
+            function (array $matches) use ($processUrl): string {
                 $linkText = trim($matches[1]);
                 $url = trim($matches[2]);
                 $processedUrl = $processUrl($url);
@@ -46,7 +46,7 @@ class ConvertLinks
         );
         $content = preg_replace_callback(
             '/(?<![:\w])`([^`<]+)\s*<([^>]+)>`_(?![_`])/',
-            function ($matches) use ($processUrl): string {
+            function (array $matches) use ($processUrl): string {
                 $linkText = trim($matches[1]);
                 $url = trim($matches[2]);
                 $processedUrl = $processUrl($url);
@@ -57,7 +57,7 @@ class ConvertLinks
         );
         $content = preg_replace_callback(
             '/(?<![:\w])`([^<]+)<([^>]+)>`__/',
-            function ($matches) use ($processUrl): string {
+            function (array $matches) use ($processUrl): string {
                 $linkText = trim($matches[1]);
                 $url = trim($matches[2]);
                 $processedUrl = $processUrl($url);
@@ -69,7 +69,7 @@ class ConvertLinks
 
         return preg_replace_callback(
             '/(?<![:\w])`([^<]+)<([^>]+)>`_(?![_`])/',
-            function ($matches) use ($processUrl): string {
+            function (array $matches) use ($processUrl): string {
                 $linkText = trim($matches[1]);
                 $url = trim($matches[2]);
                 $processedUrl = $processUrl($url);

@@ -8,7 +8,7 @@ class ConvertImages
     public function __invoke(string $content): string
     {
         // First handle .. image:: directives
-        $content = preg_replace_callback('/^\s*\.\.\s+image::\s*(.+)$/m', function ($matches): string {
+        $content = preg_replace_callback('/^\s*\.\.\s+image::\s*(.+)$/m', function (array $matches): string {
             $imagePath = trim($matches[1]);
             $imagePath = ltrim($imagePath, '/');
 
@@ -61,7 +61,7 @@ class ConvertImages
                 }
 
                 // Generate markdown image with alt text if provided
-                if ($altText) {
+                if ($altText !== '' && $altText !== '0') {
                     $result[] = sprintf('![%s](%s)', $altText, $imagePath);
                 } else {
                     $result[] = sprintf('![](%s)', $imagePath);

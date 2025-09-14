@@ -252,14 +252,16 @@ class ConvertCodeBlocks
                     $score++;
                 }
             }
+
             if ($score > 0) {
                 $scores[$language] = $score;
             }
         }
 
         // Return the language with the highest score
-        if (!empty($scores)) {
+        if ($scores !== []) {
             arsort($scores);
+
             return array_key_first($scores);
         }
 

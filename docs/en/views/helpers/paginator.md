@@ -13,7 +13,7 @@ keywords: "paginator helper,pagination,sort,page number links,pagination in view
 The PaginatorHelper is used to output pagination controls such as page numbers
 and next/previous links.
 
-See also [Pagination](/en/controllers/pagination.md) for information on how to
+See also [controllers/pagination](/en/controllers/pagination.md) for information on how to
 create paginated datasets and do paginated queries.
 
 ### Setting the paginated resultset

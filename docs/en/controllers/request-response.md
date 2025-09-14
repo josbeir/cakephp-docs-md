@@ -350,7 +350,7 @@ $this->request->withEnv('REQUEST_METHOD', 'POST');
 
 ### XML or JSON Data
 
-Applications employing [REST](/en/development/rest.md) often exchange data in
+Applications employing [development/rest](/en/development/rest.md) often exchange data in
 non-URL-encoded post bodies. You can read input data in any format using
 `Cake\Http\ServerRequest::input()`. By providing a decoding function,
 you can receive the content in a deserialized format
@@ -516,7 +516,7 @@ $data = $session->read('sessionKey');
 
 ```
 
-For more information, see the [Sessions](/en/development/sessions.md) documentation for how
+For more information, see the [development/sessions](/en/development/sessions.md) documentation for how
 to use the session object.
 
 ### Host and Domain Name

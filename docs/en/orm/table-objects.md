@@ -142,7 +142,7 @@ callback methods are triggered. This follows the same sequencing as controllers
 & components.
 
 To add an event listener to a Table class or Behavior simply implement the
-method signatures as described below. See the [Events system](/en/core-libraries/events.md) for
+method signatures as described below. See the [core-libraries/events](/en/core-libraries/events.md) for
 more detail on how to use the events subsystem
 
 ```php
@@ -477,7 +477,7 @@ class ArticlesTable extends Table
 .. end-behaviors
 
 You can find out more about behaviors, including the behaviors provided by
-CakePHP in the chapter on [Behaviors](/en/orm/behaviors.md).
+CakePHP in the chapter on [orm/behaviors](/en/orm/behaviors.md).
 <a id="configuring-table-connections"></a>
 ## Configuring Connections
 

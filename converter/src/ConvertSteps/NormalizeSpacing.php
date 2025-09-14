@@ -18,7 +18,7 @@ class NormalizeSpacing
             // Check if this is the start of an alert block
             if (preg_match('/^> \[!(?:NOTE|WARNING|TIP|IMPORTANT|CAUTION)\]/', $line)) {
                 // Ensure blank line before alert if previous line isn't blank
-                if (!empty($result) && trim(end($result)) !== '') {
+                if ($result !== [] && trim(end($result)) !== '') {
                     $result[] = '';
                 }
 
@@ -36,13 +36,14 @@ class NormalizeSpacing
                 if ($i < count($lines) && trim($lines[$i]) !== '') {
                     $result[] = '';
                 }
+
                 continue;
             }
 
             // Check if this is the start of a code block
             if (preg_match('/^```/', $line)) {
                 // Ensure blank line before code block if previous line isn't blank
-                if (!empty($result) && trim(end($result)) !== '') {
+                if ($result !== [] && trim(end($result)) !== '') {
                     $result[] = '';
                 }
 
@@ -57,6 +58,7 @@ class NormalizeSpacing
                         $i++;
                         break;
                     }
+
                     $i++;
                 }
 
@@ -64,6 +66,7 @@ class NormalizeSpacing
                 if ($i < count($lines) && trim($lines[$i]) !== '') {
                     $result[] = '';
                 }
+
                 continue;
             }
 

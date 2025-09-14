@@ -759,7 +759,7 @@ public function afterMarshal(
 
 ### Validating Data Before Building Entities
 
-The [Validating Data](/en/orm/validation.md) chapter has more information on how to use the
+The [orm/validation](/en/orm/validation.md) chapter has more information on how to use the
 validation features of CakePHP to ensure your data stays correct and consistent.
 
 ### Avoiding Property Mass Assignment Attacks

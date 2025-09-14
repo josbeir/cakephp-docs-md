@@ -86,7 +86,7 @@ cms/
 ```
 
 Now might be a good time to learn a bit about how CakePHP's directory structure
-works: check out the [CakePHP Folder Structure](/en/intro/cakephp-folder-structure.md) section.
+works: check out the [intro/cakephp-folder-structure](/en/intro/cakephp-folder-structure.md) section.
 
 If you get lost during this tutorial, you can see the finished result [on GitHub](https://github.com/cakephp/cms-tutorial).
 

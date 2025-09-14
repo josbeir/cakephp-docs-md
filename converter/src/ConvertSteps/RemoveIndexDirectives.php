@@ -11,8 +11,9 @@ class RemoveIndexDirectives
     {
         $this->removedDirectives = [];
 
-        $content = preg_replace_callback('/^[ \t]*\.\. index::\s*(.+)$/m', function ($matches): string {
+        $content = preg_replace_callback('/^[ \t]*\.\. index::\s*(.+)$/m', function (array $matches): string {
             $this->removedDirectives[] = trim($matches[1]);
+
             return '';
         }, $content);
 

@@ -30,7 +30,7 @@ class ConvertAdmonitions
         // Convert to full directive format
         $this->directiveMapping = [];
         foreach ($mappings as $directive => $type) {
-            $this->directiveMapping[$directive] = "> [!{$type}]";
+            $this->directiveMapping[$directive] = sprintf('> [!%s]', $type);
         }
     }
 

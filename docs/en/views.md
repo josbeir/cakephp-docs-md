@@ -17,10 +17,10 @@ responsibilities of the View Layer.
 CakePHP comes with a few built-in View classes for handling the most common
 rendering scenarios:
 
-- To create XML or JSON webservices you can use the [JSON and XML views](/en/views/json-and-xml-views.md).
+- To create XML or JSON webservices you can use the [views/json-and-xml-views](/en/views/json-and-xml-views.md).
 - To serve protected files, or dynamically generated files, you can use
   [cake-response-file](/en/controllers/request-response.md#cake-response-file).
-- To create multiple themed views, you can use [Themes](/en/views/themes.md).
+- To create multiple themed views, you can use [views/themes](/en/views/themes.md).
 <a id="app-view"></a>
 ## The App View
 
@@ -654,7 +654,7 @@ Cells](/en/views/cells.md).
 You can take advantage of CakePHP view caching if you supply a cache parameter.
 If set to `true`, it will cache the element in the 'default' Cache
 configuration. Otherwise, you can set which cache configuration should be used.
-See [Caching](/en/core-libraries/caching.md) for more information on configuring
+See [core-libraries/caching](/en/core-libraries/caching.md) for more information on configuring
 `Cache`. A simple example of caching an element would be
 
 ```php
@@ -741,7 +741,7 @@ file does not exist, it will be looked for in the default location.
 #### Method `Cake\View\View::cache(callable $block, array $options = [])`
 
 Sometimes generating a section of your view output can be expensive because of
-rendered [View Cells](/en/views/cells.md) or expensive helper operations. To help make your
+rendered [views/cells](/en/views/cells.md) or expensive helper operations. To help make your
 application run faster CakePHP provides a way to cache view sections
 
 ```php

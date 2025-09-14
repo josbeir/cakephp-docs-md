@@ -15,7 +15,7 @@ class FixBrokenDocLinks
     public function __invoke(string $content): string
     {
         // Pattern to match broken doc links: [path/to/doc` (missing closing bracket and URL)
-        $content = preg_replace_callback('/\[([^]]*?)`(?!\()/m', function ($matches): string {
+        $content = preg_replace_callback('/\[([^]]*?)`(?!\()/m', function (array $matches): string {
             $path = trim($matches[1]);
 
             // Skip if this doesn't look like a file path
@@ -24,11 +24,10 @@ class FixBrokenDocLinks
             }
 
             // Reconstruct as a :doc: directive and process through the cross-reference converter
-            $reconstructed = ":doc:`$path`";
+            $reconstructed = sprintf(':doc:`%s`', $path);
             $converter = $this->crossRefConverter;
-            $fixed = $converter($reconstructed);
 
-            return $fixed;
+            return $converter($reconstructed);
         }, $content);
 
         return $content;

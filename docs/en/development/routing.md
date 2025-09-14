@@ -677,7 +677,7 @@ Prefixes are mapped to sub-namespaces in your application's `Controller`
 namespace. By having prefixes as separate controllers you can create smaller and
 simpler controllers. Behavior that is common to the prefixed and non-prefixed
 controllers can be encapsulated using inheritance,
-[Components](/en/controllers/components.md), or traits.  Using our users example, accessing
+[controllers/components](/en/controllers/components.md), or traits.  Using our users example, accessing
 the URL `/admin/users/edit/5` would call the `edit()` method of our
 **src/Controller/Admin/UsersController.php** passing 5 as the first parameter.
 The view file used would be **templates/Admin/Users/edit.php**
@@ -809,7 +809,7 @@ This would link to a controller with the namespace `App\Controller\Admin\MyPrefi
 
 #### Static Method `Cake\Routing\RouterBuilder::plugin($name, $options = [], $callback)`
 
-Routes for [Plugins](/en/plugins.md) should be created using the `plugin()`
+Routes for [plugins](/en/plugins.md) should be created using the `plugin()`
 method. This method creates a new routing scope for the plugin's routes
 
 ```php
@@ -1136,21 +1136,14 @@ The first line sets up a number of default routes for REST
 access where method specifies the desired result format, for example, xml,
 json and rss. These routes are HTTP Request Method sensitive.
 
-=========== ===================== ==============================
-HTTP format URL.format            Controller action invoked
-=========== ===================== ==============================
-GET         /recipes.format       RecipesController::index()
------------ --------------------- ------------------------------
-GET         /recipes/123.format   RecipesController::view(123)
------------ --------------------- ------------------------------
-POST        /recipes.format       RecipesController::add()
------------ --------------------- ------------------------------
-PUT         /recipes/123.format   RecipesController::edit(123)
------------ --------------------- ------------------------------
-PATCH       /recipes/123.format   RecipesController::edit(123)
------------ --------------------- ------------------------------
-DELETE      /recipes/123.format   RecipesController::delete(123)
-=========== ===================== ==============================
+| HTTP format | URL.format | Controller action invoked |
+| --- | --- | --- |
+| GET | /recipes.format | RecipesController::index() |
+| GET | /recipes/123.format | RecipesController::view(123) |
+| POST | /recipes.format | RecipesController::add() |
+| PUT | /recipes/123.format | RecipesController::edit(123) |
+| PATCH | /recipes/123.format | RecipesController::edit(123) |
+| DELETE | /recipes/123.format | RecipesController::delete(123) |
 
 > [!NOTE]
 > The default for pattern for resource IDs only matches integers or UUIDs.
@@ -1241,19 +1234,13 @@ Would create read only resource routes. The route names are `create`,
 
 The default **route name and controller action used** are as follows:
 
-=========== =======================
-Route name  Controller action used
-=========== =======================
-create      add
------------ -----------------------
-update      edit
------------ -----------------------
-view        view
------------ -----------------------
-index       index
------------ -----------------------
-delete      delete
-=========== =======================
+| Route name | Controller action used |
+| --- | --- |
+| create | add |
+| update | edit |
+| view | view |
+| index | index |
+| delete | delete |
 
 ### Changing the Controller Actions Used
 

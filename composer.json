@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Cake\\DocsMD\\": "src/"
+            "Cake\\DocsMD\\": "converter/src/"
         }
     },
     "authors": [
@@ -19,10 +19,10 @@
         "rector/rector": "^2.1"
     },
     "scripts": {
-        "test": "php test/run-tests.php",
+        "test": "php converter/test/run-tests.php",
         "cs-check": "phpcs --colors -p -s",
         "cs-fix": "phpcbf --colors -p -s",
-        "convert-en": "php bin/convert.php legacy/en docs/en",
+        "convert-en": "php converter/bin/convert.php ./legacy/en ./docs/en",
         "rector": "rector --ansi"
     },
     "config": {

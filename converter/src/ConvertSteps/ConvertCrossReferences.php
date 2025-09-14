@@ -35,13 +35,13 @@ class ConvertCrossReferences
         $content = preg_replace_callback('/:php:func:`([^`]+)`/', $cleanPhpReference, $content);
         $content = preg_replace_callback('/:php:const:`([^`]+)`/', $cleanPhpReference, $content);
         $content = preg_replace_callback('/:php:exc:`([^`]+)`/', $cleanPhpReference, $content);
-        $content = preg_replace_callback('/:abbr:`([^(]+?)\s*\(([^)]+?)\)`/s', function ($matches): string {
+        $content = preg_replace_callback('/:abbr:`([^(]+?)\s*\(([^)]+?)\)`/s', function (array $matches): string {
             $abbr = trim($matches[1]);
             $fullForm = preg_replace('/\s+/', ' ', trim($matches[2]));
 
             return sprintf('<abbr title="%s">%s</abbr>', $fullForm, $abbr);
         }, $content);
-        $content = preg_replace_callback('/:doc:`([^<]+)<([^>]+)>`/', function ($matches) use ($basePath): string {
+        $content = preg_replace_callback('/:doc:`([^<]+)<([^>]+)>`/', function (array $matches) use ($basePath): string {
             $title = trim($matches[1]);
             $path = trim($matches[2]);
             if (preg_match('/^https?:\/\//', $path)) {
@@ -52,7 +52,7 @@ class ConvertCrossReferences
 
             return sprintf('[%s](%s/%s.md)', $title, $basePath, $path);
         }, $content);
-        $content = preg_replace_callback('/:doc:`([^`<]+)`/', function ($matches) use ($basePath): string {
+        $content = preg_replace_callback('/:doc:`([^`<]+)`/', function (array $matches) use ($basePath): string {
             $path = trim($matches[1]);
             if (preg_match('/^https?:\/\//', $path)) {
                 return sprintf('[%s](%s)', $path, $path);
@@ -67,7 +67,7 @@ class ConvertCrossReferences
 
             return sprintf('[%s](%s)', $linkText, $fullPath);
         }, $content);
-        $content = preg_replace_callback('/:ref:`([^<`]+)<([^>`]+)>`/', function ($matches) use ($basePath, $labelToDocumentMap): string {
+        $content = preg_replace_callback('/:ref:`([^<`]+)<([^>`]+)>`/', function (array $matches) use ($basePath, $labelToDocumentMap): string {
             $linkText = trim($matches[1]);
             $labelName = trim($matches[2]);
             $targetDocument = $labelToDocumentMap[$labelName] ?? null;
@@ -78,7 +78,7 @@ class ConvertCrossReferences
             }
         }, $content);
 
-        return preg_replace_callback('/:ref:`([^`]+)`/', function ($matches) use ($basePath, $labelToDocumentMap): string {
+        return preg_replace_callback('/:ref:`([^`]+)`/', function (array $matches) use ($basePath, $labelToDocumentMap): string {
             $reference = trim($matches[1]);
             $targetDocument = $labelToDocumentMap[$reference] ?? null;
             if ($targetDocument) {
@@ -103,12 +103,14 @@ class ConvertCrossReferences
         $fullPath = __DIR__ . '/../../docs' . $filePath;
         if (!file_exists($fullPath)) {
             $this->titleCache[$filePath] = null;
+
             return null;
         }
 
         $content = file_get_contents($fullPath);
         if (!$content) {
             $this->titleCache[$filePath] = null;
+
             return null;
         }
 
@@ -118,6 +120,7 @@ class ConvertCrossReferences
             if (preg_match('/^title:\s*(.+)$/m', $frontmatter, $titleMatch)) {
                 $title = trim($titleMatch[1], '"\'');
                 $this->titleCache[$filePath] = $title;
+
                 return $title;
             }
         }
@@ -126,10 +129,12 @@ class ConvertCrossReferences
         if (preg_match('/^#\s+(.+)$/m', $content, $headingMatch)) {
             $title = trim($headingMatch[1]);
             $this->titleCache[$filePath] = $title;
+
             return $title;
         }
 
         $this->titleCache[$filePath] = null;
+
         return null;
     }
 }

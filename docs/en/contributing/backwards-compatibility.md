@@ -24,7 +24,7 @@ releases can have as many breaking changes as required.
 
 For each major and minor release, the CakePHP team will provide a migration
 guide. These guides explain the new features and any breaking changes that are
-in each release. They can be found in the [Appendices](/en/appendices.md) section of the
+in each release. They can be found in the [appendices](/en/appendices.md) section of the
 cookbook.
 
 ## Using CakePHP
@@ -59,42 +59,23 @@ for that release.
 The following table outlines several use cases and what compatibility you can
 expect from CakePHP:
 
-+-------------------------------+--------------------------+
-| If you...                     | Backwards compatibility? |
-+===============================+==========================+
-| Typehint against the class    | Yes                      |
-+-------------------------------+--------------------------+
-| Create a new instance         | Yes                      |
-+-------------------------------+--------------------------+
-| Extend the class              | Yes                      |
-+-------------------------------+--------------------------+
-| Access a public property      | Yes                      |
-+-------------------------------+--------------------------+
-| Call a public method          | Yes                      |
-+-------------------------------+--------------------------+
-| **Extend a class and...**                                |
-+-------------------------------+--------------------------+
-| Override a public property    | Yes                      |
-+-------------------------------+--------------------------+
-| Access a protected property   | No [1]_                  |
-+-------------------------------+--------------------------+
-| Override a protected property | No [1]_                  |
-+-------------------------------+--------------------------+
-| Override a protected method   | No [1]_                  |
-+-------------------------------+--------------------------+
-| Call a protected method       | No [1]_                  |
-+-------------------------------+--------------------------+
-| Add a public property         | No                       |
-+-------------------------------+--------------------------+
-| Add a public method           | No                       |
-+-------------------------------+--------------------------+
-| Add an argument               | No [1]_                  |
-| to an overridden method       |                          |
-+-------------------------------+--------------------------+
-| Add a default argument value  | Yes                      |
-| to an existing method         |                          |
-| argument                      |                          |
-+-------------------------------+--------------------------+
+| If you... | Backwards compatibility? |
+| --- | --- |
+| Typehint against the class | Yes |
+| Create a new instance | Yes |
+| Extend the class | Yes |
+| Access a public property | Yes |
+| Call a public method | Yes |
+| **Extend a class and...** |
+| Override a public property | Yes |
+| Access a protected property | No [1]_ |
+| Override a protected property | No [1]_ |
+| Override a protected method | No [1]_ |
+| Call a protected method | No [1]_ |
+| Add a public property | No |
+| Add a public method | No |
+| Add an argument to an overridden method | No [1]_ |
+| Add a default argument value to an existing method argument | Yes |
 
 ## Working on CakePHP
 
@@ -103,60 +84,32 @@ in mind when adding/changing functionality:
 
 In a minor release you can:
 
-+-------------------------------+--------------------------+
-| In a minor release can you...                            |
-+===============================+==========================+
-| **Classes**                                              |
-+-------------------------------+--------------------------+
-| Remove a class                | No                       |
-+-------------------------------+--------------------------+
-| Remove an interface           | No                       |
-+-------------------------------+--------------------------+
-| Remove a trait                | No                       |
-+-------------------------------+--------------------------+
-| Make final                    | No                       |
-+-------------------------------+--------------------------+
-| Make abstract                 | No                       |
-+-------------------------------+--------------------------+
-| Change name                   | Yes [2]_                 |
-+-------------------------------+--------------------------+
-| **Properties**                                           |
-+-------------------------------+--------------------------+
-| Add a public property         | Yes                      |
-+-------------------------------+--------------------------+
-| Remove a public property      | No                       |
-+-------------------------------+--------------------------+
-| Add a protected property      | Yes                      |
-+-------------------------------+--------------------------+
-| Remove a protected property   | Yes [3]_                 |
-+-------------------------------+--------------------------+
-| **Methods**                                              |
-+-------------------------------+--------------------------+
-| Add a public method           | Yes                      |
-+-------------------------------+--------------------------+
-| Remove a public method        | No                       |
-+-------------------------------+--------------------------+
-| Add a protected method        | Yes                      |
-+-------------------------------+--------------------------+
-| Move to parent class          | Yes                      |
-+-------------------------------+--------------------------+
-| Remove a protected method     | Yes [3]_                 |
-+-------------------------------+--------------------------+
-| Reduce visibility             | No                       |
-+-------------------------------+--------------------------+
-| Change method name            | Yes [2]_                 |
-+-------------------------------+--------------------------+
-| Add a new argument with       | Yes                      |
-| default value                 |                          |
-+-------------------------------+--------------------------+
-| Add a new required argument   | No                       |
-| to an existing method.        |                          |
-+-------------------------------+--------------------------+
-| Remove a default value from   | No                       |
-| an existing argument          |                          |
-+-------------------------------+--------------------------+
-| Change method type void       | Yes                      |
-+-------------------------------+--------------------------+
+| In a minor release can you... |
+| --- |
+| **Classes** |
+| Remove a class | No |
+| Remove an interface | No |
+| Remove a trait | No |
+| Make final | No |
+| Make abstract | No |
+| Change name | Yes [2]_ |
+| **Properties** |
+| Add a public property | Yes |
+| Remove a public property | No |
+| Add a protected property | Yes |
+| Remove a protected property | Yes [3]_ |
+| **Methods** |
+| Add a public method | Yes |
+| Remove a public method | No |
+| Add a protected method | Yes |
+| Move to parent class | Yes |
+| Remove a protected method | Yes [3]_ |
+| Reduce visibility | No |
+| Change method name | Yes [2]_ |
+| Add a new argument with default value | Yes |
+| Add a new required argument to an existing method. | No |
+| Remove a default value from an existing argument | No |
+| Change method type void | Yes |
 
 .. [1] Your code *may* be broken by minor releases. Check the migration guide
        for details.

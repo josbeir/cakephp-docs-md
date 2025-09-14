@@ -94,12 +94,10 @@ $data = [
 $io->helper('Table')->output($data);
 
 // Outputs
-+--------------+---------------+---------------+
-| Header 1     | Header        | Long Header   |
-+--------------+---------------+---------------+
-| short        | Longish thing | short         |
-| Longer thing | short         | Longest Value |
-+--------------+---------------+---------------+
+|  |  |  |
+| --- | --- | --- |
+| Header 1 | Header | Long Header |
+| short Longer thing | Longish thing short | short Longest Value |
 
 ```
 
@@ -114,11 +112,10 @@ $data = [
 $io->helper('Table')->output($data);
 
 // Outputs
-+----------+-------------+
-| Name 1   | Total Price |
-+----------+-------------+
-| Cake Mix |        1.50 |
-+----------+-------------+
+|  |  |
+| --- | --- |
+| Name 1 | Total Price |
+| Cake Mix | 1.50 |
 
 ```
 

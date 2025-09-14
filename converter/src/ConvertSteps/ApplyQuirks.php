@@ -10,7 +10,7 @@ class ApplyQuirks
     public function __construct(array $quirksRegistry = [])
     {
         // Load default quirks if none provided
-        if (empty($quirksRegistry)) {
+        if ($quirksRegistry === []) {
             $configPath = dirname(__DIR__, 2) . '/config/quirks.php';
             if (file_exists($configPath)) {
                 $quirksRegistry = require $configPath;

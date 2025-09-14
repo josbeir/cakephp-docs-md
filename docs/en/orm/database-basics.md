@@ -15,7 +15,7 @@ and with debugging and profiling queries sent to the database.
 The functions described in this chapter illustrate what is possible to do with
 the lower-level database access API. If instead you want to learn more about the
 complete ORM, you can read the [/orm/query-builder` and
-[Table Objects](/en/orm/table-objects.md) sections.
+[orm/table-objects](/en/orm/table-objects.md) sections.
 
 The easiest way to create a database connection is using a `DSN` string
 
@@ -252,7 +252,7 @@ at a `debug` level with the `queriesLog` scope.
 quoteIdentifiers
 Set to `true` if you are using reserved words or special characters in
 your table or column names. Enabling this setting will result in queries
-built using the [Query Builder](/en/orm/query-builder.md) having identifiers quoted when
+built using the [orm/query-builder](/en/orm/query-builder.md) having identifiers quoted when
 creating SQL. It should be noted that this decreases performance because
 each query needs to be traversed and manipulated before being executed.
 flags
@@ -272,7 +272,7 @@ mode
 The `mode` flag value to send to SQLite.
 
 At this point, you might want to take a look at the
-[CakePHP Conventions](/en/intro/conventions.md). The correct naming for your tables (and the addition
+[intro/conventions](/en/intro/conventions.md). The correct naming for your tables (and the addition
 of some columns) can score you some free functionality and help you avoid
 configuration. For example, if you name your database table big\_boxes, your
 table BigBoxesTable, and your controller BigBoxesController, everything will
@@ -951,7 +951,7 @@ $statement = $connection->execute(
 
 These methods allow you to use rich data types in your applications and properly convert
 them into SQL statements. The last and most flexible way of creating queries is
-to use the [Query Builder](/en/orm/query-builder.md). This approach allows you to build complex and
+to use the [orm/query-builder](/en/orm/query-builder.md). This approach allows you to build complex and
 expressive queries without having to use platform specific SQL. When using the
 query builder, no SQL will be sent to the database server until the `execute()`
 method is called, or the query is iterated. Iterating a query will first execute
@@ -1040,7 +1040,7 @@ $connection->transactional(function ($connection) {
 ```
 
 In addition to basic queries, you can execute more complex queries using either
-the [Query Builder](/en/orm/query-builder.md) or [Table Objects](/en/orm/table-objects.md). The transactional method will
+the [orm/query-builder](/en/orm/query-builder.md) or [orm/table-objects](/en/orm/table-objects.md). The transactional method will
 do the following:
 
 - Call `begin`.
@@ -1193,7 +1193,7 @@ $connection->cacheMetadata('orm_metadata');
 ```
 
 CakePHP also includes a CLI tool for managing metadata caches. See the
-[Schema Cache Tool](/en/console-commands/schema-cache.md) chapter for more information.
+[console-commands/schema-cache](/en/console-commands/schema-cache.md) chapter for more information.
 
 ## Creating Databases
 

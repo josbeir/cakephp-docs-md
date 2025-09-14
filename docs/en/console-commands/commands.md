@@ -146,7 +146,7 @@ public function execute(Arguments $args, ConsoleIo $io): int
 
 ```
 
-See the [Option Parsers](/en/console-commands/option-parsers.md) section for more information.
+See the [console-commands/option-parsers](/en/console-commands/option-parsers.md) section for more information.
 
 ## Creating Output
 
@@ -156,7 +156,7 @@ you to interact with `Cake\Console\ConsoleIo::out()` and
 `stderr`. Files can be created with overwrite confirmation with
 `Cake\Console\ConsoleIo::createFile()`.  [command-helpers](/en/console-commands/input-output.md#command-helpers)
 provide 'macros' for output generation.  See the
-[Command Input/Output](/en/console-commands/input-output.md) section for more information.
+[console-commands/input-output](/en/console-commands/input-output.md) section for more information.
 
 ## Using Models in Commands
 

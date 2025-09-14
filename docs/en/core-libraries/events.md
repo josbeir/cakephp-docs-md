@@ -685,8 +685,8 @@ events can make debugging harder and require additional integration testing.
 
 ## Additional Reading
 
-- [Behaviors](/en/orm/behaviors.md)
-- [Command Objects](/en/console-commands/commands.md)
-- [Components](/en/controllers/components.md)
-- [Helpers](/en/views/helpers.md)
+- [orm/behaviors](/en/orm/behaviors.md)
+- [console-commands/commands](/en/console-commands/commands.md)
+- [controllers/components](/en/controllers/components.md)
+- [views/helpers](/en/views/helpers.md)
 - [testing-events](/en/development/testing.md#testing-events)

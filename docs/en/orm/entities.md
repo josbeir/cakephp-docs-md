@@ -9,7 +9,7 @@ keywords: "entity, entities, single row, individual record"
 
 ### Class `Cake\ORM\Entity`
 
-While [Table Objects](/en/orm/table-objects.md) represent and provide access to a collection of
+While [orm/table-objects](/en/orm/table-objects.md) represent and provide access to a collection of
 objects, entities represent individual rows or domain objects in your
 application. Entities contain methods to manipulate and
 access the data they contain. Fields can also be accessed as properties on the object.
@@ -425,7 +425,7 @@ $user->setErrors([
 While setting fields to entities in bulk is simple and convenient, it can
 create significant security issues. Bulk assigning user data from the request
 into an entity allows the user to modify any and all columns. When using
-anonymous entity classes or creating the entity class with the [Bake Console](/en/bake.md)
+anonymous entity classes or creating the entity class with the [bake](/en/bake.md)
 CakePHP does not protect against mass-assignment.
 
 The `_accessible` property allows you to provide a map of fields and

@@ -22,6 +22,6 @@
         <severity>0</severity>
     </rule>
 
-    <file>src/</file>
-    <file>test/</file>
+    <file>converter/src/</file>
+    <file>converter/test/</file>
 </ruleset>

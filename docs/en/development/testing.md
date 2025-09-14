@@ -1961,7 +1961,7 @@ View clases `loadHelpers` method.
 <a id="testing-events"></a>
 ## Testing Events
 
-The [Events system](/en/core-libraries/events.md) is a great way to decouple your application
+The [core-libraries/events](/en/core-libraries/events.md) is a great way to decouple your application
 code, but sometimes when testing, you tend to test the results of events in the
 test cases that execute those events. This is an additional form of coupling
 that can be removed by using `assertEventFired` and `assertEventFiredWith`

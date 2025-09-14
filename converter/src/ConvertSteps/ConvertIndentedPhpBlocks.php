@@ -114,10 +114,11 @@ class ConvertIndentedPhpBlocks
                     $language = $this->detectLanguage($blockData['content']);
 
                     // Add the code block with proper language
-                    $result[] = "```$language";
+                    $result[] = '```' . $language;
                     foreach ($blockData['lines'] as $blockLine) {
                         $result[] = $blockLine;
                     }
+
                     $result[] = '```';
 
                     $i = $blockData['nextIndex'];
@@ -186,7 +187,7 @@ class ConvertIndentedPhpBlocks
         return [
             'lines' => $blockLines,
             'content' => $content,
-            'nextIndex' => $i
+            'nextIndex' => $i,
         ];
     }
 
@@ -209,14 +210,16 @@ class ConvertIndentedPhpBlocks
                     $score++;
                 }
             }
+
             if ($score > 0) {
                 $scores[$language] = $score;
             }
         }
 
         // Return the language with the highest score
-        if (!empty($scores)) {
+        if ($scores !== []) {
             arsort($scores);
+
             return array_key_first($scores);
         }
 
