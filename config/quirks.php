@@ -27,4 +27,6 @@ return [
     '_static/img/' => '/',
     ':ref:`CakePHP request cycle]' => '[CakePHP request cycle]', // Fix broken link,
     ':doc:`caching]' => '[caching]', // Fix broken link
+    '   <?= $this->Html->media(' => '```php' . "\n" . '   <?= $this->Html->media(',
+    'codecs=\'theora, vorbis\'"/>' . "\n" . '    </video>' => 'codecs=\'theora, vorbis\'"/>' . "\n" . '    </video>' . "\n" . '```',
 ];

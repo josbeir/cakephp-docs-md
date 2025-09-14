@@ -517,10 +517,11 @@ Returns a formatted audio/video tag:
 
 ```
 
+```php
    <?= $this->Html->media(
-['video.mp4', ['src' => 'video.ogg', 'type' => "video/ogg; codecs='theora, vorbis'"]],
-['autoplay']
-) ?>
+        ['video.mp4', ['src' => 'video.ogg', 'type' => "video/ogg; codecs='theora, vorbis'"]],
+        ['autoplay']
+    ) ?>
 
     // Output
     <video autoplay="autoplay">
@@ -528,6 +529,7 @@ Returns a formatted audio/video tag:
         <source src="/files/video.ogg" type="video/ogg;
             codecs='theora, vorbis'"/>
     </video>
+```
 
 ### Linking to Javascript Files
 
