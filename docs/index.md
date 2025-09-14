@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /en/
+      link: /5/en/
     - theme: alt
       text: View on GitHub
       link: https://github.com/cakephp/cakephp

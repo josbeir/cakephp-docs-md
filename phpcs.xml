@@ -24,4 +24,5 @@
 
     <file>converter/src/</file>
     <file>converter/test/</file>
+    <file>scripts/</file>
 </ruleset>

@@ -11,10 +11,13 @@ class ConvertCrossReferences
 
     private array $titleCache = [];
 
-    public function __construct(string $basePath = '', array $labelToDocumentMap = [])
+    private string $currentFile;
+
+    public function __construct(string $basePath = '', array $labelToDocumentMap = [], bool $useRelativePaths = true, string $currentFile = '')
     {
         $this->basePath = $basePath;
         $this->labelToDocumentMap = $labelToDocumentMap;
+        $this->currentFile = $currentFile;
     }
 
     public function __invoke(string $content): string
@@ -48,9 +51,10 @@ class ConvertCrossReferences
                 return sprintf('[%s](%s)', $title, $path);
             }
 
-            $path = ltrim($path, '/');
+            $targetPath = $this->resolvePath($path) . '.md';
+            $relativePath = $this->getRelativePath($targetPath);
 
-            return sprintf('[%s](%s/%s.md)', $title, $basePath, $path);
+            return sprintf('[%s](%s)', $title, $relativePath);
         }, $content);
         $content = preg_replace_callback('/:doc:`([^`<]+)`/', function (array $matches) use ($basePath): string {
             $path = trim($matches[1]);
@@ -58,21 +62,25 @@ class ConvertCrossReferences
                 return sprintf('[%s](%s)', $path, $path);
             }
 
-            $path = ltrim($path, '/');
-            $fullPath = $basePath . '/' . $path . '.md';
+            $resolvedPath = $this->resolvePath($path);
+            $targetPath = $resolvedPath . '.md';
+            $relativePath = $this->getRelativePath($targetPath);
 
-            // Try to extract title from the target file
+            // Try to extract title from the target file (using basePath for file resolution)
+            $fullPath = $basePath . '/' . $targetPath;
             $title = $this->extractTitle($fullPath);
-            $linkText = $title ?: $path; // Fallback to path if title not found
+            $linkText = $title ?: basename($resolvedPath); // Fallback to path if title not found
 
-            return sprintf('[%s](%s)', $linkText, $fullPath);
+            return sprintf('[%s](%s)', $linkText, $relativePath);
         }, $content);
         $content = preg_replace_callback('/:ref:`([^<`]+)<([^>`]+)>`/', function (array $matches) use ($basePath, $labelToDocumentMap): string {
             $linkText = trim($matches[1]);
             $labelName = trim($matches[2]);
             $targetDocument = $labelToDocumentMap[$labelName] ?? null;
             if ($targetDocument) {
-                return sprintf('[%s](%s/%s#%s)', $linkText, $basePath, $targetDocument, $labelName);
+                $relativePath = $this->getRelativePath($targetDocument);
+
+                return sprintf('[%s](%s#%s)', $linkText, $relativePath, $labelName);
             } else {
                 return sprintf('[%s](#%s)', $linkText, $labelName);
             }
@@ -82,11 +90,104 @@ class ConvertCrossReferences
             $reference = trim($matches[1]);
             $targetDocument = $labelToDocumentMap[$reference] ?? null;
             if ($targetDocument) {
-                return sprintf('[%s](%s/%s#%s)', $reference, $basePath, $targetDocument, $reference);
+                $relativePath = $this->getRelativePath($targetDocument);
+
+                return sprintf('[%s](%s#%s)', $reference, $relativePath, $reference);
             } else {
                 return sprintf('[%s](#%s)', $reference, $reference);
             }
         }, $content);
+    }
+
+    /**
+     * Resolve a path from RST relative to the current file
+     */
+    private function resolvePath(string $path): string
+    {
+        // If no current file context, treat as absolute
+        if (empty($this->currentFile)) {
+            return ltrim($path, '/');
+        }
+
+        // If path starts with /, it's absolute from doc root
+        if (str_starts_with($path, '/')) {
+            return ltrim($path, '/');
+        }
+
+        // If path doesn't contain relative segments, it's relative to current directory
+        if (!str_contains($path, '../') && !str_starts_with($path, './')) {
+            // Resolve relative to current file's directory
+            $currentDir = dirname($this->currentFile);
+            if ($currentDir === '.' || $currentDir === '') {
+                return $path;
+            }
+
+            return $currentDir . '/' . $path;
+        }
+
+        // Resolve relative path based on current file location
+        $currentDir = dirname($this->currentFile);
+
+        // If current file is at root, resolve relative to root
+        if ($currentDir === '.' || $currentDir === '') {
+            return ltrim($path, './');
+        }
+
+        // Build absolute path by combining current directory with relative path
+        $pathParts = array_filter(explode('/', $currentDir));
+        $relativeParts = explode('/', $path);
+
+        foreach ($relativeParts as $part) {
+            if ($part === '..') {
+                array_pop($pathParts);
+            } elseif ($part !== '.' && $part !== '') {
+                $pathParts[] = $part;
+            }
+        }
+
+        return implode('/', $pathParts);
+    }
+
+    /**
+     * Calculate relative path from current file to target file
+     */
+    private function getRelativePath(string $targetPath): string
+    {
+        if (empty($this->currentFile)) {
+            return $targetPath;
+        }
+
+        // Get the directory of the current file (relative to base)
+        $currentDir = dirname($this->currentFile);
+
+        // If current file is in root, return target as-is
+        if ($currentDir === '.' || $currentDir === '') {
+            return $targetPath;
+        }
+
+        // Split paths into components
+        $currentParts = array_filter(explode('/', $currentDir));
+        $targetParts = array_filter(explode('/', $targetPath));
+
+        // Find common path components
+        $commonLength = 0;
+        $minLength = min(count($currentParts), count($targetParts));
+
+        for ($i = 0; $i < $minLength; $i++) {
+            if ($currentParts[$i] === $targetParts[$i]) {
+                $commonLength++;
+            } else {
+                break;
+            }
+        }
+
+        // Calculate relative path
+        $upLevels = count($currentParts) - $commonLength;
+        $downPath = array_slice($targetParts, $commonLength);
+
+        $relativePath = str_repeat('../', $upLevels) . implode('/', $downPath);
+
+        return $relativePath ?: $targetPath;
     }
 
     /**

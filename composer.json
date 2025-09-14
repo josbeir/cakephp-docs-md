@@ -22,7 +22,7 @@
         "test": "php converter/test/run-tests.php",
         "cs-check": "phpcs --colors -p -s",
         "cs-fix": "phpcbf --colors -p -s",
-        "convert-en": "php converter/bin/convert.php ./legacy/en ./docs/en",
+        "convert-en": "php scripts/convert.php ./legacy/en ./docs/en",
         "rector": "rector --ansi"
     },
     "config": {

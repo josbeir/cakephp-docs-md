@@ -29,17 +29,17 @@ use Cake\DocsMD\ConvertSteps\RemoveIndexDirectives;
 
 class Converter
 {
-    public static function getPipeline(string $basePath = '', array $labelToDocumentMap = []): array
+    public static function getPipeline(string $basePath = '', array $labelToDocumentMap = [], string $currentFile = ''): array
     {
         return [
             new HandleMetaDirective(),
             new ConvertReferenceLabels(),
             new ConvertVersionAdded(),
-            new ConvertIncludes(),
+            new ConvertIncludes($currentFile),
             new ConvertMiscDirectives(),
             new ConvertHeadings(),
             new ConvertPhpDirectives(),
-            new ConvertCrossReferences($basePath, $labelToDocumentMap),
+            new ConvertCrossReferences($basePath, $labelToDocumentMap, true, $currentFile),
             new ConvertAdmonitions(), // Moved before ConvertCodeBlocks
             new ConvertCodeBlocks(),
             new ConvertIndentedPhpBlocks(),
@@ -47,7 +47,7 @@ class Converter
             new ConvertContainers(),
             new ConvertTables(),
             new ConvertImages(),
-            new ConvertLinks($basePath),
+            new ConvertLinks($basePath, $currentFile),
             new ConvertLists(),
             new RemoveIndexDirectives(),
             new FixAbsolutePaths(),
