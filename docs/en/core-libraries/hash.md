@@ -7,9 +7,7 @@ keywords: "array array,path array,array name,numeric key,regular expression,resu
 
 **Namespace:** `Cake\Utility`
 
-
 ### Class `Cake\Utility\Hash`
-
 
 Array management, if done right, can be a very powerful and useful
 tool for building smarter, more optimized code. CakePHP offers a
@@ -29,17 +27,20 @@ elements. You apply matchers to expression elements.
 
 ### Expression Types
 
-
-| Expression | Definition |
-| --- | --- |
-| `{n}`                        | | epresents a numeric key. Will match       | |
-|  | any string or numeric key. |
-| `{s}`                        | | epresents a string. Will match any        | |
-|  | string value including numeric string |
-|  | values. |
-| `{*}`                        | | atches any value.                         | |
-| `Foo`                        | | atches keys with the exact same value.    | |
-
++--------------------------------+--------------------------------------------+
+| Expression                     | Definition                                 |
++================================+============================================+
+| `{n}`                        | Represents a numeric key. Will match       |
+|                                | any string or numeric key.                 |
++--------------------------------+--------------------------------------------+
+| `{s}`                        | Represents a string. Will match any        |
+|                                | string value including numeric string      |
+|                                | values.                                    |
++--------------------------------+--------------------------------------------+
+| `{*}`                        | Matches any value.                         |
++--------------------------------+--------------------------------------------+
+| `Foo`                        | Matches keys with the exact same value.    |
++--------------------------------+--------------------------------------------+
 
 All expression elements are supported by all methods. In addition to expression
 elements, you can use attribute matching with certain methods. They are `extract()`,
@@ -48,24 +49,30 @@ elements, you can use attribute matching with certain methods. They are `extract
 
 ### Attribute Matching Types
 
-
-| Matcher | Definition |
-| --- | --- |
-| `[id]`                       | | atch elements with a given array key.     | |
-| `[id=2]`                     | | atch elements with id equal to 2.         | |
-| `[id!=2]`                    | | atch elements with id not equal to 2.     | |
-| `[id>2]`                     | | atch elements with id greater than 2.     | |
-| `[id>=2]`                    | | atch elements with id greater than        | |
-|  | or equal to 2. |
-| `[id<2]`                     | | atch elements with id less than 2         | |
-| `[id<=2]`                    | | atch elements with id less than           | |
-|  | or equal to 2. |
-| `[text=/.../]`               | | atch elements that have values matching   | |
-|  | the regular expression inside `...`.     | |
-
++--------------------------------+--------------------------------------------+
+| Matcher                        | Definition                                 |
++================================+============================================+
+| `[id]`                       | Match elements with a given array key.     |
++--------------------------------+--------------------------------------------+
+| `[id=2]`                     | Match elements with id equal to 2.         |
++--------------------------------+--------------------------------------------+
+| `[id!=2]`                    | Match elements with id not equal to 2.     |
++--------------------------------+--------------------------------------------+
+| `[id>2]`                     | Match elements with id greater than 2.     |
++--------------------------------+--------------------------------------------+
+| `[id>=2]`                    | Match elements with id greater than        |
+|                                | or equal to 2.                             |
++--------------------------------+--------------------------------------------+
+| `[id<2]`                     | Match elements with id less than 2         |
++--------------------------------+--------------------------------------------+
+| `[id<=2]`                    | Match elements with id less than           |
+|                                | or equal to 2.                             |
++--------------------------------+--------------------------------------------+
+| `[text=/.../]`               | Match elements that have values matching   |
+|                                | the regular expression inside `...`.     |
++--------------------------------+--------------------------------------------+
 
 #### Static Method `Cake\Utility\Hash::get(array|\ArrayAccess $data, $path, $default = null)`
-
 
 `get()` is a simplified version of `extract()`, it only supports direct
 path expressions. Paths with `{n}`, `{s}`, `{*}` or matchers are not
@@ -74,9 +81,8 @@ a matching path is not found the default value will be returned.
 
 #### Static Method `Cake\Utility\Hash::extract(array|\ArrayAccess $data, $path)`
 
-
 `Hash::extract()` supports all expression, and matcher components of
-[hash-path-syntax](#hash-path-syntax). You can use extract to retrieve data from arrays
+[hash-path-syntax](/en/core-libraries/hash.md#hash-path-syntax). You can use extract to retrieve data from arrays
 or object implementing `ArrayAccess` interface, along arbitrary paths
 quickly without having to loop through the data structures. Instead you
     use path expressions to qualify which elements you want returned
@@ -92,11 +98,13 @@ $users = [
 $results = Hash::extract($users, '{n}.id');
 // $results equals:
 // [1,2,3,4];
+
 ```
+
 #### Static Method `Cake\Utility\Hash::Hash::insert(array $data, $path, $values = null)`
 
-
 Inserts `$values` into an array as defined by `$path`
+
 ```php
 $a = [
     'pages' => ['name' => 'page']
@@ -111,36 +119,44 @@ $result = Hash::insert($a, 'files', ['name' => 'files']);
         [name] => files
     ]
 ]
+
 ```
-   You can use paths using `{n}`, `{s}` and `{*}` to insert data into multiple
+
+    You can use paths using `{n}`, `{s}` and `{*}` to insert data into multiple
 points
+
 ```php
 $users = Hash::insert($users, '{n}.new', 'value');
+
 ```
+
 Attribute matchers work with `insert()` as well::
 
-        $data = [
-            0 => ['up' => true, 'Item' => ['id' => 1, 'title' => 'first']],
-            1 => ['Item' => ['id' => 2, 'title' => 'second']],
-            2 => ['Item' => ['id' => 3, 'title' => 'third']],
-            3 => ['up' => true, 'Item' => ['id' => 4, 'title' => 'fourth']],
-            4 => ['Item' => ['id' => 5, 'title' => 'fifth']],
-        ];
-        $result = Hash::insert($data, '{n}[up].Item[id=4].new', 9);
-        /* $result now looks like:
-            [
-                ['up' => true, 'Item' => ['id' => 1, 'title' => 'first']],
-                ['Item' => ['id' => 2, 'title' => 'second']],
-                ['Item' => ['id' => 3, 'title' => 'third']],
-                ['up' => true, 'Item' => ['id' => 4, 'title' => 'fourth', 'new' => 9]],
-                ['Item' => ['id' => 5, 'title' => 'fifth']],
-            ]
-        */
+```php
+$data = [
+    0 => ['up' => true, 'Item' => ['id' => 1, 'title' => 'first']],
+    1 => ['Item' => ['id' => 2, 'title' => 'second']],
+    2 => ['Item' => ['id' => 3, 'title' => 'third']],
+    3 => ['up' => true, 'Item' => ['id' => 4, 'title' => 'fourth']],
+    4 => ['Item' => ['id' => 5, 'title' => 'fifth']],
+];
+$result = Hash::insert($data, '{n}[up].Item[id=4].new', 9);
+/* $result now looks like:
+    [
+        ['up' => true, 'Item' => ['id' => 1, 'title' => 'first']],
+        ['Item' => ['id' => 2, 'title' => 'second']],
+        ['Item' => ['id' => 3, 'title' => 'third']],
+        ['up' => true, 'Item' => ['id' => 4, 'title' => 'fourth', 'new' => 9]],
+        ['Item' => ['id' => 5, 'title' => 'fifth']],
+    ]
+*/
+
+```
 
 #### Static Method `Cake\Utility\Hash::remove(array $data, $path)`
 
-
 Removes all elements from an array that match `$path`.
+
 ```php
 $a = [
     'pages' => ['name' => 'page'],
@@ -155,9 +171,12 @@ $result = Hash::remove($a, 'files');
 
     ]
 */
+
 ```
+
 Using `{n}`, `{s}` and `{*}` will allow you to remove multiple values at once.
 You can also use attribute matchers with `remove()`
+
 ```php
 $data = [
     0 => ['clear' => true, 'Item' => ['id' => 1, 'title' => 'first']],
@@ -176,15 +195,17 @@ $result = Hash::remove($data, '{n}[clear].Item[id=4]');
         ['Item' => ['id' => 5, 'title' => 'fifth']],
     ]
 */
-```
-#### Static Method `Cake\Utility\Hash::combine(array $data, $keyPath, $valuePath = null, $groupPath = null)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::combine(array $data, $keyPath, $valuePath = null, $groupPath = null)`
 
 Creates an associative array using a `$keyPath` as the path to build its keys,
 and optionally `$valuePath` as path to get the values. If `$valuePath` is not
 specified, or doesn't match anything, values will be initialized to null.
 You can optionally group the values by what is obtained when following the
 path specified in `$groupPath`.
+
 ```php
 $a = [
     [
@@ -285,10 +306,13 @@ $result = Hash::combine($a, null, '{n}.User.Data.name');
         [1] => Larry E. Masters
     ]
 */
+
 ```
+
 You can provide arrays for both `$keyPath` and `$valuePath`. If you do this,
 the first value will be used as a format string, for values extracted by the
 other paths
+
 ```php
 $result = Hash::combine(
     $a,
@@ -318,12 +342,14 @@ $result = Hash::combine(
         [phpnut: Larry E. Masters] => 14
     ]
 */
-```
-#### Static Method `Cake\Utility\Hash::format(array $data, array $paths, $format)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::format(array $data, array $paths, $format)`
 
 Returns a series of values extracted from an array, formatted with a
 format string
+
 ```php
 $data = [
     [
@@ -372,12 +398,14 @@ $res = Hash::format($data, ['{n}.Person.first_name', '{n}.Person.something'], '%
     [2] => Garrett, 0
 ]
 */
-```
-#### Static Method `Cake\Utility\Hash::contains(array $data, array $needle)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::contains(array $data, array $needle)`
 
 Determines if one Hash or array contains the exact keys and values
 of another
+
 ```php
 $a = [
     0 => ['name' => 'main'],
@@ -396,11 +424,13 @@ $result = Hash::contains($a, $b);
 // false
 $result = Hash::contains($b, $a);
 // true
+
 ```
+
 #### Static Method `Cake\Utility\Hash::check(array $data, string $path = null)`
 
-
 Checks if a particular path is set in an array
+
 ```php
 $set = [
     'My Index 1' => ['First' => 'The first item']
@@ -433,13 +463,15 @@ $result = Hash::check($set, 'My Index 1.First.Second.Third.Fourth');
 
 $result = Hash::check($set, 'My Index 1.First.Seconds.Third.Fourth');
 // $result == false
-```
-#### Static Method `Cake\Utility\Hash::filter(array $data, $callback = ['Hash', 'filter'])`
 
+```
+
+#### Static Method `Cake\Utility\Hash::filter(array $data, $callback = ['Hash', 'filter'])`
 
 Filters empty elements out of array, excluding '0'. You can also supply a
 custom `$callback` to filter the array elements. The callback should
     return `false` to remove elements from the resulting array
+
 ```php
 $data = [
     '0',
@@ -462,11 +494,13 @@ $res = Hash::filter($data);
         ]
     ]
 */
+
 ```
+
 #### Static Method `Cake\Utility\Hash::flatten(array $data, string $separator = '.')`
 
-
 Collapses a multi-dimensional array into a single dimension
+
 ```php
 $arr = [
     [
@@ -491,12 +525,14 @@ $res = Hash::flatten($arr);
         [1.Author.user] => Crystal
     ]
 */
-```
-#### Static Method `Cake\Utility\Hash::expand(array $data, string $separator = '.')`
 
+```
+
+#### Static Method `Cake\Utility\Hash::expand(array $data, string $separator = '.')`
 
 Expands an array that was previously flattened with
 `Hash::flatten()`
+
 ```php
 $data = [
     '0.Post.id' => 1,
@@ -521,9 +557,10 @@ $res = Hash::expand($data);
     ],
 ];
 */
-```
-#### Static Method `Cake\Utility\Hash::merge(array $data, array $merge[, array $n])`
 
+```
+
+#### Static Method `Cake\Utility\Hash::merge(array $data, array $merge[, array $n])`
 
 This function can be thought of as a hybrid between PHP's
 `array_merge` and `array_merge_recursive`. The difference to the two
@@ -534,6 +571,8 @@ containing strings (unlike `array_merge_recursive`).
 > [!NOTE]
 > This function will work with an unlimited amount of arguments and
 > typecasts non-array parameters into arrays.
+>
+
 ```php
 $array = [
     [
@@ -571,11 +610,13 @@ $res = Hash::merge($array, $arrayB, $arrayC, $arrayD);
     [dog] => angry
 ]
 */
+
 ```
+
 #### Static Method `Cake\Utility\Hash::numeric(array $data)`
 
-
 Checks to see if all the values in the array are numeric
+
 ```php
 $data = ['one'];
 $res = Hash::numeric(array_keys($data));
@@ -584,12 +625,14 @@ $res = Hash::numeric(array_keys($data));
 $data = [1 => 'one'];
 $res = Hash::numeric($data);
 // $res is false
-```
-#### Static Method `Cake\Utility\Hash::dimensions (array $data)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::dimensions (array $data)`
 
 Counts the dimensions of an array. This method will only
 consider the dimension of the first element in the array
+
 ```php
 $data = ['one', '2', 'three'];
 $result = Hash::dimensions($data);
@@ -610,12 +653,14 @@ $result = Hash::dimensions($data);
 $data = ['1' => ['1.1' => '1.1.1'], '2', '3' => ['3.1' => ['3.1.1' => '3.1.1.1']]];
 $result = Hash::dimensions($data);
 // $result == 2
-```
-#### Static Method `Cake\Utility\Hash::maxDimensions(array $data)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::maxDimensions(array $data)`
 
 Similar to `Hash::dimensions()`, however this method returns,
 the deepest number of dimensions of any element in the array
+
 ```php
 $data = ['1' => '1.1', '2', '3' => ['3.1' => '3.1.1']];
 $result = Hash::maxDimensions($data);
@@ -624,13 +669,15 @@ $result = Hash::maxDimensions($data);
 $data = ['1' => ['1.1' => '1.1.1'], '2', '3' => ['3.1' => ['3.1.1' => '3.1.1.1']]];
 $result = Hash::maxDimensions($data);
 // $result == 3
-```
-#### Static Method `Cake\Utility\Hash::map(array $data, $path, $function)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::map(array $data, $path, $function)`
 
 Creates a new array, by extracting `$path`, and mapping `$function`
 across the results. You can use both expression and matching elements with
 this method
+
 ```php
 // Call the noop function $this->noop() on every element of $data
 $result = Hash::map($data, "{n}", [$this, 'noop']);
@@ -640,9 +687,10 @@ public function noop(array $array)
     // Do stuff to array and return the result
     return $array;
 }
-```
-#### Static Method `Cake\Utility\Hash::reduce(array $data, $path, $function)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::reduce(array $data, $path, $function)`
 
 Creates a single value, by extracting `$path`, and reducing the extracted
 results with `$function`. You can use both expression and matching elements
@@ -650,9 +698,9 @@ with this method.
 
 #### Static Method `Cake\Utility\Hash::apply(array $data, $path, $function)`
 
-
 Apply a callback to a set of extracted values using `$function`. The function
 will get the extracted values as the first argument
+
 ```php
 $data = [
     ['date' => '01-01-2016', 'booked' => true],
@@ -666,12 +714,14 @@ $result = Hash::apply($data, '{n}[booked=true].date', 'array_count_values');
         '02-01-2016' => 1,
     ]
 */
+
 ```
+
 #### Static Method `Cake\Utility\Hash::sort(array $data, $path, $dir, $type = 'regular')`
 
-
-Sorts an array by any value, determined by a [hash-path-syntax](#hash-path-syntax)
+Sorts an array by any value, determined by a [hash-path-syntax](/en/core-libraries/hash.md#hash-path-syntax)
 Only expression elements are supported by this method
+
 ```php
 $a = [
     0 => ['Person' => ['name' => 'Jeff']],
@@ -692,7 +742,9 @@ $result = Hash::sort($a, '{n}.Person.name', 'asc');
         ]
     ]
 */
+
 ```
+
 `$dir` can be either `asc` or `desc`. `$type`
 can be one of the following values:
 
@@ -704,8 +756,8 @@ sort `foo10` below `foo2` as an example.
 
 #### Static Method `Cake\Utility\Hash::diff(array $data, array $compare)`
 
-
 Computes the difference between two arrays
+
 ```php
 $a = [
     0 => ['name' => 'main'],
@@ -725,14 +777,16 @@ $result = Hash::diff($a, $b);
         ]
     ]
 */
-```
-#### Static Method `Cake\Utility\Hash::mergeDiff(array $data, array $compare)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::mergeDiff(array $data, array $compare)`
 
 This function merges two arrays and pushes the differences in
 data to the bottom of the resultant array.
 
     **Example 1**
+
 ```php
 $array1 = ['ModelOne' => ['id' => 1001, 'field_one' => 'a1.m1.f1', 'field_two' => 'a1.m1.f2']];
 $array2 = ['ModelOne' => ['id' => 1003, 'field_one' => 'a3.m1.f1', 'field_two' => 'a3.m1.f2', 'field_three' => 'a3.m1.f3']];
@@ -748,8 +802,11 @@ $res = Hash::mergeDiff($array1, $array2);
             ]
     ]
 */
+
 ```
-**Example 2**
+
+    **Example 2**
+
 ```php
 $array1 = ["a" => "b", 1 => 20938, "c" => "string"];
 $array2 = ["b" => "b", 3 => 238, "c" => "string", ["extra_field"]];
@@ -766,14 +823,16 @@ $res = Hash::mergeDiff($array1, $array2);
         ]
     ]
 */
-```
-#### Static Method `Cake\Utility\Hash::normalize(array $data, $assoc = true, $default = null)`
 
+```
+
+#### Static Method `Cake\Utility\Hash::normalize(array $data, $assoc = true, $default = null)`
 
 Normalizes an array. If `$assoc` is `true`, the resulting array will be
 normalized to be an associative array. Numeric keys with values, will be
 converted to string keys with `$default` values. Normalizing an array,
 makes using the results with `Hash::merge()` easier
+
 ```php
 $a = ['Tree', 'CounterCache',
     'Upload' => [
@@ -817,11 +876,11 @@ $result = Hash::normalize($b);
     ]
 */
 ```
+
 > **versionchanged:** 4.5.0
 The `$default` parameter was added.
 
 #### Static Method `Cake\Utility\Hash::nest(array $data, array $options = [])`
-
 
 Takes a flat array set, and creates a nested, or threaded data structure.
 
@@ -836,6 +895,7 @@ Should be compatible with `Hash::extract()`. Defaults to `{n}.$alias.parent_id`
 - `root` The id of the desired top-most result.
 
 For example, if you had the following array of data
+
 ```php
 $data = [
     ['ThreadPost' => ['id' => 1, 'parent_id' => null]],
@@ -891,4 +951,5 @@ $result = Hash::nest($data, ['root' => 6]);
         ]
     ]
     */
+
 ```

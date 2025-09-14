@@ -24,30 +24,43 @@ use Cake\Datasource\ConnectionManager;
 
 $dsn = 'mysql://root:password@localhost/my_database';
 ConnectionManager::setConfig('default', ['url' => $dsn]);
+
 ```
+
 Once created, you can access the connection object to start using it::
 
-    $connection = ConnectionManager::get('default');
+```php
+$connection = ConnectionManager::get('default');
+
+```
 
 > [!NOTE]
 > For supported databases, see :doc:`installation notes](/en/installation.md).
+
 <a id="running-select-statements"></a>
 ### Running Select Statements
 
 Running raw SQL queries is a breeze
+
 ```php
 use Cake\Datasource\ConnectionManager;
 
 $connection = ConnectionManager::get('default');
 $results = $connection->execute('SELECT * FROM articles')->fetchAll('assoc');
+
 ```
+
 You can use prepared statements to insert parameters::
 
-    $results = $connection
-        ->execute('SELECT * FROM articles WHERE id = :id', ['id' => 1])
-        ->fetchAll('assoc');
+```sql
+$results = $connection
+    ->execute('SELECT * FROM articles WHERE id = :id', ['id' => 1])
+    ->fetchAll('assoc');
+
+```
 
 It is also possible to use complex data types as arguments
+
 ```php
 use Cake\Datasource\ConnectionManager;
 use DateTime;
@@ -60,20 +73,26 @@ $results = $connection
         ['created' => 'datetime']
     )
     ->fetchAll('assoc');
+
 ```
+
 Instead of writing the SQL manually, you can use the query builder::
 
-    // Prior to 4.5 use $connection->query() instead.
-    $results = $connection
-        ->selectQuery('*', 'articles')
-        ->where(['created >' => new DateTime('1 day ago')], ['created' => 'datetime'])
-        ->order(['title' => 'DESC'])
-        ->execute()
-        ->fetchAll('assoc');
+```php
+// Prior to 4.5 use $connection->query() instead.
+$results = $connection
+    ->selectQuery('*', 'articles')
+    ->where(['created >' => new DateTime('1 day ago')], ['created' => 'datetime'])
+    ->order(['title' => 'DESC'])
+    ->execute()
+    ->fetchAll('assoc');
+
+```
 
 ### Running Insert Statements
 
 Inserting rows in the database is usually a matter of a couple lines
+
 ```php
 use Cake\Datasource\ConnectionManager;
 use DateTime;
@@ -83,25 +102,32 @@ $connection->insert('articles', [
     'title' => 'A New Article',
     'created' => new DateTime('now')
 ], ['created' => 'datetime']);
+
 ```
+
 ### Running Update Statements
 
 Updating rows in the database is equally intuitive, the following example will
 update the article with **id** 10
+
 ```php
 use Cake\Datasource\ConnectionManager;
 $connection = ConnectionManager::get('default');
 $connection->update('articles', ['title' => 'New title'], ['id' => 10]);
+
 ```
+
 ### Running Delete Statements
 
 Similarly, the `delete()` method is used to delete rows from the database, the
 following example deletes the article with **id** 10
+
 ```php
 use Cake\Datasource\ConnectionManager;
 $connection = ConnectionManager::get('default');
 $connection->delete('articles', ['id' => 10]);
 ```
+
 <a id="database-configuration"></a>
 ## Configuration
 
@@ -111,7 +137,8 @@ connection information defined in this file is fed into
 your application will be using. Sample connection information can be found in
 **config/app.default.php**. A sample connection configuration would look
 like
-```php
+
+```
 'Datasources' => [
     'default' => [
         'className' => 'Cake\Database\Connection',
@@ -126,12 +153,15 @@ like
         'cacheMetadata' => true,
     ],
 ],
+
 ```
+
 The above will create a 'default' connection, with the provided parameters. You
 can define as many connections as you want in your configuration file. You can
 also define additional connections at runtime using
 `Cake\Datasource\ConnectionManager::setConfig()`. An example of that
 would be
+
 ```php
 use Cake\Datasource\ConnectionManager;
 
@@ -147,19 +177,24 @@ ConnectionManager::setConfig('default', [
     'timezone' => 'UTC',
     'cacheMetadata' => true,
 ]);
+
 ```
+
 Configuration options can also be provided as a :term:`DSN` string. This is
 useful when working with environment variables or :term:`PaaS` providers
+
 ```php
 ConnectionManager::setConfig('default', [
     'url' => 'mysql://my_app:sekret@localhost/my_app?encoding=utf8&timezone=UTC&cacheMetadata=true',
 ]);
+
 ```
+
 When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
 By default, all Table objects will use the `default` connection. To
-use a non-default connection, see [configuring-table-connections](#configuring-table-connections).
+use a non-default connection, see [configuring-table-connections](/en/orm/table-objects.md#configuring-table-connections).
 
 There are a number of keys supported in database configuration. A full list is
 as follows:
@@ -228,14 +263,13 @@ cacheMetadata
 Either boolean `true`, or a string containing the cache configuration to
 store meta data in. Having metadata caching disabled by setting it to `false`
 is not advised and can result in very poor performance. See the
-[database-metadata-cache](#database-metadata-cache) section for more information.
+[database-metadata-cache](/en/orm/database-basics.md#database-metadata-cache) section for more information.
 mask
 Set the permissions on the generated database file. (Only supported by SQLite)
 cache
 The `cache` flag to send to SQLite.
 mode
 The `mode` flag value to send to SQLite.
-
 
 At this point, you might want to take a look at the
 [intro/conventions](/en/intro/conventions.md). The correct naming for your tables (and the addition
@@ -249,9 +283,10 @@ pastry\_stores, and savory\_cakes.
 > [!NOTE]
 > If your MySQL server is configured with `skip-character-set-client-handshake`
 > then you MUST use the `flags` config to set your charset encoding. For example
+
 ```php
-'flags' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
-```
+>
+> 'flags' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
 <a id="read-and-write-connections"></a>
 ## Read and Write Connections
 
@@ -264,31 +299,32 @@ Write roles are configured by providing a `write` key.
 
 Role configurations override the values in the shared connection config. If the read
 and write role configurations are the same, a single connection to the database is used
-for both
-```php
+for both::
+
+```
+
 'default' => [
-    'driver' => 'mysql',
-    'username' => '...',
-    'password' => '...',
-    'database' => '...',
-    'read' => [
-        'host' => 'read-db.example.com',
-    ],
-    'write' => [
-        'host' => 'write-db.example.com',
-    ]
+'driver' => 'mysql',
+'username' => '...',
+'password' => '...',
+'database' => '...',
+'read' => [
+'host' => 'read-db.example.com',
+],
+'write' => [
+'host' => 'write-db.example.com',
+]
 ];
+
 ```
 You can specify the same value for both `read` and `write` key without creating
 multiple connections to the database.
 
 **Namespace:** `Cake\Datasource`
 
-
 ## Managing Connections
 
 ### Class `Cake\Datasource\ConnectionManager`
-
 
 The `ConnectionManager` class acts as a registry to access database
 connections your application has. It provides a place that other objects can get
@@ -298,114 +334,117 @@ references to existing connections.
 
 #### Static Method `Cake\Datasource\ConnectionManager::get($name)`
 
-
 Once configured connections can be fetched using
 `Cake\Datasource\ConnectionManager::get()`. This method will
 construct and load a connection if it has not been built before, or return the
-existing known connection
+existing known connection::
+
 ```php
 use Cake\Datasource\ConnectionManager;
 
 $connection = ConnectionManager::get('default');
+
 ```
+
 Attempting to load connections that do not exist will throw an exception.
 
 ### Creating Connections at Runtime
 
 Using `setConfig()` and `get()` you can create new connections that are not
-defined in your configuration files at runtime
+defined in your configuration files at runtime::
+
 ```php
 ConnectionManager::setConfig('my_connection', $config);
 $connection = ConnectionManager::get('my_connection');
+
 ```
-See the [database-configuration](#database-configuration) for more information on the configuration
+
+See the [database-configuration](/en/orm/database-basics.md#database-configuration) for more information on the configuration
 data used when creating connections.
 <a id="database-data-types"></a>
 **Namespace:** `Cake\Database`
 
-
 ## Data Types
 
 ### Class `Cake\Database\TypeFactory`
-
 
 Since not every database vendor includes the same set of data types, or
 the same names for similar data types, CakePHP provides a set of abstracted
 data types for use with the database layer. The types CakePHP supports are:
 
 string
-Maps to `VARCHAR` type. In SQL Server the `NVARCHAR` types are used.
+    Maps to `VARCHAR` type. In SQL Server the `NVARCHAR` types are used.
 char
-Maps to `CHAR` type. In SQL Server the `NCHAR` type is used.
+    Maps to `CHAR` type. In SQL Server the `NCHAR` type is used.
 text
-Maps to `TEXT` types.
+    Maps to `TEXT` types.
 uuid
-Maps to the UUID type if a database provides one, otherwise this will
-generate a `CHAR(36)` field.
+    Maps to the UUID type if a database provides one, otherwise this will
+    generate a `CHAR(36)` field.
 binaryuuid
-Maps to the UUID type if the database provides one, otherwise this will
-generate a `BINARY(16)` column. Binary UUIDs provide more efficient storage
-compared to string UUIDs by storing the UUID as 16 bytes of binary data rather
-than a 36-character string. This type automatically handles conversion between
-string UUID format (with dashes) and binary format.
+    Maps to the UUID type if the database provides one, otherwise this will
+    generate a `BINARY(16)` column. Binary UUIDs provide more efficient storage
+    compared to string UUIDs by storing the UUID as 16 bytes of binary data rather
+    than a 36-character string. This type automatically handles conversion between
+    string UUID format (with dashes) and binary format.
 nativeuuid
-Maps to the UUID type in MySQL with MariaDb. In all other databases,
-`nativeuuid` is an alias for `uuid`.
+    Maps to the UUID type in MySQL with MariaDb. In all other databases,
+    `nativeuuid` is an alias for `uuid`.
 integer
-Maps to the `INTEGER` type provided by the database. BIT is not yet supported
-at this moment.
+    Maps to the `INTEGER` type provided by the database. BIT is not yet supported
+    at this moment.
 smallinteger
-Maps to the `SMALLINT` type provided by the database.
+    Maps to the `SMALLINT` type provided by the database.
 tinyinteger
-Maps to the `TINYINT` or `SMALLINT` type provided by the database. In MySQL
-`TINYINT(1)` is treated as a boolean.
+    Maps to the `TINYINT` or `SMALLINT` type provided by the database. In MySQL
+    `TINYINT(1)` is treated as a boolean.
 biginteger
-Maps to the `BIGINT` type provided by the database.
+    Maps to the `BIGINT` type provided by the database.
 float
-Maps to either `DOUBLE` or `FLOAT` depending on the database. The `precision`
-option can be used to define the precision used.
+    Maps to either `DOUBLE` or `FLOAT` depending on the database. The `precision`
+    option can be used to define the precision used.
 decimal
-Maps to the `DECIMAL` type. Supports the `length` and  `precision`
-options. Values for decimal type ares be represented as strings (not as float
-as some might expect). This is because decimal types are used to represent
-exact numeric values in databases and using float type for them in PHP can
-potentially lead to precision loss.
+    Maps to the `DECIMAL` type. Supports the `length` and  `precision`
+    options. Values for decimal type ares be represented as strings (not as float
+    as some might expect). This is because decimal types are used to represent
+    exact numeric values in databases and using float type for them in PHP can
+    potentially lead to precision loss.
 
-If you want the values to be `float` in your PHP code then consider using
-`FLOAT` or `DOUBLE` type columns in your database. Also, depending on your use
-case you can explicitly map your decimal columns to `float` type in your table
-schema.
+    If you want the values to be `float` in your PHP code then consider using
+    `FLOAT` or `DOUBLE` type columns in your database. Also, depending on your use
+    case you can explicitly map your decimal columns to `float` type in your table
+    schema.
 boolean
-Maps to `BOOLEAN` except in MySQL, where `TINYINT(1)` is used to represent
-booleans. `BIT(1)` is not yet supported at this moment.
+    Maps to `BOOLEAN` except in MySQL, where `TINYINT(1)` is used to represent
+    booleans. `BIT(1)` is not yet supported at this moment.
 binary
-Maps to the `BLOB` or `BYTEA` type provided by the database.
+    Maps to the `BLOB` or `BYTEA` type provided by the database.
 date
-Maps to a native `DATE` column type. The return value of this column
-type is `Cake\I18n\Date` which emulates the date related
-methods of PHP's `DateTime` class.
+    Maps to a native `DATE` column type. The return value of this column
+    type is `Cake\I18n\Date` which emulates the date related
+    methods of PHP's `DateTime` class.
 datetime
-    See [datetime-type](#datetime-type).
+    See [datetime-type](/en/orm/database-basics.md#datetime-type).
 datetimefractional
-    See [datetime-type](#datetime-type).
+    See [datetime-type](/en/orm/database-basics.md#datetime-type).
 timestamp
-Maps to the `TIMESTAMP` type.
+    Maps to the `TIMESTAMP` type.
 timestampfractional
-Maps to the `TIMESTAMP(N)` type.
+    Maps to the `TIMESTAMP(N)` type.
 time
-Maps to a `TIME` type in all databases.
+    Maps to a `TIME` type in all databases.
 json
-Maps to a `JSON` type if it's available, otherwise it maps to `TEXT`.
+    Maps to a `JSON` type if it's available, otherwise it maps to `TEXT`.
 enum
-    See [enum-type](#enum-type).
+    See [enum-type](/en/orm/database-basics.md#enum-type).
 geometry
-Maps to a generic geometry storage type.
+    Maps to a generic geometry storage type.
 point
-Maps to a single point in geospatial storage.
+    Maps to a single point in geospatial storage.
 linestring
-Maps to a single line in geospatial storage.
+    Maps to a single line in geospatial storage.
 polygon
-Maps to a single polygon in geospatial storage.
+    Maps to a single polygon in geospatial storage.
 
 These types are used in both the schema reflection features that CakePHP
 provides, and schema generation features CakePHP uses when using test fixtures.
@@ -417,22 +456,20 @@ automatically convert input parameters from `DateTime` instances into a
 timestamp or formatted datestrings. Likewise, 'binary' columns will accept file
 handles, and generate file handles when reading data.
 > **versionchanged:** 5.1.0
-The `geometry`, `point`, `linestring`, and `polygon` types were
-added.
+   The `geometry`, `point`, `linestring`, and `polygon` types were
+   added.
 > **versionchanged:** 5.2.0
-The `nativeuuid` type was added.
+    The `nativeuuid` type was added.
 <a id="datetime-type"></a>
 ### DateTime Type
 
 ### Class `Cake\Database\DateTimeType`
-
 
 Maps to a native `DATETIME` column type. In PostgreSQL and SQL Server this
 turns into a `TIMESTAMP` type. The default return value of this column type is
 `Cake\I18n\DateTime` which extends [Chronos](https://github.com/cakephp/chronos) and the native `DateTimeImmutable`.
 
 #### Method `Cake\Database\DateTimeType::setTimezone(string|\DateTimeZone|null $timezone)`
-
 
 If your database server's timezone does not match your application's PHP timezone
 then you can use this method to specify your database's timezone. This timezone
@@ -441,9 +478,9 @@ vice versa.
 
 ### Class `Cake\Database\DateTimeFractionalType`
 
-
 Can be used to map datetime columns that contain microseconds such as
-`DATETIME(6)` in MySQL. To use this type you need to add it as a mapped type
+`DATETIME(6)` in MySQL. To use this type you need to add it as a mapped type::
+
 ```php
 // in config/bootstrap.php
 use Cake\Database\TypeFactory;
@@ -451,12 +488,14 @@ use Cake\Database\Type\DateTimeFractionalType;
 
 // Overwrite the default datetime type with a more precise one.
 TypeFactory::map('datetime', DateTimeFractionalType::class);
+
 ```
+
 ### Class `Cake\Database\DateTimeTimezoneType`
 
-
 Can be used to map datetime columns that contain time zones such as
-`TIMESTAMPTZ` in PostgreSQL. To use this type you need to add it as a mapped type
+`TIMESTAMPTZ` in PostgreSQL. To use this type you need to add it as a mapped type::
+
 ```php
 // in config/bootstrap.php
 use Cake\Database\TypeFactory;
@@ -465,14 +504,15 @@ use Cake\Database\Type\DateTimeTimezoneType;
 // Overwrite the default datetime type with a more precise one.
 TypeFactory::map('datetime', DateTimeTimezoneType::class);
 ```
+
 <a id="enum-type"></a>
 ### Enum Type
 
 ### Class `Cake\Database\EnumType`
 
-
 Maps a [BackedEnum](https://www.php.net/manual/en/language.enumerations.backed.php) to a string or integer column.
-To use this type you need to specify which column is associated to which BackedEnum inside the table class
+To use this type you need to specify which column is associated to which BackedEnum inside the table class::
+
 ```php
 use App\Model\Enum\ArticleStatus;
 use Cake\Database\Type\EnumType;
@@ -484,19 +524,25 @@ public function initialize(array $config): void
 
     $this->getSchema()->setColumnType('status', EnumType::from(ArticleStatus::class));
 }
+
 ```
+
 A simple `ArticleStatus` could look like::
 
-    namespace App\Model\Enum;
+```php
+namespace App\Model\Enum;
 
-    enum ArticleStatus: string
-    {
-        case Published = 'Y';
-        case Unpublished = 'N';
-    }
+enum ArticleStatus: string
+{
+case Published = 'Y';
+case Unpublished = 'N';
+}
+
+```
 
 CakePHP also provides the `EnumLabelInterface` which can be implemented by
-Enums that want to provide a map of human-readable labels
+Enums that want to provide a map of human-readable labels::
+
 ```php
 namespace App\Model\Enum;
 
@@ -504,27 +550,32 @@ use Cake\Database\Type\EnumLabelInterface;
 
 enum ArticleStatus: string implements EnumLabelInterface
 {
-    case Published = 'Y';
-    case Unpublished = 'N';
+case Published = 'Y';
+case Unpublished = 'N';
 
     public static function label(): string
     {
         return match ($this) {
             self::Published => __('Published'),
             self::Unpublished => __('Unpublished'),
-        };
+};
     }
 }
+
 ```
+
 This can be useful if you want to use your enums in `FormHelper` select
-inputs. You can use [bake](/en/bake.md) to generate an enum class
+inputs. You can use [bake](/en/bake.md) to generate an enum class::
+
 ```php
 # generate an enum class with two cases and stored as an integer
 bin/cake bake enum UserStatus inactive:0,active:1 -i
 
 # generate an enum class with two cases as a string
 bin/cake bake enum UserStatus published:Y,unpublished:N
+
 ```
+
 CakePHP recommends a few conventions for enums:
 
 - Enum classnames should follow `{Entity}{ColumnName}` style to enable
@@ -542,14 +593,14 @@ and have values set as text.
 
 > [!IMPORTANT]
 > Added in version 5.1.0
-Geospatial schema types were added.
+
+   Geospatial schema types were added.
 <a id="adding-custom-database-types"></a>
 ### Adding Custom Types
 
 ### Class `Cake\Database\TypeFactory`
 
 #### Static Method `Cake\Database\TypeFactory::map($name, $class)`
-
 
 If you need to use vendor specific types that are not built into CakePHP you can
 add additional new types to CakePHP's type system. Type classes are expected to
@@ -562,7 +613,8 @@ implement the following methods:
 
 To fulfill the basic interface, extend `Cake\Database\Type`.
 For example if we wanted to add a PointMutation type, we could make the following type
-class
+class::
+
 ```php
 // in src/Database/Type/PointMutationType.php
 
@@ -609,39 +661,45 @@ class PointMutationType extends BaseType
     {
         if (preg_match('/^(\d+)([a-zA-Z])>([a-zA-Z])$/', $value, $matches)) {
             return [
-                'position' => (int) $matches[1],
-                'from' => $matches[2],
-                'to' => $matches[3]
-            ];
+'position' => (int) $matches[1],
+'from' => $matches[2],
+'to' => $matches[3]
+];
         }
 
         return null;
     }
 }
+
 ```
+
 By default the `toStatement()` method will treat values as strings which will
 work for our new type.
 
 ### Connecting Custom Datatypes to Schema Reflection and Generation
 
 Once we've created our new type, we need to add it into
-the type mapping. During our application bootstrap we should do the following
+the type mapping. During our application bootstrap we should do the following::
+
 ```php
 use Cake\Database\TypeFactory;
 
 TypeFactory::map('point_mutation', \App\Database\Type\PointMutationType:class);
+
 ```
+
 We then have two ways to use our datatype in our models.
 
 #. The first path is to overwrite the reflected schema data to use our new type.
 #. The second is to implement `Cake\Database\Type\ColumnSchemaAwareInterface`
-and define the SQL column type and reflection logic.
+   and define the SQL column type and reflection logic.
 
 Overwriting the reflected schema with our custom type will enable CakePHP's
 database layer to automatically convert PointMutation data when creating queries. In your
-Table's [getSchema() method](#saving-complex-types) add the
+Table's [getSchema() method](/en/orm/saving-data.md#saving-complex-types) add the
 
-following
+following::
+
 ```php
 class WidgetsTable extends Table
 {
@@ -651,12 +709,15 @@ class WidgetsTable extends Table
 
     }
 }
+
 ```
+
 Implementing `ColumnSchemaAwareInterface` gives you more control over
 custom datatypes.  This avoids overwriting schema definitions if your
 datatype has an unambiguous SQL column definition. For example, we could have
 our PointMutation type be used anytime a `TEXT` column with a specific comment is
-used
+used::
+
 ```php
 // in src/Database/Type/PointMutationType.php
 
@@ -669,20 +730,20 @@ use Cake\Database\Schema\TableSchemaInterface;
 use PDO;
 
 class PointMutationType extends BaseType
-    implements ColumnSchemaAwareInterface
+implements ColumnSchemaAwareInterface
 {
     // other methods from earlier
 
     /**
-     - Convert abstract schema definition into a driver specific
-     - SQL snippet that can be used in a CREATE TABLE statement.
-     - * Returning null will fall through to CakePHP's built-in types.
+- Convert abstract schema definition into a driver specific
+- SQL snippet that can be used in a CREATE TABLE statement.
+- * Returning null will fall through to CakePHP's built-in types.
      */
     public function getColumnSql(
-        TableSchemaInterface $schema,
-        string $column,
-        Driver $driver
-    ): ?string {
+TableSchemaInterface $schema,
+string $column,
+Driver $driver
+): ?string {
         $data = $schema->getColumn($column);
         $sql = $driver->quoteIdentifier($column);
         $sql .= ' JSON';
@@ -694,20 +755,22 @@ class PointMutationType extends BaseType
     }
 
     /**
-     - Convert the column data returned from schema reflection
-     - into the abstract schema data.
-     - * Returning null will fall through to CakePHP's built-in types.
+- Convert the column data returned from schema reflection
+- into the abstract schema data.
+- * Returning null will fall through to CakePHP's built-in types.
      */
     public function convertColumnDefinition(
         array $definition,
-        Driver $driver
-    ): ?array {
+Driver $driver
+): ?array {
         return [
-            'type' => $this->_name,
-            'length' => null,
-        ];
+'type' => $this->_name,
+'length' => null,
+];
     }
+
 ```
+
 The `$definition` data passed to `convertColumnDefinition()` will contain
 the following keys. All keys will exist but may contain `null` if the key has
 no value for the current database driver:
@@ -726,7 +789,8 @@ with these datatypes your Type class needs to implement the
 your custom type represent a value as a SQL expression. As an example, we'll
 build a simple Type class for handling `POINT` type data out of MySQL. First
 we'll define a 'value' object that we can use to represent `POINT` data in
-PHP
+PHP::
+
 ```php
 // in src/Database/Point.php
 namespace App\Database;
@@ -762,9 +826,12 @@ class Point
         return $this->_long;
     }
 }
+
 ```
+
 With our value object created, we'll need a Type class to map data into this
-value object and into SQL expressions
+value object and into SQL expressions::
+
 ```php
 namespace App\Database\Type;
 
@@ -798,12 +865,12 @@ class PointType extends BaseType implements ExpressionTypeInterface
     {
         if ($value instanceof Point) {
             return new FunctionExpression(
-                'POINT',
-                [
+'POINT',
+[
                     $value->lat(),
                     $value->long()
-                ]
-            );
+]
+);
         }
         if (is_array($value)) {
             return new FunctionExpression('POINT', [$value[0], $value[1]]);
@@ -816,7 +883,9 @@ class PointType extends BaseType implements ExpressionTypeInterface
         return $value;
     }
 }
+
 ```
+
 The above class does a few interesting things:
 
 - The `toPHP` method handles parsing the SQL query results into a value
@@ -828,12 +897,11 @@ The above class does a few interesting things:
   something like `POINT(10.24, 12.34)`.
 
 Once we've built our custom type, we'll need to [connect our type
-to our table class](#saving-complex-types).
+to our table class](/en/orm/saving-data.md#saving-complex-types).
 
 ## Connection Classes
 
 ### Class `Cake\Database\Connection`
-
 
 Connection classes provide a simple interface to interact with database
 connections in a consistent way. They are intended as a more abstract interface to
@@ -844,35 +912,42 @@ transactional operations.
 
 #### Method `Cake\Database\Connection::execute(string $sql, array $params = [], array $types = []): \Cake\Database\StatementInterface`
 
-
 Once you've gotten a connection object, you'll probably want to issue some
 queries with it. CakePHP's database abstraction layer provides wrapper features
 on top of PDO and native drivers. These wrappers provide a similar interface to
 PDO. There are a few different ways you can run queries depending on the type of
 query you need to run and what kind of results you need back. The most basic
-method is `execute()` which allows you to run complet SQL queries
+method is `execute()` which allows you to run complet SQL queries::
+
 ```php
 $statement = $connection->execute('UPDATE articles SET published = 1 WHERE id = 2');
+
 ```
+
 For parameterized queries use the 2nd argument::
 
-    $statement = $connection->execute(
-        'UPDATE articles SET published = ? WHERE id = ?',
-        [1, 2]
-    );
+```php
+$statement = $connection->execute(
+'UPDATE articles SET published = ? WHERE id = ?',
+[1, 2]
+);
+
+```
 
 Without any type hinting information, `execute` will assume all placeholders
 are string values. If you need to bind specific types of data, you can use their
-abstract type names when creating a query
+abstract type names when creating a query::
+
 ```php
 $statement = $connection->execute(
-    'UPDATE articles SET published_date = ? WHERE id = ?',
-    [new DateTime('now'), 2],
-    ['date', 'integer']
+'UPDATE articles SET published_date = ? WHERE id = ?',
+[new DateTime('now'), 2],
+['date', 'integer']
 );
-```
-#### Method `Cake\Database\Connection::selectQuery()`
 
+```
+
+#### Method `Cake\Database\Connection::selectQuery()`
 
 These methods allow you to use rich data types in your applications and properly convert
 them into SQL statements. The last and most flexible way of creating queries is
@@ -880,7 +955,8 @@ to use the [orm/query-builder](/en/orm/query-builder.md). This approach allows y
 expressive queries without having to use platform specific SQL. When using the
 query builder, no SQL will be sent to the database server until the `execute()`
 method is called, or the query is iterated. Iterating a query will first execute
-it and then start iterating over the result set
+it and then start iterating over the result set::
+
 ```php
 $query = $connection->selectQuery();
 $query->select('*')
@@ -890,65 +966,79 @@ $query->select('*')
 foreach ($query as $row) {
     // Do something with the row.
 }
+
 ```
+
 > [!NOTE]
 > Instead of iterating the `$query` you can also call it's `all()` method
 > to get the results.
 >
+
 #### Method `Cake\Database\Connection::updateQuery()`
 
+This method provides you a builder for `UPDATE` queries::
 
-This method provides you a builder for `UPDATE` queries
 ```php
 $query = $connection->updateQuery('articles')
     ->set(['published' => true])
     ->where(['id' => 2]);
 $statement = $query->execute();
+
 ```
+
 #### Method `Cake\Database\Connection::insertQuery()`
 
+This method provides you a builder for `INSERT` queries::
 
-This method provides you a builder for `INSERT` queries
 ```php
 $query = $connection->insertQuery();
 $query->into('articles')
     ->columns(['title'])
     ->values(['1st article']);
 $statement = $query->execute();
+
 ```
+
 #### Method `Cake\Database\Connection::deleteQuery()`
 
+This method provides you a builder for `DELETE` queries::
 
-This method provides you a builder for `DELETE` queries
 ```php
 $query = $connection->deleteQuery();
 $query->delete('articles')
     ->where(['id' => 2]);
 $statement = $query->execute();
+
 ```
+
 ### Using Transactions
 
 The connection objects provide you a few simple ways you do database
 transactions. The most basic way of doing transactions is through the `begin()`,
-`commit()` and `rollback()` methods, which map to their SQL equivalents
+`commit()` and `rollback()` methods, which map to their SQL equivalents::
+
 ```php
 $connection->begin();
 $connection->execute('UPDATE articles SET published = ? WHERE id = ?', [true, 2]);
 $connection->execute('UPDATE articles SET published = ? WHERE id = ?', [false, 4]);
 $connection->commit();
-```
-#### Method `Cake\Database\Connection::transactional(callable $callback)`
 
+```
+
+#### Method `Cake\Database\Connection::transactional(callable $callback)`
 
 In addition to this interface connection instances also provide the
 `transactional()` method which makes handling the begin/commit/rollback calls
-much simpler
+much simpler::
+
 ```php
 $connection->transactional(function ($connection) {
     $connection->execute('UPDATE articles SET published = ? WHERE id = ?', [true, 2]);
     $connection->execute('UPDATE articles SET published = ? WHERE id = ?', [false, 4]);
 });
+
 ```
+
 In addition to basic queries, you can execute more complex queries using either
 the [orm/query-builder](/en/orm/query-builder.md) or [orm/table-objects](/en/orm/table-objects.md). The transactional method will
 do the following:
@@ -971,6 +1061,7 @@ from the driver. After creating and executing a query object, or using
 
 Once a query is executed using `execute()`, results can be fetched using
 `fetch()`, `fetchAll()`
+
 ```php
 $statement->execute();
 
@@ -979,22 +1070,29 @@ $row = $statement->fetch('assoc');
 
 // Read all rows.
 $rows = $statement->fetchAll('assoc');
+
 ```
+
 ### Getting affected Row Counts
 
-After executing a statement, you can fetch the number of affected rows
+After executing a statement, you can fetch the number of affected rows::
+
 ```php
 $rowCount = $statement->rowCount();
+
 ```
+
 ### Checking Error Codes
 
 If your query was not successful, you can get related error information
 using the `errorCode()` and `errorInfo()` methods. These methods work the
-same way as the ones provided by PDO
+same way as the ones provided by PDO::
+
 ```php
 $code = $statement->errorCode();
 $info = $statement->errorInfo();
 ```
+
 <a id="database-query-logging"></a>
 ## Query Logging
 
@@ -1005,29 +1103,33 @@ When query logging is enabled, queries will be logged to
 `Cake\Log\Log` using the 'debug' level, and the 'queriesLog' scope.
 You will need to have a logger configured to capture this level & scope. Logging
 to `stderr` can be useful when working on unit tests, and logging to
-files/syslog can be useful when working with web requests
+files/syslog can be useful when working with web requests::
+
 ```php
 use Cake\Log\Log;
 
 // Console logging
 Log::setConfig('queries', [
-    'className' => 'Console',
-    'stream' => 'php://stderr',
-    'scopes' => ['queriesLog']
+'className' => 'Console',
+'stream' => 'php://stderr',
+'scopes' => ['queriesLog']
 ]);
 
 // File logging
 Log::setConfig('queries', [
-    'className' => 'File',
-    'path' => LOGS,
-    'file' => 'queries.log',
-    'scopes' => ['queriesLog']
+'className' => 'File',
+'path' => LOGS,
+'file' => 'queries.log',
+'scopes' => ['queriesLog']
 ]);
+
 ```
+
 > [!NOTE]
 > Query logging is only intended for debugging/development uses. You should
 > never leave query logging on in production as it will negatively impact the
 > performance of your application.
+
 <a id="identifier-quoting"></a>
 ## Identifier Quoting
 
@@ -1040,15 +1142,19 @@ reason for this is identifier quoting has a few drawbacks:
 
 If you are using a legacy schema that requires identifier quoting you can enable
 it using the `quoteIdentifiers` setting in your
-[database-configuration](#database-configuration). You can also enable this feature at runtime
+[database-configuration](/en/orm/database-basics.md#database-configuration). You can also enable this feature at runtime::
+
 ```php
 $connection->getDriver()->enableAutoQuoting();
+
 ```
+
 When enabled, identifier quoting will cause additional query traversal that
 converts all identifiers into `IdentifierExpression` objects.
 
 > [!NOTE]
 > SQL snippets contained in QueryExpression objects will not be modified.
+
 <a id="database-metadata-cache"></a>
 ## Metadata Caching
 
@@ -1057,19 +1163,23 @@ foreign keys your application contains. Because this metadata changes
 infrequently and can be expensive to access, it is typically cached. By default,
 metadata is stored in the `_cake_model_` cache configuration. You can define
 a custom cache configuration using the `cacheMetatdata` option in your
-datasource configuration
-```php
+datasource configuration::
+
+```
 'Datasources' => [
-    'default' => [
+'default' => [
         // Other keys go here.
 
         // Use the 'orm_metadata' cache config for metadata.
-        'cacheMetadata' => 'orm_metadata',
-    ]
+'cacheMetadata' => 'orm_metadata',
+]
 ],
+
 ```
+
 You can also configure the metadata caching at runtime with the
-`cacheMetadata()` method
+`cacheMetadata()` method::
+
 ```php
 // Disable the cache
 $connection->cacheMetadata(false);
@@ -1079,23 +1189,30 @@ $connection->cacheMetadata(true);
 
 // Use a custom cache config
 $connection->cacheMetadata('orm_metadata');
+
 ```
+
 CakePHP also includes a CLI tool for managing metadata caches. See the
 [console-commands/schema-cache](/en/console-commands/schema-cache.md) chapter for more information.
 
 ## Creating Databases
 
 If you want to create a connection without selecting a database you can omit
-the database name
+the database name::
+
 ```php
 $dsn = 'mysql://root:password@localhost/';
 ConnectionManager::setConfig('setup', ['url' => $dsn]);
+
 ```
+
 You can now use your connection object to execute queries that create/modify
-databases. For example to create a database
+databases. For example to create a database::
+
 ```php
 $connection = ConnectionManager::get('setup');
 $connection->execute("CREATE DATABASE IF NOT EXISTS my_database");
+
 ```
 
 > [!NOTE]
@@ -1103,3 +1220,5 @@ $connection->execute("CREATE DATABASE IF NOT EXISTS my_database");
 > collation parameters (e.g. `DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci`).
 > If these values are missing, the database will set whatever system default values it uses.
 >
+
+```

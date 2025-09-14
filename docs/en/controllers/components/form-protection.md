@@ -7,7 +7,6 @@ keywords: "configurable parameters,form protection component,configuration param
 
 ### Class `FormProtection(ComponentCollection $collection, array $config = [])`
 
-
 The FormProtection Component provides protection against form data tampering.
 
 Like all components it is configured through several configurable parameters.
@@ -29,6 +28,7 @@ in your `initialize()` method.
 > or creating new fields via JavaScript, is likely to cause the form token
 > validation to fail.
 >
+
 ## Form tampering prevention
 
 By default the `FormProtectionComponent` prevents users from tampering with
@@ -50,6 +50,7 @@ and compare the hash.
 > The FormProtectionComponent will **not** prevent select options from being
 > added/changed. Nor will it prevent radio options from being added/changed.
 >
+
 ## Usage
 
 Configuring the form protection component is generally done in the controller's
@@ -101,7 +102,9 @@ class WidgetsController extends AppController
         }
     }
 }
+
 ```
+
 The above example would disable form tampering prevention for admin prefixed
 routes.
 
@@ -110,6 +113,7 @@ routes.
 There may be cases where you want to disable form tampering prevention for an
 action (ex. AJAX requests).  You may "unlock" these actions by listing them in
 `$this->FormProtection->setConfig('unlockedActions', ['edit']);` in your `beforeFilter()`
+
 ```php
 namespace App\Controller;
 
@@ -131,7 +135,9 @@ class WidgetController extends AppController
         $this->FormProtection->setConfig('unlockedActions', ['edit']);
     }
 }
+
 ```
+
 This example would disable all security checks for the edit action.
 
 ## Handling validation failure through callbacks
@@ -142,6 +148,7 @@ configuration option to a callback function in the controller.
 
 By configuring a callback method you can customize how the failure handling process
 works
+
 ```php
 use Cake\Controller\Exception\FormProtectionException;
 
@@ -158,4 +165,5 @@ public function beforeFilter(EventInterface $event): void
         }
     );
 }
+
 ```

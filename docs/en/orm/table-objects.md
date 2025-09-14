@@ -2,7 +2,6 @@
 
 **Namespace:** `Cake\ORM`
 
-
 ### Class `Cake\ORM\Table`
 
 :noindex:
@@ -14,7 +13,7 @@ the behavior of a given table CakePHP will generate a Table instance for you to
 use.
 
 Before trying to use Table objects and the ORM, you should ensure that you have
-configured your [database connection](#database-configuration).
+configured your [database connection](/en/orm/database-basics.md#database-configuration).
 
 ## Basic Usage
 
@@ -32,13 +31,16 @@ use Cake\ORM\Table;
 class ArticlesTable extends Table
 {
 }
+
 ```
+
 Note that we did not tell the ORM which table to use for our class. By
 convention table objects will use a table that matches the lower cased and
 underscored version of the class name. In the above example the `articles`
 table will be used. If our table class was named `BlogPosts` your table should
 be named `blog_posts`. You can specify the table to use by using the `setTable()`
 method
+
 ```php
 namespace App\Model\Table;
 
@@ -51,10 +53,13 @@ class ArticlesTable extends Table
         $this->setTable('my_table');
     }
 }
+
 ```
+
 No inflection conventions will be applied when specifying a table. By convention
 the ORM also expects each table to have a primary key with the name of `id`.
 If you need to modify this you can use the `setPrimaryKey()` method
+
 ```php
 namespace App\Model\Table;
 
@@ -67,7 +72,9 @@ class ArticlesTable extends Table
         $this->setPrimaryKey('my_id');
     }
 }
+
 ```
+
 ### Customizing the Entity Class a Table Uses
 
 By default table objects use an entity class based on naming conventions. For
@@ -75,6 +82,7 @@ example if your table class is called `ArticlesTable` the entity would be
 `Article`. If the table class was `PurchaseOrdersTable` the entity would be
 `PurchaseOrder`. If however, you want to use an entity that doesn't follow the
 conventions you can use the `setEntityClass()` method to change things up
+
 ```php
 class PurchaseOrdersTable extends Table
 {
@@ -83,7 +91,9 @@ class PurchaseOrdersTable extends Table
         $this->setEntityClass('App\Model\Entity\PO');
     }
 }
+
 ```
+
 As seen in the examples above Table objects have an `initialize()` method
 which is called at the end of the constructor. It is recommended that you use
 this method to do initialization logic instead of overriding the constructor.
@@ -92,20 +102,24 @@ this method to do initialization logic instead of overriding the constructor.
 
 Before you can query a table, you'll need to get an instance of the table. You
 can do this by using the `TableLocator` class
+
 ```php
 // In a controller
 
 $articles = $this->fetchTable('Articles');
+
 ```
+
 `TableLocator` provides the various dependencies for constructing
 a table, and maintains a registry of all the constructed table instances making
 it easier to build relations and configure the ORM. See
-[table-locator-usage](#table-locator-usage) for more information.
+[table-locator-usage](/en/orm/table-objects.md#table-locator-usage) for more information.
 
 If your table class is in a plugin, be sure to use the correct name for your
 table class. Failing to do so can result in validation rules, or callbacks not
 being triggered as a default class is used instead of your actual class. To
 correctly load plugin table classes use the following
+
 ```php
 // Plugin table
 $articlesTable = $this->fetchTable('PluginName.Articles');
@@ -113,6 +127,7 @@ $articlesTable = $this->fetchTable('PluginName.Articles');
 // Vendor prefixed plugin table
 $articlesTable = $this->fetchTable('VendorName/PluginName.Articles');
 ```
+
 <a id="table-callbacks"></a>
 ## Lifecycle Callbacks
 
@@ -129,6 +144,7 @@ callback methods are triggered. This follows the same sequencing as controllers
 To add an event listener to a Table class or Behavior simply implement the
 method signatures as described below. See the [core-libraries/events](/en/core-libraries/events.md) for
 more detail on how to use the events subsystem
+
 ```php
 // In a controller
 $articles->save($article, ['customVariable1' => 'yourValue1']);
@@ -145,7 +161,9 @@ public function afterSaveCommit(Event $event, EntityInterface $entity, ArrayObje
     $customVariable = $options['customVariable1'];	// 'yourValue1'
     $customVariable = $options['customVariable2'];	// 'yourValue2'
 }
+
 ```
+
 ### Event List
 
 - `Model.initialize`
@@ -167,13 +185,13 @@ public function afterSaveCommit(Event $event, EntityInterface $entity, ArrayObje
 
 #### Method `Cake\ORM\Table::initialize(EventInterface $event, ArrayObject $data, ArrayObject $options)`
 
-
 The `Model.initialize` event is fired after the constructor and initialize
 methods are called. The `Table` classes do not listen to this event by
 default, and instead use the `initialize` hook method.
 
 To respond to the `Model.initialize` event you can create a listener class
 which implements `EventListenerInterface`
+
 ```php
 use Cake\Event\EventListenerInterface;
 class ModelInitializeListener implements EventListenerInterface
@@ -191,12 +209,17 @@ class ModelInitializeListener implements EventListenerInterface
         // do something here
     }
 }
+
 ```
+
 and attach the listener to the `EventManager` as below::
 
-    use Cake\Event\EventManager;
-    $listener = new ModelInitializeListener();
-    EventManager::instance()->attach($listener);
+```php
+use Cake\Event\EventManager;
+$listener = new ModelInitializeListener();
+EventManager::instance()->attach($listener);
+
+```
 
 This will call the `initializeEvent` when any `Table` class is constructed.
 
@@ -204,14 +227,12 @@ This will call the `initializeEvent` when any `Table` class is constructed.
 
 #### Method `Cake\ORM\Table::beforeMarshal(EventInterface $event, ArrayObject $data, ArrayObject $options)`
 
-
 The `Model.beforeMarshal` event is fired before request data is converted
-into entities. See the [before-marshal](#before-marshal) documentation for more information.
+into entities. See the [before-marshal](/en/orm/saving-data.md#before-marshal) documentation for more information.
 
 ### afterMarshal
 
 #### Method `Cake\ORM\Table::afterMarshal(EventInterface $event, EntityInterface $entity, ArrayObject $data, ArrayObject $options)`
-
 
 The `Model.afterMarshal` event is fired after request data is converted
 into entities. Event handlers will get the converted entities, original request
@@ -221,10 +242,10 @@ data and the options provided to the `patchEntity()` or `newEntity()` call.
 
 #### Method `Cake\ORM\Table::beforeFind(EventInterface $event, SelectQuery $query, ArrayObject $options, boolean $primary)`
 
-
 The `Model.beforeFind` event is fired before each find operation. By stopping
 the event, and feeding the query with a custom result set, you can bypass the find
 operation entirely
+
 ```php
 public function beforeFind(EventInterface $event, SelectQuery $query, ArrayObject $options, $primary): void
 {
@@ -236,7 +257,9 @@ public function beforeFind(EventInterface $event, SelectQuery $query, ArrayObjec
     }
     // ...
 }
+
 ```
+
 In this example, no further `beforeFind` events will be triggered on the
 related table or its attached behaviors (though behavior events are usually
 invoked earlier given their default priorities), and the query will return
@@ -251,12 +274,11 @@ fields, conditions, joins or result formatters. These options/features will be
 copied onto the root query.
 
 In previous versions of CakePHP there was an `afterFind` callback, this has
-been replaced with the [map-reduce](#map-reduce) features and entity constructors.
+been replaced with the [map-reduce](/en/orm/retrieving-data-and-resultsets.md#map-reduce) features and entity constructors.
 
 ### buildValidator
 
 #### Method `Cake\ORM\Table::buildValidator(EventInterface $event, Validator $validator, $name)`
-
 
 The `Model.buildValidator` event is fired when `$name` validator is created.
 Behaviors, can use this hook to add in validation methods.
@@ -265,14 +287,12 @@ Behaviors, can use this hook to add in validation methods.
 
 #### Method `Cake\ORM\Table::buildRules(RulesChecker $rules): RulesChecker`
 
-
 The `Model.buildRules` event is fired after a rules instance has been
 created and after the `Table::buildRules()` method has been called.
 
 ### beforeRules
 
 #### Method `Cake\ORM\Table::beforeRules(EventInterface $event, EntityInterface $entity, ArrayObject $options, $operation)`
-
 
 The `Model.beforeRules` event is fired before an entity has had rules applied. By
 stopping this event, you can halt the rules checking and set the result
@@ -282,7 +302,6 @@ of applying rules.
 
 #### Method `Cake\ORM\Table::afterRules(EventInterface $event, EntityInterface $entity, ArrayObject $options, $result, $operation)`
 
-
 The `Model.afterRules` event is fired after an entity has rules applied. By
 stopping this event, you can return the final value of the rules checking
 operation.
@@ -290,7 +309,6 @@ operation.
 ### beforeSave
 
 #### Method `Cake\ORM\Table::beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options)`
-
 
 The `Model.beforeSave` event is fired before each entity is saved. Stopping
 this event will abort the save operation. When the event is stopped the result
@@ -300,13 +318,11 @@ of the event will be returned.
 
 #### Method `Cake\ORM\Table::afterSave(EventInterface $event, EntityInterface $entity, ArrayObject $options)`
 
-
 The `Model.afterSave` event is fired after an entity is saved.
 
 ### afterSaveCommit
 
 #### Method `Cake\ORM\Table::afterSaveCommit(EventInterface $event, EntityInterface $entity, ArrayObject $options)`
-
 
 The `Model.afterSaveCommit` event is fired after the transaction in which the
 save operation is wrapped has been committed. It's also triggered for non atomic
@@ -318,7 +334,6 @@ not triggered if a transaction is started before calling save.
 
 #### Method `Cake\ORM\Table::beforeDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options)`
 
-
 The `Model.beforeDelete` event is fired before an entity is deleted. By
 stopping this event you will abort the delete operation. When the event is stopped the result
 of the event will be returned.
@@ -327,13 +342,11 @@ of the event will be returned.
 
 #### Method `Cake\ORM\Table::afterDelete(EventInterface $event, EntityInterface $entity, ArrayObject $options)`
 
-
 The `Model.afterDelete` event is fired after an entity has been deleted.
 
 ### afterDeleteCommit
 
 #### Method `Cake\ORM\Table::afterDeleteCommit(EventInterface $event, EntityInterface $entity, ArrayObject $options)`
-
 
 The `Model.afterDeleteCommit` event is fired after the transaction in which the
 delete operation is wrapped has been is committed. It's also triggered for non
@@ -343,6 +356,7 @@ The event is not triggered if a transaction is started before calling delete.
 
 ### Stopping Table Events
 To prevent the save from continuing, simply stop event propagation in your callback
+
 ```php
 public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
 {
@@ -354,7 +368,9 @@ public function beforeSave(EventInterface $event, EntityInterface $entity, Array
     }
     ...
 }
+
 ```
+
 Alternatively, you can return false from the callback. This has the same effect as stopping event propagation.
 
 ### Callback priorities
@@ -374,6 +390,7 @@ You can manage event priorities in one of a few ways:
 #. Change the `priority` of a Behavior's listeners using the `priority`
 option. This will modify the priority of **all** callback methods in the
 Behavior
+
 ```php
 // In a Table initialize() method
 $this->addBehavior('Tree', [
@@ -381,10 +398,13 @@ $this->addBehavior('Tree', [
     // lowest to highest priority.
     'priority' => 2,
 ]);
+
 ```
+
 #. Modify the `priority` in your `Table` class by using the
 `Model.implementedEvents()` method. This allows you to assign a different
 priority per callback-function
+
 ```php
 // In a Table class.
 public function implementedEvents(): array
@@ -397,11 +417,12 @@ public function implementedEvents(): array
 
     return $events;
 }
+
 ```
+
 ## Behaviors
 
 #### Method `Cake\ORM\Table::addBehavior($name, array $options = [])`
-
 
 .. start-behaviors
 
@@ -412,6 +433,7 @@ would allow for re-usable pieces of logic, they would complicate binding events.
 
 To add a behavior to your table you can call the `addBehavior()` method.
 Generally the best place to do this is in the `initialize()` method
+
 ```php
 namespace App\Model\Table;
 
@@ -424,9 +446,12 @@ class ArticlesTable extends Table
         $this->addBehavior('Timestamp');
     }
 }
+
 ```
+
 As with associations, you can use :term:`plugin syntax` and provide additional
 configuration options
+
 ```php
 namespace App\Model\Table;
 
@@ -446,7 +471,9 @@ class ArticlesTable extends Table
         ]);
     }
 }
+
 ```
+
 .. end-behaviors
 
 You can find out more about behaviors, including the behaviors provided by
@@ -457,6 +484,7 @@ CakePHP in the chapter on [orm/behaviors](/en/orm/behaviors.md).
 By default all table instances use the `default` database connection. If your
 application uses multiple database connections you will want to configure which
 tables use which connections. This is the `defaultConnectionName()` method
+
 ```php
 namespace App\Model\Table;
 
@@ -468,15 +496,17 @@ class ArticlesTable extends Table
         return 'replica_db';
     }
 }
+
 ```
+
 > [!NOTE]
 > The `defaultConnectionName()` method **must** be static.
+
 <a id="table-registry-usage"></a>
 <a id="table-locator-usage"></a>
 ## Using the TableLocator
 
 ### Class `Cake\ORM\TableLocator`
-
 
 As we've seen earlier, the TableLocator class provides a way to use a
 factory/registry for accessing your applications table instances. It provides a
@@ -486,9 +516,9 @@ few other useful features as well.
 
 #### Method `Cake\ORM\TableLocator::get($alias, $config)`
 
-
 When loading tables from the registry you can customize their dependencies, or
 use mock objects by providing an `$options` array
+
 ```php
 $articles = FactoryLocator::get('Table')->get('Articles', [
     'className' => 'App\Custom\ArticlesTable',
@@ -499,7 +529,9 @@ $articles = FactoryLocator::get('Table')->get('Articles', [
     'eventManager' => $eventManager,
     'behaviors' => $behaviorRegistry
 ]);
+
 ```
+
 Pay attention to the connection and schema configuration settings, they aren't
 string values but objects. The connection will take an object of
 `Cake\Database\Connection` and schema `Cake\Database\Schema\Collection`.
@@ -508,32 +540,40 @@ string values but objects. The connection will take an object of
 > If your table also does additional configuration in its `initialize()` method,
 > those values will overwrite the ones provided to the registry.
 >
+
 You can also pre-configure the registry using the `setConfig()` method.
 Configuration data is stored *per alias*, and can be overridden by an object's
 `initialize()` method
+
 ```php
 FactoryLocator::get('Table')->setConfig('Users', ['table' => 'my_users']);
+
 ```
+
 > [!NOTE]
 > You can only configure a table before or during the **first** time you
 > access that alias. Doing it after the registry is populated will have no
 > effect.
 >
+
 ### Flushing the Registry
 
 #### Method `Cake\ORM\TableLocator::clear()`
 
-
 During test cases you may want to flush the registry. Doing so is often useful
 when you are using mock objects, or modifying a table's dependencies
+
 ```php
 FactoryLocator::get('Table')->clear();
+
 ```
+
 ### Configuring the Namespace to Locate ORM classes
 
 If you have not followed the conventions it is likely that your Table or
 Entity classes will not be detected by CakePHP. In order to fix this, you can
 set a namespace with the `Cake\Core\Configure::write` method. As an example
+
 ```
 /src
     /App
@@ -542,9 +582,12 @@ set a namespace with the `Cake\Core\Configure::write` method. As an example
                 /Model
                     /Entity
                     /Table
+
 ```
 
 Would be configured with::
 
-    Cake\Core\Configure::write('App.namespace', 'App\My\Namespace');
+```php
+Cake\Core\Configure::write('App.namespace', 'App\My\Namespace');
 
+```

@@ -7,7 +7,7 @@ keywords: "html attributes,array class,array controller,glossary glossary,target
 
 .. glossary
 
-```
+```php
 CDN
     Content Delivery Network. A 3rd party vendor you can pay to help
     distribute your content to data centers around the world. This helps
@@ -35,17 +35,23 @@ dot notation
     Dot notation defines an array path, by separating nested levels with `.`
     For example::
 
-        Cache.default.engine
+```
 
+Cache.default.engine
+
+```
     Would point to the following value::
 
-        [
-            'Cache' => [
-                'default' => [
-                    'engine' => 'File'
-                ]
-            ]
-        ]
+```json
+[
+'Cache' => [
+'default' => [
+'engine' => 'File'
+]
+]
+]
+
+```
 
 DRY
     Don't repeat yourself. Is a principle of software development aimed at
@@ -60,20 +66,26 @@ fields
 HTML attributes
     An array of key => values that are composed into HTML attributes. For example::
 
-        // Given
-        ['class' => 'my-class', 'target' => '_blank']
+```
+// Given
+['class' => 'my-class', 'target' => '_blank']
 
-        // Would generate
-        class="my-class" target="_blank"
+// Would generate
+class="my-class" target="_blank"
+
+```
 
     If an option can be minimized or accepts its name as the value, then `true`
     can be used::
 
-        // Given
-        ['checked' => true]
+```
+// Given
+['checked' => true]
 
-        // Would generate
-        checked="checked"
+// Would generate
+checked="checked"
+
+```
 
 PaaS
     Platform as a Service. Platform as a Service providers will provide
@@ -87,11 +99,14 @@ plugin syntax
     Plugin syntax refers to the dot separated class name indicating classes
     are part of a plugin::
 
-        // The plugin is "DebugKit", and the class name is "Toolbar".
-        'DebugKit.Toolbar'
+```php
+// The plugin is "DebugKit", and the class name is "Toolbar".
+'DebugKit.Toolbar'
 
-        // The plugin is "AcmeCorp/Tools", and the class name is "Toolbar".
-        'AcmeCorp/Tools.Toolbar'
+// The plugin is "AcmeCorp/Tools", and the class name is "Toolbar".
+'AcmeCorp/Tools.Toolbar'
+
+```
 
 routes.php
     A file in `config` directory that contains routing configuration.
@@ -103,5 +118,9 @@ routing array
     An array of attributes that are passed to `Router::url()`.
     They typically look like::
 
-        ['controller' => 'Posts', 'action' => 'view', 5]
+```json
+['controller' => 'Posts', 'action' => 'view', 5]
+
+```
+
 ```

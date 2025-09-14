@@ -7,9 +7,7 @@ keywords: "correct models,controller class,controller controller,core library,si
 
 **Namespace:** `Cake\Controller`
 
-
 ### Class `Cake\Controller\Controller`
-
 
 Controllers are the 'C' in MVC. After routing has been applied and the correct
 controller has been found, your controller's action is called. Your controller
@@ -54,7 +52,9 @@ use Cake\Controller\Controller;
 class AppController extends Controller
 {
 }
+
 ```
+
 Controller attributes and methods created in your `AppController` will be
 available in all controllers that extend it. Components (which you'll
 learn about later) are best used for code that is used in many (but not
@@ -63,6 +63,7 @@ necessarily all) controllers.
 You can use your `AppController` to load components that will be used in every
 controller in your application. CakePHP provides a `initialize()` method that
 is invoked at the end of a Controller's constructor for this kind of use
+
 ```php
 namespace App\Controller;
 
@@ -76,15 +77,17 @@ class AppController extends Controller
         $this->loadComponent('FormProtection');
     }
 }
+
 ```
+
 ## Request Flow
 
 When a request is made to a CakePHP application, CakePHP's
 `Cake\Routing\Router` and `Cake\Routing\Dispatcher`
-classes use [routes-configuration](#routes-configuration) to find and create the correct
+classes use [routes-configuration](/en/development/routing.md#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [cake-request](#cake-request) for more information on the
+property. See the section on [cake-request](/en/controllers/request-response.md#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -98,6 +101,7 @@ By convention, CakePHP renders a view with an inflected version of the action
 name. Returning to our online bakery example, our RecipesController might contain the
 `view()`, `share()`, and `search()` actions. The controller would be found
 in **src/Controller/RecipesController.php** and contain
+
 ```php
 // src/Controller/RecipesController.php
 
@@ -118,7 +122,9 @@ class RecipesController extends AppController
         // Action logic goes here.
     }
 }
+
 ```
+
 The template files for these actions would be **templates/Recipes/view.php**,
 **templates/Recipes/share.php**, and **templates/Recipes/search.php**. The
 conventional view file name is the lowercased and underscored version of the
@@ -149,10 +155,10 @@ rendered from the controller.
 
 #### Method `Cake\Controller\Controller::set(string $var, mixed $value)`
 
-
 The `Controller::set()` method is the main way to send data from your
 controller to your view. Once you've used `Controller::set()`, the variable
 can be accessed in your view
+
 ```php
 // First you pass data from the controller:
 
@@ -162,10 +168,13 @@ $this->set('color', 'pink');
 ?>
 
 You have selected <?= h($color) ?> icing for the cake.
+
 ```
+
 The `Controller::set()` method also takes an
 associative array as its first parameter. This can often be a quick way to
 assign a set of information to the view
+
 ```php
 $data = [
     'color' => 'pink',
@@ -177,7 +186,9 @@ $data = [
 // available to the view:
 
 $this->set($data);
+
 ```
+
 Keep in mind that view vars are shared among all parts rendered by your view.
 They will be available in all parts of the view: the template, the layout and
 all elements inside the former two.
@@ -188,19 +199,21 @@ If you want to customize the view class, layout/template paths, helpers or the
 theme that will be used when rendering the view, you can use the
 `viewBuilder()` method to get a builder. This builder can be used to define
 properties of the view before it is created
+
 ```php
 $this->viewBuilder()
     ->addHelper('MyCustom')
     ->setTheme('Modern')
     ->setClassName('Modern.Admin');
+
 ```
+
 The above shows how you can load custom helpers, set the theme and use a custom
 view class.
 
 ### Rendering a View
 
 #### Method `Cake\Controller\Controller::render(string $view, string $layout)`
-
 
 The `Controller::render()` method is automatically called at the end of each requested
 controller action. This method performs all the view logic (using the data
@@ -210,6 +223,7 @@ you've submitted using the `Controller::set()` method), places the view inside i
 The default view file used by render is determined by convention.
 If the `search()` action of the RecipesController is requested,
 the view file in **templates/Recipes/search.php** will be rendered
+
 ```php
 namespace App\Controller;
 
@@ -223,7 +237,9 @@ class RecipesController extends AppController
     }
 // ...
 }
+
 ```
+
 Although CakePHP will automatically call it after every action's logic
 (unless you've called `$this->disableAutoRender()`), you can use it to specify
 an alternate view file by specifying a view file name as first argument of
@@ -232,10 +248,13 @@ an alternate view file by specifying a view file name as first argument of
 If `$view` starts with '/', it is assumed to be a view or
 element file relative to the **templates** folder. This allows
 direct rendering of elements, very useful in AJAX calls
+
 ```php
 // Render the element in templates/element/ajaxreturn.php
 $this->render('/element/ajaxreturn');
+
 ```
+
 The second parameter `$layout` of `Controller::render()` allows you to specify the layout
 with which the view is rendered.
 
@@ -244,6 +263,7 @@ with which the view is rendered.
 In your controller, you may want to render a different view than the
 conventional one. You can do this by calling `Controller::render()` directly. Once you
 have called `Controller::render()`, CakePHP will not try to re-render the view
+
 ```php
 namespace App\Controller;
 
@@ -254,13 +274,16 @@ class PostsController extends AppController
         $this->render('custom_file');
     }
 }
+
 ```
+
 This would render **templates/Posts/custom_file.php** instead of
 **templates/Posts/my_action.php**.
 
 You can also render views inside plugins using the following syntax:
 `$this->render('PluginName.PluginController/custom_file')`.
 For example
+
 ```php
 namespace App\Controller;
 
@@ -271,21 +294,23 @@ class PostsController extends AppController
         $this->render('Users.UserDetails/custom_file');
     }
 }
+
 ```
+
 This would render **plugins/Users/templates/UserDetails/custom_file.php**
 <a id="controller-viewclasses"></a>
 ## Content Type Negotiation
 
 #### Method `Cake\Controller\Controller::addViewClasses()`
 
-
 Controllers can define a list of view classes they support. After the
 controller's action is complete CakePHP will use the view list to perform
-content-type negotiation with either [file-extensions](#file-extensions) or `Accept`
+content-type negotiation with either [file-extensions](/en/development/routing.md#file-extensions) or `Accept`
 headers. This enables your application to re-use the same controller action to
 render an HTML view or render a JSON or XML response. To define the list of
 supported view classes for a controller is done with the `addViewClasses()`
 method
+
 ```php
 namespace App\Controller;
 
@@ -301,11 +326,14 @@ class PostsController extends AppController
         $this->addViewClasses([JsonView::class, XmlView::class]);
     }
 }
+
 ```
+
 The application's `View` class is automatically used as a fallback when no
 other view can be selected based on the request's `Accept` header or routing
 extension. If your application only supports content types for a specific
 actions, you can call `addClasses()` within your action too
+
 ```php
 public function export(): void
 {
@@ -314,10 +342,13 @@ public function export(): void
 
     // Rest of the action code
 }
+
 ```
+
 If within your controller actions you need to process the request or load data
 differently based on the content type you can use
-[check-the-request](#check-the-request)
+[check-the-request](/en/controllers/request-response.md#check-the-request)
+
 ```php
 // In a controller action
 
@@ -325,7 +356,9 @@ differently based on the content type you can use
 if ($this->request->is('json')) {
     $query->contain('Authors');
 }
+
 ```
+
 In case your app need more complex logic to decide which view classes to use
 then you can override the `Controller::viewClasses()` method and return
 an array of view classes as required.
@@ -334,12 +367,14 @@ an array of view classes as required.
 > View classes must implement the static `contentType()` hook method to
 > participate in content-type negotiation.
 >
+
 ## Content Type Negotiation Fallbacks
 
 If no View can be matched with the request's content type preferences, CakePHP
 will use the base `View` class. If you want to require content-type
 negotiation, you can use the `NegotiationRequiredView` which sets a `406` status
 code
+
 ```php
 public function initialize(): void
 {
@@ -348,9 +383,12 @@ public function initialize(): void
     // Require Accept header negotiation or return a 406 response.
     $this->addViewClasses([JsonView::class, NegotiationRequiredView::class]);
 }
+
 ```
+
 You can use the `TYPE_MATCH_ALL` content type value to build your own fallback
 view logic
+
 ```php
 namespace App\View;
 
@@ -364,7 +402,9 @@ class CustomFallbackView extends View
     }
 
 }
+
 ```
+
 It is important to remember that match-all views are applied only *after*
 content-type negotiation is attempted.
 
@@ -373,12 +413,15 @@ content-type negotiation is attempted.
 In applications that use hypermedia or AJAX clients, you often need to render
 view contents without the wrapping layout. You can use the `AjaxView` that
 is bundled with the application skeleton
+
 ```php
 // In a controller action, or in beforeRender.
 if ($this->request->is('ajax')) {
     $this->viewBuilder()->setClassName('Ajax');
 }
+
 ```
+
 `AjaxView` will respond as `text/html` and use the `ajax` layout.
 Generally this layout is minimal or contains client specific markup. This
 replaces usage of `RequestHandlerComponent` automatically using the
@@ -388,13 +431,13 @@ replaces usage of `RequestHandlerComponent` automatically using the
 
 #### Method `Cake\Controller\Controller::redirect(string|array $url, integer $status)`
 
-
 The `redirect()` method adds a `Location` header and sets the status code of
 a response and returns it. You should return the response created by
 `redirect()` to have CakePHP send the redirect instead of completing the
 controller action and rendering a view.
 
 You can redirect using :term:`routing array` values
+
 ```php
 return $this->redirect([
     'controller' => 'Orders',
@@ -406,35 +449,46 @@ return $this->redirect([
     ],
     '#' => 'top'
 ]);
+
 ```
+
 Or using a relative or absolute URL::
 
-    return $this->redirect('/orders/confirm');
+```php
+return $this->redirect('/orders/confirm');
 
-    return $this->redirect('http://www.example.com');
+return $this->redirect('http://www.example.com');
+
+```
 
 Or to the referer page
+
 ```php
 return $this->redirect($this->referer());
+
 ```
+
 By using the second parameter you can define a status code for your redirect::
 
-    // Do a 301 (moved permanently)
-    return $this->redirect('/order/confirm', 301);
+```php
+// Do a 301 (moved permanently)
+return $this->redirect('/order/confirm', 301);
 
-    // Do a 303 (see other)
-    return $this->redirect('/order/confirm', 303);
+// Do a 303 (see other)
+return $this->redirect('/order/confirm', 303);
 
-See the [redirect-component-events](#redirect-component-events) section for how to redirect out of
+```
+
+See the [redirect-component-events](/en/controllers/components.md#redirect-component-events) section for how to redirect out of
 a life-cycle handler.
 
 ## Loading Additional Tables/Models
 
 #### Method `Cake\Controller\Controller::fetchTable(string $alias, array $config = [])`
 
-
 The `fetchTable()` method comes handy when you need to use an ORM table that is not
 the controller's default one
+
 ```php
 // In a controller method.
 $recentArticles = $this->fetchTable('Articles')->find('all',
@@ -442,12 +496,14 @@ $recentArticles = $this->fetchTable('Articles')->find('all',
         order: 'Articles.created DESC'
     )
     ->all();
-```
-#### Method `Cake\Controller\Controller::fetchModel(string|null $modelClass = null, string|null $modelType = null)`
 
+```
+
+#### Method `Cake\Controller\Controller::fetchModel(string|null $modelClass = null, string|null $modelType = null)`
 
 The `fetchModel()` method is useful to load non ORM models or ORM tables that
 are not the controller's default
+
 ```php
 // ModelAwareTrait need to be explicity added to your controler first for fetchModel() to work.
 use ModelAwareTrait;
@@ -460,14 +516,16 @@ $github = $this->fetchModel('GitHub', 'Webservice');
 
 // If you skip the 2nd argument it will by default try to load a ORM table.
 $authors = $this->fetchModel('Authors');
+
 ```
+
 > [!IMPORTANT]
 > Added in version 4.5.0
 >
+
 ## Paginating a Model
 
 #### Method `Cake\Controller\Controller::paginate()`
-
 
 This method is used for paginating results fetched by your models.
 You can specify page sizes, model find conditions and more. See the
@@ -476,6 +534,7 @@ how to use `paginate()`.
 
 The `$paginate` attribute gives you a way to customize how `paginate()`
 behaves
+
 ```php
 class ArticlesController extends AppController
 {
@@ -485,14 +544,16 @@ class ArticlesController extends AppController
         ],
     ];
 }
+
 ```
+
 ## Configuring Components to Load
 
 #### Method `Cake\Controller\Controller::loadComponent($name, $config = [])`
 
-
 In your Controller's `initialize()` method you can define any components you
 want loaded, and any configuration data for them
+
 ```php
 public function initialize(): void
 {
@@ -501,6 +562,7 @@ public function initialize(): void
     $this->loadComponent('Comments', Configure::read('Comments'));
 }
 ```
+
 <a id="controller-life-cycle"></a>
 ## Request Life-cycle Callbacks
 
@@ -522,7 +584,6 @@ methods are implemented by your controllers
 
 #### Method `Cake\Controller\Controller::beforeFilter(EventInterface $event)`
 
-
 Called during the `Controller.initialize` event which occurs before every
 action in the controller.  It's a handy place to check for an active session
 or inspect user permissions.
@@ -530,12 +591,12 @@ or inspect user permissions.
 > [!NOTE]
 > The beforeFilter() method will be called for missing actions.
 >
+
 Returning a response from a `beforeFilter` method will not prevent other
 listeners of the same event from being called. You must explicitly
-[stop the event](#stopping-events).
+[stop the event](/en/core-libraries/events.md#stopping-events).
 
 #### Method `Cake\Controller\Controller::beforeRender(EventInterface $event)`
-
 
 Called during the `Controller.beforeRender` event which occurs after
 controller action logic, but before the view is rendered. This callback is
@@ -544,7 +605,6 @@ not used often, but may be needed if you are calling
 of a given action.
 
 #### Method `Cake\Controller\Controller::afterFilter(EventInterface $event)`
-
 
 Called during the `Controller.shutdown` event which is triggered after
 every controller action, and after rendering is complete. This is the last
@@ -555,6 +615,7 @@ also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks
 for best results
+
 ```php
 //use Cake\Event\EventInterface;
 public function beforeFilter(EventInterface $event): void
@@ -562,10 +623,12 @@ public function beforeFilter(EventInterface $event): void
     parent::beforeFilter($event);
 }
 ```
+
 <a id="controller-middleware"></a>
 ## Using Redirects in Controller Events
 
 To redirect from within a controller callback method you can use the following
+
 ```php
 public function beforeFilter(EventInterface $event): void
 {
@@ -577,7 +640,9 @@ public function beforeFilter(EventInterface $event): void
 
     ...
 }
+
 ```
+
 By setting a redirect as event result you let CakePHP know that you don't want any other
 component callbacks to run, and that the controller should not handle the action
 any further.
@@ -588,11 +653,11 @@ As of 4.1.0 you can also raise a `RedirectException` to signal a redirect.
 
 #### Method `Cake\Controller\Controller::middleware($middleware, array $options = [])`
 
-
 [Middleware](/en/controllers/middleware.md) can be defined globally, in
 a routing scope or within a controller. To define middleware for a specific
 controller use the `middleware()` method from your controller's
 `initialize()` method
+
 ```php
 public function initialize(): void
 {
@@ -605,6 +670,7 @@ public function initialize(): void
         return $handler->handle($request);
     });
 }
+
 ```
 
 Middleware defined by a controller will be called **before** `beforeFilter()` and action methods are called.

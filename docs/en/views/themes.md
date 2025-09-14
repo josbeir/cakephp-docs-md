@@ -6,7 +6,7 @@ keywords: "production environments,theme folder,layout files,development request
 # Themes
 
 Themes in CakePHP are simply plugins that focus on providing template files.
-See the section on [plugin-create-your-own](#plugin-create-your-own).
+See the section on [plugin-create-your-own](/en/plugins.md#plugin-create-your-own).
 You can take advantage of themes, allowing you to switch the look and feel of
 your page quickly. In addition to template files, they can also provide helpers
 and cells if your theming requires that. When using cells and helpers from your
@@ -18,9 +18,12 @@ method. For example
 ```php
 // Load our plugin theme residing in the folder /plugins/Modern
 $this->addPlugin('Modern');
+
 ```
+
 To use themes, set the theme name in your controller's action or
 `beforeRender()` callback
+
 ```php
 class ExamplesController extends AppController
 {
@@ -29,7 +32,9 @@ class ExamplesController extends AppController
         $this->viewBuilder()->setTheme('Modern');
     }
 }
+
 ```
+
 Theme template files need to be within a plugin with the same name. For example,
 the above theme would be found in **plugins/Modern/templates**.
 It's important to remember that CakePHP expects PascalCase plugin/theme names. Beyond
@@ -55,11 +60,12 @@ assets in their webroot directory. This allows for packaging and
 distribution of themes. Whilst in development, requests for theme assets will be
 handled by `Cake\Routing\Middleware\AssetMiddleware` (which is loaded
 by default in cakephp/app `Application::middleware()`). To improve
-performance for production environments, it's recommended that you [symlink-assets](#symlink-assets).
+performance for production environments, it's recommended that you [symlink-assets](/en/deployment.md#symlink-assets).
 
 All of CakePHP's built-in helpers are aware of themes and will create the
 correct paths automatically. Like template files, if a file isn't in the theme
 folder, it will default to the main webroot folder
+
 ```php
 // When in a theme with the name of 'purple_cupcake'
 $this->Html->css('main.css');
@@ -69,4 +75,5 @@ $this->Html->css('main.css');
 
 // and links to
 plugins/PurpleCupcake/webroot/css/main.css
+
 ```

@@ -53,7 +53,7 @@ For example, if a new English file is created in **en/file.rst**, we should:
   eventual `toc-tree` elements. The following note will be added while nobody
   has translated the file
 
-```html
+```php
 # File Title
 
 > [!NOTE]
@@ -162,34 +162,43 @@ List markup is very similar to markdown. Unordered lists are indicated by
 starting a line with a single asterisk and a space. Numbered lists can be
 created with either numerals, or `#` for auto numbering::
 
-    - This is a bullet
-    - So is this. But this line
-      has two lines.
+```
 
-    1. First line
-    2. Second line
+- This is a bullet
+- So is this. But this line
+  has two lines.
 
-    #. Automatic numbering
-    #. Will save you some time.
+1. First line
+2. Second line
 
+#. Automatic numbering
+#. Will save you some time.
+
+```
 Indented lists can also be created, by indenting sections and separating them
 with an empty line::
 
-    - First line
-    - Second line
+```
 
-        - Going deeper
-        - Whoah
+- First line
+- Second line
 
-    - Back to the first level.
+- Going deeper
+- Whoah
 
+- Back to the first level.
+
+```
 Definition lists can be created by doing the following::
 
-    term
-        definition
-    CakePHP
-        An MVC framework for PHP
+```
 
+term
+definition
+CakePHP
+An MVC framework for PHP
+
+```
 Terms cannot be more than one line, but definitions can be multi-line and all
 lines should be indented consistently.
 
@@ -201,7 +210,10 @@ There are several kinds of links, each with their own uses.
 
 Links to external documents can be done with the following::
 
-    [External Link to php.net](https://php.net)
+```html
+[External Link to php.net](https://php.net)
+
+```
 
 The resulting link would look like this: [External Link to php.net](https://php.net)
 
@@ -227,14 +239,14 @@ The resulting link would look like this: [External Link to php.net](https://php.
     `class-method` as the format for your link label.
 
     The most common use of labels is above a title. Example::
-<a id="label-name"></a>
+    The most common use of labels is above a title. Example::
 ### Section heading
 
         More content here.
 
-    Elsewhere you could reference the above section using `[label-name](#label-name)`.
+    Elsewhere you could reference the above section using `[label-name](/en/contributing/documentation.md#label-name)`.
     The link's text would be the title that the link preceded. You can also
-    provide custom link text using `[Link text](#label-name)`.
+    provide custom link text using `[Link text](/en/contributing/documentation.md#label-name)`.
 
 #### Prevent Sphinx to Output Warnings
 
@@ -278,40 +290,50 @@ Each directive populates the index, and or the namespace index.
    Describes a class. Methods, attributes, and constants belonging to the class
    should be inside this directive's body::
 
-        .. php:class:: MyClass
+```php
+.. php:class:: MyClass
 
-            Class description
+Class description
 
-           .. php:method:: method($argument)
+.. php:method:: method($argument)
 
-           Method description
+Method description
+
+```
 
    Attributes, methods and constants don't need to be nested. They can also just
    follow the class declaration::
 
-        .. php:class:: MyClass
+```
+.. php:class:: MyClass
 
-            Text about the class
+Text about the class
 
-        .. php:method:: methodName()
+.. php:method:: methodName()
 
-            Text about the method
+Text about the method
+
+```
 
 > [!NOTE]
 > :rst:dir:`php:method`, :rst:dir:`php:attr`, :rst:dir:`php:const`
 >
+
 .. rst:directive:: .. php:method:: name(signature)
 
    Describe a class method, its arguments, return value, and exceptions::
 
-        .. php:method:: instanceMethod($one, $two)
+```php
+.. php:method:: instanceMethod($one, $two)
 
-            :param string $one: The first parameter.
-            :param string $two: The second parameter.
-            :returns: An array of stuff.
-            :throws: InvalidArgumentException
+:param string $one: The first parameter.
+:param string $two: The second parameter.
+:returns: An array of stuff.
+:throws: InvalidArgumentException
 
-           This is an instance method.
+This is an instance method.
+
+```
 
 .. rst:directive:: .. php:staticmethod:: ClassName::methodName(signature)
 
@@ -332,8 +354,11 @@ sometimes, you actually want to write a function in two or more files, eg.
 `:noindex:` under the function debug to suppress warnings. Keep only
 one reference **without** `:no-index:` to still have the function referenced::
 
-    .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
-        :noindex:
+```php
+.. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
+:noindex:
+
+```
 
 #### Cross Referencing
 
@@ -353,43 +378,57 @@ matching directive is found:
    Reference either a global constant, or a class constant. Class constants
    should be preceded by the owning class::
 
-        DateTime has an `DateTime::ATOM` constant.
+```php
+DateTime has an `DateTime::ATOM` constant.
+
+```
 
 .. rst:role:: php:class
 
    Reference a class by name::
 
-     `ClassName`
+```
+`ClassName`
+
+```
 
 .. rst:role:: php:meth
 
    Reference a method of a class. This role supports both kinds of methods::
 
-     `DateTime::setDate`
-     `Classname::staticMethod`
+```php
+`DateTime::setDate`
+`Classname::staticMethod`
+
+```
 
 .. rst:role:: php:attr
 
    Reference a property on an object::
 
-      `ClassName::$propertyName`
+```php
+`ClassName::$propertyName`
 
+``
 .. rst:role:: php:exc
 
-   Reference an exception.
+Reference an exception.
 
 ### Source Code
 
-Literal code blocks are created by ending a paragraph with `::`. The literal
+Literal code blocks are created by ending a paragraph with ```. The literal
 block must be indented, and like all paragraphs be separated by single lines::
 
-    This is a paragraph::
+```php
+This is a paragraph::
 
-        while ($i--) {
-            doStuff()
-        }
+    while ($i--) {
+        doStuff()
+    }
 
-    This is regular text again.
+This is regular text again.
+
+```
 
 Literal text is not modified or formatted, save that one level of indentation
 is removed.
@@ -418,11 +457,11 @@ that. There are fives kinds of admonitions.
 
 All admonitions are made the same::
 
-> [!NOTE]
+All admonitions are made the same::
 > Indented and preceded and followed by a blank line. Just like a
 > paragraph.
 >
-    This text is not part of the note.
+This text is not part of the note.
 
 #### Samples
 
@@ -442,5 +481,6 @@ All admonitions are made the same::
 >
 > **deprecated:** 4.0.1
 
-    This old feature was deprecated on version 4.0.1
+This old feature was deprecated on version 4.0.1
+
 ```

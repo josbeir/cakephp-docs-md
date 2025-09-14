@@ -7,7 +7,6 @@ keywords: "shell scripts,system shell,application classes,background tasks,line 
 
 **Namespace:** `Cake\Console`
 
-
 In addition to a web framework, CakePHP also provides a console framework for
 creating command line tools & applications. Console applications are ideal for
 handling a variety of background & maintenance tasks that leverage your existing
@@ -26,16 +25,19 @@ bash the CakePHP console is compatible with any \*nix shell and windows.
 A CakePHP application contains **src/Command** directory that contain its commands.
 It also comes with an executable in the **bin** directory:
 
-
 ```bash
 $ cd /path/to/app
 $ bin/cake
+
 ```
+
 > [!NOTE]
 > For Windows, the command needs to be `bin\cake` (note the backslash).
 >
+
 Running the Console with no arguments will list out available commands. You
 could then run the any of the listed commands by using its name:
+
 ```bash
 # run server command
 bin/cake server
@@ -45,7 +47,9 @@ bin/cake migrations -h
 
 # run bake (with plugin prefix)
 bin/cake bake.bake -h
+
 ```
+
 Plugin commands can be invoked without a plugin prefix if the commands's name
 does not overlap with an application or framework command. In the case that two
 plugins provide a command with the same name, the first loaded plugin will get
@@ -59,6 +63,7 @@ application and its plugins. You may want to reduce the number of exposed
 commands, when building standalone console applications. You can use your
 `Application`'s `console()` hook to limit which commands are exposed and
 rename commands that are exposed
+
 ```php
 // in src/Application.php
 namespace App;
@@ -81,16 +86,18 @@ class Application extends BaseApplication
         return $commands;
     }
 }
+
 ```
+
 In the above example, the only commands available would be `help`, `version`
-and `user`. See the [plugin-commands](#plugin-commands) section for how to add commands in
+and `user`. See the [plugin-commands](/en/plugins.md#plugin-commands) section for how to add commands in
 your plugins.
 
 > [!NOTE]
 > When adding multiple commands that use the same Command class, the `help`
 > command will display the shortest option.
+
 <a id="renaming-commands"></a>
-.. index:: nested commands, subcommands
 
 ## Renaming Commands
 
@@ -99,6 +106,7 @@ commands or subcommands.  While the default auto-discovery of commands will not
 do this, you can register your commands to create any desired naming.
 
 You can customize the command names by defining each command in your plugin
+
 ```php
 public function console(CommandCollection $commands): CommandCollection
 {
@@ -111,7 +119,9 @@ public function console(CommandCollection $commands): CommandCollection
 
     return $commands;
 }
+
 ```
+
 When overriding the `console()` hook in your application, remember to
 call `$commands->autoDiscover()` to add commands from CakePHP, your
 application, and plugins.
@@ -141,11 +151,13 @@ bootstrap or config, for example.
 
 For sending emails, you should provide Email class with the host you want to
 send the email with
+
 ```php
 use Cake\Mailer\Email;
 
 $email = new Email();
 $email->setDomain('www.example.org');
+
 ```
 
 This asserts that the generated message IDs are valid and fit to the domain the

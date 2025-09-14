@@ -20,12 +20,12 @@ patterns. It aims to create a hybrid implementation that combines aspects of
 both patterns to create a fast, simple to use ORM.
 
 Before we get started exploring the ORM, make sure you [configure your
-database connections](#database-configuration).
+database connections](/en/orm/database-basics.md#database-configuration).
 
 ## Quick Example
 
 To get started you don't have to write any code. If you've followed the
-[CakePHP conventions for your database tables](#model-and-database-conventions) you can just start using the ORM. For example
+[CakePHP conventions for your database tables](/en/intro/conventions.md#model-and-database-conventions) you can just start using the ORM. For example
 if we wanted to load some data from our `articles` table we would start off
 creating our `Articles` table class. Create
 **src/Model/Table/ArticlesTable.php** with the following code
@@ -39,19 +39,25 @@ use Cake\ORM\Table;
 class ArticlesTable extends Table
 {
 }
+
 ```
+
 Then in a controller or command we can have CakePHP create an instance for us::
 
-    public function someMethod()
-    {
-        $resultset = $this->fetchTable('Articles')->find()->all();
+```php
+public function someMethod()
+{
+    $resultset = $this->fetchTable('Articles')->find()->all();
 
-        foreach ($resultset as $row) {
-            echo $row->title;
-        }
+    foreach ($resultset as $row) {
+        echo $row->title;
     }
+}
+
+```
 
 In other contexts, you can use the `LocatorAwareTrait` which add accessor methods for ORM tables
+
 ```php
 use Cake\ORM\Locator\LocatorAwareTrait;
 
@@ -60,17 +66,23 @@ public function someMethod()
     $articles = $this->fetchTable('Articles');
     // more code.
 }
+
 ```
+
 Within a static method you can use the `Cake\Datasource\FactoryLocator`
 to get the table locator
+
 ```php
 $articles = TableRegistry::getTableLocator()->get('Articles');
+
 ```
+
 Table classes represent **collections** of **entities**. Next, lets create an
 entity class for our Articles. Entity classes let you define accessor and
 mutator methods, define custom logic for individual records and much more. We'll
 start off by adding the following to **src/Model/Entity/Article.php** after the
 `<?php` opening tag
+
 ```php
 namespace App\Model\Entity;
 
@@ -79,10 +91,13 @@ use Cake\ORM\Entity;
 class Article extends Entity
 {
 }
+
 ```
+
 Entities use the singular CamelCase version of the table name as their class
 name by default. Now that we have created our entity class, when we
 load entities from the database we'll get instances of our new Article class
+
 ```php
 use Cake\ORM\Locator\LocatorAwareTrait;
 
@@ -93,6 +108,7 @@ foreach ($resultset as $row) {
     // Each row is now an instance of our Article class.
     echo $row->title;
 }
+
 ```
 
 CakePHP uses naming conventions to link the Table and Entity class together. If

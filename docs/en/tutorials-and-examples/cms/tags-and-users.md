@@ -8,7 +8,6 @@ code generation <abbr title="Command Line Interface">CLI</abbr> tool that levera
 conventions CakePHP uses to create skeleton <abbr title="Create, Read, Update, Delete">CRUD</abbr> applications very efficiently. We're going to use `bake` to build our
 users code:
 
-
 ```bash
 cd /path/to/our/app
 
@@ -16,7 +15,9 @@ cd /path/to/our/app
 bin/cake bake model users
 bin/cake bake controller users
 bin/cake bake template users
+
 ```
+
 These 3 commands will generate:
 
 - The Table, Entity, Fixture files.
@@ -33,23 +34,29 @@ With multiple users able to access our small :abbr:`CMS` it would be nice to
 have a way to categorize our content. We'll use tags and tagging to allow users
 to create free-form categories and labels for their content. Again, we'll use
 `bake` to quickly generate some skeleton code for our application:
+
 ```bash
 # Generate all the code at once.
 bin/cake bake all tags
+
 ```
+
 Once you have the scaffold code created, create a few sample tags by going to
 **http://localhost:8765/tags/add**.
 
 Now that we have a Tags table, we can create an association between Articles and
 Tags. We can do so by adding the following to the `initialize` method on the
 `ArticlesTable`
+
 ```php
 public function initialize(array $config): void
 {
     $this->addBehavior('Timestamp');
     $this->belongsToMany('Tags'); // Add this line
 }
+
 ```
+
 This association will work with this simple definition because we followed
 CakePHP conventions when creating our tables. For more information, read
 [orm/associations](/en/orm/associations.md).
@@ -58,6 +65,7 @@ CakePHP conventions when creating our tables. For more information, read
 
 Now that our application has tags, we need to enable users to tag their
 articles. First, update the `add` action to look like
+
 ```php
 <?php
 // in src/Controller/ArticlesController.php
@@ -95,13 +103,18 @@ class ArticlesController extends AppController
 
     // Other actions
 }
+
 ```
+
 The added lines load a list of tags as an associative array of `id => title`.
 This format will let us create a new tag input in our template.
 Add the following to the PHP block of controls in **templates/Articles/add.php**
+
 ```php
 echo $this->Form->control('tags._ids', ['options' => $tags]);
+
 ```
+
 This will render a multiple select element that uses the `$tags` variable to
 generate the select box options. You should now create a couple new articles
 that have tags, as in the following section we'll be adding the ability to find
@@ -109,6 +122,7 @@ articles by tags.
 
 You should also update the `edit` method to allow adding or editing tags. The
 edit method should now look like
+
 ```php
 public function edit($slug)
 {
@@ -134,7 +148,9 @@ public function edit($slug)
 
     $this->set('article', $article);
 }
+
 ```
+
 Remember to add the new tags multiple select control we added to the **add.php**
 template to the **templates/Articles/edit.php** template as well.
 
@@ -149,6 +165,7 @@ Ideally, we'd have a URL that looks like
 find all the articles that have the 'funny', 'cat' or 'gifs' tags. Before we
 can implement this, we'll add a new route. Your **config/routes.php** (with
 the baked comments removed) should look like
+
 ```php
 <?php
 use Cake\Routing\Route\DashedRoute;
@@ -170,7 +187,9 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
     $builder->fallbacks();
 });
+
 ```
+
 The above defines a new 'route' which connects the **/articles/tagged/** path,
 to `ArticlesController::tags()`. By defining routes, you can isolate how your
 URLs look, from how they are implemented. If we were to visit
@@ -178,6 +197,7 @@ URLs look, from how they are implemented. If we were to visit
 from CakePHP informing you that the controller action does not exist. Let's
 implement that missing method now. In **src/Controller/ArticlesController.php**
 add the following
+
 ```php
 public function tags()
 {
@@ -195,12 +215,15 @@ public function tags()
         'tags' => $tags
     ]);
 }
+
 ```
-To access other parts of the request data, consult the [cake-request](#cake-request)
+
+To access other parts of the request data, consult the [cake-request](/en/controllers/request-response.md#cake-request)
 section.
 
 Since passed arguments are passed as method parameters, you could also write the
 action using PHP's variadic argument
+
 ```php
 public function tags(...$tags)
 {
@@ -214,7 +237,9 @@ public function tags(...$tags)
         'tags' => $tags
     ]);
 }
+
 ```
+
 ### Creating the Finder Method
 
 In CakePHP we like to keep our controller actions slim, and put most of our
@@ -222,6 +247,7 @@ application's logic in the model layer. If you were to visit the
 **/articles/tagged** URL now you would see an error that the `findTagged()`
 method has not been implemented yet, so let's do that. In
 **src/Model/Table/ArticlesTable.php** add the following
+
 ```php
 // add this use statement right below the namespace declaration to import
 // the Query class
@@ -254,8 +280,10 @@ public function findTagged(SelectQuery $query, array $tags = []): SelectQuery
 
     return $query->groupBy(['Articles.id']);
 }
+
 ```
-We just implemented a [custom finder method](#custom-find-methods). This is
+
+We just implemented a [custom finder method](/en/orm/retrieving-data-and-resultsets.md#custom-find-methods). This is
 a very powerful concept in CakePHP that allows you to package up re-usable
 queries. Finder methods always get a [orm/query-builder](/en/orm/query-builder.md) object and an
 array of options as parameters. Finders can manipulate the query and add any
@@ -269,6 +297,7 @@ a 'matching' tag.
 Now if you visit the **/articles/tagged** URL again, CakePHP will show a new error
 letting you know that you have not made a view file. Next, let's build the
 view file for our `tags()` action
+
 ```php
 <!-- In templates/Articles/tags.php -->
 <h1>
@@ -288,7 +317,9 @@ view file for our `tags()` action
     </article>
 <?php endforeach; ?>
 </section>
+
 ```
+
 In the above code we use the [views/helpers/html](/en/views/helpers/html.md) and
 [views/helpers/text](/en/views/helpers/text.md) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
@@ -319,6 +350,7 @@ our users, and use some more great features in the ORM.
 Because we'll want a simple way to access the formatted tags for an entity, we
 can add a virtual/computed field to the entity. In
 **src/Model/Entity/Article.php** add the following
+
 ```php
 // add this use statement right below the namespace declaration to import
 // the Collection class
@@ -345,7 +377,9 @@ protected function _getTagString()
 
     return trim($str, ', ');
 }
+
 ```
+
 This will let us access the `$article->tag_string` computed property. We'll
 use this property in controls later on.
 
@@ -354,11 +388,15 @@ use this property in controls later on.
 With the entity updated we can add a new control for our tags. In
 **templates/Articles/add.php** and **templates/Articles/edit.php**,
 replace the existing `tags._ids` control with the following
+
 ```php
 echo $this->Form->control('tag_string', ['type' => 'text']);
+
 ```
+
 We'll also need to update the article view template. In
 **templates/Articles/view.php** add the line as shown
+
 ```php
 <!-- File: templates/Articles/view.php -->
 
@@ -366,20 +404,25 @@ We'll also need to update the article view template. In
 <p><?= h($article->body) ?></p>
 // Add the following line
 <p><b>Tags:</b> <?= h($article->tag_string) ?></p>
+
 ```
+
 You should also update the view method to allow retrieving existing tags::
 
-    // src/Controller/ArticlesController.php file
+```php
+// src/Controller/ArticlesController.php file
 
-    public function view($slug = null)
-    {
-       // Update retrieving tags with contain()
-       $article = $this->Articles
-            ->findBySlug($slug)
-            ->contain('Tags')
-            ->firstOrFail();
-        $this->set(compact('article'));
-    }
+public function view($slug = null)
+{
+   // Update retrieving tags with contain()
+   $article = $this->Articles
+        ->findBySlug($slug)
+        ->contain('Tags')
+        ->firstOrFail();
+    $this->set(compact('article'));
+}
+
+```
 
 ### Persisting the Tag String
 
@@ -388,6 +431,7 @@ well. Because we marked the `tag_string` as accessible, the ORM will copy that
 data from the request into our entity. We can use a `beforeSave()` hook method
 to parse the tag string and find/build the related entities. Add the following
 to **src/Model/Table/ArticlesTable.php**
+
 ```php
 public function beforeSave(EventInterface $event, $entity, $options): void
 {
@@ -430,7 +474,9 @@ protected function _buildTags($tagString)
 
     return $out;
 }
+
 ```
+
 If you now create or edit articles, you should be able to save tags as a comma
 separated list of tags, and have the tags and linking records automatically
 created.
@@ -446,6 +492,7 @@ Before we finish up, we'll need a mechanism that will load the associated tags
 (if any) whenever we load an article.
 
 In your **src/Model/Table/ArticlesTable.php**, change
+
 ```php
 public function initialize(array $config): void
 {
@@ -456,13 +503,16 @@ public function initialize(array $config): void
         'dependent' => true
     ]);
 }
+
 ```
+
 This will tell the Articles table model that there is a join table associated
 with tags.  The 'dependent' option tells the table to delete any associated
 records from the join table if an article is deleted.
 
 Lastly, update the findBySlug() method calls in
 **src/Controller/ArticlesController.php**
+
 ```php
 public function edit($slug)
 {
@@ -483,6 +533,7 @@ public function view($slug = null)
         ->firstOrFail();
     $this->set(compact('article'));
 }
+
 ```
 
 The `contain()` method tells the `ArticlesTable` object to also populate the

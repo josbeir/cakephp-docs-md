@@ -102,9 +102,12 @@ class Application extends BaseApplication
         return $middlewareQueue;
     }
 }
+
 ```
+
 In addition to adding to the end of the `MiddlewareQueue` you can do
 a variety of operations
+
 ```php
 $layer = new \App\Middleware\CustomMiddleware;
 
@@ -133,15 +136,18 @@ $middlewareQueue->insertAfter(
     'Cake\Error\Middleware\ErrorHandlerMiddleware',
     $layer
 );
+
 ```
+
 If your middleware is only applicable to a subset of routes or individual
-controllers you can use [Route scoped middleware](#route-scoped-middleware),
-or [Controller middleware](#controller-middleware).
+controllers you can use [Route scoped middleware](/en/development/routing.md#route-scoped-middleware),
+or [Controller middleware](/en/controllers.md#controller-middleware).
 
 ### Adding Middleware from Plugins
 
 Plugins can use their `middleware` hook method to apply any middleware they
 have to the application's middleware queue
+
 ```php
 // in plugins/ContactManager/src/Plugin.php
 namespace ContactManager;
@@ -159,7 +165,9 @@ class Plugin extends BasePlugin
         return $middlewareQueue;
     }
 }
+
 ```
+
 ## Creating Middleware
 
 Middleware can either be implemented as anonymous functions (Closures), or classes
@@ -175,6 +183,7 @@ for smaller tasks they make testing harder, and can create a complicated
 
 Middleware can return a response either by calling `$handler->handle()` or by
 creating their own response. We can see both options in our simple middleware
+
 ```php
 // In src/Middleware/TrackingCookieMiddleware.php
 namespace App\Middleware;
@@ -209,9 +218,12 @@ class TrackingCookieMiddleware implements MiddlewareInterface
         return $response;
     }
 }
+
 ```
+
 Now that we've made a very simple middleware, let's attach it to our
 application
+
 ```php
 // In src/Application.php
 namespace App;
@@ -232,11 +244,13 @@ class Application
     }
 }
 ```
+
 <a id="routing-middleware"></a>
 ## Routing Middleware
 
 Routing middleware is responsible for applying your application's routes and
 resolving the plugin, controller, and action a request is going to
+
 ```php
 // In Application.php
 public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
@@ -245,6 +259,7 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     $middlewareQueue->add(new RoutingMiddleware($this));
 }
 ```
+
 <a id="encrypted-cookie-middleware"></a>
 ## Encrypted Cookie Middleware
 
@@ -252,6 +267,7 @@ If your application has cookies that contain data you want to obfuscate and
 protect against user tampering, you can use CakePHP's encrypted cookie
 middleware to transparently encrypt and decrypt cookie data via middleware.
 Cookie data is encrypted with via OpenSSL using AES
+
 ```php
 use Cake\Http\Middleware\EncryptedCookieMiddleware;
 
@@ -262,11 +278,14 @@ $cookies = new EncryptedCookieMiddleware(
 );
 
 $middlewareQueue->add($cookies);
+
 ```
+
 > [!NOTE]
 > It is recommended that the encryption key you use for cookie data, is used
 > *exclusively* for cookie data.
 >
+
 The encryption algorithms and padding style used by the cookie middleware are
 backwards compatible with `CookieComponent` from earlier versions of CakePHP.
 <a id="body-parser-middleware"></a>
@@ -277,6 +296,7 @@ If your application accepts JSON, XML or other encoded request bodies, the
 is available via `$request->getParsedData()` and `$request->getData()`. By
 default only `json` bodies will be parsed, but XML parsing can be enabled with
 an option. You can also define your own parsers
+
 ```php
 use Cake\Http\Middleware\BodyParserMiddleware;
 
@@ -296,4 +316,5 @@ $bodies->addParser(['text/csv'], function ($body, $request) {
     // Use a CSV parsing library.
     return Csv::parse($body);
 });
+
 ```

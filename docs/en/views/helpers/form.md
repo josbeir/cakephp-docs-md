@@ -8,9 +8,7 @@ keywords: "form helper,cakephp form,form create,form input,form select,form file
 
 **Namespace:** `Cake\View\Helper`
 
-
 ### Class `Cake\View\Helper\FormHelper(View $view, array $config = [])`
-
 
 The FormHelper does most of the heavy lifting in form creation.  The FormHelper
 focuses on creating forms quickly, in a way that will streamline validation,
@@ -21,7 +19,6 @@ only what you need.
 ## Starting a Form
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::create(mixed $context = null, array $options = [])`
-
 
 - `$context` - The context for which the form is being defined. Can be an ORM
   entity, ORM resultset, `Form` instance, array of metadata or `null` (to make a
@@ -37,10 +34,11 @@ controller, via the current URL. The default method for form submission is POST.
 If you were to call `create()` inside the view for `UsersController::add()`,
 you would see something like the following output in the rendered view:
 
-
 ```html
 <form method="post" action="/users/add">
+
 ```
+
 The `$context` argument is used as the form's 'context'. There are several
 built-in form contexts and you can add your own, which we'll cover below, in
 a following section. The built-in providers map to the following values of
@@ -67,15 +65,21 @@ associated data, validation errors and schema metadata. You can close the active
 context using the `end()` method, or by calling `create()` again.
 
 To create a form for an entity, do the following
+
 ```php
 // If you are on /articles/add
 // $article should be an empty Article entity.
 echo $this->Form->create($article);
+
 ```
+
 Output:
+
 ```html
 <form method="post" action="/articles/add">
+
 ```
+
 This will POST the form data to the `add()` action of ArticlesController.
 However, you can also use the same logic to create an edit form. The FormHelper
 uses the `Entity` object to automatically detect whether to
@@ -84,6 +88,7 @@ will be created as an *edit* form.
 
 For example, if we browse to **http://example.org/articles/edit/5**, we could
 do the following
+
 ```php
 // src/Controller/ArticlesController.php:
 public function edit($id = null)
@@ -99,16 +104,22 @@ public function edit($id = null)
 // View/Articles/edit.php:
 // Since $article->isNew() is false, we will get an edit form
 <?= $this->Form->create($article) ?>
+
 ```
+
 Output:
+
 ```html
 <form method="post" action="/articles/edit/5">
 <input type="hidden" name="_method" value="PUT">
+
 ```
+
 > [!NOTE]
 > Since this is an *edit* form, a hidden `input` field is generated to
 > override the default HTTP method.
 >
+
 In some cases, the entity's ID is automatically appended to the end of the form's `action` URL. If you would like to *avoid* an ID being added to the URL, you can pass a string to `$options['url']`, such as `'/my-account'` or `\Cake\Routing\Router::url(['controller' => 'Users', 'action' => 'myAccount'])`.
 
 ### Options for Form Creation
@@ -160,6 +171,7 @@ DELETE or PATCH respectively, when the form is submitted.
 > Besides the above options you can provide, in the `$options` argument,
 > any valid HTML attributes that you want to pass to the created `form`
 > element.
+
 <a id="form-values-from-query-string"></a>
 ### Getting form values from other values sources
 
@@ -177,6 +189,7 @@ data, that are the entity's data in the case of `EntityContext`.
 
 If however, you are building a form that needs to read from the query string, you can
 change where `FormHelper` reads input data from
+
 ```php
 // Use query string instead of request data:
 echo $this->Form->create($article, [
@@ -188,42 +201,59 @@ echo $this->Form->create($article, [
 echo $this->Form
     ->setValueSources(['query', 'context'])
     ->create($articles, ['type' => 'get']);
+
 ```
+
 When input data has to be processed by the entity, i.e. marshal transformations, table
 query result or entity computations, and displayed after one or multiple form submissions
 where request data is retained, you need to put `context` first
+
 ```php
 // Prioritize context over request data:
 echo $this->Form->create($article,
     'valueSources' => ['context', 'data'],
 ]);
+
 ```
+
 The value sources will be reset to the default `['data', 'context']` when `end()`
 is called.
 
 ### Changing the HTTP Method for a Form
 
 By using the `type` option you can change the HTTP method a form will use
+
 ```php
 echo $this->Form->create($article, ['type' => 'get']);
+
 ```
+
 Output:
+
 ```html
 <form method="get" action="/articles/edit/5">
+
 ```
+
 Specifying a `'file'` value for `type`, changes the form submission method
 to 'post', and includes an `enctype` of "multipart/form-data" on the form tag.
 This is to be used if there are any file elements inside the form. The absence
 of the proper `enctype` attribute will cause the file uploads not to function.
 
 For example
+
 ```php
 echo $this->Form->create($article, ['type' => 'file']);
+
 ```
+
 Output:
+
 ```html
 <form enctype="multipart/form-data" method="post" action="/articles/add">
+
 ```
+
 When using `'put'`, `'patch'` or `'delete'` as `'type'` values, your
 form will be functionally equivalent to a 'post' form, but when submitted, the
 HTTP request method will be overridden with 'PUT', 'PATCH' or 'DELETE',
@@ -238,16 +268,23 @@ your current controller or another controller in your application.
 For example,
 if you'd like to point the form to the `publish()` action of the current
 controller, you would supply an `$options` array, like the following
+
 ```php
 echo $this->Form->create($article, ['url' => ['action' => 'publish']]);
+
 ```
+
 Output:
+
 ```html
 <form method="post" action="/articles/publish">
+
 ```
+
 If the desired form action isn't in the current controller, you can specify
 a complete URL for the form action. The supplied URL can be relative to your
 CakePHP application
+
 ```php
 echo $this->Form->create(null, [
     'url' => [
@@ -255,22 +292,33 @@ echo $this->Form->create(null, [
         'action' => 'publish',
     ],
 ]);
+
 ```
+
 Output:
+
 ```html
 <form method="post" action="/articles/publish">
+
 ```
+
 Or you can point to an external domain::
 
-    echo $this->Form->create(null, [
-        'url' => 'https://www.google.com/search',
-        'type' => 'get',
-    ]);
+```php
+echo $this->Form->create(null, [
+    'url' => 'https://www.google.com/search',
+    'type' => 'get',
+]);
+
+```
 
 Output:
+
 ```html
 <form method="get" action="https://www.google.com/search">
+
 ```
+
 Use `'url' => false` if you don't want to output a URL as the form action.
 
 ### Using Custom Validators
@@ -279,15 +327,19 @@ Often models will have multiple validator sets, you can have FormHelper
 mark fields required based on the specific validator your controller
 action is going to apply. For example, your Users table has specific validation
 rules that only apply when an account is being registered
+
 ```php
 echo $this->Form->create($user, [
     'context' => ['validator' => 'register'],
 ]);
+
 ```
+
 The above will use validation rules defined in the `register` validator, which
 are defined by `UsersTable::validationRegister()`, for `$user` and all
 related associations. If you are creating a form for associated entities, you
 can define validation rules for each association by using an array
+
 ```php
 echo $this->Form->create($user, [
     'context' => [
@@ -297,14 +349,19 @@ echo $this->Form->create($user, [
         ],
     ],
 ]);
+
 ```
+
 The above would use `register` for the user, and `default` for the user's
 comments. FormHelper uses validators to generate HTML5 required attributes,
 relevant ARIA attributes, and set error messages with the [browser validator API](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#Customized_error_messages)
 . If you would like to disable HTML5 validation messages use
+
 ```php
 $this->Form->setConfig('autoSetCustomValidity', false);
+
 ```
+
 This will not disable `required`/`aria-required` attributes.
 
 ### Creating context classes
@@ -316,13 +373,16 @@ ORM. In these situations you need to implement the
 you have implemented this interface you can wire your new context into the
 FormHelper. It is often best to do this in a `View.beforeRender` event
 listener, or in an application view class
+
 ```php
 $this->Form->addContextProvider('myprovider', function ($request, $data) {
     if ($data['entity'] instanceof MyOrmClass) {
         return new MyProvider($data);
     }
 });
+
 ```
+
 Context factory functions are where you can add logic for checking the form
 options for the correct type of entity. If matching input data is found you can
 return an object. If there is no match return null.
@@ -331,10 +391,9 @@ return an object. If there is no match return null.
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::control(string $fieldName, array $options = [])`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array that can include both
-  [control-specific-options](#control-specific-options), and options of the other methods (which
+  [control-specific-options](/en/views/helpers/form.md#control-specific-options), and options of the other methods (which
   `control()` employs internally to generate various HTML elements) as
   well as any valid HTML attributes.
 
@@ -351,16 +410,23 @@ methods of FormHelper.
 > elements, but also other HTML form elements such as `select`,
 > `button`, `textarea`.
 >
+
 By default the `control()` method will employ the following widget templates
+
 ```html
 'inputContainer' => '<div class="{{constainerClass}} {{type}}{{required}}">{{content}}</div>'
 'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}>'
 'requiredClass' => 'required'
 'containerClass' => 'input'
+
 ```
+
 In case of validation errors it will also use::
 
-    'inputContainerError' => '<div class="{{containerClass}} {{type}}{{required}} error">{{content}}{{error}}</div>'
+```html
+'inputContainerError' => '<div class="{{containerClass}} {{type}}{{required}} error">{{content}}{{error}}</div>'
+
+```
 
 The type of control created (when we provide no additional options to specify the
 generated element type) is inferred via model introspection and
@@ -403,23 +469,30 @@ file
 
 The `$options` parameter allows you to choose a specific control type if
 you need to
+
 ```php
 echo $this->Form->control('published', ['type' => 'checkbox']);
+
 ```
+
 > [!TIP]
 > As a small subtlety, generating specific elements via the `control()`
 > form method will always also generate the wrapping `div`, by default.
 > Generating the same type of element via one of the specific form methods
 > (e.g. `$this->Form->checkbox('published');`) in most cases won't generate
 > the wrapping `div`. Depending on your needs you can use one or another.
+
 <a id="html5-required"></a>
 The wrapping `div` will have a `required` class name appended if the
 validation rules for the model's field indicate that it is required and not
 allowed to be empty. You can disable automatic `required` flagging using the
 `'required'` option
+
 ```php
 echo $this->Form->control('title', ['required' => false]);
+
 ```
+
 To skip browser validation triggering for the whole form you can set option
 `'formnovalidate' => true` for the input button you generate using
 `Cake\View\Helper\FormHelper::submit()` or set `'novalidate' =>
@@ -429,6 +502,7 @@ For example, let's assume that your Users model includes fields for a
 *username* (varchar), *password* (varchar), *approved* (datetime) and
 *quote* (text). You can use the `control()` method of the FormHelper to
 create appropriate controls for all of these form fields
+
 ```php
 echo $this->Form->create($user);
 // The following generates a Text input
@@ -443,16 +517,21 @@ echo $this->Form->control('quote');
 
 echo $this->Form->button('Add');
 echo $this->Form->end();
+
 ```
+
 A more extensive example showing some options for a date field::
 
-    echo $this->Form->control('birth_date', [
-        'label' => 'Date of birth',
-        'min' => date('Y') - 70,
-        'max' => date('Y') - 18,
-    ]);
+```php
+echo $this->Form->control('birth_date', [
+    'label' => 'Date of birth',
+    'min' => date('Y') - 70,
+    'max' => date('Y') - 18,
+]);
 
-Besides the specific [control-specific-options](#control-specific-options),
+```
+
+Besides the specific [control-specific-options](/en/views/helpers/form.md#control-specific-options),
 you also can specify any option accepted by corresponding specific method
 for the chosen (or inferred by CakePHP)
 control type and any HTML attribute (for instance `onfocus`).
@@ -460,34 +539,50 @@ control type and any HTML attribute (for instance `onfocus`).
 If you want to create a `select` form field while using a *belongsTo* (or
 *hasOne*) relation, you can add the following to your UsersController
 (assuming your User *belongsTo* Group)
+
 ```php
 $this->set('groups', $this->Users->Groups->find('list')->all());
+
 ```
+
 Afterwards, add the following to your view template::
 
-    echo $this->Form->control('group_id', ['options' => $groups]);
+```php
+echo $this->Form->control('group_id', ['options' => $groups]);
+
+```
 
 To make a `select` box for a *belongsToMany* Groups association you can
 add the following to your UsersController
+
 ```php
 $this->set('groups', $this->Users->Groups->find('list')->all());
+
 ```
+
 Afterwards, add the following to your view template::
 
-    echo $this->Form->control('groups._ids', ['options' => $groups]);
+```php
+echo $this->Form->control('groups._ids', ['options' => $groups]);
+
+```
 
 If your model name consists of two or more words (e.g.
 "UserGroups"), when passing the data using `set()` you should name your
 data in a pluralised and
 [lower camelCased](https://en.wikipedia.org/wiki/Camel_case#Variations_and_synonyms)
 format as follows
+
 ```php
 $this->set('userGroups', $this->UserGroups->find('list')->all());
+
 ```
+
 > [!NOTE]
 > You should not use `FormHelper::control()` to generate submit buttons. Use
 > `Cake\View\Helper\FormHelper::submit()` instead.
 >
+
 ### Field Naming Conventions
 
 When creating control widgets you should name your fields after the matching
@@ -497,14 +592,17 @@ attributes in the form's entity. For example, if you created a form for an
 
 You can create controls for associated models, or arbitrary models by passing in
 `association.fieldname` as the first parameter
+
 ```php
 echo $this->Form->control('association.fieldname');
+
 ```
+
 Any dots in your field names will be converted into nested request data. For
 example, if you created a field with a name `0.comments.body` you would get
 a name attribute that looks like `0[comments][body]`. This convention matches
 the conventions you use with the ORM. Details for the various association types
-can be found in the [associated-form-inputs](#associated-form-inputs) section.
+can be found in the [associated-form-inputs](/en/views/helpers/form.md#associated-form-inputs) section.
 
 When creating datetime related controls, FormHelper will append a field-suffix.
 You may notice additional fields named `year`, `month`, `day`, `hour`,
@@ -521,17 +619,21 @@ as well as HTML attributes. This subsection will cover the options specific to
 
 - `$options['type']` - A string that specifies the widget type
   to be generated. In addition to the field types found in the
-  [automagic-form-elements](#automagic-form-elements), you can also create `'file'`,
+  [automagic-form-elements](/en/views/helpers/form.md#automagic-form-elements), you can also create `'file'`,
   `'password'`, and any other type supported by HTML5. By specifying a
   `'type'` you will force the type of the generated control, overriding model
   introspection. Defaults to `null`.
 
   For example
+
 ```php
 echo $this->Form->control('field', ['type' => 'file']);
 echo $this->Form->control('email', ['type' => 'email']);
+
 ```
-Output:
+
+  Output:
+
 ```html
 <div class="input file">
     <label for="field">Field</label>
@@ -541,39 +643,53 @@ Output:
     <label for="email">Email</label>
     <input type="email" name="email" value="" id="email">
 </div>
+
 ```
+
 - `$options['label']` - Either a string caption or an array of
-  [options for the label](#create-label). You can set this key to the
+  [options for the label](/en/views/helpers/form.md#create-label). You can set this key to the
   string you would like to be displayed within the label that usually
   accompanies the `input` HTML element. Defaults to `null`.
 
   For example
+
 ```php
 echo $this->Form->control('name', [
     'label' => 'The User Alias'
 ]);
+
 ```
-Output:
+
+  Output:
+
 ```html
 <div class="input">
     <label for="name">The User Alias</label>
     <input name="name" type="text" value="" id="name">
 </div>
+
 ```
-Alternatively, set this key to `false` to disable the generation of the
+
+  Alternatively, set this key to `false` to disable the generation of the
   `label` element.
 
   For example
+
 ```php
 echo $this->Form->control('name', ['label' => false]);
+
 ```
-Output:
+
+  Output:
+
 ```html
 <div class="input">
     <input name="name" type="text" value="" id="name">
 </div>
+
 ```
-If the label is disabled, and a `placeholder` attribute is provided, the
+
+  If the label is disabled, and a `placeholder` attribute is provided, the
   generated input will have `aria-label` set.
 
   Set the `label` option to an array to provide additional options for the
@@ -581,6 +697,7 @@ If the label is disabled, and a `placeholder` attribute is provided, the
   the array to customize the label text.
 
   For example
+
 ```php
 echo $this->Form->control('name', [
     'label' => [
@@ -588,18 +705,23 @@ echo $this->Form->control('name', [
         'text' => 'The User Alias'
     ]
 ]);
+
 ```
-Output:
+
+  Output:
+
 ```html
 <div class="input">
     <label for="name" class="thingy">The User Alias</label>
     <input name="name" type="text" value="" id="name">
 </div>
+
 ```
+
 - `$options['options']` - You can provide in here an array containing
   the elements to be generated for widgets such as `radio` or `select`,
   which require an array of items as an argument (see
-  [create-radio-button](#create-radio-button) and [create-select-picker](#create-select-picker) for more details).
+  [create-radio-button](/en/views/helpers/form.md#create-radio-button) and [create-select-picker](/en/views/helpers/form.md#create-select-picker) for more details).
   Defaults to `null`.
 
 - `$options['error']` - Using this key allows you to override the default
@@ -608,29 +730,38 @@ Output:
   `false`. Defaults to `null`.
 
   For example
+
 ```php
 echo $this->Form->control('name', ['error' => false]);
+
 ```
-To override the model error messages use an array with
+
+  To override the model error messages use an array with
   the keys matching the original validation error messages.
 
   For example
+
 ```php
 $this->Form->control('name', [
     'error' => ['Not long enough' => __('This is not long enough')]
 ]);
+
 ```
-As seen above you can set the error message for each validation
+
+  As seen above you can set the error message for each validation
   rule you have in your models. In addition you can provide i18n
   messages for your forms.
 
   To disable the HTML entity encoding for error messages only, the `'escape'`
   sub key can be used
+
 ```php
 $this->Form->control('name', [
     'error' => ['escape' => false],
 ]);
+
 ```
+
 - `$options['nestedInput']` - Used with checkboxes and radio buttons.
   Controls whether the input element is generated
   inside or outside the `label` element. When `control()` generates a
@@ -640,7 +771,7 @@ $this->Form->control('name', [
   On the other hand you can set this to `true` for any control type to force the
   generated input element inside the label. If you change this for radio buttons
   then you need to also modify the default
-  [radioWrapper](#create-radio-button) template. Depending on the generated
+  [radioWrapper](/en/views/helpers/form.md#create-radio-button) template. Depending on the generated
   control type it defaults to `true` or `false`.
 
 - `$options['templates']` - The templates you want to use for this input. Any
@@ -655,9 +786,12 @@ $this->Form->control('name', [
 - `$options['readonly']` - Set the field to `readonly` in form.
 
   For example
+
 ```php
 echo $this->Form->control('name', ['readonly' => true]);
+
 ```
+
 ## Generating Specific Types of Controls
 
 In addition to the generic `control()` method, `FormHelper` has specific
@@ -685,15 +819,21 @@ as follows:
   column's default value will be used.
 
   Example usage
+
 ```php
 echo $this->Form->text('ingredient', ['default' => 'Sugar']);
+
 ```
-Example with `select` field (size "Medium" will be selected as
+
+  Example with `select` field (size "Medium" will be selected as
   default)
+
 ```php
 $sizes = ['s' => 'Small', 'm' => 'Medium', 'l' => 'Large'];
 echo $this->Form->select('size', $sizes, ['default' => 'm']);
+
 ```
+
 > [!NOTE]
 > You cannot use `default` to check a checkbox - instead you might
 > set the value in `$this->request->getData()` in your controller,
@@ -703,6 +843,7 @@ echo $this->Form->select('size', $sizes, ['default' => 'm']);
 > used to disable/exclude options of a control field, so `'default' => false`
 > would not set any value at all. Instead use `'default' => 0`.
 >
+
 - `'value'` - Used to set a specific value for the control field. This
   will override any value that may else be injected from the context, such as
   Form, Entity or `request->getData()` etc.
@@ -712,6 +853,7 @@ echo $this->Form->select('size', $sizes, ['default' => 'm']);
 > context or valuesSource you will need to set `'value'` to `''`
 > (instead of setting it to `null`).
 >
+
 In addition to the above options, you can mixin any HTML attribute you wish to
 use. Any non-special option name will be treated as an HTML attribute, and
 applied to the generated HTML control element.
@@ -728,118 +870,153 @@ however, this parameter is used primarily to specify HTML tag attributes
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::text(string $name, array $options)`
 
-
 - `$name` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 Creates a simple `input` HTML element of `text` type.
 
 For example
+
 ```php
 echo $this->Form->text('username', ['class' => 'users']);
+
 ```
+
 Will output:
+
 ```html
 <input name="username" type="text" class="users">
+
 ```
+
 ### Creating Password Inputs
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::password(string $fieldName, array $options)`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 Creates a simple `input` element of `password` type.
 
 For example
+
 ```php
 echo $this->Form->password('password');
+
 ```
+
 Will output:
+
 ```html
 <input name="password" value="" type="password">
+
 ```
+
 ### Creating Hidden Inputs
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::hidden(string $fieldName, array $options)`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 Creates a hidden form input.
 
 For example
+
 ```php
 echo $this->Form->hidden('id');
+
 ```
+
 Will output:
+
 ```html
 <input name="id" type="hidden">
+
 ```
+
 ### Creating Textareas
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::textarea(string $fieldName, array $options)`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), of the specific textarea options (see below)
+  [general-control-options](/en/views/helpers/form.md#general-control-options), of the specific textarea options (see below)
   as well as any valid HTML attributes.
 
 Creates a textarea control field. The default widget template used is
+
 ```html
 'textarea' => '<textarea name="{{name}}"{{attrs}}>{{value}}</textarea>'
+
 ```
+
 For example::
 
-    echo $this->Form->textarea('notes');
+```php
+echo $this->Form->textarea('notes');
+
+```
 
 Will output:
+
 ```html
 <textarea name="notes"></textarea>
+
 ```
+
 If the form is being edited (i.e. the array `$this->request->getData()`
 contains the information previously saved for the `User` entity), the value
 corresponding to `notes` field will automatically be added to the HTML
 generated.
 
 Example:
+
 ```html
 <textarea name="notes" id="notes">
     This text is to be edited.
 </textarea>
+
 ```
+
 **Options for Textarea**
 
-In addition to the [general-control-options](#general-control-options), `textarea()` supports a
+In addition to the [general-control-options](/en/views/helpers/form.md#general-control-options), `textarea()` supports a
 couple of specific options:
 
 - `'escape'` - Determines whether or not the contents of the textarea should
   be escaped. Defaults to `true`.
 
   For example
+
 ```php
 echo $this->Form->textarea('notes', ['escape' => false]);
 // OR....
 echo $this->Form->control('notes', ['type' => 'textarea', 'escape' => false]);
+
 ```
+
 - `'rows', 'cols'` - You can use these two keys to set the HTML attributes
   which specify the number of rows and columns for the `textarea` field.
 
   For example
+
 ```php
 echo $this->Form->textarea('comment', ['rows' => '5', 'cols' => '5']);
+
 ```
-Output:
+
+  Output:
+
 ```html
 <textarea name="comment" cols="5" rows="5">
 </textarea>
+
 ```
+
 ### Creating Select, Checkbox and Radio Controls
 
 These controls share some commonalities and a few options and thus, they are
@@ -861,18 +1038,23 @@ selected when the form is rendered (in this case `'value'` must be
 assigned a valid, existent element value). May also be used in
 combination with any select-type control,
 such as `date()`, `time()`, `dateTime()`
+
 ```php
 echo $this->Form->time('close_time', [
     'value' => '13:30:00',
 ]);
+
 ```
+
 > [!NOTE]
 > The `'value'` key for `date()` and `dateTime()` controls may also have
 > as value a UNIX timestamp, or a DateTime object.
 >
+
   For a `select` control where you set the `'multiple'` attribute to
   `true`, you can provide an array with the values you want to select
   by default
+
 ```php
 // HTML <option> elements with values 1 and 3 will be rendered preselected
 echo $this->Form->select(
@@ -883,7 +1065,9 @@ echo $this->Form->select(
         'value' => [1, 3]
     ]
 );
+
 ```
+
 - `'empty'` - Applies to `radio()` and `select()`. Defaults to `false`.
 
   - When passed to `radio()` and set to `true` it will create an extra
@@ -895,14 +1079,18 @@ the label caption set this option to a string instead.
 element with an empty value in your drop down list. If you want to have an
 empty value with text displayed instead of just a blank `option`, pass a
 string to `'empty'`
+
 ```php
 echo $this->Form->select(
     'field',
     [1, 2, 3, 4, 5],
     ['empty' => '(choose one)']
 );
+
 ```
-Output:
+
+    Output:
+
 ```html
 <select name="field">
     <option value="">(choose one)</option>
@@ -912,7 +1100,9 @@ Output:
     <option value="3">4</option>
     <option value="4">5</option>
 </select>
+
 ```
+
 - `'hiddenField'` - For checkboxes and radio buttons, by default,
   a hidden `input` element is also created, along with the main
   element, so that the key in `$this->request->getData()`
@@ -920,12 +1110,14 @@ Output:
   defaults to `0` and for radio buttons to `''`.
 
   Example of default output:
+
 ```html
 <input type="hidden" name="published" value="0">
 <input type="checkbox" name="published" value="1">
-```
-This can be disabled by setting `'hiddenField'` to `false`
 
+```
+
+  This can be disabled by setting `'hiddenField'` to `false`
 
 ```php
 echo $this->Form->checkbox('published', ['hiddenField' => false]);
@@ -933,16 +1125,20 @@ echo $this->Form->checkbox('published', ['hiddenField' => false]);
 ```
 
   Which outputs:
+
 ```html
 <input type="checkbox" name="published" value="1">
+
 ```
-If you want to create multiple blocks of controls on a form, that are
+
+  If you want to create multiple blocks of controls on a form, that are
   all grouped together, you should set this parameter to `false` on all
   controls except the first. If the hidden input is on the page in multiple
   places, only the last group of `inputs`' values will be saved.
 
   In this example, only the tertiary colors would be passed, and the
   primary colors would be overridden:
+
 ```html
 <h2>Primary Colors</h2>
 <input type="hidden" name="color" value="0">
@@ -975,28 +1171,37 @@ If you want to create multiple blocks of controls on a form, that are
     <input type="checkbox" name="color[]" value="5" id="color-orange">
     Orange
 </label>
+
 ```
-Disabling `'hiddenField'` on the second control group would
+
+  Disabling `'hiddenField'` on the second control group would
   prevent this behavior.
 
   You can set a hidden field to a value other than 0, such as 'N'
+
 ```php
 echo $this->Form->checkbox('published', [
     'value' => 'Y',
     'hiddenField' => 'N',
 ]);
+
 ```
+
 #### Using Collections to build options
 
 It's possible to use the Collection class to build your options array. This approach is ideal if you already have a
 collection of entities and would like to build a select element from them.
 
 You can use the `combine` method to build a basic options array.
+
 ```php
 $options = $examples->combine('id', 'name');
+
 ```
+
 It's also possible to add extra attributes by expanding the array. The following will create a data attribute on the
 option element, using the `map` collection method.
+
 ```php
 $options = $examples->map(function ($value, $key) {
     return [
@@ -1005,22 +1210,26 @@ $options = $examples->map(function ($value, $key) {
         'data-created' => $value->created
     ];
 });
+
 ```
+
 #### Creating Checkboxes
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::checkbox(string $fieldName, array $options)`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the [checkbox-radio-select-options](#checkbox-radio-select-options)
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the [checkbox-radio-select-options](/en/views/helpers/form.md#checkbox-radio-select-options)
   above, of the checkbox-specific options (see below), as well as any valid
   HTML attributes.
 
 Creates a `checkbox` form element. The widget template used is
+
 ```html
 'checkbox' => '<input type="checkbox" name="{{name}}" value="{{value}}"{{attrs}}>'
+
 ```
+
 **Options for Checkboxes**
 
 - `'checked'` - Boolean to indicate whether this checkbox will be checked.
@@ -1033,42 +1242,58 @@ form `input` element to force the submission of data for
 the specified field.
 
 For example
+
 ```php
 echo $this->Form->checkbox('done');
+
 ```
+
 Will output:
+
 ```html
 <input type="hidden" name="done" value="0">
 <input type="checkbox" name="done" value="1">
+
 ```
+
 It is possible to specify the value of the checkbox by using the
 `$options` array.
 
 For example
+
 ```php
 echo $this->Form->checkbox('done', ['value' => 555]);
+
 ```
+
 Will output:
+
 ```html
 <input type="hidden" name="done" value="0">
 <input type="checkbox" name="done" value="555">
+
 ```
+
 If you don't want the FormHelper to create a hidden input use
 `'hiddenField'`.
 
 For example
+
 ```php
 echo $this->Form->checkbox('done', ['hiddenField' => false]);
+
 ```
+
 Will output:
+
 ```html
 <input type="checkbox" name="done" value="1">
 ```
+
 <a id="create-radio-button"></a>
 #### Creating Radio Buttons
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::radio(string $fieldName, array $options, array $attributes)`
-
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array containing at minimum the labels for the
@@ -1077,15 +1302,18 @@ Will output:
   the hidden input (if `'hiddenField'` is `true`) or no element at all
   (if `'hiddenField'` is `false`).
 - `$attributes` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the [checkbox-radio-select-options](#checkbox-radio-select-options),
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the [checkbox-radio-select-options](/en/views/helpers/form.md#checkbox-radio-select-options),
   of the radio button specific attributes (see below), as well as any valid
   HTML attributes.
 
 Creates a set of radio button inputs. The default widget templates used are
+
 ```html
 'radio' => '<input type="radio" name="{{name}}" value="{{value}}"{{attrs}}>'
 'radioWrapper' => '{{label}}'
+
 ```
+
 **Attributes for Radio Buttons**
 
 - `'label'` - Boolean to indicate whether or not labels for widgets should be
@@ -1104,10 +1332,14 @@ You must provide the label captions for the radio buttons via the `$options`
 argument.
 
 For example
+
 ```php
 $this->Form->radio('gender', ['Masculine', 'Feminine', 'Neuter']);
+
 ```
+
 Will output:
+
 ```html
 <input name="gender" value="" type="hidden">
 <label for="gender-0">
@@ -1122,12 +1354,15 @@ Will output:
     <input name="gender" value="2" id="gender-2" type="radio">
     Neuter
 </label>
+
 ```
+
 Generally `$options` contains simple `key => value` pairs. However, if you
 need to put custom attributes on your radio buttons you can use an expanded
 format.
 
 For example
+
 ```php
 echo $this->Form->radio(
     'favorite_color',
@@ -1137,8 +1372,11 @@ echo $this->Form->radio(
         ['value' => 'g', 'text' => 'Green', 'style' => 'color:green;'],
     ]
 );
+
 ```
+
 Will output:
+
 ```html
 <input type="hidden" name="favorite_color" value="">
 <label for="favorite-color-r">
@@ -1153,18 +1391,24 @@ Will output:
     <input type="radio" name="favorite_color" value="g" style="color:green;" id="favorite-color-g">
     Green
 </label>
+
 ```
+
 You can define additional attributes for an individual option's label as well::
 
-    echo $this->Form->radio(
-        'favorite_color',
-        [
-            ['value' => 'r', 'text' => 'Red', 'label' => ['class' => 'red']],
-            ['value' => 'u', 'text' => 'Blue', 'label' => ['class' => 'blue']],
-        ]
-    );
+```php
+echo $this->Form->radio(
+    'favorite_color',
+    [
+        ['value' => 'r', 'text' => 'Red', 'label' => ['class' => 'red']],
+        ['value' => 'u', 'text' => 'Blue', 'label' => ['class' => 'blue']],
+    ]
+);
+
+```
 
 Will output:
+
 ```html
 <input type="hidden" name="favorite_color" value="">
 <label for="favorite-color-r" class="red">
@@ -1175,7 +1419,9 @@ Will output:
     <input type="radio" name="favorite_color" value="u" style="color:blue;" id="favorite-color-u">
     Blue
 </label>
+
 ```
+
 If the `label` key is used on an option, the attributes in
 `$attributes['label']` will be ignored.
 <a id="create-select-picker"></a>
@@ -1183,14 +1429,13 @@ If the `label` key is used on an option, the attributes in
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::select(string $fieldName, array $options, array $attributes)`
 
-
 - `$fieldName` - A field name in the form `'fieldname'` or `'related_entity.fieldname'`. This
   will provide the `name` attribute of the `select` element.
 - `$options` - An optional array containing the list of items for the select
   picker. When this array is missing, the method will generate only the
   empty `select` HTML element without any `option` elements inside it.
 - `$attributes` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the [checkbox-radio-select-options](#checkbox-radio-select-options),
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the [checkbox-radio-select-options](/en/views/helpers/form.md#checkbox-radio-select-options),
   or of the select-specific attributes (see below), as well as any valid
   HTML attributes.
 
@@ -1200,14 +1445,20 @@ element(s) which have the specified value(s) will be shown as selected when
 rendering the select picker.
 
 By default `select` uses the following widget templates
+
 ```html
 'select' => '<select name="{{name}}"{{attrs}}>{{content}}</select>'
 'option' => '<option value="{{value}}"{{attrs}}>{{text}}</option>'
+
 ```
+
 May also use::
 
-    'optgroup' => '<optgroup label="{{label}}"{{attrs}}>{{content}}</optgroup>'
-    'selectMultiple' => '<select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>'
+```html
+'optgroup' => '<optgroup label="{{label}}"{{attrs}}>{{content}}</optgroup>'
+'selectMultiple' => '<select name="{{name}}[]" multiple="multiple"{{attrs}}>{{content}}</select>'
+
+```
 
 **Attributes for Select Pickers**
 
@@ -1229,10 +1480,14 @@ The `$options` argument allows you to manually specify
 the contents of the `option` elements of a `select` control.
 
 For example
+
 ```php
 echo $this->Form->select('field', [1, 2, 3, 4, 5]);
+
 ```
+
 Output:
+
 ```html
 <select name="field">
     <option value="0">1</option>
@@ -1241,31 +1496,40 @@ Output:
     <option value="3">4</option>
     <option value="4">5</option>
 </select>
+
 ```
+
 The array for `$options` can also be supplied as key-value pairs.
 
 For example
+
 ```php
 echo $this->Form->select('field', [
     'Value 1' => 'Label 1',
     'Value 2' => 'Label 2',
     'Value 3' => 'Label 3'
 ]);
+
 ```
+
 Output:
+
 ```html
 <select name="field">
     <option value="Value 1">Label 1</option>
     <option value="Value 2">Label 2</option>
     <option value="Value 3">Label 3</option>
 </select>
+
 ```
+
 If you would like to generate a `select` with optgroups, just pass
 data in hierarchical format (nested array). This works on multiple
 checkboxes and radio buttons too, but instead of `optgroup` it wraps
 the elements in `fieldset` elements.
 
 For example
+
 ```php
 $options = [
     'Group 1' => [
@@ -1277,8 +1541,11 @@ $options = [
     ],
 ];
 echo $this->Form->select('field', $options);
+
 ```
+
 Output:
+
 ```html
 <select name="field">
     <optgroup label="Group 1">
@@ -1289,24 +1556,32 @@ Output:
         <option value="Value 3">Label 3</option>
     </optgroup>
 </select>
+
 ```
+
 To generate HTML attributes within an `option` tag::
 
-    $options = [
-        ['text' => 'Description 1', 'value' => 'value 1', 'attr_name' => 'attr_value 1'],
-        ['text' => 'Description 2', 'value' => 'value 2', 'attr_name' => 'attr_value 2'],
-        ['text' => 'Description 3', 'value' => 'value 3', 'other_attr_name' => 'other_attr_value'],
-    ];
-    echo $this->Form->select('field', $options);
+```php
+$options = [
+    ['text' => 'Description 1', 'value' => 'value 1', 'attr_name' => 'attr_value 1'],
+    ['text' => 'Description 2', 'value' => 'value 2', 'attr_name' => 'attr_value 2'],
+    ['text' => 'Description 3', 'value' => 'value 3', 'other_attr_name' => 'other_attr_value'],
+];
+echo $this->Form->select('field', $options);
+
+```
 
 Output:
+
 ```html
 <select name="field">
     <option value="value 1" attr_name="attr_value 1">Description 1</option>
     <option value="value 2" attr_name="attr_value 2">Description 2</option>
     <option value="value 3" other_attr_name="other_attr_value">Description 3</option>
 </select>
+
 ```
+
 **Controlling Select Pickers via Attributes**
 
 By using specific options in the `$attributes` parameter you can control
@@ -1317,38 +1592,51 @@ certain behaviors of the `select()` method.
   empty value at the top of your dropdown list.
 
   For example
+
 ```php
 $options = ['M' => 'Male', 'F' => 'Female'];
 echo $this->Form->select('gender', $options, ['empty' => true]);
+
 ```
-Will output:
+
+  Will output:
+
 ```html
 <select name="gender">
     <option value=""></option>
     <option value="M">Male</option>
     <option value="F">Female</option>
 </select>
+
 ```
+
 - `'escape'` - The `select()` method allows for an attribute
   called `'escape'` which accepts a boolean value and determines
   whether to HTML entity encode the contents of the `select`'s `option`
   elements.
 
   For example
+
 ```php
 // This will prevent HTML-encoding the contents of each option element
 $options = ['M' => 'Male', 'F' => 'Female'];
 echo $this->Form->select('gender', $options, ['escape' => false]);
+
 ```
+
 - `'multiple'` - If set to `true`, the select picker will allow
   multiple selections.
 
   For example
+
 ```php
 echo $this->Form->select('field', $options, ['multiple' => true]);
+
 ```
-Alternatively, set `'multiple'` to `'checkbox'` in order to output a
+
+  Alternatively, set `'multiple'` to `'checkbox'` in order to output a
   list of related checkboxes
+
 ```php
 $options = [
     'Value 1' => 'Label 1',
@@ -1357,8 +1645,11 @@ $options = [
 echo $this->Form->select('field', $options, [
     'multiple' => 'checkbox'
 ]);
+
 ```
-Output:
+
+  Output:
+
 ```html
 <input name="field" value="" type="hidden">
 <div class="checkbox">
@@ -1373,13 +1664,16 @@ Output:
         Label 2
     </label>
 </div>
+
 ```
+
 - `'disabled'` - This option can be set in order to disable all or some
   of the `select`'s `option` items. To disable all items set `'disabled'`
   to `true`. To disable only certain items, assign to `'disabled'`
   an array containing the keys of the items to be disabled.
 
   For example
+
 ```php
 $options = [
     'M' => 'Masculine',
@@ -1389,17 +1683,21 @@ $options = [
 echo $this->Form->select('gender', $options, [
     'disabled' => ['M', 'N']
 ]);
+
 ```
-Will output:
+
+  Will output:
+
 ```html
 <select name="gender">
     <option value="M" disabled="disabled">Masculine</option>
     <option value="F">Feminine</option>
     <option value="N" disabled="disabled">Neuter</option>
 </select>
-```
-This option also works when `'multiple'` is set to `'checkbox'`
 
+```
+
+  This option also works when `'multiple'` is set to `'checkbox'`
 
 ```php
 $options = [
@@ -1414,6 +1712,7 @@ echo $this->Form->select('field', $options, [
 ```
 
   Output:
+
 ```html
 <input name="field" value="" type="hidden">
 <div class="checkbox">
@@ -1428,32 +1727,40 @@ echo $this->Form->select('field', $options, [
         Label 2
     </label>
 </div>
+
 ```
+
 ### Creating File Inputs
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::file(string $fieldName, array $options)`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 Creates a file upload field in the form.
 The widget template used by default is
+
 ```html
 'file' => '<input type="file" name="{{name}}"{{attrs}}>'
+
 ```
+
 To add a file upload field to a form, you must first make sure that
 the form enctype is set to `'multipart/form-data'`.
 
 So start off with a `create()` method such as the following
+
 ```php
 echo $this->Form->create($document, ['enctype' => 'multipart/form-data']);
 // OR
 echo $this->Form->create($document, ['type' => 'file']);
+
 ```
+
 Next add a line that looks like either of the following two lines
 to your form's view template file
+
 ```php
 echo $this->Form->control('submittedfile', [
     'type' => 'file'
@@ -1461,15 +1768,19 @@ echo $this->Form->control('submittedfile', [
 
 // OR
 echo $this->Form->file('submittedfile');
+
 ```
+
 > [!NOTE]
 > Due to the limitations of HTML itself, it is not possible to put
 > default values into input fields of type 'file'. Each time the form
 > is displayed, the value inside will be empty.
 >
+
 To prevent the `submittedfile` from being over-written as blank, remove it
 from `$_accessible`.  Alternatively, you can unset the index by using
 `beforeMarshal`
+
 ```php
 public function beforeMarshal(\Cake\Event\EventInterface $event, \ArrayObject $data, \ArrayObject $options): void
 {
@@ -1477,121 +1788,152 @@ public function beforeMarshal(\Cake\Event\EventInterface $event, \ArrayObject $d
       unset($data['submittedfile']);
    }
 }
+
 ```
+
 Upon submission, file fields can be accessed though `UploadedFileInterface`
 objects on the request. To move uploaded files to a permanent location, you can
 use
+
 ```php
 $fileobject = $this->request->getData('submittedfile');
 $destination = UPLOAD_DIRECTORY . $fileobject->getClientFilename();
 
 // Existing files with the same name will be replaced.
 $fileobject->moveTo($destination);
+
 ```
+
 > [!NOTE]
 > When using `$this->Form->file()`, remember to set the form
 > encoding-type, by setting the `'type'` option to `'file'` in
 > `$this->Form->create()`.
+
 <a id="create-datetime-controls"></a>
 ### Creating Date & Time Related Controls
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::dateTime(string $fieldName, array $options = [])`
 
-
 - `$fieldName` - A string that will be used as a prefix for the HTML `name`
   attribute of the `select` elements.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "datetime-local".
 
 For example
+
 ```php
 <?= $this->form->dateTime('registered') ?>
+
 ```
+
 Output:
+
 ```html
 <input type="datetime-local" name="registered">
+
 ```
+
 The value for the input can be any valid datetime string or `DateTime` instance.
 
 For example
+
 ```php
 <?= $this->form->dateTime('registered', ['value' => new DateTime()]) ?>
+
 ```
+
 Output:
+
 ```html
 <input type="datetime-local" name="registered" value="2019-02-08T18:20:10">
+
 ```
+
 #### Creating Date Controls
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::date(string $fieldName, array $options = [])`
 
-
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` elements.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "date".
 
 For example
+
 ```php
 <?= $this->form->date('registered') ?>
+
 ```
+
 Output:
+
 ```html
 <input type="date" name="registered">
+
 ```
+
 #### Creating Time Controls
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::time(string $fieldName, array $options = [])`
 
-
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` elements.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "time".
 
 For example
+
 ```php
 echo $this->Form->time('released');
+
 ```
+
 Output:
+
 ```html
 <input type="time" name="released">
+
 ```
+
 #### Creating Month Controls
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::month(string $fieldName, array $attributes)`
 
-
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` element.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 This method will generate an input tag with type "month".
 
 For example
+
 ```php
 echo $this->Form->month('mob');
+
 ```
+
 Will output:
+
 ```html
 <input type="month" name="mob">
+
 ```
+
 #### Creating Year Controls
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::year(string $fieldName, array $options = [])`
 
-
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` element.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
   Other valid options are:
 
   - ``min`: The lowest value to use in the year select picker.
@@ -1607,13 +1949,17 @@ not include an empty item in the list.
 
 For example, to create a year range from 2000 to the current year you
 would do the following
+
 ```php
 echo $this->Form->year('purchased', [
     'min' => 2000,
     'max' => date('Y')
 ]);
+
 ```
+
 If it was 2009, you would get the following:
+
 ```html
 <select name="purchased">
     <option value=""></option>
@@ -1629,41 +1975,53 @@ If it was 2009, you would get the following:
     <option value="2000">2000</option>
 </select>
 ```
+
 <a id="create-label"></a>
 ## Creating Labels
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::label(string $fieldName, string $text, array $options)`
 
-
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$text` - An optional string providing the label caption text.
 - `$options` - Optional. Array containing any of the
-  [general-control-options](#general-control-options) as well as any valid HTML attributes.
+  [general-control-options](/en/views/helpers/form.md#general-control-options) as well as any valid HTML attributes.
 
 Creates a `label` element. The argument `$fieldName` is used for generating
 the HTML `for` attribute of the element; if `$text` is undefined,
 `$fieldName` will also be used to inflect the label's `text` attribute.
 
 For example
+
 ```php
 echo $this->Form->label('name');
 echo $this->Form->label('name', 'Your username');
+
 ```
+
 Output:
+
 ```html
 <label for="name">Name</label>
 <label for="name">Your username</label>
+
 ```
+
 With the third parameter `$options` you can set the id or class::
 
-    echo $this->Form->label('name', null, ['id' => 'user-label']);
-    echo $this->Form->label('name', 'Your username', ['class' => 'highlight']);
+```php
+echo $this->Form->label('name', null, ['id' => 'user-label']);
+echo $this->Form->label('name', 'Your username', ['class' => 'highlight']);
+
+```
 
 Output:
+
 ```html
 <label for="name" id="user-label">Name</label>
 <label for="name" class="highlight">Your username</label>
+
 ```
+
 ## Displaying and Checking Errors
 
 FormHelper exposes a couple of methods that allow us to easily check for
@@ -1672,7 +2030,6 @@ field errors and when necessary display customized error messages.
 ### Displaying Errors
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::error(string $fieldName, mixed $text, array $options)`
-
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$text` - Optional. A string or array providing the error message(s). If an
@@ -1687,15 +2044,19 @@ field, in the event that a validation error has occurred. If `$text` is not
 provided then the default validation error message for that field will be used.
 
 Uses the following template widgets
+
 ```html
 'error' => '<div class="error-message">{{content}}</div>'
 'errorList' => '<ul>{{content}}</ul>'
 'errorItem' => '<li>{{text}}</li>'
+
 ```
+
 The `'errorList'` and `'errorItem'` templates are used to format mutiple
 error messages per field.
 
 Example
+
 ```php
 // If in TicketsTable you have a 'notEmpty' validation rule:
 public function validationDefault(Validator $validator): Validator
@@ -1711,13 +2072,18 @@ echo $this->Form->text('ticket');
 if ($this->Form->isFieldError('ticket')) {
     echo $this->Form->error('ticket', 'Completely custom error message!');
 }
+
 ```
+
 If you would click the *Submit* button of your form without providing a value
 for the *Ticket* field, your form would output:
+
 ```html
 <input name="ticket" class="form-error" required="required" value="" type="text">
 <div class="error-message">Completely custom error message!</div>
+
 ```
+
 > [!NOTE]
 > When using `Cake\View\Helper\FormHelper::control()`, errors are
 > rendered by default, so you don't need to use `isFieldError()` or call
@@ -1727,12 +2093,12 @@ for the *Ticket* field, your form would output:
 > If you use a certain model field to generate multiple form fields via
 > `control()`, and you want the same validation error message displayed for
 > each one, you will probably be better off defining a custom error message
-> inside the respective [validator rules](#creating-validators).
+> inside the respective [validator rules](/en/core-libraries/validation.md#creating-validators).
 >
+
 ### Checking for Errors
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::isFieldError(string $fieldName)`
-
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 
@@ -1740,11 +2106,13 @@ Returns `true` if the supplied `$fieldName` has an active validation
 error, otherwise returns `false`.
 
 Example
+
 ```php
 if ($this->Form->isFieldError('gender')) {
     echo $this->Form->error('gender');
 }
 ```
+
 <a id="html5-validity-messages"></a>
 ### Displaying validation messages in HTML5 validity messages
 
@@ -1752,13 +2120,17 @@ If the `autoSetCustomValidity` FormHelper option is set to `true`, error message
 the field's required and notBlank validation rules will be used in lieu of the default
 browser HTML5 required messages. Enabling the option will add the `onvalid` and `oninvalid`
 event attributes to your fields, for example
+
 ```html
 <input type="text" name="field" required onvalid="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Custom notBlank message')">
+
 ```
+
 If you want to manually set those events with custom JavaScript, you can set the `autoSetCustomValidity`
 option to `false` and use the special `customValidityMessage` template variable instead. This
 template variable is added when a field is required
-```php
+
+```html
 // example template
 [
     'input' => '<input type="{{type}}" name="{{name}}" data-error-message="{{customValidityMessage}}" {{attrs}}/>',
@@ -1766,7 +2138,9 @@ template variable is added when a field is required
 
 // would create an input like this
 <input type="text" name="field" required data-error-message="Custom notBlank message" />
+
 ```
+
 You could then use JavaScript to set the `onvalid` and `oninvalid` events as you like.
 
 ## Creating Buttons and Submit Elements
@@ -1775,11 +2149,10 @@ You could then use JavaScript to set the `onvalid` and `oninvalid` events as you
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::submit(string $caption, array $options)`
 
-
 - `$caption` - An optional string providing the button's text caption or a
   path to an image. Defaults to `'Submit'`.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the specific submit options (see below)
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific submit options (see below)
   as well as any valid HTML attributes.
 
 Creates an `input` element of `submit` type, with `$caption` as value.
@@ -1791,10 +2164,13 @@ exists. If the first character is '/' then the image path is relative to
 relative to *webroot/img*.
 
 By default it will use the following widget templates
+
 ```html
 'inputSubmit' => '<input type="{{type}}"{{attrs}}>'
 'submitContainer' => '<div class="submit">{{content}}</div>'
+
 ```
+
 **Options for Submit**
 
 - `'type'` - Set this option to `'reset'` in order to generate reset buttons.
@@ -1806,22 +2182,34 @@ By default it will use the following widget templates
 - Any other provided attributes will be assigned to the `input` element.
 
 The following
+
 ```php
 echo $this->Form->submit('Click me');
+
 ```
+
 Will output:
+
 ```html
 <div class="submit"><input value="Click me" type="submit"></div>
+
 ```
+
 You can pass a relative or absolute URL of an image to the
 caption parameter instead of the caption text
+
 ```php
 echo $this->Form->submit('ok.png');
+
 ```
+
 Will output:
+
 ```html
 <div class="submit"><input type="image" src="/img/ok.png"></div>
+
 ```
+
 Submit inputs are useful when you only need basic text or images. If you need
 more complex button content you should use `button()`.
 
@@ -1829,10 +2217,9 @@ more complex button content you should use `button()`.
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::button(string $title, array $options = [])`
 
-
 - `$title` - Mandatory string providing the button's text caption.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the specific button options (see below)
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific button options (see below)
   as well as any valid HTML attributes.
 
 Creates an HTML button with the specified title and a default type
@@ -1859,31 +2246,39 @@ as `submit()` does. This is the default type.
   `null`.
 
 For example
+
 ```php
 echo $this->Form->button('A Button');
 echo $this->Form->button('Another Button', ['type' => 'button']);
 echo $this->Form->button('Reset the Form', ['type' => 'reset']);
 echo $this->Form->button('Submit Form', ['type' => 'submit']);
+
 ```
+
 Will output:
+
 ```html
 <button type="submit">A Button</button>
 <button type="button">Another Button</button>
 <button type="reset">Reset the Form</button>
 <button type="submit">Submit Form</button>
+
 ```
+
 Example use of the `'escapeTitle'` option::
 
-    // Will render unescaped HTML.
-    echo $this->Form->button('<em>Submit Form</em>', [
-        'type' => 'submit',
-        'escapeTitle' => false,
-    ]);
+```php
+// Will render unescaped HTML.
+echo $this->Form->button('<em>Submit Form</em>', [
+    'type' => 'submit',
+    'escapeTitle' => false,
+]);
+
+```
 
 ## Closing the Form
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::end($secureAttributes = [])`
-
 
 - `$secureAttributes` - Optional. Allows you to provide secure attributes
   which will be passed as HTML attributes into the hidden input elements
@@ -1893,21 +2288,28 @@ The `end()` method closes and completes a form. Often, `end()` will only
 output a closing form tag, but using `end()` is a good practice as it
 enables FormHelper to insert the hidden form elements that
 `Cake\Controller\Component\FormProtectionComponent` requires:
+
 ```php
 <?= $this->Form->create(); ?>
 
 <!-- Form elements go here -->
 
 <?= $this->Form->end(); ?>
+
 ```
+
 If you need to add additional attributes to the generated hidden inputs
 you can use the `$secureAttributes` argument.
 
 For example
+
 ```php
 echo $this->Form->end(['data-type' => 'hidden']);
+
 ```
+
 Will output:
+
 ```html
 <div style="display:none;">
     <input type="hidden" name="_Token[fields]" data-type="hidden"
@@ -1915,24 +2317,26 @@ Will output:
     <input type="hidden" name="_Token[unlocked]" data-type="hidden"
         value="address%7Cfirst_name">
 </div>
+
 ```
+
 > [!NOTE]
 > If you are using
 > `Cake\Controller\Component\FormProtectionComponent` in your
 > application you should always end your forms with `end()`.
 >
+
 ## Creating Standalone Buttons and POST Links
 
 ### Creating POST Buttons
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::postButton(string $title, mixed $url, array $options = [])`
 
-
 - `$title` - Mandatory string providing the button's text caption. By default
   not HTML encoded.
 - `$url` - The URL of the form provided as a string or as array.
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the specific options (see below) as well
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific options (see below) as well
   as any valid HTML attributes.
 
 Creates a `<button>` tag with a surrounding `<form>` element that submits
@@ -1952,11 +2356,15 @@ FormProtectionComponent.
   the `button()` method.
 
 For example
+
 ```php
 // In templates/Tickets/index.php
 <?= $this->Form->postButton('Delete Record', ['controller' => 'Tickets', 'action' => 'delete', 5]) ?>
+
 ```
+
 Will output HTML similar to:
+
 ```html
 <form method="post" accept-charset="utf-8" action="/Rtools/tickets/delete/5">
     <div style="display:none;">
@@ -1969,7 +2377,9 @@ Will output HTML similar to:
         <input name="_Token[debug]" value="%5B%22%5C%2FRtools%5C%2Ftickets%5C%2Fdelete%5C%2F1%22%2C%5B%5D%2C%5B%5D%5D" type="hidden">
     </div>
 </form>
+
 ```
+
 Since this method generates a `form` element, do not use this method in an
 already opened form. Instead use
 `Cake\View\Helper\FormHelper::submit()`
@@ -1980,17 +2390,17 @@ inside opened forms.
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::postLink(string $title, array|string|null $url = null, array $options = [])`
 
-
 - `$title` - Mandatory string providing the text to be wrapped in `<a>`
   tags.
 - `$url` - Optional. String or array which contains the URL
   of the form (Cake-relative or external URL starting with `http://`).
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the specific options (see below) as well
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific options (see below) as well
   as any valid HTML attributes.
 
 Creates an HTML link, but accesses the URL using the method you specify
 (defaults to POST). Requires JavaScript to be enabled in browser
+
 ```php
 // In your template, to delete an article, for example
 <?= $this->Form->postLink(
@@ -1998,7 +2408,9 @@ Creates an HTML link, but accesses the URL using the method you specify
 	['action' => 'delete', $article->id],
 	['confirm' => 'Are you sure?'])
 ?>
+
 ```
+
 **Options for POST Link**
 
 - `'data'` - Array with key/value to pass in hidden input.
@@ -2017,7 +2429,7 @@ Creates an HTML link, but accesses the URL using the method you specify
 
 This method creates a `<form>` element. If you want to use this method
 inside of an existing form, you must use the `block` option so that the
-new form is being set to a [view block](#view-blocks) that can be
+new form is being set to a [view block](/en/views.md#view-blocks) that can be
 rendered outside of the main form.
 
 If all you are looking for is a button to submit your form, then you should
@@ -2026,23 +2438,24 @@ use `Cake\View\Helper\FormHelper::button()` or
 
 > [!NOTE]
 > Be careful to not put a postLink inside an open form. Instead use the
-> `block` option to buffer the form into a [view block](#view-blocks)
+> `block` option to buffer the form into a [view block](/en/views.md#view-blocks)
+
 <a id="customizing-templates"></a>
 ### Creating DELETE Links
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::deleteLink(string $title, array|string|null $url = null, array $options = [])`
-
 
 - `$title` - Mandatory string providing the text to be wrapped in `<a>`
   tags.
 - `$url` - Optional. String or array which contains the URL
   of the form (Cake-relative or external URL starting with `http://`).
 - `$options` - An optional array including any of the
-  [general-control-options](#general-control-options), or of the specific options (see below) as well
+  [general-control-options](/en/views/helpers/form.md#general-control-options), or of the specific options (see below) as well
   as any valid HTML attributes.
 
 Creates an HTML link, but accesses the URL using the method you specify
 (defaults to DELETE). Requires JavaScript to be enabled in browser
+
 ```php
 // In your template, to delete an article, for example
 <?= $this->Form->deleteLink(
@@ -2050,11 +2463,14 @@ Creates an HTML link, but accesses the URL using the method you specify
 	['action' => 'delete', $article->id],
 	['confirm' => 'Are you sure?'])
 ?>
+
 ```
+
 > [!IMPORTANT]
 > Added in version 5.2.0
 > The `deleteLink` method was added.
 >
+
 ## Customizing the Templates FormHelper Uses
 
 Like many helpers in CakePHP, FormHelper uses string templates to format the
@@ -2063,36 +2479,46 @@ of defaults, you may need to customize the templates to suit your application.
 
 To change the templates when the helper is loaded you can set the `'templates'`
 option when including the helper in your controller
+
 ```php
 // In a View class
 $this->loadHelper('Form', [
     'templates' => 'app_form',
 ]);
+
 ```
+
 This would load the tags found in **config/app_form.php**. This file should
 contain an array of templates *indexed by name*
-```php
+
+```html
 // in config/app_form.php
 return [
     'inputContainer' => '<div class="form-control">{{content}}</div>',
 ];
+
 ```
+
 Any templates you define will replace the default ones included in the helper.
 Templates that are not replaced, will continue to use the default values.
 
 You can also change the templates at runtime using the `setTemplates()` method
+
 ```php
 $myTemplates = [
     'inputContainer' => '<div class="form-control">{{content}}</div>',
 ];
 $this->Form->setTemplates($myTemplates);
+
 ```
+
 > [!WARNING]
 > Template strings containing a percentage sign (`%`) need special attention;
 > you should prefix this character with another percentage so it looks like
 > `%%`. The reason is that internally templates are compiled to be used with
 > `sprintf()`. Example: `'<div style="width:{{size}}%%">{{content}}</div>'`
 >
+
 ### List of Templates
 
 The list of default templates, their default format and the variables they
@@ -2106,6 +2532,7 @@ a datetime control the `datetimeContainer` will be used if it is present.
 If that container is missing the `inputContainer` template will be used.
 
 For example
+
 ```php
 // Add custom radio wrapping HTML
 $this->Form->setTemplates([
@@ -2117,7 +2544,9 @@ echo $this->Form->control('email_notifications', [
     'options' => ['y', 'n'],
     'type' => 'radio'
 ]);
+
 ```
+
 #### Using Distinct Custom Form Groups
 
 Similar to controlling containers, the `control()` method will also attempt to use
@@ -2127,18 +2556,22 @@ used if it is present. If that template is missing by default each set of `label
 & `input` is rendered using the default `formGroup` template.
 
 For example
+
 ```php
 // Add custom radio form group
 $this->Form->setTemplates([
     'radioFormGroup' => '<div class="radio">{{label}}{{input}}</div>'
 ]);
+
 ```
+
 ### Adding Additional Template Variables to Templates
 
 You can add additional template placeholders in custom templates, and populate
 those placeholders when generating controls.
 
 For example
+
 ```php
 // Add a template with the help placeholder.
 $this->Form->setTemplates([
@@ -2150,8 +2583,11 @@ $this->Form->setTemplates([
 echo $this->Form->control('password', [
     'templateVars' => ['help' => 'At least 8 characters long.'],
 ]);
+
 ```
+
 Output:
+
 ```html
 <div class="input password">
     <label for="password">
@@ -2160,7 +2596,9 @@ Output:
     <input name="password" id="password" type="password">
     <span class="help">At least 8 characters long.</span>
 </div>
+
 ```
+
 ### Moving Checkboxes & Radios Outside of a Label
 
 By default CakePHP nests checkboxes created via `control()` and radio buttons
@@ -2168,12 +2606,15 @@ created by both `control()` and `radio()` within label elements.
 This helps make it easier to integrate popular CSS frameworks. If you need to
 place checkbox/radio inputs outside of the label you can do so by modifying the
 templates
+
 ```php
 $this->Form->setTemplates([
     'nestingLabel' => '{{hidden}}{{input}}<label{{attrs}}>{{text}}</label>',
     'formGroup' => '{{input}}{{label}}',
 ]);
+
 ```
+
 This will make radio buttons and checkboxes render outside of their labels.
 
 ## Generating Entire Forms
@@ -2181,7 +2622,6 @@ This will make radio buttons and checkboxes render outside of their labels.
 ### Creating Multiple Controls
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::controls(array $fields = [], array $options = [])`
-
 
 - `$fields` - An array of fields to generate. Allows setting
   custom types, labels and other options for each specified field.
@@ -2195,27 +2635,37 @@ to be applied as HTML attributes to the `fieldset` tag.
 
 Generates a set of controls for the given context wrapped in a
 `fieldset`. You can specify the generated fields by including them
+
 ```php
 echo $this->Form->controls([
     'name',
     'email'
 ]);
+
 ```
+
 You can customize the legend text using an option::
 
-    echo $this->Form->controls($fields, ['legend' => 'Update news post']);
+```php
+echo $this->Form->controls($fields, ['legend' => 'Update news post']);
+
+```
 
 You can customize the generated controls by defining additional options in the
 `$fields` parameter
+
 ```php
 echo $this->Form->controls([
     'name' => ['label' => 'custom label'],
 ]);
+
 ```
+
 When customizing, `$fields`, you can use the `$options` parameter to
 control the generated legend/fieldset.
 
 For example
+
 ```php
 echo $this->Form->controls(
     [
@@ -2225,13 +2675,14 @@ echo $this->Form->controls(
         'legend' => 'Update your post',
     ]
 );
+
 ```
+
 If you disable the `fieldset`, the `legend` will not print.
 
 ### Creating Controls for a Whole Entity
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::allControls(array $fields, array $options = [])`
-
 
 - `$fields` - Optional. An array of customizations for the fields that will
   be generated. Allows setting custom types, labels and other options.
@@ -2247,9 +2698,11 @@ This method is closely related to `controls()`, however the `$fields` argument
 is defaulted to *all* fields in the current top-level entity. To exclude
 specific fields from the generated controls, set them to `false` in the
 `$fields` parameter
+
 ```php
 echo $this->Form->allControls(['password' => false]);
 ```
+
 <a id="associated-form-inputs"></a>
 ## Creating Inputs for Associated Data
 
@@ -2264,6 +2717,7 @@ the paths in your entity's data. Assuming the following table relations:
 
 If we were editing an article with its associations loaded we could
 create the following controls
+
 ```php
 $this->Form->create($article);
 
@@ -2295,9 +2749,12 @@ echo $this->Form->control('comments.0.id');
 echo $this->Form->control('comments.0.comment');
 echo $this->Form->control('comments.1.id');
 echo $this->Form->control('comments.1.comment');
+
 ```
+
 The above controls could then be marshalled into a completed entity graph using
 the following code in your controller
+
 ```php
 $article = $this->Articles->patchEntity($article, $this->request->getData(), [
     'associated' => [
@@ -2307,10 +2764,13 @@ $article = $this->Articles->patchEntity($article, $this->request->getData(), [
         'Comments',
     ],
 ]);
+
 ```
+
 The above example shows an expanded example for belongs to many associations,
 with separate inputs for each entity and join data record. You can also create
 a multiple select input for belongs to many associations
+
 ```php
 // Multiple select element for belongsToMany
 // Does not support _joinData
@@ -2319,7 +2779,9 @@ echo $this->Form->control('tags._ids', [
     'multiple' => true,
     'options' => $tags, // $tags is the output of $this->Articles->Tags->find('list')->all() in the controller
 ]);
+
 ```
+
 ## Adding Custom Widgets
 
 You can add custom control widgets in CakePHP, and use them like any other
@@ -2339,6 +2801,7 @@ If CakePHP is constructing your widget you can expect to
 get a `Cake\View\StringTemplate` instance as the first argument, followed by
 any dependencies you define. If we wanted to build an Autocomplete widget you
 could do the following
+
 ```php
 namespace App\View\Widget;
 
@@ -2386,22 +2849,28 @@ class AutocompleteWidget implements WidgetInterface
         return [$data['name']];
     }
 }
+
 ```
+
 Obviously, this is a very simple example, but it demonstrates how a custom
 widget could be built. This widget would render the "autocomplete" string
 template, such as
+
 ```php
 $this->Form->setTemplates([
     'autocomplete' => '<input type="autocomplete" name="{{name}}" {{attrs}} />'
 ]);
+
 ```
-For more information on string templates, see [customizing-templates](#customizing-templates).
+
+For more information on string templates, see [customizing-templates](/en/views/helpers/form.md#customizing-templates).
 
 ### Using Widgets
 
 You can load custom widgets when loading FormHelper or by using the
 `addWidget()` method. When loading FormHelper, widgets are defined as
 a setting
+
 ```php
 // In View class
 $this->loadHelper('Form', [
@@ -2409,9 +2878,12 @@ $this->loadHelper('Form', [
         'autocomplete' => ['Autocomplete'],
     ],
 ]);
+
 ```
+
 If your widget requires other widgets, you can have FormHelper populate those
 dependencies by declaring them
+
 ```php
 $this->loadHelper('Form', [
     'widgets' => [
@@ -2422,12 +2894,15 @@ $this->loadHelper('Form', [
         ],
     ],
 ]);
+
 ```
+
 In the above example, the `autocomplete` widget would depend on the `text` and
 `label` widgets. If your widget needs access to the View, you should use the
 `_view` 'widget'.  When the `autocomplete` widget is created, it will be passed
 the widget objects that are related to the `text` and `label` names. To add
 widgets using the `addWidget()` method would look like
+
 ```php
 // Using a classname.
 $this->Form->addWidget(
@@ -2442,17 +2917,25 @@ $autocomplete = new AutocompleteWidget(
     $this->Form->getWidgetLocator()->get('label'),
 );
 $this->Form->addWidget('autocomplete', $autocomplete);
+
 ```
+
 Once added/replaced, widgets can be used as the control 'type'::
 
-    echo $this->Form->control('search', ['type' => 'autocomplete']);
+```php
+echo $this->Form->control('search', ['type' => 'autocomplete']);
+
+```
 
 This will create the custom widget with a `label` and wrapping `div` just
 like `controls()` always does. Alternatively, you can create just the control
 widget using the magic method
+
 ```php
 echo $this->Form->autocomplete('search', $options);
+
 ```
+
 ## Working with FormProtectionComponent
 
 `Cake\Controller\Component\FormProtectionComponent` offers several
@@ -2466,18 +2949,18 @@ ensure that the special `_Token` inputs are generated.
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::unlockField($name)`
 
-
 - `$name` - Optional. The dot-separated name for the field.
 
 Unlocks a field making it exempt from the `FormProtectionComponent` field
 hashing. This also allows the fields to be manipulated by JavaScript.
 The `$name` parameter should be the entity property name for the field
+
 ```php
 $this->Form->unlockField('id');
+
 ```
 
 #### Method `Cake\View\Helper\FormHelper(View $view, array $config = [])::secure(array $fields = [], array $secureAttributes = [])`
-
 
 - `$fields` - Optional. An array containing the list of fields to use when
   generating the hash. If not provided, then `$this->fields` will be used.

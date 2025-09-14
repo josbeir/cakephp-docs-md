@@ -20,7 +20,7 @@ being executed?
 Logging data in CakePHP is done with the `log()` function. It is provided by the
 `LogTrait`, which is the common ancestor for many CakePHP classes. If the
 context is a CakePHP class (Controller, Component, View,...), you can log your
-data.  You can also use `Log::write()` directly.  See [writing-to-logs](#writing-to-logs).
+data.  You can also use `Log::write()` directly.  See [writing-to-logs](/en/core-libraries/logging.md#writing-to-logs).
 <a id="log-configuration"></a>
 ## Logging Configuration
 
@@ -56,11 +56,13 @@ Log::setConfig('error', [
     'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
     'file' => 'error',
 ]);
+
 ```
+
 The above creates three loggers, named `info`, `debug` and `error`.
 Each is configured to handle different levels of messages. They also store their
 log messages in separate files, so we can separate debug/notice/info logs
-from more serious errors. See the section on [logging-levels](#logging-levels) for more
+from more serious errors. See the section on [logging-levels](/en/core-libraries/logging.md#logging-levels) for more
 information on the different levels and what they mean.
 
 Once a configuration is created you cannot change it. Instead you should drop
@@ -70,21 +72,28 @@ the configuration and re-create it using `Cake\Log\Log::drop()` and
 It is also possible to create loggers by providing a closure. This is useful
 when you need full control over how the logger object is built. The closure
 has to return the constructed logger instance. For example
+
 ```php
 Log::setConfig('special', function () {
     return new \Cake\Log\Engine\FileLog(['path' => LOGS, 'file' => 'log']);
 });
+
 ```
+
 Configuration options can also be provided as a :term:`DSN` string. This is
 useful when working with environment variables or :term:`PaaS` providers
+
 ```php
 Log::setConfig('error', [
     'url' => 'file:///full/path/to/logs/?levels[]=warning&levels[]=error&file=error',
 ]);
+
 ```
+
 > [!WARNING]
 > If you do not configure logging engines, log messages will not be stored.
 >
+
 ## Error and Exception Logging
 
 Errors and Exceptions can also be logged. By configuring the corresponding
@@ -97,16 +106,22 @@ information.
 
 Writing to the log files can be done in two different ways. The first
 is to use the static `Cake\Log\Log::write()` method
+
 ```php
 Log::write('debug', 'Something did not work');
+
 ```
+
 The second is to use the `log()` shortcut function available on any
 class using the `LogTrait`. Calling `log()` will internally call
 `Log::write()`
+
 ```php
 // Executing this inside a class using LogTrait
 $this->log('Something did not work!', 'debug');
+
 ```
+
 All configured log streams are written to sequentially each time
 `Cake\Log\Log::write()` is called. If you have not configured any
 logging engines `log()` will return `false` and no log messages will be
@@ -117,16 +132,22 @@ written.
 If you need to log dynamically defined data, you can use placeholders in your
 log messages and provide an array of key/value pairs in the `$context`
 parameter
+
 ```php
 // Will log `Could not process for userid=1`
 Log::write('error', 'Could not process for userid={user}', ['user' => $user->id]);
+
 ```
+
 Placeholders that do not have keys defined will not be replaced. If you need to
 use a literal braced word, you must escape the placeholder
+
 ```php
 // Will log `No {replace}`
 Log::write('error', 'No \\{replace}', ['replace' => 'no']);
+
 ```
+
 If you include objects in your logging placeholders those objects must implement
 one of the following methods:
 
@@ -157,6 +178,7 @@ exception.
 > [!NOTE]
 > When `levels` is set to an empty value in a logger's configuration, it
 > will take messages of any level.
+
 <a id="logging-scopes"></a>
 ### Logging Scopes
 
@@ -168,6 +190,7 @@ you do other less critical logs.
 CakePHP exposes this concept as logging scopes. When log messages are written
 you can include a scope name. If there is a configured logger for that scope,
 the log messages will be directed to those loggers. For example
+
 ```php
 use Cake\Log\Engine\FileLog;
 
@@ -193,17 +216,23 @@ Log::setConfig('payments', [
 
 Log::warning('this gets written only to shops.log', ['scope' => ['orders']]);
 Log::warning('this gets written to both shops.log and payments.log', ['scope' => ['payments']]);
+
 ```
+
 Scopes can also be passed as a single string or a numerically indexed array.
 Note that using this form will limit the ability to pass more data as context
+
 ```php
 Log::warning('This is a warning', ['orders']);
 Log::warning('This is a warning', 'payments');
+
 ```
+
 > [!NOTE]
 > When `scopes` is set to an empty array or `null` in a logger's
 > configuration, it will take messages of any scope. Setting it to `false`
 > will only match messages without scope.
+
 <a id="file-log"></a>
 ## Logging to Files
 
@@ -211,25 +240,31 @@ As its name implies `FileLog` writes log messages to files. The level of log
 message being written determines the name of the file the message is stored in.
 If a level is not supplied, `LOG_ERR` is used which writes to the
 error log. The default log location is **logs/$level.log**
+
 ```php
 // Executing this inside a CakePHP class
 $this->log("Something didn't work!");
 
 // Results in this being appended to logs/error.log
 // 2007-11-02 10:22:02 Error: Something didn't work!
+
 ```
+
 The configured directory must be writable by the web server user in
 order for logging to work correctly.
 
 You can configure additional/alternate FileLog locations when configuring
 a logger. FileLog accepts a `path` which allows for
 custom paths to be used
+
 ```php
 Log::setConfig('custom_path', [
     'className' => 'File',
     'path' => '/path/to/custom/place/'
 ]);
+
 ```
+
 `FileLog` engine takes the following options:
 
 - `size` Used to implement basic log file rotation. If log file size
@@ -244,6 +279,7 @@ Log::setConfig('custom_path', [
 > [!NOTE]
 > Missing directories will be automatically created to avoid
 > unnecessary errors thrown when using the FileEngine.
+
 <a id="syslog-log"></a>
 ## Logging to Syslog
 
@@ -257,11 +293,14 @@ Using syslog is pretty much like using the default FileLog engine, you just need
 to specify `Syslog` as the engine to be used for logging. The following
 configuration snippet will replace the default logger with syslog, this should
 be done in the **config/bootstrap.php** file
+
 ```php
 Log::setConfig('default', [
     'engine' => 'Syslog'
 ]);
+
 ```
+
 The configuration array accepted for the Syslog logging engine understands the
 following keys:
 
@@ -271,7 +310,7 @@ following keys:
   logged message. For example: `%s - Web Server 1 - %s` will look like
   `error - Web Server 1 - An error occurred in this request` after
   replacing the placeholders. This option is deprecated. You should use
-  [logging-formatters](#logging-formatters) instead.
+  [logging-formatters](/en/core-libraries/logging.md#logging-formatters) instead.
 - `prefix`: An string that will be prefixed to every logged message.
 - `flag`: An integer flag to be used for opening the connection to the
   logger, by default `LOG_ODELAY` will be used. See `openlog` documentation
@@ -288,6 +327,7 @@ plugins. If for example you had a database logger called
 **plugins/LoggingPack/src/Log/Engine/DatabaseLog.php**. To configure log
 engine you should use `Cake\Log\Log::setConfig()`.  For example
 configuring our DatabaseLog would look like
+
 ```php
 // For src/Log
 Log::setConfig('otherFile', [
@@ -302,10 +342,13 @@ Log::setConfig('otherFile', [
     'model' => 'LogEntry',
     // ...
 ]);
+
 ```
+
 When configuring a log engine the `className` parameter is used to
 locate and load the log handler. All of the other configuration
 properties are passed to the log engine's constructor as an array.
+
 ```php
 namespace App\Log\Engine;
 use Cake\Log\Engine\BaseLog;
@@ -323,7 +366,9 @@ class DatabaseLog extends BaseLog
         // Write to the database.
     }
 }
+
 ```
+
 CakePHP requires that all logging engine implement `Psr\Log\LoggerInterface`.
 The class `Cake\Log\Engine\BaseLog` is an easy way to satisfy the
 interface as it only requires you to implement the `log()` method.
@@ -335,6 +380,7 @@ independent of the storage engine. Each core provided logging engine comes with
 a formatter configured to maintain backwards compatible output. However, you can
 adjust the formatters to fit your requirements. Formatters are configured
 alongside the logging engine
+
 ```php
 use Cake\Log\Engine\SyslogLog;
 use App\Log\Formatter\CustomFormatter;
@@ -353,7 +399,9 @@ Log::setConfig('error', [
         'key' => 'value',
     ],
 ]);
+
 ```
+
 To implement your own logging formatter you need to extend
 `Cake\Log\Format\AbstractFormatter` or one of its subclasses. The primary
 method you need to implement is `format($level, $message, $context)` which is
@@ -365,6 +413,7 @@ To test logging, add `Cake\TestSuite\LogTestTrait` to your test case. The
 `LogTestTrait` uses PHPUnit hooks to attach log engines that intercept the log
 messages your application is making. Once you have captured logs you can perform
 assertions on log messages your application is emitting. For example
+
 ```php
 namespace App\Test\TestCase\Controller;
 
@@ -389,7 +438,9 @@ class UsersControllerTest extends TestCase
         $this->assertLogMessageContains('info', 'bob@example.com reset password', 'app.security');
     }
 }
+
 ```
+
 You use `setupLog()` to define the log messages you wish to capture and
 perform assertions on. After logs have been emitted you can make assertions on
 the contents of logs, or the absence of them:
@@ -409,25 +460,21 @@ configured.
 
 **Namespace:** `Cake\Log`
 
-
 ### Class `Cake\Log\Log`
-
 
 A simple class for writing to logs.
 
 #### Static Method `Cake\Log\Log::setConfig($key, $config)`
-
 
 :param string $name: Name for the logger being connected, used
 to drop a logger later on.
 :param array $config: Array of configuration information and
 constructor arguments for the logger.
 
-Get or set the configuration for a Logger. See [log-configuration](#log-configuration) for
+Get or set the configuration for a Logger. See [log-configuration](/en/core-libraries/logging.md#log-configuration) for
 more information.
 
 #### Static Method `Cake\Log\Log::configured()`
-
 
 :returns: An array of configured loggers.
 
@@ -435,12 +482,10 @@ Get the names of the configured loggers.
 
 #### Static Method `Cake\Log\Log::drop($name)`
 
-
 :param string $name: Name of the logger you wish to no longer receive
 messages.
 
 #### Static Method `Cake\Log\Log::write($level, $message, $scope = [])`
-
 
 Write a message into all the configured loggers.
 `$level` indicates the level of log message being created.
@@ -448,7 +493,6 @@ Write a message into all the configured loggers.
 `$scope` is the scope(s) a log message is being created in.
 
 #### Static Method `Cake\Log\Log::levels()`
-
 
 Call this method without arguments, eg: `Log::levels()` to obtain current
 level configuration.
@@ -474,7 +518,6 @@ appropriate log level.
 
 #### Static Method `Cake\Log\Log::debug($message, $scope = [])`
 
-
 ## Logging Trait
 
 .. php:trait:: LogTrait
@@ -482,7 +525,6 @@ appropriate log level.
 A trait that provides shortcut methods for logging
 
 #### Method `Cake\Log\Log::log($msg, $level = LOG_ERR)`
-
 
 Log a message to the logs.  By default messages are logged as
 ERROR messages.
@@ -495,6 +537,7 @@ logger.
 
 After installing Monolog using composer, configure the logger using the
 `Log::setConfig()` method
+
 ```php
 // config/bootstrap.php
 
@@ -511,25 +554,29 @@ Log::setConfig('default', function () {
 // Optionally stop using the now redundant default loggers
 Log::drop('debug');
 Log::drop('error');
+
 ```
 
 Use similar methods if you want to configure a different logger for your console::
 
-    // config/bootstrap_cli.php
+```php
+// config/bootstrap_cli.php
 
-    use Monolog\Logger;
-    use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
-    Log::setConfig('default', function () {
-        $log = new Logger('cli');
-        $log->pushHandler(new StreamHandler('path/to/your/combined-cli.log'));
+Log::setConfig('default', function () {
+    $log = new Logger('cli');
+    $log->pushHandler(new StreamHandler('path/to/your/combined-cli.log'));
 
-        return $log;
-    });
+    return $log;
+});
 
-    // Optionally stop using the now redundant default CLI loggers
-    Configure::delete('Log.debug');
-    Configure::delete('Log.error');
+// Optionally stop using the now redundant default CLI loggers
+Configure::delete('Log.debug');
+Configure::delete('Log.error');
+
+```
 
 > [!NOTE]
 > When using a console specific logger, make sure to conditionally configure

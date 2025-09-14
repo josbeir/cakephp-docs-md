@@ -6,7 +6,6 @@ an empty database for use in this tutorial, with the name of your choice such as
 If you are using MySQL/MariaDB, you can execute the following SQL to create the
 necessary tables:
 
-
 ```SQL
 CREATE DATABASE cake_cms;
 
@@ -56,9 +55,12 @@ VALUES
 INSERT INTO articles (user_id, title, slug, body, published, created, modified)
 VALUES
 (1, 'First Post', 'first-post', 'This is the first post.', 1, NOW(), NOW());
+
 ```
+
 If you are using PostgreSQL, connect to the `cake_cms` database and execute the
 following SQL instead:
+
 ```SQL
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -104,7 +106,9 @@ VALUES
 INSERT INTO articles (user_id, title, slug, body, published, created, modified)
 VALUES
 (1, 'First Post', 'first-post', 'This is the first post.', TRUE, NOW(), NOW());
+
 ```
+
 You may have noticed that the `articles_tags` table uses a composite primary
 key. CakePHP supports composite primary keys almost everywhere, allowing you to
 have simpler schemas that don't require additional `id` columns.
@@ -122,6 +126,7 @@ Next, let's tell CakePHP where our database is and how to connect to it. Replace
 the values in the `Datasources.default` array in your **config/app_local.php** file
 with those that apply to your setup. A sample completed configuration array
 might look something like the following
+
 ```php
 <?php
 // config/app_local.php
@@ -138,7 +143,9 @@ return [
     ],
     // More configuration below.
 ];
+
 ```
+
 Once you've saved your **config/app_local.php** file, you should see that the 'CakePHP is
 able to connect to the database' section has a green chef hat.
 
@@ -146,50 +153,63 @@ able to connect to the database' section has a green chef hat.
 > The file **config/app_local.php** is a local override of the file **config/app.php**
 > used to configure your development environment quickly.
 >
+
 ## Migrations
 
 The SQL statements to create the tables for this tutorial can also be generated
 using the Migrations Plugin. Migrations provide a platform-independent way to
 run queries so the subtle differences between MySQL, PostgreSQL, SQLite, etc.
 don't become obstacles.
+
 ```bash
 bin/cake bake migration CreateUsers email:string password:string created modified
 bin/cake bake migration CreateArticles user_id:integer title:string slug:string[191]:unique body:text published:boolean created modified
 bin/cake bake migration CreateTags title:string[191]:unique created modified
 bin/cake bake migration CreateArticlesTags article_id:integer:primary tag_id:integer:primary created modified
+
 ```
+
 > [!NOTE]
 > Some adjustments to the generated code might be necessary. For example, the
 > composite primary key on `articles_tags` will be set to auto-increment
 > both columns
+
 ```php
-$table->addColumn('article_id', 'integer', [
-    'autoIncrement' => true,
-    'default' => null,
-    'limit' => 11,
-    'null' => false,
-]);
-$table->addColumn('tag_id', 'integer', [
-    'autoIncrement' => true,
-    'default' => null,
-    'limit' => 11,
-    'null' => false,
-]);
-```
-Remove those lines to prevent foreign key problems. Once adjustments are
-done
-```bash
-bin/cake migrations migrate
-```
+>
+> $table->addColumn('article_id', 'integer', [
+> 'autoIncrement' => true,
+> 'default' => null,
+> 'limit' => 11,
+> 'null' => false,
+> ]);
+> $table->addColumn('tag_id', 'integer', [
+> 'autoIncrement' => true,
+> 'default' => null,
+> 'limit' => 11,
+> 'null' => false,
+> ]);
+>
+> Remove those lines to prevent foreign key problems. Once adjustments are
+> done::
+> done::
+> bin/cake migrations migrate
+>
 Likewise, the starter data records can be done with seeds.
+
+```
+
 ```bash
 bin/cake bake seed Users
 bin/cake bake seed Articles
+
 ```
+
 Fill the seed data above into the new `UsersSeed` and `ArticlesSeed`
 classes, then
-```bash
+
+```
 bin/cake migrations seed
+
 ```
 
 Read more about building migrations and data seeding: [Migrations](https://book.cakephp.org/migrations/4/)

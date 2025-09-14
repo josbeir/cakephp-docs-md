@@ -36,7 +36,9 @@ $https = new HttpsEnforcerMiddleware([
 $https = new HttpsEnforcerMiddleware([
     'trustProxies' => ['192.168.1.1'],
 ]);
+
 ```
+
 If a non-HTTP request is received that does not use GET a `BadRequestException` will be raised.
 
 NOTE: The Strict-Transport-Security header is ignored by the browser when your site has only been 
@@ -49,6 +51,7 @@ When your application requires SSL it is a good idea to set the
 `Strict-Transport-Security` header. This header value is cached in the
 browser, and informs browsers that they should always connect with HTTPS connections.
 You can configure this header with the `hsts` option
+
 ```php
 $https = new HttpsEnforcerMiddleware([
     'hsts' => [
@@ -61,4 +64,5 @@ $https = new HttpsEnforcerMiddleware([
         'preload' => true,
     ],
 ]);
+
 ```

@@ -11,10 +11,6 @@ to configure a few things like your database credentials.
 Additionally, there are optional configuration options that allow you to swap
 out default values & implementations with ones tailored to your application.
 
-.. index:: app.php, app_local.example.php
-
-.. index:: configuration
-
 ## Configuring your Application
 
 Configuration is generally stored in either PHP or INI files, and loaded during
@@ -46,6 +42,7 @@ Configure::setConfig('default', new PhpConfig());
 Configure::load('app', 'default', false);
 Configure::load('other_config', 'default');
 ```
+
 <a id="environment-variables"></a>
 ## Environment Variables
 
@@ -77,9 +74,12 @@ should go in each one.
 
 Once your environment variables have been set, you can use `env()` to read
 data from the environment
+
 ```php
 $debug = env('APP_DEBUG', false);
+
 ```
+
 The second value passed to the env function is the default value. This value
 will be used if no environment variable exists for the given key.
 <a id="general-configuration"></a>
@@ -99,6 +99,7 @@ The namespace to find app classes under.
 > need to update your **composer.json** file to use this namespace
 > as well. Additionally, create a new autoloader by running
 > `php composer.phar dumpautoload`.
+
 <a id="core-configuration-baseurl"></a>
 App.baseUrl
 Un-comment this definition if you **don’t** plan to use Apache’s
@@ -142,7 +143,7 @@ of paths for plugins, view templates and locale files respectively.
 App.uploadedFilesAsObjects
 Defines whether uploaded files are being represented as objects (`true`),
 or arrays (`false`). This option is being treated as enabled by default.
-See the [File Uploads section](#request-file-uploads) in the Request &
+See the [File Uploads section](/en/controllers/request-response.md#request-file-uploads) in the Request &
 Response Objects chapter for more information.
 Security.salt
 A random string used in hashing. This value is also used as the
@@ -181,37 +182,37 @@ If you set `App.imageBaseUrl` to ``https://mycdn.example.com/`:
 
 ### Database Configuration
 
-See the [Database Configuration](#database-configuration) for information
+See the [Database Configuration](/en/orm/database-basics.md#database-configuration) for information
 on configuring your database connections.
 
 ### Caching Configuration
 
-See the [Caching Configuration](#cache-configuration) for information on
+See the [Caching Configuration](/en/core-libraries/caching.md#cache-configuration) for information on
 configuring caching in CakePHP.
 
 ### Error and Exception Handling Configuration
 
-See the [Error and Exception Configuration](#error-configuration) for
+See the [Error and Exception Configuration](/en/development/errors.md#error-configuration) for
 information on configuring error and exception handlers.
 
 ### Logging Configuration
 
-See the [log-configuration](#log-configuration) for information on configuring logging in
+See the [log-configuration](/en/core-libraries/logging.md#log-configuration) for information on configuring logging in
 CakePHP.
 
 ### Email Configuration
 
-See the [Email Configuration](#email-configuration) for information on
+See the [Email Configuration](/en/core-libraries/email.md#email-configuration) for information on
 configuring email presets in CakePHP.
 
 ### Session Configuration
 
-See the [session-configuration](#session-configuration) for information on configuring session
+See the [session-configuration](/en/development/sessions.md#session-configuration) for information on configuring session
 handling in CakePHP.
 
 ### Routing configuration
 
-See the [Routes Configuration](#routes-configuration) for more information
+See the [Routes Configuration](/en/development/routing.md#routes-configuration) for more information
 on configuring routing and creating routes for your application.
 <a id="additional-class-paths"></a>
 ## Additional Class Paths
@@ -219,30 +220,37 @@ on configuring routing and creating routes for your application.
 Additional class paths are setup through the autoloaders your application uses.
 When using `composer`` to generate your autoloader, you could do the following,
 to provide fallback paths for controllers in your application
-```json
+
+```
 "autoload": {
     "psr-4": {
         "App\\Controller\\": "/path/to/directory/with/controller/folders/",
         "App\\": "src/"
     }
 }
+
 ```
+
 The above would setup paths for both the `App` and `App\Controller`
 namespace. The first key will be searched, and if that path does not contain the
 class/file the second key will be searched. You can also map a single namespace
 to multiple directories with the following
-```php
+
+```
 "autoload": {
     "psr-4": {
         "App\\": ["src/", "/path/to/directory/"]
     }
 }
+
 ```
+
 ### Plugin, View Template and Locale Paths
 
 Since plugins, view templates and locales are not classes, they cannot have an
 autoloader configured. CakePHP provides three Configure variables to setup additional
 paths for these resources. In your **config/app.php** you can set these variables
+
 ```php
 return [
     // More configuration
@@ -262,20 +270,20 @@ return [
         ],
     ],
 ];
+
 ```
+
 Paths should end with a directory separator, or they will not work properly.
 
 ## Inflection Configuration
 
-See the [inflection-configuration](#inflection-configuration) docs for more information.
+See the [inflection-configuration](/en/core-libraries/inflector.md#inflection-configuration) docs for more information.
 
 ## Configure Class
 
 **Namespace:** `Cake\Core`
 
-
 ### Class `Cake\Core\Configure`
-
 
 CakePHP's Configure class can be used to store and retrieve
 application or runtime specific values. Be careful, this class
@@ -290,23 +298,29 @@ won't end up breaking the MVC structure CakePHP provides.
 
 #### Static Method `Cake\Core\Configure::write($key, $value)`
 
-
 Use `write()` to store data in the application's configuration
+
 ```php
 Configure::write('Company.name', 'Pizza, Inc.');
 Configure::write('Company.slogan', 'Pizza for your body and soul');
+
 ```
+
 > [!NOTE]
 > The :term:`dot notation` used in the `$key` parameter can be used to
 > organize your configuration settings into logical groups.
 >
+
 The above example could also be written in a single call
+
 ```php
 Configure::write('Company', [
     'name' => 'Pizza, Inc.',
     'slogan' => 'Pizza for your body and soul'
 ]);
+
 ```
+
 You can use `Configure::write('debug', $bool)` to switch between debug and
 production modes on the fly.
 
@@ -315,14 +329,15 @@ production modes on the fly.
 > and will not persist across requests.
 >
 >
+
 ### Reading Configuration Data
 
 #### Static Method `Cake\Core\Configure::read($key = null, $default = null)`
 
-
 Used to read configuration data from the application. If a key is supplied, the
 data is returned. Using our examples from write() above, we can read that data
 back
+
 ```php
 // Returns 'Pizza Inc.'
 Configure::read('Company.name');
@@ -336,15 +351,17 @@ Configure::read('Company');
 
 // Returns 'fallback' as Company.nope is undefined.
 Configure::read('Company.nope', 'fallback');
+
 ```
+
 If `$key` is left null, all values in Configure will be returned.
 
 #### Static Method `Cake\Core\Configure::readOrFail($key)`
 
-
 Reads configuration data just like `Cake\Core\Configure::read()`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown
+
 ```php
 Configure::readOrFail('Company.name');    // Yields: 'Pizza, Inc.'
 Configure::readOrFail('Company.geolocation');  // Will throw an exception
@@ -353,39 +370,44 @@ Configure::readOrFail('Company');
 
 // Yields:
 ['name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul'];
+
 ```
+
 ### Checking to see if Configuration Data is Defined
 
 #### Static Method `Cake\Core\Configure::check($key)`
 
-
 Used to check if a key/path exists and has non-null value
+
 ```php
 $exists = Configure::check('Company.name');
+
 ```
+
 ### Deleting Configuration Data
 
 #### Static Method `Cake\Core\Configure::delete($key)`
 
-
 Used to delete information from the application's configuration
+
 ```php
 Configure::delete('Company.name');
+
 ```
+
 ### Reading & Deleting Configuration Data
 
 #### Static Method `Cake\Core\Configure::consume($key)`
-
 
 Read and delete a key from Configure. This is useful when you want to
 combine reading and deleting values in a single operation.
 
 #### Static Method `Cake\Core\Configure::consumeOrFail($key)`
 
-
 Consumes configuration data just like `Cake\Core\Configure::consume()`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown
+
 ```php
 Configure::consumeOrFail('Company.name');    // Yields: 'Pizza, Inc.'
 Configure::consumeOrFail('Company.geolocation');  // Will throw an exception
@@ -394,11 +416,12 @@ Configure::consumeOrFail('Company');
 
 // Yields:
 ['name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul'];
+
 ```
+
 ## Reading and writing configuration files
 
 #### Static Method `Cake\Core\Configure::setConfig($name, $engine)`
-
 
 CakePHP comes with two built-in configuration file engines.
 `Cake\Core\Configure\Engine\PhpConfig` is able to read PHP config
@@ -407,6 +430,7 @@ files, in the same format that Configure has historically read.
 files.  See the [PHP documentation](https://php.net/parse_ini_file) for more
 information on the specifics of ini files.  To use a core config engine, you'll
 need to attach it to Configure using `Configure::config()`
+
 ```php
 use Cake\Core\Configure\Engine\PhpConfig;
 
@@ -415,39 +439,47 @@ Configure::config('default', new PhpConfig());
 
 // Read config files from another path.
 Configure::config('default', new PhpConfig('/path/to/your/config/files/'));
+
 ```
+
 You can have multiple engines attached to Configure, each reading different
 kinds or sources of configuration files. You can interact with attached engines
 using a few other methods on Configure. To check which engine aliases are
 attached you can use `Configure::configured()`
+
 ```php
 // Get the array of aliases for attached engines.
 Configure::configured();
 
 // Check if a specific engine is attached
 Configure::configured('default');
-```
-#### Static Method `Cake\Core\Configure::drop($name)`
 
+```
+
+#### Static Method `Cake\Core\Configure::drop($name)`
 
 You can also remove attached engines. `Configure::drop('default')`
 would remove the default engine alias. Any future attempts to load configuration
 files with that engine would fail
+
 ```php
 Configure::drop('default');
 ```
+
 <a id="loading-configuration-files"></a>
 ### Loading Configuration Files
 
 #### Static Method `Cake\Core\Configure::load($key, $config = 'default', $merge = true)`
 
-
 Once you've attached a config engine to Configure you can load configuration
 files
+
 ```php
 // Load my_file.php using the 'default' engine object.
 Configure::load('my_file', 'default');
+
 ```
+
 Loaded configuration files merge their data with the existing runtime
 configuration in Configure. This allows you to overwrite and add new values into
 the existing runtime configuration. By setting `$merge` to `true`, values
@@ -456,29 +488,30 @@ will not ever overwrite the existing configuration.
 > [!WARNING]
 > When merging configuration files with `$merge = true`, dot notation in keys is
 > not expanded
+
 ```php
-// config1.php
-'Key1' => [
-    'Key2' => [
-        'Key3' => ['NestedKey1' => 'Value'],
-    ],
-],
-
-// config2.php
-'Key1.Key2' => [
-    'Key3' => ['NestedKey2' => 'Value2'],
-]
-
-Configure::load('config1', 'default');
-Configure::load('config2', 'default', true);
-
-// Now Key1.Key2.Key3 has the value ['NestedKey2' => 'Value2']
-// instead of ['NestedKey1' => 'Value', 'NestedKey2' => 'Value2']
-```
+>
+> // config1.php
+> 'Key1' => [
+> 'Key2' => [
+> 'Key3' => ['NestedKey1' => 'Value'],
+> ],
+> ],
+>
+> // config2.php
+> 'Key1.Key2' => [
+> 'Key3' => ['NestedKey2' => 'Value2'],
+> ]
+>
+> Configure::load('config1', 'default');
+> Configure::load('config2', 'default', true);
+>
+> // Now Key1.Key2.Key3 has the value ['NestedKey2' => 'Value2']
+> // instead of ['NestedKey1' => 'Value', 'NestedKey2' => 'Value2']
+>
 ### Creating or Modifying Configuration Files
 
 #### Static Method `Cake\Core\Configure::dump($key, $config = 'default', $keys = [])`
-
 
 Dumps all or some of the data in Configure into a file or storage system
 supported by a config engine. The serialization format is decided by the config
@@ -488,13 +521,19 @@ a PHP configuration file loadable by the
 `Cake\Core\Configure\Engine\PhpConfig`
 
 Given that the 'default' engine is an instance of PhpConfig.
-Save all data in Configure to the file `my_config.php`
+Save all data in Configure to the file `my_config.php`::
+
 ```php
 Configure::dump('my_config', 'default');
+
 ```
+
 Save only the error handling configuration::
 
-    Configure::dump('error', 'default', ['Error', 'Exception']);
+```php
+Configure::dump('error', 'default', ['Error', 'Exception']);
+
+```
 
 `Configure::dump()` can be used to either modify or overwrite
 configuration files that are readable with `Configure::load()`
@@ -503,15 +542,17 @@ configuration files that are readable with `Configure::load()`
 
 #### Static Method `Cake\Core\Configure::store($name, $cacheConfig = 'default', $data = null)`
 
-
 You can also store runtime configuration values for use in a future request.
 Since configure only remembers values for the current request, you will
 need to store any modified configuration information if you want to
-use it in subsequent requests
+use it in subsequent requests::
+
 ```php
 // Store the current configuration in the 'user_1234' key in the 'default' cache.
 Configure::store('user_1234', 'default');
+
 ```
+
 Stored configuration data is persisted in the named cache configuration. See the
 [/core-libraries/caching` documentation for more information on caching.
 
@@ -519,12 +560,13 @@ Stored configuration data is persisted in the named cache configuration. See the
 
 #### Static Method `Cake\Core\Configure::restore($name, $cacheConfig = 'default')`
 
-
 Once you've stored runtime configuration, you'll probably need to restore it
-so you can access it again. `Configure::restore()` does exactly that
+so you can access it again. `Configure::restore()` does exactly that::
+
 ```php
 // Restore runtime configuration from the cache.
 Configure::restore('user_1234', 'default');
+
 ```
 
 When restoring configuration information it's important to restore it with
@@ -543,3 +585,5 @@ The built in configuration engines are:
 - [PhpConfig](https://api.cakephp.org/5.x/class-Cake.Core.Configure.Engine.PhpConfig.html)
 
 By default your application will use `PhpConfig`.
+
+```

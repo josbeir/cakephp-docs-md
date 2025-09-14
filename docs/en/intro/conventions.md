@@ -45,9 +45,11 @@ $this->Html->link('link-title', [
     'controller' => 'ControllerName', // CamelCased
     'action' => 'actionName' // camelBacked
 ]
+
 ```
+
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](#routes-configuration).
+[routes-configuration](/en/development/routing.md#routes-configuration).
 <a id="file-and-classname-conventions"></a>
 ## File and Class Name Conventions
 
@@ -115,7 +117,6 @@ tables respectively.
 Enum class names should use a `{Entity}{Column}` convention, and enum cases
 should use CamelCased names.
 
-
 ## View Conventions
 
 View template files are named after the controller functions they display, in an
@@ -133,6 +134,7 @@ The basic pattern is
 > rules. See the documentation about [/core-libraries/inflector` for more
 > information.
 >
+
 ## Plugins Conventions
 
 It is useful to prefix a CakePHP plugin with "cakephp-" in the package name.
@@ -141,12 +143,14 @@ This makes the name semantically related on the framework it depends on.
 Do **not** use the CakePHP namespace (cakephp) as vendor name as this is
 reserved to CakePHP owned plugins.  The convention is to use lowercase letters
 and dashes as separator
+
 ```
 // Bad
 cakephp/foo-bar
 
 // Good
 your-name/cakephp-foo-bar
+
 ```
 
 See [awesome list recommendations](https://github.com/FriendsOfCake/awesome-cakephp/blob/master/CONTRIBUTING.md#tips-for-creating-cakephp-plugins)
@@ -171,59 +175,72 @@ Using these conventions, CakePHP knows that a request to
 None of these relationships have been configured by any means other than by
 creating classes and files that you'd need to create anyway.
 
-
-| Example | articles | menu_links |  |
-| --- | --- | --- | --- |
-| Database | articles | menu_links | Table names corresponding to CakePHP |
-| Table |  |  | models are plural and underscored. |
-| File | ArticlesController.php | MenuLinksController.php |  |
-| Table | ArticlesTable.php | MenuLinksTable.php | Table class names are plural, |
-|  |  |  | CamelCased and end in Table |
-| Entity | Article.php | MenuLink.php | Entity class names are singular, |
-|  |  |  | CamelCased: Article and MenuLink |
-| Class | ArticlesController | MenuLinksController |  |
-| Controller | ArticlesController | MenuLinksController | Plural, CamelCased, end in Controller |
-| Templates | Articles/index.php | MenuLinks/index.php | View template files are named after |
-|  | Articles/add.php | MenuLinks/add.php | the controller functions they |
-|  | Articles/get_list.php | MenuLinks/get_list.php | display, in an underscored form |
-| Behavior | ArticlesBehavior.php | MenuLinksBehavior.php |  |
-| View | ArticlesView.php | MenuLinksView.php |  |
-| Helper | ArticlesHelper.php | MenuLinksHelper.php |  |
-| Component | ArticlesComponent.php | MenuLinksComponent.php |  |
-| Plugin | Bad: cakephp/articles | cakephp/menu-links | Useful to prefix a CakePHP plugin with "cakephp-" |
-|  | Good: you/cakephp-articles | you/cakephp-menu-links | in the package name. Do not use the CakePHP |
-|  |  |  | namespace (cakephp) as vendor name as this is |
-|  |  |  | reserved to CakePHP owned plugins. The convention |
-|  |  |  | is to use lowercase letters and dashes as separator. |
-|  |  |  |  |
-| Each file | uld be located in the approp | ate folder/namespace in | ur app folder. |
-
-
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Example    | articles                    | menu_links              |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Database   | articles                    | menu_links              | Table names corresponding to CakePHP                 |
+| Table      |                             |                         | models are plural and underscored.                   |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| File       | ArticlesController.php      | MenuLinksController.php |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Table      | ArticlesTable.php           | MenuLinksTable.php      | Table class names are plural,                        |
+|            |                             |                         | CamelCased and end in Table                          |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Entity     | Article.php                 | MenuLink.php            | Entity class names are singular,                     |
+|            |                             |                         | CamelCased: Article and MenuLink                     |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Class      | ArticlesController          | MenuLinksController     |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Controller | ArticlesController          | MenuLinksController     | Plural, CamelCased, end in Controller                |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Templates  | Articles/index.php          | MenuLinks/index.php     | View template files are named after                  |
+|            | Articles/add.php            | MenuLinks/add.php       | the controller functions they                        |
+|            | Articles/get_list.php       | MenuLinks/get_list.php  | display, in an underscored form                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Behavior   | ArticlesBehavior.php        | MenuLinksBehavior.php   |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| View       | ArticlesView.php            | MenuLinksView.php       |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Helper     | ArticlesHelper.php          | MenuLinksHelper.php     |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Component  | ArticlesComponent.php       | MenuLinksComponent.php  |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Plugin     | Bad: cakephp/articles       | cakephp/menu-links      | Useful to prefix a CakePHP plugin with "cakephp-"    |
+|            | Good: you/cakephp-articles  | you/cakephp-menu-links  | in the package name. Do not use the CakePHP          |
+|            |                             |                         | namespace (cakephp) as vendor name as this is        |
+|            |                             |                         | reserved to CakePHP owned plugins. The convention    |
+|            |                             |                         | is to use lowercase letters and dashes as separator. |
+|            |                             |                         |                                                      |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
+| Each file would be located in the appropriate folder/namespace in your app folder.                                        |
++------------+-----------------------------+-------------------------+------------------------------------------------------+
 
 ## Database Convention Summary
-
-| Foreign keys | Relationships are recognized by default as the |
-| --- | --- |
-|  | (singular) name of the related table followed by `_id`.    | |
-| hasMany | Users hasMany Articles, `articles` table will refer        | |
-| belongsTo/ | to the `users` table via a `user_id` foreign key.        | |
-| hasOne |  |
-| BelongsToMany |  |
-|  |  |
-| Multiple Words | `menu_links` whose name contains multiple words,           | |
-|  | the foreign key would be `menu_link_id`.                   | |
-| Auto Increment | In addition to using an auto-incrementing integer as |
-|  | primary keys, you can also use UUID columns. |
-|  | CakePHP will create UUID values automatically |
-|  | using (`Cake\Utility\Text::uuid()`)              | |
-|  | whenever you save new records using the |
-|  | `Table::save()` method.                                    | |
-| Join tables | Should be named after the model tables they will join |
-|  | or the bake command won't work, arranged in alphabetical |
-|  | order (`articles_tags` rather than `tags_articles`).     | |
-|  | Additional columns on the junction table you should create |
-|  | a separate entity/table class for that table. |
-
++-----------------+--------------------------------------------------------------+
+| Foreign keys    | Relationships are recognized by default as the               |
+|                 | (singular) name of the related table followed by `_id`.    |
+| hasMany         | Users hasMany Articles, `articles` table will refer        |
+| belongsTo/      | to the `users` table via a `user_id` foreign key.        |
+| hasOne          |                                                              |
+| BelongsToMany   |                                                              |
+|                 |                                                              |
++-----------------+--------------------------------------------------------------+
+| Multiple Words  | `menu_links` whose name contains multiple words,           |
+|                 | the foreign key would be `menu_link_id`.                   |
++-----------------+--------------------------------------------------------------+
+| Auto Increment  | In addition to using an auto-incrementing integer as         |
+|                 | primary keys, you can also use UUID columns.                 |
+|                 | CakePHP will create UUID values automatically                |
+|                 | using (`Cake\Utility\Text::uuid()`)              |
+|                 | whenever you save new records using the                      |
+|                 | `Table::save()` method.                                    |
++-----------------+--------------------------------------------------------------+
+| Join tables     | Should be named after the model tables they will join        |
+|                 | or the bake command won't work, arranged in alphabetical     |
+|                 | order (`articles_tags` rather than `tags_articles`).     |
+|                 | Additional columns on the junction table you should create   |
+|                 | a separate entity/table class for that table.                |
++-----------------+--------------------------------------------------------------+
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
 through the [tutorials-and-examples/cms/installation](/en/tutorials-and-examples/cms/installation.md) to see how things fit

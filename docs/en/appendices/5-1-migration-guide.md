@@ -47,7 +47,6 @@ removed in 6.0.0.
 - `Mailer::setMessage()` is deprecated. It has unintuitive behavior and very
   low usage.
 
-
 ## New Features
 
 ### Cache
@@ -72,7 +71,6 @@ removed in 6.0.0.
 - `Arguments::getArgument()` will now raise an exception if an unknown
   argument name is provided. This helps prevent mixing up option/argument names.
 
-
 ### Controller
 
 - Components can now use the DI container to have dependencies resolved and
@@ -85,7 +83,7 @@ removed in 6.0.0.
   a typesafe way to cast request data or other input and return `null` when conversion fails.
 - `pathCombine()` was added to help build paths without worrying about duplicate and trailing slashes.
 - A new `events` hook was added to the `BaseApplication` as well as the `BasePlugin` class. This hook
-  is the recommended way to register global event listeners for you application. See [Registering Listeners](#registering-event-listeners)
+  is the recommended way to register global event listeners for you application. See [Registering Listeners](/en/core-libraries/events.md#registering-event-listeners)
 
 ### Database
 
@@ -109,7 +107,6 @@ removed in 6.0.0.
 - `RulesChecker::remove()`, `removeCreate()`, `removeUpdate()`, and
   `removeDelete()` methods were added. These methods allow you to remove rules
   by name.
-
 
 ### Http
 

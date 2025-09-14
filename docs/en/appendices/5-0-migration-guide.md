@@ -273,7 +273,7 @@ CakePHP 5 leverages the expanded type system feature available in PHP 8.1+.
 CakePHP also uses `assert()` to provide improved error messages and additional
 type soundness. In production mode, you can configure PHP to not generate
 code for `assert()` yielding improved application performance. See the
-[symlink-assets](#symlink-assets) for how to do this.
+[symlink-assets](/en/deployment.md#symlink-assets) for how to do this.
 
 ### Collection
 
@@ -284,7 +284,7 @@ code for `assert()` yielding improved application performance. See the
 ### Core
 
 - The `services()` method was added to `PluginInterface`.
-- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](#loading-a-plugin).
+- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](/en/plugins.md#loading-a-plugin).
 
 ### Database
 
@@ -321,17 +321,19 @@ $entity->has();
 $entity->getOriginal();
 isset($entity->attribute);
 $entity->attribute;
+
 ```
+
 Fields are considered defined if they pass `array_key_exists`. This includes
 null values. Because this can be a tedious to enable feature, it was deferred to
 5.0. We'd like any feedback you have on this feature as we're considering making
 this the default behavior in the future.
 
-
 ### Typed Finder Parameters
 
 Table finders can now have typed arguments as required instead of an options array.
 For e.g. a finder for fetching posts by category or user
+
 ```php
 public function findByCategoryOrUser(SelectQuery $query, array $options)
 {
@@ -344,26 +346,32 @@ public function findByCategoryOrUser(SelectQuery $query, array $options)
 
     return $query;
 }
+
 ```
+
 can now be written as::
 
-    public function findByCategoryOrUser(SelectQuery $query, ?int $categoryId = null, ?int $userId = null)
-    {
-        if ($categoryId) {
-            $query->where(['category_id' => $categoryId]);
-        }
-        if ($userId) {
-            $query->where(['user_id' => $userId]);
-        }
-
-        return $query;
+```php
+public function findByCategoryOrUser(SelectQuery $query, ?int $categoryId = null, ?int $userId = null)
+{
+    if ($categoryId) {
+        $query->where(['category_id' => $categoryId]);
     }
+    if ($userId) {
+        $query->where(['user_id' => $userId]);
+    }
+
+    return $query;
+}
+
+```
 
 The finder can then be called as `find('byCategoryOrUser', userId: $somevar)`.
 You can even include the special named arguments for setting query clauses.
 `find('byCategoryOrUser', userId: $somevar, conditions: ['enabled' => true])`.
 
 A similar change has been applied to the `RepositoryInterface::get()` method
+
 ```php
 public function view(int $id)
 {
@@ -372,14 +380,18 @@ public function view(int $id)
         'finder' => 'latest',
     ]);
 }
+
 ```
 
 can now be written as::
 
-    public function view(int $id)
-    {
-        $author = $this->Authors->get($id, contain: ['Books'], finder: 'latest');
-    }
+```php
+public function view(int $id)
+{
+    $author = $this->Authors->get($id, contain: ['Books'], finder: 'latest');
+}
+
+```
 
 ### TestSuite
 

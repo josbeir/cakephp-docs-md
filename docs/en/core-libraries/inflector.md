@@ -7,9 +7,7 @@ keywords: "apple orange,word variations,apple pie,person man,latin versions,prof
 
 **Namespace:** `Cake\Utility`
 
-
 ### Class `Cake\Utility\Inflector`
-
 
 The Inflector class takes a string and can manipulate it to handle word
 variations such as pluralization or camelizing and is normally accessed
@@ -23,37 +21,45 @@ You can try out the inflections online at [inflector.cakephp.org](https://inflec
 Quick summary of the Inflector built-in methods and the results they output
 when provided a multi-word argument:
 
-
-| Method | Argument | Output |
-| --- | --- | --- |
-| `pluralize()`   | | igApple      | | igApples     | |
-|  | -------------- | -------------- |
-|  | big_apple | big_apples |
-| `singularize()` | | igApples     | | igApple      | |
-|  | -------------- | -------------- |
-|  | big_apples | big_apple |
-| `camelize()`    | | ig_apples    | | igApples     | |
-|  | -------------- | -------------- |
-|  | big apple | BigApple |
-| `underscore()`  | | igApples     | | ig_apples    | |
-|  | -------------- | -------------- |
-|  | Big Apples | big apples |
-| `humanize()`    | | ig_apples    | | ig Apples    | |
-|  | -------------- | -------------- |
-|  | bigApple | BigApple |
-| `classify()`    | | ig_apples    | | igApple      | |
-|  | -------------- | -------------- |
-|  | big apple | BigApple |
-| `dasherize()`   | | igApples     | | ig-apples    | |
-|  | -------------- | -------------- |
-|  | big apple | big apple |
-| `tableize()`    | | igApple      | | ig_apples    | |
-|  | -------------- | -------------- |
-|  | Big Apple | big apples |
-| `variable()`    | | ig_apple     | | igApple      | |
-|  | -------------- | -------------- |
-|  | big apples | bigApples |
-
++-------------------+---------------+---------------+
+| Method            | Argument      | Output        |
++===================+===============+===============+
+| `pluralize()`   | BigApple      | BigApples     |
++                   +---------------+---------------+
+|                   | big_apple     | big_apples    |
++-------------------+---------------+---------------+
+| `singularize()` | BigApples     | BigApple      |
++                   +---------------+---------------+
+|                   | big_apples    | big_apple     |
++-------------------+---------------+---------------+
+| `camelize()`    | big_apples    | BigApples     |
++                   +---------------+---------------+
+|                   | big apple     | BigApple      |
++-------------------+---------------+---------------+
+| `underscore()`  | BigApples     | big_apples    |
++                   +---------------+---------------+
+|                   | Big Apples    | big apples    |
++-------------------+---------------+---------------+
+| `humanize()`    | big_apples    | Big Apples    |
++                   +---------------+---------------+
+|                   | bigApple      | BigApple      |
++-------------------+---------------+---------------+
+| `classify()`    | big_apples    | BigApple      |
++                   +---------------+---------------+
+|                   | big apple     | BigApple      |
++-------------------+---------------+---------------+
+| `dasherize()`   | BigApples     | big-apples    |
++                   +---------------+---------------+
+|                   | big apple     | big apple     |
++-------------------+---------------+---------------+
+| `tableize()`    | BigApple      | big_apples    |
++                   +---------------+---------------+
+|                   | Big Apple     | big apples    |
++-------------------+---------------+---------------+
+| `variable()`    | big_apple     | bigApple      |
++                   +---------------+---------------+
+|                   | big apples    | bigApples     |
++-------------------+---------------+---------------+
 
 ## Creating Plural & Singular Forms
 
@@ -61,39 +67,47 @@ when provided a multi-word argument:
 
 #### Static Method `Cake\Utility\Inflector::pluralize($singular)`
 
-
 Both `pluralize` and `singularize()` work on most English nouns. If you need
-to support other languages, you can use [inflection-configuration](#inflection-configuration) to
+to support other languages, you can use [inflection-configuration](/en/core-libraries/inflector.md#inflection-configuration) to
 customize the rules used
 
 ```php
 // Apples
 echo Inflector::pluralize('Apple');
+
 ```
+
 > [!NOTE]
 > `pluralize()` should not be used on a noun that is already in its plural form.
+>
+
 ```php
 // Person
 echo Inflector::singularize('People');
+
 ```
+
 > [!NOTE]
 > `singularize()` should not be used on a noun that is already in its singular form.
 >
+
 ## Creating CamelCase and under_scored Forms
 
 #### Static Method `Cake\Utility\Inflector::camelize($underscored)`
 
 #### Static Method `Cake\Utility\Inflector::underscore($camelCase)`
 
-
 These methods are useful when creating class names, or property names
+
 ```php
 // ApplePie
 Inflector::camelize('Apple_pie')
 
 // apple_pie
 Inflector::underscore('ApplePie');
+
 ```
+
 It should be noted that underscore will only convert camelCase formatted words.
 Words that contains spaces will be lower-cased, but will not contain an
 underscore.
@@ -102,13 +116,15 @@ underscore.
 
 #### Static Method `Cake\Utility\Inflector::humanize($underscored)`
 
-
 This method is useful when converting underscored forms into "Title Case" forms
 for human readable values
+
 ```php
 // Apple Pie
 Inflector::humanize('apple_pie');
+
 ```
+
 ## Creating Table and Class Name Forms
 
 #### Static Method `Cake\Utility\Inflector::classify($underscored)`
@@ -117,9 +133,9 @@ Inflector::humanize('apple_pie');
 
 #### Static Method `Cake\Utility\Inflector::tableize($camelCase)`
 
-
 When generating code, or using CakePHP's conventions you may need to inflect
 table names or class names
+
 ```php
 // UserProfileSetting
 Inflector::classify('user_profile_settings');
@@ -129,18 +145,21 @@ Inflector::dasherize('UserProfileSetting');
 
 // user_profile_settings
 Inflector::tableize('UserProfileSetting');
+
 ```
+
 ## Creating Variable Names
 
 #### Static Method `Cake\Utility\Inflector::variable($underscored)`
 
-
 Variable names are often useful when doing meta-programming tasks that involve
 generating code or doing work based on conventions
+
 ```php
 // applePie
 Inflector::variable('apple_pie');
 ```
+
 <a id="inflection-configuration"></a>
 ## Inflection Configuration
 
@@ -160,13 +179,14 @@ special cases.
 
 #### Static Method `Cake\Utility\Inflector::rules($type, $rules, $reset = false)`
 
-
 Define new inflection and transliteration rules for Inflector to use.  Often,
 this method is used in your **config/bootstrap.php**
+
 ```php
 Inflector::rules('singular', ['/^(bil)er$/i' => '\1', '/^(inflec|contribu)tors$/i' => '\1ta']);
 Inflector::rules('uninflected', ['singulars']);
 Inflector::rules('irregular', ['phylum' => 'phyla']); // The key is singular form, value is plural form
+
 ```
 
 The supplied rules will be merged into the respective inflection sets defined in

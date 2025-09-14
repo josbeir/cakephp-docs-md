@@ -2,7 +2,6 @@
 
 ### Class `CheckHttpCacheComponent(ComponentCollection $collection, array $config = [])`
 
-
 The HTTP cache validation model is one of the processes used for cache gateways,
 also known as reverse proxies, to determine if they can serve a stored copy of
 a response to the client. Under this model, you mostly save bandwidth, but when
@@ -17,6 +16,7 @@ public function initialize(): void
 
     $this->addComponent('CheckHttpCache');
 }
+
 ```
 
 Enabling the `CheckHttpCacheComponent` in your controller automatically

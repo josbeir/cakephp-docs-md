@@ -8,9 +8,7 @@ keywords: "number helper,currency,number format,number precision,format file siz
 
 **Namespace:** `Cake\View\Helper`
 
-
 ### Class `Cake\View\Helper\NumberHelper(View $view, array $config = [])`
-
 
 The NumberHelper contains convenient methods that enable display
 numbers in common formats in your views. These methods include ways

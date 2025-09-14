@@ -20,21 +20,29 @@ Example
 ```php
 $this->loadComponent('Acl.Acl');
 $this->addHelper('Flash')
+
 ```
+
 This will result in the `Acl` property and `Flash` helper being loaded.
 Configuration can also be set on-the-fly. Example
+
 ```php
 $this->loadComponent('Cookie', ['name' => 'sweet']);
+
 ```
+
 Any keys and values provided will be passed to the Component's constructor.  The
 one exception to this rule is `className`.  Classname is a special key that is
 used to alias objects in a registry.  This allows you to have component names
 that do not reflect the classnames, which can be helpful when extending core
 components
+
 ```php
 $this->Flash = $this->loadComponent('Flash', ['className' => 'MyCustomFlash']);
 $this->Flash->error(); // Actually using MyCustomFlash::error();
+
 ```
+
 ## Triggering Callbacks
 
 Callbacks are not provided by registry objects. You should use the
@@ -47,10 +55,12 @@ In previous versions, collection objects provided a `disable()` method to disabl
 objects from receiving callbacks. You should use the features in the events system to
 accomplish this now. For example, you could disable component callbacks in the
 following way
+
 ```php
 // Remove MyComponent from callbacks.
 $this->getEventManager()->off($this->MyComponent);
 
 // Re-enable MyComponent for callbacks.
 $this->getEventManager()->on($this->MyComponent);
+
 ```

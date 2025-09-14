@@ -8,9 +8,7 @@ keywords: "time helper,format time,timezone,unix epoch,time strings,time zone of
 
 **Namespace:** `Cake\View\Helper`
 
-
 ### Class `Cake\View\Helper\TimeHelper(View $view, array $config = [])`
-
 
 The TimeHelper allows for the quick processing of time related information.
 The TimeHelper has two main tasks that it can perform:
@@ -43,6 +41,7 @@ echo $this->Time->format(
 // for a user in GMT+0. While displaying,
 // 'Saturday, August 22, 2011 at 03:53 PM GMT-8:00'
 // for a user in GMT-8
+
 ```
 
 Most of TimeHelper's features are intended as backwards compatible interfaces

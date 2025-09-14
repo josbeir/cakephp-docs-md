@@ -24,6 +24,7 @@ CakePHP offers two forms of CSRF protection:
 > You cannot use both of the following approaches together, you must choose
 > only one.  If you use both approaches together, a CSRF token mismatch error
 > will occur on every `PUT` and `POST` request
+
 <a id="csrf-middleware"></a>
 ## Cross Site Request Forgery (CSRF) Middleware
 
@@ -52,9 +53,12 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 
     return $middlewareQueue;
 }
+
 ```
+
 By applying CSRF protection to routing scopes, you can conditionally
 apply CSRF to specific groups of routes
+
 ```php
 // in src/Application.php
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
@@ -73,7 +77,9 @@ public function routes(RouteBuilder $routes) : void
 $routes->scope('/', function (RouteBuilder $routes) {
     $routes->applyMiddleware('csrf');
 });
+
 ```
+
 ### Cookie based CSRF middleware options
 
 The available configuration options are:
@@ -99,24 +105,31 @@ The available configuration options are:
 - `field` The form field to check. Changing this will also require configuring
   FormHelper.
 
-
 When enabled, you can access the current CSRF token on the request object
+
 ```php
 $token = $this->request->getAttribute('csrfToken');
+
 ```
+
 Should you need to rotate or replace the session CSRF token you can do so with::
 
-    $this->request = SessionCsrfProtectionMiddleware::replaceToken($this->request);
+```php
+$this->request = SessionCsrfProtectionMiddleware::replaceToken($this->request);
+
+```
 
 > [!IMPORTANT]
 > Added in version 4.3.0
 > The `replaceToken` method was added.
 >
+
 ### Skipping CSRF checks for specific actions
 
 Both CSRF middleware implementations allow you to the skip check callback
 feature for more fine grained control over URLs for which CSRF token check
 should be done
+
 ```php
 // in src/Application.php
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
@@ -138,7 +151,9 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 
     return $middlewareQueue;
 }
+
 ```
+
 > [!NOTE]
 > You should apply the CSRF protection middleware only for routes which handle
 > stateful requests using cookies/sessions. For example, when developing an
@@ -146,6 +161,7 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 > affected by CSRF so the middleware does not need to be applied for those
 > routes.
 >
+
 ### Integration with FormHelper
 
 The `CsrfProtectionMiddleware` integrates seamlessly with `FormHelper`. Each
@@ -157,6 +173,7 @@ the CSRF token.
 > `FormHelper`. If you do not, you will need to manually create hidden inputs in
 > each of your forms.
 >
+
 ### CSRF Protection and AJAX Requests
 
 In addition to request data parameters, CSRF tokens can be submitted through
@@ -172,21 +189,29 @@ and when you already have functionality for parsing cookies via JavaScript.
 If you have separate JavaScript files but don't want to deal with handling cookies,
 you could for example set the token in a global JavaScript variable in your layout, by
 defining a script block like this
+
 ```php
 echo $this->Html->scriptBlock(sprintf(
     'var csrfToken = %s;',
     json_encode($this->request->getAttribute('csrfToken'))
 ));
+
 ```
+
 You can then access the token as `csrfToken` or `window.csrfToken` in any script
 file that is loaded after this script block.
 
 Another alternative would be to put the token in a custom meta tag like this
+
 ```php
 echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));
+
 ```
+
 which could then be accessed in your scripts by looking for the `meta` element with
 the name `csrfToken`, which could be as simple as this when using jQuery
+
 ```javascript
 var csrfToken = $('meta[name="csrfToken"]').attr('content');
+
 ```

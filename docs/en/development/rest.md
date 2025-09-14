@@ -91,19 +91,24 @@ class RecipesController extends AppController
         $this->viewBuilder()->setOption('serialize', ['message']);
     }
 }
+
 ```
+
 In our `RecipesController`, we have several actions that define the logic
 to create, edit, view and delete recipes. In each of our actions we're using
 the `serialize` option to tell CakePHP which view variables should be
 serialized when making API responses. We'll connect our controller to the
-application URLs with [resource-routes](#resource-routes)
+application URLs with [resource-routes](/en/development/routing.md#resource-routes)
+
 ```php
 // in config/routes.php
 $routes->scope('/', function (RouteBuilder $routes): void {
     $routes->setExtensions(['json']);
     $routes->resources('Recipes');
 });
+
 ```
+
 These routes will enable URLs like `/recipes.json` to return a JSON encoded
 response. Clients could also make a request to `/recipes` with the
 `Content-Type: application/json` header as well.
@@ -125,7 +130,7 @@ If we wanted to modify the data before it is converted into JSON we should not
 define the `serialize` option, and instead use template files. We would place
 the REST templates for our RecipesController inside **templates/Recipes/json**.
 
-See the [controller-viewclasses](#controller-viewclasses) for more information on how CakePHP's
+See the [controller-viewclasses](/en/controllers.md#controller-viewclasses) for more information on how CakePHP's
 response negotiation functionality.
 
 ## Parsing Request Bodies
@@ -135,8 +140,10 @@ resources are serialized as JSON it would be ergonomic if our requests also
 contained the JSON representation.
 
 In our `Application` class ensure the following is present
+
 ```php
 $middlewareQueue->add(new BodyParserMiddleware());
+
 ```
 
 This middleware will use the `content-type` header to detect the format of

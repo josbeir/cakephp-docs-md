@@ -26,7 +26,6 @@ EPUB, you can now read it on more devices, as well as offline.
 - [EPUB](/en/../_downloads/en/CakePHP.epub.md)
 - [Original Source](https://github.com/cakephp/docs)
 
-
 ---
 
 ## Getting Help
@@ -44,7 +43,7 @@ CakePHP has to offer and how it works.
 After you've finished the Quickstart tutorial, you can brush up on the key
 elements in a CakePHP application:
 
-- The :ref:`CakePHP request cycle](/en/request-cycle.md)
+- The [CakePHP request cycle](/en/request-cycle.md)
 - The [conventions](/en/intro/conventions.md) that CakePHP
   uses.
 - [Controllers](/en/controllers.md) handle requests and co-ordinate your models

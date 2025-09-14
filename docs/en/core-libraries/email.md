@@ -7,9 +7,7 @@ keywords: "sending mail,email sender,envelope sender,php class,database configur
 
 **Namespace:** `Cake\Mailer`
 
-
 ### Class `Cake\Mailer\Mailer(string|array|null $profile = null)`
-
 
 `Mailer` is a convenience class for sending email. With this class you can send
 email from any place inside of your application.
@@ -20,14 +18,19 @@ First of all, you should ensure the class is loaded
 
 ```php
 use Cake\Mailer\Mailer;
+
 ```
+
 After you've loaded `Mailer`, you can send an email with the following::
 
-    $mailer = new Mailer('default');
-    $mailer->setFrom(['me@example.com' => 'My Site'])
-        ->setTo('you@example.com')
-        ->setSubject('About')
-        ->deliver('My message');
+```php
+$mailer = new Mailer('default');
+$mailer->setFrom(['me@example.com' => 'My Site'])
+    ->setTo('you@example.com')
+    ->setSubject('About')
+    ->deliver('My message');
+
+```
 
 Since `Mailer`'s setter methods return the instance of the class, you are able
 to set its properties with method chaining.
@@ -36,6 +39,7 @@ to set its properties with method chaining.
 `setBcc()`, `addTo()`, `addCc()` and `addBcc()`. The main difference being
 that the first three will overwrite what was already set and the latter will just
 add more recipients to their respective field
+
 ```php
 $mailer = new Mailer();
 $mailer->setTo('to@example.com', 'To Example');
@@ -43,19 +47,25 @@ $mailer->addTo('to2@example.com', 'To2 Example');
 // The email's To recipients are: to@example.com and to2@example.com
 $mailer->setTo('test@example.com', 'ToTest Example');
 // The email's To recipient is: test@example.com
+
 ```
+
 ### Choosing the Sender
 
 When sending email on behalf of other people, it's often a good idea to define the
 original sender using the Sender header. You can do so using `setSender()`
+
 ```php
 $mailer = new Mailer();
 $mailer->setSender('app@example.com', 'MyApp emailer');
+
 ```
+
 > [!NOTE]
 > It's also a good idea to set the envelope sender when sending mail on another
 > person's behalf. This prevents them from getting any messages about
 > deliverability.
+
 <a id="email-configuration"></a>
 ## Configuration
 
@@ -70,15 +80,19 @@ more difficult.
 
 To load a predefined configuration, you can use the `setProfile()` method or
 pass it to the constructor of `Mailer`
+
 ```php
 $mailer = new Mailer();
 $mailer->setProfile('default');
 
 // Or in constructor
 $mailer = new Mailer('default');
+
 ```
+
 Instead of passing a string which matches a preset configuration name, you can
 also just load an array of options
+
 ```php
 $mailer = new Mailer();
 $mailer->setProfile(['from' => 'me@example.org', 'transport' => 'my_custom']);
@@ -86,6 +100,7 @@ $mailer->setProfile(['from' => 'me@example.org', 'transport' => 'my_custom']);
 // Or in constructor
 $mailer = new Mailer(['from' => 'me@example.org', 'transport' => 'my_custom']);
 ```
+
 <a id="email-configurations"></a>
 ### Configuration Profiles
 
@@ -121,10 +136,10 @@ following configuration keys are used:
   variables to be used in the view. See `Mailer::setViewVars()`.
 - `'attachments'`: List of files to attach. See `Mailer::setAttachments()`.
 - `'emailFormat'`: Format of email (html, text or both). See `Mailer::setEmailFormat()`.
-- `'transport'`: Transport configuration name. See [email-transport](#email-transport).
+- `'transport'`: Transport configuration name. See [email-transport](/en/core-libraries/email.md#email-transport).
 - `'log'`: Log level to log the email headers and message. `true` will use
-  LOG_DEBUG. See [logging-levels](#logging-levels). Note that logs will be emitted under the scope named `email`.
-  See also [logging-scopes](#logging-scopes).
+  LOG_DEBUG. See [logging-levels](/en/core-libraries/logging.md#logging-levels). Note that logs will be emitted under the scope named `email`.
+  See also [logging-scopes](/en/core-libraries/logging.md#logging-scopes).
 - `'helpers'`: Array of helpers used in the email template.
   `ViewBuilder::setHelpers()`/`ViewBuilder::addHelpers()`.
 
@@ -134,6 +149,7 @@ following configuration keys are used:
 > `$mailer->setFrom('my@example.com', 'My Site')`
 > would be defined as  `'from' => ['my@example.com' => 'My Site']` in your config
 >
+
 ## Setting Headers
 
 In `Mailer` you are free to set whatever headers you want. Do not forget to
@@ -149,6 +165,7 @@ to facilitate that, CakePHP provides a way to send emails using CakePHP's
 
 The templates for emails reside in a special folder `templates/email`` of your
 application. Mailer views can also use layouts and elements just like normal views
+
 ```php
 $mailer = new Mailer();
 $mailer
@@ -160,10 +177,13 @@ $mailer
                 ->setLayout('fancy');
 
 $mailer->deliver();
+
 ```
+
 The above would use **templates/email/html/welcome.php** for the view
 and **templates/layout/email/html/fancy.php** for the layout. You can
 send multipart templated email messages as well
+
 ```php
 $mailer = new Mailer();
 $mailer
@@ -175,7 +195,9 @@ $mailer
                 ->setLayout('fancy');
 
 $mailer->deliver();
+
 ```
+
 This would use the following template files:
 
 - **templates/email/text/welcome.php**
@@ -190,45 +212,61 @@ You can set all view related config using the view builder instance got by
 `Mailer::viewBuilder()` similar to how you do the same in controller.
 
 You can set view variables with `Mailer::setViewVars()`
+
 ```php
 $mailer = new Mailer('templated');
 $mailer->setViewVars(['value' => 12345]);
+
 ```
+
 Or you can use the view builder methods `ViewBuilder::setVar()` and
 `ViewBuilder::setVars()`.
 
 In your email templates you can use these with
+
 ```php
 <p>Here is your value: <b><?= $value ?></b></p>
+
 ```
+
 You can use helpers in emails as well, much like you can in normal template files.
 By default only the `HtmlHelper` is loaded. You can load additional
 helpers using the `ViewBuilder::addHelpers()` method
+
 ```php
 $mailer->viewBuilder()->addHelpers(['Html', 'Custom', 'Text']);
+
 ```
+
 When adding helpers be sure to include 'Html' or it will be removed from the
 helpers loaded in your email template.
 
 > [!NOTE]
 > In versions prior to 4.3.0, you will need to use `setHelpers()` instead.
 >
+
 If you want to send email using templates in a plugin you can use the familiar
 :term:`plugin syntax` to do so
+
 ```php
 $mailer = new Mailer();
 $mailer->viewBuilder()->setTemplate('Blog.new_comment');
+
 ```
+
 The above would use template and layout from the Blog plugin as an example.
 
 In some cases, you might need to override the default template provided by plugins.
 You can do this using themes
+
 ```php
 $mailer->viewBuilder()
     ->setTemplate('Blog.new_comment')
     ->setLayout('Blog.auto_message')
     ->setTheme('TestTheme');
+
 ```
+
 This allows you to override the `new_comment` template in your theme without
 modifying the Blog plugin. The template file needs to be created in the
 following path:
@@ -237,7 +275,6 @@ following path:
 ## Sending Attachments
 
 #### Method `Cake\Mailer\Mailer(string|array|null $profile = null)::setAttachments($attachments)`
-
 
 You can attach files to email messages as well. There are a few
 different formats depending on what kind of files you have, and how
@@ -250,6 +287,7 @@ attach this file with the name file.png..
 attach some_hash.png with the name photo.png. The recipient will see
 photo.png, not some_hash.png.
 3. Nested arrays
+
 ```php
 $mailer->setAttachments([
     'photo.png' => [
@@ -258,7 +296,9 @@ $mailer->setAttachments([
         'contentId' => 'my-unique-id',
     ],
 ]);
+
 ```
+
 The above will attach the file with different mimetype and with custom
 Content ID (when set the content ID the attachment is transformed to inline).
 The mimetype and contentId are optional in this form.
@@ -278,27 +318,32 @@ needing file paths to them.
 
 #### Method `Cake\Mailer\Mailer(string|array|null $profile = null)::setEmailPattern($pattern)`
 
-
 If you are having validation issues when sending to non-compliant addresses, you
 can relax the pattern used to validate email addresses. This is sometimes
 necessary when dealing with some ISPs
+
 ```php
 $mailer = new Mailer('default');
 
 // Relax the email pattern, so you can send
 // to non-conformant addresses.
 $mailer->setEmailPattern($newPattern);
+
 ```
+
 ## Sending Emails from CLI
 
 When sending emails within a CLI script (Shells, Tasks, ...) you should manually
 set the domain name for Mailer to use. It will serve as the host name for the
 message id (since there is no host name in a CLI environment)
+
 ```php
 $mailer->setDomain('www.example.org');
 // Results in message ids like `<UUID@www.example.org>` (valid)
 // Instead of `<UUID@>`` (invalid)
+
 ```
+
 A valid message id can help to prevent emails ending up in spam folders.
 
 ## Creating Reusable Emails
@@ -313,6 +358,7 @@ In this example we will be creating a `Mailer` that contains user-related
 emails. To create our `UserMailer`, create the file
 **src/Mailer/UserMailer.php**. The contents of the file should look like the
 following
+
 ```php
 namespace App\Mailer;
 
@@ -337,7 +383,9 @@ class UserMailer extends Mailer
             ->setViewVars(['token' => $user->token]);
     }
 }
+
 ```
+
 In our example we have created two methods, one for sending a welcome email, and
 another for sending a password reset email. Each of these methods expect a user
 `Entity` and utilizes its properties for configuring each email.
@@ -345,6 +393,7 @@ another for sending a password reset email. Each of these methods expect a user
 We are now able to use our `UserMailer` to send out our user-related emails
 from anywhere in our application. For example, if we wanted to send our welcome
 email we could do the following
+
 ```php
 namespace App\Controller;
 
@@ -366,12 +415,15 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 }
+
 ```
+
 If we wanted to completely separate sending a user their welcome email from our
 application's code, we can have our `UserMailer` subscribe to the
 `Model.afterSave` event. By subscribing to an event, we can keep our
 application's user-related classes completely free of email-related logic and
 instructions. For example, we could add the following to our `UserMailer`
+
 ```php
 public function implementedEvents(): array
 {
@@ -386,17 +438,23 @@ public function onRegistration(EventInterface $event, EntityInterface $entity, A
         $this->send('welcome', [$entity]);
     }
 }
+
 ```
+
 You can now register the mailer as an event listener and the
 `onRegistration()` method will be invoked every time the `Model.afterSave`
 event is fired
+
 ```php
 // attach to Users event manager
 $this->Users->getEventManager()->on($this->getMailer('User'));
+
 ```
+
 > [!NOTE]
 > For information on how to register event listener objects,
-> please refer to the [registering-event-listeners](#registering-event-listeners) documentation.
+> please refer to the [registering-event-listeners](/en/core-libraries/events.md#registering-event-listeners) documentation.
+
 <a id="email-transport"></a>
 ## Configuring Transports
 
@@ -405,7 +463,8 @@ send messages via PHP's `mail()` function, SMTP servers, or not at all which
 is useful for debugging. Configuring transports allows you to keep configuration
 data out of your application code and makes deployment simpler as you can simply
 change the configuration data. An example transport configuration looks like
-```php
+
+```
 // In config/app.php
 'EmailTransport' => [
     // Sample Mail configuration
@@ -422,9 +481,12 @@ change the configuration data. An example transport configuration looks like
         'tls' => true,
     ],
 ],
+
 ```
+
 Transports can also be configured at runtime using
 `TransportFactory::setConfig()`
+
 ```php
 use Cake\Mailer\TransportFactory;
 
@@ -436,10 +498,13 @@ TransportFactory::setConfig('gmail', [
     'password' => 'secret',
     'className' => 'Smtp'
 ]);
+
 ```
+
 You can configure SSL SMTP servers, like Gmail. To do so, put the `ssl://`
 prefix in the host and configure the port value accordingly. You can also
 enable TLS SMTP using the `tls` option
+
 ```php
 use Cake\Mailer\TransportFactory;
 
@@ -451,19 +516,24 @@ TransportFactory::setConfig('gmail', [
     'className' => 'Smtp',
     'tls' => true
 ]);
+
 ```
+
 The above configuration would enable TLS communication for email messages.
 
 To configure your mailer to use a specific transport you can use
 `Cake\Mailer\Mailer::setTransport()` method or have the transport
 in your configuration
+
 ```php
 // Use a named transport already configured using TransportFactory::setConfig()
 $mailer->setTransport('gmail');
 
 // Use a constructed object.
 $mailer->setTransport(new \Cake\Mailer\Transport\DebugTransport());
+
 ```
+
 > [!WARNING]
 > You will need to have access for less secure apps enabled in your Google
 > account for this to work:
@@ -471,24 +541,28 @@ $mailer->setTransport(new \Cake\Mailer\Transport\DebugTransport());
 > account](https://support.google.com/accounts/answer/6010255).
 >
 > [!NOTE]
+
     [Gmail SMTP settings](https://support.google.com/a/answer/176600?hl=en).
 
 > [!NOTE]
 > To use SSL + SMTP, you will need to have the SSL configured in your PHP
 > install.
 >
+
 Configuration options can also be provided as a :term:`DSN` string. This is
 useful when working with environment variables or :term:`PaaS` providers
+
 ```php
 TransportFactory::setConfig('default', [
     'url' => 'smtp://my@gmail.com:secret@smtp.gmail.com:587?tls=true',
 ]);
+
 ```
+
 When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
 #### Static Method `Cake\Mailer\Mailer(string|array|null $profile = null)::drop($key)`
-
 
 Once configured, transports cannot be modified. In order to modify a transport
 you must first drop it and then reconfigure it.
@@ -499,6 +573,7 @@ You are able to create your custom transports for situations such as send email 
 like SendGrid, MailGun or Postmark. To create your transport, first create the file
 **src/Mailer/Transport/ExampleTransport.php** (where Example is the name of your
 transport). To start, your file should look like
+
 ```php
 namespace App\Mailer\Transport;
 
@@ -512,7 +587,9 @@ class ExampleTransport extends AbstractTransport
         // Do something.
     }
 }
+
 ```
+
 You must implement the method `send(Message $message)` with your custom logic.
 
 ## Sending emails without using Mailer
@@ -524,6 +601,7 @@ classes to configure emails with a fluent interface.
 If you want you can use these classes directly with the `Mailer` too.
 
 For example
+
 ```php
 $render = new \Cake\Mailer\Renderer();
 $render->viewBuilder()
@@ -538,7 +616,9 @@ $message
 
 $transport = new \Cake\Mailer\Transport\MailTransport();
 $result = $transport->send($message);
+
 ```
+
 You can even skip using the `Renderer` and set the message body directly
 using `Message::setBodyText()` and `Message::setBodyHtml()` methods.
 <a id="email-testing"></a>
@@ -551,6 +631,7 @@ on the mail that would be delivered.
 
 Add the trait to your test case to start testing emails, and load routes if your
 emails need to generate URLs
+
 ```php
 namespace App\Test\TestCase\Mailer;
 
@@ -570,9 +651,12 @@ class WelcomeMailerTestCase extends TestCase
         $this->loadRoutes();
     }
 }
+
 ```
+
 Let's assume we have a mailer that delivers welcome emails when a new user
 registers. We want to check that the subject and body contain the user's name
+
 ```php
 // in our WelcomeMailerTestCase class.
 public function testName()
@@ -588,10 +672,13 @@ public function testName()
     $this->assertMailContainsText('Hi ' . $user->name);
     $this->assertMailContainsText('Welcome to CakePHP!');
 }
+
 ```
+
 ### Assertion methods
 
 The `Cake\TestSuite\EmailTrait` trait provides the following assertions
+
 ```php
 // Asserts an expected number of emails were sent
 $this->assertMailCount($count);
@@ -644,4 +731,5 @@ $this->assertMailSubjectContains('Free Offer');
 
 // Asserts an email at the specific index contains a substring in the subject.
 $this->assertMailSubjectContainsAt(1, 'Free Offer');
+
 ```

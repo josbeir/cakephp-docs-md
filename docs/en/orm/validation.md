@@ -22,7 +22,9 @@ $article = $articles->newEntity($this->request->getData());
 if ($article->getErrors()) {
     // Entity failed validation.
 }
+
 ```
+
 When building an entity with validation enabled the following occurs:
 
 1. The validator object is created.
@@ -37,17 +39,23 @@ will be excluded.
 
 If you'd like to disable validation when converting request data, set the
 `validate` option to false
+
 ```php
 $article = $articles->newEntity(
     $this->request->getData(),
     ['validate' => false]
 );
+
 ```
+
 The same can be said about the `patchEntity()` method::
 
-    $article = $articles->patchEntity($article, $newData, [
-        'validate' => false
-    ]);
+```php
+$article = $articles->patchEntity($article, $newData, [
+    'validate' => false
+]);
+
+```
 
 ## Creating A Default Validation Set
 
@@ -56,6 +64,7 @@ what data should be validated in conjunction with where it will be saved.
 
 To create a default validation object in your table, create the
 `validationDefault()` function
+
 ```php
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -77,27 +86,34 @@ class ArticlesTable extends Table
         return $validator;
     }
 }
+
 ```
+
 The available validation methods and rules come from the `Validator` class and
-are documented in the [creating-validators](#creating-validators) section.
+are documented in the [creating-validators](/en/core-libraries/validation.md#creating-validators) section.
 
 > [!NOTE]
 > Validation objects are intended primarily for validating user input, i.e.
 > forms and any other posted request data.
 >
+
 ## Using A Different Validation Set
 
 In addition to disabling validation you can choose which validation rule set you
 want applied
+
 ```php
 $article = $articles->newEntity(
     $this->request->getData(),
     ['validate' => 'update']
 );
+
 ```
+
 The above would call the `validationUpdate()` method on the table instance to
 build the required rules. By default the `validationDefault()` method will be
 used. An example validator for our articles table would be
+
 ```php
 class ArticlesTable extends Table
 {
@@ -110,7 +126,9 @@ class ArticlesTable extends Table
         return $validator;
     }
 }
+
 ```
+
 You can have as many validation sets as necessary. See the [validation
 chapter](/en/core-libraries/validation.md) for more information on building
 validation rule-sets.
@@ -120,6 +138,7 @@ validation rule-sets.
 Validation sets can also be defined per association. When using the
 `newEntity()` or `patchEntity()` methods, you can pass extra options to each
 of the associations to be converted
+
 ```php
 $data = [
      'title' => 'My title',
@@ -141,11 +160,14 @@ $data = [
          'Comments' => ['validate' => 'custom'],
      ],
  ]);
+
 ```
+
 ## Combining Validators
 
 Because of how validator objects are built, you can decompose their
 construction process into multiple reusable steps
+
 ```php
 // UsersTable.php
 
@@ -167,7 +189,9 @@ public function validationHardened(Validator $validator): Validator
 
     return $validator;
 }
+
 ```
+
 Given the above setup, when using the `hardened` validation set, it will also
 contain the validation rules declared in the `default` set.
 
@@ -184,6 +208,7 @@ provider.
 When a validation rule is created you can name the provider of that rule. For
 example, if your table has an `isValidRole` method you can use it as
 a validation rule
+
 ```php
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -208,18 +233,23 @@ class UsersTable extends Table
     }
 
 }
+
 ```
+
 You can also use closures for validation rules::
 
-    $validator->add('name', 'myRule', [
-        'rule' => function ($value, array $context) {
-            if ($value > 1) {
-                return true;
-            }
-
-            return 'Not a good value.';
+```php
+$validator->add('name', 'myRule', [
+    'rule' => function ($value, array $context) {
+        if ($value > 1) {
+            return true;
         }
-    ]);
+
+        return 'Not a good value.';
+    }
+]);
+
+```
 
 Validation methods can return error messages when they fail. This is a simple
 way to make error messages dynamic based on the provided value.
@@ -228,16 +258,20 @@ way to make error messages dynamic based on the provided value.
 
 Once you have created a few validation sets in your table class, you can get the
 resulting object by name
+
 ```php
 $defaultValidator = $usersTable->getValidator('default');
 
 $hardenedValidator = $usersTable->getValidator('hardened');
+
 ```
+
 ## Default Validator Class
 
 As stated above, by default the validation methods receive an instance of
 `Cake\Validation\Validator`. Instead, if you want your custom validator's
 instance to be used each time, you can use table's `$_validatorClass` property
+
 ```php
 // In your table class
 public function initialize(array $config): void
@@ -245,11 +279,12 @@ public function initialize(array $config): void
     $this->_validatorClass = \FullyNamespaced\Custom\Validator::class;
 }
 ```
+
 <a id="application-rules"></a>
 ## Applying Application Rules
 
 While basic data validation is done when [request data is converted into
-entities](#validating-request-data), many applications also have more complex
+entities](/en/orm/validation.md#validating-request-data), many applications also have more complex
 validation that should only be applied after basic validation has completed.
 
 Where validation ensures the form or syntax of your data is correct, rules
@@ -273,6 +308,7 @@ Rules checker classes are generally defined by the `buildRules()` method in your
 table class. Behaviors and other event subscribers can use the
 `Model.buildRules` event to augment the rules checker for a given Table
 class
+
 ```php
 use Cake\ORM\RulesChecker;
 
@@ -301,35 +337,50 @@ public function buildRules(RulesChecker $rules): RulesChecker
 
     return $rules;
 }
+
 ```
+
 Your rules functions can expect to get the Entity being checked and an array of
 options. The options array will contain `errorField`, `message`, and
 `repository`. The `repository` option will contain the table class the rules
 are attached to. Because rules accept any `callable`, you can also use
 instance functions
+
 ```php
 $rules->addCreate([$this, 'uniqueEmail'], 'uniqueEmail');
+
 ```
+
 or callable classes::
 
-    $rules->addCreate(new IsUnique(['email']), 'uniqueEmail');
+```php
+$rules->addCreate(new IsUnique(['email']), 'uniqueEmail');
+
+```
 
 When adding rules you can define the field the rule is for and the error
 message as options
+
 ```php
 $rules->add([$this, 'isValidState'], 'validState', [
     'errorField' => 'status',
     'message' => 'This invoice cannot be moved to that status.'
 ]);
+
 ```
+
 The error will be visible when calling the `getErrors()` method on the entity::
 
-    $entity->getErrors(); // Contains the domain rules error messages
+```php
+$entity->getErrors(); // Contains the domain rules error messages
+
+```
 
 ### Creating Unique Field Rules
 
 Because unique rules are quite common, CakePHP includes a simple Rule class that
 allows you to define unique field sets
+
 ```php
 use Cake\ORM\Rule\IsUnique;
 
@@ -341,7 +392,9 @@ $rules->add($rules->isUnique(
     ['username', 'account_id'],
     'This username & account_id combination has already been used.'
 ));
+
 ```
+
 When setting rules on foreign key fields it is important to remember, that only
 the fields listed are used in the rule. The unique set of rules will be found
 with `find('all')`. This means that setting `$user->account->id` will not
@@ -349,29 +402,36 @@ trigger the above rule.
 
 Many database engines allow NULLs to be unique values in UNIQUE indexes.
 To simulate this, set the `allowMultipleNulls` options to true
+
 ```php
 $rules->add($rules->isUnique(
     ['username', 'account_id'],
     ['allowMultipleNulls' => true]
 ));
+
 ```
+
 ### Foreign Key Rules
 
 While you could rely on database errors to enforce constraints, using rules code
 can help provide a nicer user experience. Because of this CakePHP includes an
 `ExistsIn` rule class
+
 ```php
 // A single field.
 $rules->add($rules->existsIn('article_id', 'Articles'));
 
 // Multiple keys, useful for composite primary keys.
 $rules->add($rules->existsIn(['site_id', 'article_id'], 'Articles'));
+
 ```
+
 The fields to check existence against in the related table must be part of the
 primary key.
 
 You can enforce `existsIn` to pass when nullable parts of your composite foreign key
 are null
+
 ```php
 // Example: A composite primary key within NodesTable is (parent_id, site_id).
 // A Node may reference a parent Node but does not need to. In latter case, parent_id is null.
@@ -384,11 +444,14 @@ $rules->add($rules->existsIn(
 
 // A Node however should in addition also always reference a Site.
 $rules->add($rules->existsIn(['site_id'], 'Sites'));
+
 ```
+
 In most SQL databases multi-column `UNIQUE` indexes allow multiple null values
 to exist as `NULL` is not equal to itself. While, allowing multiple null
 values is the default behavior of CakePHP, you can include null values in your
 unique checks using `allowMultipleNulls`
+
 ```php
 // Only one null value can exist in `parent_id` and `site_id`
 $rules->add($rules->existsIn(
@@ -396,30 +459,41 @@ $rules->add($rules->existsIn(
     'ParentNodes',
     ['allowMultipleNulls' => false]
 ));
+
 ```
+
 ### Association Count Rules
 
 If you need to validate that a property or association contains the correct
 number of values, you can use the `validCount()` rule
+
 ```php
 // In the ArticlesTable.php file
 // No more than 5 tags on an article.
 $rules->add($rules->validCount('tags', 5, '<=', 'You can only have 5 tags'));
+
 ```
+
 When defining count based rules, the third parameter lets you define the
 comparison operator to use. `==`, `>=`, `<=`, `>`, `<`, and `!=`
 are the accepted operators. To ensure a property's count is within a range, use
 two rules
+
 ```php
 // In the ArticlesTable.php file
 // Between 3 and 5 tags
 $rules->add($rules->validCount('tags', 3, '>=', 'You must have at least 3 tags'));
 $rules->add($rules->validCount('tags', 5, '<=', 'You must have at most 5 tags'));
+
 ```
+
 Note that `validCount` returns `false` if the property is not countable or does not exist::
 
-    // The save operation will fail if tags is null.
-    $rules->add($rules->validCount('tags', 0, '<=', 'You must not have any tags'));
+```php
+// The save operation will fail if tags is null.
+$rules->add($rules->validCount('tags', 0, '<=', 'You must not have any tags'));
+
+```
 
 ### Association Link Constraint Rule
 
@@ -427,6 +501,7 @@ The `LinkConstraint` lets you emulate SQL constraints in databases that don't
 support them, or when you want to provide more user friendly error messages when
 constraints would fail. This rule enables you to check if an association does or does not
 have related records depending on the mode used
+
 ```php
 // Ensure that each comment is linked to an Article during updates.
 $rules->addUpdate($rules->isLinkedTo(
@@ -441,18 +516,24 @@ $rules->addDelete($rules->isNotLinkedTo(
     'comments',
     'Must have zero comments before deletion.'
 ));
+
 ```
+
 ### Using Entity Methods as Rules
 
 You may want to use entity methods as domain rules
+
 ```php
 $rules->add(function ($entity, $options) {
     return $entity->isOkLooking();
 }, 'ruleName');
+
 ```
+
 ### Using Conditional Rules
 
 You may want to conditionally apply rules based on entity data
+
 ```php
 $rules->add(function ($entity, $options) use($rules) {
     if ($entity->role == 'admin') {
@@ -468,16 +549,19 @@ $rules->add(function ($entity, $options) use($rules) {
 
     return false;
 }, 'userExists');
+
 ```
+
 ### Conditional/Dynamic Error Messages
 
-Rules, being it [custom callables](#creating-a-rules-checker), or
-[rule objects](#creating-custom-rule-objects), can either return a boolean, indicating
+Rules, being it [custom callables](/en/orm/validation.md#creating-a-rules-checker), or
+[rule objects](/en/orm/validation.md#creating-custom-rule-objects), can either return a boolean, indicating
 whether they passed, or they can return a string, which means that the rule did not pass,
 and that the returned string should be used as the error message.
 
 Possible existing error messages defined via the `message` option will be overwritten
 by the ones returned from the rule
+
 ```php
 $rules->add(
     function ($entity, $options) {
@@ -501,10 +585,13 @@ $rules->add(
         'message' => 'Generic error message used when `false` is returned',
     ]
  );
+
 ```
+
 As of 5.2.0, you can also provide a `Closure` for the `message` key. When
 the validation rule fails, you can create dynamic error messages based on the
 entity and options
+
 ```php
 $rules->add(
     $rules->existsIn('article_id', 'Articles'),
@@ -518,15 +605,19 @@ $rules->add(
         }
     ]
 );
+
 ```
+
 > [!NOTE]
 > Note that in order for the returned message to be actually used, you *must* also supply the
 > `errorField` option, otherwise the rule will just silently fail to pass, ie without an
 > error message being set on the entity.
 >
+
 ### Creating Custom re-usable Rules
 
 You may want to re-use custom domain rules. You can do so by creating your own invokable rule
+
 ```php
 // Using a custom rule of the application
 use App\ORM\Rule\IsUniqueWithNulls;
@@ -540,13 +631,16 @@ public function buildRules(RulesChecker $rules): RulesChecker
 
     return $rules;
 }
+
 ```
+
 See the core rules for examples on how to create such rules.
 <a id="creating-custom-rule-objects"></a>
 ### Creating Custom Rule Objects
 
 If your application has rules that are commonly reused, it is helpful to package
 those rules into re-usable classes
+
 ```php
 // in src/Model/Rule/CustomRule.php
 namespace App\Model\Rule;
@@ -566,16 +660,21 @@ class CustomRule
 use App\Model\Rule\CustomRule;
 
 $rules->add(new CustomRule(/* ... */), 'ruleName');
+
 ```
+
 By creating custom rule classes you can keep your code DRY and test your domain
 rules in isolation.
 
 ### Disabling Rules
 
 When saving an entity, you can disable the rules if necessary
+
 ```php
 $articles->save($article, ['checkRules' => false]);
+
 ```
+
 ## Validation vs. Application Rules
 
 The CakePHP ORM is unique in that it uses a two-layered approach to validation.
@@ -591,6 +690,7 @@ that the email address is unique.
 
 As you already discovered, the first layer is done through the `Validator`
 objects when calling `newEntity()` or `patchEntity()`
+
 ```php
 $validatedEntity = $articlesTable->newEntity(
     $unsafeData,
@@ -601,9 +701,12 @@ $validatedEntity = $articlesTable->patchEntity(
     $unsafeData,
     ['validate' => 'customName']
 );
+
 ```
+
 In the above example, we'll use a 'custom' validator, which is defined using the
 `validationCustomName()` method
+
 ```php
 public function validationCustomName($validator)
 {
@@ -613,9 +716,12 @@ public function validationCustomName($validator)
 
     return $validator;
 }
+
 ```
+
 Validation assumes strings or array are passed since that is what is received
 from any request
+
 ```php
 // In src/Model/Table/UsersTable.php
 public function validatePasswords($validator)
@@ -629,19 +735,25 @@ public function validatePasswords($validator)
 
     return $validator;
 }
+
 ```
+
 Validation is **not** triggered when directly setting properties on your
 entities
+
 ```php
 $userEntity->email = 'not an email!!';
 $usersTable->save($userEntity);
+
 ```
+
 In the above example the entity will be saved as validation is only
 triggered for the `newEntity()` and `patchEntity()` methods. The second
 level of validation is meant to address this situation.
 
 Application rules as explained above will be checked whenever `save()` or
 `delete()` are called
+
 ```php
 // In src/Model/Table/UsersTable.php
 public function buildRules(RulesChecker $rules): RulesChecker
@@ -654,9 +766,12 @@ public function buildRules(RulesChecker $rules): RulesChecker
 // Elsewhere in your application code
 $userEntity->email = 'a@duplicated.email';
 $usersTable->save($userEntity); // Returns false
+
 ```
+
 While Validation is meant for direct user input, application rules are specific
 for data transitions generated inside your application
+
 ```php
 // In src/Model/Table/OrdersTable.php
 public function buildRules(RulesChecker $rules): RulesChecker
@@ -680,12 +795,15 @@ public function buildRules(RulesChecker $rules): RulesChecker
 $order->price = 50;
 $order->shipping_mode = 'free';
 $ordersTable->save($order); // Returns false
+
 ```
+
 ### Using Validation as Application Rules
 
 In certain situations you may want to run the same data validation routines for
 data that was both generated by users and inside your application. This could
 come up when running a CLI script that directly sets properties on entities
+
 ```php
 // In src/Model/Table/UsersTable.php
 public function validationDefault(Validator $validator): Validator
@@ -719,23 +837,32 @@ public function buildRules(RulesChecker $rules): RulesChecker
 
     return $rules;
 }
+
 ```
+
 When executed the save will fail thanks to the new application rule that
 was added
+
 ```php
 $userEntity->email = 'not an email!!!';
 $usersTable->save($userEntity);
 $userEntity->getError('email'); // Invalid email
+
 ```
+
 The same result can be expected when using `newEntity()` or
 `patchEntity()`
+
 ```php
 $userEntity = $usersTable->newEntity(['email' => 'not an email!!']);
 $userEntity->getError('email'); // Invalid email
+
 ```
+
 ### Removing Rules
 
 If you need to remove rules from a `RulesChecker` use a remove method
+
 ```php
 // Remove a general rule by name
 $rules->remove('ruleName');
@@ -748,6 +875,7 @@ $rules->removeUpdate('ruleName');
 
 // Remove a delete rule
 $rules->removeDelete('ruleName');
+
 ```
 
 > [!IMPORTANT]

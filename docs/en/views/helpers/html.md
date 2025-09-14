@@ -8,9 +8,7 @@ keywords: "html helper,cakephp css,cakephp script,content type,html image,html l
 
 **Namespace:** `Cake\View\Helper`
 
-
 ### Class `Cake\View\Helper\HtmlHelper(View $view, array $config = [])`
-
 
 The role of the HtmlHelper in CakePHP is to make HTML-related
 options easier, faster, and more resilient to change. Using this
@@ -22,14 +20,15 @@ Many HtmlHelper methods include a `$attributes` parameter,
 that allow you to tack on any extra attributes on your tags. Here
 are a few examples of how to use the `$attributes` parameter:
 
-
 ```html
 Desired attributes: <tag class="someClass" />
 Array parameter: ['class' => 'someClass']
 
 Desired attributes: <tag name="foo" value="bar" />
 Array parameter:  ['name' => 'foo', 'value' => 'bar']
+
 ```
+
 ## Inserting Well-Formatted Elements
 
 The most important task the HtmlHelper accomplishes is creating
@@ -40,28 +39,38 @@ methods of the HtmlHelper and how to use them.
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::charset($charset=null)`
 
-
 Used to create a meta tag specifying the document's character. The default value
 is UTF-8. An example use
+
 ```php
 echo $this->Html->charset();
+
 ```
+
 Will output:
+
 ```html
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 ```
+
 Alternatively, ::
 
-    echo $this->Html->charset('ISO-8859-1');
+```php
+echo $this->Html->charset('ISO-8859-1');
+
+```
 
 Will output:
+
 ```html
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
 ```
+
 ### Linking to CSS Files
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::css(mixed $path, array $options = [])`
-
 
 Creates a link(s) to a CSS style-sheet. If the `block` option is set to
 `true`, the link tags are added to the `css` block which you can print
@@ -74,58 +83,80 @@ If key 'rel' in `$options` array is set to 'import' the stylesheet will be impor
 
 This method of CSS inclusion assumes that the CSS file specified
 resides inside the **webroot/css** directory if path doesn't start with a '/'.
+
 ```php
 echo $this->Html->css('forms');
+
 ```
+
 Will output:
+
 ```html
 <link rel="stylesheet" href="/css/forms.css" />
+
 ```
+
 The first parameter can be an array to include multiple files. ::
 
-    echo $this->Html->css(['forms', 'tables', 'menu']);
+```php
+echo $this->Html->css(['forms', 'tables', 'menu']);
+
+```
 
 Will output:
+
 ```html
 <link rel="stylesheet" href="/css/forms.css" />
 <link rel="stylesheet" href="/css/tables.css" />
 <link rel="stylesheet" href="/css/menu.css" />
+
 ```
+
 You can include CSS files from any loaded plugin using
 :term:`plugin syntax`. To include **plugins/DebugKit/webroot/css/toolbar.css**
 you could use the following
+
 ```php
 echo $this->Html->css('DebugKit.toolbar.css');
+
 ```
+
 If you want to include a CSS file which shares a name with a loaded
 plugin you can do the following. For example if you had a `Blog` plugin,
 and also wanted to include **webroot/css/Blog.common.css**, you would
+
 ```php
 echo $this->Html->css('Blog.common.css', ['plugin' => false]);
+
 ```
+
 ### Creating CSS Programatically
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::style(array $data, boolean $oneline = true)`
 
-
 Builds CSS style definitions based on the keys and values of the
 array passed to the method. Especially handy if your CSS file is
 dynamic.
+
 ```php
 echo $this->Html->style([
     'background' => '#633',
     'border-bottom' => '1px solid #000',
     'padding' => '10px'
 ]);
+
 ```
+
 Will output::
 
-    background:#633; border-bottom:1px solid #000; padding:10px;
+```css
+background:#633; border-bottom:1px solid #000; padding:10px;
+
+```
 
 ### Creating meta Tags
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::meta(string|array $type, string $url = null, array $options = [])`
-
 
 This method is handy for linking to external resources like RSS/Atom feeds
 and favicons. Like css(), you can specify whether or not you'd like this tag
@@ -135,14 +166,15 @@ key in the $attributes parameter to `true`, ie - `['block' => true]`.
 If you set the "type" attribute using the $attributes parameter,
 CakePHP contains a few shortcuts:
 
-
-| type | translated value |
-| --- | --- |
-| html | text/html |
-| rss | application/rss+xml |
-| atom | application/atom+xml |
-| icon | image/x-icon |
-| csrfToken | The current CSRF token |
+=========  ======================
+ type       translated value
+=========  ======================
+html       text/html
+rss        application/rss+xml
+atom       application/atom+xml
+icon       image/x-icon
+csrfToken  The current CSRF token
+=========  ======================
 
 ```php
 echo $this->Html->meta(
@@ -177,9 +209,12 @@ echo $this->Html->meta(
     type="application/rss+xml"
     rel="alternate"
 />
+
 ```
+
 This method can also be used to add the meta keywords and
 descriptions. Example
+
 ```php
 echo $this->Html->meta(
     'keywords',
@@ -198,16 +233,21 @@ echo $this->Html->meta(
 echo $this->Html->meta('csrfToken');
 // The CsrfProtection middleware must be loaded for your application
 <meta name="csrf-token" content="CSRF token here" />
+
 ```
+
 In addition to making predefined meta tags, you can create link elements::
 
-    <?= $this->Html->meta([
-        'link' => 'http://example.com/manifest',
-        'rel' => 'manifest'
-    ]);
-    ?>
-    // Output
-    <link href="http://example.com/manifest" rel="manifest"/>
+```php
+<?= $this->Html->meta([
+    'link' => 'http://example.com/manifest',
+    'rel' => 'manifest'
+]);
+?>
+// Output
+<link href="http://example.com/manifest" rel="manifest"/>
+
+```
 
 Any attributes provided to meta() when called this way will be added to the
 generated link tag.
@@ -218,99 +258,143 @@ The `csrfToken` type was added.
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::image(string $path, array $options = [])`
 
-
 Creates a formatted image tag. The path supplied should be relative
 to **webroot/img/**.
+
 ```php
 echo $this->Html->image('cake_logo.png', ['alt' => 'CakePHP']);
+
 ```
+
 Will output:
+
 ```html
 <img src="/img/cake_logo.png" alt="CakePHP" />
+
 ```
+
 To create an image link specify the link destination using the
 `url` option in `$attributes`.
+
 ```php
 echo $this->Html->image("recipes/6.jpg", [
     "alt" => "Brownies",
     'url' => ['controller' => 'Recipes', 'action' => 'view', 6]
 ]);
+
 ```
+
 Will output:
+
 ```html
 <a href="/recipes/view/6">
     <img src="/img/recipes/6.jpg" alt="Brownies" />
 </a>
+
 ```
+
 If you are creating images in emails, or want absolute paths to images you
 can use the `fullBase` option
+
 ```php
 echo $this->Html->image("logo.png", ['fullBase' => true]);
+
 ```
+
 Will output:
+
 ```html
 <img src="http://example.com/img/logo.jpg" alt="" />
+
 ```
+
 You can include image files from any loaded plugin using
 :term:`plugin syntax`. To include **plugins/DebugKit/webroot/img/icon.png**
 You could use the following
+
 ```php
 echo $this->Html->image('DebugKit.icon.png');
+
 ```
+
 If you want to include an image file which shares a name with a loaded
 plugin you can do the following. For example if you had a `Blog` plugin,
 and also wanted to include **webroot/img/Blog.icon.png**, you would
+
 ```php
 echo $this->Html->image('Blog.icon.png', ['plugin' => false]);
+
 ```
+
 If you would like the prefix of the URL to not be `/img`, you can override this setting by specifying the prefix in the `$options` array ::
 
-    echo $this->Html->image("logo.png", ['pathPrefix' => '']);
+```php
+echo $this->Html->image("logo.png", ['pathPrefix' => '']);
+
+```
 
 Will output:
+
 ```html
 <img src="logo.jpg" alt="" />
+
 ```
+
 ### Creating Links
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::link($title, $url = null, array $options = [])`
 
-
 General purpose method for creating HTML links. Use `$options` to
 specify attributes for the element and whether or not the
 `$title` should be escaped.
+
 ```php
 echo $this->Html->link(
     'Enter',
     '/pages/home',
     ['class' => 'button', 'target' => '_blank']
 );
+
 ```
+
 Will output:
+
 ```html
 <a href="/pages/home" class="button" target="_blank">Enter</a>
+
 ```
+
 Use `'_full'=>true` option for absolute URLs::
 
-    echo $this->Html->link(
-        'Dashboard',
-        ['controller' => 'Dashboards', 'action' => 'index', '_full' => true]
-    );
+```php
+echo $this->Html->link(
+    'Dashboard',
+    ['controller' => 'Dashboards', 'action' => 'index', '_full' => true]
+);
+
+```
 
 Will output:
+
 ```html
 <a href="http://www.yourdomain.com/dashboards/index">Dashboard</a>
+
 ```
+
 Specify `confirm` key in options to display a JavaScript `confirm()`
 dialog
+
 ```php
 echo $this->Html->link(
     'Delete',
     ['controller' => 'Recipes', 'action' => 'delete', 6],
     ['confirm' => 'Are you sure you wish to delete this recipe?']
 );
+
 ```
+
 Will output:
+
 ```html
 <a href="/recipes/delete/6"
     onclick="return confirm(
@@ -318,70 +402,91 @@ Will output:
     );">
     Delete
 </a>
+
 ```
+
 Query strings can also be created with `link()`. ::
 
-    echo $this->Html->link('View image', [
-        'controller' => 'Images',
-        'action' => 'view',
-        1,
-        '?' => ['height' => 400, 'width' => 500]
-    ]);
+```php
+echo $this->Html->link('View image', [
+    'controller' => 'Images',
+    'action' => 'view',
+    1,
+    '?' => ['height' => 400, 'width' => 500]
+]);
+
+```
 
 Will output:
+
 ```html
 <a href="/images/view/1?height=400&width=500">View image</a>
+
 ```
+
 HTML special characters in `$title` will be converted to HTML
 entities. To disable this conversion, set the escape option to
 `false` in the `$options` array.
+
 ```php
 echo $this->Html->link(
     $this->Html->image("recipes/6.jpg", ["alt" => "Brownies"]),
     "recipes/view/6",
     ['escape' => false]
 );
+
 ```
+
 Will output:
+
 ```html
 <a href="/recipes/view/6">
     <img src="/img/recipes/6.jpg" alt="Brownies" />
 </a>
+
 ```
+
 Setting `escape` to `false` will also disable escaping of attributes of the
 link. You can use the option `escapeTitle` to disable just
 escaping of title and not the attributes.
+
 ```php
 echo $this->Html->link(
     $this->Html->image('recipes/6.jpg', ['alt' => 'Brownies']),
     'recipes/view/6',
     ['escapeTitle' => false, 'title' => 'hi "howdy"']
 );
+
 ```
+
 Will output:
+
 ```html
 <a href="/recipes/view/6" title="hi &quot;howdy&quot;">
     <img src="/img/recipes/6.jpg" alt="Brownies" />
 </a>
+
 ```
+
 Also check `Cake\View\Helper\UrlHelper::build()` method
 for more examples of different types of URLs.
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::linkFromPath(string $title, string $path, array $params = [], array $options = [])`
 
-
 If you want to use route path strings, you can do that using this method
+
 ```php
 echo $this->Html->linkFromPath('Index', 'Articles::index');
 // outputs: <a href="/articles">Index</a>
 
 echo $this->Html->linkFromPath('View', 'MyBackend.Admin/Articles::view', [3]);
 // outputs: <a href="/admin/my-backend/articles/view/3">View</a>
+
 ```
+
 ### Linking to Videos and Audio Files
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::media(string|array $path, array $options)`
-
 
 Options:
 
@@ -395,6 +500,7 @@ Options:
   including domain name
 
 Returns a formatted audio/video tag:
+
 ```php
 <?= $this->Html->media('audio.mp3') ?>
 
@@ -407,11 +513,14 @@ Returns a formatted audio/video tag:
 ]) ?>
 
 // Output
-<video src="http://www.somehost.com/files/video.mp4">Fallback text\</video>\n
-<?= $this->Html->media(
-        ['video.mp4', ['src' => 'video.ogg', 'type' => "video/ogg; codecs='theora, vorbis'"]],
-        ['autoplay']
-    ) ?>
+<video src="http://www.somehost.com/files/video.mp4">Fallback text</video>
+
+```
+
+   <?= $this->Html->media(
+['video.mp4', ['src' => 'video.ogg', 'type' => "video/ogg; codecs='theora, vorbis'"]],
+['autoplay']
+) ?>
 
     // Output
     <video autoplay="autoplay">
@@ -423,7 +532,6 @@ Returns a formatted audio/video tag:
 ### Linking to Javascript Files
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::script(mixed $url, mixed $options)`
-
 
 Include a script file(s), contained either locally or as a remote URL.
 
@@ -444,168 +552,222 @@ attributes will be applied to all of the generated script tags.
 This method of JavaScript file inclusion assumes that the
 JavaScript file specified resides inside the **webroot/js**
 directory
+
 ```php
 echo $this->Html->script('scripts');
+
 ```
+
 Will output:
+
 ```html
 <script src="/js/scripts.js"></script>
+
 ```
+
 You can link to files with absolute paths as well to link files
 that are not in **webroot/js**
+
 ```php
 echo $this->Html->script('/otherdir/script_file');
+
 ```
+
 You can also link to a remote URL::
 
-    echo $this->Html->script('https://code.jquery.com/jquery.min.js');
+```php
+echo $this->Html->script('https://code.jquery.com/jquery.min.js');
+
+```
 
 Will output:
+
 ```html
 <script src="https://code.jquery.com/jquery.min.js"></script>
+
 ```
+
 The first parameter can be an array to include multiple files. ::
 
-    echo $this->Html->script(['jquery', 'wysiwyg', 'scripts']);
+```php
+echo $this->Html->script(['jquery', 'wysiwyg', 'scripts']);
+
+```
 
 Will output:
+
 ```html
 <script src="/js/jquery.js"></script>
 <script src="/js/wysiwyg.js"></script>
 <script src="/js/scripts.js"></script>
+
 ```
+
 You can append the script tag to a specific block using the `block`
 option
+
 ```php
 $this->Html->script('wysiwyg', ['block' => 'scriptBottom']);
+
 ```
+
 In your layout you can output all the script tags added to 'scriptBottom'::
 
-    echo $this->fetch('scriptBottom');
+```php
+echo $this->fetch('scriptBottom');
+
+```
 
 You can include script files from any loaded plugin using
 :term:`plugin syntax`. To include **plugins/DebugKit/webroot/js/toolbar.js**
 You could use the following
+
 ```php
 echo $this->Html->script('DebugKit.toolbar.js');
+
 ```
+
 If you want to include a script file which shares a name with a loaded
 plugin you can do the following. For example if you had a `Blog` plugin,
 and also wanted to include **webroot/js/Blog.plugins.js**, you would
+
 ```php
 echo $this->Html->script('Blog.plugins.js', ['plugin' => false]);
+
 ```
+
 ### Creating Inline Javascript Blocks
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::scriptBlock(string $code, array $options = [])`
 
-
 To generate Javascript blocks from PHP view code, you can use one of the script
 block methods. Scripts can either be output in place, or buffered into a block
+
 ```php
 // Define a script block all at once, with the defer attribute.
 $this->Html->scriptBlock('alert("hi")', ['defer' => true]);
 
 // Buffer a script block to be output later.
 $this->Html->scriptBlock('alert("hi")', ['block' => true]);
+
 ```
+
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::scriptStart(array $options = [])`
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::scriptEnd()`
 
-
 You can use the `scriptStart()` method to create a capturing block that will
 output into a `<script>` tag. Captured script snippets can be output inline,
 or buffered into a block
+
 ```php
 // Append into the 'script' block.
 $this->Html->scriptStart(['block' => true]);
 echo "alert('I am in the JavaScript');";
 $this->Html->scriptEnd();
+
 ```
+
 Once you have buffered javascript, you can output it as you would any other
-[View Block](#view-blocks)
+[View Block](/en/views.md#view-blocks)
+
 ```php
 // In your layout
 echo $this->fetch('script');
+
 ```
+
 ### Creating Javascript Importmap
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::importmap(array $map, array $options = []): string`
 
-
 Creates an `importmap` script tag for your JavaScript files
+
 ```php
 // In the head tag of your layout
 echo $this->Html->importmap([
-'jquery' => 'jquery.js',
-'wysiwyg' => '/editor/wysiwyg.js'
+    'jquery' => 'jquery.js',
+    'wysiwyg' => '/editor/wysiwyg.js'
 ]);
+
 ```
+
 Will output:
+
 ```html
 <script type="importmap">{
-"imports": {
-"jquery": "/js/jquery.js",
-"wysiwyg": "/editor/wysiwyg.js"
+    "imports": {
+        "jquery": "/js/jquery.js",
+        "wysiwyg": "/editor/wysiwyg.js"
     }
 }</script>
+
 ```
+
 Generating maps with imports, scopes and integrity::
 
-    echo $this->Html->importmap([
-        'imports' => [
-            'jquery' => 'jquery-3.7.1.min.js',
-            'wysiwyg' => '/editor/wysiwyg.js'
+```php
+echo $this->Html->importmap([
+    'imports' => [
+        'jquery' => 'jquery-3.7.1.min.js',
+        'wysiwyg' => '/editor/wysiwyg.js'
+    ],
+    'scopes' => [
+        'scoped/' => [
+            'foo' => 'inner/foo',
         ],
-        'scopes' => [
-            'scoped/' => [
-                'foo' => 'inner/foo',
-            ],
-        ],
-        'integrity' => [
-            'jquery' => 'sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=',
-        ],
-    ]);
+    ],
+    'integrity' => [
+        'jquery' => 'sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=',
+    ],
+]);
+
+```
 
 Will output:
+
 ```html
 <script type="importmap">{
-"imports": {
-"jquery": "/js/jquery-3.7.1.min.js",
-"wysiwyg": "/editor/wysiwyg.js"
-},
-"scopes": {
-"scoped/": {
-"foo": "/js/inner/foo.js"
+    "imports": {
+        "jquery": "/js/jquery-3.7.1.min.js",
+        "wysiwyg": "/editor/wysiwyg.js"
+    },
+    "scopes": {
+        "scoped/": {
+            "foo": "/js/inner/foo.js"
         }
-},
-"integrity": {
-"/js/jquery-3.7.1.min.js": "sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    },
+    "integrity": {
+        "/js/jquery-3.7.1.min.js": "sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
     }
 }</script>
+
 ```
+
 ### Creating Nested Lists
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::nestedList(array $list, array $options = [], array $itemOptions = [])`
 
-
 Build a nested list (UL/OL) out of an associative array
+
 ```php
 $list = [
-'Languages' => [
-'English' => [
-'American',
-'Canadian',
-'British',
-],
-'Spanish',
-'German',
-]
+    'Languages' => [
+        'English' => [
+            'American',
+            'Canadian',
+            'British',
+        ],
+        'Spanish',
+        'German',
+    ]
 ];
 echo $this->Html->nestedList($list);
+
 ```
+
 Output:
+
 ```html
 // Output (minus the whitespace)
 <ul>
@@ -623,165 +785,208 @@ Output:
         </ul>
     </li>
 </ul>
+
 ```
+
 ### Creating Table Headings
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::tableHeaders(array $names, array $trOptions = null, array $thOptions = null)`
 
-
 Creates a row of table header cells to be placed inside of `<table>`
 tags.
+
 ```php
 echo $this->Html->tableHeaders(['Date', 'Title', 'Active']);
+
 ```
+
 Output:
+
 ```html
 <tr>
     <th>Date</th>
     <th>Title</th>
     <th>Active</th>
 </tr>
+
 ```
+
 ::
 
-    echo $this->Html->tableHeaders(
-        ['Date', 'Title','Active'],
-        ['class' => 'status'],
-        ['class' => 'product_table']
-    );
+```php
+echo $this->Html->tableHeaders(
+    ['Date', 'Title','Active'],
+    ['class' => 'status'],
+    ['class' => 'product_table']
+);
+
+```
 
 Output:
+
 ```html
 <tr class="status">
      <th class="product_table">Date</th>
      <th class="product_table">Title</th>
      <th class="product_table">Active</th>
 </tr>
+
 ```
+
 You can set attributes per column, these are used instead of the
 defaults provided in the `$thOptions`
+
 ```php
 echo $this->Html->tableHeaders([
-'id',
-['Name' => ['class' => 'highlight']],
-['Date' => ['class' => 'sortable']]
+    'id',
+    ['Name' => ['class' => 'highlight']],
+    ['Date' => ['class' => 'sortable']]
 ]);
+
 ```
+
 Output:
+
 ```html
 <tr>
     <th>id</th>
     <th class="highlight">Name</th>
     <th class="sortable">Date</th>
 </tr>
+
 ```
+
 ### Creating Table Cells
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::tableCells(array $data, array $oddTrOptions = null, array $evenTrOptions = null, $useCount = false, $continueOddEven = true)`
 
-
 Creates table cells, in rows, assigning `<tr>` attributes differently
 for odd- and even-numbered rows. Wrap a single table cell within an
 [] for specific `<td>`-attributes.
+
 ```php
 echo $this->Html->tableCells([
-['Jul 7th, 2007', 'Best Brownies', 'Yes'],
-['Jun 21st, 2007', 'Smart Cookies', 'Yes'],
-['Aug 1st, 2006', 'Anti-Java Cake', 'No'],
+    ['Jul 7th, 2007', 'Best Brownies', 'Yes'],
+    ['Jun 21st, 2007', 'Smart Cookies', 'Yes'],
+    ['Aug 1st, 2006', 'Anti-Java Cake', 'No'],
 ]);
+
 ```
+
 Output:
+
 ```html
 <tr><td>Jul 7th, 2007</td><td>Best Brownies</td><td>Yes</td></tr>
 <tr><td>Jun 21st, 2007</td><td>Smart Cookies</td><td>Yes</td></tr>
 <tr><td>Aug 1st, 2006</td><td>Anti-Java Cake</td><td>No</td></tr>
+
 ```
+
 ::
 
-    echo $this->Html->tableCells([
-        ['Jul 7th, 2007', ['Best Brownies', ['class' => 'highlight']] , 'Yes'],
-        ['Jun 21st, 2007', 'Smart Cookies', 'Yes'],
-        ['Aug 1st, 2006', 'Anti-Java Cake', ['No', ['id' => 'special']]],
-    ]);
+```php
+echo $this->Html->tableCells([
+    ['Jul 7th, 2007', ['Best Brownies', ['class' => 'highlight']] , 'Yes'],
+    ['Jun 21st, 2007', 'Smart Cookies', 'Yes'],
+    ['Aug 1st, 2006', 'Anti-Java Cake', ['No', ['id' => 'special']]],
+]);
+
+```
 
 Output:
+
 ```html
 <tr>
     <td>
-Jul 7th, 2007
+        Jul 7th, 2007
     </td>
     <td class="highlight">
-Best Brownies
+        Best Brownies
     </td>
     <td>
-Yes
-    </td>
-</tr>
-<tr>
-    <td>
-Jun 21st, 2007
-    </td>
-    <td>
-Smart Cookies
-    </td>
-    <td>
-Yes
+        Yes
     </td>
 </tr>
 <tr>
     <td>
-Aug 1st, 2006
+        Jun 21st, 2007
     </td>
     <td>
-Anti-Java Cake
+        Smart Cookies
+    </td>
+    <td>
+        Yes
+    </td>
+</tr>
+<tr>
+    <td>
+        Aug 1st, 2006
+    </td>
+    <td>
+        Anti-Java Cake
     </td>
     <td id="special">
-No
+        No
     </td>
 </tr>
+
 ```
+
 ::
 
-    echo $this->Html->tableCells(
-        [
-            ['Red', 'Apple'],
-            ['Orange', 'Orange'],
-            ['Yellow', 'Banana'],
-        ],
-        ['class' => 'darker']
-    );
+```php
+echo $this->Html->tableCells(
+    [
+        ['Red', 'Apple'],
+        ['Orange', 'Orange'],
+        ['Yellow', 'Banana'],
+    ],
+    ['class' => 'darker']
+);
+
+```
 
 Output:
+
 ```html
 <tr class="darker"><td>Red</td><td>Apple</td></tr>
 <tr><td>Orange</td><td>Orange</td></tr>
 <tr class="darker"><td>Yellow</td><td>Banana</td></tr>
+
 ```
+
 ## Changing the Tags Output by HtmlHelper
 
 #### Method `Cake\View\Helper\HtmlHelper(View $view, array $config = [])::setTemplates(array $templates)`
 
-
 Load an array of templates to add/replace templates
+
 ```php
 // Load specific templates.
 $this->Html->setTemplates([
-'javascriptlink' => '<script src="{{url}}" type="text/javascript"{{attrs}}></script>'
+    'javascriptlink' => '<script src="{{url}}" type="text/javascript"{{attrs}}></script>'
 ]);
+
 ```
+
 You can load a configuration file containing templates using the templater
 directly
+
 ```php
 // Load a configuration file with templates.
 $this->Html->templater()->load('my_tags');
+
 ```
 
 When loading files of templates, your file should look like::
 
-    <?php
-    return [
-        'javascriptlink' => '<script src="{{url}}" type="text/javascript"{{attrs}}></script>'
-    ];
+```php
+<?php
+return [
+    'javascriptlink' => '<script src="{{url}}" type="text/javascript"{{attrs}}></script>'
+];
+
+```
 
 > [!WARNING]
 > Template strings containing a percentage sign (`%`) need special attention,

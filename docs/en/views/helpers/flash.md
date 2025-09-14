@@ -2,9 +2,7 @@
 
 **Namespace:** `Cake\View\Helper`
 
-
 ### Class `Cake\View\Helper\FlashHelper(View $view, array $config = [])`
-
 
 FlashHelper provides a way to render flash messages that were set in
 `$_SESSION` by [FlashComponent](/en/controllers/components/flash.md).
@@ -21,37 +19,45 @@ method in your template file
 
 ```php
 <?= $this->Flash->render() ?>
+
 ```
+
 By default, CakePHP uses a "flash" key for flash messages in a session.  But, if
 you've specified a key when setting the flash message in
 [FlashComponent](/en/controllers/components/flash.md), you can specify which
 flash key to render
+
 ```php
 <?= $this->Flash->render('other') ?>
+
 ```
 
 You can also override any of the options that were set in FlashComponent::
 
-    // In your Controller
-    $this->Flash->set('The user has been saved.', [
-        'element' => 'success'
-    ]);
+```php
+// In your Controller
+$this->Flash->set('The user has been saved.', [
+    'element' => 'success'
+]);
 
-    // In your template file: Will use great_success.php instead of success.php
-    <?= $this->Flash->render('flash', [
-        'element' => 'great_success'
-    ]);
+// In your template file: Will use great_success.php instead of success.php
+<?= $this->Flash->render('flash', [
+    'element' => 'great_success'
+]);
 
-    // In your template file: the flashy element file from the Company Plugin
-    <?= $this->Flash->render('flash', [
-        'element' => 'Company.flashy'
-    ]);
+// In your template file: the flashy element file from the Company Plugin
+<?= $this->Flash->render('flash', [
+    'element' => 'Company.flashy'
+]);
+
+```
 
 > [!NOTE]
 > When building custom flash message templates, be sure to properly HTML
 > encode any user data. CakePHP won't escape flash message parameters for you.
 >
 >
+
 For more information about the available array options, please refer to the
 [FlashComponent](/en/controllers/components/flash.md) section.
 

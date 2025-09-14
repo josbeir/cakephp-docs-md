@@ -49,15 +49,20 @@ For example, you can set an environment variable in your Apache configuration
 
 ```
 SetEnv CAKEPHP_DEBUG 1
+
 ```
+
 And then you can set the debug level dynamically in **app_local.php**::
 
-    $debug = (bool)getenv('CAKEPHP_DEBUG');
+```php
+$debug = (bool)getenv('CAKEPHP_DEBUG');
 
-    return [
-        'debug' => $debug,
-        .....
-    ];
+return [
+    'debug' => $debug,
+    .....
+];
+
+```
 
 It is recommended that you put configuration that is shared across all
 of your application's environments in **config/app.php**. For configuration that
@@ -69,7 +74,7 @@ variables.
 If you're throwing your application out into the wild, it's a good idea to make
 sure it doesn't have any obvious leaks:
 
-- Ensure you are using the [csrf-middleware](#csrf-middleware) component or middleware.
+- Ensure you are using the [csrf-middleware](/en/security/csrf.md#csrf-middleware) component or middleware.
 - You may want to enable the [controllers/components/form-protection](/en/controllers/components/form-protection.md) component.
   It can help prevent several types of form tampering and reduce the possibility
   of mass-assignment issues.
@@ -86,7 +91,7 @@ keeping your code secure and your application safer. CakePHP applications
 should have the document root set to the application's `webroot`. This
 makes the application and configuration files inaccessible through a URL.
 Setting the document root is different for different webservers. See the
-[url-rewriting](#url-rewriting) documentation for webserver specific
+[url-rewriting](/en/installation.md#url-rewriting) documentation for webserver specific
 information.
 
 In all cases you will want to set the virtual host/domain's document to be
@@ -98,31 +103,42 @@ directory being executed.
 Class loading can take a big share of your application's processing time.
 In order to avoid this problem, it is recommended that you run this command in
 your production server once the application is deployed
-```bash
-php composer.phar dumpautoload -o
+
 ```
+php composer.phar dumpautoload -o
+
+```
+
 Since handling static assets, such as images, JavaScript and CSS files of
 plugins, through the `Dispatcher` is incredibly inefficient, it is strongly
 recommended to symlink them for production. This can be done by using
 the `plugin` command
-```bash
-bin/cake plugin assets symlink
+
 ```
+bin/cake plugin assets symlink
+
+```
+
 The above command will symlink the `webroot` directory of all loaded plugins
 to appropriate path in the app's `webroot` directory.
 
 If your filesystem doesn't allow creating symlinks the directories will be
 copied instead of being symlinked. You can also explicitly copy the directories
 using
-```bash
-bin/cake plugin assets copy
+
 ```
+bin/cake plugin assets copy
+
+```
+
 CakePHP uses `assert()` internally to provide runtime type checking and
 provide better error messages during development. You can have PHP skip these
 assertions by updating your `php.ini` to include:
+
 ```ini
 ; Turn off assert() code generation.
 zend.assertions = -1
+
 ```
 
 Skipping code generation for `assert()` will yield faster runtime performance,

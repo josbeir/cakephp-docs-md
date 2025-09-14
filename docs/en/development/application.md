@@ -83,8 +83,9 @@ class Application extends BaseApplication
         $this->addPlugin('MyPlugin');
     }
 }
+
 ```
 
 Loading plugins and events in `Application::bootstrap()` makes
-[integration-testing](#integration-testing) easier as events and routes will be re-processed on
+[integration-testing](/en/development/testing.md#integration-testing) easier as events and routes will be re-processed on
 each test method.

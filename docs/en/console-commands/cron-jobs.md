@@ -9,7 +9,7 @@ A common thing to do with a shell is making it run as a cronjob to
 clean up the database once in a while or send newsletters. This is
 trivial to setup, for example
 
-```php
+```bash
 */5  *    *    *    *  cd /full/path/to/root && bin/cake myshell myparam
 ```
 
@@ -28,6 +28,7 @@ You can see more info here: https://en.wikipedia.org/wiki/Cron
 > [!TIP]
 > Use `-q` (or `--quiet`) to silence any output for cronjobs.
 >
+
 ### Cron Jobs on Shared Hosting
 
 On some shared hostings `cd /full/path/to/root && bin/cake mycommand myparam`

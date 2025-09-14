@@ -25,6 +25,7 @@ $securityHeaders
     ->noSniff();
 
 $middlewareQueue->add($securityHeaders);
+
 ```
 
 Here's a list of [common HTTP headers](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields),

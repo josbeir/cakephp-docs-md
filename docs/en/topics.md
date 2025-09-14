@@ -24,7 +24,7 @@ Introduction to all the key parts of CakePHP:
 - [development/sessions](/en/development/sessions.md)
 - [development/rest](/en/development/rest.md)
 - [controllers/pagination](/en/controllers/pagination.md)
-- [csrf-middleware](#csrf-middleware)
+- [csrf-middleware](/en/security/csrf.md#csrf-middleware)
 - [core-libraries/email](/en/core-libraries/email.md)
 - [views/helpers/form](/en/views/helpers/form.md)
 - [views/helpers/html](/en/views/helpers/html.md)

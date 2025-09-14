@@ -43,20 +43,25 @@ $resultset = $users->find()->all();
 foreach ($resultset as $row) {
     echo $row->username;
 }
+
 ```
+
 You may notice that we didn't have to write any code before we could start
 working with our data. By using conventions, CakePHP will use standard classes
 for table and entity classes that have not yet been defined.
 
 If we wanted to make a new user and save it (with validation) we would do
 something like
+
 ```php
 use Cake\ORM\Locator\LocatorAwareTrait;
 
 $users = $this->fetchTable('Users');
 $user = $users->newEntity(['email' => 'mark@example.com']);
 $users->save($user);
+
 ```
+
 ## The View Layer
 
 The View layer renders a presentation of modeled data. Being separate from the
@@ -65,6 +70,7 @@ to produce any presentational interface your application might need.
 
 For example, the view could use model data to render an HTML view template containing it,
 or a XML formatted result for others to consume
+
 ```php
 // In a view template file, we'll render an 'element' for each user.
 <?php foreach ($resultset as $user): ?>
@@ -72,8 +78,10 @@ or a XML formatted result for others to consume
         <?= $this->element('user_info', ['user' => $user]) ?>
     </li>
 <?php endforeach; ?>
+
 ```
-The View layer provides a number of extension points like [view-templates](#view-templates), [view-elements](#view-elements)
+
+The View layer provides a number of extension points like [view-templates](/en/views.md#view-templates), [view-elements](/en/views.md#view-elements)
 and [views/cells](/en/views/cells.md) to let you re-use your presentation logic.
 
 The View layer is not only limited to HTML or text representation of the data.
@@ -92,6 +100,7 @@ rules, delegates data fetching or processing to the model, selects the type of
 presentational data that the clients are accepting, and finally delegates the
 rendering process to the View layer. An example of a user registration
 controller would be
+
 ```php
 public function add()
 {
@@ -106,6 +115,7 @@ public function add()
     }
     $this->set('user', $user);
 }
+
 ```
 
 You may notice that we never explicitly rendered a view. CakePHP's conventions
@@ -117,9 +127,7 @@ we prepared with `set()`.
 Now that you are familiar with the different layers in CakePHP, lets review how
 a request cycle works in CakePHP:
 
-.. figure:: //typical-cake-request.png
-:align: center
-:alt: Flow diagram showing a typical CakePHP request
+![Flow diagram showing a typical CakePHP request](/typical-cake-request.png)
 
 The typical CakePHP request cycle starts with a user requesting a page or
 resource in your application. At a high level each request goes through the
@@ -145,7 +153,7 @@ resulting from the model data.
 Hopefully this quick overview has piqued your interest. Some other great
 features in CakePHP are:
 
-- A :doc:`caching](/en/core-libraries/caching.md) framework that integrates with
+- A [caching](/en/core-libraries/caching.md) framework that integrates with
   Memcached, Redis and other backends.
 - Powerful [code generation tools](/en/bake/usage.md) so you can start immediately.
 - [Integrated testing framework](/en/development/testing.md) so you can ensure

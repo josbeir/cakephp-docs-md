@@ -6,7 +6,7 @@ keywords: "json,xml,presentation layer,view,ajax,logic,syntax,templates,cakephp"
 # JSON and XML views
 
 The `JsonView` and `XmlView` integration with CakePHP's
-[controller-viewclasses](#controller-viewclasses) features and  let you create JSON and XML responses.
+[controller-viewclasses](/en/controllers.md#controller-viewclasses) features and  let you create JSON and XML responses.
 
 These view classes are most commonly used alongside `Cake\Controller\Controller::viewClasses()`.
 
@@ -26,13 +26,15 @@ public function viewClasses(): array
 {
     return [JsonView::class, XmlView::class];
 }
+
 ```
+
 You can optionally enable the json and/or xml extensions with
-[file-extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
+[file-extensions](/en/development/routing.md#file-extensions). This will allow you to access the `JSON`, `XML` or
 any other special format views by using a custom URL ending with the name of the
 response type as a file extension such as `http://example.com/articles.json`.
 
-By default, when not enabling [file-extensions](#file-extensions), the `Accept`
+By default, when not enabling [file-extensions](/en/development/routing.md#file-extensions), the `Accept`
 header in the request is used for selecting which type of format should be rendered to the
 user. An example `Accept` format that is used to render `JSON` responses is
 `application/json`.
@@ -48,6 +50,7 @@ If you need to do any formatting or manipulation of your view variables before
 generating the response, you should use template files. The value of
 `serialize` can be either a string or an array of view variables to
 serialize
+
 ```php
 namespace App\Controller;
 
@@ -68,31 +71,36 @@ class ArticlesController extends AppController
         $this->viewBuilder()->setOption('serialize', 'articles');
     }
 }
+
 ```
+
 You can also define `serialize` as an array of view variables to combine::
 
-    namespace App\Controller;
+```php
+namespace App\Controller;
 
-    use Cake\View\JsonView;
+use Cake\View\JsonView;
 
-    class ArticlesController extends AppController
+class ArticlesController extends AppController
+{
+    public function viewClasses(): array
     {
-        public function viewClasses(): array
-        {
-            return [JsonView::class];
-        }
-
-        public function index()
-        {
-            // Some code that created $articles and $comments
-
-            // Set the view vars
-            $this->set(compact('articles', 'comments'));
-
-            // Specify which view vars JsonView should serialize.
-            $this->viewBuilder()->setOption('serialize', ['articles', 'comments']);
-        }
+        return [JsonView::class];
     }
+
+    public function index()
+    {
+        // Some code that created $articles and $comments
+
+        // Set the view vars
+        $this->set(compact('articles', 'comments'));
+
+        // Specify which view vars JsonView should serialize.
+        $this->viewBuilder()->setOption('serialize', ['articles', 'comments']);
+    }
+}
+
+```
 
 Defining `serialize` as an array has added the benefit of automatically
 appending a top-level `<response>` element when using `XmlView`.
@@ -105,6 +113,7 @@ element the Xml will fail to generate.
 You should use template files if you need to manipulate your view
 content before creating the final output. For example, if we had articles with a field containing generated HTML, we would probably want to omit that from a
 JSON response. This is a situation where a view file would be useful
+
 ```php
 // Controller code
 class ArticlesController extends AppController
@@ -121,7 +130,9 @@ foreach ($articles as $article) {
     unset($article->generated_html);
 }
 echo json_encode(compact('articles'));
+
 ```
+
 You can do more complex manipulations, or use helpers to do formatting as well.
 The data view classes don't support layouts. They assume that the view file will
 output the serialized content.
@@ -129,7 +140,6 @@ output the serialized content.
 ## Creating XML Views
 
 ### Class `XmlView`
-
 
 By default when using `serialize` the XmlView will wrap your serialized
 view variables with a `<response>` node. You can set a custom name for
@@ -141,6 +151,7 @@ customize the options, such as `tags` or `attributes`, used to generate XML.
 An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.html). This document type requires that you
 change `rootNode` and set attributes. Attributes are defined using the `@`
 prefix
+
 ```php
 use Cake\View\XmlView;
 
@@ -172,11 +183,12 @@ public function sitemap()
         'url' => $urls,
     ]);
 }
+
 ```
+
 ## Creating JSON Views
 
 ### Class `JsonView`
-
 
 The JsonView class supports the `jsonOptions` option that allows you to
 customize the bit-mask used to generate JSON. See the
@@ -184,13 +196,16 @@ customize the bit-mask used to generate JSON. See the
 values of this option.
 
 For example, to serialize validation error output of CakePHP entities in a consistent form of JSON do
+
 ```php
 // In your controller's action when saving failed
 $this->set('errors', $articles->errors());
 $this->viewBuilder()
     ->setOption('serialize', ['errors'])
     ->setOption('jsonOptions', JSON_FORCE_OBJECT);
+
 ```
+
 ### JSONP Responses
 
 When using `JsonView` you can use the special view variable `jsonp` to
@@ -204,6 +219,7 @@ parameter name instead of "callback" set `jsonp` to required name instead of
 
 While you can use the `viewClasses` hook method most of the time, if you want
 total control over view class selection you can directly choose the view class
+
 ```php
 // src/Controller/VideosController.php
 namespace App\Controller;
@@ -242,4 +258,5 @@ class VideosController extends AppController
         return $this->response->withDownload('report-' . date('YmdHis') . '.' . $format);
     }
 }
+
 ```
