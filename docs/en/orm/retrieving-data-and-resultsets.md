@@ -133,7 +133,7 @@ $data = $query->toArray();
 ```
 
 > [!NOTE]
-> Once you've started a query you can use the [orm/query-builder](/en/orm/query-builder.md)
+> Once you've started a query you can use the [Query Builder](/en/orm/query-builder.md)
 > interface to build more complex queries, adding additional conditions,
 > limits, or include associations using the fluent interface.
 >
@@ -194,7 +194,7 @@ you can pass query objects to your controllers, we recommend that you package
 your queries up as [custom-find-methods](/en/orm/retrieving-data-and-resultsets.md#custom-find-methods) instead. Using custom finder
 methods will let you re-use your queries and make testing easier.
 
-By default queries and result sets will return [orm/entities](/en/orm/entities.md) objects. You
+By default queries and result sets will return [Entities](/en/orm/entities.md) objects. You
 can retrieve basic arrays by disabling hydration
 
 ```php
@@ -393,7 +393,7 @@ threading will occur on.
 
 > [!TIP]
 > If you need to manage more advanced trees of data, consider using
-> [orm/behaviors/tree](/en/orm/behaviors/tree.md) instead.
+> [Tree](/en/orm/behaviors/tree.md) instead.
 
 <a id="custom-find-methods"></a>
 ## Custom Finder Methods
@@ -435,7 +435,7 @@ $query = $articles->find('published')->find('recent');
 ```
 
 While all the examples so far have shown finder methods on table classes, finder
-methods can also be defined on [orm/behaviors](/en/orm/behaviors.md).
+methods can also be defined on [Behaviors](/en/orm/behaviors.md).
 
 If you need to modify the results after they have been fetched you should use
 a [map-reduce](/en/orm/retrieving-data-and-resultsets.md#map-reduce) function to modify the results. The map reduce features
@@ -700,7 +700,7 @@ $query = $articles->find()->contain('Comments', function (SelectQuery $q) {
 
 You can control more than just the query clauses used by `contain()`.  If you pass an array
 with the association, you can override the `foreignKey`, `joinType` and `strategy`.
-See [orm/associations](/en/orm/associations.md) for details on the default value and options for each association
+See [Associations - Linking Tables Together](/en/orm/associations.md) for details on the default value and options for each association
 type.
 
 You can pass `false` as the new `foreignKey` to disable foreign key constraints entirely.
@@ -1120,7 +1120,7 @@ $authorList = $results->combine('id', 'author.name');
 
 ```
 
-The [core-libraries/collections](/en/core-libraries/collections.md) chapter has more detail on what can be
+The [Collections](/en/core-libraries/collections.md) chapter has more detail on what can be
 done with result sets using the collections features. The [format-results](/en/orm/query-builder.md#format-results)
 section show how you can add calculated fields, or replace the result set.
 

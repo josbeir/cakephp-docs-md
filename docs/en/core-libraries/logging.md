@@ -99,7 +99,7 @@ Log::setConfig('error', [
 Errors and Exceptions can also be logged. By configuring the corresponding
 values in your **config/app.php** file.  Errors will be displayed when debug is
 `true` and logged when debug is `false`. To log uncaught exceptions, set the
-`log` option to `true`. See [development/configuration](/en/development/configuration.md) for more
+`log` option to `true`. See [Configuration](/en/development/configuration.md) for more
 information.
 <a id="writing-to-logs"></a>
 ## Writing to Logs

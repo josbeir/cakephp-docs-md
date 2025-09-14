@@ -243,6 +243,6 @@ creating classes and files that you'd need to create anyway.
 +-----------------+--------------------------------------------------------------+
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [tutorials-and-examples/cms/installation](/en/tutorials-and-examples/cms/installation.md) to see how things fit
+through the [Content Management Tutorial](/en/tutorials-and-examples/cms/installation.md) to see how things fit
 together.
 

@@ -129,14 +129,14 @@ If the core `$debug` variable is `true`, `$var` is printed out.
 If `$showHTML` is `true` or left as `null`, the data is rendered to be
 browser-friendly. If `$showFrom` is not set to `false`, the debug output
 will start with the line from which it was called. Also see
-[development/debugging](/en/development/debugging.md)
+[Debugging](/en/development/debugging.md)
 
 #### Function `dd(mixed $var, boolean $showHtml = null)`
 
 It behaves like `debug()`, but execution is also halted.
 If the core `$debug` variable is `true`, `$var` is printed.
 If `$showHTML` is `true` or left as `null`, the data is rendered to be
-browser-friendly. Also see [development/debugging](/en/development/debugging.md)
+browser-friendly. Also see [Debugging](/en/development/debugging.md)
 
 #### Function `pr(mixed $var)`
 

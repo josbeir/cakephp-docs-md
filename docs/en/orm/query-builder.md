@@ -1661,7 +1661,7 @@ will be triggered, and a new `ResultSet` will be created. This
 The builder can help you retrieve data from multiple tables at the same time
 with the minimum amount of queries possible. To be able to fetch associated
 data, you first need to setup associations between the tables as described in
-the [orm/associations](/en/orm/associations.md) section. This technique of combining queries
+the [Associations - Linking Tables Together](/en/orm/associations.md) section. This technique of combining queries
 to fetch associated data from other tables is called **eager loading**.
 <!--@include: ././retrieving-data-and-resultsets.md-->
 :start-after: start-contain

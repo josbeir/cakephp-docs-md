@@ -12,7 +12,7 @@ level folders you should see:
 - The *config* folder holds the [/development/configuration` files
   CakePHP uses. Database connection details, bootstrapping, core configuration files
   and more should be stored here.
-- The *plugins* folder is where the [plugins](/en/plugins.md) your application uses are stored.
+- The *plugins* folder is where the [Plugins](/en/plugins.md) your application uses are stored.
 - The *logs* folder normally contains your log files, depending on your log
   configuration.
 - The *src* folder will be where your application’s source files will be placed.
@@ -44,13 +44,13 @@ development. Let's look a little closer at the folders inside
 
 Command
 Contains your application's console commands. See
-[console-commands/commands](/en/console-commands/commands.md) to learn more.
+[Command Objects](/en/console-commands/commands.md) to learn more.
 Console
 Contains the installation script executed by Composer.
 Controller
-Contains your application's [controllers](/en/controllers.md) and their components.
+Contains your application's [Controllers](/en/controllers.md) and their components.
 Middleware
-Stores any [controllers/middleware](/en/controllers/middleware.md) for your application.
+Stores any [Http Middleware](/en/controllers/middleware.md) for your application.
 Model
 Contains your application's tables, entities and behaviors.
 View

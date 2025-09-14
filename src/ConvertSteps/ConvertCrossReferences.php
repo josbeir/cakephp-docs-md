@@ -9,6 +9,8 @@ class ConvertCrossReferences
 
     private array $labelToDocumentMap;
 
+    private array $titleCache = [];
+
     public function __construct(string $basePath = '', array $labelToDocumentMap = [])
     {
         $this->basePath = $basePath;
@@ -57,8 +59,13 @@ class ConvertCrossReferences
             }
 
             $path = ltrim($path, '/');
+            $fullPath = $basePath . '/' . $path . '.md';
 
-            return sprintf('[%s](%s/%s.md)', $path, $basePath, $path);
+            // Try to extract title from the target file
+            $title = $this->extractTitle($fullPath);
+            $linkText = $title ?: $path; // Fallback to path if title not found
+
+            return sprintf('[%s](%s)', $linkText, $fullPath);
         }, $content);
         $content = preg_replace_callback('/:ref:`([^<`]+)<([^>`]+)>`/', function ($matches) use ($basePath, $labelToDocumentMap): string {
             $linkText = trim($matches[1]);
@@ -80,5 +87,49 @@ class ConvertCrossReferences
                 return sprintf('[%s](#%s)', $reference, $reference);
             }
         }, $content);
+    }
+
+    /**
+     * Extract title from a markdown file
+     */
+    private function extractTitle(string $filePath): ?string
+    {
+        // Check cache first
+        if (isset($this->titleCache[$filePath])) {
+            return $this->titleCache[$filePath];
+        }
+
+        // Try to find the file
+        $fullPath = __DIR__ . '/../../docs' . $filePath;
+        if (!file_exists($fullPath)) {
+            $this->titleCache[$filePath] = null;
+            return null;
+        }
+
+        $content = file_get_contents($fullPath);
+        if (!$content) {
+            $this->titleCache[$filePath] = null;
+            return null;
+        }
+
+        // First try to extract from YAML frontmatter
+        if (preg_match('/^---\s*\n(.*?)\n---\s*\n/s', $content, $matches)) {
+            $frontmatter = $matches[1];
+            if (preg_match('/^title:\s*(.+)$/m', $frontmatter, $titleMatch)) {
+                $title = trim($titleMatch[1], '"\'');
+                $this->titleCache[$filePath] = $title;
+                return $title;
+            }
+        }
+
+        // Fallback to first heading
+        if (preg_match('/^#\s+(.+)$/m', $content, $headingMatch)) {
+            $title = trim($headingMatch[1]);
+            $this->titleCache[$filePath] = $title;
+            return $title;
+        }
+
+        $this->titleCache[$filePath] = null;
+        return null;
     }
 }

@@ -691,7 +691,7 @@ echo Number::format(524.23); // Displays 524,23
 
 ```
 
-Make sure you read the [core-libraries/time](/en/core-libraries/time.md) and [core-libraries/number](/en/core-libraries/number.md)
+Make sure you read the [Time](/en/core-libraries/time.md) and [NumberHelper](/en/core-libraries/number.md)
 sections to learn more about formatting options.
 
 By default dates returned for the ORM results use the `Cake\I18n\DateTime` class,
@@ -702,7 +702,7 @@ current locale.
 
 When accepting localized data from the request, it is nice to accept datetime
 information in a user's localized format. In a controller, or
-[controllers/middleware](/en/controllers/middleware.md) you can configure the Date, Time, and
+[Http Middleware](/en/controllers/middleware.md) you can configure the Date, Time, and
 DateTime types to parse localized formats
 
 ```php

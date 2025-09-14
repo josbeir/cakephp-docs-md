@@ -286,4 +286,4 @@ articles. We've also added some nice UX improvements by leveraging the
 FormHelper and ORM capabilities.
 
 Thank you for taking the time to explore CakePHP. Next, you should learn more about
-the [orm](/en/orm.md), or you peruse the [topics](/en/topics.md).
+the [Database Access & ORM](/en/orm.md), or you peruse the [Using CakePHP](/en/topics.md).

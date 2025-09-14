@@ -199,11 +199,17 @@ function testConvertCrossReferences(): void
     $result = $converter($input);
     assert($result === $expected, "Abbreviation failed");
 
-    // Test doc reference with title
+    // Test doc reference with title (explicit title should be preserved)
     $input = ":doc:`Installation Guide </installation>`";
     $expected = "[Installation Guide](/en/installation.md)";
     $result = $converter($input);
     assert($result === $expected, "Doc reference with title failed");
+
+    // Test doc reference with title extraction from actual file
+    $input = ":doc:`installation`";
+    $expected = "[Installation](/en/installation.md)";
+    $result = $converter($input);
+    assert($result === $expected, "Doc reference with title extraction failed");
 
     // Test ref with label mapping
     $input = ":ref:`My Label <my-label>`";

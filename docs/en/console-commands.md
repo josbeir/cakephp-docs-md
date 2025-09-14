@@ -132,7 +132,7 @@ available commands.
 
 ## Commands
 
-See the [console-commands/commands](/en/console-commands/commands.md) chapter on how to create your first
+See the [Command Objects](/en/console-commands/commands.md) chapter on how to create your first
 command. Then learn more about commands:
 
 ## CakePHP Provided Commands

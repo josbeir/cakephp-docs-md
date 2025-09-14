@@ -43,7 +43,7 @@ This file is ideal for a number of common bootstrapping tasks:
 - Loading configuration files.
 
 It might be tempting to place formatting functions there in order to use them in
-your controllers. As you'll see in the [controllers](/en/controllers.md) and [views](/en/views.md)
+your controllers. As you'll see in the [Controllers](/en/controllers.md) and [Views](/en/views.md)
 sections there are better ways you add custom logic to your application.
 <a id="application-bootstrap"></a>
 ### Application::bootstrap()

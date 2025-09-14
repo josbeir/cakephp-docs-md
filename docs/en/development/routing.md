@@ -677,7 +677,7 @@ Prefixes are mapped to sub-namespaces in your application's `Controller`
 namespace. By having prefixes as separate controllers you can create smaller and
 simpler controllers. Behavior that is common to the prefixed and non-prefixed
 controllers can be encapsulated using inheritance,
-[controllers/components](/en/controllers/components.md), or traits.  Using our users example, accessing
+[Components](/en/controllers/components.md), or traits.  Using our users example, accessing
 the URL `/admin/users/edit/5` would call the `edit()` method of our
 **src/Controller/Admin/UsersController.php** passing 5 as the first parameter.
 The view file used would be **templates/Admin/Users/edit.php**
@@ -809,7 +809,7 @@ This would link to a controller with the namespace `App\Controller\Admin\MyPrefi
 
 #### Static Method `Cake\Routing\RouterBuilder::plugin($name, $options = [], $callback)`
 
-Routes for [plugins](/en/plugins.md) should be created using the `plugin()`
+Routes for [Plugins](/en/plugins.md) should be created using the `plugin()`
 method. This method creates a new routing scope for the plugin's routes
 
 ```php

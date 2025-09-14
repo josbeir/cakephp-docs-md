@@ -20,7 +20,7 @@ chapter for each component:
 ## Configuring Components
 
 Many of the core components require configuration. One example would be
-the [controllers/components/form-protection](/en/controllers/components/form-protection.md). Configuration for these components,
+the [FormProtection](/en/controllers/components/form-protection.md). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array
 
@@ -157,7 +157,7 @@ class PostsController extends AppController
 > component and a model the same name.
 > **versionchanged:** 5.1.0
 
-Components are able to use [development/dependency-injection](/en/development/dependency-injection.md) to receive services.
+Components are able to use [Dependency Injection](/en/development/dependency-injection.md) to receive services.
 <a id="creating-a-component"></a>
 ## Creating a Component
 
@@ -189,7 +189,7 @@ class MathComponent extends Component
 > to do this will trigger an exception.
 >
 
-Components can use [development/dependency-injection](/en/development/dependency-injection.md) to receive services
+Components can use [Dependency Injection](/en/development/dependency-injection.md) to receive services
 as constructor parameters
 
 ```php

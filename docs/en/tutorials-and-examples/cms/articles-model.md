@@ -31,7 +31,7 @@ class ArticlesTable extends Table
 
 ```
 
-We've attached the [orm/behaviors/timestamp](/en/orm/behaviors/timestamp.md) behavior, which will
+We've attached the [Timestamp](/en/orm/behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses

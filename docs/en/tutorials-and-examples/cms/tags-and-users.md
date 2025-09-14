@@ -3,7 +3,7 @@
 With the basic article creation functionality built, we need to enable multiple
 authors to work in our CMS. Previously, we built all the models, views and
 controllers by hand. This time around we're going to use
-[bake](/en/bake.md) to create our skeleton code. Bake is a powerful
+[Bake Console](/en/bake.md) to create our skeleton code. Bake is a powerful
 code generation <abbr title="Command Line Interface">CLI</abbr> tool that leverages the
 conventions CakePHP uses to create skeleton <abbr title="Create, Read, Update, Delete">CRUD</abbr> applications very efficiently. We're going to use `bake` to build our
 users code:
@@ -59,7 +59,7 @@ public function initialize(array $config): void
 
 This association will work with this simple definition because we followed
 CakePHP conventions when creating our tables. For more information, read
-[orm/associations](/en/orm/associations.md).
+[Associations - Linking Tables Together](/en/orm/associations.md).
 
 ## Updating Articles to Enable Tagging
 
@@ -285,7 +285,7 @@ public function findTagged(SelectQuery $query, array $tags = []): SelectQuery
 
 We just implemented a [custom finder method](/en/orm/retrieving-data-and-resultsets.md#custom-find-methods). This is
 a very powerful concept in CakePHP that allows you to package up re-usable
-queries. Finder methods always get a [orm/query-builder](/en/orm/query-builder.md) object and an
+queries. Finder methods always get a [Query Builder](/en/orm/query-builder.md) object and an
 array of options as parameters. Finders can manipulate the query and add any
 required conditions or criteria. When complete, finder methods must return
 a modified query object. In our finder we've leveraged the `distinct()` and
@@ -320,8 +320,8 @@ view file for our `tags()` action
 
 ```
 
-In the above code we use the [views/helpers/html](/en/views/helpers/html.md) and
-[views/helpers/text](/en/views/helpers/text.md) helpers to assist in generating our view output. We
+In the above code we use the [HtmlHelper](/en/views/helpers/html.md) and
+[TextHelper](/en/views/helpers/text.md) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
 remember to always use `h()` when outputting data to prevent HTML injection
 issues.
