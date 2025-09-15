@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { generateSidebars } from './sidebar.js'
 import { getVersionByPath } from './cake.js'
+import { versionReplacer } from './plugins/version-replacer.js'
 
 export default defineConfig({
   title: 'CakePHP',
@@ -76,6 +77,9 @@ export default defineConfig({
     theme: {
       light: 'github-light',
       dark: 'github-dark'
+    },
+    config: (md) => {
+      md.use(versionReplacer)
     }
   }
 })

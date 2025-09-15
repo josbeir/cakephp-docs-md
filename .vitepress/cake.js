@@ -14,7 +14,9 @@ export const versions = [
     path: '/5/en/',
     publicPath: '/5/en/',  // Current version uses clean URLs
     isCurrentVersion: true,
-    sidebarFile: 'sidebar-5.json'
+    sidebarFile: 'sidebar-5.json',
+    phpVersion: '8.4',
+    minPhpVersion: '8.1'
   },
   {
     version: '4',
@@ -23,7 +25,9 @@ export const versions = [
     path: '/4/en/',
     publicPath: '/4/en/',
     isCurrentVersion: false,
-    sidebarFile: 'sidebar-4.json'
+    sidebarFile: 'sidebar-4.json',
+    phpVersion: '8.2',
+    minPhpVersion: '7.4'
   },
   {
     version: '3',
@@ -32,7 +36,9 @@ export const versions = [
     path: '/3/en/',
     publicPath: '/3/en/',
     isCurrentVersion: false,
-    sidebarFile: 'sidebar-3.json'
+    sidebarFile: 'sidebar-3.json',
+    phpVersion: '7.4',
+    minPhpVersion: '5.6'
   },
   {
     version: '2',
@@ -41,7 +47,9 @@ export const versions = [
     path: '/2/en/', 
     publicPath: '/2/en/',
     isCurrentVersion: false,
-    sidebarFile: 'sidebar-2.json'
+    sidebarFile: 'sidebar-2.json',
+    phpVersion: '5.3',
+    minPhpVersion: '5.2.8'
   }
 ]
 
