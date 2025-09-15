@@ -5,17 +5,11 @@ import { getVersionNavItems, getVersionByPath, getVersionLabel } from '../../cak
 
 const route = useRoute()
 const isOpen = ref(false)
-
-// Get version navigation items from centralized config
 const versionNavItems = getVersionNavItems()
 
 const currentPath = computed(() => {
   const version = getVersionByPath(route.path)
-  return version.publicPath
-})
-
-const currentVersionText = computed(() => {
-  return getVersionLabel(route.path)
+  return withBase(version.publicPath)
 })
 
 const toggleDropdown = () => {
@@ -45,7 +39,7 @@ onUnmounted(() => {
 <template>
   <div class="version-dropdown">
     <button class="nav-dropdown-link" @click="toggleDropdown" :aria-expanded="isOpen">
-      {{ currentVersionText }}
+      {{ getVersionLabel(route.path) }}
       <span class="dropdown-arrow" :class="{ open: isOpen }">▼</span>
     </button>
     <ul v-show="isOpen" class="nav-dropdown-links">
