@@ -11,7 +11,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/5/en/intro' },
       { text: 'API', link: 'https://api.cakephp.org/' },
-      { text: 'Cookbook', link: '/5/en/' },
+      { text: 'Documentation', link: '/5/en/' },
       {
         component: 'VersionDropdown',
       }

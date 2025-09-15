@@ -61,7 +61,7 @@ export function getCurrentVersion() {
 export function getVersionByPath(path) {
   // Check for version-specific paths first
   for (const version of versions) {
-    if (path.startsWith(version.publicPath) && version.publicPath !== '/en/') {
+    if (path.startsWith(version.publicPath)) {
       return version
     }
   }
