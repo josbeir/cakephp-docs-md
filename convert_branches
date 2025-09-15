@@ -1,0 +1,105 @@
+#!/bin/bash
+
+# CakePHP Documentation Branch Converter
+# Fetches specific branches from CakePHP docs repo and converts them to markdown
+
+set -e
+
+REPO_URL="https://github.com/cakephp/docs.git"
+TEMP_DIR="./temp"
+DOCS_DIR="./docs"
+
+# Define branches and their numeric versions
+declare -A BRANCHES=(
+    ["5.x"]="5"
+    ["4.x"]="4" 
+    ["3.x"]="3"
+    ["2.x"]="2"
+)
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+echo -e "${GREEN}CakePHP Documentation Branch Converter${NC}"
+echo "======================================"
+
+# Check if git is installed
+if ! command -v git &> /dev/null; then
+    echo -e "${RED}Error: git is required but not installed.${NC}"
+    exit 1
+fi
+
+# Clean up temp directory if it exists
+if [ -d "$TEMP_DIR" ]; then
+    echo -e "${YELLOW}Cleaning up existing temp directory...${NC}"
+    rm -rf "$TEMP_DIR"
+fi
+
+# Create temp directory
+mkdir -p "$TEMP_DIR"
+
+# Create docs directory if it doesn't exist
+mkdir -p "$DOCS_DIR"
+
+# Process each branch
+for branch in "${!BRANCHES[@]}"; do
+    version="${BRANCHES[$branch]}"
+    branch_dir="$TEMP_DIR/$branch"
+    dest_dir="$DOCS_DIR/$version/en"
+    
+    echo ""
+    echo -e "${GREEN}Processing branch: $branch (version $version)${NC}"
+    echo "----------------------------------------"
+    
+    # Clone the specific branch with minimal depth and no history
+    echo -e "${YELLOW}Fetching branch $branch...${NC}"
+    git clone \
+        --depth 1 \
+        --single-branch \
+        --branch "$branch" \
+        --no-tags \
+        "$REPO_URL" \
+        "$branch_dir" \
+        --quiet
+    
+    # Check if en/ directory exists in the branch
+    if [ ! -d "$branch_dir/en" ]; then
+        echo -e "${RED}Warning: No 'en/' directory found in branch $branch, skipping...${NC}"
+        continue
+    fi
+    
+    # Create destination directory
+    mkdir -p "$dest_dir"
+    
+    # Run the convert script
+    echo -e "${YELLOW}Converting RST files to Markdown...${NC}"
+    if ./convert "$branch_dir/en" "$dest_dir"; then
+        echo -e "${GREEN}✓ Successfully converted branch $branch to $dest_dir${NC}"
+    else
+        echo -e "${RED}✗ Failed to convert branch $branch${NC}"
+        continue
+    fi
+    
+    # Clean up this branch directory to save space
+    echo -e "${YELLOW}Cleaning up branch directory...${NC}"
+    rm -rf "$branch_dir"
+done
+
+# Clean up temp directory
+echo ""
+echo -e "${YELLOW}Cleaning up temp directory...${NC}"
+rm -rf "$TEMP_DIR"
+
+echo ""
+echo -e "${GREEN}Conversion completed!${NC}"
+echo "Converted documentation is available in:"
+for branch in "${!BRANCHES[@]}"; do
+    version="${BRANCHES[$branch]}"
+    echo "  - Branch $branch → ./docs/$version/en/"
+done
+
+echo ""
+echo -e "${YELLOW}Note: You can now use the converted markdown files with your documentation site.${NC}"
