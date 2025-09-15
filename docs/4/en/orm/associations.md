@@ -498,7 +498,7 @@ You may want to cache the counts for your hasMany associations. This is useful
 when you often need to show the number of associated records, but don't want to
 load all the records just to count them. For example, the comment count on any
 given article is often cached to make generating lists of articles more
-efficient. You can use the [CounterCacheBehavior](orm/behaviors/counter-cache.md) to cache counts of associated records.
+efficient. You can use the [CounterCacheBehavior](behaviors/counter-cache.md) to cache counts of associated records.
 
 You should make sure that your database tables do not contain columns that match
 association property names. If for example you have counter fields that conflict

@@ -7,7 +7,7 @@ work well together or separately.
 The goal of this overview is to introduce the general concepts in CakePHP, and
 give you a quick overview of how those concepts are implemented in CakePHP. If
 you are itching to get started on a project, you can [start with the
-tutorial](tutorials-and-examples/cms/installation.md), or [dive into the docs](topics.md).
+tutorial](cms/installation.md), or [dive into the docs](topics.md).
 
 ## Conventions Over Configuration
 
@@ -153,7 +153,7 @@ features in CakePHP are:
   your code works perfectly.
 
 The next obvious steps are to [download CakePHP](installation.md), read the
-[tutorial and build something awesome](tutorials-and-examples/cms/installation.md).
+[tutorial and build something awesome](cms/installation.md).
 
 ## Additional Reading
 

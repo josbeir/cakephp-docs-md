@@ -1,6 +1,6 @@
 # Blog Tutorial - Authentication and Authorization
 
-Following our [/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md) example, imagine we
+Following our [/tutorials-and-examples/blog/blog](blog/blog.md) example, imagine we
 wanted to secure access to certain URLs, based on the logged-in
 user. We also have another requirement: to allow our blog to have multiple
 authors who can create, edit, and delete their own articles while disallowing
@@ -442,10 +442,10 @@ You could also be more creative and code something more general in AppController
 on your own rules.
 
 Should you need more control, we suggest you read the complete Auth guide in the
-[/controllers/components/authentication](controllers/components/authentication.md) section where you will find more
+[/controllers/components/authentication](components/authentication.md) section where you will find more
 about configuring the component, creating custom Authorization classes, and much more.
 
 ### Suggested Follow-up Reading
 
 1.  [/bake/usage](bake/usage.md) Generating basic CRUD code
-2.  [/controllers/components/authentication](controllers/components/authentication.md): User registration and login
+2.  [/controllers/components/authentication](components/authentication.md): User registration and login

@@ -157,7 +157,7 @@ file. None of these relationships have been configured by any means other than
 by creating classes and files that you'd need to create anyway.
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [/tutorials-and-examples/cms/installation](tutorials-and-examples/cms/installation.md) to see how things fit
+through the [/tutorials-and-examples/cms/installation](cms/installation.md) to see how things fit
 together.
 
 See [awesome list recommendations](https://github.com/FriendsOfCake/awesome-cakephp/blob/master/CONTRIBUTING.md#tips-for-creating-cakephp-plugins) for details.

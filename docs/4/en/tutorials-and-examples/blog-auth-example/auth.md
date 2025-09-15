@@ -1,6 +1,6 @@
 # Blog Tutorial - Authentication
 
-Following our [/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md) example, imagine we
+Following our [/tutorials-and-examples/blog/blog](blog/blog.md) example, imagine we
 wanted to disallow unauthenticated users to create articles.
 
 ## Creating Users Table and Controller

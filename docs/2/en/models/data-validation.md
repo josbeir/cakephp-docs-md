@@ -12,7 +12,7 @@ we'll cover in this section is the model side of things.
 Essentially: what happens when you call the save() method of your
 model. For more information about how to handle the displaying of
 validation errors, check out
-[/core-libraries/helpers/form](core-libraries/helpers/form.md).
+[/core-libraries/helpers/form](helpers/form.md).
 
 The first step to data validation is creating the validation rules
 in the Model. To do that, use the Model::validate array in the

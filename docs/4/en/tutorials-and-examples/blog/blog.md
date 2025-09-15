@@ -217,5 +217,5 @@ if the CakePHP welcome page looks a little funny (no images or CSS styles).
 This probably means mod_rewrite is not functioning on your system. Please refer
 to the [url-rewriting](#url-rewriting) section to help resolve any issues you are having.
 
-Now continue to [/tutorials-and-examples/blog/part-two](tutorials-and-examples/blog/part-two.md) to start building
+Now continue to [/tutorials-and-examples/blog/part-two](blog/part-two.md) to start building
 your first CakePHP application.

@@ -63,7 +63,7 @@ In CakePHP, authentication is handled by [/controllers/components](controllers/c
 Components can be thought of as ways to create reusable chunks of controller
 code related to a specific feature or concept. Components can hook into the
 controller's event life-cycle and interact with your application that way. To
-get started, we'll add the [AuthComponent](controllers/components/authentication.md) to our application. We'll want the
+get started, we'll add the [AuthComponent](components/authentication.md) to our application. We'll want the
 create, update and delete methods to require authentication, so we'll add
 AuthComponent in our AppController:
 

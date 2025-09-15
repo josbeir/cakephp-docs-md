@@ -6,7 +6,7 @@ The PaginatorHelper is used to output pagination controls such as page numbers
 and next/previous links. It works in tandem with
 `PaginatorComponent`.
 
-See also [/controllers/components/pagination](controllers/components/pagination.md) for information on how to
+See also [/controllers/components/pagination](components/pagination.md) for information on how to
 create paginated datasets and do paginated queries.
 
 ## PaginatorHelper Templates

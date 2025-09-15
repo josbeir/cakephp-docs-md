@@ -194,5 +194,5 @@ files that you'd need to create anyway.
 
 Now that you've been introduced to CakePHP's fundamentals, you
 might try a run through the
-[/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md) to see how things fit
+[/tutorials-and-examples/blog/blog](blog/blog.md) to see how things fit
 together.

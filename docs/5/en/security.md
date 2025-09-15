@@ -1,7 +1,7 @@
 # Security
 
 CakePHP provides you some tools to secure your application. In addition to the
-[controllers/components/form-protection](controllers/components/form-protection.md), the following sections cover
+[controllers/components/form-protection](components/form-protection.md), the following sections cover
 additional security features:
 
 - [Security](core-libraries/security.md)

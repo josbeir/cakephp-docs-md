@@ -401,8 +401,8 @@ put the following content:
 </section>
 ```
 
-In the above code we use the [/views/helpers/html](views/helpers/html.md) and
-[/views/helpers/text](views/helpers/text.md) helpers to assist in generating our view output. We
+In the above code we use the [/views/helpers/html](helpers/html.md) and
+[/views/helpers/text](helpers/text.md) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
 remember to always use `h()` when outputting user data to prevent HTML
 injection issues.
@@ -424,5 +424,5 @@ However, everyone can see everyone else's tags. In the next chapter, we'll
 implement authentication and restrict the visible bookmarks to only those that
 belong to the current user.
 
-Now continue to [/tutorials-and-examples/bookmarks/part-two](tutorials-and-examples/bookmarks/part-two.md) to
+Now continue to [/tutorials-and-examples/bookmarks/part-two](bookmarks/part-two.md) to
 continue building your application or [dive into the documentation](topics.md) to learn more about what CakePHP can do for you.

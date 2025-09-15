@@ -424,7 +424,7 @@ $this->loadModel('Locations', 'ElasticIndex');
 
 This method is used for paginating results fetched by your models.
 You can specify page sizes, model find conditions and more. See the
-[pagination](controllers/components/pagination.md) section for more details on
+[pagination](components/pagination.md) section for more details on
 how to use `paginate()`.
 
 The `$paginate` attribute gives you an easy way to customize how `paginate()`

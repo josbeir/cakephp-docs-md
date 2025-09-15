@@ -6,7 +6,7 @@ FlashComponent provides a way to set one-time notification messages to be
 displayed after processing a form or acknowledging data. CakePHP refers to these
 messages as "flash messages". FlashComponent writes flash messages to
 `$_SESSION`, to be rendered in a View using
-[FlashHelper](views/helpers/flash.md).
+[FlashHelper](helpers/flash.md).
 
 ## Setting Flash Messages
 
@@ -122,4 +122,4 @@ Make sure that you escape the input manually, then. In the above example
 `$highlight` and `$message` are non-HTML input and therefore escaped.
 
 For more information about rendering your flash messages, please refer to the
-[FlashHelper](views/helpers/flash.md) section.
+[FlashHelper](helpers/flash.md) section.

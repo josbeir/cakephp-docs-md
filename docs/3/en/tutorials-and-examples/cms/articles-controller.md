@@ -107,7 +107,7 @@ In the last section we assigned the 'articles' variable to the view using
 local variables which we used in the above code.
 
 You might have noticed the use of an object called `$this->Html`. This is an
-instance of the CakePHP [HtmlHelper](views/helpers/html.md). CakePHP comes
+instance of the CakePHP [HtmlHelper](helpers/html.md). CakePHP comes
 with a set of view helpers that make tasks like creating links, forms, and
 pagination buttons easy. You can learn more about [/views/helpers](views/helpers.md) in their
 chapter, but what's important to note here is that the `link()` method will
@@ -224,7 +224,7 @@ class ArticlesController extends AppController
 ```
 
 > [!NOTE]
-> You need to include the [/controllers/components/flash](controllers/components/flash.md) component in
+> You need to include the [/controllers/components/flash](components/flash.md) component in
 > any controller where you will use it. Often it makes sense to include it in
 > your `AppController`.
 
@@ -552,4 +552,4 @@ that uses JavaScript to do a POST request deleting our article.
 > article.
 
 With a basic articles management setup, we'll create the [basic actions
-for our Tags and Users tables](tutorials-and-examples/cms/tags-and-users.md).
+for our Tags and Users tables](cms/tags-and-users.md).

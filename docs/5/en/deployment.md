@@ -66,7 +66,7 @@ If you're throwing your application out into the wild, it's a good idea to make
 sure it doesn't have any obvious leaks:
 
 - Ensure you are using the [csrf-middleware](#csrf-middleware) component or middleware.
-- You may want to enable the [/controllers/components/form-protection](controllers/components/form-protection.md) component.
+- You may want to enable the [/controllers/components/form-protection](components/form-protection.md) component.
   It can help prevent several types of form tampering and reduce the possibility
   of mass-assignment issues.
 - Ensure your models have the correct [/core-libraries/validation](core-libraries/validation.md) rules

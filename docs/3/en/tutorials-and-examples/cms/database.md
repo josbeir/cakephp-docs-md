@@ -129,7 +129,7 @@ class ArticlesTable extends Table
 }
 ```
 
-We've attached the [/orm/behaviors/timestamp](orm/behaviors/timestamp.md) behavior which will
+We've attached the [/orm/behaviors/timestamp](behaviors/timestamp.md) behavior which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -169,5 +169,5 @@ property which controls how properties can be modified by
 [entities-mass-assignment](#entities-mass-assignment).
 
 We can't do much with our models right now, so next we'll create our first
-[Controller and Template](tutorials-and-examples/cms/articles-controller.md) to allow us to interact
+[Controller and Template](cms/articles-controller.md) to allow us to interact
 with our model.

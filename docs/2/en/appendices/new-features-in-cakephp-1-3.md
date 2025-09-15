@@ -58,7 +58,7 @@ helpers to share names and not create collisions.
 
 **New JsHelper and new features in HtmlHelper**
 
-See [JsHelper documentation](core-libraries/helpers/js.md) for more information
+See [JsHelper documentation](helpers/js.md) for more information
 
 **Pagination Helper**
 

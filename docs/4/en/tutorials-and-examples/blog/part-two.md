@@ -45,7 +45,7 @@ For more on models, such as callbacks, and validation, check out the [/orm](orm.
 chapter of the Manual.
 
 > [!NOTE]
-> If you completed [Part 1 of the Blog Tutorial](tutorials-and-examples/blog/blog.md) and created the `articles` table in
+> If you completed [Part 1 of the Blog Tutorial](blog/blog.md) and created the `articles` table in
 > our Blog database you can leverage CakePHP's bake console and its code
 > generation capabilities to create the `ArticlesTable` model:
 >
@@ -112,7 +112,7 @@ calling its `all()` method returns as instance of `Cake\Collection\CollectionInt
 which is set as a view variable called 'articles'.
 
 > [!NOTE]
-> If you completed [Part 1 of the Blog Tutorial](tutorials-and-examples/blog/blog.md) and created the `articles` table in
+> If you completed [Part 1 of the Blog Tutorial](blog/blog.md) and created the `articles` table in
 > your Blog database you can leverage CakePHP's bake console and its code
 > generation capabilities to create the ArticlesController class:
 >
@@ -305,7 +305,7 @@ class ArticlesController extends AppController
 ```
 
 > [!NOTE]
-> You need to include the [/controllers/components/flash](controllers/components/flash.md) component in any controller
+> You need to include the [/controllers/components/flash](components/flash.md) component in any controller
 > where you will use it. If necessary, include it in your `AppController`.
 
 Here's what the `add()` action does: if the HTTP method of the
@@ -347,7 +347,7 @@ validation. Everyone hates coding up endless forms and their
 validation routines. CakePHP makes it easier and faster.
 
 To take advantage of the validation features, you'll need to use CakePHP's
-[/views/helpers/form](views/helpers/form.md) helper in your views. The
+[/views/helpers/form](helpers/form.md) helper in your views. The
 `Cake\View\Helper\FormHelper` is available by default to all views
 at `$this->Form`.
 
@@ -673,7 +673,7 @@ here for simplicity's sake. Use the rest of this manual as a guide
 for building more feature-rich applications.
 
 Now that you've created a basic CakePHP application, you can either continue to
-[/tutorials-and-examples/blog/part-three](tutorials-and-examples/blog/part-three.md), or start your own project. You
+[/tutorials-and-examples/blog/part-three](blog/part-three.md), or start your own project. You
 can also peruse the [/topics](topics.md) or [API](https://api.cakephp.org) to
 learn more about CakePHP.
 

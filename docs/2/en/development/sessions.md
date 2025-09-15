@@ -359,5 +359,5 @@ CakeSession::delete('Config.language');
 
 You should also see the documentation on
 [/core-libraries/components/sessions](core-libraries/components/sessions.md) and
-[/core-libraries/helpers/session](core-libraries/helpers/session.md) for how to access Session data
+[/core-libraries/helpers/session](helpers/session.md) for how to access Session data
 in the controller and view.

@@ -325,7 +325,7 @@ classes, then:
 
 Read more about building migrations and data seeding: [Migrations](https://book.cakephp.org/migrations/4/)
 
-With the database built, we can now build [Models](tutorials-and-examples/cms/articles-model.md).
+With the database built, we can now build [Models](cms/articles-model.md).
 
 ## CMS Tutorial - Creating our First Model
 
@@ -359,7 +359,7 @@ class ArticlesTable extends Table
 }
 ```
 
-We've attached the [/orm/behaviors/timestamp](orm/behaviors/timestamp.md) behavior, which will
+We've attached the [/orm/behaviors/timestamp](behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -415,7 +415,7 @@ property, which controls how properties can be modified by
 > ```
 
 We can't do much with this model yet. Next, we'll create our first
-[Controller and Template](tutorials-and-examples/cms/articles-controller.md)
+[Controller and Template](cms/articles-controller.md)
 to allow us to interact with our model.
 
 ## CMS Tutorial - Creating the Articles Controller
@@ -526,7 +526,7 @@ In the last section we assigned the 'articles' variable to the view using
 local variables which we used in the above code.
 
 You might have noticed the use of an object called `$this->Html`. This is an
-instance of the CakePHP [HtmlHelper](views/helpers/html.md). CakePHP comes
+instance of the CakePHP [HtmlHelper](helpers/html.md). CakePHP comes
 with a set of view helpers that make tasks like creating links, forms, and
 pagination buttons. You can learn more about [/views/helpers](views/helpers.md) in their
 chapter, but what's important to note here is that the `link()` method will
@@ -636,7 +636,7 @@ class ArticlesController extends AppController
 ```
 
 > [!NOTE]
-> You need to include the [/controllers/components/flash](controllers/components/flash.md) component in
+> You need to include the [/controllers/components/flash](components/flash.md) component in
 > any controller where you will use it. Often it makes sense to include it in
 > your `AppController`, which is there already for this tutorial.
 
@@ -983,4 +983,4 @@ Prior to CakePHP 5.2 you need to use `postLink()` instead.
 > However, this does not build the **templates/Articles/\*.php** files.
 
 With a basic articles management setup, we'll create the [basic actions
-for our Tags and Users tables](tutorials-and-examples/cms/tags-and-users.md).
+for our Tags and Users tables](cms/tags-and-users.md).

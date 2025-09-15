@@ -1051,7 +1051,7 @@ $this->Html->link(
 );
 ```
 
-File extensions are used by [/controllers/components/request-handling](controllers/components/request-handling.md)
+File extensions are used by [/controllers/components/request-handling](components/request-handling.md)
 to do automatic view switching based on content types.
 
 ## Connecting Scoped Middleware

@@ -30,7 +30,7 @@ class ArticlesTable extends Table
 }
 ```
 
-We've attached the [/orm/behaviors/timestamp](orm/behaviors/timestamp.md) behavior, which will
+We've attached the [/orm/behaviors/timestamp](behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -86,5 +86,5 @@ property, which controls how properties can be modified by
 > ```
 
 We can't do much with this model yet. Next, we'll create our first
-[Controller and Template](tutorials-and-examples/cms/articles-controller.md)
+[Controller and Template](cms/articles-controller.md)
 to allow us to interact with our model.

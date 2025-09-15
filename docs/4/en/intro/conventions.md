@@ -233,5 +233,5 @@ a separate entity/table class for that table.</td>
 </table>
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [/tutorials-and-examples/cms/installation](tutorials-and-examples/cms/installation.md) to see how things fit
+through the [/tutorials-and-examples/cms/installation](cms/installation.md) to see how things fit
 together.

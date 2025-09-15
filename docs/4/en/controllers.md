@@ -364,7 +364,7 @@ content-type negotiation is attempted.
 <div class="versionadded">
 
 4.4.0
-Prior to 4.4 you must use [/controllers/components/request-handling](controllers/components/request-handling.md)
+Prior to 4.4 you must use [/controllers/components/request-handling](components/request-handling.md)
 instead of `viewClasses()`.
 
 </div>

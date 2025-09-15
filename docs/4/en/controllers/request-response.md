@@ -1030,7 +1030,7 @@ in order to determine whether it matches a cached resource.
 
 To take advantage of this header, you must either call the
 `checkNotModified()` method manually or include the
-[/controllers/components/request-handling](controllers/components/request-handling.md) in your controller:
+[/controllers/components/request-handling](components/request-handling.md) in your controller:
 
 ``` php
 public function index()
@@ -1067,7 +1067,7 @@ response was modified or not based on their cache.
 
 To take advantage of this header, you must either call the
 `checkNotModified()` method manually or include the
-[/controllers/components/request-handling](controllers/components/request-handling.md) in your controller:
+[/controllers/components/request-handling](components/request-handling.md) in your controller:
 
 ``` php
 public function view()

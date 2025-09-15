@@ -526,7 +526,7 @@ on the features provided by the new class. You can use the `cake upgrade rename_
   data accessed through `config()`.
 - `write()` no longer takes `encryption` or `expires` parameters. Both of
   these are now managed through config data. See
-  [/controllers/components/cookie](controllers/components/cookie.md) for more information.
+  [/controllers/components/cookie](components/cookie.md) for more information.
 - The path for cookies now defaults to app's base path instead of "/".
 
 ### AuthComponent
@@ -591,7 +591,7 @@ well.
 ### SessionComponent
 
 - `SessionComponent::setFlash()` is deprecated. You should use
-  [/controllers/components/flash](controllers/components/flash.md) instead.
+  [/controllers/components/flash](components/flash.md) instead.
 
 ### Error
 
@@ -873,7 +873,7 @@ and reduce the problems people had in the past:
   and `inputsubmit` are now `formStart`, `formEnd`, `hiddenBlock` and `inputSubmit`.
   Make sure you change them if they are customized in your app.
 
-It is recommended that you review the [/views/helpers/form](views/helpers/form.md)
+It is recommended that you review the [/views/helpers/form](helpers/form.md)
 documentation for more details on how to use the FormHelper in 3.0.
 
 ### HtmlHelper
@@ -932,7 +932,7 @@ information on how to use templates.
 ### SessionHelper
 
 - The `SessionHelper` has been deprecated. You can use `$this->request->session()` directly,
-  and the flash message functionality has been moved into [/views/helpers/flash](views/helpers/flash.md) instead.
+  and the flash message functionality has been moved into [/views/helpers/flash](helpers/flash.md) instead.
 
 ### JsHelper
 

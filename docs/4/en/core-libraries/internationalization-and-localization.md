@@ -709,4 +709,4 @@ option to restrict which locales will automatically be used.
 
 ## Translate Content/Entities
 
-If you want to translate content/entities then you should look at the [Translate Behavior](orm/behaviors/translate.md).
+If you want to translate content/entities then you should look at the [Translate Behavior](behaviors/translate.md).

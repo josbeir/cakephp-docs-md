@@ -1,6 +1,6 @@
 # Simple Authentication and Authorization Application
 
-Following our [/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md) example, imagine we wanted to
+Following our [/tutorials-and-examples/blog/blog](blog/blog.md) example, imagine we wanted to
 secure the access to certain URLs, based on the logged in
 user. We also have another requirement, to allow our blog to have multiple authors
 so each one of them can create their own posts, edit and delete them at will

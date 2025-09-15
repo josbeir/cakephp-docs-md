@@ -381,7 +381,7 @@ threading will occur on.
 
 > [!TIP]
 > If you need to manage more advanced trees of data, consider using
-> [/orm/behaviors/tree](orm/behaviors/tree.md) instead.
+> [/orm/behaviors/tree](behaviors/tree.md) instead.
 
 ## Custom Finder Methods
 

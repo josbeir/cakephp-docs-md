@@ -314,8 +314,8 @@ put the following content:
 </section>
 ```
 
-In the above code we use the [/views/helpers/html](views/helpers/html.md) and
-[/views/helpers/text](views/helpers/text.md) helpers to assist in generating our view output. We
+In the above code we use the [/views/helpers/html](helpers/html.md) and
+[/views/helpers/text](helpers/text.md) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
 remember to always use `h()` when outputting data to prevent HTML injection
 issues.
@@ -502,4 +502,4 @@ The contain() method tells the ArticlesTable object to also populate the Tags
 association when the article is loaded. Now when tag_string is called for an
 Article entity, there will be data present to create the string!
 
-Next we'll be adding [authentication](tutorials-and-examples/cms/authentication.md).
+Next we'll be adding [authentication](cms/authentication.md).

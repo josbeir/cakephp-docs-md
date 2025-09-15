@@ -207,7 +207,7 @@ you up and running:
 
 - [Url Rewriting](installation/url-rewriting.md)
 
-Now continue to [/tutorials-and-examples/blog/part-two](tutorials-and-examples/blog/part-two.md) to start building your first CakePHP application.
+Now continue to [/tutorials-and-examples/blog/part-two](blog/part-two.md) to start building your first CakePHP application.
 
 ## Blog Tutorial - Adding a layer
 

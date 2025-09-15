@@ -1,6 +1,6 @@
 # Bookmarker Tutorial Part 2
 
-After finishing [the first part of this tutorial](tutorials-and-examples/bookmarks/intro.md) you should have a very basic
+After finishing [the first part of this tutorial](bookmarks/intro.md) you should have a very basic
 bookmarking application. In this chapter we'll be adding authentication and
 restricting the bookmarks each user can see/modify to only the ones they own.
 
@@ -10,7 +10,7 @@ In CakePHP, authentication is handled by [/controllers/components](controllers/c
 Components can be thought of as ways to create reusable chunks of controller
 code related to a specific feature or concept. Components can also hook into the
 controller's event life-cycle and interact with your application that way. To
-get started, we'll add the [AuthComponent](controllers/components/authentication.md) to our application. We'll pretty much
+get started, we'll add the [AuthComponent](components/authentication.md) to our application. We'll pretty much
 want every method to require authentication, so we'll add AuthComponent in our
 AppController:
 
@@ -428,5 +428,5 @@ authorization/access control scenarios. We've also added some nice UX
 improvements by leveraging the FormHelper and ORM capabilities.
 
 Thanks for taking the time to explore CakePHP. Next, you can complete the
-[/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md), learn more about the
+[/tutorials-and-examples/blog/blog](blog/blog.md), learn more about the
 [/orm](orm.md), or you can peruse the [/topics](topics.md).

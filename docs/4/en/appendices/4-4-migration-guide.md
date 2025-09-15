@@ -86,7 +86,7 @@ be removed in 5.0.
 - Replace `prefers()` with `ContentTypeNegotiation`. See [controller-viewclasses](#controller-viewclasses).
 - Replace `renderAs()` with controller content negotiation features on
   `Controller`.
-- Replace `checkHttpCache` option with [/controllers/components/check-http-cache](controllers/components/check-http-cache.md).
+- Replace `checkHttpCache` option with [/controllers/components/check-http-cache](components/check-http-cache.md).
 - Use [controller-viewclasses](#controller-viewclasses) instead of defining view class mappings in
   `RequestHandlerComponent`.
 

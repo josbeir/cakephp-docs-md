@@ -206,4 +206,4 @@ classes, then:
 
 Read more about building migrations and data seeding: [Migrations](https://book.cakephp.org/migrations/4/)
 
-With the database built, we can now build [Models](tutorials-and-examples/cms/articles-model.md).
+With the database built, we can now build [Models](cms/articles-model.md).

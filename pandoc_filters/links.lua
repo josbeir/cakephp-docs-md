@@ -1,6 +1,51 @@
 -- Links filter: Convert Sphinx cross-references to Markdown links
 -- Handles :doc:, :ref:, and other Sphinx link formats
 
+-- Helper function to make paths relative based on common patterns
+function make_relative_path(url)
+    -- Handle the specific pattern where we're in a directory and linking to a subdirectory
+    -- For example: controllers/components.rst links to controllers/components/flash.md
+    -- Should become: components/flash.md
+    
+    local parts = {}
+    for part in url:gmatch("[^/]+") do
+        table.insert(parts, part)
+    end
+    
+    if #parts >= 3 then
+        -- Check if we have pattern like "controllers/components/flash.md"
+        -- where the first two parts form a potential parent directory
+        local potential_parent = parts[1] .. "/" .. parts[2]
+        
+        -- Common patterns in CakePHP docs where we want to make paths relative:
+        -- These are cases where files in dir1/ link to dir1/dir2/file.md
+        local common_patterns = {
+            "controllers/components",
+            "views/helpers", 
+            "orm/behaviors",
+            "console-commands/commands",
+            "core-libraries/helpers",
+            "tutorials-and-examples/blog",
+            "tutorials-and-examples/cms",
+            "tutorials-and-examples/bookmarks",
+            "appendices/migration-guides"
+        }
+        
+        for _, pattern in ipairs(common_patterns) do
+            if potential_parent == pattern then
+                -- Remove the first part, keeping everything from the second part onward
+                local relative_parts = {}
+                for i = 2, #parts do
+                    table.insert(relative_parts, parts[i])
+                end
+                return table.concat(relative_parts, "/")
+            end
+        end
+    end
+    
+    return url
+end
+
 function Link(link)
     local url = link.target
     local text = pandoc.utils.stringify(link.content)
@@ -65,6 +110,9 @@ function Code(elem)
             link_url = link_url:gsub("^/", "")
             link_url = link_url .. ".md"
             
+            -- Make the URL relative if appropriate
+            link_url = make_relative_path(link_url)
+            
             return pandoc.RawInline("markdown", "[" .. link_text .. "](" .. link_url .. ")")
         end
     end
@@ -83,6 +131,9 @@ function Code(elem)
         
         link_url = link_url:gsub("^/", "")
         link_url = link_url .. ".md"
+        
+        -- Make the URL relative if appropriate
+        link_url = make_relative_path(link_url)
         
         return "[" .. link_text .. "](" .. link_url .. ")"
     end)
@@ -174,6 +225,12 @@ function Span(elem)
             link_url = link_url:gsub("^/", "")
             link_url = link_url .. ".md"
             
+            -- Calculate relative path from current file to target
+            local current_file = get_current_file()
+            if current_file ~= "" then
+                link_url = calculate_relative_path(current_file, link_url)
+            end
+            
             return pandoc.Link(link_text, link_url)
         end
     end
@@ -198,6 +255,9 @@ function Str(elem)
         
         link_url = link_url:gsub("^/", "")
         link_url = link_url .. ".md"
+        
+        -- Make the URL relative if appropriate
+        link_url = make_relative_path(link_url)
         
         return "[" .. link_text .. "](" .. link_url .. ")"
     end)

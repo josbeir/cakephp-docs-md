@@ -3,7 +3,7 @@
 <div class="deprecated">
 
 4.0.0
-`SecurityComponent` has been deprecated. Use [/controllers/components/form-protection](controllers/components/form-protection.md) instead
+`SecurityComponent` has been deprecated. Use [/controllers/components/form-protection](components/form-protection.md) instead
 for form tampering protection or [/security/https-enforcer](security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
 
 </div>

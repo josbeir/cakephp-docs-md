@@ -22,8 +22,8 @@ chapter for each component:
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
-requiring configuration are [/controllers/components/authentication](controllers/components/authentication.md) and
-[/controllers/components/cookie](controllers/components/cookie.md). Configuration for these components,
+requiring configuration are [/controllers/components/authentication](components/authentication.md) and
+[/controllers/components/cookie](components/cookie.md). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 

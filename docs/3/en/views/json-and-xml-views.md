@@ -210,7 +210,7 @@ parameter name instead of "callback" set `_jsonp` to required name instead of
 
 ## Example Usage
 
-While the [RequestHandlerComponent](controllers/components/request-handling.md) can automatically set the view based
+While the [RequestHandlerComponent](components/request-handling.md) can automatically set the view based
 on the request content-type or extension, you could also handle view
 mappings in your controller:
 
