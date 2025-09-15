@@ -1,26 +1,6 @@
-<template>
-  <div class="version-dropdown">
-    <button class="nav-dropdown-link" @click="toggleDropdown" :aria-expanded="isOpen">
-      {{ currentVersionText }}
-      <span class="dropdown-arrow" :class="{ open: isOpen }">▼</span>
-    </button>
-    <ul v-show="isOpen" class="nav-dropdown-links">
-      <li v-for="version in versionNavItems" :key="version.path">
-        <a 
-          :href="version.link" 
-          :class="{ active: version.path === currentPath }"
-          @click="closeDropdown"
-        >
-          {{ version.text }}
-        </a>
-      </li>
-    </ul>
-  </div>
-</template>
-
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRoute } from 'vitepress'
+import { useRoute, withBase } from 'vitepress'
 import { getVersionNavItems, getVersionByPath, getVersionLabel } from '../../cake.js'
 
 const route = useRoute()
@@ -61,6 +41,26 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
+
+<template>
+  <div class="version-dropdown">
+    <button class="nav-dropdown-link" @click="toggleDropdown" :aria-expanded="isOpen">
+      {{ currentVersionText }}
+      <span class="dropdown-arrow" :class="{ open: isOpen }">▼</span>
+    </button>
+    <ul v-show="isOpen" class="nav-dropdown-links">
+      <li v-for="version in versionNavItems" :key="version.path">
+        <a 
+          :href="withBase(version.link)" 
+          :class="{ active: version.path === currentPath }"
+          @click="closeDropdown"
+        >
+          {{ version.text }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</template>
 
 <style scoped>
 .version-dropdown {
