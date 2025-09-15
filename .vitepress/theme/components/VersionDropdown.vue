@@ -51,8 +51,8 @@ onUnmounted(() => {
     <ul v-show="isOpen" class="nav-dropdown-links">
       <li v-for="version in versionNavItems" :key="version.path">
         <a 
-          :href="version.link" 
-          :class="{ active: withBase(version.path) === currentPath }"
+          :href="withBase(version.link)" 
+          :class="{ active: version.path === currentPath }"
           @click="closeDropdown"
         >
           {{ version.text }}
