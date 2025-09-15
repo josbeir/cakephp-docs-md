@@ -1,14 +1,13 @@
----
-title: Media Views
-keywords: "array php,true extension,zip name,document path,mimetype,boolean value,binary files,webroot,file extension,mime type,default view,file server,authentication,parameters"
----
+# Media Views
 
-## Media Views
+`class` **MediaView**
 
-### Class `MediaView`
+<div class="deprecated">
 
-> **deprecated:** 2.3
-   Use [cake-response-file](../controllers/request-response.md#cake-response-file) instead.
+2.3
+Use [cake-response-file](#cake-response-file) instead.
+
+</div>
 
 Media views allow you to send binary files to the user. For example, you may
 wish to have a directory of files outside of the webroot to prevent users from
@@ -18,9 +17,9 @@ the file to the user.
 
 To use the Media view, you need to tell your controller to use the MediaView
 class instead of the default View class. After that, just pass in additional
-parameters to specify where your file is located
+parameters to specify where your file is located:
 
-```php
+``` php
 class ExampleController extends AppController {
     public function download() {
         $this->viewClass = 'Media';
@@ -35,14 +34,13 @@ class ExampleController extends AppController {
         $this->set($params);
     }
 }
-
 ```
 
 Here's an example of rendering a file whose mime type is not included in the
 MediaView's `$mimeType` array. We are also using a relative path which will
-default to your `app/webroot` folder
+default to your `app/webroot` folder:
 
-```php
+``` php
 public function download() {
     $this->viewClass = 'Media';
     // Render app/webroot/files/example.docx
@@ -58,46 +56,44 @@ public function download() {
     );
     $this->set($params);
 }
-
 ```
 
-### Settable Parameters
+## Settable Parameters
 
-`id`
+`id`  
 The ID is the file name as it resides on the file server including
 the file extension.
 
-`name`
+`name`  
 The name allows you to specify an alternate file name to be sent to
 the user. Specify the name without the file extension.
 
-`download`
+`download`  
 A boolean value indicating whether headers should be set to force
 download.
 
-`extension`
+`extension`  
 The file extension. This is matched against an internal list of
 acceptable mime types. If the mime type specified is not in the
-    list (or set in the mimeType parameter array), the file will not
+list (or set in the mimeType parameter array), the file will not
 be downloaded.
 
-`path`
+`path`  
 The folder name, including the final directory separator. The path
 should be absolute but can be relative to the `app/webroot` folder.
 
-`mimeType`
+`mimeType`  
 An array with additional mime types to be merged with MediaView
 internal list of acceptable mime types.
 
-`cache`
+`cache`  
 A boolean or integer value - If set to true it will allow browsers
 to cache the file (defaults to false if not set); otherwise set it
 to the number of seconds in the future for when the cache should
 expire.
 
-.. todo
+<div class="todo">
 
-```
 Include examples of how to send files with Media View.
 
-```
+</div>

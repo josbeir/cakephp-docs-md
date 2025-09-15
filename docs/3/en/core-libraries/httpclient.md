@@ -1,25 +1,23 @@
----
-title: HttpClient
-keywords: "array name,array data,query parameter,query string,php class,string query,test type,string data,google,query results,webservices,apis,parameters,cakephp,meth,search results"
----
-
 # Http Client
 
-**Namespace:** `Cake\Http`
-
-### Class `Cake\Http\Client(mixed $config = [])`
+`class` Cake\\Http\\**Client(mixed**
 
 CakePHP includes a basic but powerful HTTP client which can be used for
 making requests. It is a great way to communicate with webservices, and
 remote APIs.
-> **versionchanged:** 3.3.0
+
+<div class="versionchanged">
+
+3.3.0
 Prior to 3.3.0 you should use `Cake\Network\Http\Client`.
+
+</div>
 
 ## Doing Requests
 
-Doing requests is simple and straight forward.  Doing a GET request looks like
+Doing requests is simple and straight forward. Doing a GET request looks like:
 
-```php
+``` php
 use Cake\Http\Client;
 
 $http = new Client();
@@ -34,12 +32,11 @@ $response = $http->get('http://example.com/search', ['q' => 'widget']);
 $response = $http->get('http://example.com/search', ['q' => 'widget'], [
   'headers' => ['X-Requested-With' => 'XMLHttpRequest']
 ]);
-
 ```
 
-Doing POST and PUT requests is equally simple::
+Doing POST and PUT requests is equally simple:
 
-```php
+``` php
 // Send a POST request with application/x-www-form-urlencoded encoded data
 $http = new Client();
 $response = $http->post('http://example.com/posts/add', [
@@ -57,19 +54,17 @@ $response = $http->put('http://example.com/posts/add', [
 $http->delete(...);
 $http->head(...);
 $http->patch(...);
-
 ```
 
 ## Creating Multipart Requests with Files
 
-You can include files in request bodies by including a filehandle in the array
+You can include files in request bodies by including a filehandle in the array:
 
-```php
+``` php
 $http = new Client();
 $response = $http->post('http://example.com/api', [
   'image' => fopen('/path/to/a/file', 'r'),
 ]);
-
 ```
 
 The filehandle will be read until its end; it will not be rewound before being read.
@@ -78,15 +73,14 @@ The filehandle will be read until its end; it will not be rewound before being r
 > For compatibility reasons, earlier versions of CakePHP will treat strings
 > beginning with `@` as local or remote file paths. This functionality was
 > deprecated in CakePHP 3.0.5 and was removed in 3.7.
->
 
 ### Building Multipart Request Bodies by Hand
 
 There may be times when you need to build a request body in a very specific way.
 In these situations you can often use `Cake\Http\Client\FormData` to craft
-the specific multipart HTTP request you want
+the specific multipart HTTP request you want:
 
-```php
+``` php
 use Cake\Http\Client\FormData;
 
 $data = new FormData();
@@ -109,15 +103,14 @@ $response = $http->post(
     (string)$data,
     ['headers' => ['Content-Type' => $data->contentType()]]
 );
-
 ```
 
 ## Sending Request Bodies
 
 When dealing with REST APIs you often need to send request bodies that are not
-form encoded. Http\\Client exposes this through the type option
+form encoded. Http\Client exposes this through the type option:
 
-```php
+``` php
 // Send a JSON request body.
 $http = new Client();
 $response = $http->post(
@@ -125,15 +118,14 @@ $response = $http->post(
   json_encode($data),
   ['type' => 'json']
 );
-
 ```
 
 The `type` key can either be a one of 'json', 'xml' or a full mime type.
 When using the `type` option, you should provide the data as a string. If you're
 doing a GET request that needs both querystring parameters and a request body
-you can do the following
+you can do the following:
 
-```php
+``` php
 // Send a JSON body in a GET request with query string parameters.
 $http = new Client();
 $response = $http->get(
@@ -143,11 +135,10 @@ $response = $http->get(
 );
 ```
 
-<!-- anchor: http_client_request_options -->
 ## Request Method Options
 
 Each HTTP method takes an `$options` parameter which is used to provide
-addition request information.  The following keys can be used in ``$options`:
+addition request information. The following keys can be used in `$options`:
 
 - `headers` - Array of additional headers
 - `cookie` - Array of cookies to use.
@@ -169,25 +160,24 @@ addition request information.  The following keys can be used in ``$options`:
 
 The options parameter is always the 3rd parameter in each of the HTTP methods.
 They can also be used when constructing `Client` to create
-[scoped clients](httpclient.md#http_client_scoped_client).
+[scoped clients](#http_client_scoped_client).
 
 ## Authentication
 
-`Cake\Http\Client`` supports a few different authentication systems.  Different
+`Cake\Http\Client` supports a few different authentication systems. Different
 authentication strategies can be added by developers. Auth strategies are called
 before the request is sent, and allow headers to be added to the request
 context.
 
 ### Using Basic Authentication
 
-An example of basic authentication
+An example of basic authentication:
 
-```php
+``` php
 $http = new Client();
 $response = $http->get('http://example.com/profile/1', [], [
   'auth' => ['username' => 'mark', 'password' => 'secret']
 ]);
-
 ```
 
 By default `Cake\Http\Client` will use basic authentication if there is no
@@ -195,9 +185,9 @@ By default `Cake\Http\Client` will use basic authentication if there is no
 
 ### Using Digest Authentication
 
-An example of basic authentication
+An example of basic authentication:
 
-```php
+``` php
 $http = new Client();
 $response = $http->get('http://example.com/profile/1', [], [
   'auth' => [
@@ -210,7 +200,6 @@ $response = $http->get('http://example.com/profile/1', [], [
     'opaque' => 'someval'
   ]
 ]);
-
 ```
 
 By setting the 'type' key to 'digest', you tell the authentication subsystem to
@@ -220,9 +209,9 @@ use digest authentication.
 
 Many modern web-services require OAuth authentication to access their APIs.
 The included OAuth authentication assumes that you already have your consumer
-key and consumer secret
+key and consumer secret:
 
-```php
+``` php
 $http = new Client();
 $response = $http->get('http://example.com/profile/1', [], [
   'auth' => [
@@ -234,29 +223,27 @@ $response = $http->get('http://example.com/profile/1', [], [
     'realm' => 'tickets',
   ]
 ]);
-
 ```
 
 ### OAuth 2 Authentication
 
 Because OAuth2 is often a single header, there is not a specialized
-authentication adapter. Instead you can create a client with the access token
+authentication adapter. Instead you can create a client with the access token:
 
-```php
+``` php
 $http = new Client([
     'headers' => ['Authorization' => 'Bearer ' . $accessToken]
 ]);
 $response = $http->get('https://example.com/api/profile/1');
-
 ```
 
 ### Proxy Authentication
 
 Some proxies require authentication to use them. Generally this authentication
-is Basic, but it can be implemented by any authentication adapter.  By default
-Http\\Client will assume Basic authentication, unless the type key is set
+is Basic, but it can be implemented by any authentication adapter. By default
+Http\Client will assume Basic authentication, unless the type key is set:
 
-```php
+``` php
 $http = new Client();
 $response = $http->get('http://example.com/test.php', [], [
   'proxy' => [
@@ -265,21 +252,20 @@ $response = $http->get('http://example.com/test.php', [], [
     'proxy' => '127.0.0.1:8080',
   ]
 ]);
-
 ```
 
 The second proxy parameter must be a string with an IP or a domain without
 protocol. The username and password information will be passed through the
 request headers, while the proxy string will be passed through
 [stream_context_create()](https://php.net/manual/en/function.stream-context-create.php).
-<!-- anchor: http_client_scoped_client -->
+
 ## Creating Scoped Clients
 
 Having to re-type the domain name, authentication and proxy settings can become
-tedious & error prone.  To reduce the chance for mistake and relieve some of the
-tedium, you can create scoped clients
+tedious & error prone. To reduce the chance for mistake and relieve some of the
+tedium, you can create scoped clients:
 
-```php
+``` php
 // Create a scoped client.
 $http = new Client([
   'host' => 'api.example.com',
@@ -289,7 +275,6 @@ $http = new Client([
 
 // Do a request to api.example.com
 $response = $http->get('/test.php');
-
 ```
 
 The following information can be used when creating a scoped client:
@@ -306,29 +291,28 @@ The following information can be used when creating a scoped client:
 - ssl_verify_host
 
 Any of these options can be overridden by specifying them when doing requests.
-host, scheme, proxy, port are overridden in the request URL
+host, scheme, proxy, port are overridden in the request URL:
 
-```php
+``` php
 // Using the scoped client we created earlier.
 $response = $http->get('http://foo.com/test.php');
-
 ```
 
-The above will replace the domain, scheme, and port.  However, this request will
+The above will replace the domain, scheme, and port. However, this request will
 continue using all the other options defined when the scoped client was created.
-See [http_client_request_options](httpclient.md#http_client_request_options) for more information on the options
+See [http_client_request_options](#http_client_request_options) for more information on the options
 supported.
 
 ## Setting and Managing Cookies
 
-Http\\Client can also accept cookies when making requests. In addition to
+Http\Client can also accept cookies when making requests. In addition to
 accepting cookies, it will also automatically store valid cookies set in
 responses. Any response with cookies, will have them stored in the originating
-instance of Http\\Client. The cookies stored in a Client instance are
+instance of Http\Client. The cookies stored in a Client instance are
 automatically included in future requests to domain + path combinations that
-match
+match:
 
-```php
+``` php
 $http = new Client([
     'host' => 'cakephp.org'
 ]);
@@ -339,54 +323,56 @@ $response = $http->get('/');
 // Cookies from the first request will be included
 // by default.
 $response2 = $http->get('/changelogs');
-
 ```
 
 You can always override the auto-included cookies by setting them in the
-request's `$options` parameters
+request's `$options` parameters:
 
-```php
+``` php
 // Replace a stored cookie with a custom value.
 $response = $http->get('/changelogs', [], [
     'cookies' => ['sessionid' => '123abc']
 ]);
-
 ```
 
 You can add cookie objects to the client after creating it using the `addCookie()`
-method
+method:
 
-```php
+``` php
 use Cake\Http\Cookie\Cookie;
 
 $http = new Client([
     'host' => 'cakephp.org'
 ]);
 $http->addCookie(new Cookie('session', 'abc123'));
-
 ```
 
-> [!IMPORTANT]
-> Added in version 3.5.0
-> `addCookie()` was added in 3.5.0
+<div class="versionadded">
 
-<!-- anchor: httpclient-response-objects -->
+3.5.0
+`addCookie()` was added in 3.5.0
+
+</div>
+
 ## Response Objects
 
-**Namespace:** `Cake\Http\Client`
-
-### Class `Cake\Http\Client\Response`
+`class` Cake\\Http\\Client\\**Response**
 
 Response objects have a number of methods for inspecting the response data.
-> **versionchanged:** 3.3.0
+
+<div class="versionchanged">
+
+3.3.0
 As of 3.3.0 `Cake\Http\Client\Response` implements the [PSR-7
 ResponseInterface](https://www.php-fig.org/psr/psr-7/#3-3-psr-http-message-responseinterface).
 
+</div>
+
 ### Reading Response Bodies
 
-You read the entire response body as a string
+You read the entire response body as a string:
 
-```php
+``` php
 // Read the entire response as a string.
 $response->getStringBody();
 
@@ -394,12 +380,11 @@ $response->getStringBody();
 $response->body();
 // or
 $response->body;
-
 ```
 
-You can also access the stream object for the response and use its methods::
+You can also access the stream object for the response and use its methods:
 
-```php
+``` php
 // Get a Psr\Http\Message\StreamInterface containing the response body
 $stream = $response->getBody();
 
@@ -409,14 +394,13 @@ while (!$stream->eof()) {
 }
 ```
 
-<!-- anchor: http-client-xml-json -->
 ### Reading JSON and XML Response Bodies
 
 Since JSON and XML responses are commonly used, response objects provide easy to
 use accessors to read decoded data. JSON data is decoded into an array, while
-XML data is decoded into a `SimpleXMLElement` tree
+XML data is decoded into a `SimpleXMLElement` tree:
 
-```php
+``` php
 // Get some XML
 $http = new Client();
 $response = $http->get('http://example.com/test.xml');
@@ -432,7 +416,6 @@ $json = $response->getJson();
 
 // Prior to 3.7.0
 $json = $response->json;
-
 ```
 
 The decoded response data is stored in the response object, so accessing it
@@ -441,9 +424,9 @@ multiple times has no additional cost.
 ### Accessing Response Headers
 
 You can access headers through a few different methods. Header names are always
-treated as case-insensitive values when accessing them through methods
+treated as case-insensitive values when accessing them through methods:
 
-```php
+``` php
 // Get all the headers as an associative array.
 $response->getHeaders();
 
@@ -455,15 +438,14 @@ $response->getHeaderLine('content-type');
 
 // Get the response encoding
 $response->getEncoding();
-
 ```
 
 ### Accessing Cookie Data
 
 You can read cookies with a few different methods depending on how much
-data you need about the cookies
+data you need about the cookies:
 
-```php
+``` php
 // Get all cookies (full data)
 $response->getCookies();
 
@@ -473,14 +455,13 @@ $response->getCookie('session_id');
 // Get a the complete data for a single cookie
 // includes value, expires, path, httponly, secure keys.
 $response->getCookieData('session_id');
-
 ```
 
 ### Checking the Status Code
 
-Response objects provide a few methods for checking status codes
+Response objects provide a few methods for checking status codes:
 
-```php
+``` php
 // Was the response a 20x
 $response->isOk();
 
@@ -489,18 +470,16 @@ $response->isRedirect();
 
 // Get the status code
 $response->getStatusCode();
-
 ```
 
 ## Changing Transport Adapters
 
 By default `Http\Client` will prefer using a `curl` based transport adapter.
 If the curl extension is not available a stream based adapter will be used
-instead. You can force select a transport adapter using a constructor option
+instead. You can force select a transport adapter using a constructor option:
 
-```php
+``` php
 use Cake\Http\Client\Adapter\Stream;
 
 $client = new Client(['adapter' => Stream::class]);
-
 ```

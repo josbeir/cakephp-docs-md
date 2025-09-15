@@ -1,11 +1,6 @@
----
-title: Security
-keywords: "configurable parameters,security component,configuration parameters,invalid request,protection features,tighter security,holing,php class,meth,404 error,period of inactivity,csrf,array,submission,security class,disable security,unlockActions"
----
-
 # Security
 
-### Class `SecurityComponent(ComponentCollection $collection, array $settings = array())`
+`class` **SecurityComponent(ComponentCollection**
 
 The Security Component creates an easy way to integrate tighter
 security in your application. It provides methods for various tasks like:
@@ -35,12 +30,11 @@ place Security Component before those components in your `$components` array.
 > your forms. In addition, you must **not** override any of the fields' "name"
 > attributes. The Security Component looks for certain indicators that are
 > created and managed by the FormHelper (especially those created in
-> `FormHelper::create()` and `FormHelper::end()`).
+> `~FormHelper::create()` and `~FormHelper::end()`).
 > Dynamically altering the fields that are submitted in a POST request (e.g.
 > disabling, deleting or creating new fields via JavaScript) is likely to
 > trigger a black-holing of the request. See the `$validatePost` or
 > `$disabledFields` configuration parameters.
->
 
 ## Handling blackhole callbacks
 
@@ -50,89 +44,33 @@ by default. You can configure this behavior by setting the
 `$this->Security->blackHoleCallback` property to a callback function
 in the controller.
 
-#### Method `blackHole(object $controller, string $error)`
-
-Black-hole an invalid request with a 400 error or a custom
-callback. With no callback, the request will be exited. If a
-controller callback is set to SecurityComponent::blackHoleCallback,
-it will be called and passed any error information.
-
-#### Property `blackHoleCallback`
-
-A Controller callback that will handle any requests that are
-blackholed. A blackhole callback can be any public method on a controller.
-The callback should expect a parameter indicating the type of error
-
-```php
-public function beforeFilter() {
-    $this->Security->blackHoleCallback = 'blackhole';
-}
-
-public function blackhole($type) {
-    // handle errors.
-}
-
-```
-
-The `$type` parameter can have the following values:
-
-- 'auth' Indicates a form validation error, or a controller/action mismatch
-error.
-- 'secure' Indicates an SSL method restriction failure.
+`method` SecurityComponent(ComponentCollection::**blackHole**(object $controller, string $error)
 
 ## Restricting HTTP methods
 
-#### Method `requirePost()`
+`method` SecurityComponent(ComponentCollection::**requirePost**()
 
-Sets the actions that require a POST request. Takes any number of
-arguments. Can be called with no arguments to force all actions to
-require a POST.
+`method` SecurityComponent(ComponentCollection::**requireGet**()
 
-#### Method `requireGet()`
+`method` SecurityComponent(ComponentCollection::**requirePut**()
 
-Sets the actions that require a GET request. Takes any number of
-arguments. Can be called with no arguments to force all actions to
-require a GET.
-
-#### Method `requirePut()`
-
-Sets the actions that require a PUT request. Takes any number of
-arguments. Can be called with no arguments to force all actions to
-require a PUT.
-
-#### Method `requireDelete()`
-
-Sets the actions that require a DELETE request. Takes any number of
-arguments. Can be called with no arguments to force all actions to
-require a DELETE.
+`method` SecurityComponent(ComponentCollection::**requireDelete**()
 
 ## Restrict actions to SSL
 
-#### Method `requireSecure()`
+`method` SecurityComponent(ComponentCollection::**requireSecure**()
 
-Sets the actions that require a SSL-secured request. Takes any
-number of arguments. Can be called with no arguments to force all
-actions to require a SSL-secured.
-
-#### Method `requireAuth()`
-
-Sets the actions that require a valid Security Component generated
-token. Takes any number of arguments. Can be called with no
-arguments to force all actions to require a valid authentication.
+`method` SecurityComponent(ComponentCollection::**requireAuth**()
 
 ## Restricting cross controller communication
 
-#### Property `allowedControllers`
-
-A list of controllers which can send requests
-to this controller.
-This can be used to control cross controller requests.
-
-#### Property `allowedActions`
-
-A list of actions which are allowed to send requests
-to this controller's actions.
-This can be used to control cross controller requests.
+> A list of controllers which can send requests
+> to this controller.
+> This can be used to control cross controller requests.
+>
+> A list of actions which are allowed to send requests
+> to this controller's actions.
+> This can be used to control cross controller requests.
 
 ## Form tampering prevention
 
@@ -153,49 +91,38 @@ structure and compare the hash.
 > The SecurityComponent will **not** prevent select options from being
 > added/changed. Nor will it prevent radio options from being added/changed.
 >
-
-#### Property `unlockedFields`
-
-Set to a list of form fields to exclude from POST validation. Fields can be
-unlocked either in the Component, or with
-`FormHelper::unlockField()`. Fields that have been unlocked are
-not required to be part of the POST and hidden unlocked fields do not have
-their values checked.
-
-#### Property `validatePost`
-
-Set to `false` to completely skip the validation of POST
-requests, essentially turning off form validation.
+> Set to a list of form fields to exclude from POST validation. Fields can be
+> unlocked either in the Component, or with
+> `FormHelper::unlockField()`. Fields that have been unlocked are
+> not required to be part of the POST and hidden unlocked fields do not have
+> their values checked.
+>
+> Set to `false` to completely skip the validation of POST
+> requests, essentially turning off form validation.
 
 ## CSRF configuration
 
-#### Property `csrfCheck`
-
-Whether to use CSRF protected forms. Set to `false` to disable
-CSRF protection on forms.
-
-#### Property `csrfExpires`
-
-The duration from when a CSRF token is created that it will expire on.
-Each form/page request will generate a new token that can only
-be submitted once unless it expires. Can be any value compatible
-with `strtotime()`. The default is +30 minutes.
-
-#### Property `csrfUseOnce`
-
-Controls whether or not CSRF tokens are single use. Set to
-`false` to not generate new tokens on each request. One token
-will be reused until it expires. This reduces the chances of
-users getting invalid requests because of token consumption.
-It has the side effect of making CSRF less secure, as tokens are reusable.
+> Whether to use CSRF protected forms. Set to `false` to disable
+> CSRF protection on forms.
+>
+> The duration from when a CSRF token is created that it will expire on.
+> Each form/page request will generate a new token that can only
+> be submitted once unless it expires. Can be any value compatible
+> with `strtotime()`. The default is +30 minutes.
+>
+> Controls whether or not CSRF tokens are single use. Set to
+> `false` to not generate new tokens on each request. One token
+> will be reused until it expires. This reduces the chances of
+> users getting invalid requests because of token consumption.
+> It has the side effect of making CSRF less secure, as tokens are reusable.
 
 ## Usage
 
 Using the security component is generally done in the controllers
 `beforeFilter()`. You would specify the security restrictions you
-want and the Security Component will enforce them on its startup
+want and the Security Component will enforce them on its startup:
 
-```php
+``` php
 class WidgetController extends AppController {
 
     public $components = array('Security');
@@ -204,13 +131,12 @@ class WidgetController extends AppController {
         $this->Security->requirePost('delete');
     }
 }
-
 ```
 
 In this example the delete action can only be successfully
-triggered if it receives a POST request
+triggered if it receives a POST request:
 
-```php
+``` php
 class WidgetController extends AppController {
 
     public $components = array('Security');
@@ -221,13 +147,12 @@ class WidgetController extends AppController {
         }
     }
 }
-
 ```
 
 This example would force all actions that had admin routing to
-require secure SSL requests
+require secure SSL requests:
 
-```php
+``` php
 class WidgetController extends AppController {
 
     public $components = array('Security');
@@ -243,14 +168,13 @@ class WidgetController extends AppController {
         return $this->redirect('https://' . env('SERVER_NAME') . $this->here);
     }
 }
-
 ```
 
 This example would force all actions that had admin routing to
 require SSL requests. When the request is black holed, it
 will call the nominated `forceSSL()` callback which will redirect
 non-secure requests to secure requests automatically.
-<!-- anchor: security-csrf -->
+
 ## CSRF protection
 
 CSRF or Cross Site Request Forgery is a common vulnerability in web
@@ -268,25 +192,23 @@ token the request will be blackholed.
 Simply by adding the `SecurityComponent` to your components array,
 you can benefit from the CSRF protection it provides. By default CSRF tokens are
 valid for 30 minutes and expire on use. You can control how long tokens last by setting
-csrfExpires on the component.
+csrfExpires on the component. :
 
-```php
+``` php
 public $components = array(
     'Security' => array(
         'csrfExpires' => '+1 hour'
     )
 );
-
 ```
 
-You can also set this property in your controller's `beforeFilter`
+You can also set this property in your controller's `beforeFilter`:
 
-```php
+``` php
 public function beforeFilter() {
     $this->Security->csrfExpires = '+1 hour';
     // ...
 }
-
 ```
 
 The csrfExpires property can be any value that is compatible with
@@ -307,15 +229,14 @@ only be used once. If a token is used twice, the request will be blackholed. Som
 this behaviour is not desirable, as it can create issues with single page
 applications. You can toggle on longer, multi-use tokens by setting
 `csrfUseOnce` to `false`. This can be done in the components array, or in
-the `beforeFilter` of your controller
+the `beforeFilter` of your controller:
 
-```php
+``` php
 public $components = array(
     'Security' => array(
         'csrfUseOnce' => false
     )
 );
-
 ```
 
 This will tell the component that you want to re-use a CSRF token until it
@@ -338,6 +259,8 @@ You may "unlock" these actions by listing them in `$this->Security->unlockedActi
 `beforeFilter`. The `unlockedActions` property will **not** effect other
 features of `SecurityComponent`.
 
-> [!IMPORTANT]
-> Added in version 2.3
->
+<div class="versionadded">
+
+2.3
+
+</div>

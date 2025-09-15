@@ -1,8 +1,3 @@
----
-title: CakePHP Structure
-keywords: "user management system,controller actions,application extensions,default behavior,maps,logic,snap,definitions,aids,models,route map,blog,plugins,fit"
----
-
 # CakePHP Structure
 
 CakePHP features Controller, Model, and View classes, but it also
@@ -12,21 +7,21 @@ and Helpers are classes that provide extensibility and reusability
 to quickly add functionality to the base MVC classes in your
 applications. Right now we'll stay at a higher level, so look for
 the details on how to use these tools later on.
-<!-- anchor: application-extensions -->
+
 ## Application Extensions
 
 Controllers, helpers and models each have a parent class you can use to define
 application-wide changes. AppController (located at
-`/app/Controller/AppController.php`), AppHelper (located at
-`/app/View/Helper/AppHelper.php`) and AppModel (located at
-`/app/Model/AppModel.php`) are great places to put methods you want to share
+[App / Controller / AppController.php](app/Controller/AppController.php.md)), AppHelper (located at
+[App / View / Helper / AppHelper.php](app/View/Helper/AppHelper.php.md)) and AppModel (located at
+[App / Model / AppModel.php](app/Model/AppModel.php.md)) are great places to put methods you want to share
 between all controllers, helpers or models.
 
 Although routes aren't classes or files, they play a role in
 requests made to CakePHP. Route definitions tell CakePHP how to map
 URLs to controller actions. The default behavior assumes that the
-URL `/controller/action/var1/var2` maps to
-Controller::action($var1, $var2), but you can use routes to
+URL [Controller / action / var1 / var2](controller/action/var1/var2.md) maps to
+Controller::action(\$var1, \$var2), but you can use routes to
 customize URLs and how they are interpreted by your application.
 
 Some features in an application merit packaging as a whole. A
@@ -49,11 +44,11 @@ Controllers are also fitted with callbacks. These callbacks are
 available for your use, just in case you need to insert some logic
 between CakePHP's core operations. Callbacks available include:
 
--  `Controller::beforeFilter()`, executed before any controller action logic
--  `Controller::afterFilter()`, executed after all controller logic,
-including the rendering of the view
--  `Controller::beforeRender()`, executed after controller logic, but before
-the view is rendered
+- `~Controller::beforeFilter()`, executed before any controller action logic
+- `~Controller::afterFilter()`, executed after all controller logic,
+  including the rendering of the view
+- `~Controller::beforeRender()`, executed after controller logic, but before
+  the view is rendered
 
 ## Model Extensions ("Behaviors")
 
@@ -75,14 +70,14 @@ that it is associated with many iCal events.
 
 Like controllers, models have callbacks:
 
--  beforeFind()
--  afterFind()
--  beforeValidate()
--  afterValidate()
--  beforeSave()
--  afterSave()
--  beforeDelete()
--  afterDelete()
+- beforeFind()
+- afterFind()
+- beforeValidate()
+- afterValidate()
+- beforeSave()
+- afterSave()
+- beforeDelete()
+- afterDelete()
 
 The names of these methods should be descriptive enough to let you
 know what they do. You can find the details in the models chapter.
@@ -92,7 +87,7 @@ know what they do. You can find the details in the models chapter.
 A Helper is a class that aids in view logic. Much like a component
 used among controllers, helpers allow presentational logic to be
 accessed and shared between views. One of the core helpers,
-JsHelper, makes AJAX requests within views much easier and comes with 
+JsHelper, makes AJAX requests within views much easier and comes with
 support for jQuery (default), Prototype and Mootools.
 
 Most applications have pieces of view code that are used
@@ -100,4 +95,3 @@ repeatedly. CakePHP facilitates view code reuse with layouts and
 elements. By default, every view rendered by a controller is placed
 inside a layout. Elements are used when small snippets of content
 need to be reused in multiple views.
-

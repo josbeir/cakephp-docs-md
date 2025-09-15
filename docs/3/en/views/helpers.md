@@ -1,8 +1,3 @@
----
-title: Helpers
-keywords: "php class,time function,presentation layer,processing power,ajax,markup,array,functionality,logic,syntax,elements,cakephp,plugins"
----
-
 # Helpers
 
 Helpers are the component-like classes for the presentation layer of your
@@ -16,14 +11,25 @@ creating well-formed markup (including forms), aid in formatting text, times and
 numbers, and can even speed up AJAX functionality. For more information on the
 helpers included in CakePHP, check out the chapter for each helper:
 
-<!-- anchor: configuring-helpers -->
+- [Breadcrumbs](views/helpers/breadcrumbs.md)
+- [Flash](views/helpers/flash.md)
+- [Form](views/helpers/form.md)
+- [Html](views/helpers/html.md)
+- [Number](views/helpers/number.md)
+- [Paginator](views/helpers/paginator.md)
+- [Rss](views/helpers/rss.md)
+- [Session](views/helpers/session.md)
+- [Text](views/helpers/text.md)
+- [Time](views/helpers/time.md)
+- [Url](views/helpers/url.md)
+
 ## Configuring Helpers
 
 You load helpers in CakePHP by declaring them in a view class. An `AppView`
 class comes with every CakePHP application and is the ideal place to load
-helpers
+helpers:
 
-```php
+``` php
 class AppView extends View
 {
     public function initialize()
@@ -34,24 +40,21 @@ class AppView extends View
         $this->loadHelper('Flash');
     }
 }
-
 ```
 
-To load helpers from plugins use the :term:`plugin syntax` used elsewhere in
-CakePHP
+To load helpers from plugins use the `plugin syntax` used elsewhere in
+CakePHP:
 
-```php
+``` php
 $this->loadHelper('Blog.Comment');
-
 ```
 
 You don't have to explicitly load Helpers that come from CakePHP or your
-application. These helpers can be lazily loaded upon first use. For example
+application. These helpers can be lazily loaded upon first use. For example:
 
-```php
+``` php
 // Loads the FormHelper if it has not already been loaded.
 $this->Form->create($article);
-
 ```
 
 From within a plugin's views, plugin helpers can also be lazily loaded. For
@@ -60,9 +63,9 @@ same plugin.
 
 ### Conditionally Loading Helpers
 
-You can use the current action name to conditionally load helpers
+You can use the current action name to conditionally load helpers:
 
-```php
+``` php
 class AppView extends View
 {
     public function initialize()
@@ -73,12 +76,11 @@ class AppView extends View
         }
     }
 }
-
 ```
 
-You can also use your controller's `beforeRender` method to load helpers::
+You can also use your controller's `beforeRender` method to load helpers:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     public function beforeRender(Event $event)
@@ -87,15 +89,14 @@ class ArticlesController extends AppController
         $this->viewBuilder()->helpers(['MyHelper']);
     }
 }
-
 ```
 
 ### Configuration options
 
 You can pass configuration options to helpers. These options can be used to set
-attribute values or modify the behavior of a helper
+attribute values or modify the behavior of a helper:
 
-```php
+``` php
 namespace App\View\Helper;
 
 use Cake\View\Helper;
@@ -110,12 +111,11 @@ class AwesomeHelper extends Helper
         debug($config);
     }
 }
-
 ```
 
-Options can be specified when declaring helpers in controller as shown::
+Options can be specified when declaring helpers in controller as shown:
 
-```php
+``` php
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -124,14 +124,13 @@ class AwesomeController extends AppController
 {
     public $helpers = ['Awesome' => ['option1' => 'value1']];
 }
-
 ```
 
 By default all configuration options will be merged with the `$_defaultConfig`
 property. This property should define the default values of any configuration
-your helper requires. For example
+your helper requires. For example:
 
-```php
+``` php
 namespace App\View\Helper;
 
 use Cake\View\Helper;
@@ -148,25 +147,23 @@ class AwesomeHelper extends Helper
         ],
     ];
 }
-
 ```
 
 Any configuration provided to your helper's constructor will be merged with the
 default values during construction and the merged data will be set to
-`_config`. You can use the `config()` method to read runtime configuration
+`_config`. You can use the `config()` method to read runtime configuration:
 
-```php
+``` php
 // Read the errorClass config option.
 $class = $this->Awesome->config('errorClass');
-
 ```
 
 Using helper configuration allows you to declaratively configure your helpers and
 keep configuration logic out of your controller actions. If you have
 configuration options that cannot be included as part of a class declaration,
-you can set those in your controller's beforeRender callback
+you can set those in your controller's beforeRender callback:
 
-```php
+``` php
 class PostsController extends AppController
 {
     public function beforeRender(Event $event)
@@ -180,15 +177,14 @@ class PostsController extends AppController
 }
 ```
 
-<!-- anchor: aliasing-helpers -->
 ### Aliasing Helpers
 
 One common setting to use is the `className` option, which allows you to
 create aliased helpers in your views. This feature is useful when you want to
 replace `$this->Html` or another common Helper reference with a custom
-implementation
+implementation:
 
-```php
+``` php
 // src/View/AppView.php
 class AppView extends View
 {
@@ -209,7 +205,6 @@ class MyHtmlHelper extends HtmlHelper
 {
     // Add your code to override the core HtmlHelper
 }
-
 ```
 
 The above would *alias* `MyHtmlHelper` to `$this->Html` in your views.
@@ -217,18 +212,16 @@ The above would *alias* `MyHtmlHelper` to `$this->Html` in your views.
 > [!NOTE]
 > Aliasing a helper replaces that instance anywhere that helper is used,
 > including inside other Helpers.
->
 
 ## Using Helpers
 
 Once you've configured which helpers you want to use in your controller,
 each helper is exposed as a public property in the view. For example, if you
 were using the `HtmlHelper` you would be able to access it by
-doing the following
+doing the following:
 
-```php
+``` php
 echo $this->Html->css('styles');
-
 ```
 
 The above would call the `css()` method on the HtmlHelper. You can
@@ -237,24 +230,23 @@ access any loaded helper using `$this->{$helperName}`.
 ### Loading Helpers On The Fly
 
 There may be situations where you need to dynamically load a helper from inside
-a view.  You can use the view's `Cake\View\HelperRegistry` to
-do this
+a view. You can use the view's `Cake\View\HelperRegistry` to
+do this:
 
-```php
+``` php
 // Either one works.
 $mediaHelper = $this->loadHelper('Media', $mediaConfig);
 $mediaHelper = $this->helpers()->load('Media', $mediaConfig);
-
 ```
 
-The HelperRegistry is a [registry](../core-libraries/registry-objects.md) and
+The HelperRegistry is a [registry](core-libraries/registry-objects.md) and
 supports the registry API used elsewhere in CakePHP.
 
 ## Callback Methods
 
 Helpers feature several callbacks that allow you to augment the view rendering
-process. See the [helper-api](helpers.md#helper-api) and the
-[events](../core-libraries/events.md) documentation for more information.
+process. See the [helper-api](#helper-api) and the
+[/core-libraries/events](core-libraries/events.md) documentation for more information.
 
 ## Creating Helpers
 
@@ -267,9 +259,9 @@ Like most components of CakePHP, helper classes have a few conventions:
 - When referencing helper class names you should omit the `Helper` suffix. For
   example: `$this->loadHelper('Link');`.
 
-You'll also want to extend `Helper` to ensure things work correctly
+You'll also want to extend `Helper` to ensure things work correctly:
 
-```php
+``` php
 /* src/View/Helper/LinkHelper.php */
 namespace App\View\Helper;
 
@@ -282,16 +274,15 @@ class LinkHelper extends Helper
         // Logic to create specially formatted link goes here...
     }
 }
-
 ```
 
 ### Including Other Helpers
 
 You may wish to use some functionality already existing in another helper. To do
 so, you can specify helpers you wish to use with a `$helpers` array, formatted
-just as you would in a controller
+just as you would in a controller:
 
-```php
+``` php
 /* src/View/Helper/LinkHelper.php (using other helpers) */
 
 namespace App\View\Helper;
@@ -314,13 +305,12 @@ class LinkHelper extends Helper
 }
 ```
 
-<!-- anchor: using-helpers -->
 ### Using Your Helper
 
 Once you've created your helper and placed it in **src/View/Helper/**, you can
-load it in your views
+load it in your views:
 
-```php
+``` php
 class AppView extends View
 {
     public function initialize()
@@ -329,29 +319,26 @@ class AppView extends View
         $this->loadHelper('Link');
     }
 }
-
 ```
 
 Once your helper has been loaded, you can use it in your views by accessing the
-matching view property
+matching view property:
 
-```php
+``` php
 <!-- make a link using the new helper -->
 <?= $this->Link->makeEdit('Change this Recipe', '/recipes/edit/5') ?>
-
 ```
 
 > [!NOTE]
 > The `HelperRegistry` will attempt to lazy load any helpers not
 > specifically identified in your `Controller`.
->
 
 ### Accessing View Variables Inside Your Helper
 
 If you would like to access a View variable inside a helper, you can use
-`$this->_View->get()` like
+`$this->_View->get()` like:
 
-```php
+``` php
 class AwesomeHelper extends Helper
 {
     public $helpers = ['Html'];
@@ -364,15 +351,14 @@ class AwesomeHelper extends Helper
         );
     }
 }
-
 ```
 
 ### Rendering A View Element Inside Your Helper
 
 If you would like to render an Element inside your Helper you can use
-`$this->_View->element()` like
+`$this->_View->element()` like:
 
-```php
+``` php
 class AwesomeHelper extends Helper
 {
     public function someFunction()
@@ -392,10 +378,9 @@ class AwesomeHelper extends Helper
 }
 ```
 
-<!-- anchor: helper-api -->
 ## Helper Class
 
-### Class `Helper`
+`class` **Helper**
 
 ### Callbacks
 
@@ -404,34 +389,14 @@ subscribe your helper to the relevant event. Unlike previous versions of CakePHP
 you should *not* call `parent` in your callbacks, as the base Helper class
 does not implement any of the callback methods.
 
-#### Method `beforeRenderFile(Event $event, $viewFile)`
+`method` Helper::**beforeRenderFile**(Event $event, $viewFile)
 
-Is called before each view file is rendered. This includes elements,
-views, parent views and layouts.
+`method` Helper::**afterRenderFile**(Event $event, $viewFile, $content)
 
-#### Method `afterRenderFile(Event $event, $viewFile, $content)`
+`method` Helper::**beforeRender**(Event $event, $viewFile)
 
-Is called after each view file is rendered. This includes elements, views,
-parent views and layouts. A callback can modify and return `$content` to
-change how the rendered content will be displayed in the browser.
+`method` Helper::**afterRender**(Event $event, $viewFile)
 
-#### Method `beforeRender(Event $event, $viewFile)`
+`method` Helper::**beforeLayout**(Event $event, $layoutFile)
 
-The beforeRender method is called after the controller's beforeRender method
-but before the controller renders view and layout. Receives the file being
-rendered as an argument.
-
-#### Method `afterRender(Event $event, $viewFile)`
-
-Is called after the view has been rendered but before layout rendering has
-started.
-
-#### Method `beforeLayout(Event $event, $layoutFile)`
-
-Is called before layout rendering starts. Receives the layout filename as an
-argument.
-
-#### Method `afterLayout(Event $event, $layoutFile)`
-
-Is called after layout rendering is complete. Receives the layout filename
-as an argument.
+`method` Helper::**afterLayout**(Event $event, $layoutFile)

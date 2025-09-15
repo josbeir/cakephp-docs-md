@@ -5,36 +5,28 @@ deprecations and features added in 4.5.
 
 ## Upgrading to 4.5.0
 
-You can can use composer to upgrade to CakePHP 4.5.0
+You can can use composer to upgrade to CakePHP 4.5.0:
 
-```
-php composer.phar require --update-with-dependencies "cakephp/cakephp:4.5.x"
-
-```
+    php composer.phar require --update-with-dependencies "cakephp/cakephp:4.5.x"
 
 > [!NOTE]
 > CakePHP 4.5 requires PHP 7.4 or greater.
->
 
 ## Deprecations
 
 4.5 introduces a few deprecations. All of these features will continue for the
 duration of 4.x but will be removed in 5.0.
 
-You can use the [upgrade tool](4-0-upgrade-guide.md#upgrade-tool-use) to automate updating
-usage of deprecated features
+You can use the [upgrade tool](#upgrade-tool-use) to automate updating
+usage of deprecated features:
 
-```html
-bin/cake upgrade rector --rules cakephp45 <path/to/app/src>
-
-```
+    bin/cake upgrade rector --rules cakephp45 <path/to/app/src>
 
 > [!NOTE]
 > This only updates CakePHP 4.5 changes. Make sure you apply CakePHP 4.4 changes first.
->
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](../development/errors.md#deprecation-warnings) for more information.
+path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
 
 ### ORM Query API deprecations
 
@@ -120,14 +112,14 @@ APIs that will exist in the future.
 - `ConsoleOptionParser` now treats all input after a `--` as positional
   arguments. This allows console commands to accept positional arguments that
   begin with a `-` such as date values like `-1 day`.
-- `bin/cake cache clear_group <name>` was added. This command gives a CLI
-  interface to clearing a specific cache group. See [cache-groups](../core-libraries/caching.md#cache-groups) for how
+- [bin/cake cache clear_group](#name) was added. This command gives a CLI
+  interface to clearing a specific cache group. See [cache-groups](#cache-groups) for how
   to use cache groups.
 
 ### Controller
 
 - `ComponentRegistry` is now automatically added to your application's
-  :term:`DI container`.
+  `DI container`.
 - `Controller::addViewClasses()` was added. This method lets you build
   a controller's view classes programatically.
 
@@ -137,7 +129,7 @@ APIs that will exist in the future.
 
 ### Core
 
-- The current container instance is now registered in the :term:`DI container`
+- The current container instance is now registered in the `DI container`
   and available as dependency for application services or controllers/commands.
 
 ### Database
@@ -185,7 +177,7 @@ APIs that will exist in the future.
 ### I18n
 
 - Plugins can now use multiple domain files for translations. You can load
-  reference additional translation domains with `plugin_name.domain`. For
+  reference additional translation domains with <span class="title-ref">plugin_name.domain</span>. For
   example `__d('DebugKit.errors', 'oh no')`.
 
 ### ORM
@@ -194,13 +186,12 @@ APIs that will exist in the future.
 incrementally opt-in to a breaking change present in 5.x for `EntityTrait::has()`.
 When set to true, this property will make `has()` and related methods use
 `array_key_exists` instead of `isset` to decide if fields are 'defined' in an
-entity. This will affect code like
+entity. This will affect code like:
 
-```php
+``` php
 if ($user->has('name')) { 
     // More logic
 }
-
 ```
 
 In 4.x this condition would **fail** if `name` was `null`. However, in 5.0,

@@ -1,11 +1,9 @@
 # Modelless Forms
 
-**Namespace:** `Cake\Form`
+`class` Cake\\Form\\**Form**
 
-### Class `Cake\Form\Form`
-
-Most of the time you will have forms backed by [ORM entities](../orm/entities.md)
-and [ORM tables](../orm/table-objects.md) or other persistent stores,
+Most of the time you will have forms backed by [ORM entities](orm/entities.md)
+and [ORM tables](orm/table-objects.md) or other persistent stores,
 but there are times when you'll need to validate user input and then perform an
 action if the data is valid. The most common example of this is a contact form.
 
@@ -14,9 +12,9 @@ action if the data is valid. The most common example of this is a contact form.
 Generally when using the Form class you'll want to use a subclass to define your
 form. This makes testing easier, and lets you re-use your form. Forms are put
 into **src/Form** and usually have `Form` as a class suffix. For example,
-a simple contact form would look like
+a simple contact form would look like:
 
-```php
+``` php
 // in src/Form/ContactForm.php
 namespace App\Form;
 
@@ -54,7 +52,6 @@ class ContactForm extends Form
         return true;
     }
 }
-
 ```
 
 In the above example we see the 3 hook methods that forms provide:
@@ -71,9 +68,9 @@ You can always define additional public methods as you need as well.
 ## Setting Form Values
 
 You can set default values for modelless forms using the `setData()` method.
-Values set with this method will overwrite existing data in the form object
+Values set with this method will overwrite existing data in the form object:
 
-```php
+``` php
 // In a controller
 namespace App\Controller;
 
@@ -103,35 +100,35 @@ class ContactController extends AppController
         $this->set('contact', $contact);
     }
 }
-
 ```
 
-Prior to 3.7.0 you must set default values for form by modifying the request::
+Prior to 3.7.0 you must set default values for form by modifying the request:
 
-```php
+``` php
 // Set default values on get
 if ($this->request->is('get')) {
     // Values from the User Model e.g.
     $this->request->data('name', 'John Doe');
     $this->request->data('email','john.doe@example.com');
 }
-
 ```
 
 Values should only be defined if the request method is GET, otherwise
 you will overwrite your previous POST Data which might have validation errors
 that need corrections.
 
-> [!IMPORTANT]
-> Added in version 3.7.0
-> `Form::setData()` was added.
->
+<div class="versionadded">
+
+3.7.0
+`Form::setData()` was added.
+
+</div>
 
 ## Getting Form Values
 
-You can get  values from modelless forms using the `getData()` method
+You can get values from modelless forms using the `getData()` method:
 
-```php
+``` php
 // In a controller
 namespace App\Controller;
 
@@ -163,20 +160,21 @@ class ContactController extends AppController
         $this->set('contact', $contact);
     }
 }
-
 ```
 
-> [!IMPORTANT]
-> Added in version 3.7.0
-> `Form::getData()` was added.
->
+<div class="versionadded">
+
+3.7.0
+`Form::getData()` was added.
+
+</div>
 
 ## Processing Request Data
 
 Once you've defined your form, you can use it in your controller to process
-and validate request data
+and validate request data:
 
-```php
+``` php
 // In a controller
 namespace App\Controller;
 
@@ -198,46 +196,45 @@ class ContactController extends AppController
         $this->set('contact', $contact);
     }
 }
-
 ```
 
 In the above example, we use the `execute()` method to run our form's
 `_execute()` method only when the data is valid, and set flash messages
 accordingly. We could have also used the `validate()` method to only validate
-the request data
+the request data:
 
-```php
+``` php
 $isValid = $form->validate($this->request->getData());
-
 ```
 
 ## Getting Form Errors
 
-Once a form has been validated you can retrieve the errors from it
+Once a form has been validated you can retrieve the errors from it:
 
-```php
+``` php
 $errors = $form->getErrors(); // $form->errors(); // prior to 3.7.0
 /* $errors contains
 [
     'email' => ['A valid email address is required']
 ]
 */
-
 ```
 
-> [!IMPORTANT]
-> Added in version 3.7.0
-> `errors()` has been deprecated in favor of `getErrors()`
->
+<div class="versionadded">
+
+3.7.0
+`errors()` has been deprecated in favor of `getErrors()`
+
+</div>
 
 ## Invalidating Individual Form Fields from Controller
 
 It is possible to invalidate individual fields from the controller without the
-use of the Validator class.  The most common use case for this is when the
-validation is done on a remote server.  In such case, you must manually
-invalidate the fields accordingly to the feedback from the remote server
+use of the Validator class. The most common use case for this is when the
+validation is done on a remote server. In such case, you must manually
+invalidate the fields accordingly to the feedback from the remote server:
 
-```php
+``` php
 // in src/Form/ContactForm.php
 public function setErrors($errors)
 {
@@ -245,26 +242,26 @@ public function setErrors($errors)
 }
 ```
 
-> **versionchanged:** 3.5.1
+<div class="versionchanged">
+
+3.5.1
 You are not required to specify `setErrors` anymore as this has
 already been included in the `Form` class for your convenience.
 
+</div>
+
 According to how the validator class would have returned the errors, `$errors`
-must be in this format
+must be in this format:
 
-```json
-["fieldName" => ["validatorName" => "The error message to display"]]
-
-```
+    ["fieldName" => ["validatorName" => "The error message to display"]]
 
 Now you will be able to invalidate form fields by setting the fieldName, then
-set the error messages
+set the error messages:
 
-```php
+``` php
 // In a controller
 $contact = new ContactForm();
 $contact->setErrors(["email" => ["_required" => "Your email is required"]]);
-
 ```
 
 Proceed to Creating HTML with FormHelper to see the results.
@@ -272,16 +269,15 @@ Proceed to Creating HTML with FormHelper to see the results.
 ## Creating HTML with FormHelper
 
 Once you've created a Form class, you'll likely want to create an HTML form for
-it. FormHelper understands Form objects just like ORM entities
+it. FormHelper understands Form objects just like ORM entities:
 
-```php
+``` php
 echo $this->Form->create($contact);
 echo $this->Form->control('name');
 echo $this->Form->control('email');
 echo $this->Form->control('body');
 echo $this->Form->button('Submit');
 echo $this->Form->end();
-
 ```
 
 The above would create an HTML form for the `ContactForm` we defined earlier.

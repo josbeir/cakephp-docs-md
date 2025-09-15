@@ -1,20 +1,12 @@
----
-title: TimeHelper
-description: The TimeHelper will help you format time and test time.
-keywords: "time helper,format time,timezone,unix epoch,time strings,time zone offset,utc,gmt"
----
-
 # Time
 
-**Namespace:** `Cake\View\Helper`
-
-### Class `Cake\View\Helper\TimeHelper(View $view, array $config = [])`
+`class` Cake\\View\\Helper\\**TimeHelper(View**
 
 The TimeHelper allows for the quick processing of time related information.
 The TimeHelper has two main tasks that it can perform:
 
-#. It can format time strings.
-#. It can test time.
+1.  It can format time strings.
+2.  It can test time.
 
 ## Using the Helper
 
@@ -28,9 +20,9 @@ your application's time zone is set to GMT+0.
 Next add a time zone field to your users table and make the necessary
 modifications to allow your users to set their time zone. Now that we know
 the time zone of the logged in user we can correct the date and time on our
-posts using the TimeHelper
+posts using the TimeHelper:
 
-```php
+``` php
 echo $this->Time->format(
   $post->created,
   \IntlDateFormatter::FULL,
@@ -41,7 +33,6 @@ echo $this->Time->format(
 // for a user in GMT+0. While displaying,
 // 'Saturday, August 22, 2011 at 03:53 PM GMT-8:00'
 // for a user in GMT-8
-
 ```
 
 Most of TimeHelper's features are intended as backwards compatible interfaces
@@ -49,4 +40,4 @@ for applications that are upgrading from older versions of CakePHP. Because the
 ORM returns `Cake\I18n\Time` instances for every `timestamp`
 and `datetime` column, you can use the methods there to do most tasks.
 For example, to read about the accepted formatting strings take a look at the
-[Cake\\I18n\\Time::i18nFormat()](https://api.cakephp.org/4.x/class-Cake.I18n.Time.html#i18nFormat()) method.
+[Cake\I18n\Time::i18nFormat()](https://api.cakephp.org/4.x/class-Cake.I18n.Time.html#i18nFormat()) method.

@@ -1,8 +1,3 @@
----
-title: I18N shell
-keywords: "pot files,locale default,translation tools,message string,app locale,php class,validation,i18n,translations,shell,models"
----
-
 # I18N shell
 
 The i18n features of CakePHP use [po files](https://en.wikipedia.org/wiki/GNU_gettext)
@@ -19,12 +14,9 @@ merged with existing translations to help update your translations.
 POT files can be generated for an existing application using the `extract`
 command. This command will scan your entire application for `__()` style
 function calls, and extract the message string. Each unique string in your
-application will be combined into a single POT file
+application will be combined into a single POT file:
 
-```
-./Console/cake i18n extract
-
-```
+    ./Console/cake i18n extract
 
 The above will run the extraction shell. In addition to extracting strings in `__()`
 methods, validation messages in models will be extracted as well. The result of
@@ -34,12 +26,9 @@ the pot file, be sure to correctly set the `Plural-Forms` header line.
 
 ### Generating POT files for plugins
 
-You can generate a POT file for a specific plugin using
+You can generate a POT file for a specific plugin using:
 
-```html
-./Console/cake i18n extract --plugin <Plugin>
-
-```
+    ./Console/cake i18n extract --plugin <Plugin>
 
 This will generate the required POT files used in the plugins.
 
@@ -47,72 +36,57 @@ This will generate the required POT files used in the plugins.
 
 You can set the domain to be used for extracted validation messages in your models.
 If the model already has a `$validationDomain` property, the given validation
-domain will be ignored
+domain will be ignored:
 
-```
-./Console/cake i18n extract --validation-domain validation_errors
+    ./Console/cake i18n extract --validation-domain validation_errors
 
-```
+You can also prevent the shell from extracting validation messages:
 
-You can also prevent the shell from extracting validation messages::
-
-```
-./Console/cake i18n extract --ignore-model-validation
-
-```
+    ./Console/cake i18n extract --ignore-model-validation
 
 ### Excluding folders
 
 You can pass a comma separated list of folders that you wish to be excluded.
-Any path containing a path segment with the provided values will be ignored
+Any path containing a path segment with the provided values will be ignored:
 
-```
-./Console/cake i18n extract --exclude Test,Vendor
-
-```
+    ./Console/cake i18n extract --exclude Test,Vendor
 
 ### Skipping overwrite warnings for existing POT files
 
-> [!IMPORTANT]
-> Added in version 2.2
->
+<div class="versionadded">
+
+2.2
+
+</div>
 
 By adding `--overwrite`, the shell script will no longer warn you if a POT file
-already exists and will overwrite by default
+already exists and will overwrite by default:
 
-```
-./Console/cake i18n extract --overwrite
-
-```
+    ./Console/cake i18n extract --overwrite
 
 ### Extracting messages from the CakePHP core libraries
 
-> [!IMPORTANT]
-> Added in version 2.2
->
+<div class="versionadded">
+
+2.2
+
+</div>
 
 By default, the extract shell script will ask you if you like to extract
 the messages used in the CakePHP core libraries. Set `--extract-core` to `yes` or
 `no` to set the default behavior.
 
-```
-./Console/cake i18n extract --extract-core yes
+    ./Console/cake i18n extract --extract-core yes
 
-or
+    or
 
-./Console/cake i18n extract --extract-core no
-
-```
+    ./Console/cake i18n extract --extract-core no
 
 ## Create the tables used by TranslateBehavior
 
 The i18n shell can also be used to initialize the default tables used by the
-`TranslateBehavior`
+`TranslateBehavior`:
 
-```
-./Console/cake i18n initdb
-
-```
+    ./Console/cake i18n initdb
 
 This will create the `i18n` table used by translate behavior.
-

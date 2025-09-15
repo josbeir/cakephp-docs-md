@@ -1,18 +1,15 @@
----
-title: RssHelper
-description: The RssHelper makes generating XML for RSS feeds easy.
-keywords: "rss helper,rss feed,isrss,rss item,channel data,document data,parse extensions,request handler"
----
-
 # Rss
 
-**Namespace:** `Cake\View\Helper`
-
-### Class `Cake\View\Helper\RssHelper(View $view, array $config = [])`
+`class` Cake\\View\\Helper\\**RssHelper(View**
 
 The RssHelper makes generating XML for [RSS feeds](https://en.wikipedia.org/wiki/RSS) easy.
-> **deprecated:** 3.5.0
+
+<div class="deprecated">
+
+3.5.0
 RssHelper is deprecated as of 3.5.0, and will be removed in 4.0.0
+
+</div>
 
 ## Creating an RSS Feed with the RssHelper
 
@@ -25,11 +22,10 @@ After a few simple steps you can simply append the desired extension .rss to
 action included as well so `articles/index` would become `articles/index.rss`
 Before we jump too far ahead trying to get our webservice up and running we need
 to do a few things. First extensions parsing needs to be activated, this is done in
-**config/routes.php**
+**config/routes.php**:
 
-```php
+``` css
 Router::extensions('rss');
-
 ```
 
 In the call above we've activated the .rss extension. When using
@@ -43,15 +39,14 @@ add in the rss-specific code.
 ### Controller Code
 
 It is a good idea to add RequestHandler to your ArticlesController's
-`initialize()` method. This will allow a lot of automagic to occur
+`initialize()` method. This will allow a lot of automagic to occur:
 
-```php
+``` php
 public function initialize()
 {
     parent::initialize();
     $this->loadComponent('RequestHandler');
 }
-
 ```
 
 Before we can make an RSS version of our `articles` index action we need to get a few
@@ -62,9 +57,9 @@ inappropriate. That information can also go in the view. That will come later
 though, for now if you have a different set of logic for the data used to make
 the RSS feed and the data for the HTML view you can use the
 `Cake\Controller\Component\RequestHandler::isRss()` method,
-otherwise your controller can stay the same
+otherwise your controller can stay the same:
 
-```php
+``` php
 // Modify the Articles Controller action that corresponds to
 // the action which deliver the rss feed, which is the
 // Index action in our example.
@@ -88,7 +83,6 @@ public function index()
         $this->set('_serialize', ['articles']);
     }
 }
-
 ```
 
 With all the View variables set we need to create an rss layout.
@@ -96,9 +90,9 @@ With all the View variables set we need to create an rss layout.
 ### Layout
 
 An Rss layout is very simple, put the following contents in
-**src/Template/Layout/rss/default.ctp**
+**src/Template/Layout/rss/default.ctp**:
 
-```php
+``` php
 if (!isset($documentData)) {
     $documentData = [];
 }
@@ -110,7 +104,6 @@ if (!isset($channelData['title'])) {
 }
 $channel = $this->Rss->channel([], $channelData, $this->fetch('content'));
 echo $this->Rss->document($documentData, $channel);
-
 ```
 
 It doesn't look like much but thanks to the power in the `RssHelper`
@@ -131,21 +124,20 @@ Our view, located at **src/Template/Articles/rss/index.ctp**, begins by setting 
 all the metadata for our RSS feed. This is done by using the
 `Cake\View\View::set()` method which is analogous to the
 `Cake\Controller\Controller::set()` method. Here though we are
-passing the channel's metadata back to the layout
+passing the channel's metadata back to the layout:
 
-```php
+``` php
 $this->set('channelData', [
     'title' => __("Most Recent Articles"),
     'link' => $this->Url->build('/', true),
     'description' => __("Most recent articles."),
     'language' => 'en-us'
 ]);
-
 ```
 
 The second part of the view generates the elements for the actual records of
 the feed. This is accomplished by looping through the data that has been passed
-to the view ($items) and using the `RssHelper::item()` method. The
+to the view (\$items) and using the `RssHelper::item()` method. The
 other method you can use, `RssHelper::items()` which takes a callback
 and an array of items for the feed. The callback method is usually called
 `transformRss()`. There is one downfall to this method, which is that you
@@ -156,12 +148,11 @@ other helper that you may need. The `RssHelper::item()` transforms
 the associative array into an element for each key value pair.
 
 > [!NOTE]
-> You will need to modify the $link variable as appropriate to
+> You will need to modify the \$link variable as appropriate to
 > your application. You might also want to use a
-> [virtual field](../../orm/entities.md#entities-virtual-fields) in your Entity.
->
+> [virtual field](#entities-virtual-fields) in your Entity.
 
-```php
+``` php
 foreach ($articles as $article) {
     $created = strtotime($article->created);
 
@@ -190,7 +181,6 @@ foreach ($articles as $article) {
         'pubDate' => $article->created
     ]);
 }
-
 ```
 
 You can see above that we can use the loop to prepare the data to be transformed
@@ -201,14 +191,13 @@ body of your blog. In the code above we used `strip_tags()` and
 as they could cause validation errors. Once we have set up the data for the
 feed, we can then use the `RssHelper::item()` method to create the XML
 in RSS format. Once you have all this setup, you can test your RSS feed by going
-to your site `/articles.rss` and you will see your new feed. It is always
+to your site [Articles.rss](articles.rss.md) and you will see your new feed. It is always
 important that you validate your RSS feed before making it live. This can be
 done by visiting sites that validate the XML such as Feed Validator or the w3c
-site at https://validator.w3.org/feed/.
+site at <https://validator.w3.org/feed/>.
 
 > [!NOTE]
 > You may need to set the value of 'debug' in your core configuration
 > to `false` to get a valid feed, because of the various debug
 > information added automagically under higher debug settings that
 > break XML syntax or feed validation rules.
->

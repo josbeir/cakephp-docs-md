@@ -1,9 +1,3 @@
----
-title: 2.0 Migration Guide
-description: "This page summarizes the changes from CakePHP 1.3 that will assist in a project migration to 2.0, as well as for a developer reference to get up to date with the changes made to the core since the CakePHP 1.3 branch."
-keywords: "cakephp upgrade,cakephp migration,migration guide,1.3 to 2.0,update cakephp,backwards compatibility,api changes,x versions,directory structure,new features"
----
-
 # 2.0 Migration Guide
 
 This page summarizes the changes from CakePHP 1.3 that will assist in a project
@@ -12,9 +6,8 @@ the changes made to the core since the CakePHP 1.3 branch. Be sure to read the
 other pages in this guide for all the new features and API changes.
 
 > [!TIP]
-> Be sure to checkout the [upgrade-shell](../console-and-shells/upgrade-shell.md#upgrade-shell) included in the 2.0 core to help you
+> Be sure to checkout the [upgrade-shell](#upgrade-shell) included in the 2.0 core to help you
 > migrate your 1.3 code to 2.0.
->
 
 ## PHP Version Support
 
@@ -35,7 +28,7 @@ access to tighter visibility methods and variables is now not possible.
 In CakePHP 2.0 we rethought the way we are structuring our files and folders.
 Given that PHP 5.3 is supporting namespaces we decided to prepare our code base
 for adopting in a near future this PHP version, so we adopted the
-https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md. At first
+<https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md>. At first
 we glanced at the internal structure of CakePHP 1.3 and realized that after all
 these years there was no clear organization in the files, nor did the directory
 structure really hint where each file should be located. With this change we
@@ -108,35 +101,26 @@ Also all shell/task now extend AppShell. You can have your custom AppShell.php a
 `__()` (Double underscore shortcut function) always returns the translation
 (not echo anymore).
 
-If you want to echo the result of the translation, use
+If you want to echo the result of the translation, use:
 
-```php
-echo __('My Message');
+    echo __('My Message');
 
-```
+This change includes all shortcut translation methods:
 
-This change includes all shortcut translation methods::
-
-```
-__()
-__n()
-__d()
-__dn()
-__dc()
-__dcn()
-__c()
-
-```
+    __()
+    __n()
+    __d()
+    __dn()
+    __dc()
+    __dcn()
+    __c()
 
 Alongside this, if you pass additional parameters, the translation will call
-[sprintf](https://www.php.net/manual/en/function.sprintf.php)  with these
-parameters before returning. For example
+[sprintf](https://www.php.net/manual/en/function.sprintf.php) with these
+parameters before returning. For example:
 
-```php
-// Will return something like "Called: MyClass:myMethod"
-echo __('Called: %s:%s', $className, $methodName);
-
-```
+    // Will return something like "Called: MyClass:myMethod"
+    echo __('Called: %s:%s', $className, $methodName);
 
 It is valid for all shortcut translation methods.
 
@@ -151,21 +135,21 @@ versions of CakePHP these values changed depending on your environment.
 
 ## Basics.php
 
--  `getMicrotime()` has been removed. Use the native `microtime(true)`
-instead.
--  `e()` was removed. Use `echo`.
--  `r()` was removed. Use `str_replace`.
--  `a()` was removed. `Use array()`
--  `aa()` was removed. Use `array()`
--  `up()` was removed. Use `strtoupper()`
--  `low()` was removed. Use `strtolower()`
--  `params()` was removed. It was not used anywhere in CakePHP.
--  `ife()` was removed. Use a ternary operator.
--  `uses()` was removed. Use `App::import()` instead.
--  Compatibility functions for PHP4 have been removed.
--  PHP5 constant has been removed.
--  Global var called `$TIME_START` was removed use the constant
-`TIME_START` or `$_SERVER['REQUEST_TIME']` instead.
+- `getMicrotime()` has been removed. Use the native `microtime(true)`
+  instead.
+- `e()` was removed. Use `echo`.
+- `r()` was removed. Use `str_replace`.
+- `a()` was removed. `Use array()`
+- `aa()` was removed. Use `array()`
+- `up()` was removed. Use `strtoupper()`
+- `low()` was removed. Use `strtolower()`
+- `params()` was removed. It was not used anywhere in CakePHP.
+- `ife()` was removed. Use a ternary operator.
+- `uses()` was removed. Use `App::import()` instead.
+- Compatibility functions for PHP4 have been removed.
+- PHP5 constant has been removed.
+- Global var called `$TIME_START` was removed use the constant
+  `TIME_START` or `$_SERVER['REQUEST_TIME']` instead.
 
 ### Removed Constants
 
@@ -199,7 +183,7 @@ request. It replaces many features inside `Dispatcher`,
 `ArrayAccess` so many interactions with the old params array do not need to
 change. See the CakeRequest new features for more information.
 
-## Request handling, $_GET['url'] and .htaccess files
+## Request handling, \$\_GET\['url'\] and .htaccess files
 
 CakePHP no longer uses `$_GET['url']` for handling application request paths.
 Instead it uses `$_SERVER['PATH_INFO']`. This provides a more uniform way of
@@ -207,30 +191,28 @@ handling requests between servers with URL rewriting and those without. Because
 of these changes, you'll need to update your .htaccess files and
 `app/webroot/index.php`, as these files were changed to accommodate the
 changes. Additionally `$this->params['url']['url']` no longer exists. Instead
-you should be using $this->request->url to access the same value.
+you should be using \$this-\>request-\>url to access the same value.
 This attribute now contains the url without the leading slash `/` prepended.
 
-Note: For the homepage itself (`http://domain/`) $this->request->url now returns
-boolean `false` instead of `/`. Make sure you check on that accordingly
+Note: For the homepage itself (`http://domain/`) \$this-\>request-\>url now returns
+boolean `false` instead of `/`. Make sure you check on that accordingly:
 
-```php
+``` php
 if (!$this->request->url) {} // instead of $this->request->url === '/'
-
 ```
 
 ## Components
 
 Component is now the required base class for all components. You should update
-your components and their constructors, as both have changed
+your components and their constructors, as both have changed:
 
-```php
+``` php
 class PrgComponent extends Component {
     public function __construct(ComponentCollection $collection,
       $settings = array()) {
         parent::__construct($collection, $settings);
     }
 }
-
 ```
 
 As with helpers it is important to call `parent::__construct()` in components with
@@ -241,11 +223,10 @@ properties up.
 
 Since settings have been moved to the component constructor, the
 `initialize()` callback no longer receives `$settings` as its 2nd parameter.
-You should update your components to use the following method signature
+You should update your components to use the following method signature:
 
-```php
+``` php
 public function initialize(Controller $controller) { }
-
 ```
 
 Additionally, the initialize() method is only called on components that are
@@ -255,31 +236,30 @@ controller object.
 ### Deprecated callbacks removed
 
 All the deprecated callbacks in Component have not been transferred to
-ComponentCollection. Instead you should use the `trigger()` method to interact
-with callbacks. If you need to trigger a callback you could do so by calling
+ComponentCollection. Instead you should use the <span class="title-ref">trigger()</span> method to interact
+with callbacks. If you need to trigger a callback you could do so by calling:
 
-```php
+``` php
 $this->Components->trigger('someCallback', array(&$this));
-
 ```
 
 ### Changes in disabling components
 
-In the past you were able to disable components via `$this->Auth->enabled =
-false;` for example. In CakePHP 2.0 you should use the ComponentCollection's
-disable method, `$this->Components->disable('Auth');`. Using the enabled
+In the past you were able to disable components via <span class="title-ref">\$this-\>Auth-\>enabled =
+false;</span> for example. In CakePHP 2.0 you should use the ComponentCollection's
+disable method, <span class="title-ref">\$this-\>Components-\>disable('Auth');</span>. Using the enabled
 property will not work.
 
 ### AclComponent
 
--  `AclComponent` implementations are now required to implement
-`AclInterface`.
--  `AclComponent::adapter()` has been added to allow runtime modification of
-the `ACL` implementation the component uses.
--  `AclComponent::grant()` has been deprecated, it will be removed in a future
-version. Use `AclComponent::allow()` instead.
--  `AclComponent::revoke()` has been deprecated, it will be removed in a
-future version. Use AclComponent::deny() instead.
+- `AclComponent` implementations are now required to implement
+  `AclInterface`.
+- `AclComponent::adapter()` has been added to allow runtime modification of
+  the `ACL` implementation the component uses.
+- `AclComponent::grant()` has been deprecated, it will be removed in a future
+  version. Use `AclComponent::allow()` instead.
+- `AclComponent::revoke()` has been deprecated, it will be removed in a
+  future version. Use AclComponent::deny() instead.
 
 ### RequestHandlerComponent
 
@@ -287,19 +267,19 @@ Many of RequestHandlerComponent's methods are just proxies for `CakeRequest`
 methods. The following methods have been deprecated and will be removed in
 future versions:
 
--  `isSsl()`
--  `isAjax()`
--  `isPost()`
--  `isPut()`
--  `isFlash()`
--  `isDelete()`
--  `getReferer()`
--  `getClientIp()`
--  `accepts()`, `prefers()`, `requestedWith()` All deal in mapped content
-types now. They no longer work with mime-types. You can use
-`RequestHandler::setContent()` to create new content types.
--  `RequestHandler::setContent()` no longer accepts an array as a single
-argument, you must supply both arguments.
+- `isSsl()`
+- `isAjax()`
+- `isPost()`
+- `isPut()`
+- `isFlash()`
+- `isDelete()`
+- `getReferer()`
+- `getClientIp()`
+- `accepts()`, `prefers()`, `requestedWith()` All deal in mapped content
+  types now. They no longer work with mime-types. You can use
+  `RequestHandler::setContent()` to create new content types.
+- `RequestHandler::setContent()` no longer accepts an array as a single
+  argument, you must supply both arguments.
 
 ### SecurityComponent
 
@@ -307,16 +287,16 @@ SecurityComponent no longer handles Basic and Digest Authentication. These are
 both handled by the new AuthComponent. The following methods have been removed
 from SecurityComponent:
 
--  requireLogin()
--  generateDigestResponseHash()
--  loginCredentials()
--  loginRequest()
--  parseDigestAuthData()
+- requireLogin()
+- generateDigestResponseHash()
+- loginCredentials()
+- loginRequest()
+- parseDigestAuthData()
 
 In addition the following properties were removed:
 
--  $loginUsers
--  $requireLogin
+- \$loginUsers
+- \$requireLogin
 
 Moving these features to AuthComponent was done to provide a single place for
 all types of authentication and to streamline the roles of each component.
@@ -326,12 +306,12 @@ all types of authentication and to streamline the roles of each component.
 The AuthComponent was entirely re-factored for 2.0, this was done to help reduce
 developer confusion and frustration. In addition, AuthComponent was made more
 flexible and extensible. You can find out more in
-the [/core-libraries/components/authentication` guide.
+the [/core-libraries/components/authentication](core-libraries/components/authentication.md) guide.
 
 ### EmailComponent
 
 The EmailComponent has been deprecated and has created a new library class to
-send e-mails. See [email](../core-utility-libraries/email.md) Email changes for more details.
+send e-mails. See [/core-utility-libraries/email](core-utility-libraries/email.md) Email changes for more details.
 
 ### SessionComponent
 
@@ -339,7 +319,7 @@ Session component has lost the following methods.
 
 - activate()
 - active()
-- __start()
+- \_\_start()
 
 ## cakeError removed
 
@@ -353,7 +333,7 @@ CakePHP 2.0.
 The error handling implementation has dramatically changed in 2.0. Exceptions
 have been introduced throughout the framework, and error handling has been
 updated to offer more control and flexibility. You can read more in the
-[exceptions](../development/exceptions.md) and [errors](../development/errors.md) section.
+[/development/exceptions](development/exceptions.md) and [/development/errors](development/errors.md) section.
 
 ## Lib classes
 
@@ -361,7 +341,7 @@ updated to offer more control and flexibility. You can read more in the
 
 The API for `App::build()` has changed to `App::build($paths, $mode).` It
 now allows you to either append, prepend or reset/replace existing paths. The
-$mode param can take any of the following 3 values: App::APPEND,
+\$mode param can take any of the following 3 values: App::APPEND,
 App::PREPEND, `App::RESET`. The default behavior of the function remains the
 same (ie. Prepending new paths to existing list).
 
@@ -387,18 +367,18 @@ same (ie. Prepending new paths to existing list).
 
 App class lost the following properties, use method App::path() to access their value
 
-- App::$models
-- App::$behaviors
-- App::$controllers
-- App::$components
-- App::$datasources
-- App::$libs
-- App::$views
-- App::$helpers
-- App::$plugins
-- App::$vendors
-- App::$locales
-- App::$shells
+- App::\$models
+- App::\$behaviors
+- App::\$controllers
+- App::\$components
+- App::\$datasources
+- App::\$libs
+- App::\$views
+- App::\$helpers
+- App::\$plugins
+- App::\$vendors
+- App::\$locales
+- App::\$shells
 
 #### App::import()
 
@@ -409,7 +389,7 @@ App class lost the following properties, use method App::path() to access their 
 - Using App::import('Lib', 'CoreClass') to load core classes is no longer
   possible.
 - Importing a non-existent file, supplying a wrong type or package name, or null
-  values for $name and $file parameters will result in a false return value.
+  values for \$name and \$file parameters will result in a false return value.
 - App::import('Core', 'CoreClass') is no longer supported, use App::uses()
   instead and let the class autoloading do the rest.
 - Loading Vendor files does not look recursively in the vendors folder, it will
@@ -425,11 +405,10 @@ App class lost the following properties, use method App::path() to access their 
 
 Although there has been a huge refactoring in how the classes are loaded, in very
 few occasions you will need to change your application code to respect the way you were
-used to doing it. The biggest change is the introduction of a new method
+used to doing it. The biggest change is the introduction of a new method:
 
-```php
+``` css
 App::uses('AuthComponent', 'Controller/Component');
-
 ```
 
 We decided the function name should emulate PHP 5.3's `use` keyword, just as a way
@@ -441,9 +420,9 @@ won't actually import the class, it will just setup the system so when the class
 is used for the first time it will be located.
 
 Some examples on using `App::uses()` when migrating from
-`App::import()`
+`App::import()`:
 
-```php
+``` css
 App::import('Controller', 'Pages');
 // becomes
 App::uses('PagesController', 'Controller');
@@ -463,14 +442,13 @@ App::uses('Xml', 'Utility');
 App::import('Datasource', 'MongoDb.MongoDbSource');
 // becomes
 App::uses('MongoDbSource', 'MongoDb.Model/Datasource');
-
 ```
 
 All classes that were loaded in the past using `App::import('Core', $class);`
 will need to be loaded using `App::uses()` referring to the correct package.
-See the API to locate the classes in their new folders. Some examples
+See the API to locate the classes in their new folders. Some examples:
 
-```php
+``` css
 App::import('Core', 'CakeRoute');
 // becomes
 App::uses('CakeRoute', 'Routing/Route');
@@ -482,7 +460,6 @@ App::uses('Sanitize', 'Utility');
 App::import('Core', 'HttpSocket');
 // becomes
 App::uses('HttpSocket', 'Network/Http');
-
 ```
 
 In contrast to how `App::import()` worked in the past, the new class
@@ -495,9 +472,9 @@ fetch the class in the exact package in which you told it to find it.
 
 `App::build()` will not merge app paths with core paths anymore.
 
-Examples
+Examples:
 
-```php
+``` css
 App::build(array('controllers' => array('/full/path/to/controllers')));
 //becomes
 App::build(array('Controller' => array('/full/path/to/Controller')));
@@ -505,35 +482,33 @@ App::build(array('Controller' => array('/full/path/to/Controller')));
 App::build(array('helpers' => array('/full/path/to/controllers')));
 //becomes
 App::build(array('View/Helper' => array('/full/path/to/View/Helper')));
-
 ```
 
 ### CakeLog
 
--  Log streams now need to implement `CakeLogInterface`. Exceptions will be raised
-   if a configured logger does not.
+- Log streams now need to implement `CakeLogInterface`. Exceptions will be raised
+  if a configured logger does not.
 
 ### Cache
 
--  `Cache` is now a static class, it no longer has a getInstance() method.
--  CacheEngine is now an abstract class. You cannot directly create instances of
-it anymore.
--  CacheEngine implementations must extend CacheEngine, exceptions will be
-raised if a configured class does not.
--  FileCache now requires trailing slashes to be added to the path setting when
-you are modifying a cache configuration.
--  Cache no longer retains the name of the last configured cache engine. This
-means that operations you want to occur on a specific engine need to have the
-   $config parameter equal to the config name you want the operation to occur
-on.
+- `Cache` is now a static class, it no longer has a getInstance() method.
+- CacheEngine is now an abstract class. You cannot directly create instances of
+  it anymore.
+- CacheEngine implementations must extend CacheEngine, exceptions will be
+  raised if a configured class does not.
+- FileCache now requires trailing slashes to be added to the path setting when
+  you are modifying a cache configuration.
+- Cache no longer retains the name of the last configured cache engine. This
+  means that operations you want to occur on a specific engine need to have the
+  \$config parameter equal to the config name you want the operation to occur
+  on.
 
-```php
+``` css
 Cache::config('something');
 Cache::write('key', $value);
 
 // would become
 Cache::write('key', $value, 'something');
-
 ```
 
 ### Router
@@ -541,40 +516,41 @@ Cache::write('key', $value, 'something');
 - You can no longer modify named parameter settings with
   `Router::setRequestInfo()`. You should use `Router::connectNamed()` to
   configure how named parameters are handled.
+
 - Router no longer has a `getInstance()` method. It is a static class, call
   its methods and properties statically.
+
 - `Router::getNamedExpressions()` is deprecated. Use the new router
   constants. `Router::ACTION`, `Router::YEAR`, `Router::MONTH`,
   `Router::DAY`, `Router::ID`, and `Router::UUID` instead.
+
 - `Router::defaults()` has been removed. Delete the core routes file
   inclusion from your applications routes.php file to disable default routing.
   Conversely if you want default routing, you will have to add an include to
   `Cake/Config/routes.php` in your routes file.
+
 - When using Router::parseExtensions() the extension parameter is no longer
   under `$this->params['url']['ext']`. Instead it is available at
   `$this->request->params['ext']`.
+
 - Default plugin routes have changed. Plugin short routes are no longer built
-  in for any actions other than index. Previously `/users` and `/users/add`
+  in for any actions other than index. Previously [Users](users.md) and [Users / add](users/add.md)
   would map to the UsersController in the Users plugin. In 2.0, only the
   `index` action is given a short route. If you wish to continue using short
-  routes, you can add a route like
+  routes, you can add a route like:
 
-```php
-Router::connect(
-  '/users/:action',
-  array('controller' => 'users', 'plugin' => 'users')
-);
-
-```
+  ``` css
+  Router::connect(
+    '/users/:action',
+    array('controller' => 'users', 'plugin' => 'users')
+  );
+  ```
 
   To your routes file for each plugin you need short routes on.
 
-Your app/Config/routes.php file needs to be updated adding this line at the bottom of the file
+Your app/Config/routes.php file needs to be updated adding this line at the bottom of the file:
 
-```
-require CAKE . 'Config' . DS . 'routes.php';
-
-```
+    require CAKE . 'Config' . DS . 'routes.php';
 
 This is needed in order to generate the default routes for your application. If you do not wish to have such routes,
 or want to implement your own standard you can include your own file with custom router rules.
@@ -594,44 +570,42 @@ or want to implement your own standard you can include your own file with custom
 
 ### Configure
 
--  `Configure::read()` with no parameter no longer returns the value of
-'debug' instead it returns all values in Configure. Use
-`Configure::read('debug');` if you want the value of debug.
--  `Configure::load()` now requires a ConfigReader to be setup. Read
-[loading-configuration-files](../development/configuration.md#loading-configuration-files) for more information.
--  `Configure::store()` now writes values to a given Cache configuration. Read
-[loading-configuration-files](../development/configuration.md#loading-configuration-files) for more information.
+- `Configure::read()` with no parameter no longer returns the value of
+  'debug' instead it returns all values in Configure. Use
+  `Configure::read('debug');` if you want the value of debug.
+- `Configure::load()` now requires a ConfigReader to be setup. Read
+  [loading-configuration-files](#loading-configuration-files) for more information.
+- `Configure::store()` now writes values to a given Cache configuration. Read
+  [loading-configuration-files](#loading-configuration-files) for more information.
 
 ### Scaffold
 
--  Scaffold 'edit' views should be renamed to 'form'. This was done to make
-scaffold and bake templates consistent.
-
--  `views/scaffolds/edit.ctp` -> `View/Scaffolds/form.ctp`
--  `views/posts/scaffold.edit.ctp` -> `View/Posts/scaffold.form.ctp`
+- Scaffold 'edit' views should be renamed to 'form'. This was done to make
+  scaffold and bake templates consistent.
+  - `views/scaffolds/edit.ctp` -\> `View/Scaffolds/form.ctp`
+  - `views/posts/scaffold.edit.ctp` -\> `View/Posts/scaffold.form.ctp`
 
 ### Xml
 
--  The class Xml was completely re-factored. Now this class does not manipulate
-data anymore, and it is a wrapper to SimpleXMLElement. You can use the following
-   methods:
-
--  ``Xml::build()`: static method that you can pass an xml string, array, path
-to file or url. The result will be a SimpleXMLElement instance or an
-exception will be thrown in case of error.
--  `Xml::fromArray():` static method that returns a SimpleXMLElement from an
-      array.
--  `Xml::toArray()``: static method that returns an array from
-SimpleXMLElement.
+- The class Xml was completely re-factored. Now this class does not manipulate
+  data anymore, and it is a wrapper to SimpleXMLElement. You can use the following
+  methods:
+  - `Xml::build()`: static method that you can pass an xml string, array, path
+    to file or url. The result will be a SimpleXMLElement instance or an
+    exception will be thrown in case of error.
+  - `Xml::fromArray():` static method that returns a SimpleXMLElement from an
+    array.
+  - `Xml::toArray()`: static method that returns an array from
+    SimpleXMLElement.
 
 You should see the `Xml` documentation for more information on the changes made to
 the Xml class.
 
 ### Inflector
 
--  Inflector no longer has a `getInstance()` method.
--  `Inflector::slug()` no longer supports the $map argument. Use
-`Inflector::rules()` to define transliteration rules.
+- Inflector no longer has a `getInstance()` method.
+- `Inflector::slug()` no longer supports the \$map argument. Use
+  `Inflector::rules()` to define transliteration rules.
 
 ### CakeSession
 
@@ -639,18 +613,13 @@ CakeSession is now a fully static class, both `SessionHelper` and
 `SessionComponent` are wrappers and sugar for it. It can now easily be used
 in models or other contexts. All of its methods are called statically.
 
-Session configuration has also changed [sessions.md)
+Session configuration has also changed [see the session section for more
+information](development/sessions.md)
 
 ### HttpSocket
 
 - HttpSocket doesn't change the header keys. Following other places in core,
-  the HttpSocket does not change the headers. :rfc:](see the session section for more
-information](../development/sessions.md)
-
-### HttpSocket
-
-- HttpSocket doesn't change the header keys. Following other places in core,
-  the HttpSocket does not change the headers. :rfc:.md)2616` says that headers are case
+  the HttpSocket does not change the headers. `2616` says that headers are case
   insensitive, and HttpSocket preserves the values the remote host sends.
 - HttpSocket returns responses as objects now. Instead of arrays, HttpSocket
   returns instances of HttpResponse. See the `HttpSocket`
@@ -664,16 +633,15 @@ information](../development/sessions.md)
 ### Constructor changed
 
 In order to accommodate View being removed from the ClassRegistry, the signature
-of Helper::__construct() was changed. You should update any subclasses to use
-the following
+of Helper::\_\_construct() was changed. You should update any subclasses to use
+the following:
 
-```php
+``` php
 public function __construct(View $View, $settings = array())
-
 ```
 
-When overriding the constructor you should always call `parent::__construct` as
-well. `Helper::__construct` stores the view instance at `$this->_View` for
+When overriding the constructor you should always call <span class="title-ref">parent::\_\_construct</span> as
+well. <span class="title-ref">Helper::\_\_construct</span> stores the view instance at <span class="title-ref">\$this-\>\_View</span> for
 later reference. The settings are not handled by the parent constructor.
 
 ### HelperCollection added
@@ -684,7 +652,7 @@ responsibility of creating helpers is not central to what View does, and was
 moved into HelperCollection. HelperCollection is responsible for loading and
 constructing helpers, as well as triggering callbacks on helpers. By default,
 View creates a HelperCollection in its constructor, and uses it for subsequent
-operations. The HelperCollection for a view can be found at `$this->Helpers`
+operations. The HelperCollection for a view can be found at <span class="title-ref">\$this-\>Helpers</span>
 
 The motivations for refactoring this functionality came from a few issues.
 
@@ -695,7 +663,7 @@ The motivations for refactoring this functionality came from a few issues.
   manually construct several other objects in order to get a functioning object.
 
 You can read more about HelperCollection in the
-[/core-libraries/collections` documentation.
+[/core-libraries/collections](core-libraries/collections.md) documentation.
 
 ### Deprecated properties
 
@@ -703,12 +671,12 @@ The following properties on helpers are deprecated, you should use the request
 object properties or Helper methods instead of directly accessing these
 properties as they will be removed in a future release.
 
--  `Helper::$webroot` is deprecated, use the request object's webroot
-property.
--  `Helper::$base` is deprecated, use the request object's base property.
--  `Helper::$here` is deprecated, use the request object's here property.
--  `Helper::$data` is deprecated, use the request object's data property.
--  `Helper::$params` is deprecated, use the `$this->request` instead.
+- `Helper::$webroot` is deprecated, use the request object's webroot
+  property.
+- `Helper::$base` is deprecated, use the request object's base property.
+- `Helper::$here` is deprecated, use the request object's here property.
+- `Helper::$data` is deprecated, use the request object's data property.
+- `Helper::$params` is deprecated, use the `$this->request` instead.
 
 ### XmlHelper, AjaxHelper and JavascriptHelper removed
 
@@ -721,25 +689,25 @@ The AjaxHelper, and JavascriptHelper are replaced with the JsHelper and HtmlHelp
 
 ### JsHelper
 
--  `JsBaseEngineHelper` is now abstract, you will need to implement all the
-methods that previously generated errors.
+- `JsBaseEngineHelper` is now abstract, you will need to implement all the
+  methods that previously generated errors.
 
 ### PaginatorHelper
 
--  `PaginatorHelper::sort()` now takes the title and key arguments in the
-reverse order. $key will always be first now. This was done to prevent
-needing to swap arguments when adding a second one.
--  PaginatorHelper had a number of changes to the paging params used internally.
-The default key has been removed.
--  PaginatorHelper now supports generating links with paging parameters in the
-querystring.
+- `PaginatorHelper::sort()` now takes the title and key arguments in the
+  reverse order. \$key will always be first now. This was done to prevent
+  needing to swap arguments when adding a second one.
+- PaginatorHelper had a number of changes to the paging params used internally.
+  The default key has been removed.
+- PaginatorHelper now supports generating links with paging parameters in the
+  querystring.
 
 There have been a few improvements to pagination in general. For more
 information on that you should read the new pagination features page.
 
 ### FormHelper
 
-#### $selected parameter removed
+#### \$selected parameter removed
 
 The `$selected` parameter was removed from several methods in `FormHelper`.
 All methods now support a `$attributes['value']` key now which should be used
@@ -747,14 +715,14 @@ in place of `$selected`. This change simplifies the `FormHelper` methods,
 reducing the number of arguments, and reduces the duplication that `$selected`
 created. The effected methods are:
 
--  FormHelper::select()
--  FormHelper::dateTime()
--  FormHelper::year()
--  FormHelper::month()
--  FormHelper::day()
--  FormHelper::hour()
--  FormHelper::minute()
--  FormHelper::meridian()
+- FormHelper::select()
+- FormHelper::dateTime()
+- FormHelper::year()
+- FormHelper::month()
+- FormHelper::day()
+- FormHelper::hour()
+- FormHelper::minute()
+- FormHelper::meridian()
 
 #### Default URLs on forms is the current action
 
@@ -775,9 +743,9 @@ generate caches. You should remember to place CacheHelper after other helpers
 that modify content in their `afterRender` and `afterLayout` callbacks. If
 you don't some changes will not be part of the cached content.
 
-CacheHelper also no longer uses `cake:nocache` to indicate un-cached
-regions. Instead it uses special HTML/XML comments. `<!--nocache-->` and
-`<!--/nocache-->`. This helps CacheHelper generate valid markup and still
+CacheHelper also no longer uses [](#cakenocache) to indicate un-cached
+regions. Instead it uses special HTML/XML comments. [](#--nocache--) and
+[](#--nocache--). This helps CacheHelper generate valid markup and still
 perform the same functions as before. You can read more CacheHelper and View
 changes.
 
@@ -785,7 +753,7 @@ changes.
 
 The Helper class has more 3 protected attributes:
 
-- ``Helper::_minimizedAttributes`: array with minimized attributes (ie:
+- `Helper::_minimizedAttributes`: array with minimized attributes (ie:
   `array('checked', 'selected', ...)`);
 - `Helper::_attributeFormat`: how attributes will be generated (ie:
   `%s="%s"`);
@@ -793,22 +761,20 @@ The Helper class has more 3 protected attributes:
   generated: (ie `%s="%s"`)
 
 By default the values used in CakePHP 1.3 were not changed. But now you can
-use boolean attributes from HTML, like `<input type="checkbox" checked />`. To
-this, just change `$_minimizedAttributeFormat` in your AppHelper to `%s``.
+use boolean attributes from HTML, like [](#input-typecheckbox-checked-). To
+this, just change `$_minimizedAttributeFormat` in your AppHelper to `%s`.
 
-To use with Html/Form helpers and others, you can write
+To use with Html/Form helpers and others, you can write:
 
-```php
+``` php
 $this->Form->checkbox('field', array('checked' => true, 'value' => 'some_value'));
-
 ```
 
 Other facility is that minimized attributes can be passed as item and not as
-key. For example
+key. For example:
 
-```php
+``` php
 $this->Form->checkbox('field', array('checked', 'value' => 'some_value'));
-
 ```
 
 Note that `checked` have a numeric key.
@@ -817,7 +783,7 @@ Note that `checked` have a numeric key.
 
 - Controller's constructor now takes two parameters. A CakeRequest, and
   CakeResponse objects. These objects are used to populate several deprecated
-  properties and will be set to $request and $response inside the controller.
+  properties and will be set to \$request and \$response inside the controller.
 - `Controller::$webroot` is deprecated, use the request object's webroot
   property.
 - `Controller::$base` is deprecated, use the request object's base property.
@@ -825,7 +791,7 @@ Note that `checked` have a numeric key.
 - `Controller::$data` is deprecated, use the request object's data property.
 - `Controller::$params` is deprecated, use the `$this->request` instead.
 - `Controller::$Component` has been moved to `Controller::$Components`. See
-  the [/core-libraries/collections` documentation for more information.
+  the [/core-libraries/collections](core-libraries/collections.md) documentation for more information.
 - `Controller::$view` has been renamed to `Controller::$viewClass`.
   `Controller::$view` is now used to change which view file is rendered.
 - `Controller::render()` now returns a CakeResponse object.
@@ -835,7 +801,7 @@ method. This method will be removed in future versions, so it's recommended that
 you update your application.
 
 Controller now defines a maxLimit for pagination. This maximum limit is set to
-100, but can be overridden in the $paginate options.
+100, but can be overridden in the \$paginate options.
 
 ### Pagination
 
@@ -846,27 +812,27 @@ exists, and serves as a convenience method for loading and using the
 `PaginatorComponent`.
 
 For more information on the new features offered by pagination in 2.0, see the
-[pagination](../core-libraries/components/pagination.md) documentation.
+[/core-libraries/components/pagination](core-libraries/components/pagination.md) documentation.
 
 ## View
 
 ### View no longer registered in ClassRegistry
 
 The view being registered ClassRegistry invited abuse and affectively created a
-global symbol. In 2.0 each Helper receives the current `View` instance in its
+global symbol. In 2.0 each Helper receives the current <span class="title-ref">View</span> instance in its
 constructor. This allows helpers access to the view in a similar fashion as in
 the past, without creating global symbols. You can access the view instance at
-`$this->_View` in any helper.
+<span class="title-ref">\$this-\>\_View</span> in any helper.
 
 ### Deprecated properties
 
--  `View::$webroot` is deprecated, use the request object's webroot property.
--  `View::$base` is deprecated, use the request object's base property.
--  `View::$here` is deprecated, use the request object's here property.
--  `View::$data` is deprecated, use the request object's data property.
--  `View::$params` is deprecated, use the `$this->request` instead.
--  `View::$loaded` has been removed. Use the `HelperCollection` to access
-loaded helpers.
+- `View::$webroot` is deprecated, use the request object's webroot property.
+- `View::$base` is deprecated, use the request object's base property.
+- `View::$here` is deprecated, use the request object's here property.
+- `View::$data` is deprecated, use the request object's data property.
+- `View::$params` is deprecated, use the `$this->request` instead.
+- `View::$loaded` has been removed. Use the `HelperCollection` to access
+  loaded helpers.
 - `View::$model` has been removed. This behavior is now on `Helper`
 - `View::$modelId` has been removed. This behavior is now on
   `Helper`
@@ -876,12 +842,12 @@ loaded helpers.
   `Helper`
 - `View::entity()` has been removed. This behavior is now on
   `Helper`
--  `View::_loadHelpers()` has been removed, used `View::loadHelpers()`
-instead.
--  How `View::element()` uses caching has changed, see below for more
-information.
--  View callbacks have been shifted around, see below for more information
--  API for `View::element()` has changed. Read here for more info.
+- `View::_loadHelpers()` has been removed, used `View::loadHelpers()`
+  instead.
+- How `View::element()` uses caching has changed, see below for more
+  information.
+- View callbacks have been shifted around, see below for more information
+- API for `View::element()` has changed. Read here for more info.
 
 The deprecated properties on View will be accessible through a `__get()`
 method. This method will be removed in future versions, so it's recommended that
@@ -898,7 +864,7 @@ you update your application.
 - `View::loadHelper($name, $settings = array());` Load a single helper.
 - `View::loadHelpers()` Loads all the helpers indicated in `View::$helpers`.
 
-### View->Helpers
+### View-\>Helpers
 
 By default View objects contain a `HelperCollection` at `$this->Helpers`.
 
@@ -923,9 +889,9 @@ content through `$this->_View->output` gives you more power than ever before.
 Helper callbacks now always get one argument passed in. For beforeRender and
 afterRender it is the view file being rendered. For beforeLayout and afterLayout
 it is the layout file being rendered. Your helpers function signatures should
-look like
+look like:
 
-```php
+``` php
 public function beforeRender($viewFile) {
 
 }
@@ -941,34 +907,28 @@ public function beforeLayout($layoutFile) {
 public function afterLayout($layoutFile) {
 
 }
-
 ```
 
 Element caching, and view callbacks have been changed in 2.0 to help provide you
-with more flexibility and consistency. [views.md).
+with more flexibility and consistency. [Read more about those
+changes](views.md).
 
 ### CacheHelper decoupled
 
-In previous versions there was a tight coupling between](Read more about those
-changes](../views.md).
-
-### CacheHelper decoupled
-
-In previous versions there was a tight coupling between.md)CacheHelper`
+In previous versions there was a tight coupling between `CacheHelper`
 and `View`. For 2.0 this coupling has been removed and CacheHelper
 just uses callbacks like other helpers to generate full page caches.
 
-### CacheHelper `<cake:nocache>` tags changed
+### CacheHelper [](#cakenocache) tags changed
 
-In previous versions, CacheHelper used a special `<cake:nocache>` tag as
+In previous versions, CacheHelper used a special [](#cakenocache) tag as
 markers for output that should not be part of the full page cache. These tags
 were not part of any XML schema, and were not possible to validate in HTML or
-XML documents. For 2.0, these tags have been replaced with HTML/XML comments
+XML documents. For 2.0, these tags have been replaced with HTML/XML comments:
 
-```html
+``` html
 <cake:nocache> becomes <!--nocache-->
 </cake:nocache> becomes <!--/nocache-->
-
 ```
 
 The internal code for full page view caches has also changed, so be sure to
@@ -1003,8 +963,7 @@ been removed.
 The testsuite shell has had its invocation simplified and expanded. You no
 longer need to differentiate between `case` and `group`. It is assumed that
 all tests are cases. In the past you would have done
-`cake testsuite app case models/post` you can now do `cake testsuite app
-Model/Post`.
+`cake testsuite app case models/post` you can now do `cake testsuite app Model/Post`.
 
 The testsuite shell has been refactored to use the PHPUnit CLI tool. It now
 supports all the command line options supported by PHPUnit.
@@ -1013,30 +972,23 @@ supports all the command line options supported by PHPUnit.
 ## Model
 
 Model relationships are now lazy loaded. You can run into a situation where
-assigning a value to a nonexistent model property will throw errors
+assigning a value to a nonexistent model property will throw errors:
 
-```php
-$Post->inexistentProperty[] = 'value';
-
-```
+    $Post->inexistentProperty[] = 'value';
 
 will throw the error "Notice: Indirect modification of overloaded property
-$inexistentProperty has no effect". Assigning an initial value to the property
-solves the issue
+\$inexistentProperty has no effect". Assigning an initial value to the property
+solves the issue:
 
-```php
-$Post->nonexistentProperty = array();
-$Post->nonexistentProperty[] = 'value';
+    $Post->nonexistentProperty = array();
+    $Post->nonexistentProperty[] = 'value';
 
-```
+Or just declare the property in the model class:
 
-Or just declare the property in the model class::
-
-```php
+``` php
 class Post {
     public $nonexistentProperty = array();
 }
-
 ```
 
 Either of these approaches will solve the notice errors.
@@ -1071,49 +1023,48 @@ statements with query placeholders using the native driver if available.
 #### List of Changes
 
 - DboMysqli was removed, we will support DboMysql only.
+
 - API for DboSource::execute has changed, it will now take an array of query
-  values as second parameter
+  values as second parameter:
 
-```php
-public function execute($sql, $params = array(), $options = array())
+  ``` php
+  public function execute($sql, $params = array(), $options = array())
+  ```
 
-```
+  became:
 
-  became::
-
-```php
-public function execute($sql, $options = array(), $params = array())
-
-```
+  ``` php
+  public function execute($sql, $options = array(), $params = array())
+  ```
 
   third parameter is meant to receive options for logging, currently it only
   understands the "log" option.
 
 - DboSource::value() looses its third parameter, it was not used anyways
+
 - DboSource::fetchAll() now accepts an array as second parameter, to pass values
-  to be bound to the query, third parameter was dropped. Example
+  to be bound to the query, third parameter was dropped. Example:
 
-```sql
-$db->fetchAll(
-  'SELECT
-    - from users
-  WHERE
-    username = ?
-  AND
-    password = ?',
-  array('jhon', '12345')
-);
-$db->fetchAll(
-  'SELECT
-    - from users
-  WHERE
-      username = :username
-  AND
-    password = :password',
-  array('username' => 'jhon', 'password' => '12345')
-);
-
-```
+  ``` php
+  $db->fetchAll(
+    'SELECT
+      * from users
+    WHERE
+      username = ?
+    AND
+      password = ?',
+    array('jhon', '12345')
+  );
+  $db->fetchAll(
+    'SELECT
+      * from users
+    WHERE
+        username = :username
+    AND
+      password = :password',
+    array('username' => 'jhon', 'password' => '12345')
+  );
+  ```
 
 The PDO driver will automatically escape those values for you.
 
@@ -1147,49 +1098,45 @@ The PDO driver will automatically escape those values for you.
 
 ### BehaviorCollection
 
--  `BehaviorCollection` no longer `strtolower()'s` mappedMethods. Behavior
-mappedMethods are now case sensitive.
+- `BehaviorCollection` no longer `strtolower()'s` mappedMethods. Behavior
+  mappedMethods are now case sensitive.
 
 ### AclBehavior and TreeBehavior
 
-- No longer supports strings as configuration. Example
+- No longer supports strings as configuration. Example:
 
-```php
-public $actsAs = array(
-    'Acl' => 'Controlled',
-    'Tree' => 'nested'
-);
+  ``` php
+  public $actsAs = array(
+      'Acl' => 'Controlled',
+      'Tree' => 'nested'
+  );
+  ```
 
-```
+  became:
 
-  became::
-
-```php
-public $actsAs = array(
-    'Acl' => array('type' => 'Controlled'),
-    'Tree' => array('type' => 'nested')
-);
-
-```
+  ``` php
+  public $actsAs = array(
+      'Acl' => array('type' => 'Controlled'),
+      'Tree' => array('type' => 'nested')
+  );
+  ```
 
 ## Plugins
 
 Plugins no longer magically append their plugin prefix to components, helpers
 and models used within them. You must be explicit with the components, models,
-and helpers you wish to use. In the past
+and helpers you wish to use. In the past:
 
-```php
+``` php
 public $components = array('Session', 'Comments');
-
 ```
 
 Would look in the controller's plugin before checking app/core components. It
 will now only look in the app/core components. If you wish to use objects from a
-plugin you must put the plugin name
+plugin you must put the plugin name:
 
-```php
+``` php
 public $components = array('Session', 'Comment.Comments');
-
 ```
 
 This was done to reduce hard to debug issues caused by magic misfiring. It also
@@ -1200,66 +1147,63 @@ reference them.
 
 The plugin AppController and AppModel are no longer located directly in the
 plugin folder. They are now placed into the plugin's Controller and Model
-folders as such
+folders as such:
 
-```
-/app
-    /Plugin
-        /Comment
-            /Controller
-                CommentAppController.php
-            /Model
-                CommentAppModel.php
-
-```
+    /app
+        /Plugin
+            /Comment
+                /Controller
+                    CommentAppController.php
+                /Model
+                    CommentAppModel.php
 
 ## Console
 
 Much of the console framework was rebuilt for 2.0 to address many of the
 following issues:
 
--  Tightly coupled.
--  It was difficult to make help text for shells.
--  Parameters for shells were tedious to validate.
--  Plugin tasks were not reachable.
--  Objects with too many responsibilities.
+- Tightly coupled.
+- It was difficult to make help text for shells.
+- Parameters for shells were tedious to validate.
+- Plugin tasks were not reachable.
+- Objects with too many responsibilities.
 
 ### Backwards incompatible Shell API changes
 
--  `Shell` no longer has an `AppModel` instance. This `AppModel` instance
-was not correctly built and was problematic.
--  `Shell::_loadDbConfig()` has been removed. It was not generic enough to
-stay in Shell. You can use the `DbConfigTask` if you need to ask the user
-to create a db config.
--  Shells no longer use `$this->Dispatcher` to access stdin, stdout, and
-stderr. They have `ConsoleOutput` and `ConsoleInput` objects to handle
-that now.
--  Shells lazy load tasks, and use `TaskCollection` to provide an interface
-similar to that used for Helpers, Components, and Behaviors for on the fly
-loading of tasks.
--  `Shell::$shell` has been removed.
--  `Shell::_checkArgs()` has been removed. Configure a `ConsoleOptionParser`
--  Shells no longer have direct access to `ShellDispatcher`. You should use
-the `ConsoleInput`, and `ConsoleOutput` objects instead. If you need to
-dispatch other shells, see the section on 'Invoking other shells from your
-shell'.
+- `Shell` no longer has an `AppModel` instance. This `AppModel` instance
+  was not correctly built and was problematic.
+- `Shell::_loadDbConfig()` has been removed. It was not generic enough to
+  stay in Shell. You can use the `DbConfigTask` if you need to ask the user
+  to create a db config.
+- Shells no longer use `$this->Dispatcher` to access stdin, stdout, and
+  stderr. They have `ConsoleOutput` and `ConsoleInput` objects to handle
+  that now.
+- Shells lazy load tasks, and use `TaskCollection` to provide an interface
+  similar to that used for Helpers, Components, and Behaviors for on the fly
+  loading of tasks.
+- `Shell::$shell` has been removed.
+- `Shell::_checkArgs()` has been removed. Configure a `ConsoleOptionParser`
+- Shells no longer have direct access to `ShellDispatcher`. You should use
+  the `ConsoleInput`, and `ConsoleOutput` objects instead. If you need to
+  dispatch other shells, see the section on 'Invoking other shells from your
+  shell'.
 
 ### Backwards incompatible ShellDispatcher API changes
 
--  `ShellDispatcher` no longer has stdout, stdin, stderr file handles.
--  `ShellDispatcher::$shell` has been removed.
--  `ShellDispatcher::$shellClass` has been removed.
--  `ShellDispatcher::$shellName` has been removed.
--  `ShellDispatcher::$shellCommand` has been removed.
--  `ShellDispatcher::$shellPaths` has been removed, use
-`App::path('shells');` instead.
--  `ShellDispatcher` no longer uses 'help' as a magic method that has special
-status. Instead use the `--help/-h` options, and an option parser.
+- `ShellDispatcher` no longer has stdout, stdin, stderr file handles.
+- `ShellDispatcher::$shell` has been removed.
+- `ShellDispatcher::$shellClass` has been removed.
+- `ShellDispatcher::$shellName` has been removed.
+- `ShellDispatcher::$shellCommand` has been removed.
+- `ShellDispatcher::$shellPaths` has been removed, use
+  `App::path('shells');` instead.
+- `ShellDispatcher` no longer uses 'help' as a magic method that has special
+  status. Instead use the `--help/-h` options, and an option parser.
 
 ### Backwards incompatible Shell Changes
 
--  Bake's ControllerTask no longer takes `public` and `admin` as passed
-arguments. They are now options, indicated like `--admin` and `--public`.
+- Bake's ControllerTask no longer takes `public` and `admin` as passed
+  arguments. They are now options, indicated like `--admin` and `--public`.
 
 It's recommended that you use the help on shells you use to see what if any
 parameters have changed. It's also recommended that you read the console new
@@ -1281,9 +1225,9 @@ When defining database connections you will need to make some changes to the way
 configs were defined in the past. Basically in the database configuration class,
 the key "driver" is not accepted anymore, only "datasource", in order to make it
 more consistent. Also, as the datasources have been moved to packages you will
-need to pass the package they are located in. Example
+need to pass the package they are located in. Example:
 
-```php
+``` php
 public $default = array(
     'datasource' => 'Database/Mysql',
     'persistent' => false,
@@ -1292,5 +1236,4 @@ public $default = array(
     'password' => 'root',
     'database' => 'cake',
 );
-
 ```

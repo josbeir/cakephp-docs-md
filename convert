@@ -1,0 +1,209 @@
+#!/bin/bash
+
+# CakePHP Documentation RST to Markdown Converter
+# Usage: ./convert <input_dir> <output_dir>
+
+set -e
+
+# Check if pandoc is installed
+if ! command -v pandoc &> /dev/null; then
+    echo "Error: pandoc is required but not installed."
+    echo "Please install pandoc 3.x or later."
+    exit 1
+fi
+
+# Check arguments
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <input_dir> <output_dir>"
+    echo "Example: $0 legacy/en docs/en"
+    exit 1
+fi
+
+INPUT_DIR="$1"
+OUTPUT_DIR="$2"
+
+# Validate input directory
+if [ ! -d "$INPUT_DIR" ]; then
+    echo "Error: Input directory '$INPUT_DIR' does not exist."
+    exit 1
+fi
+
+# Create output directory if it doesn't exist
+mkdir -p "$OUTPUT_DIR"
+
+# Get the absolute path of the script directory for filters
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FILTERS_DIR="$SCRIPT_DIR/pandoc_filters"
+
+# Create filters directory if it doesn't exist
+mkdir -p "$FILTERS_DIR"
+
+# Set environment variables for substitutions
+export PHPVERSION="8.4"
+export MINPHPVERSION="8.1"
+
+echo "Converting RST documentation from $INPUT_DIR to $OUTPUT_DIR..."
+echo "Using filters from: $FILTERS_DIR"
+
+# Find all .rst files and convert them
+find "$INPUT_DIR" -name "*.rst" -type f | while read -r rst_file; do
+    # Get relative path from input directory
+    rel_path="${rst_file#$INPUT_DIR/}"
+    
+    # Create output path with .md extension
+    md_file="$OUTPUT_DIR/${rel_path%.rst}.md"
+    
+    # Create output directory structure
+    mkdir -p "$(dirname "$md_file")"
+    
+    echo "Converting: $rel_path"
+    
+    # Create a temporary file with substitutions and include path fixes applied
+    temp_file=$(mktemp)
+    
+    # Pre-process the RST file to handle substitutions, PHP directives, and fix include paths
+    sed -e "s/|phpversion|/${PHPVERSION:-8.4}/g" \
+        -e "s/|minphpversion|/${MINPHPVERSION:-8.1}/g" \
+        "$rst_file" | \
+    python3 -c "
+import re
+import sys
+
+def fix_include_paths(content):
+    lines = content.split('\n')
+    result_lines = []
+    
+    for line in lines:
+        # Check if this is an include directive with absolute path
+        include_match = re.match(r'^(\s*\.\. include::\s*)(/.*)', line)
+        if include_match:
+            indent = include_match.group(1)
+            absolute_path = include_match.group(2)
+            # Convert absolute path to relative path (remove leading slash)
+            relative_path = absolute_path[1:]
+            line = indent + relative_path
+            
+        result_lines.append(line)
+    
+    return '\n'.join(result_lines)
+
+# Read from stdin
+content = sys.stdin.read()
+# Fix include paths
+fixed_content = fix_include_paths(content)
+# Output the result
+sys.stdout.write(fixed_content)
+" | \
+    awk '
+    BEGIN { namespace = ""; class = "" }
+    
+    # Capture namespace
+    /^.. php:namespace::/ {
+        namespace = $3
+        next
+    }
+    
+    # Capture class and format it
+    /^.. php:class::/ {
+        class = $3
+        if (namespace != "") {
+            print ""
+            print ".. raw:: html"
+            print ""
+            print "   <code>class " namespace "\\<strong>" class "</strong></code>"
+            print ""
+        } else {
+            print ""
+            print ".. raw:: html"
+            print ""
+            print "   <code>class <strong>" class "</strong></code>"
+            print ""
+        }
+        next
+    }
+    
+    # Handle method directives
+    /^.. php:method::/ {
+        # Get everything after ".. php:method:: "
+        method_line = $0
+        gsub(/^.. php:method:: /, "", method_line)
+        
+        # Parse method name and parameters
+        if (match(method_line, /^([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*)\)\s*$/, arr)) {
+            method_name = arr[1]
+            params = arr[2]
+        } else if (match(method_line, /^([a-zA-Z_][a-zA-Z0-9_]*)\s*$/, arr)) {
+            method_name = arr[1]
+            params = ""
+        } else {
+            # Fallback - treat the whole thing as method name
+            method_name = method_line
+            params = ""
+        }
+        
+        # Build full class name
+        if (namespace != "" && class != "") {
+            full_class = namespace "\\" class
+        } else if (class != "") {
+            full_class = class
+        } else {
+            full_class = "Class"
+        }
+        
+        # Format method using raw HTML
+        print ""
+        print ".. raw:: html"
+        print ""
+        if (params != "") {
+            print "   <code>method " full_class "::<strong>" method_name "</strong>(" params ")</code>"
+        } else {
+            print "   <code>method " full_class "::<strong>" method_name "</strong>()</code>"
+        }
+        print ""
+        next
+    }
+    
+    # Remove other PHP directives we do not handle
+    /^.. php:/ { next }
+    
+    # Print all other lines
+    { print }
+    ' > "$temp_file"
+    
+    # Get the directory of the input file for include resolution
+    rst_dir=$(dirname "$rst_file")
+    
+    # Copy temp file to the RST directory for include resolution
+    temp_in_rst_dir="$rst_dir/$(basename "$temp_file").rst"
+    cp "$temp_file" "$temp_in_rst_dir"
+    
+    # Get absolute path for output
+    md_file_abs="$(cd "$(dirname "$md_file")" && pwd)/$(basename "$md_file")"
+    
+    # Change to RST directory and run pandoc for proper include resolution
+    (cd "$rst_dir" && \
+    pandoc \
+        --from=rst \
+        --to=gfm \
+        --wrap=preserve \
+        --lua-filter="$FILTERS_DIR/meta.lua" \
+        --lua-filter="$FILTERS_DIR/php_domain.lua" \
+        --lua-filter="$FILTERS_DIR/containers.lua" \
+        --lua-filter="$FILTERS_DIR/links.lua" \
+        --lua-filter="$FILTERS_DIR/language.lua" \
+        --lua-filter="$FILTERS_DIR/images.lua" \
+        --lua-filter="$FILTERS_DIR/toctree.lua" \
+        --lua-filter="$FILTERS_DIR/codeblocks.lua" \
+        --lua-filter="$FILTERS_DIR/postprocess.lua" \
+        --output="$md_file_abs" \
+        "$(basename "$temp_in_rst_dir")")
+    
+    # Clean up temp file in RST directory
+    rm -f "$temp_in_rst_dir"
+    
+    # Clean up temp file
+    rm "$temp_file"
+done
+
+echo "Conversion completed!"
+echo "Converted files are in: $OUTPUT_DIR"

@@ -4,6 +4,7 @@ CakePHP 3.4 is an API compatible upgrade from 3.3. This page outlines the
 changes and improvements made in 3.4.
 
 ## Minimum PHP 5.6 Required
+
 CakePHP 3.4 requires at least PHP 5.6.0 as PHP 5.5 is no longer supported and
 won't receive any security fixes anymore.
 
@@ -78,7 +79,7 @@ deprecated and immutable variants are now recommended:
 - `Response::file()` would become `Response::withFile()`
 - `Response::download()` would become `Response::withDownload()`
 
-Please see the [adopting-immutable-responses](3-4-migration-guide.md#adopting-immutable-responses) section for more information
+Please see the [adopting-immutable-responses](#adopting-immutable-responses) section for more information
 before updating your code as using responses through the immutable methods will
 require additional changes.
 
@@ -105,7 +106,7 @@ require additional changes.
 - `Cake\Database\Schema\Table` has been renamed to
   `Cake\Database\Schema\TableSchema`. The previous name was confusing to a number
   of users.
-- The `fieldList` option for  `Cake\ORM\Table::newEntity()` and
+- The `fieldList` option for `Cake\ORM\Table::newEntity()` and
   `patchEntity()` has been renamed to `fields` to be more consistent with
   other parts of the ORM.
 - `Router::parse()` is deprecated. `Router::parseRequest()` should be used
@@ -130,45 +131,58 @@ methods are being split into separate get and set methods.
 The following is a list of methods that are deprecated and replaced with
 `getX()` and `setX()` methods:
 
-`Cake\Core\InstanceConfigTrait`
+`Cake\Core\InstanceConfigTrait`  
 - `config()`
-`Cake\Core\StaticConfigTrait`
+
+`Cake\Core\StaticConfigTrait`  
 - `config()`
 - `dsnClassMap()`
-`Cake\Console\ConsoleOptionParser`
+
+`Cake\Console\ConsoleOptionParser`  
 - `command()`
 - `description()`
 - `epilog()`
-`Cake\Database\Connection`
+
+`Cake\Database\Connection`  
 - `driver()`
 - `schemaCollection()`
 - `useSavePoints()` (now `enableSavePoints()`/`isSavePointsEnabled()`)
-`Cake\Database\Driver`
+
+`Cake\Database\Driver`  
 - `autoQuoting` (now `enableAutoQuoting()`/`isAutoQuotingEnabled()`)
-`Cake\Database\Expression\FunctionExpression`
+
+`Cake\Database\Expression\FunctionExpression`  
 - `name()`
-`Cake\Database\Expression\QueryExpression`
+
+`Cake\Database\Expression\QueryExpression`  
 - `tieWith()` (now `setConjunction()`/`getConjunction()`)
-`Cake\Database\Expression\ValuesExpression`
+
+`Cake\Database\Expression\ValuesExpression`  
 - `columns()`
 - `values()`
 - `query()`
-`Cake\Database\Query`
+
+`Cake\Database\Query`  
 - `connection()`
 - `selectTypeMap()`
 - `bufferResults()` (now `enableBufferedResults()`/`isBufferedResultsEnabled()`)
-`Cake\Database\Schema\CachedCollection`
+
+`Cake\Database\Schema\CachedCollection`  
 - `cacheMetadata()`
-`Cake\Database\Schema\TableSchema`
+
+`Cake\Database\Schema\TableSchema`  
 - `options()`
 - `temporary()` (now `setTemporary()`/`isTemporary()`)
-`Cake\Database\TypeMap`
+
+`Cake\Database\TypeMap`  
 - `defaults()`
 - `types()`
-`Cake\Database\TypeMapTrait`
+
+`Cake\Database\TypeMapTrait`  
 - `typeMap()`
 - `defaultTypes()`
-`Cake\ORM\Association`
+
+`Cake\ORM\Association`  
 - `name()`
 - `cascadeCallbacks()`
 - `source()`
@@ -181,30 +195,38 @@ The following is a list of methods that are deprecated and replaced with
 - `property()`
 - `strategy()`
 - `finder()`
-`Cake\ORM\Association\BelongsToMany`
+
+`Cake\ORM\Association\BelongsToMany`  
 - `targetForeignKey()`
 - `saveStrategy()`
 - `conditions()`
-`Cake\ORM\Association\HasMany`
+
+`Cake\ORM\Association\HasMany`  
 - `saveStrategy()`
 - `foreignKey()`
 - `sort()`
-`Cake\ORM\Association\HasOne`
+
+`Cake\ORM\Association\HasOne`  
 - `foreignKey()`
-`Cake\ORM\EagerLoadable`
+
+`Cake\ORM\EagerLoadable`  
 - `config()`
 - setter part of `canBeJoined()` (now `setCanBeJoined()`)
-`Cake\ORM\EagerLoader`
+
+`Cake\ORM\EagerLoader`  
 - `matching()` (`getMatching()` will have to be called after `setMatching()`
-to keep the old behavior)
+  to keep the old behavior)
 - `autoFields()` (now `enableAutoFields()`/`isAutoFieldsEnabled()`)
-`Cake\ORM\Locator\TableLocator`
+
+`Cake\ORM\Locator\TableLocator`  
 - `config()`
-`Cake\ORM\Query`
+
+`Cake\ORM\Query`  
 - `eagerLoader()`
 - `hydrate()` (now `enableHydration()`/`isHydrationEnabled()`)
 - `autoFields()` (now `enableAutoFields()`/`isAutoFieldsEnabled()`)
-`Cake\ORM\Table`
+
+`Cake\ORM\Table`  
 - `table()`
 - `alias()`
 - `registryAlias()`
@@ -213,7 +235,8 @@ to keep the old behavior)
 - `primaryKey()`
 - `displayField()`
 - `entityClass()`
-`Cake\Mailer\Email`
+
+`Cake\Mailer\Email`  
 - `from()`
 - `sender()`
 - `replyTo()`
@@ -238,11 +261,14 @@ to keep the old behavior)
 - `attachments()`
 - `configTransport()`
 - `profile()`
-`Cake\Validation\Validator`
+
+`Cake\Validation\Validator`  
 - `provider()`
-`Cake\View\StringTemplateTrait`
+
+`Cake\View\StringTemplateTrait`  
 - `templates()`
-`Cake\View\ViewBuilder`
+
+`Cake\View\ViewBuilder`  
 - `templatePath()`
 - `layoutPath()`
 - `plugin()`
@@ -254,7 +280,7 @@ to keep the old behavior)
 - `name()`
 - `className()`
 - `autoLayout()` (now `enableAutoLayout()`/`isAutoLayoutEnabled()`)
-<!-- anchor: adopting-immutable-responses -->
+
 ## Adopting Immutable Responses
 
 Before you migrate your code to use the new response methods you should be aware
@@ -262,65 +288,60 @@ of the conceptual differences the new methods have. The immutable methods are
 generally indicated using a `with` prefix. For example, `withLocation()`.
 Because these methods operate in an immutable context, they return *new*
 instances which you need to assign to variables or properties. If you had
-controller code that looked like
+controller code that looked like:
 
-```php
+``` php
 $response = $this->response;
 $response->location('/login')
 $response->header('X-something', 'a value');
-
 ```
 
 If you were to simply find & replace method names your code would break. Instead
-you must now use code that looks like
+you must now use code that looks like:
 
-```php
+``` php
 $this->response = $this->response
     ->withLocation('/login')
     ->withHeader('X-something', 'a value');
-
 ```
 
 There are a few key differences:
 
-#. The result of your changes is re-assigned to `$this->response`. This is
-critical to preserving the intent of the above code.
-#. The setter methods can all be chained together. This allows you to skip
-storing all the intermediate objects.
+1.  The result of your changes is re-assigned to `$this->response`. This is
+    critical to preserving the intent of the above code.
+2.  The setter methods can all be chained together. This allows you to skip
+    storing all the intermediate objects.
 
 ### Component Migration Tips
 
 In previous versions of CakePHP, Components often held onto references to both
 the request and response, in order to make changes later. Before you adopt the
-immutable methods you should use the response attached to the Controller
+immutable methods you should use the response attached to the Controller:
 
-```php
+``` php
 // In a component method (not a callback)
 $this->response->header('X-Rate-Limit', $this->remaining);
 
 // Should become
 $controller = $this->getController();
 $controller->response = $controller->response->withHeader('X-Rate-Limit', $this->remaining);
-
 ```
 
 In component callbacks you can use the event object to access the
-response/controller
+response/controller:
 
-```php
+``` php
 public function beforeRender($event)
 {
     $controller = $event->getSubject();
     $controller->response = $controller->response->withHeader('X-Teapot', 1);
 }
-
 ```
 
 > [!TIP]
 > Instead of holding onto references of Responses, always get the current
 > response from the controller, and re-assign the response property when you
 > are done.
->
 
 ## Behavior Changes
 
@@ -350,7 +371,6 @@ behavior that may affect your application:
   If you are passing associative arrays, you
   should update your code to pass a numerically indexed array using
   `array_values()` for the following methods:
-
   - `Cake\Mailer\Mailer::send()`
   - `Cake\Controller\Controller::setAction()`
   - `Cake\Http\ServerRequest::is()`
@@ -363,17 +383,14 @@ behavior that may affect your application:
 If the above traits are used in controllers, their public methods could be
 accessed by default routing as actions. These changes help protect your
 controllers. If you need the methods to remain public you will need to update
-your `use` statement to look like
+your `use` statement to look like:
 
-```css
-use CellTrait {
-    cell as public;
-}
-use MailerAwareTrait {
-    getMailer as public;
-}
-
-```
+    use CellTrait {
+        cell as public;
+    }
+    use MailerAwareTrait {
+        getMailer as public;
+    }
 
 ## Collection
 
@@ -399,7 +416,7 @@ use MailerAwareTrait {
 ## I18n
 
 - You can now customize the behavior of the fallback message loader. See
-  [creating-generic-translators](../core-libraries/internationalization-and-localization.md#creating-generic-translators) for more information.
+  [creating-generic-translators](#creating-generic-translators) for more information.
 
 ## Routing
 
@@ -413,9 +430,9 @@ use MailerAwareTrait {
 
 ## HtmlHelper
 
-- `HtmlHelper::scriptBlock()` no longer wraps the JavaScript code in `\<![CDATA[ ]]`
+- `HtmlHelper::scriptBlock()` no longer wraps the JavaScript code in `<![CDATA[ ]]`
   tag by default. The `safe` option which controls this behavior now defaults
-  to `false`. Using `\<![CDATA[ ]]` tag was only required for XHTML which is
+  to `false`. Using `<![CDATA[ ]]` tag was only required for XHTML which is
   no longer the dominant doctype used for HTML pages.
 
 ## BreadcrumbsHelper
@@ -436,7 +453,7 @@ use MailerAwareTrait {
 ## FormHelper
 
 - You can now configure the sources which FormHelper reads from. This makes
-  creating GET forms simpler. See [form-values-from-query-string](../views/helpers/form.md#form-values-from-query-string) for more
+  creating GET forms simpler. See [form-values-from-query-string](#form-values-from-query-string) for more
   information.
 - `FormHelper::control()` was added.
 - `FormHelper::controls()` was added.

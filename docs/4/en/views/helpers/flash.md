@@ -1,40 +1,36 @@
 # Flash
 
-**Namespace:** `Cake\View\Helper`
-
-### Class `Cake\View\Helper\FlashHelper(View $view, array $config = [])`
+`class` Cake\\View\\Helper\\**FlashHelper(View**
 
 FlashHelper provides a way to render flash messages that were set in
-`$_SESSION` by [FlashComponent](../../controllers/components/flash.md).
-[FlashComponent](../../controllers/components/flash.md) and FlashHelper
-primarily use elements to render flash messages.  Flash elements are found under
-the **templates/element/flash** directory.  You'll notice that CakePHP's App
+`$_SESSION` by [FlashComponent](controllers/components/flash.md).
+[FlashComponent](controllers/components/flash.md) and FlashHelper
+primarily use elements to render flash messages. Flash elements are found under
+the **templates/element/flash** directory. You'll notice that CakePHP's App
 template comes with three flash elements: **success.php**, **default.php**, and
 **error.php**.
 
 ## Rendering Flash Messages
 
 To render a flash message, you can simply use FlashHelper's `render()`
-method in your template file
+method in your template file:
 
-```php
+``` php
 <?= $this->Flash->render() ?>
-
 ```
 
-By default, CakePHP uses a "flash" key for flash messages in a session.  But, if
+By default, CakePHP uses a "flash" key for flash messages in a session. But, if
 you've specified a key when setting the flash message in
-[FlashComponent](../../controllers/components/flash.md), you can specify which
-flash key to render
+[FlashComponent](controllers/components/flash.md), you can specify which
+flash key to render:
 
-```php
+``` php
 <?= $this->Flash->render('other') ?>
-
 ```
 
-You can also override any of the options that were set in FlashComponent::
+You can also override any of the options that were set in FlashComponent:
 
-```php
+``` php
 // In your Controller
 $this->Flash->set('The user has been saved.', [
     'element' => 'success'
@@ -49,16 +45,14 @@ $this->Flash->set('The user has been saved.', [
 <?= $this->Flash->render('flash', [
     'element' => 'Company.flashy'
 ]);
-
 ```
 
 > [!NOTE]
 > When building custom flash message templates, be sure to properly HTML
 > encode any user data. CakePHP won't escape flash message parameters for you.
->
 
 For more information about the available array options, please refer to the
-[FlashComponent](../../controllers/components/flash.md) section.
+[FlashComponent](controllers/components/flash.md) section.
 
 ## Routing Prefix and Flash Messages
 

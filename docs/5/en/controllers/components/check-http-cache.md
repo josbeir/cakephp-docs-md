@@ -1,14 +1,14 @@
-## Checking HTTP Cache
+# Checking HTTP Cache
 
-### Class `CheckHttpCacheComponent(ComponentCollection $collection, array $config = [])`
+`class` **CheckHttpCacheComponent(ComponentCollection**
 
 The HTTP cache validation model is one of the processes used for cache gateways,
 also known as reverse proxies, to determine if they can serve a stored copy of
 a response to the client. Under this model, you mostly save bandwidth, but when
 used correctly you can also save some CPU processing, reducing response
-times
+times:
 
-```php
+``` php
 // in a Controller
 public function initialize(): void
 {
@@ -16,7 +16,6 @@ public function initialize(): void
 
     $this->addComponent('CheckHttpCache');
 }
-
 ```
 
 Enabling the `CheckHttpCacheComponent` in your controller automatically
@@ -31,5 +30,4 @@ it. The following request headers are used:
 
 If response headers match the request header criteria, then view rendering is
 skipped. This saves your application generating a view, saving bandwidth and
-time. When response headers match, an empty response is returned with a  `304
-Not Modified` status code.
+time. When response headers match, an empty response is returned with a `304 Not Modified` status code.

@@ -1,8 +1,3 @@
----
-title: CakePHP Conventions
-keywords: "web development experience,maintenance nightmare,index method,legacy systems,method names,php class,uniform system,config files,tenets,articles,conventions,conventional controller,best practices,maps,visibility,news articles,functionality,logic,cakephp,developers"
----
-
 # CakePHP Conventions
 
 We are big fans of convention over configuration. While it takes a bit of time
@@ -18,13 +13,13 @@ Controller class names are plural, CamelCased, and end in `Controller`.
 conventional controller names.
 
 Public methods on Controllers are often exposed as 'actions' accessible through
-a web browser. They are camelBacked. For example the `/users/view-me` maps to the `viewMe()` method
+a web browser. They are camelBacked. For example the [Users / view me](users/view-me.md) maps to the `viewMe()` method
 of the `UsersController` out of the box (if one uses default dashed inflection in routing).
 Protected or private methods cannot be accessed with routing.
 
 For inflection of acronyms it is useful to treat them as words, so `CMS` would be `Cms`.
 
-#### URL Considerations for Controller Names
+### URL Considerations for Controller Names
 
 As you've just seen, single word controllers map to a simple lower case URL
 path. For example, `UsersController` (which would be defined in the file name
@@ -32,48 +27,47 @@ path. For example, `UsersController` (which would be defined in the file name
 
 While you can route multiple word controllers in any way you like, the
 convention is that your URLs are lowercase and dashed using the `DashedRoute`
-class, therefore `/menu-links/view-all` is the correct form to access
+class, therefore [Menu links / view all](menu-links/view-all.md) is the correct form to access
 the `MenuLinksController::viewAll()` action.
 
 When you create links using `this->Html->link()`, you can use the following
-conventions for the url array
+conventions for the url array:
 
-```php
+``` php
 $this->Html->link('link-title', [
     'prefix' => 'MyPrefix' // CamelCased
     'plugin' => 'MyPlugin', // CamelCased
     'controller' => 'ControllerName', // CamelCased
     'action' => 'actionName' // camelBacked
 ]
-
 ```
 
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](../development/routing.md#routes-configuration).
-<!-- anchor: file-and-classname-conventions -->
+[routes-configuration](#routes-configuration).
+
 ## File and Class Name Conventions
 
 In general, filenames match the class names, and follow the PSR-4 standard for
 autoloading. The following are some examples of class names and their filenames:
 
--  The Controller class `LatestArticlesController` would be found in a file
-named **LatestArticlesController.php**
--  The Component class `MyHandyComponent` would be found in a file named
-   **MyHandyComponent.php**
--  The Table class `OptionValuesTable` would be found in a file named
-   **OptionValuesTable.php**.
--  The Entity class `OptionValue` would be found in a file named
-   **OptionValue.php**.
--  The Behavior class `EspeciallyFunkableBehavior` would be found in a file
-named **EspeciallyFunkableBehavior.php**
--  The View class `SuperSimpleView` would be found in a file named
-   **SuperSimpleView.php**
--  The Helper class `BestEverHelper` would be found in a file named
-   **BestEverHelper.php**
+- The Controller class `LatestArticlesController` would be found in a file
+  named **LatestArticlesController.php**
+- The Component class `MyHandyComponent` would be found in a file named
+  **MyHandyComponent.php**
+- The Table class `OptionValuesTable` would be found in a file named
+  **OptionValuesTable.php**.
+- The Entity class `OptionValue` would be found in a file named
+  **OptionValue.php**.
+- The Behavior class `EspeciallyFunkableBehavior` would be found in a file
+  named **EspeciallyFunkableBehavior.php**
+- The View class `SuperSimpleView` would be found in a file named
+  **SuperSimpleView.php**
+- The Helper class `BestEverHelper` would be found in a file named
+  **BestEverHelper.php**
 
 Each file would be located in the appropriate folder/namespace in your app
 folder.
-<!-- anchor: model-and-database-conventions -->
+
 ## Database Conventions
 
 Table names corresponding to CakePHP models are plural and underscored. For
@@ -129,11 +123,10 @@ The basic pattern is
 > [!NOTE]
 > By default CakePHP uses English inflections. If you have database
 > tables/columns that use another language, you will need to add inflection
-> rules (from singular to plural and vice-versa).  You can use
+> rules (from singular to plural and vice-versa). You can use
 > `Cake\Utility\Inflector` to define your custom inflection
-> rules. See the documentation about [/core-libraries/inflector` for more
+> rules. See the documentation about [/core-libraries/inflector](core-libraries/inflector.md) for more
 > information.
->
 
 ## Plugins Conventions
 
@@ -141,17 +134,14 @@ It is useful to prefix a CakePHP plugin with "cakephp-" in the package name.
 This makes the name semantically related on the framework it depends on.
 
 Do **not** use the CakePHP namespace (cakephp) as vendor name as this is
-reserved to CakePHP owned plugins.  The convention is to use lowercase letters
-and dashes as separator
+reserved to CakePHP owned plugins. The convention is to use lowercase letters
+and dashes as separator:
 
-```
-// Bad
-cakephp/foo-bar
+    // Bad
+    cakephp/foo-bar
 
-// Good
-your-name/cakephp-foo-bar
-
-```
+    // Good
+    your-name/cakephp-foo-bar
 
 See [awesome list recommendations](https://github.com/FriendsOfCake/awesome-cakephp/blob/master/CONTRIBUTING.md#tips-for-creating-cakephp-plugins)
 for details.
@@ -162,12 +152,12 @@ By naming the pieces of your application using CakePHP conventions, you gain
 functionality without the hassle and maintenance tethers of configuration.
 Here's a final example that ties the conventions together:
 
--  Database table: "articles", "menu_links"
--  Table class: `ArticlesTable`, found at **src/Model/Table/ArticlesTable.php**
--  Entity class: `Article`, found at **src/Model/Entity/Article.php**
--  Controller class: `ArticlesController`, found at
-   **src/Controller/ArticlesController.php**
--  View template, found at **templates/Articles/index.php**
+- Database table: "articles", "menu_links"
+- Table class: `ArticlesTable`, found at **src/Model/Table/ArticlesTable.php**
+- Entity class: `Article`, found at **src/Model/Entity/Article.php**
+- Controller class: `ArticlesController`, found at
+  **src/Controller/ArticlesController.php**
+- View template, found at **templates/Articles/index.php**
 
 Using these conventions, CakePHP knows that a request to
 `http://example.com/articles` maps to a call on the `index()` method of the
@@ -176,31 +166,82 @@ None of these relationships have been configured by any means other than by
 creating classes and files that you'd need to create anyway.
 
 |  |  |  |  |
-| --- | --- | --- | --- |
+|----|----|----|----|
 | Example | articles | menu_links |  |
-| Database Table | articles | menu_links | Table names corresponding to CakePHP models are plural and underscored. |
+| Database
+Table | articles | menu_links | Table names corresponding to CakePHP
+models are plural and underscored. |
 | File | ArticlesController.php | MenuLinksController.php |  |
-| Table | ArticlesTable.php | MenuLinksTable.php | Table class names are plural, CamelCased and end in Table |
-| Entity | Article.php | MenuLink.php | Entity class names are singular, CamelCased: Article and MenuLink |
+| Table | ArticlesTable.php | MenuLinksTable.php | Table class names are plural,
+CamelCased and end in Table |
+| Entity | Article.php | MenuLink.php | Entity class names are singular,
+CamelCased: Article and MenuLink |
 | Class | ArticlesController | MenuLinksController |  |
 | Controller | ArticlesController | MenuLinksController | Plural, CamelCased, end in Controller |
-| Templates | Articles/index.php Articles/add.php Articles/get_list.php | MenuLinks/index.php MenuLinks/add.php MenuLinks/get_list.php | View template files are named after the controller functions they display, in an underscored form |
+| Templates | Articles/index.php
+Articles/add.php
+Articles/get_list.php | MenuLinks/index.php
+MenuLinks/add.php
+MenuLinks/get_list.php | View template files are named after
+the controller functions they
+display, in an underscored form |
 | Behavior | ArticlesBehavior.php | MenuLinksBehavior.php |  |
 | View | ArticlesView.php | MenuLinksView.php |  |
 | Helper | ArticlesHelper.php | MenuLinksHelper.php |  |
 | Component | ArticlesComponent.php | MenuLinksComponent.php |  |
-| Plugin | Bad: cakephp/articles Good: you/cakephp-articles | cakephp/menu-links you/cakephp-menu-links | Useful to prefix a CakePHP plugin with "cakephp-" in the package name. Do not use the CakePHP namespace (cakephp) as vendor name as this is reserved to CakePHP owned plugins. The convention is to use lowercase letters and dashes as separator. |
-| Each file would be located in the appropriate folder/namespace in your app folder. |
+| Plugin | Bad: cakephp/articles
+Good: you/cakephp-articles | cakephp/menu-links
+you/cakephp-menu-links | Useful to prefix a CakePHP plugin with "cakephp-"
+in the package name. Do not use the CakePHP
+namespace (cakephp) as vendor name as this is
+reserved to CakePHP owned plugins. The convention
+is to use lowercase letters and dashes as separator. |
+| Each file would be located in the appropriate folder/namespace in your app folder. |  |  |  |
 
 ## Database Convention Summary
-|  |  |
-| --- | --- |
-| Foreign keys hasMany belongsTo/ hasOne BelongsToMany | Relationships are recognized by default as the (singular) name of the related table followed by `_id`. Users hasMany Articles, `articles` table will refer to the `users` table via a `user_id` foreign key. |
-| Multiple Words | `menu_links` whose name contains multiple words, the foreign key would be `menu_link_id`. |
-| Auto Increment | In addition to using an auto-incrementing integer as primary keys, you can also use UUID columns. CakePHP will create UUID values automatically using (`Cake\Utility\Text::uuid()`) whenever you save new records using the `Table::save()` method. |
-| Join tables | Should be named after the model tables they will join or the bake command won't work, arranged in alphabetical order (`articles_tags` rather than `tags_articles`). Additional columns on the junction table you should create a separate entity/table class for that table. |
+
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Foreign keys</p>
+<p>hasMany
+belongsTo/
+hasOne
+BelongsToMany</p></td>
+<td>Relationships are recognized by default as the
+(singular) name of the related table followed by <code>_id</code>.
+Users hasMany Articles, <code>articles</code> table will refer
+to the <code>users</code> table via a <code>user_id</code> foreign key.</td>
+</tr>
+<tr class="even">
+<td>Multiple Words</td>
+<td><code>menu_links</code> whose name contains multiple words,
+the foreign key would be <code>menu_link_id</code>.</td>
+</tr>
+<tr class="odd">
+<td>Auto Increment</td>
+<td>In addition to using an auto-incrementing integer as
+primary keys, you can also use UUID columns.
+CakePHP will create UUID values automatically
+using (<code>Cake\Utility\Text::uuid()</code>)
+whenever you save new records using the
+<code>Table::save()</code> method.</td>
+</tr>
+<tr class="even">
+<td>Join tables</td>
+<td>Should be named after the model tables they will join
+or the bake command won't work, arranged in alphabetical
+order (<code>articles_tags</code> rather than <code>tags_articles</code>).
+Additional columns on the junction table you should create
+a separate entity/table class for that table.</td>
+</tr>
+</tbody>
+</table>
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [installation](../tutorials-and-examples/cms/installation.md) to see how things fit
+through the [/tutorials-and-examples/cms/installation](tutorials-and-examples/cms/installation.md) to see how things fit
 together.
-

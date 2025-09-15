@@ -1,6 +1,6 @@
 # 2.6 Migration Guide
 
-CakePHP 2.6 is a fully API compatible upgrade from 2.5.  This page outlines
+CakePHP 2.6 is a fully API compatible upgrade from 2.5. This page outlines
 the changes and improvements made in 2.6.
 
 ## Basics.php
@@ -68,7 +68,7 @@ the changes and improvements made in 2.6.
 
 ### CakeRequest
 
-- `CakeRequest::param()` can now read values using [hash-path-syntax](../core-utility-libraries/hash.md#hash-path-syntax)
+- `CakeRequest::param()` can now read values using [hash-path-syntax](#hash-path-syntax)
   like `data()`.
 - `CakeRequest:setInput()` was added.
 

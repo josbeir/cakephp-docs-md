@@ -1,8 +1,3 @@
----
-title: Pagination
-keywords: "paginate,pagination,paging"
----
-
 # Pagination
 
 One of the main obstacles of creating flexible and user-friendly web
@@ -17,14 +12,14 @@ CakePHP eases the burden on the developer by providing a terse way to
 paginate data.
 
 Pagination in CakePHP controllers is done through the `paginate()` method. You
-then use `Cake\View\Helper\PaginatorHelper` in your view templates
+then use `~Cake\View\Helper\PaginatorHelper` in your view templates
 to generate pagination controls.
 
 ## Basic Usage
 
-You can call `paginate()` using an ORM table instance or `Query` object
+You can call `paginate()` using an ORM table instance or `Query` object:
 
-```php
+``` php
 public function index()
 {
     // Paginate the ORM table.
@@ -34,7 +29,6 @@ public function index()
     $query = $this->Articles->find('published');
     $this->set('articles', $this->paginate($query));
 }
-
 ```
 
 ## Advanced Usage
@@ -43,9 +37,9 @@ More complex use cases are supported by configuring the `$paginate`
 controller property or as the `$settings` argument to `paginate()`. These
 conditions serve as the basis for you pagination queries. They are augmented
 by the `sort`, `direction`, `limit`, and `page` parameters passed in
-from the URL
+from the URL:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     public $paginate = [
@@ -55,33 +49,30 @@ class ArticlesController extends AppController
         ]
     ];
 }
-
 ```
 
 > [!TIP]
 > Default `order` options must be defined as an array.
->
 
 While you can include any of the options supported by
-`Cake\ORM\Table::find()` such as `fields` in your pagination
+`~Cake\ORM\Table::find()` such as `fields` in your pagination
 settings. It is cleaner and simpler to bundle your pagination options into
-a [custom-find-methods](../orm/retrieving-data-and-resultsets.md#custom-find-methods). You can use your finder in pagination by using the
-`finder` option
+a [custom-find-methods](#custom-find-methods). You can use your finder in pagination by using the
+`finder` option:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     public $paginate = [
         'finder' => 'published',
     ];
 }
-
 ```
 
 If your finder method requires additional options you can pass those
-as values for the finder
+as values for the finder:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     // find articles by tag
@@ -108,14 +99,13 @@ class ArticlesController extends AppController
         $this->set(compact('articles', 'tags'));
     }
 }
-
 ```
 
 In addition to defining general pagination values, you can define more than one
 set of pagination defaults in the controller. The name of each model can be used
-as a key in the `$paginate` property
+as a key in the `$paginate` property:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     public $paginate = [
@@ -123,7 +113,6 @@ class ArticlesController extends AppController
         'Authors' => [],
     ];
 }
-
 ```
 
 The values of the `Articles` and `Authors` keys could contain all the
@@ -139,28 +128,27 @@ By default `Controller::paginate()` uses the `Cake\Datasource\Paging\NumericPagi
 class which does a `COUNT()` query to calculate the size of the result set so
 that page number links can be rendered. On very large datasets this count query
 can be very expensive. In situations where you only want to show 'Next' and 'Previous'
-links you can use the 'simple' paginator which does not do a count query
+links you can use the 'simple' paginator which does not do a count query:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     public $paginate = [
         'className' => 'Simple', // Or use Cake\Datasource\Paging\SimplePaginator::class FQCN
     ];
 }
-
 ```
 
 When using the `SimplePaginator` you will not be able to generate page
 numbers, counter data, links to the last page, or total record count controls.
-<!-- anchor: paginating-multiple-queries -->
+
 ## Paginating Multiple Queries
 
 You can paginate multiple models in a single controller action, using the
 `scope` option both in the controller's `$paginate` property and in the
-call to the `paginate()` method
+call to the `paginate()` method:
 
-```php
+``` php
 // Paginate property
 public $paginate = [
     'Articles' => ['scope' => 'article'],
@@ -171,27 +159,23 @@ public $paginate = [
 $articles = $this->paginate($this->Articles, ['scope' => 'article']);
 $tags = $this->paginate($this->Tags, ['scope' => 'tag']);
 $this->set(compact('articles', 'tags'));
-
 ```
 
 The `scope` option will result in `PaginatorComponent` looking in
 scoped query string parameters. For example, the following URL could be used to
-paginate both tags and articles at the same time
+paginate both tags and articles at the same time:
 
-```
-/dashboard?article[page]=1&tag[page]=3
+    /dashboard?article[page]=1&tag[page]=3
 
-```
-
-See the [paginator-helper-multiple](../views/helpers/paginator.md#paginator-helper-multiple) section for how to generate scoped HTML
+See the [paginator-helper-multiple](#paginator-helper-multiple) section for how to generate scoped HTML
 elements and URLs for pagination.
 
 ### Paginating the Same Model multiple Times
 
 To paginate the same model multiple times within a single controller action you
-need to define an alias for the model.
+need to define an alias for the model.:
 
-```php
+``` php
 // In a controller action
 $this->paginate = [
     'Articles' => [
@@ -230,7 +214,6 @@ $unpublishedArticles = $this->paginate(
 );
 ```
 
-<!-- anchor: control-which-fields-used-for-ordering -->
 ## Control which Fields Used for Ordering
 
 By default sorting can be done on any non-virtual column a table has. This is
@@ -238,15 +221,14 @@ sometimes undesirable as it allows users to sort on un-indexed columns that can
 be expensive to order by. You can set the allowed list of fields that can be sorted
 using the `sortableFields` option. This option is required when you want to
 sort on any associated data, or computed fields that may be part of your
-pagination query
+pagination query:
 
-```php
+``` php
 public $paginate = [
     'sortableFields' => [
         'id', 'title', 'Users.username', 'created'
     ]
 ];
-
 ```
 
 Any requests that attempt to sort on fields not in the allowed list will be
@@ -260,14 +242,13 @@ rows in a paginated set. The `maxLimit` option asserts that no one can set
 this limit too high from the outside. By default CakePHP limits the maximum
 number of rows that can be fetched to 100. If this default is not appropriate
 for your application, you can adjust it as part of the pagination options, for
-example reducing it to `10`
+example reducing it to `10`:
 
-```php
+``` php
 public $paginate = [
     // Other keys here.
     'maxLimit' => 10
 ];
-
 ```
 
 If the request's limit param is greater than this value, it will be reduced to
@@ -276,9 +257,9 @@ the `maxLimit` value.
 ## Joining Additional Associations
 
 Additional associations can be loaded to the paginated table by using the
-`contain` parameter
+`contain` parameter:
 
-```php
+``` php
 public function index()
 {
     $this->paginate = [
@@ -287,7 +268,6 @@ public function index()
 
     $this->set('articles', $this->paginate($this->Articles));
 }
-
 ```
 
 ## Out of Range Page Requests
@@ -297,9 +277,9 @@ access a non-existent page, i.e. page number requested is greater than total
 page count.
 
 So you could either let the normal error page be rendered or use a try catch
-block and take appropriate action when a `NotFoundException` is caught
+block and take appropriate action when a `NotFoundException` is caught:
 
-```php
+``` php
 use Cake\Http\Exception\NotFoundException;
 
 public function index()
@@ -311,10 +291,9 @@ public function index()
         // $this->request->getAttribute('paging') will give you required info.
     }
 }
-
 ```
 
 ## Pagination in the View
 
-Check the `Cake\View\Helper\PaginatorHelper` documentation for
+Check the `~Cake\View\Helper\PaginatorHelper` documentation for
 how to create links for pagination navigation.

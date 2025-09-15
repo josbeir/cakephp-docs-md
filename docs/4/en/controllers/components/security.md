@@ -1,14 +1,14 @@
----
-title: Security
-keywords: "configurable parameters,security component,configuration parameters,invalid request,protection features,tighter security,holing,php class,meth,404 error,period of inactivity,csrf,array,submission,security class,disable security,unlockActions"
----
-
 # Security
-> **deprecated:** 4.0.0
-`SecurityComponent` has been deprecated. Use [/controllers/components/form-protection` instead
-    for form tampering protection or [https-enforcer](../../security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
 
-### Class `SecurityComponent(ComponentCollection $collection, array $config = [])`
+<div class="deprecated">
+
+4.0.0
+`SecurityComponent` has been deprecated. Use [/controllers/components/form-protection](controllers/components/form-protection.md) instead
+for form tampering protection or [/security/https-enforcer](security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
+
+</div>
+
+`class` **SecurityComponent(ComponentCollection**
 
 The Security Component creates a way to integrate tighter
 security in your application. It provides methods for various tasks like:
@@ -36,22 +36,20 @@ components in your `initialize()` method.
 > your forms. In addition, you must **not** override any of the fields' "name"
 > attributes. The Security Component looks for certain indicators that are
 > created and managed by the FormHelper (especially those created in
-> `Cake\View\Helper\FormHelper::create()` and
-> `Cake\View\Helper\FormHelper::end()`).  Dynamically altering
+> `~Cake\View\Helper\FormHelper::create()` and
+> `~Cake\View\Helper\FormHelper::end()`). Dynamically altering
 > the fields that are submitted in a POST request, such as disabling, deleting
 > or creating new fields via JavaScript, is likely to cause the request to be
 > send to the blackhole callback.
 >
 > You should always verify the HTTP method being used before executing to avoid
-> side-effects. You should [check the HTTP method](check-the-request.md) or
-> use](#check the HTTP method](check-the-request.md) or
-> use)Cake\Http\ServerRequest::allowMethod()` to ensure the correct
+> side-effects. You should [check the HTTP method](#check-the-request) or
+> use `Cake\Http\ServerRequest::allowMethod()` to ensure the correct
 > HTTP method is used.
->
 
 ## Handling Blackhole Callbacks
 
-#### Method `blackHole(Controller $controller, string $error = '', ?SecurityException $exception = null)`
+`method` SecurityComponent(ComponentCollection::**blackHole**(Controller $controller, string $error = '', ?SecurityException $exception = null)
 
 If an action is restricted by the Security Component it is
 'black-holed' as an invalid request which will result in a 400 error
@@ -60,9 +58,9 @@ by default. You can configure this behavior by setting the
 in the controller.
 
 By configuring a callback method you can customize how the blackhole process
-works
+works:
 
-```php
+``` php
 public function beforeFilter(EventInterface $event)
 {
     parent::beforeFilter($event);
@@ -83,7 +81,6 @@ public function blackhole($type, SecurityException $exception)
     // Alternatively, handle the error. For example, set a flash message &
     // redirect to HTTPS version of the requested page.
 }
-
 ```
 
 The `$type` parameter can have the following values:
@@ -94,7 +91,7 @@ The `$type` parameter can have the following values:
 
 ## Restrict Actions to SSL
 
-This functionality was removed into [https-enforcer-middleware](../../security/https-enforcer.md#https-enforcer-middleware).
+This functionality was removed into [https-enforcer-middleware](#https-enforcer-middleware).
 
 ## Form Tampering Prevention
 
@@ -114,25 +111,24 @@ structure and compare the hash.
 > [!NOTE]
 > The SecurityComponent will **not** prevent select options from being
 > added/changed. Nor will it prevent radio options from being added/changed.
->
 
-unlockedFields
+unlockedFields  
 Set to a list of form fields to exclude from POST validation. Fields can be
 unlocked either in the Component, or with
 `FormHelper::unlockField()`. Fields that have been unlocked are
 not required to be part of the POST and hidden unlocked fields do not have
 their values checked.
 
-validatePost
+validatePost  
 Set to `false` to completely skip the validation of POST
 requests, essentially turning off form validation.
 
 ## Usage
 
 Configuring the security component is generally done in the controller's
-`initialize` or `beforeFilter()` callbacks
+`initialize` or `beforeFilter()` callbacks:
 
-```php
+``` php
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -155,27 +151,26 @@ class WidgetsController extends AppController
         }
     }
 }
-
 ```
 
 The above example would disable form tampering prevention for admin prefixed
 routes.
-<!-- anchor: security-csrf -->
+
 ## CSRF Protection
 
 CSRF or Cross Site Request Forgery is a common vulnerability in web
 applications. It allows an attacker to capture and replay a previous request,
 and sometimes submit data requests using image tags or resources on other
 domains. To enable CSRF protection features use the
-[csrf-middleware](../../security/csrf.md#csrf-middleware).
+[csrf-middleware](#csrf-middleware).
 
 ## Disabling Form Tampering for Specific Actions
 
 There may be cases where you want to disable form tampering prevention for an
-action (ex. AJAX requests).  You may "unlock" these actions by listing them in
-`$this->Security->unlockedActions` in your `beforeFilter()`
+action (ex. AJAX requests). You may "unlock" these actions by listing them in
+`$this->Security->unlockedActions` in your `beforeFilter()`:
 
-```php
+``` php
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -196,7 +191,6 @@ class WidgetController extends AppController
         $this->Security->setConfig('unlockedActions', ['edit']);
     }
 }
-
 ```
 
 This example would disable all security checks for the edit action.

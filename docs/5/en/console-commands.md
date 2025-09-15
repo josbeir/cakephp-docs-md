@@ -1,11 +1,4 @@
----
-title: "Shells, Tasks & Console Tools"
-keywords: "shell scripts,system shell,application classes,background tasks,line script,cron job,request response,system path,acl,new projects,commands,specifics,parameters,i18n,cakephp,directory,maintenance,ideal,applications,mvc"
----
-
 # Console Commands
-
-**Namespace:** `Cake\Console`
 
 In addition to a web framework, CakePHP also provides a console framework for
 creating command line tools & applications. Console applications are ideal for
@@ -25,20 +18,18 @@ bash the CakePHP console is compatible with any \*nix shell and windows.
 A CakePHP application contains **src/Command** directory that contain its commands.
 It also comes with an executable in the **bin** directory:
 
-```bash
+``` bash
 $ cd /path/to/app
 $ bin/cake
-
 ```
 
 > [!NOTE]
 > For Windows, the command needs to be `bin\cake` (note the backslash).
->
 
 Running the Console with no arguments will list out available commands. You
 could then run the any of the listed commands by using its name:
 
-```bash
+``` bash
 # run server command
 bin/cake server
 
@@ -47,7 +38,6 @@ bin/cake migrations -h
 
 # run bake (with plugin prefix)
 bin/cake bake.bake -h
-
 ```
 
 Plugin commands can be invoked without a plugin prefix if the commands's name
@@ -62,9 +52,9 @@ By default CakePHP will automatically discover all the commands in your
 application and its plugins. You may want to reduce the number of exposed
 commands, when building standalone console applications. You can use your
 `Application`'s `console()` hook to limit which commands are exposed and
-rename commands that are exposed
+rename commands that are exposed:
 
-```php
+``` php
 // in src/Application.php
 namespace App;
 
@@ -86,28 +76,25 @@ class Application extends BaseApplication
         return $commands;
     }
 }
-
 ```
 
 In the above example, the only commands available would be `help`, `version`
-and `user`. See the [plugin-commands](plugins.md#plugin-commands) section for how to add commands in
+and `user`. See the [plugin-commands](#plugin-commands) section for how to add commands in
 your plugins.
 
 > [!NOTE]
 > When adding multiple commands that use the same Command class, the `help`
 > command will display the shortest option.
 
-<!-- anchor: renaming-commands -->
-
 ## Renaming Commands
 
 There are cases where you will want to rename commands, to create nested
-commands or subcommands.  While the default auto-discovery of commands will not
+commands or subcommands. While the default auto-discovery of commands will not
 do this, you can register your commands to create any desired naming.
 
-You can customize the command names by defining each command in your plugin
+You can customize the command names by defining each command in your plugin:
 
-```php
+``` php
 public function console(CommandCollection $commands): CommandCollection
 {
     // Add commands with nested naming
@@ -119,7 +106,6 @@ public function console(CommandCollection $commands): CommandCollection
 
     return $commands;
 }
-
 ```
 
 When overriding the `console()` hook in your application, remember to
@@ -132,10 +118,25 @@ available commands.
 
 ## Commands
 
-See the [commands](console-commands/commands.md) chapter on how to create your first
+See the [/console-commands/commands](console-commands/commands.md) chapter on how to create your first
 command. Then learn more about commands:
 
+- [Commands](console-commands/commands.md)
+- [Input Output](console-commands/input-output.md)
+- [Option Parsers](console-commands/option-parsers.md)
+- [Cron Jobs](console-commands/cron-jobs.md)
+
 ## CakePHP Provided Commands
+
+- [Cache](console-commands/cache.md)
+- [Completion](console-commands/completion.md)
+- [Counter Cache](console-commands/counter-cache.md)
+- [I18n](console-commands/i18n.md)
+- [Plugin](console-commands/plugin.md)
+- [Schema Cache](console-commands/schema-cache.md)
+- [Routes](console-commands/routes.md)
+- [Server](console-commands/server.md)
+- [Repl](console-commands/repl.md)
 
 ## Routing in the Console Environment
 
@@ -144,22 +145,20 @@ In command-line interface (CLI), specifically your console commands,
 set.
 
 If you generate reports or send emails that make use of `Router::url()` those
-will contain the default host `http://localhost/`  and thus resulting in
+will contain the default host `http://localhost/` and thus resulting in
 invalid URLs. In this case you need to specify the domain manually.
 You can do that using the Configure value `App.fullBaseUrl` from your
 bootstrap or config, for example.
 
 For sending emails, you should provide Email class with the host you want to
-send the email with
+send the email with:
 
-```php
+``` php
 use Cake\Mailer\Email;
 
 $email = new Email();
 $email->setDomain('www.example.org');
-
 ```
 
 This asserts that the generated message IDs are valid and fit to the domain the
 emails are sent from.
-

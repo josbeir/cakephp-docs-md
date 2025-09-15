@@ -1,8 +1,3 @@
----
-title: CakePHP Conventions
-keywords: "web development experience,maintenance nightmare,index method,legacy systems,method names,php class,uniform system,config files,tenets,articles,conventions,conventional controller,best practices,maps,visibility,news articles,functionality,logic,cakephp,developers"
----
-
 # CakePHP Conventions
 
 We are big fans of convention over configuration. While it takes a bit of time
@@ -18,11 +13,11 @@ Controller class names are plural, PascalCased, and end in `Controller`.
 conventional controller names.
 
 Public methods on Controllers are often exposed as 'actions' accessible through
-a web browser. For example the `/users/view` maps to the `view()` method
+a web browser. For example the [Users / view](users/view.md) maps to the `view()` method
 of the `UsersController` out of the box. Protected or private methods
 cannot be accessed with routing.
 
-#### URL Considerations for Controller Names
+### URL Considerations for Controller Names
 
 As you've just seen, single word controllers map to a simple lower case URL
 path. For example, `UsersController` (which would be defined in the file name
@@ -30,48 +25,47 @@ path. For example, `UsersController` (which would be defined in the file name
 
 While you can route multiple word controllers in any way you like, the
 convention is that your URLs are lowercase and dashed using the `DashedRoute`
-class, therefore `/article-categories/view-all` is the correct form to access
+class, therefore [Article categories / view all](article-categories/view-all.md) is the correct form to access
 the `ArticleCategoriesController::viewAll()` action.
 
 When you create links using `this->Html->link()`, you can use the following
-conventions for the url array
+conventions for the url array:
 
-```php
+``` php
 $this->Html->link('link-title', [
     'prefix' => 'MyPrefix' // PascalCased
     'plugin' => 'MyPlugin', // PascalCased
     'controller' => 'ControllerName', // PascalCased
     'action' => 'actionName' // camelBacked
 ]
-
 ```
 
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](../development/routing.md#routes-configuration).
-<!-- anchor: file-and-classname-conventions -->
+[routes-configuration](#routes-configuration).
+
 ## File and Class Name Conventions
 
 In general, filenames match the class names, and follow the PSR-4 standard for
 autoloading. The following are some examples of class names and their filenames:
 
--  The Controller class `LatestArticlesController` would be found in a file
-named **LatestArticlesController.php**
--  The Component class `MyHandyComponent` would be found in a file named
-   **MyHandyComponent.php**
--  The Table class `OptionValuesTable` would be found in a file named
-   **OptionValuesTable.php**.
--  The Entity class `OptionValue` would be found in a file named
-   **OptionValue.php**.
--  The Behavior class `EspeciallyFunkableBehavior` would be found in a file
-named **EspeciallyFunkableBehavior.php**
--  The View class `SuperSimpleView` would be found in a file named
-   **SuperSimpleView.php**
--  The Helper class `BestEverHelper` would be found in a file named
-   **BestEverHelper.php**
+- The Controller class `LatestArticlesController` would be found in a file
+  named **LatestArticlesController.php**
+- The Component class `MyHandyComponent` would be found in a file named
+  **MyHandyComponent.php**
+- The Table class `OptionValuesTable` would be found in a file named
+  **OptionValuesTable.php**.
+- The Entity class `OptionValue` would be found in a file named
+  **OptionValue.php**.
+- The Behavior class `EspeciallyFunkableBehavior` would be found in a file
+  named **EspeciallyFunkableBehavior.php**
+- The View class `SuperSimpleView` would be found in a file named
+  **SuperSimpleView.php**
+- The Helper class `BestEverHelper` would be found in a file named
+  **BestEverHelper.php**
 
 Each file would be located in the appropriate folder/namespace in your app
 folder.
-<!-- anchor: model-and-database-conventions -->
+
 ## Database Conventions
 
 Table names corresponding to CakePHP models are plural and underscored. For
@@ -122,28 +116,25 @@ The basic pattern is
 > [!NOTE]
 > By default CakePHP uses English inflections. If you have database
 > tables/columns that use another language, you will need to add inflection
-> rules (from singular to plural and vice-versa).  You can use
+> rules (from singular to plural and vice-versa). You can use
 > `Cake\Utility\Inflector` to define your custom inflection
-> rules. See the documentation about [/core-libraries/inflector` for more
+> rules. See the documentation about [/core-libraries/inflector](core-libraries/inflector.md) for more
 > information.
->
 
 ## Plugins Conventions
+
 It is useful to prefix a CakePHP plugin with "cakephp-" in the package name.
 This makes the name semantically related on the framework it depends on.
 
 Do **not** use the CakePHP namespace (cakephp) as vendor name as this is
-reserved to CakePHP owned plugins.  The convention is to use lowercase letters
-and dashes as separator
+reserved to CakePHP owned plugins. The convention is to use lowercase letters
+and dashes as separator:
 
-```
-// Bad
-cakephp/foo-bar
+    // Bad
+    cakephp/foo-bar
 
-// Good
-your-name/cakephp-foo-bar
-
-```
+    // Good
+    your-name/cakephp-foo-bar
 
 ## Summarized
 
@@ -151,12 +142,12 @@ By naming the pieces of your application using CakePHP conventions, you gain
 functionality without the hassle and maintenance tethers of configuration.
 Here's a final example that ties the conventions together:
 
--  Database table: "articles"
--  Table class: `ArticlesTable`, found at **src/Model/Table/ArticlesTable.php**
--  Entity class: `Article`, found at **src/Model/Entity/Article.php**
--  Controller class: `ArticlesController`, found at
-   **src/Controller/ArticlesController.php**
--  View template, found at **src/Template/Articles/index.ctp**
+- Database table: "articles"
+- Table class: `ArticlesTable`, found at **src/Model/Table/ArticlesTable.php**
+- Entity class: `Article`, found at **src/Model/Entity/Article.php**
+- Controller class: `ArticlesController`, found at
+  **src/Controller/ArticlesController.php**
+- View template, found at **src/Template/Articles/index.ctp**
 
 Using these conventions, CakePHP knows that a request to
 `http://example.com/articles` maps to a call on the `index()` function of the
@@ -166,7 +157,7 @@ file. None of these relationships have been configured by any means other than
 by creating classes and files that you'd need to create anyway.
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [installation](../tutorials-and-examples/cms/installation.md) to see how things fit
+through the [/tutorials-and-examples/cms/installation](tutorials-and-examples/cms/installation.md) to see how things fit
 together.
 
 See [awesome list recommendations](https://github.com/FriendsOfCake/awesome-cakephp/blob/master/CONTRIBUTING.md#tips-for-creating-cakephp-plugins) for details.

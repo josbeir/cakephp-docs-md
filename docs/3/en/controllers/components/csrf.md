@@ -1,8 +1,3 @@
----
-title: Csrf
-keywords: "configurable parameters,security component,configuration parameters,invalid request,csrf,submission"
----
-
 # Cross Site Request Forgery
 
 By enabling the CSRF Component you get protection against attacks. [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) or Cross Site
@@ -20,34 +15,39 @@ component will throw a
 
 > [!NOTE]
 > You should always verify the HTTP method being used before executing to avoid
-> side-effects. You should [check the HTTP method](../request-response.md#check-the-request) or
+> side-effects. You should [check the HTTP method](#check-the-request) or
 > use `Cake\Http\ServerRequest::allowMethod()` to ensure the correct
 > HTTP method is used.
->
-> [!IMPORTANT]
-> Added in version 3.1
->
-> The exception type changed from
-> `Cake\Network\Exception\ForbiddenException` to
-> `Cake\Network\Exception\InvalidCsrfTokenException`.
->
-> **deprecated:** 3.5.0
 
-You should use [csrf-middleware](../middleware.md#csrf-middleware) instead of
+<div class="versionadded">
+
+3.1
+
+The exception type changed from
+`Cake\Network\Exception\ForbiddenException` to
+`Cake\Network\Exception\InvalidCsrfTokenException`.
+
+</div>
+
+<div class="deprecated">
+
+3.5.0
+You should use [csrf-middleware](#csrf-middleware) instead of
 `CsrfComponent`.
+
+</div>
 
 ## Using the CsrfComponent
 
 Simply by adding the `CsrfComponent` to your components array,
-you can benefit from the CSRF protection it provides
+you can benefit from the CSRF protection it provides:
 
-```php
+``` php
 public function initialize()
 {
     parent::initialize();
     $this->loadComponent('Csrf');
 }
-
 ```
 
 Settings can be passed into the component through your component's settings.
@@ -62,11 +62,10 @@ The available configuration options are:
 - `field` The form field to check. Defaults to `_csrfToken`. Changing this
   will also require configuring FormHelper.
 
-When enabled, you can access the current CSRF token on the request object
+When enabled, you can access the current CSRF token on the request object:
 
-```php
+``` php
 $token = $this->request->getParam('_csrfToken');
-
 ```
 
 ## Integration with FormHelper
@@ -79,7 +78,6 @@ token.
 > When using the CsrfComponent you should always start your forms with the
 > FormHelper. If you do not, you will need to manually create hidden inputs in
 > each of your forms.
->
 
 ## CSRF Protection and AJAX Requests
 
@@ -92,12 +90,11 @@ endpoints.
 
 While not recommended, you may want to disable the CsrfComponent on certain
 requests. You can do this using the controller's event dispatcher, during the
-`beforeFilter()` method
+`beforeFilter()` method:
 
-```php
+``` php
 public function beforeFilter(Event $event)
 {
     $this->getEventManager()->off($this->Csrf);
 }
-
 ```

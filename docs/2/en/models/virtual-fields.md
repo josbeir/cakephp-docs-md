@@ -1,8 +1,3 @@
----
-title: Virtual fields
-keywords: "sql expressions,array name,model fields,sql errors,virtual field,concatenation,model name,first name last name"
----
-
 # Virtual fields
 
 Virtual fields allow you to create arbitrary SQL expressions and
@@ -14,24 +9,22 @@ fields.
 ## Creating virtual fields
 
 Creating virtual fields is easy. In each model you can define a
-`$virtualFields` property that contains an array of field =>
+`$virtualFields` property that contains an array of field =\>
 expressions. An example of a virtual field definition using MySQL
-would be
+would be:
 
-```php
+``` php
 public $virtualFields = array(
     'name' => 'CONCAT(User.first_name, " ", User.last_name)'
 );
-
 ```
 
-And with PostgreSQL::
+And with PostgreSQL:
 
-```php
+``` php
 public $virtualFields = array(
     'name' => "User.first_name || \' \' || User.last_name"
 );
-
 ```
 
 In subsequent find operations, your User results would contain a
@@ -39,7 +32,7 @@ In subsequent find operations, your User results would contain a
 advisable to create virtual fields with the same names as columns
 on the database, this can cause SQL errors.
 
-It is not always useful to have **User.first\_name** fully
+It is not always useful to have **User.first_name** fully
 qualified. If you do not follow the convention (i.e. you have
 multiple relations to other tables) this would result in an error.
 In this case it may be better to just use
@@ -54,49 +47,46 @@ with virtual fields can be done through a few different methods.
 ### Model::hasField()
 
 Model::hasField() will return true if the model has a concrete field passed by
-the first parameter. By setting the second parameter of `hasField()` to true,
+the first parameter. By setting the second parameter of <span class="title-ref">hasField()</span> to true,
 virtualFields will also be checked when checking if a model has a field.
-Using the example field above
+Using the example field above:
 
-```php
+``` php
 // Will return false, as there is no concrete field called name
 $this->User->hasField('name');
 // Will return true as there is a virtual field called name
 $this->User->hasField('name', true);
-
 ```
 
 ### Model::isVirtualField()
 
 This method can be used to check if a field/column is a virtual
 field or a concrete field. Will return true if the column is
-virtual
+virtual:
 
-```php
+``` php
 $this->User->isVirtualField('name'); //true
 $this->User->isVirtualField('first_name'); //false
-
 ```
 
 ### Model::getVirtualField()
 
 This method can be used to access the SQL expression that comprises
 a virtual field. If no argument is supplied it will return all
-virtual fields in a Model
+virtual fields in a Model:
 
-```php
+``` php
 //returns 'CONCAT(User.first_name, ' ', User.last_name)'
 $this->User->getVirtualField('name');
-
 ```
 
 ### Model::find() and virtual fields
 
 As stated earlier `Model::find()` will treat virtual fields much
 like any other field in a model. The value of a virtual field will
-be placed under the model's key in the resultset
+be placed under the model's key in the resultset:
 
-```php
+``` php
 $results = $this->User->find('first');
 
 // results contains the following
@@ -108,7 +98,6 @@ array(
         //more fields.
     )
 );
-
 ```
 
 ### Pagination and virtual fields
@@ -122,16 +111,15 @@ When you are using virtualFields and models with aliases that are
 not the same as their name, you can run into problems as
 virtualFields do not update to reflect the bound alias. If you are
 using virtualFields in models that have more than one alias it is
-best to define the virtualFields in your model's constructor
+best to define the virtualFields in your model's constructor:
 
-```php
+``` php
 public function __construct($id = false, $table = null, $ds = null) {
     parent::__construct($id, $table, $ds);
     $this->virtualFields['name'] = sprintf(
         'CONCAT(%s.first_name, " ", %s.last_name)', $this->alias, $this->alias
     );
 }
-
 ```
 
 This will allow your virtualFields to work for any alias you give a
@@ -141,17 +129,16 @@ model.
 
 The following example allows you to have a counter of a hasMany association and
 enables you to use virtual fields. For example if you had the following sort
-link in your template
+link in your template:
 
-```php
+``` php
 // Create a sort link for a virtual field
 $this->Paginator->sort('ProductsItems.Total','Items Total');
-
 ```
 
-You could then use the following pagination setup in your controller::
+You could then use the following pagination setup in your controller:
 
-```php
+``` php
 $this->Products->recursive = -1;
 
 // Products hasMany associations ProductsItems
@@ -181,48 +168,44 @@ $this->paginate = $where;
 
 // Get data
 $data = $this->Paginator->paginate();
-
 ```
 
-would return something like this
+would return something like this:
 
-```
-Array
-(
-    [0] => Array
-        (
-            [Products] => Array
-                (
-                    [id] => 1234,
-                    [description] => 'Text bla bla...',
-                )
-             [ProductsItems] => Array
-                 (
-                     [Total] => 25
-                 )
-        )
-     [1] => Array
-        (
-            [Products] => Array
-                (
-                    [id] => 4321,
-                    [description] => 'Text 2 bla bla...',
-                )
-             [ProductsItems] => Array
-                 (
-                     [Total] => 50
-                 )
-        )
- )
-
-```
+    Array
+    (
+        [0] => Array
+            (
+                [Products] => Array
+                    (
+                        [id] => 1234,
+                        [description] => 'Text bla bla...',
+                    )
+                 [ProductsItems] => Array
+                     (
+                         [Total] => 25
+                     )
+            )
+         [1] => Array
+            (
+                [Products] => Array
+                    (
+                        [id] => 4321,
+                        [description] => 'Text 2 bla bla...',
+                    )
+                 [ProductsItems] => Array
+                     (
+                         [Total] => 50
+                     )
+            )
+     )
 
 ## Virtual fields in SQL queries
 
 Using functions in direct SQL queries will prevent data from being returned in the same array as your model's data.
-For example this
+For example this:
 
-```php
+``` php
 $this->Timelog->query(
     "SELECT
         project_id, SUM(id) as TotalHours
@@ -233,44 +216,39 @@ $this->Timelog->query(
     GROUP BY
         project_id;"
 );
-
 ```
 
-would return something like this::
+would return something like this:
 
-```
-Array
-(
-    [0] => Array
-        (
-            [Timelog] => Array
-                (
-                    [project_id] => 1234
-                )
-             [0] => Array
-                 (
-                     [TotalHours] => 25.5
-                 )
-        )
- )
-
-```
+    Array
+    (
+        [0] => Array
+            (
+                [Timelog] => Array
+                    (
+                        [project_id] => 1234
+                    )
+                 [0] => Array
+                     (
+                         [TotalHours] => 25.5
+                     )
+            )
+     )
 
 If we want to group TotalHours into our Timelog array we should specify a
 virtual field for our aggregate column. We can add this new virtual field on
 the fly rather than permanently declaring it in the model. We will provide a
 default value of `0` in case another query attempts to use this virtual field.
-If that were to occur, `0` would be returned in the TotalHours column
+If that were to occur, `0` would be returned in the TotalHours column:
 
-```php
+``` php
 $this->Timelog->virtualFields['TotalHours'] = 0;
-
 ```
 
 In addition to adding the virtual field we also need to alias our column using
-the form of `MyModel__MyField` like this
+the form of `MyModel__MyField` like this:
 
-```php
+``` php
 $this->Timelog->query(
     "SELECT
         project_id, SUM(id) as Timelog__TotalHours
@@ -281,26 +259,22 @@ $this->Timelog->query(
     GROUP BY
         project_id;"
 );
-
 ```
 
 Running the query again after specifying the virtual field should result in a
-cleaner grouping of values
+cleaner grouping of values:
 
-```
-Array
-(
-    [0] => Array
-        (
-            [Timelog] => Array
-                (
-                    [project_id] => 1234
-                    [TotalHours] => 25.5
-                )
-        )
-)
-
-```
+    Array
+    (
+        [0] => Array
+            (
+                [Timelog] => Array
+                    (
+                        [project_id] => 1234
+                        [TotalHours] => 25.5
+                    )
+            )
+    )
 
 ## Limitations of virtualFields
 
@@ -313,16 +287,14 @@ which an associated model might be found.
 
 A common workaround for this implementation issue is to copy
 `virtualFields` from one model to another at runtime when you
-need to access them
+need to access them:
 
-```php
+``` php
 $this->virtualFields['name'] = $this->Author->virtualFields['name'];
-
 ```
 
-or::
+or:
 
-```php
+``` php
 $this->virtualFields += $this->Author->virtualFields;
-
 ```

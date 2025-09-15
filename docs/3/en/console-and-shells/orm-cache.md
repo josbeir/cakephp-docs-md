@@ -1,4 +1,8 @@
 # ORM Cache Shell
-> **deprecated:** 3.6.0
-The OrmCacheShell is replaced by [schema-cache](schema-cache.md)
 
+<div class="deprecated">
+
+3.6.0
+The OrmCacheShell is replaced by [/console-and-shells/schema-cache](console-and-shells/schema-cache.md)
+
+</div>

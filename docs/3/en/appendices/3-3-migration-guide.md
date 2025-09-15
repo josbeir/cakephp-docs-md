@@ -13,17 +13,16 @@ changes and improvements made in 3.3.
   compatibility will be removed in 4.0.0
 - `Cake\Http\Client\Response` has had the following methods deprecated because they
   overlap with PSR-7 interface methods:
-
   - `statusCode()` use `getStatusCode()` instead.
   - `encoding()` use `getEncoding()` instead.
   - `header()` use `getHeaderLine()` instead.
   - `cookie()` use `getCookie()` instead.
   - `version()` use `getProtocolVersion()` instead.
-- Dispatcher Filters are now deprecated. Use [/controllers/middleware`
+- Dispatcher Filters are now deprecated. Use [/controllers/middleware](controllers/middleware.md)
   instead.
 - `RequestActionTrait` has been deprecated. Refactor your code to use
-  [cells](../views/cells.md) instead.
-- `Cake\\Utility\\Crypto\\Mcrypt` engine has been deprecated as the `mcrypt`
+  [/views/cells](views/cells.md) instead.
+- `Cake\Utility\Crypto\Mcrypt` engine has been deprecated as the `mcrypt`
   extension is deprecated in PHP 7.1. Use the `openssl` and
   `Cake\Utility\Crypto\Openssl` instead.
 
@@ -58,7 +57,7 @@ advantage of features like:
 - Be able to augment the response objects emitted by error handling and asset
   delivery.
 
-See the [middleware](../controllers/middleware.md) chapter and [adding-http-stack](../development/application.md#adding-http-stack)
+See the [/controllers/middleware](controllers/middleware.md) chapter and [adding-http-stack](#adding-http-stack)
 sections for more information and how to add the new HTTP stack to an existing
 application.
 
@@ -75,7 +74,7 @@ information.
 - Additional support has been added for mapping complex data types. This makes
   it easier to work with geo-spatial types, and data that cannot be represented
   by strings in SQL queries. See the
-  [mapping-custom-datatypes-to-sql-expressions](../orm/database-basics.md#mapping-custom-datatypes-to-sql-expressions) for more information.
+  [mapping-custom-datatypes-to-sql-expressions](#mapping-custom-datatypes-to-sql-expressions) for more information.
 - A new `JsonType` was added. This new type lets you use the native JSON types
   available in MySQL and Postgres. In other database providers the `json` type
   will map to `TEXT` columns.
@@ -94,27 +93,24 @@ information.
 - The `allowNullableNulls` option was added to the `existsIn` rule. This
   option allows rules to pass when some columns are null.
 - Saving translated records is now simpler. See the
-  [saving-multiple-translations](../orm/behaviors/translate.md#saving-multiple-translations) for more information.
+  [saving-multiple-translations](#saving-multiple-translations) for more information.
 
 ## Multiple Pagination Support Added
 
 You can now paginate multiple queries in a single controller action/view
-template. See the [paginating-multiple-queries](../controllers/components/pagination.md#paginating-multiple-queries) section for more
+template. See the [paginating-multiple-queries](#paginating-multiple-queries) section for more
 details.
 
 ## Cache Shell Added
 
 To help you better manage cached data from the CLI environment, a shell command
-has been added that exposes methods for clearing cached data
+has been added that exposes methods for clearing cached data:
 
-```html
-// Clear one cache config
-bin/cake cache clear <configname>
+    // Clear one cache config
+    bin/cake cache clear <configname>
 
-// Clear all cache configs
-bin/cake cache clear_all
-
-```
+    // Clear all cache configs
+    bin/cake cache clear_all
 
 ## FormHelper
 
@@ -149,7 +145,7 @@ bin/cake cache clear_all
 - When building resource routes, you can now define a prefix. This is useful
   when defining nested resources as you can create specialized controllers for
   nested resources.
-- Dispatcher Filters are now deprecated. Use [middleware](../controllers/middleware.md)
+- Dispatcher Filters are now deprecated. Use [/controllers/middleware](controllers/middleware.md)
   instead.
 
 ### Console

@@ -1,8 +1,3 @@
----
-title: Components
-keywords: "array controller,core libraries,authentication request,array name,access control lists,public components,controller code,core components,cookiemonster,login cookie,configuration settings,functionality,logic,sessions,cakephp,doc"
----
-
 # Components
 
 Components are packages of logic that are shared between controllers.
@@ -12,20 +7,20 @@ yourself wanting to copy and paste things between controllers, you should
 consider creating your own component to contain the functionality. Creating
 components keeps controller code clean and allows you to reuse code between projects.
 
-Each of the core components is detailed in its own chapter. See [toc-components](../core-libraries/toc-components.md).
+Each of the core components is detailed in its own chapter. See [/core-libraries/toc-components](core-libraries/toc-components.md).
 This section describes how to configure and use components, and how to create
 your own components.
-<!-- anchor: configuring-components -->
+
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of
 components requiring configuration are
-[/core-libraries/components/authentication` and [cookie](../core-libraries/components/cookie.md).
+[/core-libraries/components/authentication](core-libraries/components/authentication.md) and [/core-libraries/components/cookie](core-libraries/components/cookie.md).
 Configuration for these components, and for components in general, is usually done in the
 `$components` array or your controller's `beforeFilter()`
-method
+method:
 
-```php
+``` php
 class PostsController extends AppController {
     public $components = array(
         'Auth' => array(
@@ -37,7 +32,6 @@ class PostsController extends AppController {
         ),
         'Cookie' => array('name' => 'CookieMonster')
     );
-
 ```
 
 The previous fragment of code would be an example of
@@ -47,9 +41,9 @@ configuration settings to be set in this way. In addition, you can
 configure components in your controller's `beforeFilter()`
 method. This is useful when you need to assign the results of a
 function to a component property. The above could also be expressed
-as
+as:
 
-```php
+``` php
 public function beforeFilter() {
     $this->Auth->authorize = array('controller');
     $this->Auth->loginAction = array(
@@ -59,19 +53,17 @@ public function beforeFilter() {
 
     $this->Cookie->name = 'CookieMonster';
 }
-
 ```
 
 It's possible, however, that a component requires certain
 configuration options to be set before the controller's
 `beforeFilter()` is run. To this end, some components allow
-configuration options be set in the `$components` array
+configuration options be set in the `$components` array:
 
-```php
+``` php
 public $components = array(
     'DebugKit.Toolbar' => array('panels' => array('history', 'session'))
 );
-
 ```
 
 Consult the relevant documentation to determine what configuration
@@ -80,9 +72,9 @@ options each component provides.
 One common setting to use is the `className` option, which allows you to
 alias components. This feature is useful when you want to
 replace `$this->Auth` or another common Component reference with a custom
-implementation
+implementation:
 
-```php
+``` php
 // app/Controller/PostsController.php
 class PostsController extends AppController {
     public $components = array(
@@ -94,11 +86,10 @@ class PostsController extends AppController {
 
 // app/Controller/Component/MyAuthComponent.php
 App::uses('AuthComponent', 'Controller/Component');
-    
+
 class MyAuthComponent extends AuthComponent {
     // Add your code to override the core AuthComponent
 }
-
 ```
 
 The above would *alias* `MyAuthComponent` to `$this->Auth` in your
@@ -107,7 +98,6 @@ controllers.
 > [!NOTE]
 > Aliasing a component replaces that instance anywhere that component is used,
 > including inside other Components.
->
 
 ## Using Components
 
@@ -115,9 +105,9 @@ Once you've included some components in your controller, using them is
 pretty simple. Each component you use is exposed as a property on your
 controller. If you had loaded up the `SessionComponent` and
 the `CookieComponent` in your controller, you could access
-them like so
+them like so:
 
-```php
+``` php
 class PostsController extends AppController {
     public $components = array('Session', 'Cookie');
 
@@ -127,58 +117,36 @@ class PostsController extends AppController {
             return $this->redirect(array('action' => 'index'));
         }
     }
-
 ```
 
 > [!NOTE]
 > Since both Models and Components are added to Controllers as
 > properties they share the same 'namespace'. Be sure to not give a
 > component and a model the same name.
->
 
 ### Loading components on the fly
 
 You might not need all of your components available on every controller
 action. In situations like this you can load a component at runtime using the
-[collections.md). From inside a
-controller's method you can do the following
+[Component Collection](core-libraries/collections.md). From inside a
+controller's method you can do the following:
 
-```php
+``` php
 $this->OneTimer = $this->Components->load('OneTimer');
 $this->OneTimer->getTime();
-
 ```
 
 > [!NOTE]
 > Keep in mind that loading a component on the fly will not call its
 > initialize method. If the component you are calling has this method you
 > will need to call it manually after load.
->
 
 ## Component Callbacks
 
 Components also offer a few request life-cycle callbacks that allow them
-to augment the request cycle. See the base :ref:](Component Collection](../core-libraries/collections.md). From inside a
-controller's method you can do the following
-
-```php
-$this->OneTimer = $this->Components->load('OneTimer');
-$this->OneTimer->getTime();
-
-```
-
-> [!NOTE]
-> Keep in mind that loading a component on the fly will not call its
-> initialize method. If the component you are calling has this method you
-> will need to call it manually after load.
->
-
-## Component Callbacks
-
-Components also offer a few request life-cycle callbacks that allow them
-to augment the request cycle. See the base :ref:.md)component-api` for
+to augment the request cycle. See the base [component-api](#component-api) for
 more information on the callbacks components offer.
-<!-- anchor: creating-a-component -->
+
 ## Creating a Component
 
 Suppose our online application needs to perform a complex
@@ -188,23 +156,21 @@ many different controllers.
 
 The first step is to create a new component file and class. Create
 the file in `app/Controller/Component/MathComponent.php`. The basic
-structure for the component would look something like this
+structure for the component would look something like this:
 
-```php
+``` css
 App::uses('Component', 'Controller');
-    
+
 class MathComponent extends Component {
     public function doComplexOperation($amount1, $amount2) {
         return $amount1 + $amount2;
     }
 }
-
 ```
 
 > [!NOTE]
 > All components must extend `Component`. Failing to do this
 > will trigger an exception.
->
 
 ### Including your component in your controllers
 
@@ -212,13 +178,12 @@ Once our component is finished, we can use it in the application's
 controllers by placing the component's name (without the "Component"
 part) in the controller's `$components` array. The controller will
 automatically be given a new attribute named after the component,
-through which we can access an instance of it
+through which we can access an instance of it:
 
-```php
+``` php
 /* Make the new component available at $this->Math,
 as well as the standard $this->Session */
 public $components = array('Math', 'Session');
-
 ```
 
 Components declared in `AppController` will be merged with those
@@ -228,9 +193,9 @@ same component twice.
 When including Components in a Controller you can also declare a
 set of parameters that will be passed on to the Component's
 constructor. These parameters can then be handled by
-the Component
+the Component:
 
-```php
+``` php
 public $components = array(
     'Math' => array(
         'precision' => 2,
@@ -238,7 +203,6 @@ public $components = array(
     ),
     'Session', 'Auth'
 );
-
 ```
 
 The above would pass the array containing precision and
@@ -250,12 +214,12 @@ properties, the properties will be set to the values of these keys.
 
 Sometimes one of your components may need to use another component.
 In this case you can include other components in your component the exact same
-way you include them in controllers - using the `$components` var
+way you include them in controllers - using the `$components` var:
 
-```php
+``` php
 // app/Controller/Component/CustomComponent.php
 App::uses('Component', 'Controller');
-    
+
 class CustomComponent extends Component {
     // the other component your component uses
     public $components = array('Existing');
@@ -271,65 +235,33 @@ class CustomComponent extends Component {
 
 // app/Controller/Component/ExistingComponent.php
 App::uses('Component', 'Controller');
-    
+
 class ExistingComponent extends Component {
 
     public function foo() {
         // ...
     }
 }
-
 ```
 
 > [!NOTE]
 > In contrast to a component included in a controller
 > no callbacks will be triggered on a component's component.
 
-<!-- anchor: component-api -->
 ## Component API
 
-### Class `Component`
+`class` **Component**
 
-The base Component class offers a few methods for lazily loading other
-Components through `ComponentCollection` as well as dealing
-with common handling of settings. It also provides prototypes for all
-the component callbacks.
-
-#### Method `__construct(ComponentCollection $collection, $settings = array())`
-
-Constructor for the base component class. All `$settings` that
-are also public properties will have their values changed to the
-matching value in `$settings`.
+`method` Component::**__construct**(ComponentCollection $collection, $settings = array())
 
 ### Callbacks
 
-#### Method `initialize(Controller $controller)`
+`method` Component::**initialize**(Controller $controller)
 
-Is called before the controller's
-beforeFilter method.
+`method` Component::**startup**(Controller $controller)
 
-#### Method `startup(Controller $controller)`
+`method` Component::**beforeRender**(Controller $controller)
 
-Is called after the controller's beforeFilter
-method but before the controller executes the current action
-handler.
+`method` Component::**shutdown**(Controller $controller)
 
-#### Method `beforeRender(Controller $controller)`
-
-Is called after the controller executes the requested action's logic,
-but before the controller's renders views and layout.
-
-#### Method `shutdown(Controller $controller)`
-
-Is called before output is sent to the browser.
-
-#### Method `beforeRedirect(Controller $controller, $url, $status=null, $exit=true)`
-
-Is invoked when the controller's redirect
-method is called but before any further action. If this method
-returns false the controller will not continue on to redirect the
-request. The $url, $status and $exit variables have same meaning as
-    for the controller's method. You can also return a string which
-will be interpreted as the URL to redirect to or return an associative
-    array with the key 'url' and optionally 'status' and 'exit'.
-
+`method` Component::**beforeRedirect**(Controller $controller, $url, $status=null, $exit=true)

@@ -1,13 +1,8 @@
----
-title: Routing
-keywords: "controller actions,default routes,mod rewrite,code index,string url,php class,incoming requests,dispatcher,url url,meth,maps,match,parameters,array,config,cakephp,apache,router"
----
-
 # Routing
 
 Routing is a feature that maps URLs to controller actions. It was
 added to CakePHP to make pretty URLs more configurable and
-flexible. Using Apache's mod\_rewrite is not required for using
+flexible. Using Apache's mod_rewrite is not required for using
 routes, but it will make your address bar look much more tidy.
 
 Routing in CakePHP also encompasses the idea of reverse routing,
@@ -15,7 +10,12 @@ where an array of parameters can be reversed into a string URL.
 By using reverse routing, you can easily re-factor your application's
 URL structure without having to update all your code.
 
-<!-- anchor: routes-configuration -->
+<div class="index">
+
+routes.php
+
+</div>
+
 ## Routes Configuration
 
 Routes in an application are configured in `app/Config/routes.php`.
@@ -34,7 +34,7 @@ can manipulate the order of routes using `Router::promote()`.
 
 CakePHP also comes with a few default routes to get you started. These
 can be disabled later on once you are sure you don't need them.
-See [disabling-default-routes](routing.md#disabling-default-routes) on how to disable the default routing.
+See [disabling-default-routes](#disabling-default-routes) on how to disable the default routing.
 
 ## Default Routing
 
@@ -43,17 +43,14 @@ that CakePHP comes configured with a default set of routes.
 CakePHP's default routing will get you pretty far in any
 application. You can access an action directly via the URL by
 putting its name in the request. You can also pass parameters to
-your controller actions using the URL.
+your controller actions using the URL. :
 
-```
-// URL pattern default routes:
-http://example.com/controller/action/param1/param2/param3
-
-```
+    // URL pattern default routes:
+    http://example.com/controller/action/param1/param2/param3
 
 The URL /posts/view maps to the view() action of the
-PostsController, and /products/view\_clearance maps to the
-view\_clearance() action of the ProductsController. If no action is
+PostsController, and /products/view_clearance maps to the
+view_clearance() action of the ProductsController. If no action is
 specified in the URL, the index() method is assumed.
 
 The default routing setup also allows you to pass parameters to
@@ -64,9 +61,14 @@ and prefix routes should you choose to use those features.
 
 The built-in routes live in `Cake/Config/routes.php`. You can
 disable the default routing by removing them from your application's
-:term:`routes.php` file.
+`routes.php` file.
 
-<!-- anchor: connecting-routes -->
+<div class="index">
+
+:controller, :action, :plugin
+
+</div>
+
 ## Connecting Routes
 
 Defining your own routes allows you to define how your application
@@ -79,20 +81,19 @@ wish to match, the default values for your route elements, and
 regular expression rules to help the router match elements in the
 URL.
 
-The basic format for a route definition is
+The basic format for a route definition is:
 
-```php
+``` css
 Router::connect(
     'URL',
     array('default' => 'defaultValue'),
     array('option' => 'matchingRegex')
 );
-
 ```
 
 The first parameter is used to tell the router what sort of URL
 you're trying to control. The URL is a normal slash delimited
-string, but can also contain a wildcard (\*) or [route-elements](routing.md#route-elements).
+string, but can also contain a wildcard (\*) or [route-elements](#route-elements).
 Using a wildcard tells the router that you are willing to accept
 any additional arguments supplied. Routes without a \* only match
 the exact template pattern supplied.
@@ -104,90 +105,87 @@ keys of the array should be named after the route elements in the
 URL, or the default elements: `:controller`, `:action`, and `:plugin`.
 The values in the array are the default values for those keys.
 Let's look at some basic examples before we start using the third
-parameter of connect()
+parameter of connect():
 
-```php
+``` css
 Router::connect(
     '/pages/*',
     array('controller' => 'pages', 'action' => 'display')
 );
-
 ```
 
 This route is found in the routes.php file distributed with CakePHP.
-This route matches any URL starting with `/pages/` and
+This route matches any URL starting with [Pages / ](pages/.md) and
 hands it to the `display()` action of the `PagesController();`
 The request /pages/products would be mapped to
 `PagesController->display('products')`.
 
-In addition to the greedy star `/*` there is also the `/**` trailing star
+In addition to the greedy star [*](*.md) there is also the [**](**.md) trailing star
 syntax. Using a trailing double star, will capture the remainder of a URL as a
 single passed argument. This is useful when you want to use an argument that
-included a `/` in it
+included a `/` in it:
 
-```php
+``` css
 Router::connect(
     '/pages/**',
     array('controller' => 'pages', 'action' => 'show')
 );
-
 ```
 
-The incoming URL of `/pages/the-example-/-and-proof` would result in a single
+The incoming URL of [Pages / the example  /  and proof](pages/the-example-/-and-proof.md) would result in a single
 passed argument of `the-example-/-and-proof`.
 
-> [!IMPORTANT]
-> Added in version 2.1
->
-> The trailing double star was added in 2.1.
->
+<div class="versionadded">
+
+2.1
+
+The trailing double star was added in 2.1.
+
+</div>
 
 You can use the second parameter of `Router::connect()`
 to provide any routing parameters that are composed of the default values
-of the route
+of the route:
 
-```php
+``` css
 Router::connect(
     '/government',
     array('controller' => 'pages', 'action' => 'display', 5)
 );
-
 ```
 
 This example shows how you can use the second parameter of
 `connect()` to define default parameters. If you built a site
 that features products for different categories of customers, you
 might consider creating a route. This allows you link to
-`/government` rather than `/pages/display/5`.
+[Government](government.md) rather than [Pages / display / 5](pages/display/5.md).
 
 > [!NOTE]
 > Although you can connect alternate routes, the default routes
 > will continue to work. In this setting, you can access a single piece of
-> content from 2 different URLs. See [disabling-default-routes](routing.md#disabling-default-routes) to
+> content from 2 different URLs. See [disabling-default-routes](#disabling-default-routes) to
 > disable default routes, and only provide the URLs you define.
->
 
 Another common use for the Router is to define an "alias" for a
 controller. Let's say that instead of accessing our regular URL at
-`/users/some_action/5`, we'd like to be able to access it by
-`/cooks/some_action/5`. The following route easily takes care of
-that
+[Users / some_action / 5](users/some_action/5.md), we'd like to be able to access it by
+[Cooks / some_action / 5](cooks/some_action/5.md). The following route easily takes care of
+that:
 
-```php
+``` css
 Router::connect(
     '/cooks/:action/*', array('controller' => 'users')
 );
-
 ```
 
-This is telling the Router that any url beginning with `/cooks/`
+This is telling the Router that any url beginning with [Cooks / ](cooks/.md)
 should be sent to the users controller. The action called will
 depend on the value of the `:action` parameter. By using
-[route-elements](routing.md#route-elements), you can create variable routes, that accept
+[route-elements](#route-elements), you can create variable routes, that accept
 user input or variables. The above route also uses the greedy star.
 The greedy star indicates to `Router` that this route
 should accept any additional positional arguments given. These
-arguments will be made available in the [passed-arguments](routing.md#passed-arguments)
+arguments will be made available in the [passed-arguments](#passed-arguments)
 array.
 
 When generating URLs, routes are used too. Using
@@ -198,7 +196,7 @@ first match found.
 By default all named and passed arguments are extracted from URLs matching
 greedy templates. However, you can configure how and which named arguments are
 parsed using `Router::connectNamed()` if you need to.
-<!-- anchor: route-elements -->
+
 ### Route Elements
 
 You can specify your own route elements and doing so gives you the
@@ -212,20 +210,19 @@ element data is found in `$this->request->params`. When you define
 a custom route element, you can optionally specify a regular
 expression - this tells CakePHP how to know if the URL is correctly formed or not.
 If you choose to not provide a regular expression, any non `/` will be
-treated as part of the parameter
+treated as part of the parameter:
 
-```php
+``` css
 Router::connect(
     '/:controller/:id',
     array('action' => 'view'),
     array('id' => '[0-9]+')
 );
-
 ```
 
 This simple example illustrates how to create a quick way to view
 models from any controller by crafting a URL that looks like
-`/controllername/:id`. The URL provided to connect() specifies two
+[Controllername / :id](controllername/:id.md). The URL provided to connect() specifies two
 route elements: `:controller` and `:id`. The `:controller` element
 is a CakePHP default route element, so the router knows how to match and
 identify controller names in URLs. The `:id` element is a custom
@@ -235,39 +232,36 @@ matching regular expression in the third parameter of connect().
 > [!NOTE]
 > Patterns used for route elements must not contain any capturing
 > groups. If they do, Router will not function correctly.
->
 
-Once this route has been defined, requesting `/apples/5` is the same
-as requesting `/apples/view/5`. Both would call the view() method of
+Once this route has been defined, requesting [Apples / 5](apples/5.md) is the same
+as requesting [Apples / view / 5](apples/view/5.md). Both would call the view() method of
 the ApplesController. Inside the view() method, you would need to
 access the passed ID at `$this->request->params['id']`.
 
 If you have a single controller in your application and you do not want
 the controller name to appear in the URL, you can map all URLs to actions
 in your controller. For example, to map all URLs to actions of the
-`home` controller, e.g have URLs like `/demo` instead of
-`/home/demo`, you can do the following
+`home` controller, e.g have URLs like [Demo](demo.md) instead of
+[Home / demo](home/demo.md), you can do the following:
 
-```php
+``` css
 Router::connect('/:action', array('controller' => 'home'));
-
 ```
 
 If you would like to provide a case insensitive URL, you can use regular
-expression inline modifiers
+expression inline modifiers:
 
-```php
+``` css
 Router::connect(
     '/:userShortcut',
     array('controller' => 'teachers', 'action' => 'profile', 1),
     array('userShortcut' => '(?i:principal)')
 );
-
 ```
 
-One more example, and you'll be a routing pro::
+One more example, and you'll be a routing pro:
 
-```php
+``` css
 Router::connect(
     '/:controller/:year/:month/:day',
     array('action' => 'index'),
@@ -277,7 +271,6 @@ Router::connect(
         'day' => '0[1-9]|[12][0-9]|3[01]'
     )
 );
-
 ```
 
 This is rather involved, but shows how powerful routes can really
@@ -293,8 +286,8 @@ months and days in numerical form. Note that parenthesis (grouping)
 are not supported in the regular expressions. You can still specify
 alternates, as above, but not grouped with parenthesis.
 
-Once defined, this route will match `/articles/2007/02/01`,
-`/posts/2004/11/16`, handing the requests to
+Once defined, this route will match [Articles / 2007 / 02 / 01](articles/2007/02/01.md),
+[Posts / 2004 / 11 / 16](posts/2004/11/16.md), handing the requests to
 the index() actions of their respective controllers, with the date
 parameters in `$this->request->params`.
 
@@ -304,17 +297,17 @@ CakePHP, and should not be used unless you want the special meaning
 - `controller` Used to name the controller for a route.
 - `action` Used to name the controller action for a route.
 - `plugin` Used to name the plugin a controller is located in.
-- `prefix` Used for [prefix-routing](routing.md#prefix-routing)
-- `ext` Used for [file-extensions](routing.md#file-extensions) routing.
+- `prefix` Used for [prefix-routing](#prefix-routing)
+- `ext` Used for [file-extensions](#file-extensions) routing.
 
 ### Passing Parameters to Action
 
-When connecting routes using [route-elements](routing.md#route-elements) you may want
+When connecting routes using [route-elements](#route-elements) you may want
 to have routed elements be passed arguments instead. By using the 3rd
 argument of `Router::connect()` you can define which route
-elements should also be made available as passed arguments
+elements should also be made available as passed arguments:
 
-```php
+``` php
 // SomeController.php
 public function view($articleId = null, $slug = null) {
     // some code here...
@@ -331,14 +324,13 @@ Router::connect(
         'id' => '[0-9]+'
     )
 );
-
 ```
 
 And now, thanks to the reverse routing capabilities, you can pass
 in the url array like below and CakePHP will know how to form the URL
-as defined in the routes
+as defined in the routes:
 
-```php
+``` php
 // view.ctp
 // this will return a link to /blog/3-CakePHP_Rocks
 echo $this->Html->link('CakePHP Rocks', array(
@@ -347,16 +339,15 @@ echo $this->Html->link('CakePHP Rocks', array(
     'id' => 3,
     'slug' => 'CakePHP_Rocks'
 ));
-
 ```
 
 ### Per-Route Named Parameters
 
 While you can control named parameters on a global scale using
 `Router::connectNamed()` you can also control named parameter
-behavior at the route level using the 3rd argument of `Router::connect()`
+behavior at the route level using the 3rd argument of `Router::connect()`:
 
-```php
+``` css
 Router::connect(
     '/:controller/:action/*',
     array(),
@@ -369,7 +360,6 @@ Router::connect(
         )
     )
 );
-
 ```
 
 The above route definition uses the `named` key to define how several named
@@ -390,52 +380,54 @@ one-by-one:
 If a named parameter is used and it does not match the provided criteria, it will
 be treated as a passed argument instead of a named parameter.
 
-<!-- anchor: prefix-routing -->
+<div class="index">
+
+admin routing, prefix routing
+
+</div>
+
 ### Prefix Routing
 
 Many applications require an administration section where
 privileged users can make changes. This is often done through a
-special URL such as `/admin/users/edit/5`. In CakePHP, prefix routing
+special URL such as [Admin / users / edit / 5](admin/users/edit/5.md). In CakePHP, prefix routing
 can be enabled from within the core configuration file by setting
 the prefixes with Routing.prefixes. Note that prefixes, although
 related to the router, are to be configured in
-`app/Config/core.php`
+`app/Config/core.php`:
 
-```php
+``` css
 Configure::write('Routing.prefixes', array('admin'));
-
 ```
 
 In your controller, any action with an `admin_` prefix will be
 called. Using our users example, accessing the URL
-`/admin/users/edit/5` would call the method `admin_edit` of our
+[Admin / users / edit / 5](admin/users/edit/5.md) would call the method `admin_edit` of our
 `UsersController` passing 5 as the first parameter. The view file
 used would be `app/View/Users/admin_edit.ctp`
 
 You can map the URL /admin to your `admin_index` action of pages
-controller using following route
+controller using following route:
 
-```php
+``` css
 Router::connect(
     '/admin',
     array('controller' => 'pages', 'action' => 'index', 'admin' => true)
 );
-
 ```
 
 You can configure the Router to use multiple prefixes too. By
-adding additional values to `Routing.prefixes`. If you set
+adding additional values to `Routing.prefixes`. If you set:
 
-```php
+``` css
 Configure::write('Routing.prefixes', array('admin', 'manager'));
-
 ```
 
 CakePHP will automatically generate routes for both the admin and
 manager prefixes. Each configured prefix will have the following
-routes generated for it
+routes generated for it:
 
-```php
+``` php
 Router::connect(
     "/{$prefix}/:plugin/:controller",
     array('action' => 'index', 'prefix' => $prefix, $prefix => true)
@@ -452,20 +444,19 @@ Router::connect(
     "/{$prefix}/:controller/:action/*",
     array('prefix' => $prefix, $prefix => true)
 );
-
 ```
 
 Much like admin routing all prefix actions should be prefixed with
-the prefix name. So `/manager/posts/add` would map to
+the prefix name. So [Manager / posts / add](manager/posts/add.md) would map to
 `PostsController::manager_add()`.
 
 Additionally, the current prefix will be available from the controller methods through `$this->request->prefix`
 
 When using prefix routes it's important to remember, using the HTML
 helper to build your links will help maintain the prefix calls.
-Here's how to build this link using the HTML helper
+Here's how to build this link using the HTML helper:
 
-```php
+``` php
 // Go into a prefixed route.
 echo $this->Html->link(
     'Manage posts',
@@ -477,54 +468,61 @@ echo $this->Html->link(
     'View Post',
     array('manager' => false, 'controller' => 'posts', 'action' => 'view', 5)
 );
-
 ```
+
+<div class="index">
+
+plugin routing
+
+</div>
 
 ### Plugin Routing
 
 Plugin routing uses the **plugin** key. You can create links that
-point to a plugin, but adding the plugin key to your URL array
+point to a plugin, but adding the plugin key to your URL array:
 
-```php
+``` php
 echo $this->Html->link(
     'New todo',
     array('plugin' => 'todo', 'controller' => 'todo_items', 'action' => 'create')
 );
-
 ```
 
 Conversely if the active request is a plugin request and you want
-to create a link that has no plugin you can do the following
+to create a link that has no plugin you can do the following:
 
-```php
+``` php
 echo $this->Html->link(
     'New todo',
     array('plugin' => null, 'controller' => 'users', 'action' => 'profile')
 );
-
 ```
 
 By setting `plugin => null` you tell the Router that you want to
 create a link that is not part of a plugin.
 
-<!-- anchor: file-extensions -->
+<div class="index">
+
+file extensions
+
+</div>
+
 ### File Extensions
 
 To handle different file extensions with your routes, you need one
-extra line in your routes config file
+extra line in your routes config file:
 
-```php
+``` css
 Router::parseExtensions('html', 'rss');
-
 ```
 
 This will tell the router to remove any matching file extensions,
 and then parse what remains.
 
 If you want to create a URL such as /page/title-of-page.html you
-would create your route as illustrated below
+would create your route as illustrated below:
 
-```php
+``` css
 Router::connect(
     '/page/:title',
     array('controller' => 'pages', 'action' => 'view'),
@@ -532,12 +530,11 @@ Router::connect(
         'pass' => array('title')
     )
 );
-
 ```
 
-Then to create links which map back to the routes simply use::
+Then to create links which map back to the routes simply use:
 
-```php
+``` php
 $this->Html->link(
     'Link title',
     array(
@@ -547,52 +544,52 @@ $this->Html->link(
         'ext' => 'html'
     )
 );
-
 ```
 
 File extensions are used by `RequestHandlerComponent` to do automatic
 view switching based on content types. See the RequestHandlerComponent for
 more information.
-<!-- anchor: route-conditions -->
+
 ### Using Additional Conditions When Matching Routes
 
 When creating routes you might want to restrict certain URL's based on specific
 request/environment settings. A good example of this is [rest](rest.md)
 routing. You can specify additional conditions in the `$defaults` argument for
 `Router::connect()`. By default CakePHP exposes 3 environment
-conditions, but you can add more using [custom-route-classes](routing.md#custom-route-classes). The built-in
+conditions, but you can add more using [custom-route-classes](#custom-route-classes). The built-in
 options are:
 
 - `[type]` Only match requests for specific content types.
 - `[method]` Only match requests with specific HTTP verbs.
-- `[server]` Only match when $_SERVER['SERVER_NAME'] matches the given value.
+- `[server]` Only match when \$\_SERVER\['SERVER_NAME'\] matches the given value.
 
 We'll provide a simple example here of how you can use the `[method]`
-option to create a custom RESTful route
+option to create a custom RESTful route:
 
-```php
+``` css
 Router::connect(
     "/:controller/:id",
     array("action" => "edit", "[method]" => "PUT"),
     array("id" => "[0-9]+")
 );
-
 ```
 
 The above route will only match for `PUT` requests. Using these conditions,
 you can create custom REST routing, or other request data dependent information.
 
-<!-- anchor: passed-arguments -->
+<div class="index">
+
+passed arguments
+
+</div>
+
 ## Passed Arguments
 
 Passed arguments are additional arguments or path segments that are
 used when making a request. They are often used to pass parameters
-to your controller methods.
+to your controller methods. :
 
-```
-http://localhost/calendars/view/recent/mark
-
-```
+    http://localhost/calendars/view/recent/mark
 
 In the above example, both `recent` and `mark` are passed
 arguments to `CalendarsController::view()`. Passed arguments are
@@ -604,70 +601,61 @@ second one. When using custom routes you can force particular
 parameters to go into the passed arguments as well.
 
 If you were to visit the previously mentioned URL, and you
-had a controller action that looked like
+had a controller action that looked like:
 
-```php
-CalendarsController extends AppController {
-    public function view($arg1, $arg2) {
-        debug(func_get_args());
+    CalendarsController extends AppController {
+        public function view($arg1, $arg2) {
+            debug(func_get_args());
+        }
     }
-}
 
-```
+You would get the following output:
 
-You would get the following output::
-
-```
-Array
-(
-    [0] => recent
-    [1] => mark
-)
-
-```
+    Array
+    (
+        [0] => recent
+        [1] => mark
+    )
 
 This same data is also available at `$this->request->params['pass']`
 and `$this->passedArgs` in your controllers, views, and helpers.
 The values in the pass array are numerically indexed based on the
-order they appear in the called URL
+order they appear in the called URL:
 
-```php
+``` php
 debug($this->request->params['pass']);
 debug($this->passedArgs);
-
 ```
 
-Either of the above would output::
+Either of the above would output:
 
-```
-Array
-(
-    [0] => recent
-    [1] => mark
-)
-
-```
+    Array
+    (
+        [0] => recent
+        [1] => mark
+    )
 
 > [!NOTE]
-> $this->passedArgs may also contain named parameters as a named
+> \$this-\>passedArgs may also contain named parameters as a named
 > array mixed with Passed arguments.
->
 
-When generating URLs, using a :term:`routing array` you add passed
-arguments as values without string keys in the array
+When generating URLs, using a `routing array` you add passed
+arguments as values without string keys in the array:
 
-```
-array('controller' => 'posts', 'action' => 'view', 5)
-
-```
+    array('controller' => 'posts', 'action' => 'view', 5)
 
 Since `5` has a numeric key, it is treated as a passed argument.
 
-<!-- anchor: named-parameters -->
+<div class="index">
+
+named parameters
+
+</div>
+
 ## Named Parameters
 
 You can name parameters and send their values using the URL. A
-request for `/posts/view/title:first/category:general` would result
+request for [Posts / view / title:first / category:general](posts/view/title:first/category:general.md) would result
 in a call to the view() action of the PostsController. In that
 action, you'd find the values of the title and category parameters
 inside `$this->params['named']`. They are also available inside
@@ -679,11 +667,10 @@ name as an index. If named parameters are omitted, they will not be set.
 > `Router::connectNamed()`. If your named parameters are not
 > reverse routing, or parsing correctly, you will need to inform
 > `Router` about them.
->
 
-Some summarizing examples for default routes might prove helpful
+Some summarizing examples for default routes might prove helpful:
 
-```php
+``` php
 URL to controller action mapping using default routes:
 
 URL: /monkeys/jump
@@ -704,7 +691,6 @@ $this->passedArgs['chapter'] = 'models';
 $this->passedArgs['section'] = 'associations';
 $this->params['named']['chapter'] = 'models';
 $this->params['named']['section'] = 'associations';
-
 ```
 
 When making custom routes, a common pitfall is that using named
@@ -714,23 +700,19 @@ be named parameters. Without this knowledge the Router is unable to
 determine whether named parameters are intended to actually be
 named parameters or routed parameters, and defaults to assuming you
 intended them to be routed parameters. To connect named parameters
-in the router use `Router::connectNamed()`
+in the router use `Router::connectNamed()`:
 
-```php
+``` css
 Router::connectNamed(array('chapter', 'section'));
-
 ```
 
 Will ensure that your chapter and section parameters reverse route
 correctly.
 
-When generating URLs, using a :term:`routing array` you add named
-parameters as values with string keys matching the name
+When generating URLs, using a `routing array` you add named
+parameters as values with string keys matching the name:
 
-```
-array('controller' => 'posts', 'action' => 'view', 'chapter' => 'association')
-
-```
+    array('controller' => 'posts', 'action' => 'view', 'chapter' => 'association')
 
 Since 'chapter' doesn't match any defined route elements, it's treated
 as a named parameter.
@@ -739,14 +721,13 @@ as a named parameter.
 > Both named parameters and route elements share the same key-space.
 > It's best to avoid re-using a key for both a route element and a named
 > parameter.
->
 
 Named parameters also support using arrays to generate and parse
 URLs. The syntax works very similar to the array syntax used
 for GET parameters. When generating URLs you can use the following
-syntax
+syntax:
 
-```php
+``` php
 $url = Router::url(array(
     'controller' => 'posts',
     'action' => 'index',
@@ -755,25 +736,23 @@ $url = Router::url(array(
         'frontpage' => 1
     )
 ));
-
 ```
 
-The above would generate the URL `/posts/index/filter[published]:1/filter[frontpage]:1`.
+The above would generate the URL [Posts / index / filter[published]:1 / filter[frontpage]:1](posts/index/filter[published]:1/filter[frontpage]:1.md).
 The parameters are then parsed and stored in your controller's passedArgs variable
-as an array, just as you sent them to `Router::url`
+as an array, just as you sent them to `Router::url`:
 
-```php
+``` php
 $this->passedArgs['filter'] = array(
     'published' => 1,
     'frontpage' => 1
 );
-
 ```
 
 Arrays can be deeply nested as well, allowing you even more flexibility in
-passing arguments
+passing arguments:
 
-```php
+``` php
 $url = Router::url(array(
     'controller' => 'posts',
     'action' => 'search',
@@ -793,23 +772,19 @@ $url = Router::url(array(
     ),
     'users' => array(1, 2, 3)
 ));
-
 ```
 
-You would end up with a pretty long url like this (wrapped for easy reading)::
+You would end up with a pretty long url like this (wrapped for easy reading):
 
-```
-posts/search
-  /models[post][order]:asc/models[post][filter][published]:1
-  /models[comment][order]:desc/models[comment][filter][spam]:0
-  /users[]:1/users[]:2/users[]:3
-
-```
+    posts/search
+      /models[post][order]:asc/models[post][filter][published]:1
+      /models[comment][order]:desc/models[comment][filter][spam]:0
+      /users[]:1/users[]:2/users[]:3
 
 And the resulting array that would be passed to the controller would match that
-which you passed to the router
+which you passed to the router:
 
-```php
+``` php
 $this->passedArgs['models'] = array(
     'post' => array(
         'order' => 'asc',
@@ -826,7 +801,6 @@ $this->passedArgs['models'] = array(
 );
 ```
 
-<!-- anchor: controlling-named-parameters -->
 ### Controlling Named Parameters
 
 You can control named parameter configuration at the per-route-level
@@ -834,58 +808,52 @@ or control them globally. Global control is done through `Router::connectNamed()
 The following gives some examples of how you can control named parameter parsing
 with connectNamed().
 
-Do not parse any named parameters
+Do not parse any named parameters:
 
-```php
+``` css
 Router::connectNamed(false);
-
 ```
 
-Parse only default parameters used for CakePHP's pagination::
+Parse only default parameters used for CakePHP's pagination:
 
-```php
+``` css
 Router::connectNamed(false, array('default' => true));
-
 ```
 
-Parse only the page parameter if its value is a number
+Parse only the page parameter if its value is a number:
 
-```php
+``` css
 Router::connectNamed(
     array('page' => '[\d]+'),
     array('default' => false, 'greedy' => false)
 );
-
 ```
 
-Parse only the page parameter no matter what::
+Parse only the page parameter no matter what:
 
-```php
+``` css
 Router::connectNamed(
     array('page'),
     array('default' => false, 'greedy' => false)
 );
-
 ```
 
-Parse only the page parameter if the current action is 'index'
+Parse only the page parameter if the current action is 'index':
 
-```php
+``` css
 Router::connectNamed(
     array('page' => array('action' => 'index')),
     array('default' => false, 'greedy' => false)
 );
-
 ```
 
-Parse only the page parameter if the current action is 'index' and the controller is 'pages'::
+Parse only the page parameter if the current action is 'index' and the controller is 'pages':
 
-```php
+``` css
 Router::connectNamed(
     array('page' => array('action' => 'index', 'controller' => 'pages')),
     array('default' => false, 'greedy' => false)
 );
-
 ```
 
 connectNamed() supports a number of options:
@@ -895,32 +863,30 @@ connectNamed() supports a number of options:
 - `default` Set this to true to merge in the default set of named parameters.
 - `reset` Set to true to clear existing rules and start fresh.
 - `separator` Change the string used to separate the key & value in a named
-  parameter. Defaults to `:`
+  parameter. Defaults to <span class="title-ref">:</span>
 
 ## Reverse Routing
 
 Reverse routing is a feature in CakePHP that is used to allow you to
 easily change your URL structure without having to modify all your code.
-By using :term:`routing arrays <routing array>` to define your URLs, you can
+By using [routing arrays](#routing-array) to define your URLs, you can
 later configure routes and the generated URLs will automatically update.
 
-If you create URLs using strings like
+If you create URLs using strings like:
 
-```php
+``` php
 $this->Html->link('View', '/posts/view/' . $id);
-
 ```
 
-And then later decide that `/posts` should really be called
+And then later decide that [Posts](posts.md) should really be called
 'articles' instead, you would have to go through your entire
-application renaming URLs. However, if you defined your link like
+application renaming URLs. However, if you defined your link like:
 
-```php
+``` php
 $this->Html->link(
     'View',
     array('controller' => 'posts', 'action' => 'view', $id)
 );
-
 ```
 
 Then when you decided to change your URLs, you could do so by defining a
@@ -928,9 +894,9 @@ route. This would change both the incoming URL mapping, as well as the
 generated URLs.
 
 When using array URLs, you can define both query string parameters and
-document fragments using special keys
+document fragments using special keys:
 
-```php
+``` css
 Router::url(array(
     'controller' => 'posts',
     'action' => 'index',
@@ -942,7 +908,6 @@ Router::url(array(
 /posts/index?page=1#top
 ```
 
-<!-- anchor: redirect-routing -->
 ## Redirect Routing
 
 Redirect routing allows you to issue HTTP status 30x redirects for
@@ -952,9 +917,9 @@ and you don't want to expose two URLs for the same content
 
 Redirection routes are different from normal routes as they perform an actual
 header redirection if a match is found. The redirection can occur to
-a destination within your application or an outside location
+a destination within your application or an outside location:
 
-```php
+``` css
 Router::redirect(
     '/home/*',
     array('controller' => 'posts', 'action' => 'view'),
@@ -962,23 +927,21 @@ Router::redirect(
     // view action expects $id as an argument
     array('persist' => true)
 );
-
 ```
 
-Redirects `/home/*` to `/posts/view` and passes the parameters to
-`/posts/view`. Using an array as the redirect destination allows
+Redirects [Home / *](home/*.md) to [Posts / view](posts/view.md) and passes the parameters to
+[Posts / view](posts/view.md). Using an array as the redirect destination allows
 you to use other routes to define where a URL string should be
 redirected to. You can redirect to external locations using
-string URLs as the destination
+string URLs as the destination:
 
-```php
+``` css
 Router::redirect('/posts/*', 'https://google.com', array('status' => 302));
-
 ```
 
-This would redirect `/posts/*` to `https://google.com` with a
+This would redirect [Posts / *](posts/*.md) to `https://google.com` with a
 HTTP status of 302.
-<!-- anchor: disabling-default-routes -->
+
 ## Disabling the Default Routes
 
 If you have fully customized all your routes, and want to avoid any
@@ -989,7 +952,7 @@ application's routes.php file.
 This will cause CakePHP to serve errors, when users try to visit
 URLs that would normally be provided by CakePHP but have not
 been connected explicitly.
-<!-- anchor: custom-route-classes -->
+
 ## Custom Route Classes
 
 Custom route classes allow you to extend and change how individual
@@ -1001,9 +964,9 @@ and/or `parse()`. `parse()` is used to parse requests and
 
 You can use a custom route class when making a route by using the
 `routeClass` option, and loading the file containing your route
-before trying to use it
+before trying to use it:
 
-```php
+``` css
 App::uses('SlugRoute', 'Routing/Route');
 
 Router::connect(
@@ -1011,7 +974,6 @@ Router::connect(
      array('controller' => 'posts', 'action' => 'view'),
      array('routeClass' => 'SlugRoute')
 );
-
 ```
 
 This route would create an instance of `SlugRoute` and allow you
@@ -1019,204 +981,12 @@ to implement custom parameter handling.
 
 ## Router API
 
-### Class `Router`
+`class` **Router**
 
-Router manages generation of outgoing URLs, and parsing of incoming
-request uri's into parameter sets that CakePHP can dispatch.
+`class` **CakeRoute**
 
-#### Static Method `connect($route, $defaults = array(), $options = array())`
+`method` CakeRoute::**parse**($url)
 
-:param string $route: A string describing the template of the route
-:param array $defaults: An array describing the default route parameters.
-These parameters will be used by default
-and can supply routing parameters that are not dynamic.
-:param array $options: An array matching the named elements in the route
-to regular expressions which that element should match. Also contains
-additional parameters such as which routed parameters should be
-shifted into the passed arguments, supplying patterns for routing
-parameters and supplying the name of a custom routing class.
+`method` CakeRoute::**match**($url)
 
-Routes are a way of connecting request URLs to objects in your application.
-At their core routes are a set of regular expressions that are used to
-match requests to destinations.
-
-Examples
-
-```php
-Router::connect('/:controller/:action/*');
-
-```
-
-The first parameter will be used as a controller name while the second is
-used as the action name. The '/\*' syntax makes this route greedy in that
-it will match requests like `/posts/index` as well as requests like
-`/posts/edit/1/foo/bar` .
-
-```php
-Router::connect(
-    '/home-page',
-    array('controller' => 'pages', 'action' => 'display', 'home')
-);
-
-```
-
-The above shows the use of route parameter defaults. And providing routing
-parameters for a static route.
-
-```php
-Router::connect(
-    '/:lang/:controller/:action/:id',
-    array(),
-    array('id' => '[0-9]+', 'lang' => '[a-z]{3}')
-);
-
-```
-
-Shows connecting a route with custom route parameters as well as providing
-patterns for those parameters. Patterns for routing parameters do not need
-capturing groups, as one will be added for each route params.
-
-    $options offers three 'special' keys. `pass`, `persist` and `routeClass`
-have special meaning in the $options array.
-
-- `pass` is used to define which of the routed parameters should be
-shifted into the pass array. Adding a parameter to pass will remove
-it from the regular route array. Ex. `'pass' => array('slug')`
-
-- `persist` is used to define which route parameters should be automatically
-included when generating new URLs. You can override persistent parameters
-by redefining them in a URL or remove them by setting the parameter to
-`false`. Ex. `'persist' => array('lang')`
-
-- `routeClass` is used to extend and change how individual routes parse
-requests and handle reverse routing, via a custom routing class.
-Ex. `'routeClass' => 'SlugRoute'`
-
-- `named` is used to configure named parameters at the route level.
-This key uses the same options as `Router::connectNamed()`
-
-#### Static Method `redirect($route, $url, $options = array())`
-
-:param string $route: A route template that dictates which URLs should
-be redirected.
-:param mixed $url: Either a :term:`routing array` or a string url
-        for the destination of the redirect.
-:param array $options: An array of options for the redirect.
-
-Connects a new redirection Route in the router.
-    See [redirect-routing](routing.md#redirect-routing) for more information.
-
-#### Static Method `connectNamed($named, $options = array())`
-
-:param array $named: A list of named parameters. Key value pairs are accepted where
-values are either regex strings to match, or arrays.
-:param array $options: Allows control of all settings:
-separator, greedy, reset, default
-
-Specifies what named parameters CakePHP should be parsing out of
-incoming URLs. By default CakePHP will parse every named parameter
-out of incoming URLs. See [controlling-named-parameters](routing.md#controlling-named-parameters) for
-more information.
-
-#### Static Method `promote($which = null)`
-
-:param integer $which: A zero-based array index representing the route to move.
-For example, if 3 routes have been added, the last route would be 2.
-
-Promote a route (by default, the last one added) to the beginning of the list.
-
-#### Static Method `url($url = null, $full = false)`
-
-:param mixed $url: Cake-relative URL, like "/products/edit/92" or
-"/presidents/elect/4" or a :term:`routing array`
-:param mixed $full: If (boolean) true, the full base URL will be prepended
-to the result. If an array accepts the following keys
-
-- escape - used when making URLs embedded in HTML escapes query
-string '&'
-- full - if true the full base URL will be prepended.
-
-Generate a URL for the specified action. Returns a URL pointing
-to a combination of controller and action. $url can be:
-
-- Empty - the method will find the address to the actual controller/action.
-- '/' - the method will find the base URL of application.
-- A combination of controller/action - the method will find the URL for it.
-
-There are a few 'special' parameters that can change the final URL string that is generated:
-
-- `base` - Set to false to remove the base path from the generated URL.
-If your application is not in the root directory, this can be used to
-generate URLs that are 'CakePHP relative'. CakePHP relative URLs are
-required when using requestAction.
-- `?` - Takes an array of query string parameters
-- `#` - Allows you to set URL hash fragments.
-- `full_base` - If true the value of `Router::fullBaseUrl()` will
-be prepended to generated URLs.
-
-#### Static Method `mapResources($controller, $options = array())`
-
-Creates REST resource routes for the given controller(s). See
-    the [rest](rest.md) section for more information.
-
-#### Static Method `parseExtensions($types)`
-
-Used in routes.php to declare which [file-extensions](routing.md#file-extensions) your application
-supports. By providing no arguments, all file extensions will be supported.
-
-#### Static Method `setExtensions($extensions, $merge = true)`
-
-> [!IMPORTANT]
-> Added in version 2.2
->
-
-Set or add valid extensions. To have the extensions parsed, you are still
-required to call `Router::parseExtensions()`.
-
-#### Static Method `defaultRouteClass($classname)`
-
-> [!IMPORTANT]
-> Added in version 2.1
->
-
-Set the default route to be used when connecting routes in the future.
-
-#### Static Method `fullBaseUrl($url = null)`
-
-> [!IMPORTANT]
-> Added in version 2.4
->
-
-Get or set the baseURL used for generating URL's. When setting this value
-you should be sure to include the fully qualified domain name including
-protocol.
-
-Setting values with this method will also update `App.fullBaseUrl` in
-`Configure`.
-
-### Class `CakeRoute`
-
-The base class for custom routes to be based on.
-
-#### Method `parse($url)`
-
-:param string $url: The string URL to parse.
-
-Parses an incoming URL, and generates an array of request parameters
-that Dispatcher can act upon. Extending this method allows you to customize
-how incoming URLs are converted into an array. Return `false` from
-URL to indicate a match failure.
-
-#### Method `match($url)`
-
-:param array $url: The routing array to convert into a string URL.
-
-Attempt to match a URL array. If the URL matches the route parameters
-and settings, then return a generated string URL. If the URL doesn't
-match the route parameters, false will be returned. This method handles
-the reverse routing or conversion of URL arrays into string URLs.
-
-#### Method `compile()`
-
-Force a route to compile its regular expression.
-
+`method` CakeRoute::**compile**()

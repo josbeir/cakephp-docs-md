@@ -20,9 +20,9 @@ replaced with better solutions. Deprecated features will not be removed until
   instead.
 - `Cake\Database\Expression\QueryExpression::type()` is deprecated. Use
   `tieWith()` instead.
-- `Cake\Database\Type\DateTimeType::$dateTimeClass` is deprecated.  Use
+- `Cake\Database\Type\DateTimeType::$dateTimeClass` is deprecated. Use
   DateTimeType::useMutable() or DateTimeType::useImmutable() instead.
-- `Cake\Database\Type\DateType::$dateTimeClass` is deprecated.  Use
+- `Cake\Database\Type\DateType::$dateTimeClass` is deprecated. Use
   `DateTimeType::useMutable()` or `DateType::useImmutable()` instead.
 - `Cake\ORM\ResultSet::_calculateTypeMap()` is now unused and deprecated.
 - `Cake\ORM\ResultSet::_castValues()` is now unused and deprecated.
@@ -36,14 +36,11 @@ are emitted by methods, options and functionality that will be removed in
 CakePHP 4.x, but will continue to exist throughout the lifetime of 3.x. While we
 recommend addressing deprecation issues as they are encountered, that is not
 always possible. If you'd like to defer fixing deprecation notices, you can
-disable them in your **config/app.php**
+disable them in your **config/app.php**:
 
-```
-'Error' => [
-    'errorLevel' => E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED,
-]
-
-```
+    'Error' => [
+        'errorLevel' => E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED,
+    ]
 
 The above error level will suppress deprecation warnings from CakePHP.
 
@@ -51,7 +48,7 @@ The above error level will suppress deprecation warnings from CakePHP.
 
 ### Carbon Replaced with Chronos
 
-The Carbon library has been replaced with [cakephp/chronos](../chronos.md).
+The Carbon library has been replaced with [cakephp/chronos](chronos.md).
 This new library is a fork of Carbon with no additional dependencies. It also
 offer a calendar date object, and immutable versions of both date and datetime
 objects.
@@ -66,29 +63,28 @@ ORM creates instances of `Date` when mapping `DATE` columns now.
 
 The `FrozenTime`, and `FrozenDate` classes were added. These classes offer
 the same API as the `Time` object has. The frozen classes provide immutable
-variants of `Time` and `Date`.  By using immutable objects, you can prevent
+variants of `Time` and `Date`. By using immutable objects, you can prevent
 accidental mutations. Instead of in-place modifications, modifier methods return
-*new* instances
+*new* instances:
 
-```php
+``` php
 use Cake\I18n\FrozenTime;
 
 $time = new FrozenTime('2016-01-01 12:23:32');
 $newTime = $time->modify('+1 day');
-
 ```
 
 In the above code `$time` and `$newTime` are different objects. The
 `$time` object retains its original value, while `$newTime` has the modified
-value. See the [immutable-time](../core-libraries/time.md#immutable-time) section for more information. As of 3.2,
+value. See the [immutable-time](#immutable-time) section for more information. As of 3.2,
 the ORM can map date/datetime columns into immutable objects. See the
-[immutable-datetime-mapping](../orm/database-basics.md#immutable-datetime-mapping) section for more information.
+[immutable-datetime-mapping](#immutable-datetime-mapping) section for more information.
 
 ### CorsBuilder Added
 
 In order to make setting headers related to Cross Origin Requests (CORS) easier,
 a new `CorsBuilder` has been added. This class lets you define CORS related
-headers with a fluent interface. See [cors-headers](../controllers/request-response.md#cors-headers) for more information.
+headers with a fluent interface. See [cors-headers](#cors-headers) for more information.
 
 ### RedirectRoute raises an exception on redirect
 
@@ -113,13 +109,12 @@ responses.
 
 The Validator object has a number of new methods that make building validators
 less verbose. For example adding validation rules to a username field can now
-look like
+look like:
 
-```php
+``` php
 $validator->email('username')
     ->ascii('username')
     ->lengthBetween('username', [4, 8]);
-
 ```
 
 ### Console Improvements

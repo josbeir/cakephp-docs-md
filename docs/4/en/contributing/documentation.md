@@ -1,12 +1,7 @@
----
-title: Documentation
-keywords: "partial translations,translation efforts,html entities,text markup,asfd,asdf,structured text,english content,markdown,formatted text,dot org,repo,consistency,translator,freenode,textile,improvements,syntax,cakephp,submission"
----
-
 # Documentation
 
 Contributing to the documentation is simple. The files are hosted on
-https://github.com/cakephp/docs. Feel free to fork the repo, add your
+<https://github.com/cakephp/docs>. Feel free to fork the repo, add your
 changes/improvements/translations and give back by issuing a pull request.
 You can even edit the docs online with GitHub, without ever downloading the
 files -- the "Improve this Doc" button on any given page will direct you to
@@ -49,25 +44,36 @@ those changes in the other languages.
 For example, if a new English file is created in **en/file.rst**, we should:
 
 - Add the file in all other languages : **fr/file.rst**, **zh/file.rst**, ...
+
 - Delete the content, but keeping the `title`, `meta` information and
   eventual `toc-tree` elements. The following note will be added while nobody
-  has translated the file
+  has translated the file:
 
-```php
-# File Title
+      File Title
+      ##########
 
-> [!NOTE]
-> The documentation is not currently supported in XX language for this
-> page.
->
-> Please feel free to send us a pull request on
-> [Github](https://github.com/cakephp/docs) or use the **Improve This Doc**
-> button to directly propose your changes.
->
-> You can refer to the English version in the select top menu to have
-> information about this page's topic.
->
-    // If toc-tree elements are in the English version
+      .. note::
+          The documentation is not currently supported in XX language for this
+          page.
+
+          Please feel free to send us a pull request on
+          `Github <https://github.com/cakephp/docs>`_ or use the **Improve This Doc**
+          button to directly propose your changes.
+
+          You can refer to the English version in the select top menu to have
+          information about this page's topic.
+
+      // If toc-tree elements are in the English version
+      .. toctree::
+          :maxdepth: 1
+
+          one-toc-file
+          other-toc-file
+
+      .. meta::
+          :title lang=xx: File Title
+          :keywords lang=xx: title, description,...
+
 ### Translator tips
 
 - Browse and edit in the language you want the content to be
@@ -80,7 +86,7 @@ For example, if a new English file is created in **en/file.rst**, we should:
 - Do compare to the English content before submitting a correction
   (if you correct something, but don't integrate an 'upstream' change
   your submission won't be accepted).
-- If you need to write an English term, wrap it in `\<em\>` tags.
+- If you need to write an English term, wrap it in [](#em) tags.
   For example, "asdf asdf *Controller* asdf" or "asdf asdf Kontroller
   (*Controller*) asfd".
 - Do not submit partial translations.
@@ -129,22 +135,17 @@ indentation. Paragraphs should be separated by one blank line.
 
 - One asterisk: *text* for emphasis (italics)
   We'll use it for general highlighting/emphasis.
-
   - `*text*`.
-
 - Two asterisks: **text** for strong emphasis (boldface)
   We'll use it for working directories, bullet list subject, table names and
   excluding the following word "table".
-
   - `**/config/Migrations**`, `**articles**`, etc.
-
 - Two backquotes: `text` for code samples
   We'll use it for names of method options, names of table columns, object
   names, excluding the following word "object" and for method/function
   names -- include "()".
-
-  - ````cascadeCallbacks````, ````true````, ````id````,
-    ````PagesController````, ````config()````, etc.
+  - ``cascadeCallbacks``, ``true``, ``id``,
+    ``PagesController``, ``config()``, etc.
 
 If asterisks or backquotes appear in running text and could be confused with
 inline markup delimiters, they have to be escaped with a backslash.
@@ -160,45 +161,36 @@ Inline markup has a few restrictions:
 
 List markup is very similar to markdown. Unordered lists are indicated by
 starting a line with a single asterisk and a space. Numbered lists can be
-created with either numerals, or `#` for auto numbering::
+created with either numerals, or `#` for auto numbering:
 
-```
+    * This is a bullet
+    * So is this. But this line
+      has two lines.
 
-- This is a bullet
-- So is this. But this line
-  has two lines.
+    1. First line
+    2. Second line
 
-1. First line
-2. Second line
+    #. Automatic numbering
+    #. Will save you some time.
 
-#. Automatic numbering
-#. Will save you some time.
-
-```
 Indented lists can also be created, by indenting sections and separating them
-with an empty line::
+with an empty line:
 
-```
+    * First line
+    * Second line
 
-- First line
-- Second line
+        * Going deeper
+        * Whoah
 
-- Going deeper
-- Whoah
+    * Back to the first level.
 
-- Back to the first level.
+Definition lists can be created by doing the following:
 
-```
-Definition lists can be created by doing the following::
+    term
+        definition
+    CakePHP
+        An MVC framework for PHP
 
-```
-
-term
-definition
-CakePHP
-An MVC framework for PHP
-
-```
 Terms cannot be more than one line, but definitions can be multi-line and all
 lines should be indented consistently.
 
@@ -208,52 +200,48 @@ There are several kinds of links, each with their own uses.
 
 #### External Links
 
-Links to external documents can be done with the following::
+Links to external documents can be done with the following:
 
-```html
-[External Link to php.net](https://php.net)
-
-```
+    `External Link to php.net <https://php.net>`_
 
 The resulting link would look like this: [External Link to php.net](https://php.net)
 
 #### Links to Other Pages
 
-.. rst:role:: doc
-
-    Other pages in the documentation can be linked to using the `:doc:` role.
-    You can link to the specified document using either an absolute or relative
-    path reference. You should omit the `.rst` extension. For example, if
-    the reference `[form](form.md)` appears in the document `core-helpers/html`,
-    then the link references `core-helpers/form`. If the reference was
-    `[core-helpers](../core-helpers.md)`, it would always reference `/core-helpers`
-    regardless of where it was used.
+> Other pages in the documentation can be linked to using the `:doc:` role.
+> You can link to the specified document using either an absolute or relative
+> path reference. You should omit the `.rst` extension. For example, if
+> the reference `` :doc:`form ``<span class="title-ref"> appears in the document </span><span class="title-ref">core-helpers/html</span><span class="title-ref">,
+> then the link references </span><span class="title-ref">core-helpers/form</span><span class="title-ref">. If the reference was
+> </span><span class="title-ref">:doc:</span>/core-helpers`` `, it would always reference ``/core-helpers\`\`
+> regardless of where it was used.
 
 #### Cross Referencing Links
 
-.. rst:role:: ref
-
-    You can cross reference any arbitrary title in any document using the
-    `:ref:` role. Link label targets must be unique across the entire
-    documentation. When creating labels for class methods, it's best to use
-    `class-method` as the format for your link label.
-
-    The most common use of labels is above a title. Example::
-    The most common use of labels is above a title. Example::
-### Section heading
-
-        More content here.
-
-    Elsewhere you could reference the above section using `[label-name](documentation.md#label-name)`.
-    The link's text would be the title that the link preceded. You can also
-    provide custom link text using `[Link text](documentation.md#label-name)`.
+> You can cross reference any arbitrary title in any document using the
+> `:ref:` role. Link label targets must be unique across the entire
+> documentation. When creating labels for class methods, it's best to use
+> `class-method` as the format for your link label.
+>
+> The most common use of labels is above a title. Example:
+>
+>     .. _label-name:
+>
+>     Section heading
+>     ---------------
+>
+>     More content here.
+>
+> Elsewhere you could reference the above section using `` :ref:`label-name ``<span class="title-ref">.
+> The link's text would be the title that the link preceded. You can also
+> provide custom link text using </span><span class="title-ref">:ref:\`Link text \<label-name\></span>\`\`.
 
 #### Prevent Sphinx to Output Warnings
 
 Sphinx will output warnings if a file is not referenced in a toc-tree. It's
 a great way to ensure that all files have a link directed to them, but
 sometimes, you don't need to insert a link for a file, eg. for our
-`epub-contents` and `pdf-contents` files. In those cases, you can add
+<span class="title-ref">epub-contents</span> and <span class="title-ref">pdf-contents</span> files. In those cases, you can add
 `:orphan:` at the top of the file, to suppress warnings that the file is not
 in the toc-tree.
 
@@ -267,97 +255,73 @@ and roles is required to give proper indexing and cross referencing features.
 
 Each directive populates the index, and or the namespace index.
 
-.. rst:directive:: .. php:global:: name
+> This directive declares a new PHP global variable.
 
-   This directive declares a new PHP global variable.
+> Defines a new global function outside of a class.
 
-.. rst:directive:: .. php:function:: name(signature)
+> This directive declares a new PHP constant, you can also use it nested
+> inside a class directive to create class constants.
 
-   Defines a new global function outside of a class.
+> This directive declares a new Exception in the current namespace. The
+> signature can include constructor arguments.
 
-.. rst:directive:: .. php:const:: name
-
-   This directive declares a new PHP constant, you can also use it nested
-   inside a class directive to create class constants.
-
-.. rst:directive:: .. php:exception:: name
-
-   This directive declares a new Exception in the current namespace. The
-   signature can include constructor arguments.
-
-.. rst:directive:: .. php:class:: name
-
-   Describes a class. Methods, attributes, and constants belonging to the class
-   should be inside this directive's body::
-
-```php
-.. php:class:: MyClass
-
-Class description
-
-.. php:method:: method($argument)
-
-Method description
-
-```
-
-   Attributes, methods and constants don't need to be nested. They can also just
-   follow the class declaration::
-
-```
-.. php:class:: MyClass
-
-Text about the class
-
-.. php:method:: methodName()
-
-Text about the method
-
-```
-
-> [!NOTE]
-> :rst:dir:`php:method`, :rst:dir:`php:attr`, :rst:dir:`php:const`
+> Describes a class. Methods, attributes, and constants belonging to the class
+> should be inside this directive's body:
 >
+>     .. php:class:: MyClass
+>
+>         Class description
+>
+>        .. php:method:: method($argument)
+>
+>        Method description
+>
+> Attributes, methods and constants don't need to be nested. They can also just
+> follow the class declaration:
+>
+>     .. php:class:: MyClass
+>
+>         Text about the class
+>
+>     .. php:method:: methodName()
+>
+>         Text about the method
+>
+> <div class="seealso">
+>
+> `php:method`, `php:attr`, `php:const`
+>
+> </div>
 
-.. rst:directive:: .. php:method:: name(signature)
+> Describe a class method, its arguments, return value, and exceptions:
+>
+>     .. php:method:: instanceMethod($one, $two)
+>
+>         :param string $one: The first parameter.
+>         :param string $two: The second parameter.
+>         :returns: An array of stuff.
+>         :throws: InvalidArgumentException
+>
+>        This is an instance method.
 
-   Describe a class method, its arguments, return value, and exceptions::
+> Describe a static method, its arguments, return value and exceptions,
+> see `php:method` for options.
 
-```php
-.. php:method:: instanceMethod($one, $two)
-
-:param string $one: The first parameter.
-:param string $two: The second parameter.
-:returns: An array of stuff.
-:throws: InvalidArgumentException
-
-This is an instance method.
-
-```
-
-.. rst:directive:: .. php:staticmethod:: ClassName::methodName(signature)
-
-    Describe a static method, its arguments, return value and exceptions,
-    see :rst:dir:`php:method` for options.
-
-.. rst:directive:: .. php:attr:: name
-
-   Describe an property/attribute on a class.
+> Describe an property/attribute on a class.
 
 #### Prevent Sphinx to Output Warnings
 
 Sphinx will output warnings if a function is referenced in multiple files. It's
 a great way to ensure that you did not add a function two times, but
 sometimes, you actually want to write a function in two or more files, eg.
-`debug object` is referenced in `/development/debugging` and in
-`/core-libraries/global-constants-and-functions`. In this case, you can add
+<span class="title-ref">debug object</span> is referenced in <span class="title-ref">/development/debugging</span> and in
+<span class="title-ref">/core-libraries/global-constants-and-functions</span>. In this case, you can add
 `:noindex:` under the function debug to suppress warnings. Keep only
-one reference **without** `:no-index:` to still have the function referenced::
+one reference **without** `:no-index:` to still have the function referenced:
 
-```php
+``` php
 .. php:function:: debug(mixed $var, boolean $showHtml = null, $showFrom = true)
-:noindex:
-
+    :noindex:
 ```
 
 #### Cross Referencing
@@ -365,70 +329,42 @@ one reference **without** `:no-index:` to still have the function referenced::
 The following roles refer to PHP objects and links are generated if a
 matching directive is found:
 
-.. rst:role:: php:func
+> Reference a PHP function.
 
-   Reference a PHP function.
+> Reference a global variable whose name has `$` prefix.
 
-.. rst:role:: php:global
+> Reference either a global constant, or a class constant. Class constants
+> should be preceded by the owning class:
+>
+>     DateTime has an :php:const:`DateTime::ATOM` constant.
 
-   Reference a global variable whose name has `$` prefix.
+> Reference a class by name:
+>
+>     :php:class:`ClassName`
 
-.. rst:role:: php:const
+> Reference a method of a class. This role supports both kinds of methods:
+>
+>     :php:meth:`DateTime::setDate`
+>     :php:meth:`Classname::staticMethod`
 
-   Reference either a global constant, or a class constant. Class constants
-   should be preceded by the owning class::
+> Reference a property on an object:
+>
+>     :php:attr:`ClassName::$propertyName`
 
-```php
-DateTime has an `DateTime::ATOM` constant.
-
-```
-
-.. rst:role:: php:class
-
-   Reference a class by name::
-
-```
-`ClassName`
-
-```
-
-.. rst:role:: php:meth
-
-   Reference a method of a class. This role supports both kinds of methods::
-
-```php
-`DateTime::setDate`
-`Classname::staticMethod`
-
-```
-
-.. rst:role:: php:attr
-
-   Reference a property on an object::
-
-```php
-`ClassName::$propertyName`
-
-``
-.. rst:role:: php:exc
-
-Reference an exception.
+> Reference an exception.
 
 ### Source Code
 
-Literal code blocks are created by ending a paragraph with ```. The literal
-block must be indented, and like all paragraphs be separated by single lines::
+Literal code blocks are created by ending a paragraph with `::`. The literal
+block must be indented, and like all paragraphs be separated by single lines:
 
-```php
-This is a paragraph::
+    This is a paragraph::
 
-    while ($i--) {
-        doStuff()
-    }
+        while ($i--) {
+            doStuff()
+        }
 
-This is regular text again.
-
-```
+    This is regular text again.
 
 Literal text is not modified or formatted, save that one level of indentation
 is removed.
@@ -455,32 +391,38 @@ that. There are fives kinds of admonitions.
   admonition are used to notify of a deprecated feature, `X.Y.Z` being the version on
   which the said feature was deprecated.
 
-All admonitions are made the same::
+All admonitions are made the same:
 
-All admonitions are made the same::
-> Indented and preceded and followed by a blank line. Just like a
-> paragraph.
->
-This text is not part of the note.
+    .. note::
+
+        Indented and preceded and followed by a blank line. Just like a
+        paragraph.
+
+    This text is not part of the note.
 
 #### Samples
 
 > [!TIP]
 > This is a helpful tid-bit you probably forgot.
->
+
 > [!NOTE]
 > You should pay attention here.
->
+
 > [!WARNING]
 > It could be dangerous.
->
-> [!IMPORTANT]
-> Added in version 4.0.0
->
-> This awesome feature was added in version 4.0.0
->
-> **deprecated:** 4.0.1
+
+<div class="versionadded">
+
+4.0.0
+
+This awesome feature was added in version 4.0.0
+
+</div>
+
+<div class="deprecated">
+
+4.0.1
 
 This old feature was deprecated on version 4.0.1
 
-```
+</div>

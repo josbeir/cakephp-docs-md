@@ -1,8 +1,3 @@
----
-title: Getting Started
-keywords: "folder structure,table names,initial request,database table,organizational structure,rst,filenames,conventions,mvc,web page,sit"
----
-
 # CakePHP at a Glance
 
 CakePHP is designed to make common web-development tasks simple, and easy. By
@@ -33,9 +28,9 @@ In the case of a social network, the Model layer would take care of
 tasks such as saving the user data, saving friends' associations, storing
 and retrieving user photos, finding suggestions for new friends, etc.
 The model objects can be thought of as "Friend", "User", "Comment", or
-"Photo". If we wanted to load some data from our `users` table we could do
+"Photo". If we wanted to load some data from our `users` table we could do:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Prior to 3.6 use TableRegistry::get('Users')
@@ -44,7 +39,6 @@ $query = $users->find();
 foreach ($query as $row) {
     echo $row->username;
 }
-
 ```
 
 You may notice that we didn't have to write any code before we could start
@@ -52,16 +46,15 @@ working with our data. By using conventions, CakePHP will use standard classes
 for table and entity classes that have not yet been defined.
 
 If we wanted to make a new user and save it (with validation) we would do
-something like
+something like:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Prior to 3.6 use TableRegistry::get('Users')
 $users = TableRegistry::getTableLocator()->get('Users');
 $user = $users->newEntity(['email' => 'mark@example.com']);
 $users->save($user);
-
 ```
 
 ## The View Layer
@@ -71,20 +64,19 @@ Model objects, it is responsible for using the information it has available
 to produce any presentational interface your application might need.
 
 For example, the view could use model data to render an HTML view template containing it,
-or a XML formatted result for others to consume
+or a XML formatted result for others to consume:
 
-```php
+``` php
 // In a view template file, we'll render an 'element' for each user.
 <?php foreach ($users as $user): ?>
     <li class="user">
         <?= $this->element('user_info', ['user' => $user]) ?>
     </li>
 <?php endforeach; ?>
-
 ```
 
-The View layer provides a number of extension points like [view-templates](views.md#view-templates), [view-elements](views.md#view-elements)
-and [cells](views/cells.md) to let you re-use your presentation logic.
+The View layer provides a number of extension points like [view-templates](#view-templates), [view-elements](#view-elements)
+and [/views/cells](views/cells.md) to let you re-use your presentation logic.
 
 The View layer is not only limited to HTML or text representation of the data.
 It can be used to deliver common data formats like JSON, XML, and through
@@ -101,9 +93,9 @@ from clients, checks their validity according to authentication or authorization
 rules, delegates data fetching or processing to the model, selects the type of
 presentational data that the clients are accepting, and finally delegates the
 rendering process to the View layer. An example of a user registration
-controller would be
+controller would be:
 
-```php
+``` php
 public function add()
 {
     $user = $this->Users->newEntity();
@@ -117,38 +109,39 @@ public function add()
     }
     $this->set('user', $user);
 }
-
 ```
 
 You may notice that we never explicitly rendered a view. CakePHP's conventions
 will take care of selecting the right view and rendering it with the view data
 we prepared with `set()`.
-<!-- anchor: request-cycle -->
+
 ## CakePHP Request Cycle
 
 Now that you are familiar with the different layers in CakePHP, lets review how
 a request cycle works in CakePHP:
 
-![Flow diagram showing a typical CakePHP request](/typical-cake-request.png)
+<figure class="align-center">
+<img src="/typical-cake-request.png" alt="/_static/img/typical-cake-request.png" />
+</figure>
 
 The typical CakePHP request cycle starts with a user requesting a page or
 resource in your application. At a high level each request goes through the
 following steps:
 
-#. The webserver rewrite rules direct the request to **webroot/index.php**.
-#. Your Application is loaded and bound to an `HttpServer`.
-#. Your application's middleware is initialized.
-#. A request and response is dispatched through the PSR-7 Middleware that your
-application uses. Typically this includes error trapping and routing.
-#. If no response is returned from the middleware and the request contains
-routing information, a controller & action are selected.
-#. The controller's action is called and the controller interacts with the
-required Models and Components.
-#. The controller delegates response creation to the View to generate the output
-resulting from the model data.
-#. The view uses Helpers and Cells to generate the response body and headers.
-#. The response is sent back out through the [/controllers/middleware`.
-#. The `HttpServer` emits the response to the webserver.
+1.  The webserver rewrite rules direct the request to **webroot/index.php**.
+2.  Your Application is loaded and bound to an `HttpServer`.
+3.  Your application's middleware is initialized.
+4.  A request and response is dispatched through the PSR-7 Middleware that your
+    application uses. Typically this includes error trapping and routing.
+5.  If no response is returned from the middleware and the request contains
+    routing information, a controller & action are selected.
+6.  The controller's action is called and the controller interacts with the
+    required Models and Components.
+7.  The controller delegates response creation to the View to generate the output
+    resulting from the model data.
+8.  The view uses Helpers and Cells to generate the response body and headers.
+9.  The response is sent back out through the [/controllers/middleware](controllers/middleware.md).
+10. The `HttpServer` emits the response to the webserver.
 
 ## Just the Start
 
@@ -165,3 +158,7 @@ The next obvious steps are to [download CakePHP](installation.md), read the
 [tutorial and build something awesome](tutorials-and-examples/cms/installation.md).
 
 ## Additional Reading
+
+- [Where To Get Help](intro/where-to-get-help.md)
+- [Conventions](intro/conventions.md)
+- [Cakephp Folder Structure](intro/cakephp-folder-structure.md)

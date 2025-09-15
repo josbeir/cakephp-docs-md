@@ -1,11 +1,6 @@
----
-title: Simple Authentication and Authorization Application
-keywords: "auto increment,authorization application,model user,array,conventions,authentication,urls,cakephp,delete,doc,columns"
----
-
 # Simple Authentication and Authorization Application
 
-Following our [blog](../blog/blog.md) example, imagine we wanted to
+Following our [/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md) example, imagine we wanted to
 secure the access to certain URLs, based on the logged in
 user. We also have another requirement, to allow our blog to have multiple authors
 so each one of them can create their own posts, edit and delete them at will
@@ -13,9 +8,9 @@ disallowing other authors to make any changes on one's posts.
 
 ## Creating all users' related code
 
-First, let's create a new table in our blog database to hold our users' data
+First, let's create a new table in our blog database to hold our users' data:
 
-```sql
+``` sql
 CREATE TABLE users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
@@ -24,7 +19,6 @@ CREATE TABLE users (
     created DATETIME DEFAULT NULL,
     modified DATETIME DEFAULT NULL
 );
-
 ```
 
 We have adhered to the CakePHP conventions in naming tables, but we're also
@@ -33,9 +27,9 @@ columns in a users table, CakePHP will be able to auto configure most things for
 us when implementing the user login.
 
 Next step is to create our User model, responsible for finding, saving and
-validating any user data
+validating any user data:
 
-```php
+``` php
 // app/Model/User.php
 App::uses('AppModel', 'Model');
 
@@ -62,14 +56,13 @@ class User extends AppModel {
         )
     );
 }
-
 ```
 
 Let's also create our UsersController, the following contents correspond to a
-basic `baked` UsersController class using the code generation utilities bundled
-with CakePHP
+basic <span class="title-ref">baked</span> UsersController class using the code generation utilities bundled
+with CakePHP:
 
-```php
+``` php
 // app/Controller/UsersController.php
 App::uses('AppController', 'Controller');
 
@@ -146,16 +139,20 @@ class UsersController extends AppController {
 }
 ```
 
-> **versionchanged:** 2.5
+<div class="versionchanged">
+
+2.5
 
 Since 2.5, use `CakeRequest::allowMethod()` instead of
 `CakeRequest::onlyAllow()` (deprecated).
+
+</div>
 
 In the same way we created the views for our blog posts or by using the code
 generation tool, we implement the views. For the purpose of this tutorial, we
 will show just the add.ctp:
 
-```php
+``` php
 <!-- app/View/Users/add.ctp -->
 <div class="users form">
 <?php echo $this->Form->create('User'); ?>
@@ -170,7 +167,6 @@ will show just the add.ctp:
     </fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
-
 ```
 
 ## Authentication (login and logout)
@@ -181,9 +177,9 @@ actions, handling user sign-in and sign-out, and also authorizing logged in
 users to the actions they are allowed to reach.
 
 To add this component to your application open your `app/Controller/AppController.php`
-file and add the following lines
+file and add the following lines:
 
-```php
+``` php
 // app/Controller/AppController.php
 class AppController extends Controller {
     //...
@@ -213,12 +209,11 @@ class AppController extends Controller {
     }
     //...
 }
-
 ```
 
 There is not much to configure, as we used the conventions for the users table.
 We just set up the URLs that will be loaded after the login and logout actions is
-performed, in our case to `/posts/` and `/` respectively.
+performed, in our case to [Posts / ](posts/.md) and `/` respectively.
 
 What we did in the `beforeFilter` function was to tell the AuthComponent to not
 require a login for all `index` and `view` actions, in every controller. We want
@@ -228,9 +223,9 @@ site.
 Now, we need to be able to register new users, save their username and password,
 and, more importantly, hash their password so it is not stored as plain text in
 our database. Let's tell the AuthComponent to let un-authenticated users access
-the users add function and implement the login and logout action
+the users add function and implement the login and logout action:
 
-```php
+``` php
 // app/Controller/UsersController.php
 
 public function beforeFilter() {
@@ -251,13 +246,12 @@ public function login() {
 public function logout() {
     return $this->redirect($this->Auth->logout());
 }
-
 ```
 
 Password hashing is not done yet, open your `app/Model/User.php` model file
-and add the following
+and add the following:
 
-```php
+``` php
 // app/Model/User.php
 
 App::uses('AppModel', 'Model');
@@ -278,21 +272,19 @@ public function beforeSave($options = array()) {
 }
 
 // ...
-
 ```
 
 > [!NOTE]
 > The BlowfishPasswordHasher uses a stronger hashing algorithm (bcrypt) than
 > SimplePasswordHasher (sha1) and provides per user salts. The
 > SimplePasswordHasher will be removed as of CakePHP version 3.0
->
 
 So, now every time a user is saved, the password is hashed using the
-BlowfishPasswordHasher class.  We're just missing a template view file for the
+BlowfishPasswordHasher class. We're just missing a template view file for the
 login function. Open up your `app/View/Users/login.ctp` file and add the
 following lines:
 
-```php
+``` php
 //app/View/Users/login.ctp
 
 <div class="users form">
@@ -308,12 +300,11 @@ following lines:
     </fieldset>
 <?php echo $this->Form->end(__('Login')); ?>
 </div>
-
 ```
 
-You can now register a new user by accessing the `/users/add` URL and log-in with the
-newly created credentials by going to `/users/login` URL. Also try to access
-any other URL that was not explicitly allowed such as `/posts/add`, you will see
+You can now register a new user by accessing the [Users / add](users/add.md) URL and log-in with the
+newly created credentials by going to [Users / login](users/login.md) URL. Also try to access
+any other URL that was not explicitly allowed such as [Posts / add](posts/add.md), you will see
 that the application automatically redirects you to the login page.
 
 And that's it! It looks too simple to be truth. Let's go back a bit to explain what
@@ -329,7 +320,7 @@ returns whether the login was successful or not, and in the case it succeeds,
 then we redirect the user to the configured redirection URL that we used when
 adding the AuthComponent to our application.
 
-The logout works by just accessing the `/users/logout` URL and will redirect
+The logout works by just accessing the [Users / logout](users/logout.md) URL and will redirect
 the user to the configured logoutUrl formerly described. This URL is the result
 of the `AuthComponent::logout()` function on success.
 
@@ -337,17 +328,16 @@ of the `AuthComponent::logout()` function on success.
 
 As stated before, we are converting this blog into a multi-user authoring tool,
 and in order to do this, we need to modify the posts table a bit to add the
-reference to the User model
+reference to the User model:
 
-```sql
+``` sql
 ALTER TABLE posts ADD COLUMN user_id INT(11);
-
 ```
 
 Also, a small change in the PostsController is required to store the currently
-logged in user as a reference for the created post
+logged in user as a reference for the created post:
 
-```php
+``` php
 // app/Controller/PostsController.php
 public function add() {
     if ($this->request->is('post')) {
@@ -359,7 +349,6 @@ public function add() {
         }
     }
 }
-
 ```
 
 The `user()` function provided by the component returns any column from the
@@ -370,9 +359,9 @@ Let's secure our app to prevent some authors from editing or deleting the
 others' posts. Basic rules for our app are that admin users can access every
 URL, while normal users (the author role) can only access the permitted actions.
 Open again the AppController class and add a few more options to the Auth
-config
+config:
 
-```php
+``` php
 // app/Controller/AppController.php
 
 public $components = array(
@@ -402,7 +391,6 @@ public function isAuthorized($user) {
     // Default deny
     return false;
 }
-
 ```
 
 We just created a very simple authorization mechanism. In this case the users
@@ -415,9 +403,9 @@ our `isAuthorized()` method. But instead of doing it in AppController, let's
 delegate each controller to supply those extra rules. The rules we're going to
 add to PostsController should allow authors to create posts but prevent the
 edition of posts if the author does not match. Open the file `PostsController.php`
-and add the following content
+and add the following content:
 
-```php
+``` php
 // app/Controller/PostsController.php
 
 public function isAuthorized($user) {
@@ -436,7 +424,6 @@ public function isAuthorized($user) {
 
     return parent::isAuthorized($user);
 }
-
 ```
 
 We're now overriding the AppController's `isAuthorized()` call and internally
@@ -445,15 +432,14 @@ then just allow him to access the add action, and conditionally access
 edit and delete. A final thing is left to be implemented, to tell whether
 the user is authorized to edit the post or not, we're calling a `isOwnedBy()`
 function in the Post model. It is in general a good practice to move as much
-logic as possible into models. Let's then implement the function
+logic as possible into models. Let's then implement the function:
 
-```php
+``` php
 // app/Model/Post.php
 
 public function isOwnedBy($post, $user) {
     return $this->field('id', array('id' => $post, 'user_id' => $user)) !== false;
 }
-
 ```
 
 This concludes our simple authentication and authorization tutorial. For securing
@@ -462,11 +448,10 @@ You could also be more creative and code something more general in AppController
 on your own rules.
 
 Should you need more control, we suggest you read the complete Auth guide in the
-[authentication](../../core-libraries/components/authentication.md) section where you will find more
+[/core-libraries/components/authentication](core-libraries/components/authentication.md) section where you will find more
 about configuring the component, creating custom Authorization classes, and much more.
 
 ### Suggested Follow-up Reading
 
-1. [code-generation-with-bake](../../console-and-shells/code-generation-with-bake.md) Generating basic CRUD code
-2. [authentication](../../core-libraries/components/authentication.md): User registration and login
-
+1.  [/console-and-shells/code-generation-with-bake](console-and-shells/code-generation-with-bake.md) Generating basic CRUD code
+2.  [/core-libraries/components/authentication](core-libraries/components/authentication.md): User registration and login

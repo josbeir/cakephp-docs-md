@@ -1,8 +1,3 @@
----
-title: Upgrade Shell
-keywords: "api docs,shell,upgrade"
----
-<!-- anchor: upgrade-shell -->
 # Upgrade Shell
 
 The upgrade shell will do most of the work to upgrade your CakePHP application

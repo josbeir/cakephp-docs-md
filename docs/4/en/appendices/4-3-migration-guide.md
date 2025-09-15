@@ -5,31 +5,24 @@ deprecations and features added in 4.3.
 
 ## Upgrading to 4.3.0
 
-You can can use composer to upgrade to CakePHP 4.3.0
+You can can use composer to upgrade to CakePHP 4.3.0:
 
-```
-php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.3"
-
-```
+    php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.3"
 
 ## Deprecations
 
 4.3 introduces a few deprecations. All of these features will continue for the
 duration of 4.x but will be removed in 5.0. You can use the
-[upgrade tool](4-0-upgrade-guide.md#upgrade-tool-use) to automate updating usage of deprecated
-features
+[upgrade tool](#upgrade-tool-use) to automate updating usage of deprecated
+features:
 
-```html
-bin/cake upgrade rector --rules cakephp43 <path/to/app/src>
-
-```
+    bin/cake upgrade rector --rules cakephp43 <path/to/app/src>
 
 > [!NOTE]
 > This only updates CakePHP 4.3 changes. Make sure you apply CakePHP 4.2 changes first.
->
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](../development/errors.md#deprecation-warnings) for more information.
+path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
 
 ### Connection
 
@@ -66,7 +59,7 @@ path basis. See [deprecation-warnings](../development/errors.md#deprecation-warn
 ### Middleware
 
 - "Double pass" middlewares, i.e. classes with `__invoke($request, $response, $next)`
-  method are deprecated.  Instead use `Closure` with signature
+  method are deprecated. Instead use `Closure` with signature
   `function($request, $handler)` or classes which implement
   `Psr\Http\Server\MiddlewareInterface` instead.
 
@@ -81,14 +74,14 @@ path basis. See [deprecation-warnings](../development/errors.md#deprecation-warn
 
 - `ModelAwareTrait::loadModel()` is deprecated. Use the new `LocatorAwareTrait::fetchTable()` instead.
   For example, in controllers you can do `$this->fetchTable()` to get the default table instance or use
-  `$this->fetchTable('Foos')` for a non-default table.  You can set the `LocatorAwareTrait::$defaultTable`
+  `$this->fetchTable('Foos')` for a non-default table. You can set the `LocatorAwareTrait::$defaultTable`
   property to specify the default table alias for `fetchTable()`. But be aware that
   `LocatorAwareTrait::fetchTable()` does not create a property with the name of the table alias on the
-  calling object, e.g. `$this->Articles`, as  `ModelAwareTrait::loadModel()` does.
-- Query proxying all `ResultSetInterface` methods (including ```CollectionInterface```), which forces
+  calling object, e.g. `$this->Articles`, as `ModelAwareTrait::loadModel()` does.
+- Query proxying all `ResultSetInterface` methods (including `` `CollectionInterface ``<span class="title-ref">), which forces
   fetching results and calls the proxied method on the results, is now deprecated. An example of the
-  deprecated usage is `$query->combine('id', 'title');`. This should be
-  updated to `$query->all()->combine('id', 'title');` instead.
+  deprecated usage is </span><span class="title-ref">\$query-\>combine('id', 'title');</span><span class="title-ref">. This should be
+  updated to </span><span class="title-ref">\$query-\>all()-\>combine('id', 'title');</span>\` instead.
 - Passing a validator object to `Table::save()` via the `validate` option is
   deprecated. Define the validator within the table class or use `setValidator()` instead.
 - `Association::setName()` is deprecated. Association names should be defined
@@ -105,7 +98,7 @@ path basis. See [deprecation-warnings](../development/errors.md#deprecation-warn
 ### TestSuite
 
 - `TestFixture::$fields` and `TestFixture::$import` are deprecated. You
-  should convert your application to the [new fixture system](fixture-upgrade.md).
+  should convert your application to the [new fixture system](./fixture-upgrade.md).
 - `TestCase::$dropTables` is deprecated. Dropping tables during a test run is
   not compatible with the new migration/schema dump based fixtures and will be
   removed in 5.0.
@@ -163,7 +156,7 @@ change the semantics or behavior of methods.
   render validation errors.
 - The types specified in function expressions now take precedence over default types set for
   columns when selecting columns. For example, using `$query->select(['id' => $query->func()->min('id')])`
-  the value for `id` in fetched entity will be `float` instead of `integer`.
+  the value for <span class="title-ref">id</span> in fetched entity will be <span class="title-ref">float</span> instead of <span class="title-ref">integer</span>.
 
 ### Routing
 
@@ -185,7 +178,7 @@ change the semantics or behavior of methods.
 
 ### View
 
-- The `$vars` parameter of  `ViewBuilder::build()` is deprecated. Use
+- The `$vars` parameter of `ViewBuilder::build()` is deprecated. Use
   `setVar()` instead.
 - `HtmlHelper::script()` and `HtmlHelper::css()` now escape absolute URLs
   that include a scheme.
@@ -201,6 +194,7 @@ They usually only affect tests.
   since the message formatting logic was moved into log formatters.
 
 ### View
+
 - `TimeHelper::fromString()` now returns an instance of `FrozenTime` instead of `Time`.
 
 ## New Features
@@ -208,7 +202,7 @@ They usually only affect tests.
 ### Controller
 
 - `Controller::middleware()` was added which allows you to define middleware
-  for a single controller only. See [controller-middleware](../controllers.md#controller-middleware) for more information.
+  for a single controller only. See [controller-middleware](#controller-middleware) for more information.
 - Controllers now support action parameters with `float`, `int`, `bool` or `array` type declarations.
   Boolean passed parameters must be either `0` or `1`.
 
@@ -234,19 +228,17 @@ They usually only affect tests.
   prompt.
 - The `DateTimeType` can now convert request data from the user's timezone
   to the application timezone. See
-  [converting-request-data-from-user-timezone](../core-libraries/internationalization-and-localization.md#converting-request-data-from-user-timezone) for more information.
+  [converting-request-data-from-user-timezone](#converting-request-data-from-user-timezone) for more information.
 - `JsonType::setEncodingOptions()` was added. This method lets you define
   `json_encode()` options for when the ORM serializes JSON when persisting
   data.
 - Added `DriverInterface::supports()` which consolidates all feature checks into one function.
   Drivers can support custom feature names or any of the feature constants:
-
   - `FEATURE_CTE`
   - `FEATURE_JSON`
   - `FEATURE_QUOTE`
   - `FEATURE_SAVEPOINT`
   - `FEATURE_WINDOW`
-
 - Added `DriverInterface::inTransaction()` which reflects the status returned by
   `PDO::inTranaction()`.
 - A fluent builder for `CASE, WHEN, THEN` statements has been added.
@@ -272,7 +264,7 @@ They usually only affect tests.
 
 - Log engines now use formatters to format the message string before writing.
   This can be configured with the `formatter` config option. See the
-  [logging-formatters](../core-libraries/logging.md#logging-formatters) section for more details.
+  [logging-formatters](#logging-formatters) section for more details.
 - `JsonFormatter` was added and can be set as the `formatter` option for
   any log engine.
 
@@ -296,10 +288,10 @@ They usually only affect tests.
 - `IntegrationTestTrait::enableCsrfToken()` now lets you use custom CSRF
   cookie/session key names.
 - `HttpClientTrait` was added to make writing HTTP mocks easier.
-  See [httpclient-testing](../core-libraries/httpclient.md#httpclient-testing) for more information.
+  See [httpclient-testing](#httpclient-testing) for more information.
 - A new fixture system has been introduced. This fixture system separates schema
   and data enabling you to re-use your existing migrations to define test
-  schema. The [fixture-upgrade](fixture-upgrade.md) guide covers how to upgrade.
+  schema. The [./fixture-upgrade](./fixture-upgrade.md) guide covers how to upgrade.
 
 ### View
 
@@ -307,7 +299,7 @@ They usually only affect tests.
   attribute to generated tags when the `cspScriptNonce` and `cspStyleNonce`
   request attributes are present.
 - `FormHelper::control()` will now populate the `aria-invalid`,
-  `aria-required`, and `aria-describedby`  attributes based on
+  `aria-required`, and `aria-describedby` attributes based on
   metadata from the validator. The `aria-label` attribute will be set if
   you disable the automatic label element and provide a placeholder.
 - `ViewBuilder::addHelpers()` has been added to cleanly separate merge from overwrite operation.

@@ -1,11 +1,6 @@
----
-title: HttpSocket
-keywords: "array name,array data,query parameter,query string,php class,string query,test type,string data,google,query results,webservices,apis,parameters,cakephp,meth,search results"
----
-
 # HttpSocket
 
-### Class `HttpSocket(mixed $config = array())`
+`class` **HttpSocket(mixed**
 
 CakePHP includes an HttpSocket class which can be used easily for
 making requests. It is a great way to communicate with external webservices, or
@@ -16,120 +11,17 @@ remote APIs.
 You can use HttpSocket to create most kinds of HTTP requests with the different
 HTTP methods.
 
-#### Method `get($uri, $query, $request)`
+`method` HttpSocket(mixed::**get**($uri, $query, $request)
 
-The `$query` parameter, can either be a query string, or an array of keys
-and values. The get method makes a simple HTTP GET request returning the
-results
+`method` HttpSocket(mixed::**post**($uri, $data, $request)
 
-```php
-App::uses('HttpSocket', 'Network/Http');
+`method` HttpSocket(mixed::**put**($uri, $data, $request)
 
-$HttpSocket = new HttpSocket();
+`method` HttpSocket(mixed::**delete**($uri, $query, $request)
 
-// string query
-$results = $HttpSocket->get('https://www.google.com/search', 'q=cakephp');
+`method` HttpSocket(mixed::**patch**($uri, $data, $request)
 
-// array query
-$results = $HttpSocket->get('https://www.google.com/search', array('q' => 'cakephp'));
-
-```
-
-#### Method `post($uri, $data, $request)`
-
-The post method makes a simple HTTP POST request returning the
-results.
-
-The parameters for the `post` method are almost the same as the
-get method, `$uri` is the web address where the request is being
-made; `$data` is the data to be posted, either as a string, or as
-an array of keys and values
-
-```php
-App::uses('HttpSocket', 'Network/Http');
-
-$HttpSocket = new HttpSocket();
-
-// string data
-$results = $HttpSocket->post(
-    'http://example.com/add',
-    'name=test&type=user'
-);
-
-// array data
-$data = array('name' => 'test', 'type' => 'user');
-$results = $HttpSocket->post('http://example.com/add', $data);
-
-```
-
-#### Method `put($uri, $data, $request)`
-
-The put method makes a simple HTTP PUT request returning the
-results.
-
-The parameters for the `put` method is the same as the
-`HttpSocket::post()` method.
-
-#### Method `delete($uri, $query, $request)`
-
-The delete method makes a simple HTTP DELETE request returning the
-results.
-
-The parameters for the `delete` method is the same as the
-`HttpSocket::get()` method. The `$query` parameter can either be a string or an array
-of query string arguments for the request.
-
-#### Method `patch($uri, $data, $request)`
-
-The patch method makes a simple HTTP PATCH request returning the
-results.
-
-The parameters for the `patch` method is the same as the
-`HttpSocket::post()` method.
-
-> [!IMPORTANT]
-> Added in version 2.4
->
-
-#### Method `request($request)`
-
-The base request method, which is called from all the wrappers
-(get, post, put, delete). Returns the results of the request.
-
-    $request is a keyed array of various options. Here is the format
-and default settings
-
-```php
-public $request = array(
-    'method' => 'GET',
-    'uri' => array(
-        'scheme' => 'http',
-        'host' => null,
-        'port' => 80,
-        'user' => null,
-        'pass' => null,
-        'path' => null,
-        'query' => null,
-        'fragment' => null
-    ),
-    'auth' => array(
-        'method' => 'Basic',
-        'user' => null,
-        'pass' => null
-    ),
-    'version' => '1.1',
-    'body' => '',
-    'line' => null,
-    'header' => array(
-        'Connection' => 'close',
-        'User-Agent' => 'CakePHP'
-    ),
-    'raw' => null,
-    'redirect' => false,
-    'cookies' => array()
-);
-
-```
+`method` HttpSocket(mixed::**request**($request)
 
 ## Handling the response
 
@@ -137,11 +29,11 @@ Responses from requests made with `HttpSocket` are instances of
 `HttpResponse`. This object gives you a few accessor methods to access the
 contents of an HTTP response. This class implements the
 [ArrayAccess](https://www.php.net/manual/en/class.arrayaccess.php) and
-[__toString()](https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring),
+[\_\_toString()](https://www.php.net/manual/en/language.oop5.magic.php#language.oop5.magic.tostring),
 so you can continue using the `$http->response` as array and the return of
-request methods as string
+request methods as string:
 
-```php
+``` php
 App::uses('HttpSocket', 'Network/Http');
 
 $http = new HttpSocket();
@@ -152,7 +44,6 @@ $titlePos = strpos($response->body, '<title>');
 
 // Get the status code for the response.
 $code = $response->code;
-
 ```
 
 The `HttpResponse` has the following attributes:
@@ -175,38 +66,31 @@ The `HttpResponse` also exposes the following methods:
 ### Getting headers from a response
 
 Following others places in core, the HttpSocket does not change the casing of
-headers. :rfc:`2616` states that headers are case insensitive, and HttpSocket
-preserves the values the remote host sends
+headers. `2616` states that headers are case insensitive, and HttpSocket
+preserves the values the remote host sends:
 
-```
-HTTP/1.1 200 OK
-Date: Mon, 16 Apr 2007 04:14:16 GMT
-server: CakeHttp Server
-content-tyPe: text/html
-
-```
+    HTTP/1.1 200 OK
+    Date: Mon, 16 Apr 2007 04:14:16 GMT
+    server: CakeHttp Server
+    content-tyPe: text/html
 
 Your `$response->headers` (or `$response['header']`) will contain the exact
 keys sent. In order to safely access the header fields, it's best to use
-`getHeader()`. If your headers looks like
+`getHeader()`. If your headers looks like:
 
-```
-Date: Mon, 16 Apr 2007 04:14:16 GMT
-server: CakeHttp Server
-content-tyPe: text/html
+    Date: Mon, 16 Apr 2007 04:14:16 GMT
+    server: CakeHttp Server
+    content-tyPe: text/html
 
-```
+You could fetch the above headers by calling:
 
-You could fetch the above headers by calling::
-
-```php
+``` php
 // $response is an instance of HttpResponse
 // get the Content-Type header.
 $response->getHeader('Content-Type');
 
 // get the date
 $response->getHeader('date');
-
 ```
 
 Headers can be fetched case-insensitively.
@@ -214,15 +98,14 @@ Headers can be fetched case-insensitively.
 ### Automatically handling a redirect response
 
 When the response has a valid redirect status code (see `HttpResponse::isRedirect`),
-an extra request can be automatically done according to the received *Location* header
+an extra request can be automatically done according to the received *Location* header:
 
-```php
+``` php
 <?php
 App::uses('HttpSocket', 'Network/Http');
 
 $HttpSocket = new HttpSocket();
 $response = $HttpSocket->get('http://example.com/redirecting_url', array(), array('redirect' => true));
-
 ```
 
 The *redirect* option can take the following values
@@ -232,7 +115,7 @@ The *redirect* option can take the following values
 - **false** (default) : no consequent request will be fired
 
 The returned `$response` will be the final one, according to the settings.
-<!-- anchor: http-socket-ssl-options -->
+
 ### Handling SSL certificates
 
 When making requests to SSL services HttpSocket will attempt to validate the SSL
@@ -251,29 +134,30 @@ configure how SSL certificates are handled:
 - `ssl_cafile` Set to the absolute path of the Certificate Authority file that
   you wish to use for verifying SSL certificates.
 
-These options are provided as constructor arguments
+These options are provided as constructor arguments:
 
-```php
+``` php
 $socket = new HttpSocket(array(
     'ssl_allow_self_signed' => true
 ));
-
 ```
 
 Would allow self-signed certificates for all requests made with the created
 socket.
 
-> [!IMPORTANT]
-> Added in version 2.3
-> SSL certificate validation was added in 2.3.
->
+<div class="versionadded">
+
+2.3
+SSL certificate validation was added in 2.3.
+
+</div>
 
 ### Creating a custom response class
 
 You can create your own response class to use with HttpSocket. You could create
-the file `app/Lib/Network/Http/YourResponse.php` with the content
+the file `app/Lib/Network/Http/YourResponse.php` with the content:
 
-```php
+``` css
 App::uses('HttpResponse', 'Network/Http');
 
 class YourResponse extends HttpResponse {
@@ -283,29 +167,32 @@ class YourResponse extends HttpResponse {
         // Make what you want
     }
 }
-
 ```
 
-Before your request you'll need to change the responseClass property::
+Before your request you'll need to change the responseClass property:
 
-```php
+``` php
 App::uses('HttpSocket', 'Network/Http');
 
 $http = new HttpSocket();
 $http->responseClass = 'YourResponse';
 ```
 
-> **versionchanged:** 2.3
+<div class="versionchanged">
+
+2.3
 As of 2.3.0 you should extend `HttpSocketResponse` instead. This
 avoids a common issue with the HTTP PECL extension.
 
+</div>
+
 ### Downloading the results
 
-HttpSocket has a new method called `setContentResource()`. By setting a resource
+HttpSocket has a new method called <span class="title-ref">setContentResource()</span>. By setting a resource
 with this method, the content will be written to this resource, using
-`fwrite()`. To you download a file, you can do
+<span class="title-ref">fwrite()</span>. To you download a file, you can do:
 
-```php
+``` php
 App::uses('HttpSocket', 'Network/Http');
 
 $http = new HttpSocket();
@@ -313,28 +200,25 @@ $f = fopen(TMP . 'bakery.xml', 'w');
 $http->setContentResource($f);
 $http->get('https://bakery.cakephp.org/comments.rss');
 fclose($f);
-
 ```
 
 > [!NOTE]
 > The headers are not included in file, you will only get the body content
 > written to your resource. To disable saving into the resource, use
 > `$http->setContentResource(false)`.
->
 
 ## Using authentication
 
 HttpSocket supports a HTTP Basic and Digest authentication methods out of the
 box. You can also create custom authentication objects to support protocols
 like OAuth. To use any authentication system you need to configure the
-`HttpSocket` instance
+`HttpSocket` instance:
 
-```php
+``` php
 App::uses('HttpSocket', 'Network/Http');
 
 $http = new HttpSocket();
 $http->configAuth('Basic', 'user', 'password');
-
 ```
 
 The above would configure the `HttpSocket` instance to use Basic
@@ -344,32 +228,31 @@ authentication using `user` and `password` as the credentials.
 
 You can now create your own authentication method to use with HttpSocket. You
 could create the file `app/Lib/Network/Http/YourMethodAuthentication.php` with the
-content
+content:
 
-```php
+``` php
 class YourMethodAuthentication {
 
 /**
- - Authentication
- - * @param HttpSocket $http
- - @param array $authInfo
- - @return void
+ * Authentication
+ *
+ * @param HttpSocket $http
+ * @param array $authInfo
+ * @return void
  */
     public static function authentication(HttpSocket $http, &$authInfo) {
         // Do something, for example set $http->request['header']['Authentication'] value
     }
 
 }
-
 ```
 
 To configure HttpSocket to use your auth configuration, you can use the new
-method `configAuth()`
+method `configAuth()`:
 
-```php
+``` php
 $http->configAuth('YourMethod', array('config1' => 'value1', 'config2' => 'value2'));
 $http->get('http://secure.your-site.com');
-
 ```
 
 The `authentication()` method will be called to append the request headers.
@@ -378,37 +261,36 @@ The `authentication()` method will be called to append the request headers.
 
 As part of auth configuration, you can configure proxy authentication. You can
 create your customized method to proxy authentication in the same class of
-authentication. For example
+authentication. For example:
 
-```php
+``` php
 class YourMethodAuthentication {
 
 /**
- - Authentication
- - * @param HttpSocket $http
- - @param array $authInfo
- - @return void
+ * Authentication
+ *
+ * @param HttpSocket $http
+ * @param array $authInfo
+ * @return void
  */
     public static function authentication(HttpSocket $http, &$authInfo) {
         // Do something, for example set $http->request['header']['Authentication'] value
     }
 
 /**
- - Proxy Authentication
- - * @param HttpSocket $http
- - @param array $proxyInfo
- - @return void
+ * Proxy Authentication
+ *
+ * @param HttpSocket $http
+ * @param array $proxyInfo
+ * @return void
  */
     public static function proxyAuthentication(HttpSocket $http, &$proxyInfo) {
         // Do something, for example set $http->request['header']['Proxy-Authentication'] value
     }
 
 }
-
 ```
 
 > [!NOTE]
 > To use a proxy, you must call the `HttpSocket::configProxy()` similar to
 > `HttpSocket::configAuth()`.
->
->

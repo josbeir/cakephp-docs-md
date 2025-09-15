@@ -1,8 +1,3 @@
----
-title: DataSources
-keywords: "array values,model fields,connection configuration,implementation details,relational databases,best bet,mysql postgresql,sqlite,external sources,ldap server,database connection,rdbms,sqlserver,postgres,relational database,microsoft sql server,aggregates,apis,repository,signatures"
----
-
 # DataSources
 
 DataSources are the link between models and the source of data that
@@ -20,7 +15,6 @@ of which is listed here for your convenience:
 > [!NOTE]
 > You can find additional community contributed datasources in the
 > [CakePHP DataSources repository on GitHub](https://github.com/cakephp/datasources/tree/2.0).
->
 
 When specifying a database connection configuration in
 `app/Config/database.php`, CakePHP transparently uses the corresponding
@@ -48,15 +42,14 @@ implement `create`, `update`, and `delete`.
 
 Methods that must be implemented for all CRUD methods:
 
--  `describe($model)`
--  `listSources($data = null)`
--  `calculate($model, $func, $params)`
--  At least one of:
-
--  `create(Model $model, $fields = null, $values = null)`
--  `read(Model $model, $queryData = array(), $recursive = null)`
--  `update(Model $model, $fields = null, $values = null, $conditions = null)`
--  `delete(Model $model, $id = null)`
+- `describe($model)`
+- `listSources($data = null)`
+- `calculate($model, $func, $params)`
+- At least one of:
+  - `create(Model $model, $fields = null, $values = null)`
+  - `read(Model $model, $queryData = array(), $recursive = null)`
+  - `update(Model $model, $fields = null, $values = null, $conditions = null)`
+  - `delete(Model $model, $id = null)`
 
 It is also possible (and sometimes quite useful) to define the
 `$_schema` class attribute inside the datasource itself, instead
@@ -77,30 +70,30 @@ A common reason you would want to write your own datasource is when you would
 like to access a 3rd party API using the usual `Model::find()/save()/delete()`
 methods. Let's write a datasource that will access a fictitious remote JSON
 based API. We'll call it `FarAwaySource` and we'll put it in
-`app/Model/Datasource/FarAwaySource.php`
+`app/Model/Datasource/FarAwaySource.php`:
 
-```php
+``` php
 App::uses('HttpSocket', 'Network/Http');
 
 class FarAwaySource extends DataSource {
 
 /**
- - An optional description of your datasource
+ * An optional description of your datasource
  */
     public $description = 'A far away datasource';
 
 /**
- - Our default config options. These options will be customized in our
- - `app/Config/database.php` and will be merged in the `__construct()`.
+ * Our default config options. These options will be customized in our
+ * ``app/Config/database.php`` and will be merged in the ``__construct()``.
  */
     public $config = array(
         'apiKey' => '',
     );
 
 /**
- - If we want to create() or update() we need to specify the fields
- - available. We use the same array keys as we do with CakeSchema, eg.
- - fixtures and schema migrations.
+ * If we want to create() or update() we need to specify the fields
+ * available. We use the same array keys as we do with CakeSchema, eg.
+ * fixtures and schema migrations.
  */
     protected $_schema = array(
         'id' => array(
@@ -121,7 +114,7 @@ class FarAwaySource extends DataSource {
     );
 
 /**
- - Create our HttpSocket and handle any config tweaks.
+ * Create our HttpSocket and handle any config tweaks.
  */
     public function __construct($config) {
         parent::__construct($config);
@@ -129,56 +122,58 @@ class FarAwaySource extends DataSource {
     }
 
 /**
- - Since datasources normally connect to a database there are a few things
- - we must change to get them to work without a database.
+ * Since datasources normally connect to a database there are a few things
+ * we must change to get them to work without a database.
  */
 
 /**
- - listSources() is for caching. You'll likely want to implement caching in
- - your own way with a custom datasource. So just `return null`.
+ * listSources() is for caching. You'll likely want to implement caching in
+ * your own way with a custom datasource. So just ``return null``.
  */
     public function listSources($data = null) {
         return null;
     }
 
 /**
- - describe() tells the model your schema for `Model::save()`.
- - * You may want a different schema for each model but still use a single
- - datasource. If this is your case then set a `schema` property on your
- - models and simply return `$model->schema` here instead.
+ * describe() tells the model your schema for ``Model::save()``.
+ *
+ * You may want a different schema for each model but still use a single
+ * datasource. If this is your case then set a ``schema`` property on your
+ * models and simply return ``$model->schema`` here instead.
  */
     public function describe($model) {
         return $this->_schema;
     }
 
 /**
- - calculate() is for determining how we will count the records and is
- - required to get `update()` and `delete()` to work.
- - * We don't count the records here but return a string to be passed to
- - `read()` which will do the actual counting. The easiest way is to just
- - return the string 'COUNT' and check for it in `read()` where
- - `$data['fields'] === 'COUNT'`.
+ * calculate() is for determining how we will count the records and is
+ * required to get ``update()`` and ``delete()`` to work.
+ *
+ * We don't count the records here but return a string to be passed to
+ * ``read()`` which will do the actual counting. The easiest way is to just
+ * return the string 'COUNT' and check for it in ``read()`` where
+ * ``$data['fields'] === 'COUNT'``.
  */
     public function calculate(Model $model, $func, $params = array()) {
         return 'COUNT';
     }
 
 /**
- - Implement the R in CRUD. Calls to `Model::find()` arrive here.
+ * Implement the R in CRUD. Calls to ``Model::find()`` arrive here.
  */
     public function read(Model $model, $queryData = array(),
         $recursive = null) {
         /**
-         - Here we do the actual count as instructed by our calculate()
-         - method above. We could either check the remote source or some
-         - other way to get the record count. Here we'll simply return 1 so
-         - `update()` and `delete()` will assume the record exists.
+         * Here we do the actual count as instructed by our calculate()
+         * method above. We could either check the remote source or some
+         * other way to get the record count. Here we'll simply return 1 so
+         * ``update()`` and ``delete()`` will assume the record exists.
          */
         if ($queryData['fields'] === 'COUNT') {
             return array(array(array('count' => 1)));
         }
         /**
-         - Now we get, decode and return the remote data.
+         * Now we get, decode and return the remote data.
          */
         $queryData['conditions']['apiKey'] = $this->config['apiKey'];
         $json = $this->Http->get(
@@ -194,8 +189,8 @@ class FarAwaySource extends DataSource {
     }
 
 /**
- - Implement the C in CRUD. Calls to `Model::save()` without $model->id
- - set arrive here.
+ * Implement the C in CRUD. Calls to ``Model::save()`` without $model->id
+ * set arrive here.
  */
     public function create(Model $model, $fields = null, $values = null) {
         $data = array_combine($fields, $values);
@@ -210,9 +205,9 @@ class FarAwaySource extends DataSource {
     }
 
 /**
- - Implement the U in CRUD. Calls to `Model::save()` with $Model->id
- - set arrive here. Depending on the remote source you can just call
- - `$this->create()`.
+ * Implement the U in CRUD. Calls to ``Model::save()`` with $Model->id
+ * set arrive here. Depending on the remote source you can just call
+ * ``$this->create()``.
  */
     public function update(Model $model, $fields = null, $values = null,
         $conditions = null) {
@@ -220,7 +215,7 @@ class FarAwaySource extends DataSource {
     }
 
 /**
- - Implement the D in CRUD. Calls to `Model::delete()` arrive here.
+ * Implement the D in CRUD. Calls to ``Model::delete()`` arrive here.
  */
     public function delete(Model $model, $id = null) {
         $json = $this->Http->get('http://example.com/api/remove.json', array(
@@ -236,69 +231,61 @@ class FarAwaySource extends DataSource {
     }
 
 }
-
 ```
 
 We can then configure the datasource in our `app/Config/database.php` file
-by adding something like this
+by adding something like this:
 
-```php
+``` php
 public $faraway = array(
     'datasource' => 'FarAwaySource',
     'apiKey'     => '1234abcd',
 );
-
 ```
 
-Then use the database config in our models like this::
+Then use the database config in our models like this:
 
-```php
+``` php
 class MyModel extends AppModel {
     public $useDbConfig = 'faraway';
 }
-
 ```
 
-We can retrieve data from our remote source using the familiar model methods
+We can retrieve data from our remote source using the familiar model methods:
 
-```php
+``` php
 // Get all messages from 'Some Person'
 $messages = $this->MyModel->find('all', array(
     'conditions' => array('name' => 'Some Person'),
 ));
-
 ```
 
 > [!TIP]
 > Using find types other than `'all'` can have unexpected results if the
 > result of your `read` method is not a numerically indexed array.
->
 
-Similarly we can save a new message
+Similarly we can save a new message:
 
-```php
+``` php
 $this->MyModel->save(array(
     'name' => 'Some Person',
     'message' => 'New Message',
 ));
-
 ```
 
-Update the previous message::
+Update the previous message:
 
-```php
+``` php
 $this->MyModel->id = 42;
 $this->MyModel->save(array(
     'message' => 'Updated message',
 ));
-
 ```
 
-And delete the message
+And delete the message:
 
-```php
+``` php
 $this->MyModel->delete(42);
-
 ```
 
 ## Plugin DataSources
@@ -307,31 +294,26 @@ You can also package Datasources into plugins.
 
 Simply place your datasource file into
 `Plugin/[YourPlugin]/Model/Datasource/[YourSource].php`
-and refer to it using the plugin notation
+and refer to it using the plugin notation:
 
-```php
+``` php
 public $faraway = array(
     'datasource' => 'MyPlugin.FarAwaySource',
     'apiKey'     => 'abcd1234',
 );
-
 ```
 
 ## Connecting to SQL Server
 
-The Sqlserver datasource depends on 
+The Sqlserver datasource depends on
 [Microsoft's PHP extension called pdo_sqlsrv](https://github.com/Microsoft/msphpsql).
 This PHP Extension is not included in the base installation of PHP and must be
 installed separately. The SQL Server Native Client must also be installed for
 the extension to work.
 
-So if the Sqlserver Datasource errors out with
+So if the Sqlserver Datasource errors out with:
 
-```
-Error: Database connection "Sqlserver" is missing, or could not be created.
-
-```
+    Error: Database connection "Sqlserver" is missing, or could not be created.
 
 First check if the SQL Server PHP extension pdo_sqlsrv and the SQL Server Native
 Client are installed properly.
-

@@ -4,14 +4,11 @@ First, check that your application is running on latest CakePHP 4.x version.
 
 ## Fix Deprecation Warnings
 
-Once your application is running on latest CakePHP 4.x, enable deprecation warnings in **config/app.php**
+Once your application is running on latest CakePHP 4.x, enable deprecation warnings in **config/app.php**:
 
-```
-'Error' => [
-    'errorLevel' => E_ALL,
-]
-
-```
+    'Error' => [
+        'errorLevel' => E_ALL,
+    ]
 
 Now that you can see all the warnings, make sure these are fixed before proceeding with the upgrade.
 
@@ -28,34 +25,28 @@ If you are not running on **PHP 8.1 or higher**, you will need to upgrade PHP be
 > [!NOTE]
 > CakePHP 5.0 requires **a minimum of PHP 8.1**.
 
-<!-- anchor: upgrade-tool-use -->
 ## Use the Upgrade Tool
 
 > [!NOTE]
 > The upgrade tool only works on applications running on latest CakePHP 4.x. You cannot run the upgrade tool after updating to CakePHP 5.0.
->
 
 Because CakePHP 5 leverages union types and `mixed`, there are many
 backwards incompatible changes concerning method signatures and file renames.
 To help expedite fixing these tedious changes there is an upgrade CLI tool:
 
-```bash
+``` bash
 # Install the upgrade tool
 git clone https://github.com/cakephp/upgrade
 cd upgrade
 git checkout 5.x
 composer install --no-dev
-
 ```
 
 With the upgrade tool installed you can now run it on your application or
-plugin
+plugin:
 
-```html
-bin/cake upgrade rector --rules cakephp50 <path/to/app/src>
-bin/cake upgrade rector --rules chronos3 <path/to/app/src>
-
-```
+    bin/cake upgrade rector --rules cakephp50 <path/to/app/src>
+    bin/cake upgrade rector --rules chronos3 <path/to/app/src>
 
 ## Update CakePHP Dependency
 

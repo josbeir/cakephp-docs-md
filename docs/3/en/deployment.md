@@ -1,8 +1,3 @@
----
-title: Deployment
-keywords: "stack traces,application extensions,set document,installation documentation,development features,generic error,document root,func,debug,caches,error messages,configuration files,webroot,deployment,cakephp,applications"
----
-
 # Deployment
 
 Once your application is complete, or even before that you'll want to deploy it.
@@ -45,23 +40,19 @@ between environments. This will avoid deploying an application with debug
 `true` and also save yourself from having to change the debug level each time
 before deploying to a production environment.
 
-For example, you can set an environment variable in your Apache configuration
+For example, you can set an environment variable in your Apache configuration:
 
-```
-SetEnv CAKEPHP_DEBUG 1
+    SetEnv CAKEPHP_DEBUG 1
 
-```
+And then you can set the debug level dynamically in **app.php**:
 
-And then you can set the debug level dynamically in **app.php**::
-
-```php
+``` php
 $debug = (bool)getenv('CAKEPHP_DEBUG');
 
 return [
     'debug' => $debug,
     .....
 ];
-
 ```
 
 ## Check Your Security
@@ -69,11 +60,11 @@ return [
 If you're throwing your application out into the wild, it's a good idea to make
 sure it doesn't have any obvious leaks:
 
-- Ensure you are using the [csrf](controllers/components/csrf.md) component or middleware.
-- You may want to enable the [security](controllers/components/security.md) component.
+- Ensure you are using the [/controllers/components/csrf](controllers/components/csrf.md) component or middleware.
+- You may want to enable the [/controllers/components/security](controllers/components/security.md) component.
   It can help prevent several types of form tampering and reduce the possibility
   of mass-assignment issues.
-- Ensure your models have the correct [validation](core-libraries/validation.md) rules
+- Ensure your models have the correct [/core-libraries/validation](core-libraries/validation.md) rules
   enabled.
 - Check that only your `webroot` directory is publicly visible, and that your
   secrets (such as your app salt, and any security keys) are private and unique
@@ -86,54 +77,43 @@ keeping your code secure and your application safer. CakePHP applications
 should have the document root set to the application's `webroot`. This
 makes the application and configuration files inaccessible through a URL.
 Setting the document root is different for different webservers. See the
-[url-rewriting](installation.md#url-rewriting) documentation for webserver specific
+[url-rewriting](#url-rewriting) documentation for webserver specific
 information.
 
 In all cases you will want to set the virtual host/domain's document to be
 `webroot/`. This removes the possibility of files outside of the webroot
 directory being executed.
-<!-- anchor: symlink-assets -->
+
 ## Improve Your Application's Performance
 
 Class loading can take a big share of your application's processing time.
 In order to avoid this problem, it is recommended that you run this command in
-your production server once the application is deployed
+your production server once the application is deployed:
 
-```
-php composer.phar dump-autoload -o
-
-```
+    php composer.phar dump-autoload -o
 
 > [!WARNING]
 > If you are using deprecated class names in your project or plugins, don't
 > combine this with `-a`/`--classmap-authoritative`. This breaks the class aliases.
 > Instead, you can use the [mentioned option 2b](https://getcomposer.org/doc/articles/autoloader-optimization.md#optimization-level-2-b-apcu-cache) instead
 > using `--apcu` as additional optimization if APCu is installed.
->
 
 Since handling static assets, such as images, JavaScript and CSS files of
 plugins, through the `Dispatcher` is incredibly inefficient, it is strongly
 recommended to symlink them for production. This can be done by using
-the `plugin` shell
+the `plugin` shell:
 
-```
-bin/cake plugin assets symlink
-
-```
+    bin/cake plugin assets symlink
 
 The above command will symlink the `webroot` directory of all loaded plugins
 to appropriate path in the app's `webroot` directory.
 
 If your filesystem doesn't allow creating symlinks the directories will be
 copied instead of being symlinked. You can also explicitly copy the directories
-using
+using:
 
-```
-bin/cake plugin assets copy
-
-```
+    bin/cake plugin assets copy
 
 ## Deploying an update
 
-After deployment of an update you might also want to run `bin/cake schema_cache
-clear`, part of the [schema-cache](console-and-shells/schema-cache.md) shell.
+After deployment of an update you might also want to run `bin/cake schema_cache clear`, part of the [/console-and-shells/schema-cache](console-and-shells/schema-cache.md) shell.

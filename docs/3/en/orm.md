@@ -19,24 +19,21 @@ patterns. It aims to create a hybrid implementation that combines aspects of
 both patterns to create a fast, simple to use ORM.
 
 Before we get started exploring the ORM, make sure you [configure your
-database connections](orm/database-basics.md#database-configuration).
+database connections](#database-configuration).
 
 > [!NOTE]
 > If you are familiar with previous versions of CakePHP, you should read the
-> [/appendices/orm-migration` for important differences between CakePHP 3.0
+> [/appendices/orm-migration](appendices/orm-migration.md) for important differences between CakePHP 3.0
 > and older versions of CakePHP.
->
 
 ## Quick Example
 
 To get started you don't have to write any code. If you've followed the [CakePHP
-conventions for your database tables](model-and-database-conventions.md)
-you can just start using the ORM. For example if we wanted to load some data from our](#CakePHP
-conventions for your database tables](model-and-database-conventions.md)
-you can just start using the ORM. For example if we wanted to load some data from our)`articles``
-table we could do
+conventions for your database tables](#model-and-database-conventions)
+you can just start using the ORM. For example if we wanted to load some data from our `articles`
+table we could do:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -47,7 +44,6 @@ $query = $articles->find();
 foreach ($query as $row) {
     echo $row->title;
 }
-
 ```
 
 Note that we didn't have to create any code or wire any configuration up.
@@ -55,9 +51,9 @@ The conventions in CakePHP allow us to skip some boilerplate code and allow the
 framework to insert base classes when your application has not created
 a concrete class. If we wanted to customize our ArticlesTable class adding some
 associations or defining some additional methods we would add the following to
-**src/Model/Table/ArticlesTable.php** after the `<?php` opening tag
+**src/Model/Table/ArticlesTable.php** after the `<?php` opening tag:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
@@ -65,28 +61,26 @@ use Cake\ORM\Table;
 class ArticlesTable extends Table
 {
 }
-
 ```
 
 Table classes use the CamelCased version of the table name with the `Table`
 suffix as the class name. Once your class has been created you get a reference
-to it using the `Cake\ORM\Locator\TableLocator` through `Cake\ORM\TableRegistry` as before
+to it using the `~Cake\ORM\Locator\TableLocator` through `~Cake\ORM\TableRegistry` as before:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Now $articles is an instance of our ArticlesTable class.
 // Prior to 3.6 use TableRegistry::get('Articles')
 $articles = TableRegistry::getTableLocator()->get('Articles');
-
 ```
 
 Now that we have a concrete table class, we'll probably want to use a concrete
 entity class. Entity classes let you define accessor and mutator methods, define
 custom logic for individual records and much more. We'll start off by adding the
-following to **src/Model/Entity/Article.php** after the `<?php` opening tag
+following to **src/Model/Entity/Article.php** after the `<?php` opening tag:
 
-```php
+``` php
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -94,14 +88,13 @@ use Cake\ORM\Entity;
 class Article extends Entity
 {
 }
-
 ```
 
 Entities use the singular CamelCase version of the table name as their class
 name by default. Now that we have created our entity class, when we
-load entities from the database we'll get instances of our new Article class
+load entities from the database we'll get instances of our new Article class:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Now an instance of ArticlesTable.
@@ -113,14 +106,26 @@ foreach ($query as $row) {
     // Each row is now an instance of our Article class.
     echo $row->title;
 }
-
 ```
 
 CakePHP uses naming conventions to link the Table and Entity class together. If
 you need to customize which entity a table uses you can use the
 `entityClass()` method to set a specific classname.
 
-See the chapters on [table-objects](orm/table-objects.md) and [entities](orm/entities.md) for more
+See the chapters on [/orm/table-objects](orm/table-objects.md) and [/orm/entities](orm/entities.md) for more
 information on how to use table objects and entities in your application.
 
 ## More Information
+
+- [Database Basics](orm/database-basics.md)
+- [Query Builder](orm/query-builder.md)
+- [Table Objects](orm/table-objects.md)
+- [Entities](orm/entities.md)
+- [Retrieving Data And Resultsets](orm/retrieving-data-and-resultsets.md)
+- [Validation](orm/validation.md)
+- [Saving Data](orm/saving-data.md)
+- [Deleting Data](orm/deleting-data.md)
+- [Associations](orm/associations.md)
+- [Behaviors](orm/behaviors.md)
+- [Schema System](orm/schema-system.md)
+- [Schema Cache](console-and-shells/schema-cache.md)

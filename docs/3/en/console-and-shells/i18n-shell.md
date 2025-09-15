@@ -1,8 +1,3 @@
----
-title: I18N shell
-keywords: "pot files,locale default,translation tools,message string,app locale,php class,validation,i18n,translations,shell,models"
----
-
 # I18N Shell
 
 The i18n features of CakePHP use [po files](https://en.wikipedia.org/wiki/GNU_gettext)
@@ -19,12 +14,9 @@ merged with existing translations to help update your translations.
 POT files can be generated for an existing application using the `extract`
 command. This command will scan your entire application for `__()` style
 function calls, and extract the message string. Each unique string in your
-application will be combined into a single POT file
+application will be combined into a single POT file:
 
-```
-bin/cake i18n extract
-
-```
+    bin/cake i18n extract
 
 The above will run the extraction shell. The result of this command will be the
 file **src/Locale/default.pot**. You use the pot file as a template for creating
@@ -33,12 +25,9 @@ correctly set the `Plural-Forms` header line.
 
 ### Generating POT Files for Plugins
 
-You can generate a POT file for a specific plugin using
+You can generate a POT file for a specific plugin using:
 
-```html
-bin/cake i18n extract --plugin <Plugin>
-
-```
+    bin/cake i18n extract --plugin <Plugin>
 
 This will generate the required POT files used in the plugins.
 
@@ -49,44 +38,32 @@ your application. For instance, if you are defining some strings in the
 `config` directory of your application, you probably want to extract strings
 from this directory as well as from the `src` directory. You can do it by
 using the `--paths` option. It takes a comma-separated list of absolute paths
-to extract
+to extract:
 
-```
-bin/cake i18n extract --paths /var/www/app/config,/var/www/app/src
-
-```
+    bin/cake i18n extract --paths /var/www/app/config,/var/www/app/src
 
 ### Excluding Folders
 
 You can pass a comma separated list of folders that you wish to be excluded.
-Any path containing a path segment with the provided values will be ignored
+Any path containing a path segment with the provided values will be ignored:
 
-```
-bin/cake i18n extract --exclude vendor,tests
-
-```
+    bin/cake i18n extract --exclude vendor,tests
 
 ### Skipping Overwrite Warnings for Existing POT Files
 
 By adding `--overwrite`, the shell script will no longer warn you if a POT
-file already exists and will overwrite by default
+file already exists and will overwrite by default:
 
-```
-bin/cake i18n extract --overwrite
-
-```
+    bin/cake i18n extract --overwrite
 
 ### Extracting Messages from the CakePHP Core Libraries
 
 By default, the extract shell script will ask you if you like to extract
 the messages used in the CakePHP core libraries. Set `--extract-core` to yes
-or no to set the default behavior
+or no to set the default behavior:
 
-```
-bin/cake i18n extract --extract-core yes
+    bin/cake i18n extract --extract-core yes
 
-// or
+    // or
 
-bin/cake i18n extract --extract-core no
-
-```
+    bin/cake i18n extract --extract-core no

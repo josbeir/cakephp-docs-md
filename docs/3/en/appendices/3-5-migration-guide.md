@@ -5,9 +5,8 @@ changes and improvements made in 3.5.
 
 To upgrade to 3.5.x run the following composer command:
 
-```bash
+``` bash
 php composer.phar require --update-with-dependencies "cakephp/cakephp:3.5.*"
-
 ```
 
 ## Deprecations
@@ -20,7 +19,7 @@ features will continue to function until 4.0.0 after which they will be removed.
 - `Cake\View\Helper\RssHelper` is deprecated. Due to infrequent use the
   RssHelper is deprecated.
 - `Cake\Controller\Component\CsrfComponent` is deprecated. Use
-  [csrf-middleware](../controllers/middleware.md#csrf-middleware) instead.
+  [csrf-middleware](#csrf-middleware) instead.
 - `Cake\Datasource\TableSchemaInterface` is deprecated. Use
   `Cake\Database\TableSchemaAwareInterface` instead.
 - `Cake\Console\ShellDispatcher` is deprecated. Applications should update to
@@ -42,64 +41,89 @@ methods are being split into separate get and set methods.
 The following is a list of methods that are deprecated and replaced with
 `getX()` and `setX()` methods:
 
-`Cake\Cache\Cache`
+`Cake\Cache\Cache`  
 - `config()`
 - `registry()`
-`Cake\Console\Shell`
+
+`Cake\Console\Shell`  
 - `io()`
-`Cake\Console\ConsoleIo`
+
+`Cake\Console\ConsoleIo`  
 - `outputAs()`
-`Cake\Console\ConsoleOutput`
+
+`Cake\Console\ConsoleOutput`  
 - `outputAs()`
-`Cake\Database\Connection`
+
+`Cake\Database\Connection`  
 - `logger()`
-`Cake\Database\TypedResultInterface`
+
+`Cake\Database\TypedResultInterface`  
 - `returnType()`
-`Cake\Database\TypedResultTrait`
+
+`Cake\Database\TypedResultTrait`  
 - `returnType()`
-`Cake\Database\Log\LoggingStatement`
+
+`Cake\Database\Log\LoggingStatement`  
 - `logger()`
-`Cake\Datasource\ModelAwareTrait`
+
+`Cake\Datasource\ModelAwareTrait`  
 - `modelType()`
-`Cake\Database\Query`
+
+`Cake\Database\Query`  
 - getter part of `valueBinder()` (now `getValueBinder()`)
-`Cake\Database\Schema\TableSchema`
+
+`Cake\Database\Schema\TableSchema`  
 - `columnType()`
-`Cake\Datasource\QueryTrait`
+
+`Cake\Datasource\QueryTrait`  
 - getter part of `eagerLoaded()` (now `isEagerLoaded()`)
-`Cake\Event\EventDispatcherInterface`
+
+`Cake\Event\EventDispatcherInterface`  
 - `eventManager()`
-`Cake\Event\EventDispatcherTrait`
+
+`Cake\Event\EventDispatcherTrait`  
 - `eventManager()`
-`Cake\Error\Debugger`
+
+`Cake\Error\Debugger`  
 - `outputAs()` (now `getOutputFormat()` / `setOutputFormat()`)
-`Cake\Http\ServerRequest`
+
+`Cake\Http\ServerRequest`  
 - `env()` (now `getEnv()` / `withEnv()`)
 - `charset()` (now `getCharset()` / `withCharset()`)
-`Cake\I18n\I18n`
+
+`Cake\I18n\I18n`  
 - `locale()`
 - `translator()`
 - `defaultLocale()`
 - `defaultFormatter()`
-`Cake\ORM\Association\BelongsToMany`
+
+`Cake\ORM\Association\BelongsToMany`  
 - `sort()`
-`Cake\ORM\LocatorAwareTrait`
+
+`Cake\ORM\LocatorAwareTrait`  
 - `tableLocator()`
-`Cake\ORM\EntityTrait`
+
+`Cake\ORM\EntityTrait`  
 - `invalid()` (now `getInvalid()`, `setInvalid()`,
-`setInvalidField()`, and `getInvalidField()`)
-`Cake\ORM\Table`
+  `setInvalidField()`, and `getInvalidField()`)
+
+`Cake\ORM\Table`  
 - `validator()`
-`Cake\Routing\RouteBuilder`
+
+`Cake\Routing\RouteBuilder`  
 - `extensions()`
 - `routeClass()`
-`Cake\Routing\RouteCollection`
+
+`Cake\Routing\RouteCollection`  
 - `extensions()`
-`Cake\TestSuite\TestFixture`
+
+`Cake\TestSuite\TestFixture`  
 - `schema()`
-`Cake\Utility\Security`
+
+`Cake\Utility\Security`  
 - `salt()`
-`Cake\View\View`
+
+`Cake\View\View`  
 - `template()`
 - `layout()`
 - `theme()`
@@ -133,8 +157,7 @@ behavior that may affect your application:
   their clients.
 - Multi-word subcommand names previouly required camelBacked names to be used
   when invoking shells. Now subcommands can be invoked with underscored_names.
-  For example: `cake tool initMyDb` can now be called with `cake tool
-  init_my_db`. If your shells previously bound two subcommands with different
+  For example: `cake tool initMyDb` can now be called with `cake tool init_my_db`. If your shells previously bound two subcommands with different
   inflections, only the last bound command will function.
 - `SecurityComponent` will blackhole post requests that have no request data
   now. This change helps protect actions that create records using database
@@ -143,7 +166,7 @@ behavior that may affect your application:
   `$this` to assist in defining table objects in a fluent fashion.
 - Cache engines no longer throw an exception when they fail or are misconfigured,
   but instead fall back to the noop `NullEngine`. Fallbacks can also be
-  [configured](../core-libraries/caching.md#cache-configuration-fallback) on a per-engine basis.
+  [configured](#cache-configuration-fallback) on a per-engine basis.
 - `Cake\Database\Type\DateTimeType` will now marshal ISO-8859-1 formatted
   datetime strings (e.g. 2017-07-09T12:33:00+00:02) in addition to the
   previously accepted format. If you have a subclass of DateTimeType you may
@@ -156,7 +179,7 @@ behavior that may affect your application:
 Middleware can now be conditionally applied to routes in specific URL
 scopes. This allows you to build specific stacks of middleware for different
 parts of your application without having to write URL checking code in your
-middleware. See the [connecting-scoped-middleware](../development/routing.md#connecting-scoped-middleware) section for more
+middleware. See the [connecting-scoped-middleware](#connecting-scoped-middleware) section for more
 information.
 
 ### New Console Runner
@@ -173,20 +196,20 @@ class requires replacing the contents of your `bin/cake.php` file with the
 
 Cache engines can now be configured with a `fallback` key that defines a
 cache configuration to fall back to if the engine is misconfigured (or
-unavailable). See [cache-configuration-fallback](../core-libraries/caching.md#cache-configuration-fallback) for more information on
+unavailable). See [cache-configuration-fallback](#cache-configuration-fallback) for more information on
 configuring fallbacks.
 
 ### dotenv Support added to Application Skeleton
 
 The application skeleton now features a 'dotenv' integration making it easier to
 use environment variables to configure your application. See the
-[environment-variables](../development/configuration.md#environment-variables) section for more information.
+[environment-variables](#environment-variables) section for more information.
 
 ### Console Integration Testing
 
 The `Cake\TestSuite\ConsoleIntegrationTestCase` class was added to make
 integration testing console applications easier. For more information, visit
-the [console-integration-testing](../console-and-shells/commands.md#console-integration-testing) section. This test class is fully
+the [console-integration-testing](#console-integration-testing) section. This test class is fully
 compatible with the current `Cake\Console\ShellDispatcher` as well as the new
 `Cake\Console\CommandRunner`.
 
@@ -240,14 +263,14 @@ compatible with the current `Cake\Console\ShellDispatcher` as well as the new
 - New `Cookie` & `CookieCollection` classes have been added. These classes allow you
   to work with cookies in an object-orientated way, and are available on
   `Cake\Http\ServerRequest`, `Cake\Http\Response`, and
-  `Cake\Http\Client\Response`. See the [request-cookies](../controllers/request-response.md#request-cookies) and
-  [response-cookies](../controllers/request-response.md#response-cookies) for more information.
+  `Cake\Http\Client\Response`. See the [request-cookies](#request-cookies) and
+  [response-cookies](#response-cookies) for more information.
 - New middleware has been added to make applying security headers easier. See
-  [security-header-middleware](../controllers/middleware.md#security-header-middleware) for more information.
+  [security-header-middleware](#security-header-middleware) for more information.
 - New middleware has been added to transparently encrypt cookie data. See
-  [encrypted-cookie-middleware](../controllers/middleware.md#encrypted-cookie-middleware) for more information.
+  [encrypted-cookie-middleware](#encrypted-cookie-middleware) for more information.
 - New middleware has been added to make protecting against CSRF easier. See
-  [csrf-middleware](../controllers/middleware.md#csrf-middleware) for more information.
+  [csrf-middleware](#csrf-middleware) for more information.
 - `Cake\Http\Client::addCookie()` was added to make it easy to add cookies to
   a client instance.
 
@@ -260,8 +283,7 @@ compatible with the current `Cake\Console\ShellDispatcher` as well as the new
 ### ORM
 
 - `Cake\ORM\Query::contain()` now allows you to call it without the wrapping
-  array when containing a single association. `contain('Comments', function ()
-  { ... });` will now work. This makes `contain()` consistent with other
+  array when containing a single association. `contain('Comments', function () { ... });` will now work. This makes `contain()` consistent with other
   eagerloading related methods like `leftJoinWith()` and `matching()`.
 
 ### Routing

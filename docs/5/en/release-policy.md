@@ -6,7 +6,7 @@ convention of **major.minor.patch**.
 The development team tries to guarantee each release follow the restrictions and
 and guarantees below.
 
-### Major Releases
+## Major Releases
 
 Major releases are generally not backwards compatible. Although CakePHP tries
 to not change many large features in major releases, there are API changes.
@@ -19,7 +19,7 @@ Any behavior changes that are not backwards compatible are made in major changes
 Each major release typically comes with an upgrade guide and many automatic
 code upgrades using rector.
 
-### Minor Releases
+## Minor Releases
 
 Minor release are generally backwards compatible with the previous minor and patch
 release.
@@ -36,10 +36,7 @@ or bugs are reported.
 Behavior changes that require documentation are made in minor releases, but these are
 still typically backwards compatible. Some exceptions can be made if the issue is severe.
 
-.. note:
-Minor releases are also known as point releases.
- 
-### Patch Releases
+## Patch Releases
 
 Patch releases are always backwards compatible. Only changes that fix broken features
 are made.
@@ -51,10 +48,7 @@ Issues that change long-standing behavior are typically not in patch releases. T
 considered behavior changes and will go into either minor or major releases so users can
 migrate.
 
-.. note:
-Patch releases are also known as bug fix releases.
-
-### Experimental Features
+## Experimental Features
 
 When a new feature is added where the API is still changing, it can be marked **experimental**.
 

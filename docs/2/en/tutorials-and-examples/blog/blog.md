@@ -1,8 +1,3 @@
----
-title: Blog Tutorial
-keywords: "model view controller,object oriented programming,application logic,directory setup,basic knowledge,database server,server configuration,reins,documentroot,readme,repository,web server,productivity,lib,sql,aim,cakephp,servers,apache,downloads"
----
-
 # Blog Tutorial
 
 Welcome to CakePHP. You're probably checking out this tutorial
@@ -17,21 +12,21 @@ list, add, edit, and delete blog posts.
 
 Here's what you'll need:
 
-#. A running web server. We're going to assume you're using Apache,
-though the instructions for using other servers should be very
-similar. We might have to play a little with the server
-configuration, but most folks can get CakePHP up and running without
-any configuration at all. Make sure you have PHP 5.2.8 or greater.
-#. A database server. We're going to be using MySQL server in this
-tutorial. You'll need to know enough about SQL in order to create a
-   database: CakePHP will be taking the reins from there. Since we're using MySQL,
-also make sure that you have `pdo_mysql` enabled in PHP.
-#. Basic PHP knowledge. The more object-oriented programming you've
-done, the better: but fear not if you're a procedural fan.
-#. Finally, you'll need a basic knowledge of the MVC programming pattern.
-A quick overview can be found in
-[/cakephp-overview/understanding-model-view-controller`.  Don't worry,
-it's only half a page or so.
+1.  A running web server. We're going to assume you're using Apache,
+    though the instructions for using other servers should be very
+    similar. We might have to play a little with the server
+    configuration, but most folks can get CakePHP up and running without
+    any configuration at all. Make sure you have PHP 5.2.8 or greater.
+2.  A database server. We're going to be using MySQL server in this
+    tutorial. You'll need to know enough about SQL in order to create a
+    database: CakePHP will be taking the reins from there. Since we're using MySQL,
+    also make sure that you have `pdo_mysql` enabled in PHP.
+3.  Basic PHP knowledge. The more object-oriented programming you've
+    done, the better: but fear not if you're a procedural fan.
+4.  Finally, you'll need a basic knowledge of the MVC programming pattern.
+    A quick overview can be found in
+    [/cakephp-overview/understanding-model-view-controller](cakephp-overview/understanding-model-view-controller.md). Don't worry,
+    it's only half a page or so.
 
 Let's get started!
 
@@ -40,49 +35,42 @@ Let's get started!
 First, let's get a copy of fresh CakePHP code.
 
 To get a fresh download, visit the CakePHP project on GitHub:
-[https://github.com/cakephp/cakephp/tags](https://github.com/cakephp/cakephp/tags)
+<https://github.com/cakephp/cakephp/tags>
 and download the latest release of 2.0
 
 You can also clone the repository using
-[git](https://git-scm.com/)
+[git](https://git-scm.com/):
 
-```
-git clone -b 2.x git://github.com/cakephp/cakephp.git
-
-```
+    git clone -b 2.x git://github.com/cakephp/cakephp.git
 
 Regardless of how you downloaded it, place the code inside of your
 DocumentRoot. Once finished, your directory setup should look
-something like the following
+something like the following:
 
-```
-/path_to_document_root
-    /app
-    /lib
-    /plugins
-    /vendors
-    .htaccess
-    index.php
-    README
-
-```
+    /path_to_document_root
+        /app
+        /lib
+        /plugins
+        /vendors
+        .htaccess
+        index.php
+        README
 
 Now might be a good time to learn a bit about how CakePHP's directory
 structure works: check out the
-[/getting-started/cakephp-folder-structure` section.
+[/getting-started/cakephp-folder-structure](getting-started/cakephp-folder-structure.md) section.
 
 ### Tmp directory permissions
 
 Next we'll need to make the `app/tmp` directory writable by the webserver.
 The best way to do this is to find out what user your webserver
-runs as. You can run ``](?php echo exec('whoami'); ?.md)` inside any PHP file your
+runs as. You can run [](#php-echo-execwhoami-) inside any PHP file your
 webserver can execute. You should see a username printed. Change the ownership of
 the `app/tmp` directory to that user. The final command you run
-(in \*nix) might look something like this
+(in \*nix) might look something like this:
 
-```bash
+``` bash
 $ chown -R www-data app/tmp
-
 ```
 
 If for some reason CakePHP can't write to that directory, you'll see
@@ -95,37 +83,34 @@ haven't already done so, create an empty database for use in this
 tutorial, with a name of your choice. Right now, we'll just create
 a single table to store our posts. We'll also throw in a few posts
 right now to use for testing purposes. Execute the following SQL
-statements into your database
+statements into your database:
 
-```sql
-/* First, create our posts table: */
-CREATE TABLE posts (
-    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(50),
-    body TEXT,
-    created DATETIME DEFAULT NULL,
-    modified DATETIME DEFAULT NULL
-);
+    /* First, create our posts table: */
+    CREATE TABLE posts (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(50),
+        body TEXT,
+        created DATETIME DEFAULT NULL,
+        modified DATETIME DEFAULT NULL
+    );
 
-/* Then insert some posts for testing: */
-INSERT INTO posts (title, body, created)
-    VALUES ('The title', 'This is the post body.', NOW());
-INSERT INTO posts (title, body, created)
-    VALUES ('A title once again', 'And the post body follows.', NOW());
-INSERT INTO posts (title, body, created)
-    VALUES ('Title strikes back', 'This is really exciting! Not.', NOW());
-
-```
+    /* Then insert some posts for testing: */
+    INSERT INTO posts (title, body, created)
+        VALUES ('The title', 'This is the post body.', NOW());
+    INSERT INTO posts (title, body, created)
+        VALUES ('A title once again', 'And the post body follows.', NOW());
+    INSERT INTO posts (title, body, created)
+        VALUES ('Title strikes back', 'This is really exciting! Not.', NOW());
 
 The choices on table and column names are not arbitrary. If you
 follow CakePHP's database naming conventions, and CakePHP's class naming
 conventions (both outlined in
-[cakephp-conventions](../../getting-started/cakephp-conventions.md)), you'll be able to take
+[/getting-started/cakephp-conventions](getting-started/cakephp-conventions.md)), you'll be able to take
 advantage of a lot of free functionality and avoid configuration.
 CakePHP is flexible enough to accommodate even the worst legacy
 database schema, but adhering to convention will save you time.
 
-Check out [cakephp-conventions](../../getting-started/cakephp-conventions.md) for more
+Check out [/getting-started/cakephp-conventions](getting-started/cakephp-conventions.md) for more
 information, but suffice it to say that naming our table 'posts'
 automatically hooks it to our Post model, and having fields called
 'modified' and 'created' will be automagically managed by CakePHP.
@@ -137,15 +122,15 @@ connect to it. For many, this is the first and last time you
 configure anything.
 
 A copy of CakePHP's database configuration file is found in
-`/app/Config/database.php.default`. Make a copy of this file in
+[App / Config / database.php.default](app/Config/database.php.default.md). Make a copy of this file in
 the same directory, but name it `database.php`.
 
 The config file should be pretty straightforward: just replace the
 values in the `$default` array with those that apply to your
 setup. A sample completed configuration array might look something
-like the following
+like the following:
 
-```php
+``` php
 public $default = array(
     'datasource' => 'Database/Mysql',
     'persistent' => false,
@@ -158,7 +143,6 @@ public $default = array(
     'prefix' => '',
     'encoding' => 'utf8'
 );
-
 ```
 
 Once you've saved your new `database.php` file, you should be
@@ -169,7 +153,6 @@ that CakePHP can successfully connect to the database.
 > [!NOTE]
 > Remember that you'll need to have PDO, and pdo_mysql enabled in
 > your php.ini.
->
 
 ## Optional Configuration
 
@@ -180,36 +163,31 @@ in security hashes. The second is defining a custom number (or
 "seed") for use in encryption.
 
 The security salt is used for generating hashes. Change the default
-`Security.salt` value in `/app/Config/core.php`. The replacement value
-should be long, hard to guess and be as random as you can make it
+`Security.salt` value in [App / Config / core.php](app/Config/core.php.md). The replacement value
+should be long, hard to guess and be as random as you can make it:
 
-```php
-/**
- - A random string used in security hashing methods.
- */
-Configure::write('Security.salt', 'pl345e-P45s_7h3*S@l7!');
-
-```
+    /**
+     * A random string used in security hashing methods.
+     */
+    Configure::write('Security.salt', 'pl345e-P45s_7h3*S@l7!');
 
 The cipher seed is used for encrypt/decrypt strings. Change the default
-`Security.cipherSeed` value by editing `/app/Config/core.php`. The
-replacement value should be a large random integer
+`Security.cipherSeed` value by editing [App / Config / core.php](app/Config/core.php.md). The
+replacement value should be a large random integer:
 
-```php
-/**
- - A random numeric string (digits only) used to encrypt/decrypt strings.
- */
-Configure::write('Security.cipherSeed', '7485712659625147843639846751');
+    /**
+     * A random numeric string (digits only) used to encrypt/decrypt strings.
+     */
+    Configure::write('Security.cipherSeed', '7485712659625147843639846751');
 
-```
+## A Note on mod_rewrite
 
-## A Note on mod\_rewrite
-
-Occasionally new users will run into mod\_rewrite issues. For example
+Occasionally new users will run into mod_rewrite issues. For example
 if the CakePHP welcome page looks a little funny (no images or CSS styles),
-it probably means mod\_rewrite is not functioning on your system. Please refer
+it probably means mod_rewrite is not functioning on your system. Please refer
 to one of the sections below about URL rewriting for your webserver to get
 you up and running:
 
-Now continue to [part-two](part-two.md) to start building your first CakePHP application.
+- [Url Rewriting](installation/url-rewriting.md)
 
+Now continue to [/tutorials-and-examples/blog/part-two](tutorials-and-examples/blog/part-two.md) to start building your first CakePHP application.

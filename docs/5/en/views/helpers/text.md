@@ -1,14 +1,6 @@
----
-title: TextHelper
-description: The TextHelper contains methods to make text more usable and friendly in your views.
-keywords: "text helper,autoLinkEmails,autoLinkUrls,autoLink,excerpt,highlight,stripLinks,truncate,string text"
----
-
 # Text
 
-**Namespace:** `Cake\View\Helper`
-
-### Class `Cake\View\Helper\TextHelper(View $view, array $config = [])`
+`class` Cake\\View\\Helper\\**TextHelper(View**
 
 The TextHelper contains methods to make text more usable and
 friendly in your views. It aids in enabling links, formatting URLs,
@@ -18,33 +10,29 @@ truncating long stretches of text.
 
 ## Linking Email addresses
 
-#### Method `Cake\View\Helper\TextHelper(View $view, array $config = [])::autoLinkEmails(string $text, array $options = [])`
+`method` Cake\\View\\Helper\\TextHelper(View::**autoLinkEmails**(string $text, array $options = [])
 
-Adds links to the well-formed email addresses in $text, according
+Adds links to the well-formed email addresses in \$text, according
 to any options defined in `$options` (see
-`HtmlHelper::link()`).
+`HtmlHelper::link()`). :
 
-```php
+``` php
 $myText = 'For more information regarding our world-famous ' .
     'pastries and desserts, contact info@example.com';
 $linkedText = $this->Text->autoLinkEmails($myText);
-
 ```
 
-Output::
+Output:
 
-```html
-For more information regarding our world-famous pastries and desserts,
-contact <a href="mailto:info@example.com">info@example.com</a>
-
-```
+    For more information regarding our world-famous pastries and desserts,
+    contact <a href="mailto:info@example.com">info@example.com</a>
 
 This method automatically escapes its input. Use the `escape`
 option to disable this if necessary.
 
 ## Linking URLs
 
-#### Method `Cake\View\Helper\TextHelper(View $view, array $config = [])::autoLinkUrls(string $text, array $options = [])`
+`method` Cake\\View\\Helper\\TextHelper(View::**autoLinkUrls**(string $text, array $options = [])
 
 Same as `autoLinkEmails()`, only this method searches for
 strings that start with https, http, ftp, or nntp and links them
@@ -55,7 +43,7 @@ option to disable this if necessary.
 
 ## Linking Both URLs and Email Addresses
 
-#### Method `Cake\View\Helper\TextHelper(View $view, array $config = [])::autoLink(string $text, array $options = [])`
+`method` Cake\\View\\Helper\\TextHelper(View::**autoLink**(string $text, array $options = [])
 
 Performs the functionality in both `autoLinkUrls()` and
 `autoLinkEmails()` on the supplied `$text`. All URLs and emails
@@ -66,35 +54,31 @@ option to disable this if necessary.
 
 Further options:
 
-- ``stripProtocol`: Strips `http://` and `https://` from the beginning of
+- `stripProtocol`: Strips `http://` and `https://` from the beginning of
   the link label. Default off.
 - `maxLength`: The maximum length of the link label. Default off.
-- `ellipsis``: The string to append to the end of the link label. Defaults to
+- `ellipsis`: The string to append to the end of the link label. Defaults to
   UTF8 ellipsis.
 
 ## Converting Text into Paragraphs
 
-#### Method `Cake\View\Helper\TextHelper(View $view, array $config = [])::autoParagraph(string $text)`
+`method` Cake\\View\\Helper\\TextHelper(View::**autoParagraph**(string $text)
 
-Adds proper `\<p\>` around text where double-line returns are found, and `\<br\>` where
-single-line returns are found.
+Adds proper \<p\> around text where double-line returns are found, and \<br\> where
+single-line returns are found. :
 
-```php
+``` php
 $myText = 'For more information
 regarding our world-famous pastries and desserts.
 
 contact info@example.com';
 $formattedText = $this->Text->autoParagraph($myText);
-
 ```
 
-Output::
+Output:
 
-```html
-\<p\>For more information<br />
+``` html
+<p>For more information<br />
 regarding our world-famous pastries and desserts.</p>
-\<p\>contact info@example.com</p>
+<p>contact info@example.com</p>
 ```
-
-<!--@include: ../../core-libraries/text.md-->
-

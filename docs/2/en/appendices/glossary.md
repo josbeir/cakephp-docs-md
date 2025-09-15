@@ -1,106 +1,82 @@
----
-title: Glossary
-keywords: "html attributes,array class,array controller,glossary glossary,target blank,dot notation,routing configuration,forgery,replay,router,syntax,config,submissions"
----
-
 # Glossary
 
-.. glossary
+<div class="glossary">
 
-```php
-routing array
-    An array of attributes that are passed to `Router::url()`.
-    They typically look like::
+routing array  
+An array of attributes that are passed to `Router::url()`.
+They typically look like:
 
-```
+    array('controller' => 'posts', 'action' => 'view', 5)
 
-array('controller' => 'posts', 'action' => 'view', 5)
+Or a more complex example:
 
-```
-    Or a more complex example::
+    array(
+        'subdomain' => 'dev',
+        'plugin' => 'account',
+        'prefix' => 'admin',
+        'controller' => 'profiles',
+        'action' => 'edit',
+        10257
+        '#' => 'email',
+        '?' => array(
+            'reset' => true,
+        ),
+        'full_base' => true,
+    )
 
-```
+HTML attributes  
+An array of key =\> values that are composed into HTML attributes. For example:
 
-array(
-'subdomain' => 'dev',
-'plugin' => 'account',
-'prefix' => 'admin',
-'controller' => 'profiles',
-'action' => 'edit',
-10257
-'#' => 'email',
-'?' => array(
-'reset' => true,
-),
-'full_base' => true,
-)
+    // Given
+    array('class' => 'my-class', 'target' => '_blank')
 
-```
-HTML attributes
-    An array of key => values that are composed into HTML attributes. For example::
+    // Would generate
+    class="my-class" target="_blank"
 
-```
+If an option can be minimized or accepts it's name as the value, then `true`
+can be used:
 
-// Given
-array('class' => 'my-class', 'target' => '_blank')
+    // Given
+    array('checked' => true)
 
-// Would generate
-class="my-class" target="_blank"
+    // Would generate
+    checked="checked"
 
-```
-    If an option can be minimized or accepts it's name as the value, then `true`
-    can be used::
+plugin syntax  
+Plugin syntax refers to the dot separated class name indicating classes
+are part of a plugin. E.g. `DebugKit.Toolbar` The plugin is DebugKit,
+and the class name is Toolbar.
 
-```
+dot notation  
+Dot notation defines an array path, by separating nested levels with `.`
+For example:
 
-// Given
-array('checked' => true)
+    Asset.filter.css
 
-// Would generate
-checked="checked"
+Would point to the following value:
 
-```
-plugin syntax
-    Plugin syntax refers to the dot separated class name indicating classes
-    are part of a plugin. E.g. `DebugKit.Toolbar` The plugin is DebugKit,
-    and the class name is Toolbar.
+    array(
+        'Asset' => array(
+            'filter' => array(
+                'css' => 'got me'
+            )
+        )
+    )
 
-dot notation
-    Dot notation defines an array path, by separating nested levels with `.`
-    For example::
+CSRF  
+Cross Site Request Forgery. Prevents replay attacks, double
+submissions and forged requests from other domains.
 
-```
+routes.php  
+A file in APP/Config that contains routing configuration.
+This file is included before each request is processed.
+It should connect all the routes your application needs so
+requests can be routed to the correct controller + action.
 
-Asset.filter.css
+DRY  
+Don't repeat yourself. Is a principle of software development aimed at
+reducing repetition of information of all kinds. In CakePHP DRY is used
+to allow you to code things once and re-use them across your
+application.
 
-```
-    Would point to the following value::
-
-```
-
-array(
-'Asset' => array(
-'filter' => array(
-'css' => 'got me'
-)
-)
-)
-
-```
-CSRF
-    Cross Site Request Forgery. Prevents replay attacks, double
-    submissions and forged requests from other domains.
-
-routes.php
-    A file in APP/Config that contains routing configuration.
-    This file is included before each request is processed.
-    It should connect all the routes your application needs so
-    requests can be routed to the correct controller + action.
-
-DRY
-    Don't repeat yourself. Is a principle of software development aimed at
-    reducing repetition of information of all kinds. In CakePHP DRY is used
-    to allow you to code things once and re-use them across your
-    application.
-
-```
+</div>

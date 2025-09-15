@@ -1,13 +1,12 @@
----
-title: Dispatcher Filters
-description: Dispatcher filters are a middleware layer for CakePHP allowing to alter the request or response before it is sent
-keywords: "middleware, filters, dispatcher, request, response, rack, application stack, events, beforeDispatch, afterDispatch, router"
----
-
 # Dispatcher Filters
-> **deprecated:** 3.3.0
+
+<div class="deprecated">
+
+3.3.0
 As of 3.3.0 Dispatcher Filters are deprecated. You should use
-[middleware](../controllers/middleware.md) instead now.
+[/controllers/middleware](controllers/middleware.md) instead now.
+
+</div>
 
 There are several reasons to want a piece of code to be run before any
 controller code is executed or right before the response is sent to the client,
@@ -28,31 +27,30 @@ features that all applications are likely to need. The built-in filters are:
 - `AssetFilter` checks whether the request is referring to a theme
   or plugin asset file, such as a CSS, JavaScript or image file stored in either a
   plugin's webroot folder or the corresponding one for a Theme. It will serve the
-  file accordingly if found, stopping the rest of the dispatching cycle
+  file accordingly if found, stopping the rest of the dispatching cycle:
 
-```php
-// Use options to set cacheTime for your static assets
-// If not set, this defaults to +1 hour
-DispatcherFactory::add('Asset', ['cacheTime' => '+24 hours']);
-
-```
+      // Use options to set cacheTime for your static assets
+      // If not set, this defaults to +1 hour
+      DispatcherFactory::add('Asset', ['cacheTime' => '+24 hours']);
 
 - `RoutingFilter` applies application routing rules to the request URL.
   Populates `$request->getParam()` with the results of routing.
+
 - `ControllerFactory` uses `$request->getParam()` to locate the controller that
   will handle the current request.
+
 - `LocaleSelector` enables automatic language switching from the `Accept-Language`
   header sent by the browser.
 
 ## Using Filters
 
 Filters are usually enabled in your application's **bootstrap.php** file, but
-you could load them any time before the request is dispatched.  Adding
+you could load them any time before the request is dispatched. Adding
 and removing filters is done through `Cake\Routing\DispatcherFactory`. By
 default, the CakePHP application template comes with a couple filter classes
-already enabled for all requests; let's take a look at how they are added
+already enabled for all requests; let's take a look at how they are added:
 
-```php
+``` css
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
 
@@ -61,20 +59,18 @@ DispatcherFactory::add('PluginName.DispatcherName');
 
 // Use options to set priority
 DispatcherFactory::add('Asset', ['priority' => 1]);
-
 ```
 
 Dispatcher filters with higher `priority` (lower numbers) - will be executed
-first.  Priority defaults to `10`.
+first. Priority defaults to `10`.
 
 While using the string name is convenient, you can also pass instances into
-`add()`
+`add()`:
 
-```php
+``` php
 use Cake\Routing\Filter\RoutingFilter;
 
 DispatcherFactory::add(new RoutingFilter());
-
 ```
 
 ### Configuring Filter Order
@@ -82,12 +78,11 @@ DispatcherFactory::add(new RoutingFilter());
 When adding filters, you can control the order they are invoked in using
 event handler priorities. While filters can define a default priority using the
 `$_priority` property, you can set a specific priority when attaching the
-filter
+filter:
 
-```php
+``` css
 DispatcherFactory::add('Asset', ['priority' => 1]);
 DispatcherFactory::add(new AssetFilter(['priority' => 1]));
-
 ```
 
 The higher the priority the later this filter will be invoked.
@@ -97,9 +92,9 @@ The higher the priority the later this filter will be invoked.
 If you don't want to run a filter on every request, you can use conditions to
 only apply it some of the time. You can apply conditions using the `for` and
 `when` options. The `for` option lets you match on URL substrings, while the
-`when` option allows you to run a callable
+`when` option allows you to run a callable:
 
-```php
+``` php
 // Only runs on requests starting with `/blog`
 DispatcherFactory::add('BlogHeader', ['for' => '/blog']);
 
@@ -109,7 +104,6 @@ DispatcherFactory::add('Cache', [
         return $request->is('get');
     }
 ]);
-
 ```
 
 The callable provided to `when` should return `true` when the filter should run.
@@ -119,9 +113,9 @@ The callable can expect to get the current request and response as arguments.
 
 To create a filter, define a class in **src/Routing/Filter**. In this example,
 we'll be making a filter that adds a tracking cookie for the first landing
-page. First, create the file. Its contents should look like
+page. First, create the file. Its contents should look like:
 
-```php
+``` php
 namespace App\Routing\Filter;
 
 use Cake\Event\Event;
@@ -142,7 +136,6 @@ class TrackingCookieFilter extends DispatcherFilter
         }
     }
 }
-
 ```
 
 Save this file into **src/Routing/Filter/TrackingCookieFilter.php**. As you can see, like other
@@ -169,12 +162,11 @@ When returning a response, you should also remember to call
 > [!NOTE]
 > When a beforeDispatch method returns a response, the controller, and
 > afterDispatch event will not be invoked.
->
 
 Let's now create another filter for altering response headers in any public
-page, in our case it would be anything served from the `PagesController`
+page, in our case it would be anything served from the `PagesController`:
 
-```php
+``` php
 namespace App\Routing\Filter;
 
 use Cake\Event\Event;
@@ -196,7 +188,6 @@ class HttpCacheFilter extends DispatcherFilter
 
 // In our bootstrap.php
 DispatcherFactory::add('HttpCache', ['for' => '/pages'])
-
 ```
 
 This filter will send a expiration header to 1 day in the future for
@@ -209,6 +200,6 @@ callback.
 While powerful, dispatcher filters have the potential to make your application
 more difficult to maintain. Filters are an extremely powerful tool when used
 wisely and adding response handlers for each URL in your app is not a good use for
-them. Keep in mind that not everything needs to be a filter; `Controllers` and
-`Components` are usually a more accurate choice for adding any request handling
+them. Keep in mind that not everything needs to be a filter; <span class="title-ref">Controllers</span> and
+<span class="title-ref">Components</span> are usually a more accurate choice for adding any request handling
 code to your app.

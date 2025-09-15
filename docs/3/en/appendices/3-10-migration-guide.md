@@ -5,9 +5,8 @@ changes and improvements made.
 
 To upgrade to 3.10.x run the following composer command:
 
-```bash
+``` bash
 php composer.phar require --update-with-dependencies "cakephp/cakephp:3.10.*"
-
 ```
 
 ## Deprecations
@@ -23,7 +22,7 @@ change the semantics or behavior of methods.
 
 - `Validation::time()` will now reject a string if minutes are missing. Previously,
   this would accept hours-only digits although the api documentation showed minutes were required.
-  
+
 ## New Features
 
 - Improved API documentation.

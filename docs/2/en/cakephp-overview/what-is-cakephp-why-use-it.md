@@ -1,8 +1,3 @@
----
-title: What is CakePHP? Why Use it?
-keywords: "custom urls,php syntax,cookie security,database interaction,security session,rapid manner,developer team,free open source,javascript html,apache configuration,web site directory,html forms,code generation,development framework,monotony,rapid development,scaffolding,dispatcher,friendly community,crud"
----
-
 # What is CakePHP? Why use it?
 
 [CakePHP](https://cakephp.org/) is a
@@ -31,31 +26,30 @@ improved.
 
 Here's a quick list of features you'll enjoy when using CakePHP:
 
--  Active, friendly [cakephp-official-communities](where-to-get-help.md#cakephp-official-communities)
--  Flexible [licensing](https://en.wikipedia.org/wiki/MIT_License)
--  Compatible with versions PHP 5.2.8 and greater
--  Integrated
-[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
-   for database interaction
--  Application
-[scaffolding](https://en.wikipedia.org/wiki/Scaffold_(programming))
--  Code generation
--  [MVC](https://en.wikipedia.org/wiki/Model-view-controller)
-architecture
--  Request dispatcher with clean, custom URLs and routes
--  Built-in
-[validation](https://en.wikipedia.org/wiki/Data_validation)
--  Fast and flexible
-[templating](https://en.wikipedia.org/wiki/Web_template_system)
-(PHP syntax, with helpers)
--  View helpers for AJAX, JavaScript, HTML forms and more
--  Email, cookie, security, session, and request handling
-Components
--  Flexible
-[ACL](https://en.wikipedia.org/wiki/Access_control_list)
--  Data sanitization
--  Flexible [caching](https://en.wikipedia.org/wiki/Web_cache)
--  Localization
--  Works from any web site directory, with little to no
-[Apache](https://httpd.apache.org/) configuration involved
-
+- Active, friendly [cakephp-official-communities](#cakephp-official-communities)
+- Flexible [licensing](https://en.wikipedia.org/wiki/MIT_License)
+- Compatible with versions PHP 5.2.8 and greater
+- Integrated
+  [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
+  for database interaction
+- Application
+  [scaffolding](https://en.wikipedia.org/wiki/Scaffold_(programming))
+- Code generation
+- [MVC](https://en.wikipedia.org/wiki/Model-view-controller)
+  architecture
+- Request dispatcher with clean, custom URLs and routes
+- Built-in
+  [validation](https://en.wikipedia.org/wiki/Data_validation)
+- Fast and flexible
+  [templating](https://en.wikipedia.org/wiki/Web_template_system)
+  (PHP syntax, with helpers)
+- View helpers for AJAX, JavaScript, HTML forms and more
+- Email, cookie, security, session, and request handling
+  Components
+- Flexible
+  [ACL](https://en.wikipedia.org/wiki/Access_control_list)
+- Data sanitization
+- Flexible [caching](https://en.wikipedia.org/wiki/Web_cache)
+- Localization
+- Works from any web site directory, with little to no
+  [Apache](https://httpd.apache.org/) configuration involved

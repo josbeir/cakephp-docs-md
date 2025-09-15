@@ -1,8 +1,3 @@
----
-title: CakePHP Development Process
-keywords: "maintenance branch,community interaction,community feature,necessary feature,stable release,ticket system,advanced feature,power users,feature set,chat irc,leading edge,router,new features,members,attempt,development branches,branch development"
----
-
 # CakePHP Development Process
 
 CakePHP projects broadly follow [semver](https://semver.org/). This means that:
@@ -17,7 +12,7 @@ CakePHP projects broadly follow [semver](https://semver.org/). This means that:
   with the previous patch release. The exception to this rule is if a security
   issue is discovered and the only solution is to break an existing API.
 
-See the [backwards-compatibility](../contributing/backwards-compatibility.md) for what we consider to be
+See the [/contributing/backwards-compatibility](contributing/backwards-compatibility.md) for what we consider to be
 backwards compatible and a breaking changes.
 
 ## Major Releases

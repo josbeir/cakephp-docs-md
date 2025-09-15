@@ -1,8 +1,3 @@
----
-title: Callback Methods
-keywords: "querydata,query conditions,model classes,callback methods,special functions,return values,counterparts,array,logic,decisions"
----
-
 # Callback Methods
 
 If you want to sneak in some logic just before or after a CakePHP
@@ -36,10 +31,10 @@ user's role, or make caching decisions based on the current load.
 
 Use this callback to modify results that have been returned from a
 find operation, or to perform any other post-find logic. The
-$results parameter passed to this callback contains the returned
-results from the model's find operation, i.e. something like
+\$results parameter passed to this callback contains the returned
+results from the model's find operation, i.e. something like:
 
-```php
+``` php
 $results = array(
     0 => array(
         'ModelName' => array(
@@ -48,7 +43,6 @@ $results = array(
         ),
     ),
 );
-
 ```
 
 The return value for this callback should be the (possibly
@@ -60,26 +54,24 @@ model was the model that the query originated on or whether or not
 this model was queried as an association. If a model is queried as
 an association the format of `$results` can differ; instead of the
 result you would normally get from a find operation, you may get
-this
+this:
 
-```php
+``` php
 $results = array(
     'field_1' => 'value1',
     'field_2' => 'value2'
 );
-
 ```
 
 > [!WARNING]
 > Code expecting `$primary` to be true will probably get a "Cannot
 > use string offset as an array" fatal error from PHP if a recursive
 > find is used.
->
 
 Below is an example of how afterfind can be used for date
-formatting
+formatting:
 
-```php
+``` php
 public function afterFind($results, $primary = false) {
     foreach ($results as $key => $val) {
         if (isset($val['Event']['begindate'])) {
@@ -94,7 +86,6 @@ public function afterFind($results, $primary = false) {
 public function dateFormatAfterFind($dateString) {
     return date('d-m-Y', strtotime($dateString));
 }
-
 ```
 
 ## beforeValidate
@@ -123,7 +114,7 @@ true if you want the save operation to continue.
 
 This callback is especially handy for any data-massaging logic that
 needs to happen before your data is stored. If your storage engine
-needs dates in a specific format, access it at $this->data and
+needs dates in a specific format, access it at \$this-\>data and
 modify it.
 
 Below is an example of how beforeSave can be used for date
@@ -132,7 +123,7 @@ a begindate formatted like YYYY-MM-DD in the database and is
 displayed like DD-MM-YYYY in the application. Of course this can be
 changed very easily. Use the code below in the appropriate model.
 
-```php
+``` php
 public function beforeSave($options = array()) {
     if (!empty($this->data['Event']['begindate']) &&
         !empty($this->data['Event']['enddate'])
@@ -151,13 +142,11 @@ public function beforeSave($options = array()) {
 public function dateFormatBeforeSave($dateString) {
     return date('Y-m-d', strtotime($dateString));
 }
-
 ```
 
 > [!TIP]
 > Make sure that beforeSave() returns true, or your save is going to
 > fail.
->
 
 ## afterSave
 
@@ -186,9 +175,8 @@ on this record will also be deleted.
 > [!TIP]
 > Make sure that beforeDelete() returns true, or your delete is going
 > to fail.
->
 
-```php
+``` php
 // using app/Model/ProductCategory.php
 // In the following example, do not let a product category be deleted if it
 // still contains products.
@@ -205,7 +193,6 @@ public function beforeDelete($cascade = true) {
     }
     return false;
 }
-
 ```
 
 ## afterDelete
@@ -215,14 +202,13 @@ public function beforeDelete($cascade = true) {
 Place any logic that you want to be executed after every deletion
 in this callback method.
 
-```php
+``` php
 // perhaps after deleting a record from the database, you also want to delete
 // an associated file
 public function afterDelete() {
     $file = new File($this->data['SomeModel']['file_path']);
     $file->delete();
 }
-
 ```
 
 ## onError
@@ -230,4 +216,3 @@ public function afterDelete() {
 `onError()`
 
 Called if any problems occur.
-

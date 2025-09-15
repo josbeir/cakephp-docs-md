@@ -1,21 +1,15 @@
----
-title: Where to Get Help
-description: "Where to get help with CakePHP: The official CakePHP website, The Cookbook, The Bakery, The API, in the test cases, Slack, Discord, CakePHP Questions."
-keywords: "cakephp,cakephp help,help with cakephp,where to get help,cakephp irc,cakephp questions,cakephp api,cakephp test cases,open source projects,channel irc,code reference,irc channel,developer tools,test case,bakery"
----
-
 # Where to Get Help
 
 ## The Official CakePHP website
 
-[https://cakephp.org](https://cakephp.org)
+<https://cakephp.org>
 
 The Official CakePHP website is always a great place to visit. It features links
 to oft-used developer tools, screencasts, donation opportunities, and downloads.
 
 ## The Cookbook
 
-[https://book.cakephp.org](https://book.cakephp.org)
+<https://book.cakephp.org>
 
 This manual should probably be the first place you go to get answers. As with
 many other open source projects, we get new folks regularly. Try your best to
@@ -25,7 +19,7 @@ and the API have an online component.
 
 ## The Bakery
 
-[https://bakery.cakephp.org](https://bakery.cakephp.org)
+<https://bakery.cakephp.org>
 
 The CakePHP Bakery is a clearing house for all things regarding CakePHP. Check
 it out for tutorials, case studies, and code examples. Once you're acquainted
@@ -34,7 +28,7 @@ instant fame and fortune.
 
 ## The API
 
-[https://api.cakephp.org/](https://api.cakephp.org/)
+<https://api.cakephp.org/>
 
 Straight to the point and straight from the core developers, the CakePHP API
 (Application Programming Interface) is the most comprehensive documentation
@@ -45,12 +39,9 @@ framework. It's a straight forward code reference, so bring your propeller hat.
 
 If you ever feel the information provided in the API is not sufficient, check
 out the code of the test cases provided with CakePHP. They can serve as
-practical examples for function and data member usage for a class.
+practical examples for function and data member usage for a class. :
 
-```
-tests/TestCase/
-
-```
+    tests/TestCase/
 
 ## Slack
 
@@ -65,8 +56,9 @@ find users in your area, or would like to donate your brand new sports car.
 [CakePHP Discord](https://discord.com/invite/k4trEMPebj)
 
 You can also join us on Discord.
-<!-- anchor: cakephp-official-communities -->
+
 ## Official CakePHP Forum
+
 [CakePHP Official Forum](https://discourse.cakephp.org)
 
 Our official forum where you can ask for help, suggest ideas and have a talk

@@ -1,12 +1,7 @@
----
-title: How To Use Plugins
-keywords: "plugin folder,configuration database,bootstrap,management module,webroot,user management,contactmanager,array,config,cakephp,models,php,directories,blog,plugins,applications"
----
-
 # How To Use Plugins
 
 Before you can use a plugin, you must install and enable it first.
-See [how-to-install-plugins](how-to-install-plugins.md).
+See [/plugins/how-to-install-plugins](plugins/how-to-install-plugins.md).
 
 ## Plugin Configuration
 
@@ -15,15 +10,14 @@ plugin configuration and routing. Perhaps you want to load all plugins
 automatically, while specifying custom routes and bootstrap files for
 certain plugins.
 
-No problem
+No problem:
 
-```php
+``` css
 CakePlugin::loadAll(array(
     'Blog' => array('routes' => true),
     'ContactManager' => array('bootstrap' => true),
     'WebmasterTools' => array('bootstrap' => true, 'routes' => true),
 ));
-
 ```
 
 With this style of configuration, you no longer need to manually
@@ -35,14 +29,13 @@ three plugins, and not the rest.
 Finally, you can also specify a set of defaults for loadAll which will apply to
 every plugin that doesn't have a more specific configuration.
 
-Load the bootstrap file from all plugins, and additionally the routes from the Blog plugin
+Load the bootstrap file from all plugins, and additionally the routes from the Blog plugin:
 
-```php
+``` css
 CakePlugin::loadAll(array(
     array('bootstrap' => true),
     'Blog' => array('routes' => true)
 ));
-
 ```
 
 Note that all files specified should actually exist in the configured
@@ -51,24 +44,18 @@ especially important to remember when specifying defaults for all plugins.
 
 CakePHP 2.3.0 added an `ignoreMissing` option, that allows you to ignore any
 missing routes and bootstrap files when loading plugins. You can shorten the
-code needed to load all plugins using this
+code needed to load all plugins using this:
 
-```php
-// Loads all plugins including any possible routes and bootstrap files
-CakePlugin::loadAll(array(
-    array('routes' => true, 'bootstrap' => true, 'ignoreMissing' => true)
-));
-
-```
+    // Loads all plugins including any possible routes and bootstrap files
+    CakePlugin::loadAll(array(
+        array('routes' => true, 'bootstrap' => true, 'ignoreMissing' => true)
+    ));
 
 Some plugins additionally need to create one or more tables in your database. In
 those cases, they will often include a schema file which you can
-call from the cake shell like this
+call from the cake shell like this:
 
-```
-user@host$ cake schema create --plugin ContactManager
-
-```
+    user@host$ cake schema create --plugin ContactManager
 
 Most plugins will indicate the proper procedure for configuring
 them and setting up the database in their documentation. Some
@@ -77,9 +64,9 @@ plugins will require more setup than others.
 ## Advanced Bootstrapping
 
 If you like to load more than one bootstrap file for a plugin. You can specify
-an array of files for the bootstrap configuration key
+an array of files for the bootstrap configuration key:
 
-```php
+``` css
 CakePlugin::loadAll(array(
     'Blog' => array(
         'bootstrap' => array(
@@ -88,13 +75,12 @@ CakePlugin::loadAll(array(
         )
     )
 ));
-
 ```
 
 You can also specify a callable function that needs to be called when the plugin
-has been loaded
+has been loaded:
 
-```php
+``` php
 function aCallableFunction($pluginName, $config) {
 
 }
@@ -104,7 +90,6 @@ CakePlugin::loadAll(array(
         'bootstrap' => 'aCallableFunction'
     )
 ));
-
 ```
 
 ## Using a Plugin
@@ -115,18 +100,16 @@ the class name.
 
 For example, say you wanted to use the ContactManager plugin's
 ContactInfoHelper to output some pretty contact information in
-one of your views. In your controller, your $helpers array
-could look like this
+one of your views. In your controller, your \$helpers array
+could look like this:
 
-```php
+``` php
 public $helpers = array('ContactManager.ContactInfo');
-
 ```
 
 You would then be able to access the ContactInfoHelper just like
-any other helper in your view, such as
+any other helper in your view, such as:
 
-```php
+``` php
 echo $this->ContactInfo->address($contact);
-
 ```

@@ -16,19 +16,13 @@ autocompletion process.
 
 For the first step commands outputs the available Shell Commands, including
 plugin name when applicable. (All returned possibilities, for this and the other
-sub commands, are separated by a space.) For example
+sub commands, are separated by a space.) For example:
 
-```
-bin/cake Completion commands
+    bin/cake Completion commands
 
-```
+Returns:
 
-Returns::
-
-```
-acl api bake command_list completion console i18n schema server test testsuite upgrade
-
-```
+    acl api bake command_list completion console i18n schema server test testsuite upgrade
 
 Your completion script can select the relevant commands from that list to
 continue with. (For this and the following sub commands.)
@@ -37,37 +31,25 @@ continue with. (For this and the following sub commands.)
 
 Once the preferred command has been chosen subCommands comes in as the second
 step and outputs the possible sub command for the given shell command. For
-example
+example:
 
-```
-bin/cake Completion subcommands bake
+    bin/cake Completion subcommands bake
 
-```
+Returns:
 
-Returns::
-
-```
-controller db_config fixture model plugin project test view
-
-```
+    controller db_config fixture model plugin project test view
 
 ### options
 
 As the third and final options outputs options for the given (sub) command as
 set in getOptionParser. (Including the default options inherited from Shell.)
-For example
+For example:
 
-```
-bin/cake Completion options bake
+    bin/cake Completion options bake
 
-```
+Returns:
 
-Returns::
-
-```
---help -h --verbose -v --quiet -q --everything --connection -c --force -f --plugin -p --prefix --theme -t
-
-```
+    --help -h --verbose -v --quiet -q --everything --connection -c --force -f --plugin -p --prefix --theme -t
 
 You can also pass an additional argument being the shell sub-command : it will
 output the specific options of this sub-command.
@@ -75,15 +57,12 @@ output the specific options of this sub-command.
 ## How to enable Bash autocompletion for the CakePHP Console
 
 First, make sure the **bash-completion** library is installed. If not, you do it
-with the following command
+with the following command:
 
-```bash
-apt-get install bash-completion
-
-```
+    apt-get install bash-completion
 
 Create a file named **cake** in **/etc/bash_completion.d/** and put the
-[bash-completion-file-content](completion-shell.md#bash-completion-file-content) inside it.
+[bash-completion-file-content](#bash-completion-file-content) inside it.
 
 Save the file, then restart your console.
 
@@ -93,13 +72,12 @@ Save the file, then restart your console.
 > The target directory for the **cake** file will be
 > **/usr/local/etc/bash_completion.d/**.
 
-<!-- anchor: bash-completion-file-content -->
 ### Bash Completion file content
 
 This is the code you need to put inside the **cake** file in the correct location
-in order to get autocompletion when using the CakePHP console
+in order to get autocompletion when using the CakePHP console:
 
-```php
+``` php
 #
 # Bash completion file for CakePHP console
 #
@@ -151,7 +129,6 @@ _cake()
 }
 
 complete -F _cake cake bin/cake
-
 ```
 
 ## Using autocompletion
@@ -162,20 +139,19 @@ Three type of autocompletion are provided. The following output are from a fresh
 
 ### Commands
 
-Sample output for commands autocompletion
+Sample output for commands autocompletion:
 
-```bash
+``` bash
 $ bin/cake <tab>
 bake        i18n        schema_cache   routes
 console     migrations  plugin         server
-
 ```
 
 ### Subcommands
 
-Sample output for subcommands autocompletion
+Sample output for subcommands autocompletion:
 
-```bash
+``` bash
 $ bin/cake bake <tab>
 behavior            helper              shell
 cell                mailer              shell_helper
@@ -183,16 +159,14 @@ component           migration           template
 controller          migration_snapshot  test
 fixture             model
 form                plugin
-
 ```
 
 ### Options
 
-Sample output for subcommands options autocompletion
+Sample output for subcommands options autocompletion:
 
-```bash
+``` bash
 $ bin/cake bake -<tab>
 -c            --everything  --force       --help        --plugin      -q            -t            -v
 --connection  -f            -h            -p            --prefix      --quiet       --theme       --verbose
-
 ```

@@ -1,8 +1,3 @@
----
-title: The Pages Controller
-keywords: "pages controller,default controller,cakephp,ships,php,file folder,home page"
----
-
 # The Pages Controller
 
 CakePHP's official skeleton app ships with a default controller **PagesController.php**.

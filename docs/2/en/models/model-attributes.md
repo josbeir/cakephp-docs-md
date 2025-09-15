@@ -1,15 +1,10 @@
----
-title: Model Attributes
-keywords: "alternate table,default model,database configuration,model example,database table,default database,model class,model behavior,class model,plural form,database connections,database connection,attribute,attributes,complete list,config,cakephp,api,class example"
----
-
 # Model Attributes
 
 Model attributes allow you to set properties that can override the
 default model behavior.
 
 For a complete list of model attributes and their descriptions
-visit the [CakePHP API](https://api.cakephp.org/2.x/class-Model.html).
+visit the [CakePHP API](https://api.cakephp.org/2.x/class-Model.md).
 
 ## useDbConfig
 
@@ -22,13 +17,12 @@ database configuration file is stored in /app/Config/database.php.
 The `useDbConfig` property is defaulted to the 'default' database
 connection.
 
-Example usage
+Example usage:
 
-```php
+``` php
 class Example extends AppModel {
     public $useDbConfig = 'alternate';
 }
-
 ```
 
 ## useTable
@@ -39,22 +33,20 @@ class name. Set this attribute to the name of an alternate table,
 or set it to `false` if you wish the model to use no database
 table.
 
-Example usage
+Example usage:
 
-```php
+``` php
 class Example extends AppModel {
     public $useTable = false; // This model does not use a database table
 }
-
 ```
 
-Alternatively::
+Alternatively:
 
-```php
+``` php
 class Example extends AppModel {
     public $useTable = 'exmp'; // This model uses a database table 'exmp'
 }
-
 ```
 
 ## tablePrefix
@@ -65,31 +57,29 @@ is initially set in the database connection file at
 override the default by setting the `tablePrefix` attribute in
 the model.
 
-Example usage
+Example usage:
 
-```php
+``` php
 class Example extends AppModel {
     public $tablePrefix = 'alternate_'; // will look for 'alternate_examples'
 }
 ```
 
-<!-- anchor: model-primaryKey -->
 ## primaryKey
 
 Each table normally has a primary key, `id`. You may change which
 field name the model uses as its primary key. This is common when
 setting CakePHP to use an existing database table.
 
-Example usage
+Example usage:
 
-```php
+``` php
 class Example extends AppModel {
     // example_id is the field name in the database
     public $primaryKey = 'example_id';
 }
 ```
 
-<!-- anchor: model-displayField -->
 ## displayField
 
 The `displayField` attribute specifies which database field
@@ -97,13 +87,12 @@ should be used as a label for the record. The label is used in
 scaffolding and in `find('list')` calls. The model will use
 `name` or `title`, by default.
 
-For example, to use the `username` field
+For example, to use the `username` field:
 
-```php
+``` php
 class User extends AppModel {
     public $displayField = 'username';
 }
-
 ```
 
 Multiple field names cannot be combined into a single display
@@ -118,13 +107,13 @@ associated model data via `find()`, and `read()` methods.
 
 Imagine your application features Groups which belong to a Domain
 and have many Users which in turn have many Articles. You can set
-$recursive to different values based on the amount of data you want
-back from a $this->Group->find() call:
+\$recursive to different values based on the amount of data you want
+back from a \$this-\>Group-\>find() call:
 
 - -1 CakePHP fetches Group data only, no joins.
-- 0  CakePHP fetches Group data and its Domain
-- 1  CakePHP fetches a Group, its Domain and its associated Users
-- 2  CakePHP fetches a Group, its Domain, its associated Users, and the
+- 0 CakePHP fetches Group data and its Domain
+- 1 CakePHP fetches a Group, its Domain and its associated Users
+- 2 CakePHP fetches a Group, its Domain, its associated Users, and the
   Users' associated Articles
 
 Set it no higher than you need. Having CakePHP fetch data you
@@ -132,22 +121,20 @@ aren't going to use slows your app unnecessarily. Also note that
 the default recursive level is 1.
 
 > [!NOTE]
-> If you want to combine $recursive with the `fields`
+> If you want to combine \$recursive with the `fields`
 > functionality, you will have to add the columns containing the
 > required foreign keys to the `fields` array manually. In the
 > example above, this could mean adding `domain_id`.
->
 
 The recommended recursive level for your application should be -1.
 This avoids retrieving related data where that is unnecessary or even
 unwanted. This is most likely the case for most of your find() calls.
 Raise it only when needed or use Containable behavior.
 
-You can achieve that by adding it to the AppModel
+You can achieve that by adding it to the AppModel:
 
-```php
+``` php
 public $recursive = -1;
-
 ```
 
 If you use events in your system, using the value -1 for recursive will
@@ -157,23 +144,22 @@ no relations are created when the value is set to -1.
 ## order
 
 The default ordering of data for any find operation. Possible
-values include
+values include:
 
-```php
+``` php
 $order = "field"
 $order = "Model.field";
 $order = "Model.field asc";
 $order = "Model.field ASC";
 $order = "Model.field DESC";
 $order = array("Model.field" => "asc", "Model.field2" => "DESC");
-
 ```
 
 ## data
 
 The container for the model's fetched data. While data returned
 from a model class is normally used as returned from a find() call,
-you may need to access information stored in $data inside of model
+you may need to access information stored in \$data inside of model
 callbacks.
 
 ## \_schema
@@ -181,53 +167,67 @@ callbacks.
 Contains metadata describing the model's database table fields.
 Each field is described by:
 
--  name
--  type
+- name
+- type
 
 The types CakePHP supports are:
 
-string
+string  
 Generally backed by CHAR or VARCHAR columns. In SQL Server, NCHAR and
 NVARCHAR types are used.
-text
+
+text  
 Maps to TEXT, MONEY types.
-uuid
+
+uuid  
 Maps to the UUID type if a database provides one, otherwise this will
 generate a CHAR(36) field.
-tinyinteger
+
+tinyinteger  
 Maps to the TINYINT or SMALLINT type provided by the database.
-smallinteger
+
+smallinteger  
 Maps to the SMALLINT type provided by the database.
-integer
+
+integer  
 Maps to the INTEGER types provided by the database.
-biginteger
+
+biginteger  
 Maps to the BIGINT type provided by the database.
-decimal
+
+decimal  
 Maps to the DECIMAL or NUMERIC types.
-float
+
+float  
 Maps to the REAL, DOUBLE PRECISION types.
-boolean
+
+boolean  
 Maps to BOOLEAN except in MySQL, where TINYINT(1) is used to represent
 booleans.
-binary
+
+binary  
 Maps to the BLOB or BYTEA type provided by the database.
-date
+
+date  
 Maps to a timezone naive DATE column type.
-datetime
+
+datetime  
 Maps to a timezone naive DATETIME column type. In PostgreSQL, and SQL
 Server this turns into a TIMESTAMP or TIMESTAMPTZ type.
-timestamp
+
+timestamp  
 Maps to the TIMESTAMP type.
-time
+
+time  
 Maps to a TIME type in all databases.
 
--  null
--  default value
--  length
+- null
+- default value
+- length
 
-Example Usage
+Example Usage:
 
-```php
+``` php
 protected $_schema = array(
     'first_name' => array(
         'type' => 'string',
@@ -245,8 +245,12 @@ protected $_schema = array(
 );
 ```
 
-> **versionchanged:** 2.10.0
+<div class="versionchanged">
+
+2.10.0
 The `smallinteger` and `tinyinteger` types were added in 2.10.0
+
+</div>
 
 ## validate
 
@@ -257,9 +261,8 @@ regex values allowing the model to try to make matches.
 > [!NOTE]
 > It is not necessary to call validate() before save() as save() will
 > automatically validate your data before actually saving.
->
 
-For more information on validation, see the [data-validation](data-validation.md)
+For more information on validation, see the [/models/data-validation](models/data-validation.md)
 later on in this manual.
 
 ## virtualFields
@@ -268,13 +271,12 @@ Array of virtual fields this model has. Virtual fields are aliased
 SQL expressions. Fields added to this property will be read as
 other fields in a model but will not be saveable.
 
-Example usage for MySQL
+Example usage for MySQL:
 
-```php
+``` php
 public $virtualFields = array(
     'name' => "CONCAT(User.first_name, ' ', User.last_name)"
 );
-
 ```
 
 In subsequent find operations, your User results would contain a
@@ -284,20 +286,19 @@ on the database, this can cause SQL errors.
 
 For more information on the `virtualFields` property, its proper
 usage, as well as limitations, see
-[virtual-fields](virtual-fields.md).
+[/models/virtual-fields](models/virtual-fields.md).
 
 ## name
 
 Name of the model. If you do not specify it in your model file it will
 be set to the class name by constructor.
 
-Example usage
+Example usage:
 
-```php
+``` php
 class Example extends AppModel {
     public $name = 'Example';
 }
-
 ```
 
 ## cacheQueries
@@ -306,4 +307,3 @@ If set to true, data fetched by the model during a single request
 is cached. This caching is in-memory only, and only lasts for the
 duration of the request. Any duplicate requests for the same data
 is handled by the cache.
-

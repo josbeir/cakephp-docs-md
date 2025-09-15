@@ -1,11 +1,6 @@
----
-title: Simple Authentication and Authorization Application
-keywords: "auto increment,authorization application,model user,array,conventions,authentication,urls,cakephp,delete,doc,columns"
----
-
 # Blog Tutorial - Authentication and Authorization
 
-Following our [blog](../blog/blog.md) example, imagine we
+Following our [/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md) example, imagine we
 wanted to secure access to certain URLs, based on the logged-in
 user. We also have another requirement: to allow our blog to have multiple
 authors who can create, edit, and delete their own articles while disallowing
@@ -13,9 +8,9 @@ other authors from making changes to articles they do not own.
 
 ## Creating All User-Related Code
 
-First, let's create a new table in our blog database to hold our users' data
+First, let's create a new table in our blog database to hold our users' data:
 
-```sql
+``` sql
 CREATE TABLE users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50),
@@ -24,7 +19,6 @@ CREATE TABLE users (
     created DATETIME DEFAULT NULL,
     modified DATETIME DEFAULT NULL
 );
-
 ```
 
 We have adhered to the CakePHP conventions in naming tables, but we're also
@@ -33,9 +27,9 @@ columns in a users table, CakePHP will be able to auto-configure most things for
 us when implementing the user login.
 
 Next step is to create our UsersTable class, responsible for finding, saving and
-validating any user data
+validating any user data:
 
-```php
+``` php
 // src/Model/Table/UsersTable.php
 namespace App\Model\Table;
 
@@ -57,14 +51,13 @@ class UsersTable extends Table
     }
 
 }
-
 ```
 
 Let's also create our UsersController. The following content corresponds to
 parts of a basic baked UsersController class using the code generation utilities bundled
-with CakePHP
+with CakePHP:
 
-```php
+``` php
 // src/Controller/UsersController.php
 
 namespace App\Controller;
@@ -106,14 +99,13 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 }
-
 ```
 
 In the same way we created the views for our articles by using the code
 generation tool, we can implement the user views. For the purpose of this
 tutorial, we will show just the add.ctp:
 
-```php
+``` php
 <!-- src/Template/Users/add.ctp -->
 
 <div class="users form">
@@ -129,7 +121,6 @@ tutorial, we will show just the add.ctp:
 <?= $this->Form->button(__('Submit')); ?>
 <?= $this->Form->end() ?>
 </div>
-
 ```
 
 ## Authentication (Login and Logout)
@@ -140,9 +131,9 @@ for requiring login for certain actions, handling user login and logout, and
 also authorizing logged-in users to the actions they are allowed to reach.
 
 To add this component to your application open your
-**src/Controller/AppController.php** file and add the following lines
+**src/Controller/AppController.php** file and add the following lines:
 
-```php
+``` php
 // src/Controller/AppController.php
 
 namespace App\Controller;
@@ -176,12 +167,11 @@ class AppController extends Controller
     }
     //...
 }
-
 ```
 
 There is not much to configure, as we used the conventions for the users table.
 We just set up the URLs that will be loaded after the login and logout actions
-is performed, in our case to `/articles/` and `/` respectively.
+is performed, in our case to [Articles / ](articles/.md) and `/` respectively.
 
 What we did in the `beforeFilter()` function was to tell the AuthComponent to
 not require a login for all `index()` and `view()` actions, in every
@@ -191,9 +181,9 @@ registering in the site.
 Now, we need to be able to register new users, save their username and password,
 and more importantly, hash their password so it is not stored as plain text in
 our database. Let's tell the AuthComponent to let un-authenticated users access
-the users add function and implement the login and logout action
+the users add function and implement the login and logout action:
 
-```php
+``` php
 // src/Controller/UsersController.php
 namespace App\Controller;
 
@@ -230,14 +220,13 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 }
-
 ```
 
 Password hashing is not done yet, we need an Entity class for our User in order
 to handle its own specific logic. Create the **src/Model/Entity/User.php**
-entity file and add the following
+entity file and add the following:
 
-```php
+``` php
 // src/Model/Entity/User.php
 namespace App\Model\Entity;
 
@@ -263,15 +252,14 @@ class User extends Entity
 
     // ...
 }
-
 ```
 
 Now every time the password property is assigned to the user it will be hashed
-using the `DefaultPasswordHasher` class.  We're just missing a template view
+using the `DefaultPasswordHasher` class. We're just missing a template view
 file for the login function. Open up your **src/Template/Users/login.ctp** file
 and add the following lines:
 
-```php
+``` php
 <!-- File: src/Template/Users/login.ctp -->
 
 <div class="users form">
@@ -285,13 +273,12 @@ and add the following lines:
 <?= $this->Form->button(__('Login')); ?>
 <?= $this->Form->end() ?>
 </div>
-
 ```
 
-You can now register a new user by accessing the `/users/add` URL and log in
-with the newly created credentials by going to `/users/login` URL. Also, try
+You can now register a new user by accessing the [Users / add](users/add.md) URL and log in
+with the newly created credentials by going to [Users / login](users/login.md) URL. Also, try
 to access any other URL that was not explicitly allowed such as
-`/articles/add`, you will see that the application automatically redirects you
+[Articles / add](articles/add.md), you will see that the application automatically redirects you
 to the login page.
 
 And that's it! It looks too simple to be true. Let's go back a bit to explain
@@ -308,7 +295,7 @@ This function returns whether the login was successful or not, and in the case
 it succeeds, then we redirect the user to the configured redirection URL that we
 used when adding the AuthComponent to our application.
 
-The logout works by just accessing the `/users/logout` URL and will redirect
+The logout works by just accessing the [Users / logout](users/logout.md) URL and will redirect
 the user to the configured logoutUrl formerly described. This URL is the result
 of the `AuthComponent::logout()` function on success.
 
@@ -316,17 +303,16 @@ of the `AuthComponent::logout()` function on success.
 
 As stated before, we are converting this blog into a multi-user authoring tool,
 and in order to do this, we need to modify the articles table a bit to add the
-reference to the Users table
+reference to the Users table:
 
-```sql
+``` sql
 ALTER TABLE articles ADD COLUMN user_id INT(11);
-
 ```
 
 Also, a small change in the ArticlesController is required to store the
-currently logged in user as a reference for the created article
+currently logged in user as a reference for the created article:
 
-```php
+``` php
 // src/Controller/ArticlesController.php
 
 public function add()
@@ -353,7 +339,6 @@ public function add()
     $categories = $this->Articles->Categories->find('treeList');
     $this->set(compact('categories'));
 }
-
 ```
 
 The `user()` function provided by the component returns any column from the
@@ -364,9 +349,9 @@ Let's secure our app to prevent some authors from editing or deleting the
 others' articles. Basic rules for our app are that admin users can access every
 URL, while normal users (the author role) can only access the permitted actions.
 Again, open the AppController class and add a few more options to the Auth
-config
+config:
 
-```php
+``` php
 // src/Controller/AppController.php
 
 public function initialize()
@@ -396,7 +381,6 @@ public function isAuthorized($user)
     // Default deny
     return false;
 }
-
 ```
 
 We just created a simple authorization mechanism. Users with the `admin`
@@ -409,9 +393,9 @@ This is not exactly what we want. We need to supply more rules to our
 we'll delegate supplying those extra rules to each individual controller.
 The rules we're going to add to ArticlesController should permit authors
 to create articles but prevent authors from editing articles they do not
-own.  Add the following content to your **ArticlesController.php**
+own. Add the following content to your **ArticlesController.php**:
 
-```php
+``` php
 // src/Controller/ArticlesController.php
 
 public function isAuthorized($user)
@@ -434,7 +418,6 @@ public function isAuthorized($user)
 
     return parent::isAuthorized($user);
 }
-
 ```
 
 We're now overriding the AppController's `isAuthorized()` call and internally
@@ -442,16 +425,15 @@ checking if the parent class is already authorizing the user. If he isn't,
 then just allow him to access the add action, and conditionally access
 edit and delete. One final thing has not been implemented. To tell whether
 or not the user is authorized to edit the article, we're calling a `isOwnedBy()`
-function in the Articles table. Let's then implement that function
+function in the Articles table. Let's then implement that function:
 
-```php
+``` php
 // src/Model/Table/ArticlesTable.php
 
 public function isOwnedBy($articleId, $userId)
 {
     return $this->exists(['id' => $articleId, 'user_id' => $userId]);
 }
-
 ```
 
 This concludes our simple authentication and authorization tutorial. For securing
@@ -460,10 +442,10 @@ You could also be more creative and code something more general in AppController
 on your own rules.
 
 Should you need more control, we suggest you read the complete Auth guide in the
-[authentication](../../controllers/components/authentication.md) section where you will find more
+[/controllers/components/authentication](controllers/components/authentication.md) section where you will find more
 about configuring the component, creating custom Authorization classes, and much more.
 
 ### Suggested Follow-up Reading
 
-#. [usage](../../bake/usage.md) Generating basic CRUD code
-#. [authentication](../../controllers/components/authentication.md): User registration and login
+1.  [/bake/usage](bake/usage.md) Generating basic CRUD code
+2.  [/controllers/components/authentication](controllers/components/authentication.md): User registration and login

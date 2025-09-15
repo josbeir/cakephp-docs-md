@@ -13,23 +13,20 @@ as they are conditionally defined by CakePHP now.
 - FileEngine is always the default cache engine. In the past a number of people
   had difficulty setting up and deploying APC correctly both in CLI + web.
   Using files should make setting up CakePHP simpler for new developers.
-
-- `Configure::write('Cache.viewPrefix', 'YOURPREFIX');` has been added to `core.php`
+- <span class="title-ref">Configure::write('Cache.viewPrefix', 'YOURPREFIX');</span> has been added to <span class="title-ref">core.php</span>
   to allow multiple domains/languages per setup.
 
 ## Component
 
 ### AuthComponent
-- A new property `AuthComponent::$unauthorizedRedirect` has been added.
 
+- A new property `AuthComponent::$unauthorizedRedirect` has been added.
   - For default `true` value user is redirected to referrer URL upon authorization failure.
   - If set to a string or array user is redirected to that URL.
   - If set to false a ForbiddenException exception is thrown instead of redirecting.
-
 - A new authenticate adapter has been added to support blowfish/bcrypt hashed
   passwords. You can now use `Blowfish` in your `$authenticate` array to
   allow bcrypt passwords to be used.
-
 - `AuthComponent::redirect()` has been deprecated.
   Use `AuthComponent::redirectUrl()` instead.
 
@@ -38,8 +35,7 @@ as they are conditionally defined by CakePHP now.
 - PaginatorComponent now supports the `findType` option. This can be used to
   specify what find method you want used for pagination. This is a bit easier
   to manage and set than the 0'th index.
-
-- PaginatorComponent now throws a `NotFoundException` when trying to access a page
+- PaginatorComponent now throws a <span class="title-ref">NotFoundException</span> when trying to access a page
   which is out of range (i.e. requested page is greater than total page count).
 
 ### SecurityComponent
@@ -70,7 +66,7 @@ as they are conditionally defined by CakePHP now.
 ### L10n
 
 - `nld` is now the default locale for Dutch as specified by ISO 639-3 and `dut` its alias.
-  The locale folders have to be adjusted accordingly (from `/Locale/dut/` to `/Locale/nld/`).
+  The locale folders have to be adjusted accordingly (from <span class="title-ref">/Locale/dut/</span> to <span class="title-ref">/Locale/nld/</span>).
 - Albanian is now `sqi`, Basque is now `eus`, Chinese is now `zho`, Tibetan is now `bod`,
   Czech is now `ces`, Farsi is now `fas`, French is now `fra`, Icelandic is now `isl`,
   Macedonian is now `mkd`, Malaysian is now `msa`, Romanian is now `ron`, Serbian is now `srp`
@@ -83,22 +79,16 @@ as they are conditionally defined by CakePHP now.
 - `CakePlugin::load()` can now take a new `ignoreMissing` option. Setting it to true will
   prevent file include errors when you try to load routes or bootstrap but they don't exist for a plugin.
   So essentially you can now use the following statement which will load all plugins and their routes and
-  bootstrap for whatever plugin it can find
-
-```php
-`CakePlugin::loadAll(array(array('routes' => true, 'bootstrap' => true, 'ignoreMissing' => true)))`
-
-```
+  bootstrap for whatever plugin it can find::
+  `CakePlugin::loadAll(array(array('routes' => true, 'bootstrap' => true, 'ignoreMissing' => true)))`
 
 ### Configure
 
 - `Configure::check()` was added. This method works the same as
   `CakeSession::check()` does.
-
 - `ConfigReaderInterface::dump()` was added. Please ensure any custom readers you have now
   implement a `dump()` method.
-
-- The `$key` parameter of `IniReader::dump()` now supports keys like `PluginName.keyname`
+- The `$key` parameter of `IniReader::dump()` now supports keys like <span class="title-ref">PluginName.keyname</span>
   similar to `PhpReader::dump()`.
 
 ## Error
@@ -141,8 +131,8 @@ as they are conditionally defined by CakePHP now.
 ### CakeResponse
 
 - `CakeResponse::file()` was added.
-- The content types `application/javascript`, `application/xml`,
-  `application/rss+xml` now also send the application charset.
+- The content types <span class="title-ref">application/javascript</span>, <span class="title-ref">application/xml</span>,
+  <span class="title-ref">application/rss+xml</span> now also send the application charset.
 
 ### CakeEmail
 
@@ -155,7 +145,7 @@ as they are conditionally defined by CakePHP now.
 - `HttpSocket` now verifies SSL certificates by default. If you are
   using self-signed certificates or connecting through proxies you may need to
   use some of the new options to augment this behavior. See
-  [http-socket-ssl-options](../core-utility-libraries/httpsocket.md#http-socket-ssl-options) for more information.
+  [http-socket-ssl-options](#http-socket-ssl-options) for more information.
 - `HttpResponse` was renamed to `HttpSocketResponse`. This
   avoids a common issue with the HTTP PECL extension. There is an
   `HttpResponse` class provided as well for compatibility reasons.
@@ -224,7 +214,7 @@ as they are conditionally defined by CakePHP now.
 ### TextHelper
 
 - `TextHelper::tail()` was added to truncate text starting from the end.
-- `ending` in `TextHelper::truncate()` is deprecated in favor of `ellipsis`
+- <span class="title-ref">ending</span> in `TextHelper::truncate()` is deprecated in favor of <span class="title-ref">ellipsis</span>
 
 ### PaginatorHelper
 
@@ -232,7 +222,7 @@ as they are conditionally defined by CakePHP now.
   allow specifying extra tag for wrapping current page number.
 - For methods: `PaginatorHelper::prev()` and `PaginatorHelper::next()` it
   is now possible to set the `tag` option to `false` to disable the wrapper.
-  Also a new option `disabledTag` has been added for these two methods.
+  Also a new option <span class="title-ref">disabledTag</span> has been added for these two methods.
 
 ## Testing
 
@@ -258,12 +248,12 @@ as they are conditionally defined by CakePHP now.
 ### String
 
 - `String::tail()` was added to truncate text starting from the end.
-- `ending` in `String::truncate()` is deprecated in favor of `ellipsis`
+- <span class="title-ref">ending</span> in `String::truncate()` is deprecated in favor of <span class="title-ref">ellipsis</span>
 
 ### Debugger
 
 - `Debugger::exportVar()` now outputs private and protected properties
-  in PHP >= 5.3.0.
+  in PHP \>= 5.3.0.
 
 ### Security
 

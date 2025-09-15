@@ -12,9 +12,59 @@ not specific to any one model. It is these kinds of scenarios that behaviors are
 a perfect fit for.
 
 ## Using Behaviors
-<!--@include: table-objects.md-->
+
+Behaviors provide a way to create horizontally re-usable pieces of logic
+related to table classes. You may be wondering why behaviors are regular classes
+and not traits. The primary reason for this is event listeners. While traits
+would allow for re-usable pieces of logic, they would complicate binding events.
+
+To add a behavior to your table you can call the `addBehavior()` method.
+Generally the best place to do this is in the `initialize()` method:
+
+``` php
+namespace App\Model\Table;
+
+use Cake\ORM\Table;
+
+class ArticlesTable extends Table
+{
+    public function initialize(array $config): void
+    {
+        $this->addBehavior('Timestamp');
+    }
+}
+```
+
+As with associations, you can use `plugin syntax` and provide additional
+configuration options:
+
+``` php
+namespace App\Model\Table;
+
+use Cake\ORM\Table;
+
+class ArticlesTable extends Table
+{
+    public function initialize(array $config): void
+    {
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_at' => 'new',
+                    'modified_at' => 'always'
+                ]
+            ]
+        ]);
+    }
+}
+```
 
 ## Core Behaviors
+
+- [Counter Cache](orm/behaviors/counter-cache.md)
+- [Timestamp](orm/behaviors/timestamp.md)
+- [Translate](orm/behaviors/translate.md)
+- [Tree](orm/behaviors/tree.md)
 
 ## Creating a Behavior
 
@@ -33,9 +83,9 @@ behaviors:
 - Behaviors extend `Cake\ORM\Behavior`.
 
 To create our sluggable behavior. Put the following into
-**src/Model/Behavior/SluggableBehavior.php**
+**src/Model/Behavior/SluggableBehavior.php**:
 
-```php
+``` php
 namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
@@ -43,25 +93,23 @@ use Cake\ORM\Behavior;
 class SluggableBehavior extends Behavior
 {
 }
-
 ```
 
 Similar to tables, behaviors also have an `initialize()` hook where you can
-put your behavior's initialization code, if required
+put your behavior's initialization code, if required:
 
-```php
+``` php
 public function initialize(array $config): void
 {
     // Some initialization code here
 }
-
 ```
 
 We can now add this behavior to one of our table classes. In this example we'll
 use an `ArticlesTable`, as articles often have slug properties for creating
-friendly URLs
+friendly URLs:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
@@ -73,7 +121,6 @@ class ArticlesTable extends Table
         $this->addBehavior('Sluggable');
     }
 }
-
 ```
 
 Our new behavior doesn't do much of anything right now. Next, we'll add a mixin
@@ -88,21 +135,19 @@ same methods an exception will be raised. If a behavior provides the same method
 as a table class, the behavior method will not be callable from the table.
 Behavior mixin methods will receive the exact same arguments that are provided
 to the table. For example, if our SluggableBehavior defined the following
-method
+method:
 
-```php
+``` php
 public function slug($value)
 {
     return Text::slug($value, $this->_config['replacement']);
 }
-
 ```
 
-It could be invoked using::
+It could be invoked using:
 
-```php
+``` php
 $slug = $articles->slug('My article name');
-
 ```
 
 #### Limiting or Renaming Exposed Mixin Methods
@@ -110,15 +155,14 @@ $slug = $articles->slug('My article name');
 When creating behaviors, there may be situations where you don't want to expose
 public methods as mixin methods. In these cases you can use the
 `implementedMethods` configuration key to rename or exclude mixin methods. For
-example if we wanted to prefix our slug() method we could do the following
+example if we wanted to prefix our slug() method we could do the following:
 
-```php
+``` php
 protected $_defaultConfig = [
     'implementedMethods' => [
         'superSlug' => 'slug',
     ]
 ];
-
 ```
 
 Applying this configuration will make `slug()` not callable, however it will
@@ -127,16 +171,15 @@ implemented other public methods they would **not** be available as mixin
 methods with the above configuration.
 
 Since the exposed methods are decided by configuration you can also
-rename/remove mixin methods when adding a behavior to a table. For example
+rename/remove mixin methods when adding a behavior to a table. For example:
 
-```php
+``` php
 // In a table's initialize() method.
 $this->addBehavior('Sluggable', [
     'implementedMethods' => [
         'superSlug' => 'slug',
     ]
 ]);
-
 ```
 
 ### Defining Event Listeners
@@ -144,9 +187,9 @@ $this->addBehavior('Sluggable', [
 Now that our behavior has a mixin method to slug fields, we can implement
 a callback listener to automatically slug a field when entities are saved. We'll
 also modify our slug method to accept an entity instead of just a plain value. Our
-behavior should now look like
+behavior should now look like:
 
-```php
+``` php
 namespace App\Model\Behavior;
 
 use ArrayObject;
@@ -178,19 +221,18 @@ class SluggableBehavior extends Behavior
     }
 
 }
-
 ```
 
 The above code shows a few interesting features of behaviors:
 
 - Behaviors can define callback methods by defining methods that follow the
-  [table-callbacks](table-objects.md#table-callbacks) conventions.
+  [table-callbacks](#table-callbacks) conventions.
 - Behaviors can define a default configuration property. This property is merged
   with the overrides when a behavior is attached to the table.
 
-To prevent the save from continuing, simply stop event propagation in your callback
+To prevent the save from continuing, simply stop event propagation in your callback:
 
-```php
+``` php
 public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void
 {
     if (...) {
@@ -201,7 +243,6 @@ public function beforeSave(EventInterface $event, EntityInterface $entity, Array
     }
     $this->slug($entity);
 }
-
 ```
 
 Alternatively, you can return false from the callback. This has the same effect as stopping event propagation.
@@ -210,22 +251,20 @@ Alternatively, you can return false from the callback. This has the same effect 
 
 Now that we are able to save articles with slug values, we should implement
 a finder method so we can fetch articles by their slug. Behavior finder
-methods, use the same conventions as [custom-find-methods](retrieving-data-and-resultsets.md#custom-find-methods) do. Our
-`find('slug')` method would look like
+methods, use the same conventions as [custom-find-methods](#custom-find-methods) do. Our
+`find('slug')` method would look like:
 
-```php
+``` php
 public function findSlug(SelectQuery $query, string $slug): SelectQuery
 {
     return $query->where(['slug' => $slug]);
 }
-
 ```
 
-Once our behavior has the above method we can call it::
+Once our behavior has the above method we can call it:
 
-```php
+``` php
 $article = $articles->find('slug', slug: $value)->first();
-
 ```
 
 #### Limiting or Renaming Exposed Finder Methods
@@ -234,15 +273,14 @@ When creating behaviors, there may be situations where you don't want to expose
 finder methods, or you need to rename finders to avoid duplicated methods. In
 these cases you can use the `implementedFinders` configuration key to rename
 or exclude finder methods. For example if we wanted to rename our `find(slug)`
-method we could do the following
+method we could do the following:
 
-```php
+``` php
 protected array $_defaultConfig = [
     'implementedFinders' => [
         'slugged' => 'findSlug',
     ]
 ];
-
 ```
 
 Applying this configuration will make `find('slug')` trigger an error. However
@@ -251,25 +289,24 @@ other finder methods they would **not** be available, as they are not included
 in the configuration.
 
 Since the exposed methods are decided by configuration you can also
-rename/remove finder methods when adding a behavior to a table. For example
+rename/remove finder methods when adding a behavior to a table. For example:
 
-```php
+``` php
 // In a table's initialize() method.
 $this->addBehavior('Sluggable', [
     'implementedFinders' => [
         'slugged' => 'findSlug',
     ]
 ]);
-
 ```
 
 ## Transforming Request Data into Entity Properties
 
 Behaviors can define logic for how the custom fields they provide are
 marshalled by implementing the `Cake\ORM\PropertyMarshalInterface`. This
-interface requires a single method to be implemented
+interface requires a single method to be implemented:
 
-```php
+``` php
 public function buildMarshalMap($marshaller, $map, $options)
 {
     return [
@@ -279,7 +316,6 @@ public function buildMarshalMap($marshaller, $map, $options)
         }
     ];
 }
-
 ```
 
 The `TranslateBehavior` has a non-trivial implementation of this interface
@@ -287,20 +323,19 @@ that you might want to refer to.
 
 ## Removing Loaded Behaviors
 
-To remove a behavior from your table you can call the `removeBehavior()` method
+To remove a behavior from your table you can call the `removeBehavior()` method:
 
-```php
+``` php
 // Remove the loaded behavior
 $this->removeBehavior('Sluggable');
-
 ```
 
 ## Accessing Loaded Behaviors
 
 Once you've attached behaviors to your Table instance you can introspect the
-loaded behaviors, or access specific behaviors using the `BehaviorRegistry`
+loaded behaviors, or access specific behaviors using the `BehaviorRegistry`:
 
-```php
+``` php
 // See which behaviors are loaded
 $table->behaviors()->loaded();
 
@@ -311,7 +346,6 @@ $table->behaviors()->has('CounterCache');
 // Get a loaded behavior
 // Remember to omit plugin prefixes
 $table->behaviors()->get('CounterCache');
-
 ```
 
 ### Re-configuring Loaded Behaviors
@@ -323,9 +357,9 @@ To modify the configuration of an already loaded behavior you can combine the
 For example, if a parent class, such as `AppTable`, loaded the `Timestamp`
 behavior you could do the following to add, modify or remove the configurations
 for the behavior. In this case, we will add an event we want Timestamp to
-respond to
+respond to:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use App\Model\Table\AppTable; // similar to AppController
@@ -349,5 +383,4 @@ class UsersTable extends AppTable
         }
     }
 }
-
 ```

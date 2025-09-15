@@ -5,9 +5,8 @@ changes and improvements made in 3.6.
 
 To upgrade to 3.6.x run the following composer command:
 
-```bash
+``` bash
 php composer.phar require --update-with-dependencies "cakephp/cakephp:3.6.*"
-
 ```
 
 ## Deprecations
@@ -38,8 +37,8 @@ features will continue to function until 4.0.0 after which they will be removed.
   and `allowEmpty()` instead.
 - `Cake\Form\Form::validator()` is deprecated. Use `getValidator()` and
   `setValidator()` instead.
-- `Cake\ORM\TableRegistry` static API has been deprecated. Use a table locator 
-  directly instead. A global `Cake\ORM\Locator\TableLocator` instance can be 
+- `Cake\ORM\TableRegistry` static API has been deprecated. Use a table locator
+  directly instead. A global `Cake\ORM\Locator\TableLocator` instance can be
   accessed via `Cake\ORM\TableRegistry::getTableLocator()` or using a
   `Cake\ORM\Locator\LocatorAwareTrait`.
 - `Cake\View\Helper\FormHelper::widgetRegistry()` is deprecated. Use
@@ -61,7 +60,7 @@ features will continue to function until 4.0.0 after which they will be removed.
 - Passing `$className` as object to `Cake\Database\Type::map()` is deprecated. Use
   `set()` instead.
 - `Cake\Routing\Dispatcher` is deprecated. You should upgrade to [new
-  HTTP stack](../development/application.md#adding-http-stack).
+  HTTP stack](#adding-http-stack).
 
 Several classes were *renamed*. Their old names will continue to work until 4.0,
 but will emit deprecation warnings:
@@ -108,15 +107,12 @@ but will emit deprecation warnings:
 Deprecation warnings are intended to help you prepare for future versions of
 CakePHP, but updating your code will likely be an incremental process. You can
 disable deprecation warnings while you work towards adopting the new methods. In
-your **config/app.php** you can set `Error.errorLevel`
+your **config/app.php** you can set `Error.errorLevel`:
 
-```
-// in config/app.php
-'Error' => [
-    'errorLevel' => E_ALL ^ E_USER_DEPRECATED
-]
-
-```
+    // in config/app.php
+    'Error' => [
+        'errorLevel' => E_ALL ^ E_USER_DEPRECATED
+    ]
 
 Once you have no remaining deprecation warnings you can set your error level to
 `E_ALL` to help prevent future use of deprecated methods.
@@ -133,7 +129,7 @@ behavior that may affect your application:
   security tokens and will cause forms created in earlier versions of CakePHP to
   fail validation in 3.6.
 - `Cake\Database\Query::page()` now raises exceptions when page values are
-  < 1.
+  \< 1.
 - Pagination now allows sorting on multiple fields across all pages. Previously
   only the first page could be sorted by more than one column. Furthermore, sort
   conditions defined in the query string are *prepended* to the default order
@@ -180,7 +176,7 @@ behavior that may affect your application:
 A new way to build CLI tools has been added. Shells & Tasks have several
 shortcomings that are hard to correct without breaking compatibility.
 `Cake\Console\Command` will replace `Shell` long term as the recommended way
-to build console applications. See the [commands](../console-and-shells/commands.md)
+to build console applications. See the [/console-and-shells/commands](console-and-shells/commands.md)
 section for more information.
 
 - `ConsoleOptionParse::enableSubcommandSort()` was added. This method allows
@@ -188,7 +184,7 @@ section for more information.
 
 ## Core
 
-- Plugins can now define [plugin-objects](../plugins.md#plugin-objects). These classes are optional and
+- Plugins can now define [plugin-objects](#plugin-objects). These classes are optional and
   allow a plugin to add middleware and console commands to the host application.
   They are a class based way to configure and define a plugin.
 - `getTypeName()` was added to assist in getting correct class/type name when
@@ -238,8 +234,7 @@ section for more information.
 
 ## I18n
 
-- The two leftover FormHelper i18n translation strings `'Edit %s'` and `'New
-  %s'` are now `'Edit {0}'` and `'New {0}'`. If you are using translating
+- The two leftover FormHelper i18n translation strings `'Edit %s'` and `'New %s'` are now `'Edit {0}'` and `'New {0}'`. If you are using translating
   messages from CakePHP, please make sure you adjust those translations in your
   PO file.
 
@@ -267,7 +262,7 @@ section for more information.
 ## Routing
 
 - `Cake\Routing\Route\EntityRoute` was added. This route class makes building
-  routes that need data from entities easier. See the [entity-routing](../development/routing.md#entity-routing)
+  routes that need data from entities easier. See the [entity-routing](#entity-routing)
   section for more information.
 - Routing variables can now use `{var}` style placeholders. This style allows
   mid-word variables to be defined. You cannot combine `{var}` placeholders
@@ -275,7 +270,7 @@ section for more information.
 - `Router::routeExists()` was added. This method lets you check if a route
   array can be resolved into a valid route.
 - Route connection can now use compact 'string targets' e.g
-  `Bookmarks::index`. See [routes-configuration](../development/routing.md#routes-configuration) for more information.
+  `Bookmarks::index`. See [routes-configuration](#routes-configuration) for more information.
 - `RoutingMiddleware` can now cache the route collection created by your
   routes. Caching routes greatly improves application startup times.
   It now also requires to be instantiated and the current object (`$this`) passed for plugin routing.

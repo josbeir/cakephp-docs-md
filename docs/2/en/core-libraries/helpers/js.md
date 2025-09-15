@@ -1,18 +1,11 @@
----
-title: JsHelper
-description: "The Js Helper supports the JavaScript libraries Prototype, jQuery and Mootools and provides methods for manipulating javascript."
-keywords: "js helper,javascript,cakephp jquery,cakephp mootools,cakephp prototype,cakephp jquery ui,cakephp scriptaculous,cakephp javascript,javascript engine"
----
-
 # JsHelper
 
-### Class `JsHelper(View $view, array $settings = array())`
+`class` **JsHelper(View**
 
 > [!WARNING]
 > The JsHelper is currently deprecated and completely removed in 3.x.
 > We recommend using regular JavaScript and directly interacting with
 > JavaScript libraries where possible.
->
 
 Since the beginning CakePHP's support for JavaScript has been with
 Prototype/Scriptaculous. While we still think these are
@@ -39,11 +32,10 @@ it in `app/webroot/js`
 
 Then you must include the library in your page. To include it in
 all pages, add this line to the \<head\> section of
-`app/View/Layouts/default.ctp`
+`app/View/Layouts/default.ctp`:
 
-```php
+``` php
 echo $this->Html->script('jquery'); // Include jQuery library
-
 ```
 
 Replace `jquery` with the name of your library file (.js will be
@@ -51,24 +43,21 @@ added to the name).
 
 By default scripts are cached, and you must explicitly print out
 the cache. To do this at the end of each page, include this line
-just before the ending `</body>` tag
+just before the ending [](body.md) tag:
 
-```php
+``` php
 echo $this->Js->writeBuffer(); // Write cached scripts
-
 ```
 
 > [!WARNING]
 > You must include the library in your page and print the cache for
 > the helper to function.
->
 
 JavaScript engine selection is declared when you include the helper
-in your controller
+in your controller:
 
-```php
+``` php
 public $helpers = array('Js' => array('Jquery'));
-
 ```
 
 The above would use the Jquery Engine in the instances of JsHelper
@@ -86,50 +75,45 @@ you shouldn't get a clash between jQuery and any other library
 (like Prototype, MooTools, or YUI).
 
 That said, there is one caveat:
-**By default, jQuery uses "$" as a shortcut for "jQuery"**
+**By default, jQuery uses "\$" as a shortcut for "jQuery"**
 
-To override the "$" shortcut, use the jQueryObject variable
+To override the "\$" shortcut, use the jQueryObject variable:
 
-```php
+``` php
 $this->Js->JqueryEngine->jQueryObject = '$j';
 echo $this->Html->scriptBlock(
     'var $j = jQuery.noConflict();',
     array('inline' => false)
 );
 // Tell jQuery to go into noconflict mode
-
 ```
 
 ### Using the JsHelper inside customHelpers
 
 Declare the JsHelper in the `$helpers` array in your
-customHelper
+customHelper:
 
-```php
+``` php
 public $helpers = array('Js');
-
 ```
 
 > [!NOTE]
 > It is not possible to declare a JavaScript engine inside a custom
 > helper. Doing that will have no effect.
->
 
 If you are willing to use an other JavaScript engine than the
-default, do the helper setup in your controller as follows
+default, do the helper setup in your controller as follows:
 
-```php
+``` php
 public $helpers = array(
     'Js' => array('Prototype'),
     'CustomHelper'
 );
-
 ```
 
 > [!WARNING]
 > Be sure to declare the JsHelper and its engine **on top** of the
 > `$helpers` array in your controller.
->
 
 The selected JavaScript engine may disappear (replaced by the
 default) from the JsHelper object in your helper, if you miss to do
@@ -161,22 +145,20 @@ buffering wholesale with the `$bufferScripts` property or setting
 `buffer => false` in methods taking `$options`.
 
 Since most methods in JavaScript begin with a selection of elements
-in the DOM, `$this->Js->get()` returns a $this, allowing you to
+in the DOM, `$this->Js->get()` returns a \$this, allowing you to
 chain the methods using the selection. Method chaining allows you
-to write shorter, more expressive code
+to write shorter, more expressive code:
 
-```php
+``` php
 $this->Js->get('#foo')->event('click', $eventCode);
-
 ```
 
 Is an example of method chaining. Method chaining is not possible
-in PHP4 and the above sample would be written like
+in PHP4 and the above sample would be written like:
 
-```php
+``` php
 $this->Js->get('#foo');
 $this->Js->event('click', $eventCode);
-
 ```
 
 ### Common options
@@ -201,39 +183,39 @@ the scattering of script tags throughout your document, and the
 inability to buffer scripts added by elements in the layout. The
 new JsHelper if used correctly avoids both of those issues. It is
 recommended that you place `$this->Js->writeBuffer()` at the
-bottom of your layout file above the `</body>` tag. This will
+bottom of your layout file above the [](body.md) tag. This will
 allow all scripts generated in layout elements to be output in one
 place. It should be noted that buffered scripts are handled
 separately from included script files.
 
-#### Method `writeBuffer($options = array())`
+`method` JsHelper(View::**writeBuffer**($options = array())
 
 Writes all JavaScript generated so far to a code block or caches
 them to a file and returns a linked script.
 
 **Options**
 
--  `inline` - Set to true to have scripts output as a script
-block inline if `cache` is also true, a script link tag will be
-generated. (default true)
--  `cache` - Set to true to have scripts cached to a file and
-linked in (default false)
--  `clear` - Set to false to prevent script cache from being
-   cleared (default true)
--  `onDomReady` - wrap cached scripts in domready event (default
-true)
--  `safe` - if an inline block is generated should it be wrapped
-in \\<![CDATA[ ... ]]\> (default true)
+- `inline` - Set to true to have scripts output as a script
+  block inline if `cache` is also true, a script link tag will be
+  generated. (default true)
+- `cache` - Set to true to have scripts cached to a file and
+  linked in (default false)
+- `clear` - Set to false to prevent script cache from being
+  cleared (default true)
+- `onDomReady` - wrap cached scripts in domready event (default
+  true)
+- `safe` - if an inline block is generated should it be wrapped
+  in \<\![CDATA\[ ... \]\]\> (default true)
 
 Creating a cache file with `writeBuffer()` requires that
 `webroot/js` be world writable and allows a browser to cache
 generated script resources for any page.
 
-#### Method `buffer($content)`
+`method` JsHelper(View::**buffer**($content)
 
 Add `$content` to the internal script buffer.
 
-#### Method `getBuffer($clear = true)`
+`method` JsHelper(View::**getBuffer**($clear = true)
 
 Get the contents of the current buffer. Pass in false to not clear
 the buffer at the same time.
@@ -243,29 +225,27 @@ the buffer at the same time.
 Some methods in the helpers are buffered by default. The engines
 buffer the following methods by default:
 
--  event
--  sortable
--  drag
--  drop
--  slider
+- event
+- sortable
+- drag
+- drop
+- slider
 
 Additionally you can force any other method in JsHelper to use the
 buffering. By appending an boolean to the end of the arguments you
 can force other methods to go into the buffer. For example the
-`each()` method does not normally buffer
+`each()` method does not normally buffer:
 
-```php
+``` php
 $this->Js->each('alert("whoa!");', true);
-
 ```
 
 The above would force the `each()` method to use the buffer.
 Conversely if you want a method that does buffer to not buffer, you
-can pass a `false` in as the last argument
+can pass a `false` in as the last argument:
 
-```php
+``` php
 $this->Js->event('click', 'alert("whoa!");', false);
-
 ```
 
 This would force the event function which normally buffers to
@@ -282,575 +262,46 @@ CakePHP core. Whenever you see separate lists for `Options` and
 `Event Options` both sets of parameters are supplied in the
 `$options` array for the method.
 
-#### Method `object($data, $options = array())`
+`method` JsHelper(View::**object**($data, $options = array())
 
-Serializes `$data` into JSON. This method is a proxy for `json_encode()`
-with a few extra features added via the `$options` parameter.
+`method` JsHelper(View::**sortable**($options = array())
 
-    **Options:**
+`method` JsHelper(View::**request**($url, $options = array())
 
--  `prefix` - String prepended to the returned data.
--  `postfix` - String appended to the returned data.
+`method` JsHelper(View::**get**($selector)
 
-    **Example Use**
+`method` JsHelper(View::**set**(mixed $one, mixed $two = null)
 
-```php
-$json = $this->Js->object($data);
+`method` JsHelper(View::**drag**($options = array())
 
-```
+`method` JsHelper(View::**drop**($options = array())
 
-#### Method `sortable($options = array())`
+`method` JsHelper(View::**slider**($options = array())
 
-Sortable generates a JavaScript snippet to make a set of elements
-(usually a list) drag and drop sortable.
+`method` JsHelper(View::**effect**($name, $options = array())
 
-The normalized options are:
+`method` JsHelper(View::**event**($type, $content, $options = array())
 
-    **Options**
+`method` JsHelper(View::**domReady**($callback)
 
--  `containment` - Container for move action
--  `handle` - Selector to handle element. Only this element will
-start sort action.
--  `revert` - Whether or not to use an effect to move sortable
-into final position.
--  `opacity` - Opacity of the placeholder
--  `distance` - Distance a sortable must be dragged before
-sorting starts.
+`method` JsHelper(View::**each**($callback)
 
-    **Event Options**
+`method` JsHelper(View::**alert**($message)
 
--  `start` - Event fired when sorting starts
--  `sort` - Event fired during sorting
--  `complete` - Event fired when sorting completes.
+`method` JsHelper(View::**confirm**($message)
 
-Other options are supported by each JavaScript library, and you
-should check the documentation for your JavaScript library for more
-detailed information on its options and parameters.
+`method` JsHelper(View::**prompt**($message, $default)
 
-    **Example Use**
+`method` JsHelper(View::**submit**($caption = null, $options = array())
 
-```php
-$this->Js->get('#my-list');
-$this->Js->sortable(array(
-    'distance' => 5,
-    'containment' => 'parent',
-    'start' => 'onStart',
-    'complete' => 'onStop',
-    'sort' => 'onSort',
-    'wrapCallbacks' => false
-));
+`method` JsHelper(View::**link**($title, $url = null, $options = array())
 
-```
+`method` JsHelper(View::**serializeForm**($options = array())
 
-Assuming you were using the jQuery engine, you would get the
-following code in your generated JavaScript block
+`method` JsHelper(View::**redirect**($url)
 
-```javascript
-$("#myList").sortable({
-    containment:"parent",
-    distance:5,
-    sort:onSort,
-    start:onStart,
-    stop:onStop
-});
+`method` JsHelper(View::**value**($value)
 
-```
-
-#### Method `request($url, $options = array())`
-
-Generate a JavaScript snippet to create an `XmlHttpRequest` or
-'AJAX' request.
-
-    **Event Options**
-
--  `complete` - Callback to fire on complete.
--  `success` - Callback to fire on success.
--  `before` - Callback to fire on request initialization.
--  `error` - Callback to fire on request failure.
-
-    **Options**
-
--  `method` - The method to make the request with defaults to GET
-in more libraries
--  `async` - Whether or not you want an asynchronous request.
--  `data` - Additional data to send.
--  `update` - Dom id to update with the content of the response.
--  `type` - Data type for response. 'json' and 'html' are
-supported. Default is html for most libraries.
--  `evalScripts` - Whether or not \<script\> tags should be
-eval'ed.
--  `dataExpression` - Should the `data` key be treated as a
-callback. Useful for supplying `$options['data']` as another
-JavaScript expression.
-
-    **Example use**
-
-```php
-$this->Js->event(
-    'click',
-    $this->Js->request(
-        array('action' => 'foo', 'param1'),
-        array('async' => true, 'update' => '#element')
-    )
-);
-
-```
-
-#### Method `get($selector)`
-
-Set the internal 'selection' to a CSS selector. The active
-selection is used in subsequent operations until a new selection is
-made
-
-```php
-$this->Js->get('#element');
-
-```
-
-The `JsHelper` now will reference all other element based methods
-on the selection of `#element`. To change the active selection,
-call `get()` again with a new element.
-
-#### Method `set(mixed $one, mixed $two = null)`
-
-Pass variables into JavaScript. Allows you to set variables that will be
-output when the buffer is fetched with `JsHelper::getBuffer()` or
-`JsHelper::writeBuffer()`. The JavaScript variable used to output
-set variables can be controlled with `JsHelper::$setVariable`.
-
-#### Method `drag($options = array())`
-
-Make an element draggable.
-
-    **Options**
-
--  `handle` - selector to the handle element.
--  `snapGrid` - The pixel grid that movement snaps to, an
-       array(x, y)
--  `container` - The element that acts as a bounding box for the
-draggable element.
-
-    **Event Options**
-
--  `start` - Event fired when the drag starts
--  `drag` - Event fired on every step of the drag
--  `stop` - Event fired when dragging stops (mouse release)
-
-    **Example use**
-
-```php
-$this->Js->get('#element');
-$this->Js->drag(array(
-    'container' => '#content',
-    'start' => 'onStart',
-    'drag' => 'onDrag',
-    'stop' => 'onStop',
-    'snapGrid' => array(10, 10),
-    'wrapCallbacks' => false
-));
-
-```
-
-If you were using the jQuery engine the following code would be
-added to the buffer
-
-```javascript
-$("#element").draggable({
-    containment:"#content",
-    drag:onDrag,
-    grid:[10,10],
-    start:onStart,
-    stop:onStop
-});
-
-```
-
-#### Method `drop($options = array())`
-
-Make an element accept draggable elements and act as a dropzone for
-dragged elements.
-
-    **Options**
-
--  `accept` - Selector for elements this droppable will accept.
--  `hoverclass` - Class to add to droppable when a draggable is
-over.
-
-    **Event Options**
-
--  `drop` - Event fired when an element is dropped into the drop
-zone.
--  `hover` - Event fired when a drag enters a drop zone.
--  `leave` - Event fired when a drag is removed from a drop zone
-without being dropped.
-
-    **Example use**
-
-```php
-$this->Js->get('#element');
-$this->Js->drop(array(
-    'accept' => '.items',
-    'hover' => 'onHover',
-    'leave' => 'onExit',
-    'drop' => 'onDrop',
-    'wrapCallbacks' => false
-));
-
-```
-
-If you were using the jQuery engine the following code would be
-added to the buffer
-
-```javascript
-$("#element").droppable({
-    accept:".items",
-    drop:onDrop,
-    out:onExit,
-    over:onHover
-});
-
-```
-
-> [!NOTE]
-> Droppables in Mootools function differently from other libraries.
-> Droppables are implemented as an extension of Drag. So in addition
-> to making a get() selection for the droppable element. You must
-> also provide a selector rule to the draggable element. Furthermore,
-> Mootools droppables inherit all options from Drag.
->
-
-#### Method `slider($options = array())`
-
-Create snippet of JavaScript that converts an element into a slider
-ui widget. See your libraries implementation for additional usage
-and features.
-
-    **Options**
-
--  `handle` - The id of the element used in sliding.
--  `direction` - The direction of the slider either 'vertical' or
-'horizontal'
--  `min` - The min value for the slider.
--  `max` - The max value for the slider.
--  `step` - The number of steps or ticks the slider will have.
--  `value` - The initial offset of the slider.
-
-    **Events**
-
--  `change` - Fired when the slider's value is updated
--  `complete` - Fired when the user stops sliding the handle
-
-    **Example use**
-
-```php
-$this->Js->get('#element');
-$this->Js->slider(array(
-    'complete' => 'onComplete',
-    'change' => 'onChange',
-    'min' => 0,
-    'max' => 10,
-    'value' => 2,
-    'direction' => 'vertical',
-    'wrapCallbacks' => false
-));
-
-```
-
-If you were using the jQuery engine the following code would be
-added to the buffer
-
-```javascript
-$("#element").slider({
-    change:onChange,
-    max:10,
-    min:0,
-    orientation:"vertical",
-    stop:onComplete,
-    value:2
-});
-
-```
-
-#### Method `effect($name, $options = array())`
-
-Creates a basic effect. By default this method is not buffered and
-returns its result.
-
-    **Supported effect names**
-
-The following effects are supported by all JsEngines
-
--  `show` - reveal an element.
--  `hide` - hide an element.
--  `fadeIn` - Fade in an element.
--  `fadeOut` - Fade out an element.
--  `slideIn` - Slide an element in.
--  `slideOut` - Slide an element out.
-
-    **Options**
-
--  `speed` - Speed at which the animation should occur. Accepted
-values are 'slow', 'fast'. Not all effects use the speed option.
-
-    **Example use**
-
-If you were using the jQuery engine
-
-```php
-$this->Js->get('#element');
-$result = $this->Js->effect('fadeIn');
-
-// $result contains $("#foo").fadeIn();
-
-```
-
-#### Method `event($type, $content, $options = array())`
-
-Bind an event to the current selection. `$type` can be any of the
-normal DOM events or a custom event type if your library supports
-them. `$content` should contain the function body for the
-callback. Callbacks will be wrapped with
-`function (event) { ... }` unless disabled with the
-`$options`.
-
-    **Options**
-
--  `wrap` - Whether you want the callback wrapped in an anonymous
-function. (defaults to true)
--  `stop` - Whether you want the event to stop. (defaults to
-true)
-
-    **Example use**
-
-```php
-$this->Js->get('#some-link');
-$this->Js->event('click', $this->Js->alert('hey you!'));
-
-```
-
-If you were using the jQuery library you would get the following
-JavaScript code:
-
-```javascript
-$('#some-link').bind('click', function (event) {
-    alert('hey you!');
-    return false;
-});
-
-```
-
-You can remove the `return false;` by passing setting the
-`stop` option to false
-
-```php
-$this->Js->get('#some-link');
-$this->Js->event(
-    'click',
-    $this->Js->alert('hey you!'),
-    array('stop' => false)
-);
-
-```
-
-If you were using the jQuery library you would the following
-JavaScript code would be added to the buffer. Note that the default
-browser event is not cancelled:
-
-```javascript
-$('#some-link').bind('click', function (event) {
-    alert('hey you!');
-});
-
-```
-
-#### Method `domReady($callback)`
-
-Creates the special 'DOM ready' event. `JsHelper::writeBuffer()`
-automatically wraps the buffered scripts in a domReady method.
-
-#### Method `each($callback)`
-
-Create a snippet that iterates over the currently selected
-elements, and inserts `$callback`.
-
-    **Example**
-
-```php
-$this->Js->get('div.message');
-$this->Js->each('$(this).css({color: "red"});');
-
-```
-
-Using the jQuery engine would create the following JavaScript:
-
-```javascript
-$('div.message').each(function () { $(this).css({color: "red"}); });
-
-```
-
-#### Method `alert($message)`
-
-Create a JavaScript snippet containing an `alert()` snippet. By
-default, `alert` does not buffer, and returns the script
-snippet.
-
-```php
-$alert = $this->Js->alert('Hey there');
-
-```
-
-#### Method `confirm($message)`
-
-Create a JavaScript snippet containing a `confirm()` snippet. By
-default, `confirm` does not buffer, and returns the script
-snippet.
-
-```php
-$alert = $this->Js->confirm('Are you sure?');
-
-```
-
-#### Method `prompt($message, $default)`
-
-Create a JavaScript snippet containing a `prompt()` snippet. By
-default, `prompt` does not buffer, and returns the script
-snippet.
-
-```php
-$prompt = $this->Js->prompt('What is your favorite color?', 'blue');
-
-```
-
-#### Method `submit($caption = null, $options = array())`
-
-Create a submit input button that enables `XmlHttpRequest`
-submitted forms. Options can include
-both those for `FormHelper::submit()` and JsBaseEngine::request(),
-    JsBaseEngine::event();
-
-Forms submitting with this method, cannot send files. Files do not
-transfer over `XmlHttpRequest`
-and require an iframe, or other more specialized setups that are
-beyond the scope of this helper.
-
-    **Options**
-
--  `url` - The URL you wish the XHR request to submit to.
--  `confirm` - Confirm message displayed before sending the
-request. Using confirm, does not replace any `before` callback
-methods in the generated XmlHttpRequest.
--  `buffer` - Disable the buffering and return a script tag in
-addition to the link.
--  `wrapCallbacks` - Set to false to disable automatic callback
-wrapping.
-
-    **Example use**
-
-```php
-echo $this->Js->submit('Save', array('update' => '#content'));
-
-```
-
-Will create a submit button with an attached onclick event. The
-click event will be buffered by default.
-
-```php
-echo $this->Js->submit('Save', array(
-    'update' => '#content',
-    'div' => false,
-    'type' => 'json',
-    'async' => false
-));
-
-```
-
-Shows how you can combine options that both
-`FormHelper::submit()` and `JsHelper::request()` when using submit.
-
-#### Method `link($title, $url = null, $options = array())`
-
-Create an HTML anchor element that has a click event bound to it.
-Options can include both those for `HtmlHelper::link()` and
-`JsHelper::request()`, `JsHelper::event()`, `$options`
-is a :term:`html attributes` array that are appended to the generated
-anchor element. If an option is not part of the standard attributes
-or `$htmlAttributes` it will be passed to `JsHelper::request()`
-as an option. If an id is not supplied, a randomly generated one will be
-created for each link generated.
-
-    **Options**
-
--  `confirm` - Generate a confirm() dialog before sending the
-event.
--  `id` - use a custom id.
--  `htmlAttributes` - additional non-standard htmlAttributes.
-Standard attributes are class, id, rel, title, escape, onblur and
-onfocus.
--  `buffer` - Disable the buffering and return a script tag in
-addition to the link.
-
-    **Example use**
-
-```php
-echo $this->Js->link(
-    'Page 2',
-    array('page' => 2),
-    array('update' => '#content')
-);
-
-```
-
-Will create a link pointing to `/page:2` and updating #content
-with the response.
-
-You can use the `htmlAttributes` option to add in additional
-custom attributes.
-
-```php
-echo $this->Js->link('Page 2', array('page' => 2), array(
-    'update' => '#content',
-    'htmlAttributes' => array('other' => 'value')
-));
-
-```
-
-Outputs the following HTML:
-
-```html
-`Page 2` (href: /posts/index/page:2)
-
-```
-
-#### Method `serializeForm($options = array())`
-
-Serialize the form attached to $selector. Pass `true` for $isForm
-    if the current selection is a form element. Converts the form or
-the form element attached to the current selection into a
-string/json object (depending on the library implementation) for
-    use with XHR operations.
-
-    **Options**
-
--  `isForm` - is the current selection a form, or an input?
-(defaults to false)
--  `inline` - is the rendered statement going to be used inside
-another JS statement? (defaults to false)
-
-Setting inline == false allows you to remove the trailing `;`.
-This is useful when you need to serialize a form element as part of
-another JavaScript operation, or use the serialize method in an
-Object literal.
-
-#### Method `redirect($url)`
-
-Redirect the page to `$url` using `window.location`.
-
-#### Method `value($value)`
-
-Converts a PHP-native variable of any type to a JSON-equivalent
-representation. Escapes any string values into JSON compatible
-strings. UTF-8 characters will be escaped.
-<!-- anchor: ajax-pagination -->
 ## AJAX Pagination
 
 Much like AJAX Pagination in 1.2, you can use the JsHelper to
@@ -864,32 +315,29 @@ library that matches the adapter you are using with `JsHelper`.
 By default the `JsHelper` uses jQuery. So in your layout include
 jQuery (or whichever library you are using). Also make sure to
 include `RequestHandlerComponent` in your components. Add the
-following to your controller
+following to your controller:
 
-```php
+``` php
 public $components = array('RequestHandler');
 public $helpers = array('Js');
-
 ```
 
 Next link in the JavaScript library you want to use. For this
-example we'll be using jQuery
+example we'll be using jQuery:
 
-```php
+``` php
 echo $this->Html->script('jquery');
-
 ```
 
 Similar to 1.2 you need to tell the `PaginatorHelper` that you
 want to make JavaScript enhanced links instead of plain HTML ones.
-To do so, call the `options()` at the top of your view
+To do so, call the `options()` at the top of your view:
 
-```php
+``` php
 $this->Paginator->options(array(
     'update' => '#content',
     'evalScripts' => true
 ));
-
 ```
 
 The `PaginatorHelper` now knows to make JavaScript enhanced
@@ -904,13 +352,12 @@ and will be ignored.
 
 You then create all the links as needed for your pagination
 features. Since the `JsHelper` automatically buffers all
-generated script content to reduce the number of `\<script\>` tags
+generated script content to reduce the number of [](#script) tags
 in your source code you **must** write the buffer out. At the
-bottom of your view file. Be sure to include
+bottom of your view file. Be sure to include:
 
-```php
+``` php
 echo $this->Js->writeBuffer();
-
 ```
 
 If you omit this you will **not** be able to chain AJAX pagination
@@ -922,15 +369,15 @@ have worry about the same JavaScript being output twice.
 Since `indicator` is no longer supported, you must add any
 indicator effects yourself:
 
-```php
+``` php
 <!DOCTYPE html>
-\<html\>
-    \<head\>
+<html>
+    <head>
         <?php echo $this->Html->script('jquery'); ?>
         //more stuff here.
     </head>
-    \<body\>
-    \\<div id="content">
+    <body>
+    <div id="content">
         <?php echo $this->fetch('content'); ?>
     </div>
     <?php
@@ -941,7 +388,6 @@ indicator effects yourself:
     ?>
     </body>
 </html>
-
 ```
 
 Remember to place the indicator.gif file inside app/webroot/img
@@ -952,9 +398,9 @@ immediately upon the page load. You need to put in this CSS
 With the above layout, we've included an indicator image file, that
 will display a busy indicator animation that we will show and hide
 with the `JsHelper`. To do that we need to update our
-`options()` function
+`options()` function:
 
-```php
+``` php
 $this->Paginator->options(array(
     'update' => '#content',
     'evalScripts' => true,
@@ -967,11 +413,9 @@ $this->Paginator->options(array(
         array('buffer' => false)
     ),
 ));
-
 ```
 
 This will show/hide the busy-indicator element before and after the
 `#content` div is updated. Although `indicator` has been
 removed, the new features offered by `JsHelper` allow for more
 control and more complex effects to be created.
-

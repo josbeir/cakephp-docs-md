@@ -4,21 +4,20 @@
 
 ### Model::saveAll(), Model::saveAssociated(), Model::validateAssociated()
 
-`Model::saveAll()` and friends now support passing the `fieldList` for multiple models. Example
+`Model::saveAll()` and friends now support passing the <span class="title-ref">fieldList</span> for multiple models. Example:
 
-```php
+``` php
 $this->SomeModel->saveAll($data, array(
     'fieldList' => array(
         'SomeModel' => array('field_1'),
         'AssociatedModel' => array('field_2', 'field_3')
     )
 ));
-
 ```
 
-`Model::saveAll()` and friends now can save unlimited levels deep. Example::
+`Model::saveAll()` and friends now can save unlimited levels deep. Example:
 
-```php
+``` php
 $data = array(
     'Article' => array('title' => 'My first article'),
     'Comment' => array(
@@ -30,7 +29,6 @@ $data = array(
     ),
 );
 $this->SomeModel->saveAll($data, array('deep' => true));
-
 ```
 
 ## View
@@ -39,59 +37,54 @@ $this->SomeModel->saveAll($data, array('deep' => true));
 
 View Blocks are a mechanism to allow the inclusion of slots of content, whilst allowing child view classes or elements to provide custom content for that block.
 
-Blocks are output by calling the `fetch` method on the `View`. For example, the following can be placed in your `View/Layouts/default.ctp` file
+Blocks are output by calling the `fetch` method on the `View`. For example, the following can be placed in your `View/Layouts/default.ctp` file:
 
-```php
+``` php
 <?php echo $this->fetch('my_block'); ?>
-
 ```
 
 This will echo the content of the block if available, or an empty string if it is undefined.
 
-Setting the content of a block can be done in a number of ways. A simple assignment of data can be done using `assign`
+Setting the content of a block can be done in a number of ways. A simple assignment of data can be done using \`assign\`:
 
-```php
+``` php
 <?php $this->assign('my_block', 'Hello Block'); ?>
-
 ```
 
-Or you can use it to capture a section of more complex content::
+Or you can use it to capture a section of more complex content:
 
-```php
+``` php
 <?php $this->start('my_block'); ?>
-    \<<h1>\>Hello Block!</h1>
-    \<p\>This is a block of content</p>
-    \<p\>Page title: <?php echo $title_for_layout; ?></p>
+    <h1>Hello Block!</h1>
+    <p>This is a block of content</p>
+    <p>Page title: <?php echo $title_for_layout; ?></p>
 <?php $this->end(); ?>
-
 ```
 
-Block capturing also supports nesting
+Block capturing also supports nesting:
 
-```php
+``` php
 <?php $this->start('my_block'); ?>
-    \<<h1>\>Hello Block!</h1>
-    \<p\>This is a block of content</p>
+    <h1>Hello Block!</h1>
+    <p>This is a block of content</p>
     <?php $this->start('second_block'); ?>
-        \<p\>Page title: <?php echo $title_for_layout; ?></p>
+        <p>Page title: <?php echo $title_for_layout; ?></p>
     <?php $this->end(); ?>
 <?php $this->end(); ?>
-
 ```
 
 ### ThemeView
 
 In 2.1, the use of `ThemeView` is deprecated in favor of using the `View` class itself. `ThemeView` is now a stub class.
 
-All custom pathing code has been moved into the `View` class, meaning that it is now possible for classes extending the `View` class to automatically support themes. Whereas before we might set the `$viewClass` Controller property to `Theme`, it is now possible to enable themes by simply setting the `$theme` property. Example
+All custom pathing code has been moved into the `View` class, meaning that it is now possible for classes extending the `View` class to automatically support themes. Whereas before we might set the `$viewClass` Controller property to `Theme`, it is now possible to enable themes by simply setting the `$theme` property. Example:
 
-```php
+``` php
 App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
     public $theme = 'Example';
 }
-
 ```
 
 All View classes which extended `ThemeView` in 2.0 should now simply extend `View`.
@@ -102,39 +95,36 @@ A new view class that eases the output of JSON content.
 
 Previously, it was necessary to create a JSON layout (`APP/View/Layouts/json/default.ctp`) and a corresponding view for each action that would output JSON. This is no longer required with `JsonView`.
 
-The `JsonView` is used like any other view class, by defining it on the controller. Example
+The `JsonView` is used like any other view class, by defining it on the controller. Example:
 
-```php
+``` php
 App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
     public $viewClass = 'Json';
 }
-
 ```
 
-Once you have setup the controller, you need to identify what content should be serialized as JSON, by setting the view variable `_serialize`. Example::
+Once you have setup the controller, you need to identify what content should be serialized as JSON, by setting the view variable `_serialize`. Example:
 
-```php
+``` php
 $this->set(compact('users', 'posts', 'tags'));
 $this->set('_serialize', array('users', 'posts'));
-
 ```
 
-The above example would result in only the `users` and `posts` variables being serialized for the JSON output, like so
+The above example would result in only the `users` and `posts` variables being serialized for the JSON output, like so:
 
-```json
+``` json
 {"users": [...], "posts": [...]}
-
 ```
 
 There is no longer any need to create view `ctp` files in order to display Json content.
 
 Further customization of the output can be achieved by extending the `JsonView` class with your own custom view class if required.
 
-The following example wraps the result with `{results: ... }`
+The following example wraps the result with `{results: ... }`:
 
-```php
+``` php
 App::uses('JsonView', 'View');
 class ResultsJsonView extends JsonView {
     public function render($view = null, $layout = null) {
@@ -145,27 +135,24 @@ class ResultsJsonView extends JsonView {
         return $result;
     }
 }
-
 ```
 
 ### XmlView
 
 Much like the `JsonView`, the `XmlView` requires you to
 set the `_serialize` view variable in order to indicate what information
-should be serialized into XML for output
+should be serialized into XML for output:
 
-```php
+``` php
 $this->set(compact('users', 'posts', 'tags'));
 $this->set('_serialize', array('users', 'posts'));
-
 ```
 
 The above example would result in only the `users` and `posts` variables
-being serialized for the XML output, like so
+being serialized for the XML output, like so:
 
-```html
+``` html
 <response><users>...</users><posts>...</posts></response>
-
 ```
 
 Note that the XmlView adds a `response` node to wrap all serialized content.
@@ -181,11 +168,11 @@ and much more.
 
 When those methods are combined with having the `RequestHandlerComponent`
 enabled in your controller, the component will automatically decide if the
-response is already cached in the client and will send a `304 Not Modified`
+response is already cached in the client and will send a <span class="title-ref">304 Not Modified</span>
 status code before rendering the view. Skipping the view rendering process saves
-CPU cycles and memory.
+CPU cycles and memory. :
 
-```php
+``` php
 class ArticlesController extends AppController {
     public $components = array('RequestHandler');
 
@@ -195,11 +182,10 @@ class ArticlesController extends AppController {
         $this->set(compact('article'));
     }
 }
-
 ```
 
 In the above example the view will not be rendered if the client sent the
-header `If-Modified-Since`, and the response will have a 304 status.
+header <span class="title-ref">If-Modified-Since</span>, and the response will have a 304 status.
 
 ## Helpers
 
@@ -208,9 +194,9 @@ To allow easier use outside of the `View` layer, methods from
 helpers have been extracted to `CakeTime`, `String`,
 and `CakeNumber` classes respectively.
 
-To use the new utility classes
+To use the new utility classes:
 
-```php
+``` php
 class AppController extends Controller {
 
     public function log($msg) {
@@ -218,14 +204,13 @@ class AppController extends Controller {
         parent::log($msg);
     }
 }
-
 ```
 
 You can override the default class to use by creating a new class in your
 `APP/Utility` folder, e.g.: `Utility/MyAwesomeStringClass.php`, and specify
-it in `engine` key
+it in `engine` key:
 
-```php
+``` php
 // Utility/MyAwesomeStringClass.php
 class MyAwesomeStringClass extends String {
     // my truncate is better than yours
@@ -242,7 +227,6 @@ class AppController extends Controller {
             ),
         );
 }
-
 ```
 
 ### HtmlHelper

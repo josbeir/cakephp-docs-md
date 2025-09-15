@@ -1,8 +1,3 @@
----
-title: How To Install Plugins
-keywords: "plugin folder, install, git, zip, tar, submodule, manual, clone, contactmanager, enable"
----
-
 # How To Install Plugins
 
 There are four ways to install a CakePHP plugin:
@@ -12,7 +7,7 @@ There are four ways to install a CakePHP plugin:
 - As Git Submodule
 - By Git Cloning
 
-But don't forget to [enable-plugins](how-to-install-plugins.md#enable-plugins) afterwards.
+But don't forget to [enable-plugins](#enable-plugins) afterwards.
 
 ## Manually
 
@@ -29,15 +24,14 @@ take the time to read the
 [Composer documentation](https://getcomposer.org/doc/00-intro.md).
 
 To install the imaginary plugin 'ContactManager' through Composer,
-add it as dependency to your project's `composer.json`
+add it as dependency to your project's `composer.json`:
 
-```json
+``` json
 {
     "require": {
         "cakephp/contact-manager": "1.2.*"
     }
 }
-
 ```
 
 If a CakePHP plugin is of the type `cakephp-plugin`, as it should,
@@ -47,54 +41,42 @@ rather than in the usual vendors folder.
 > [!NOTE]
 > Consider using "require-dev" if you only want to include
 > the plugin for your development environment.
->
 
 Alternatively, you can use the
 [Composer CLI tool to require](https://getcomposer.org/doc/03-cli.md#require)
-(and install) plugins
+(and install) plugins:
 
-```
-php composer.phar require cakephp/contact-manager:1.2.*
-
-```
+    php composer.phar require cakephp/contact-manager:1.2.*
 
 ## Git Clone
 
 If the plugin you want to install is hosted as a Git repo, you can also clone it.
 Let's assume the imaginary plugin 'ContactManager' is hosted on GitHub.
-You could clone it by executing the following command in your app/Plugin/ folder
+You could clone it by executing the following command in your app/Plugin/ folder:
 
-```
-git clone git://github.com/cakephp/contact-manager.git ContactManager
-
-```
+    git clone git://github.com/cakephp/contact-manager.git ContactManager
 
 ## Git Submodule
 
 If the plugin you want to install is hosted as a Git repo,
 but you prefer not to clone it, you can also integrate it as a Git submodule.
-Execute the following commands in your app folder
+Execute the following commands in your app folder:
 
-```
-git submodule add git://github.com/cakephp/contact-manager.git Plugin/ContactManager
-git submodule init
-git submodule update
-```
+    git submodule add git://github.com/cakephp/contact-manager.git Plugin/ContactManager
+    git submodule init
+    git submodule update
 
-<!-- anchor: enable-plugins -->
 ## Enable the Plugin
 
 Plugins need to be loaded manually in `app/Config/bootstrap.php`.
 
-You can either load one by one or all of them in a single call
+You can either load one by one or all of them in a single call:
 
-```php
+``` css
 CakePlugin::loadAll(); // Loads all plugins at once
 CakePlugin::load('ContactManager'); // Loads a single plugin
-
 ```
 
 `loadAll()` loads all plugins available, while allowing you to set certain
 settings for specific plugins. `load()` works similarly, but only loads the
 plugins you explicitly specify.
-

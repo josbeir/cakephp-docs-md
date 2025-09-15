@@ -1,8 +1,3 @@
----
-title: Code Generation with Bake
-keywords: "command line interface,functional application,atabase,database configuration,bash script,basic ingredients,roject,odel,path path,code generation,scaffolding,windows users,configuration file,few minutes,config,iew,shell,models,running,mysql"
----
-
 # Code Generation with Bake
 
 CakePHP's Bake console is another effort to get you up and running
@@ -12,7 +7,7 @@ just talking skeleton classes: Bake can create a fully functional
 application in just a few minutes. In fact, Bake is a natural step
 to take once an application has been scaffolded.
 
-See [the-cakephp-console](../console-and-shells.md#the-cakephp-console) section for instructions on how to use
+See [the-cakephp-console](#the-cakephp-console) section for instructions on how to use
 the CakePHP console in general. Depending on the configuration of your
 setup, you may have to set execute rights on the cake bash script or
 call it using `./Console/cake bake`. The cake console is run using the
@@ -28,28 +23,27 @@ a Database Configuration file, if you haven't created one already.
 After you've created a Database Configuration file, running Bake
 will present you with the following options:
 
-```
----------------------------------------------------------------
-App : app
-```
-
-### Path: /path-to/project/app
-### Interactive Bake Shell
-[D]atabase Configuration
-[M]odel
-[V]iew
-[C]ontroller
-[P]roject
-[F]ixture
-[T]est case
-[Q]uit
-What would you like to Bake? (D/M/V/C/P/F/T/Q)
+    ---------------------------------------------------------------
+    App : app
+    Path: /path-to/project/app
+    ---------------------------------------------------------------
+    Interactive Bake Shell
+    ---------------------------------------------------------------
+    [D]atabase Configuration
+    [M]odel
+    [V]iew
+    [C]ontroller
+    [P]roject
+    [F]ixture
+    [T]est case
+    [Q]uit
+    What would you like to Bake? (D/M/V/C/P/F/T/Q)
     >
 
 Alternatively, you can run any of these commands directly from the
-command line
+command line:
 
-```bash
+``` bash
 $ cake bake db_config
 $ cake bake model
 $ cake bake view
@@ -61,8 +55,12 @@ $ cake bake plugin plugin_name
 $ cake bake all
 ```
 
-> **versionchanged:** 2.5
-Test files produced by `bake test` include calls to [PHPunit's markTestIncomplete()](https://phpunit.de/manual/3.7/en/incomplete-and-skipped-tests.html) to draw attention to empty test methods. Before 2.5, empty tests pass silently.
+<div class="versionchanged">
+
+2.5
+Test files produced by `bake test` include calls to [PHPunit's markTestIncomplete()](https://phpunit.de/manual/3.7/en/incomplete-and-skipped-tests.md) to draw attention to empty test methods. Before 2.5, empty tests pass silently.
+
+</div>
 
 ## Modify default HTML produced by "baked" templates
 
@@ -71,12 +69,12 @@ If you wish to modify the default HTML output produced by the
 
 ### For baking custom views
 
-#. Go into: lib/Cake/Console/Templates/default/views
-#. Notice the 4 files there
-#. Copy them to your:
-app/Console/Templates/[themename]/views
-#. Make changes to the HTML output to control the way "bake" builds
-your views
+1.  Go into: lib/Cake/Console/Templates/default/views
+2.  Notice the 4 files there
+3.  Copy them to your:
+    app/Console/Templates/\[themename\]/views
+4.  Make changes to the HTML output to control the way "bake" builds
+    your views
 
 The `[themename]` path segment should be the name of the bake
 theme that you are creating. Bake theme names need to be unique, so
@@ -84,27 +82,33 @@ don't use 'default'.
 
 ### For baking custom projects
 
-#. Go into: lib/Cake/Console/Templates/skel
-#. Notice the base application files there
-#. Copy them to your:
-app/Console/Templates/skel
-#. Make changes to the HTML output to control the way "bake" builds
-your views
-#. Pass the skeleton path parameter to the project task
+1.  Go into: lib/Cake/Console/Templates/skel
+2.  Notice the base application files there
+3.  Copy them to your:
+    app/Console/Templates/skel
+4.  Make changes to the HTML output to control the way "bake" builds
+    your views
+5.  Pass the skeleton path parameter to the project task
 
-```
-cake bake project --skel Console/Templates/skel
+<!-- -->
 
-```
+    cake bake project --skel Console/Templates/skel
 
-> [!NOTE]
-> -  You must run the specific project task `cake bake project` so
-> that the path parameter can be passed.
-> -  The template path is relative to the current path of the Command
-> Line Interface.
-> -  Since the full path to the skeleton needs to be manually
-> entered, you can specify any directory holding your template build
-> you want, including using multiple templates. (Unless CakePHP starts
-> supporting overriding the skel folder like it does for views)
->
->
+<div class="note">
+
+<div class="title">
+
+Note
+
+</div>
+
+- You must run the specific project task `cake bake project` so
+  that the path parameter can be passed.
+- The template path is relative to the current path of the Command
+  Line Interface.
+- Since the full path to the skeleton needs to be manually
+  entered, you can specify any directory holding your template build
+  you want, including using multiple templates. (Unless CakePHP starts
+  supporting overriding the skel folder like it does for views)
+
+</div>

@@ -1,8 +1,3 @@
----
-title: Internationalization & Localization
-keywords: "internationalization localization,internationalization and localization,localization features,language application,gettext,l10n,daunting task,adaptation,pot,i18n,audience,translation,languages"
----
-
 # Internationalization & Localization
 
 One of the best ways for your applications to reach a larger
@@ -23,19 +18,17 @@ of characters between the first and last character.
 There are only a few steps to go from a single-language application
 to a multi-lingual application, the first of which is to make use
 of the `__()` function in your code. Below is an example of some code for a
-single-language application
+single-language application:
 
-```html
-\<<h2>\>Posts</h2>
-
+``` html
+<h2>Posts</h2>
 ```
 
 To internationalize your code, all you need to do is to wrap
-strings in `__()` like so
+strings in `__()` like so:
 
-```php
-\<<h2>\><?php echo __('Posts'); ?></h2>
-
+``` html
+<h2><?php echo __('Posts'); ?></h2>
 ```
 
 If you do nothing further, these two code examples are functionally
@@ -50,7 +43,7 @@ With your code ready to be multilingual, the next step is to create
 your [pot file](https://en.wikipedia.org/wiki/Gettext), which is
 the template for all translatable strings in your application. To
 generate your pot file(s), all you need to do is run the
-[i18n console task](../console-and-shells/i18n-shell.md),
+[i18n console task](console-and-shells/i18n-shell.md),
 which will look for where you've used a translate function in your
 code and generate your pot file(s) for you. You can and should
 re-run this console task any time you change the translations in
@@ -60,22 +53,16 @@ The pot file(s) themselves are not used by CakePHP, they are the
 templates used to create or update your
 [po files](https://en.wikipedia.org/wiki/Gettext), which contain
 the translations. CakePHP will look for your po files in the following
-location
+location:
 
-```html
-/app/Locale/\<locale\>/LC_MESSAGES/<domain>.po
-
-```
+    /app/Locale/<locale>/LC_MESSAGES/<domain>.po
 
 The default domain is 'default', therefore your locale folder would
-look something like this
+look something like this:
 
-```
-/app/Locale/eng/LC_MESSAGES/default.po (English)
-/app/Locale/fra/LC_MESSAGES/default.po (French)
-/app/Locale/por/LC_MESSAGES/default.po (Portuguese)
-
-```
+    /app/Locale/eng/LC_MESSAGES/default.po (English)
+    /app/Locale/fra/LC_MESSAGES/default.po (French)
+    /app/Locale/por/LC_MESSAGES/default.po (Portuguese)
 
 To create or edit your po files it's recommended that you do *not*
 use your favorite editor. To create a po file for the first time it
@@ -90,19 +77,18 @@ file with a newly updated pot file.
 
 The three-character locale codes conform to the
 [ISO 639-2](https://www.loc.gov/standards/iso639-2/php/code_list.php)
-standard, although if you create regional locales (`en\_US`, `en\_GB`,
+standard, although if you create regional locales (<span class="title-ref">en_US</span>, <span class="title-ref">en_GB</span>,
 etc.) cake will use them if appropriate.
 
 > [!WARNING]
 > In 2.3 and 2.4 some language codes have been corrected to meet the ISO standard.
 > Please see the corresponding migration guides for details.
->
 
 Remember that po files are useful for short messages, if you find
 you want to translate long paragraphs, or even whole pages - you
-should consider implementing a different solution. e.g.
+should consider implementing a different solution. e.g. :
 
-```php
+``` php
 // App Controller Code.
 public function beforeFilter() {
     $locale = Configure::read('Config.language');
@@ -111,28 +97,27 @@ public function beforeFilter() {
         $this->viewPath = $locale . DS . $this->viewPath;
     }
 }
-
 ```
 
-or::
+or:
 
-```php
+``` php
 // View code
 echo $this->element(Configure::read('Config.language') . '/tos');
 ```
 
-<!-- anchor: lc-time -->
+<div id="lc-time">
+
 For translation of strings of LC_TIME category CakePHP uses POSIX compliant LC_TIME
 files. The i18n functions of `CakeTime` utility class and helper `TimeHelper`
 use these LC_TIME files.
 
-Just place LC_TIME file in its respective locale directory
+</div>
 
-```
-/app/Locale/fra/LC_TIME (French)
-/app/Locale/por/LC_TIME (Portuguese)
+Just place LC_TIME file in its respective locale directory:
 
-```
+    /app/Locale/fra/LC_TIME (French)
+    /app/Locale/por/LC_TIME (Portuguese)
 
 You can find these files for few popular languages from the official [Localized](https://github.com/cakephp/localized)
 repo.
@@ -142,32 +127,23 @@ repo.
 If you want to include translation files within your application you'll need to
 follow a few conventions.
 
-Instead of `__()` and `__n()` you will have to use `__d()` and `__dn()`. The D means
-domain. So if you have a plugin called 'DebugKit' you would have to do this
+Instead of <span class="title-ref">\_\_()</span> and <span class="title-ref">\_\_n()</span> you will have to use <span class="title-ref">\_\_d()</span> and <span class="title-ref">\_\_dn()</span>. The D means
+domain. So if you have a plugin called 'DebugKit' you would have to do this:
 
-```
-__d('debug_kit', 'My example text');
-
-```
+    __d('debug_kit', 'My example text');
 
 Using the underscored syntax is important, if you don't use it CakePHP won't
 find your translation file.
 
-Your translation file for this example should go into
+Your translation file for this example should go into:
 
-```html
-/app/Plugin/DebugKit/Locale/\<locale\>/LC_MESSAGES/<domain>.po
+    /app/Plugin/DebugKit/Locale/<locale>/LC_MESSAGES/<domain>.po
 
-```
+And for other languages than the default:
 
-And for other languages than the default::
-
-```
-/app/Plugin/DebugKit/Locale/eng/LC_MESSAGES/debug_kit.po (English)
-/app/Plugin/DebugKit/Locale/fra/LC_MESSAGES/debug_kit.po (French)
-/app/Plugin/DebugKit/Locale/por/LC_MESSAGES/debug_kit.po (Portuguese)
-
-```
+    /app/Plugin/DebugKit/Locale/eng/LC_MESSAGES/debug_kit.po (English)
+    /app/Plugin/DebugKit/Locale/fra/LC_MESSAGES/debug_kit.po (French)
+    /app/Plugin/DebugKit/Locale/por/LC_MESSAGES/debug_kit.po (Portuguese)
 
 The reason for that is that CakePHP will use the lower cased and underscored
 plugin name to compare it to the translation domain and is going to look into
@@ -176,47 +152,46 @@ the plugin if there is a match for the given translation file.
 ## Controlling the Translation Order
 
 The Configure value `I18n.preferApp` can be used to control the order of translations.
-If set to true in bootstrap it will prefer the app translations over any plugins' ones
+If set to true in bootstrap it will prefer the app translations over any plugins' ones:
 
-```php
+``` css
 Configure::write('I18n.preferApp', true);
-
 ```
 
 It defaults to `false`.
 
-> [!IMPORTANT]
-> Added in version 2.6
->
+<div class="versionadded">
+
+2.6
+
+</div>
 
 ## Localization in CakePHP
 
 To change or set the language for your application, all you need to
-do is the following
+do is the following:
 
-```php
+``` css
 Configure::write('Config.language', 'fra');
-
 ```
 
 This tells CakePHP which locale to use (if you use a regional locale, such as
-`fr\_FR`, it will use the [ISO 639-2](https://www.loc.gov/standards/iso639-2/php/code_list.php) locale as a fallback
+<span class="title-ref">fr_FR</span>, it will use the [ISO 639-2](https://www.loc.gov/standards/iso639-2/php/code_list.php) locale as a fallback
 if it doesn't exist), you can change the language at any time during a request.
 e.g. in your bootstrap if you're setting the application default language, in
 your (app) controller beforeFilter if it's specific to the request or user, or
 in fact anytime at all before you want a message in a different language. To
 set the language for the current user, you can store the setting in the Session
-object, like this
+object, like this:
 
-```php
+``` php
 $this->Session->write('Config.language', 'fra');
-
 ```
 
 At the beginning of each request in your controller's `beforeFilter` you
-should configure `Configure` as well
+should configure `Configure` as well:
 
-```php
+``` php
 class AppController extends Controller {
     public function beforeFilter() {
         if ($this->Session->check('Config.language')) {
@@ -224,7 +199,6 @@ class AppController extends Controller {
         }
     }
 }
-
 ```
 
 Doing this will ensure that both `I18n` and
@@ -263,21 +237,20 @@ command `locale -a` in a terminal.
 ## Translating model validation errors
 
 CakePHP will automatically extract the validation error when you are using the
-[i18n console task](../console-and-shells/i18n-shell.md). By default, the default domain is used.
-This can be overwritten by setting the `$validationDomain` property in your model
+[i18n console task](console-and-shells/i18n-shell.md). By default, the default domain is used.
+This can be overwritten by setting the `$validationDomain` property in your model:
 
-```php
+``` php
 class User extends AppModel {
 
     public $validationDomain = 'validation_errors';
 }
-
 ```
 
 Additional parameters defined in the validation rule are passed to the translation
-function. This allows you to create dynamic validation messages
+function. This allows you to create dynamic validation messages:
 
-```php
+``` php
 class User extends AppModel {
 
     public $validationDomain = 'validation';
@@ -291,12 +264,8 @@ class User extends AppModel {
         )
     )
 }
-
 ```
 
-Which will do the following internal call::
+Which will do the following internal call:
 
-```
-__d('validation', 'Username should be between %d and %d characters', array(2, 10));
-
-```
+    __d('validation', 'Username should be between %d and %d characters', array(2, 10));

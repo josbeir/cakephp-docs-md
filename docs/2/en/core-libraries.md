@@ -1,8 +1,3 @@
----
-title: Core Libraries
-keywords: "core libraries,global constants,cookie,access control lists,number,text,time,security component,core components,general purpose,web applications,markup,authentication,api,cakephp,functionality,sessions,collections,events"
----
-
 # Core Libraries
 
 CakePHP comes with a plethora of built-in functions and classes. These classes
@@ -14,20 +9,43 @@ applications.
 General purpose libraries are available and reused in many places across
 CakePHP.
 
-<!-- anchor: core-behaviors -->
+- [Toc General Purpose](core-libraries/toc-general-purpose.md)
+
 ## Behaviors
-<!--@include: core-libraries/toc-behaviors.md{3,}-->
 
-<!-- anchor: core-components -->
+Behaviors add extra functionality to your models. CakePHP comes
+with a number of built-in behaviors such as `TreeBehavior`
+and `ContainableBehavior`.
+
+To learn about creating and using behaviors, read the section
+on [/models/behaviors](models/behaviors.md).
+
+- [Toc Behaviors](core-libraries/toc-behaviors.md)
+
 ## Components
-<!--@include: core-libraries/toc-components.md{3,}-->
 
-<!-- anchor: core-helpers -->
+CakePHP has a selection of components to help take care of basic tasks in your
+controllers. See the section on [/controllers/components](controllers/components.md) for how to
+configure and use components.
+
+- [Toc Components](core-libraries/toc-components.md)
+
 ## Helpers
-<!--@include: core-libraries/toc-helpers.md{3,}-->
+
+CakePHP features a number of helpers that aid in view creation. They assist in
+creating well-formed markup (including forms), aid in formatting text, times and
+numbers, and can even integrate with popular JavaScript libraries. Here is a
+summary of the built-in helpers.
+
+Read [/views/helpers](views/helpers.md) to learn more about helpers, their API, and how you
+can create and use your own helpers.
+
+- [Toc Helpers](core-libraries/toc-helpers.md)
 
 ## Utilities
 
 Beyond the core MVC components, CakePHP includes a great selection of utility
 classes that help you do everything from webservice requests, to caching, to
 logging, internationalization and more.
+
+- [Toc Utilities](core-libraries/toc-utilities.md)

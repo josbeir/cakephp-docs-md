@@ -5,34 +5,27 @@ deprecations and features added in 4.1.
 
 ## Upgrading to 4.1.0
 
-You can use composer to upgrade to CakePHP 4.1.0
+You can use composer to upgrade to CakePHP 4.1.0:
 
-```
-php composer.phar require --update-with-dependencies "cakephp/cakephp:4.1.x"
-
-```
+    php composer.phar require --update-with-dependencies "cakephp/cakephp:4.1.x"
 
 ## Deprecations
 
 4.1 introduces a few deprecations. All of these features will continue for the
 duration of 4.x but will be removed in 5.0. You can use the
-[upgrade tool](4-0-upgrade-guide.md#upgrade-tool-use) to automate updating deprecated
-features
+[upgrade tool](#upgrade-tool-use) to automate updating deprecated
+features:
 
-```html
-bin/cake upgrade rector --rules cakephp41 <path/to/app/src>
-
-```
+    bin/cake upgrade rector --rules cakephp41 <path/to/app/src>
 
 > [!NOTE]
 > This only updates CakePHP 4.1 changes. Make sure you apply CakePHP 4.0 changes first.
->
 
 ### Controller
 
-- The `sortWhitelist` option of  `PaginatorComponent` has been deprecated.
+- The `sortWhitelist` option of `PaginatorComponent` has been deprecated.
   Use `sortableFields` instead.
-- The `whitelist` option of  `PaginatorComponent` has been deprecated.
+- The `whitelist` option of `PaginatorComponent` has been deprecated.
   Use `allowedParameters` instead.
 
 ### Database
@@ -55,9 +48,9 @@ bin/cake upgrade rector --rules cakephp41 <path/to/app/src>
 
 ### Datasource
 
-- The `sortWhitelist` option of  `Paginator` has been deprecated.
+- The `sortWhitelist` option of `Paginator` has been deprecated.
   Use `sortableFields` instead.
-- The `whitelist` option of  `Paginator` has been deprecated.
+- The `whitelist` option of `Paginator` has been deprecated.
   Use `allowedParameters` instead.
 
 ### Form
@@ -208,7 +201,7 @@ change the semantics or behavior of methods.
 
 ### I18n
 
-- The `setJsonEncodeFormat` method on  `Time`, `FrozenTime`, `Date` and
+- The `setJsonEncodeFormat` method on `Time`, `FrozenTime`, `Date` and
   `FrozenDate` now accepts a callable that can be used to return a custom
   string.
 - Lenient parsing can be disabled for `parseDateTime()` and `parseDate()` using
@@ -233,6 +226,7 @@ change the semantics or behavior of methods.
   entities that are saved.
 
 ### Routing
+
 - A convenience function `urlArray()` has been introduced to quickly generate URL arrays
   from a route path string.
 

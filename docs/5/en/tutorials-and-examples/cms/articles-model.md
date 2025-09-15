@@ -9,9 +9,9 @@ CakePHP's models are composed of `Table` and `Entity` objects. `Table`
 objects provide access to the collection of entities stored in a specific table.
 They are stored in **src/Model/Table**. The file we'll be creating will be saved
 to **src/Model/Table/ArticlesTable.php**. The completed file should look like
-this
+this:
 
-```php
+``` php
 <?php
 // src/Model/Table/ArticlesTable.php
 declare(strict_types=1);
@@ -28,10 +28,9 @@ class ArticlesTable extends Table
         $this->addBehavior('Timestamp');
     }
 }
-
 ```
 
-We've attached the [timestamp](../../orm/behaviors/timestamp.md) behavior, which will
+We've attached the [/orm/behaviors/timestamp](orm/behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -43,14 +42,13 @@ conventions to know that the `id` column is our table's primary key.
 > that if you accidentally name your file wrong (i.e. articlestable.php or
 > ArticleTable.php), CakePHP will not recognize any of your settings and will
 > use the generated model instead.
->
 
 We'll also create an Entity class for our Articles. Entities represent a single
 record in the database and provide row-level behavior for our data. Our entity
 will be saved to **src/Model/Entity/Article.php**. The completed file should
-look like this
+look like this:
 
-```php
+``` php
 <?php
 // src/Model/Entity/Article.php
 declare(strict_types=1);
@@ -73,22 +71,20 @@ class Article extends Entity
         'tags' => true,
     ];
 }
-
 ```
 
 Right now, our entity is quite slim; we've only set up the `_accessible`
 property, which controls how properties can be modified by
-[entities-mass-assignment](../../orm/entities.md#entities-mass-assignment).
+[entities-mass-assignment](#entities-mass-assignment).
 
 > [!TIP]
 > The `ArticlesTable` and `Article` Entity classes can be generated from a
 > terminal:
 >
-> .. code-block:: console
->
+> ``` bash
 > bin/cake bake model articles
->
+> ```
 
 We can't do much with this model yet. Next, we'll create our first
-[Controller and Template](articles-controller.md)
+[Controller and Template](tutorials-and-examples/cms/articles-controller.md)
 to allow us to interact with our model.

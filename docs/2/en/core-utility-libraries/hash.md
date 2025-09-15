@@ -1,15 +1,12 @@
----
-title: Hash
-keywords: "array array,path array,array name,numeric key,regular expression,result set,person name,brackets,syntax,cakephp,elements,php,set path"
----
-
 # Hash
 
-### Class `Hash`
+`class` **Hash**
 
-> [!IMPORTANT]
-> Added in version 2.2
->
+<div class="versionadded">
+
+2.2
+
+</div>
 
 Array management, if done right, can be a very powerful and useful
 tool for building smarter, more optimized code. CakePHP offers a
@@ -18,7 +15,7 @@ to do just that.
 
 CakePHP's Hash class can be called from any model or controller in
 the same way Inflector is called. Example: `Hash::combine()`.
-<!-- anchor: hash-path-syntax -->
+
 ## Hash path syntax
 
 The path syntax described below is used by all the methods in `Hash`. Not all
@@ -29,37 +26,43 @@ elements. You apply matchers to expression elements.
 
 ### Expression Types
 
-| Expression | Definition |
-| --- | --- |
-| `{n}` | Represents a numeric key. Will match any string or numeric key. |
-| `{s}` | Represents a string. Will match any string value including numeric string values. |
-| `{*}` | Represents any value regardless of type. |
-| `Foo` | Matches keys with the exact same value. |
+| Expression | Definition                               |
+|------------|------------------------------------------|
+| `{n}`      | Represents a numeric key. Will match     
+              any string or numeric key.                |
+| `{s}`      | Represents a string. Will match any      
+              string value including numeric string     
+              values.                                   |
+| `{*}`      | Represents any value regardless of type. |
+| `Foo`      | Matches keys with the exact same value.  |
 
 All expression elements are supported by all methods. In addition to expression
-elements, you can use attribute matching with certain methods. They are `extract()`, 
-`combine()`, `format()`, `check()`, `map()`, `reduce()`, 
+elements, you can use attribute matching with certain methods. They are `extract()`,
+`combine()`, `format()`, `check()`, `map()`, `reduce()`,
 `apply()`, `sort()`, `insert()`, `remove()` and `nest()`.
 
 ### Attribute Matching Types
 
-| Matcher | Definition |
-| --- | --- |
-| `[id]` | Match elements with a given array key. |
-| `[id=2]` | Match elements with id equal to 2. |
-| `[id!=2]` | Match elements with id not equal to 2. |
-| `[id>2]` | Match elements with id greater than 2. |
-| `[id>=2]` | Match elements with id greater than or equal to 2. |
-| `[id<2]` | Match elements with id less than 2 |
-| `[id<=2]` | Match elements with id less than or equal to 2. |
-| `[text=/.../]` | Match elements that have values matching the regular expression inside `...`. |
+| Matcher        | Definition                               |
+|----------------|------------------------------------------|
+| `[id]`         | Match elements with a given array key.   |
+| `[id=2]`       | Match elements with id equal to 2.       |
+| `[id!=2]`      | Match elements with id not equal to 2.   |
+| `[id>2]`       | Match elements with id greater than 2.   |
+| `[id>=2]`      | Match elements with id greater than      
+                  or equal to 2.                            |
+| `[id<2]`       | Match elements with id less than 2       |
+| `[id<=2]`      | Match elements with id less than         
+                  or equal to 2.                            |
+| `[text=/.../]` | Match elements that have values matching 
+                  the regular expression inside `...`.      |
 
 Use matchers by appending them to the expression element (`{n}`, `{s}`, etc.) you wish to match.
- 
-So to return `id` fields where a `name` matches you can use paths using `{n}` and `{s}` to insert data into multiple
-points
 
-```php
+So to return `id` fields where a `name` matches you can use paths using `{n}` and `{s}` to insert data into multiple
+points:
+
+``` php
 $users = Array(
      Array(
         'id' => 123,
@@ -81,47 +84,50 @@ $ids = Hash::extract($users, '{n}[name=fred].id');
 // $ids will be array (123, 245)
 ```
 
-> **versionchanged:** 2.5
+<div class="versionchanged">
+
+2.5
 Matcher support was added to `insert()` and `remove()`.
 
-#### Static Method `get(array $data, $path, $default = null)`
-
-:rtype: mixed
+rtype  
+mixed
 
 `get()` is a simplified version of `extract()`, it only supports direct
 path expressions. Paths with `{n}`, `{s}` or matchers are not
 supported. Use `get()` when you want exactly one value out of an array.
 The optional third argument will be returned if the requested path is not
 found in the array.
-> **versionchanged:** 2.5
+
+<div class="versionchanged">
+
+2.5
 The optional third argument `$default = null` was added.
 
-#### Static Method `extract(array $data, $path)`
+</div>
 
-:rtype: array
+rtype  
+array
 
 `Hash::extract()` supports all expression, and matcher components of
-[hash-path-syntax](hash.md#hash-path-syntax). You can use extract to retrieve data from arrays,
+[hash-path-syntax](#hash-path-syntax). You can use extract to retrieve data from arrays,
 along arbitrary paths quickly without having to loop through the data
 structures. Instead you use path expressions to qualify which elements you
-want returned
+want returned :
 
-```php
+``` php
 // Common Usage:
 $users = $this->User->find("all");
 $results = Hash::extract($users, '{n}.User.id');
 // $results equals:
 // array(1,2,3,4,5,...);
-
 ```
 
-#### Static Method `Hash::insert(array $data, $path, $values = null)`
+rtype  
+array
 
-:rtype: array
+Inserts \$data into an array as defined by `$path`:
 
-Inserts $data into an array as defined by `$path`
-
-```php
+``` php
 $a = array(
     'pages' => array('name' => 'page')
 );
@@ -138,27 +144,29 @@ Array
             [name] => files
         )
 )
-
 ```
 
 You can use paths using `{n}` and `{s}` to insert data into multiple
-points
+points:
 
-```php
+``` php
 $users = $this->User->find('all');
 $users = Hash::insert($users, '{n}.User.new', 'value');
 ```
 
-> **versionchanged:** 2.5
+<div class="versionchanged">
+
+2.5
 As of 2.5.0 attribute matching expressions work with insert().
 
-#### Static Method `remove(array $data, $path)`
+</div>
 
-:rtype: array
+rtype  
+array
 
-Removes all elements from an array that match $path.
+Removes all elements from an array that match \$path. :
 
-```php
+``` php
 $a = array(
     'pages' => array('name' => 'page'),
     'files' => array('name' => 'files')
@@ -174,24 +182,27 @@ $result = Hash::remove($a, 'files');
 
     )
 */
-
 ```
 
 Using `{n}` and `{s}` will allow you to remove multiple values at once.
-> **versionchanged:** 2.5
+
+<div class="versionchanged">
+
+2.5
 As of 2.5.0 attribute matching expressions work with remove()
 
-#### Static Method `combine(array $data, $keyPath, $valuePath = null, $groupPath = null)`
+</div>
 
-:rtype: array
+rtype  
+array
 
-Creates an associative array using a $keyPath as the path to build its keys,
-and optionally $valuePath as path to get the values. If $valuePath is not
+Creates an associative array using a \$keyPath as the path to build its keys,
+and optionally \$valuePath as path to get the values. If \$valuePath is not
 specified, or doesn't match anything, values will be initialized to null.
 You can optionally group the values by what is obtained when following the
-path specified in $groupPath.
+path specified in \$groupPath. :
 
-```php
+``` php
 $a = array(
     array(
         'User' => array(
@@ -287,14 +298,13 @@ $result = Hash::combine($a, '{n}.User.id', '{n}.User.Data.name', '{n}.User.group
             )
     )
 */
-
 ```
 
-You can provide array's for both $keyPath and $valuePath. If you do this,
+You can provide array's for both \$keyPath and \$valuePath. If you do this,
 the first value will be used as a format string, for values extracted by the
-other paths
+other paths:
 
-```php
+``` php
 $result = Hash::combine(
     $a,
     '{n}.User.id',
@@ -327,17 +337,15 @@ $result = Hash::combine(
         [phpnut: Larry E. Masters] => 14
     )
 */
-
 ```
 
-#### Static Method `format(array $data, array $paths, $format)`
-
-:rtype: array
+rtype  
+array
 
 Returns a series of values extracted from an array, formatted with a
-format string
+format string:
 
-```php
+``` php
 $data = array(
     array(
         'Person' => array(
@@ -387,17 +395,15 @@ Array
     [2] => Garrett, 0
 )
 */
-
 ```
 
-#### Static Method `contains(array $data, array $needle)`
-
-:rtype: boolean
+rtype  
+boolean
 
 Determines if one Hash or array contains the exact keys and values
-of another
+of another:
 
-```php
+``` php
 $a = array(
     0 => array('name' => 'main'),
     1 => array('name' => 'about')
@@ -415,16 +421,14 @@ $result = Hash::contains($a, $b);
 // false
 $result = Hash::contains($b, $a);
 // true
-
 ```
 
-#### Static Method `check(array $data, string $path = null)`
+rtype  
+boolean
 
-:rtype: boolean
+Checks if a particular path is set in an array:
 
-Checks if a particular path is set in an array
-
-```php
+``` php
 $set = array(
     'My Index 1' => array('First' => 'The first item')
 );
@@ -451,18 +455,16 @@ $result = Hash::check($set, 'My Index 1.First.Second.Third.Fourth');
 
 $result = Hash::check($set, 'My Index 1.First.Seconds.Third.Fourth');
 // $result == False
-
 ```
 
-#### Static Method `filter(array $data, $callback = array('Hash', 'filter'))`
-
-:rtype: array
+rtype  
+array
 
 Filters empty elements out of array, excluding '0'. You can also supply a
-custom $callback to filter the array elements. Your callback should return
-`false` to remove elements from the resulting array
+custom \$callback to filter the array elements. Your callback should return
+`false` to remove elements from the resulting array:
 
-```php
+``` php
 $data = array(
     '0',
     false,
@@ -485,16 +487,14 @@ $res = Hash::filter($data);
             )
     )
 */
-
 ```
 
-#### Static Method `flatten(array $data, string $separator = '.')`
+rtype  
+array
 
-:rtype: array
+Collapses a multi-dimensional array into a single dimension:
 
-Collapses a multi-dimensional array into a single dimension
-
-```php
+``` php
 $arr = array(
     array(
         'Post' => array('id' => '1', 'title' => 'First Post'),
@@ -518,17 +518,15 @@ $res = Hash::flatten($arr);
         [1.Author.user] => Crystal
     )
 */
-
 ```
 
-#### Static Method `expand(array $data, string $separator = '.')`
-
-:rtype: array
+rtype  
+array
 
 Expands an array that was previously flattened with
-`Hash::flatten()`
+`Hash::flatten()`:
 
-```php
+``` php
 $data = array(
     '0.Post.id' => 1,
     '0.Post.title' => First Post,
@@ -552,12 +550,10 @@ array(
     ),
 );
 */
-
 ```
 
-#### Static Method `merge(array $data, array $merge[, array $n])`
-
-:rtype: array
+rtype  
+array
 
 This function can be thought of as a hybrid between PHP's
 `array_merge` and `array_merge_recursive`. The difference to the two
@@ -568,9 +564,8 @@ containing strings (unlike `array_merge_recursive`).
 > [!NOTE]
 > This function will work with an unlimited amount of arguments and
 > typecasts non-array parameters into arrays.
->
 
-```php
+``` php
 $array = array(
     array(
         'id' => '48c2570e-dfa8-4c32-a35e-0d71cbdd56cb',
@@ -610,16 +605,14 @@ Array
     [dog] => angry
 )
 */
-
 ```
 
-#### Static Method `numeric(array $data)`
+rtype  
+boolean
 
-:rtype: boolean
+Checks to see if all the values in the array are numeric:
 
-Checks to see if all the values in the array are numeric
-
-```php
+``` php
 $data = array('one');
 $res = Hash::numeric(array_keys($data));
 // $res is true
@@ -627,17 +620,15 @@ $res = Hash::numeric(array_keys($data));
 $data = array(1 => 'one');
 $res = Hash::numeric($data);
 // $res is false
-
 ```
 
-#### Static Method `dimensions (array $data)`
-
-:rtype: integer
+rtype  
+integer
 
 Counts the dimensions of an array. This method will only
-consider the dimension of the first element in the array
+consider the dimension of the first element in the array:
 
-```php
+``` php
 $data = array('one', '2', 'three');
 $result = Hash::dimensions($data);
 // $result == 1
@@ -657,15 +648,12 @@ $result = Hash::dimensions($data);
 $data = array('1' => array('1.1' => '1.1.1'), '2', '3' => array('3.1' => array('3.1.1' => '3.1.1.1')));
 $result = Hash::dimensions($data);
 // $result == 2
-
 ```
 
-#### Static Method `maxDimensions(array $data)`
+Similar to `~Hash::dimensions()`, however this method returns,
+the deepest number of dimensions of any element in the array:
 
-Similar to `Hash::dimensions()`, however this method returns,
-the deepest number of dimensions of any element in the array
-
-```php
+``` php
 $data = array('1' => '1.1', '2', '3' => array('3.1' => '3.1.1'));
 $result = Hash::maxDimensions($data);
 // $result == 2
@@ -673,16 +661,13 @@ $result = Hash::maxDimensions($data);
 $data = array('1' => array('1.1' => '1.1.1'), '2', '3' => array('3.1' => array('3.1.1' => '3.1.1.1')));
 $result = Hash::maxDimensions($data);
 // $result == 3
-
 ```
 
-#### Static Method `map(array $data, $path, $function)`
-
-Creates a new array, by extracting $path, and mapping $function
+Creates a new array, by extracting \$path, and mapping \$function
 across the results. You can use both expression and matching elements with
-this method
+this method:
 
-```php
+``` php
 // Call the noop function $this->noop() on every element of $data
 $result = Hash::map($data, "{n}", array($this, 'noop'));
 
@@ -690,28 +675,22 @@ function noop($array) {
  // Do stuff to array and return the result
  return $array;
 }
-
 ```
 
-#### Static Method `reduce(array $data, $path, $function)`
-
-Creates a single value, by extracting $path, and reducing the extracted
-results with $function. You can use both expression and matching elements
+Creates a single value, by extracting \$path, and reducing the extracted
+results with \$function. You can use both expression and matching elements
 with this method.
 
-#### Static Method `apply(array $data, $path, $function)`
-
-Apply a callback to a set of extracted values using $function. The function
+Apply a callback to a set of extracted values using \$function. The function
 will get the extracted values as the first argument.
 
-#### Static Method `sort(array $data, $path, $dir, $type = 'regular')`
+rtype  
+array
 
-:rtype: array
+Sorts an array by any value, determined by a [hash-path-syntax](#hash-path-syntax)
+Only expression elements are supported by this method:
 
-Sorts an array by any value, determined by a [hash-path-syntax](hash.md#hash-path-syntax)
-Only expression elements are supported by this method
-
-```php
+``` php
 $a = array(
     0 => array('Person' => array('name' => 'Jeff')),
     1 => array('Shirt' => array('color' => 'black'))
@@ -736,7 +715,6 @@ $result = Hash::sort($a, '{n}.Person.name', 'asc');
             )
     )
 */
-
 ```
 
 `$dir` can be either `asc` or `desc`. `$type`
@@ -746,22 +724,23 @@ can be one of the following values:
 - `numeric` for sorting values as their numeric equivalents.
 - `string` for sorting values as their string value.
 - `natural` for sorting values in a human friendly way. Will
-sort `foo10` below `foo2` as an example. Natural sorting
-requires PHP 5.4 or greater.
+  sort `foo10` below `foo2` as an example. Natural sorting
+  requires PHP 5.4 or greater.
 
-> [!IMPORTANT]
-> Added in version 2.8
-> The `$type` option now supports an array and the `ignoreCase` option
-> enabled case-insensitive sorting.
->
+<div class="versionadded">
 
-#### Static Method `diff(array $data, array $compare)`
+2.8
+The `$type` option now supports an array and the `ignoreCase` option
+enabled case-insensitive sorting.
 
-:rtype: array
+</div>
 
-Computes the difference between two arrays
+rtype  
+array
 
-```php
+Computes the difference between two arrays:
+
+``` php
 $a = array(
     0 => array('name' => 'main'),
     1 => array('name' => 'about')
@@ -782,19 +761,18 @@ $result = Hash::diff($a, $b);
             )
     )
 */
-
 ```
 
-#### Static Method `mergeDiff(array $data, array $compare)`
-
-:rtype: array
+rtype  
+array
 
 This function merges two arrays and pushes the differences in
 data to the bottom of the resultant array.
 
-    **Example 1**
+**Example 1**
+:
 
-```php
+``` php
 $array1 = array('ModelOne' => array('id' => 1001, 'field_one' => 'a1.m1.f1', 'field_two' => 'a1.m1.f2'));
 $array2 = array('ModelOne' => array('id' => 1003, 'field_one' => 'a3.m1.f1', 'field_two' => 'a3.m1.f2', 'field_three' => 'a3.m1.f3'));
 $res = Hash::mergeDiff($array1, $array2);
@@ -811,12 +789,12 @@ $res = Hash::mergeDiff($array1, $array2);
             )
     )
 */
-
 ```
 
-    **Example 2**
+**Example 2**
+:
 
-```php
+``` php
 $array1 = array("a" => "b", 1 => 20938, "c" => "string");
 $array2 = array("b" => "b", 3 => 238, "c" => "string", array("extra_field"));
 $res = Hash::mergeDiff($array1, $array2);
@@ -834,19 +812,17 @@ $res = Hash::mergeDiff($array1, $array2);
             )
     )
 */
-
 ```
 
-#### Static Method `normalize(array $data, $assoc = true)`
-
-:rtype: array
+rtype  
+array
 
 Normalizes an array. If `$assoc` is true, the resulting array will be
 normalized to be an associative array. Numeric keys with values, will be
 converted to string keys with null values. Normalizing an array, makes using
-the results with `Hash::merge()` easier
+the results with `Hash::merge()` easier:
 
-```php
+``` php
 $a = array('Tree', 'CounterCache',
     'Upload' => array(
         'folder' => 'products',
@@ -893,27 +869,24 @@ $result = Hash::normalize($b);
         [Transactional] => null
     )
 */
-
 ```
-
-#### Static Method `nest(array $data, array $options = array())`
 
 Takes a flat array set, and creates a nested, or threaded data structure.
 Used by methods like `Model::find('threaded')`.
 
-    **Options:**
+**Options:**
 
 - `children` The key name to use in the result set for children. Defaults
-to 'children'.
+  to 'children'.
 - `idPath` The path to a key that identifies each entry. Should be
-compatible with `Hash::extract()`. Defaults to `{n}.$alias.id`
+  compatible with `Hash::extract()`. Defaults to `{n}.$alias.id`
 - `parentPath` The path to a key that identifies the parent of each entry.
-Should be compatible with `Hash::extract()`. Defaults to `{n}.$alias.parent_id`
+  Should be compatible with `Hash::extract()`. Defaults to `{n}.$alias.parent_id`
 - `root` The id of the desired top-most result.
 
-Example
+Example:
 
-```php
+``` php
 $data = array(
     array('ModelName' => array('id' => 1, 'parent_id' => null)),
     array('ModelName' => array('id' => 2, 'parent_id' => 1)),
@@ -968,5 +941,6 @@ array(
         )
     )
     */
-
 ```
+
+</div>

@@ -5,9 +5,8 @@ changes and improvements made in 3.7.
 
 To upgrade to 3.7.x run the following composer command:
 
-```bash
+``` bash
 php composer.phar require --update-with-dependencies "cakephp/cakephp:3.7.*"
-
 ```
 
 ## Deprecations
@@ -221,14 +220,12 @@ be removed until 5.0.0:
 
 ### TestSuite
 
-- New assertion methods were added to ``IntegrationTestCase`:
-
+- New assertion methods were added to `IntegrationTestCase`:
   - `assertResponseNotEquals()`
   - `assertHeaderNotContains()`
   - `assertRedirectNotContains()`
   - `assertFlashElement()`
   - `assertFlashElementAt()`
-
 - The custom assertions provided by `IntegrationTestCase` and
   `ConsoleIntegrationTestCase` are now implemented through constraint classes.
 - `TestCase::loadPlugins()`, `removePlugins()` and `clearPlugins()` were
@@ -261,7 +258,7 @@ be removed until 5.0.0:
 - `FormHelper` now supports a `confirmJs` template variable which allows the
   javascript snippet generated for confirmation boxes to be customized.
 - `FormHelper` now has a `autoSetCustomValidity` option for setting HTML5
-  validity messages from custom validation messages. See: [html5-validity-messages](../views/helpers/form.md#html5-validity-messages)
+  validity messages from custom validation messages. See: [html5-validity-messages](#html5-validity-messages)
 - `ViewBuilder` had `setVar()`, `setVars()`, `getVar()`, `getVars()` and
   `hasVar()` added. These methods will replace the public `viewVars`
   property defined in `ViewVarsTrait`.
@@ -269,5 +266,5 @@ be removed until 5.0.0:
   on the default model. This allow smooth operation with the changes made in
   `Cake\Datasource\Paginator`
 - `FormHelper` will now read `maxLength` validator rules and use them to
-  automatically define the `maxlength`` attribute on HTML inputs if a max
+  automatically define the `maxlength` attribute on HTML inputs if a max
   length is not provided in the input options.

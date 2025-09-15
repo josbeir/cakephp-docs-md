@@ -1,13 +1,6 @@
----
-title: Caching
-keywords: "uniform api,cache engine,cache system,atomic operations,php class,disk storage,static methods,php extension,consistent manner,similar features,apcu,apc,memcache,queries,cakephp,elements,servers,memory"
----
-
 # Caching
 
-**Namespace:** `Cake\Cache`
-
-### Class `Cake\Cache\Cache`
+`class` Cake\\Cache\\**Cache**
 
 Caching can be used to make reading from expensive or slow resources faster, by
 maintaining a second copy of the required data in a faster or closer storage
@@ -41,10 +34,8 @@ build your own backend. The built-in caching engines are:
 
 Regardless of the CacheEngine you choose to use, your application interacts with
 `Cake\Cache\Cache`.
-<!-- anchor: cache-configuration -->
-## Configuring Cache Engines
 
-#### Static Method `Cake\Cache\Cache::setConfig($key, $config = null)`
+## Configuring Cache Engines
 
 Your application can configure any number of 'engines' during its bootstrap
 process. Cache engine configurations are defined in **config/app.php**.
@@ -52,51 +43,47 @@ process. Cache engine configurations are defined in **config/app.php**.
 For optimal performance CakePHP requires two cache engines to be defined.
 
 - `_cake_core_` is used for storing file maps, and parsed results of
-  [internationalization-and-localization](internationalization-and-localization.md) files.
+  [/core-libraries/internationalization-and-localization](core-libraries/internationalization-and-localization.md) files.
 - `_cake_model_`, is used to store schema descriptions for your applications
   models.
 
 Using multiple engine configurations also lets you incrementally change the
 storage as needed. For example in your **config/app.php** you could put the
-following
+following:
 
-```
-// ...
-'Cache' => [
-    'short' => [
-        'className' => 'File',
-        'duration' => '+1 hours',
-        'path' => CACHE,
-        'prefix' => 'cake_short_',
-    ],
-    // Using a fully namespaced name.
-    'long' => [
-        'className' => 'Cake\Cache\Engine\FileEngine',
-        'duration' => '+1 week',
-        'probability' => 100,
-        'path' => CACHE . 'long' . DS,
-    ],
-]
-// ...
+    // ...
+    'Cache' => [
+        'short' => [
+            'className' => 'File',
+            'duration' => '+1 hours',
+            'path' => CACHE,
+            'prefix' => 'cake_short_',
+        ],
+        // Using a fully namespaced name.
+        'long' => [
+            'className' => 'Cake\Cache\Engine\FileEngine',
+            'duration' => '+1 week',
+            'probability' => 100,
+            'path' => CACHE . 'long' . DS,
+        ],
+    ]
+    // ...
 
-```
+Configuration options can also be provided as a `DSN` string. This is
+useful when working with environment variables or `PaaS` providers:
 
-Configuration options can also be provided as a :term:`DSN` string. This is
-useful when working with environment variables or :term:`PaaS` providers
-
-```php
+``` css
 Cache::setConfig('short', [
     'url' => 'memcached://user:password@cache-host/?timeout=3600&prefix=myapp_',
 ]);
-
 ```
 
 When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
-You can also configure Cache engines at runtime
+You can also configure Cache engines at runtime:
 
-```php
+``` php
 // Using a short name
 Cache::setConfig('short', [
     'className' => 'File',
@@ -116,15 +103,14 @@ Cache::setConfig('long', [
 // Using a constructed object.
 $object = new FileEngine($config);
 Cache::setConfig('other', $object);
-
 ```
 
 The name of these engine configurations ('short' and 'long') are used as the `$config`
 parameter for `Cake\Cache\Cache::write()` and
 `Cake\Cache\Cache::read()`. When configuring cache engines you can
-refer to the class name using the following syntaxes
+refer to the class name using the following syntaxes:
 
-```php
+``` php
 // Short name (in App\ or Cake namespaces)
 Cache::setConfig('long', ['className' => 'File']);
 
@@ -136,13 +122,11 @@ Cache::setConfig('long', ['className' => 'Cake\Cache\Engine\FileEngine']);
 
 // An object implementing CacheEngineInterface
 Cache::setConfig('long', ['className' => $myCache]);
-
 ```
 
 > [!NOTE]
 > When using the FileEngine you might need to use the `mask` option to
 > ensure cache files are made with the correct permissions.
->
 
 ### Engine Options
 
@@ -165,7 +149,7 @@ FileEngine uses the following engine specific options:
 - `lock` Should files be locked before writing to them?
 - `mask` The mask used for created files
 - `path` Path to where cachefiles should be saved. Defaults to system's temp dir.
-<!-- anchor: caching-redisengine -->
+
 ### RedisEngine Options
 
 RedisEngine uses the following engine specific options:
@@ -182,10 +166,12 @@ RedisEngine uses the following engine specific options:
 - `ssl_ca` The ssl certificate authority file for TLS connections.
 - `ssl_cert` The ssl certificate used for TLS connections.
 
-> [!IMPORTANT]
-> Added in version 5.1.0
-> TLS connections were added in 5.1
->
+<div class="versionadded">
+
+5.1.0
+TLS connections were added in 5.1
+
+</div>
 
 ### MemcacheEngine Options
 
@@ -201,9 +187,9 @@ RedisEngine uses the following engine specific options:
   them as a pool.
 - `duration` Be aware that any duration greater than 30 days will be treated as real
   Unix time value rather than an offset from current time.
-- `options` Additional options for the memcached client. Should be an array of option => value.
+- `options` Additional options for the memcached client. Should be an array of option =\> value.
   Use the `\Memcached::OPT_*` constants as keys.
-<!-- anchor: cache-configuration-fallback -->
+
 ### Configuring Cache Fallbacks
 
 In the event that an engine is not available, such as the `FileEngine` trying
@@ -213,9 +199,9 @@ error. This prevents the application from throwing an uncaught exception due to
 cache failure.
 
 You can configure Cache configurations to fall back to a specified config using
-the `fallback` configuration key
+the `fallback` configuration key:
 
-```php
+``` css
 Cache::setConfig('redis', [
     'className' => 'Redis',
     'duration' => '+1 hours',
@@ -224,7 +210,6 @@ Cache::setConfig('redis', [
     'port' => 6379,
     'fallback' => 'default',
 ]);
-
 ```
 
 If initializing the `RedisEngine` instance fails, the `redis` cache configuration
@@ -233,9 +218,9 @@ engine for the `default` cache configuration *also* fails, in this scenario the
 engine would fall back once again to the `NullEngine` and prevent the application
 from throwing an uncaught exception.
 
-You can turn off cache fallbacks with `false`
+You can turn off cache fallbacks with `false`:
 
-```php
+``` css
 Cache::setConfig('redis', [
     'className' => 'Redis',
     'duration' => '+1 hours',
@@ -244,14 +229,11 @@ Cache::setConfig('redis', [
     'port' => 6379,
     'fallback' => false
 ]);
-
 ```
 
 When there is no fallback cache failures will be raised as exceptions.
 
 ### Removing Configured Cache Engines
-
-#### Static Method `Cake\Cache\Cache::drop($key)`
 
 Once a configuration is created you cannot change it. Instead you should drop
 the configuration and re-create it using `Cake\Cache\Cache::drop()` and
@@ -260,22 +242,19 @@ the config and destroy the adapter if it was constructed.
 
 ## Writing to a Cache
 
-#### Static Method `Cake\Cache\Cache::write($key, $value, $config = 'default')`
-
-`Cache::write()` will write a $value to the Cache. You can read or
+`Cache::write()` will write a \$value to the Cache. You can read or
 delete this value later by referring to it by `$key`. You may
 specify an optional configuration to store the cache in as well. If
 no `$config` is specified, default will be used. `Cache::write()`
 can store any type of object and is ideal for storing results of
-model finds
+model finds:
 
-```php
+``` php
 $posts = Cache::read('posts');
 if ($posts === null) {
     $posts = $someService->getAllPosts();
     Cache::write('posts', $posts);
 }
-
 ```
 
 Using `Cache::write()` and `Cache::read()` to reduce the number
@@ -284,19 +263,16 @@ of trips made to the database to fetch posts.
 > [!NOTE]
 > If you plan to cache the result of queries made with the CakePHP ORM,
 > it is better to use the built-in cache capabilities of the Query object
-> as described in the [caching-query-results](../orm/query-builder.md#caching-query-results) section
->
+> as described in the [caching-query-results](#caching-query-results) section
 
 ### Writing Multiple Keys at Once
-
-#### Static Method `Cake\Cache\Cache::writeMany($data, $config = 'default')`
 
 You may find yourself needing to write multiple cache keys at once. While you
 can use multiple calls to `write()`, `writeMany()` allows CakePHP to use
 more efficient storage APIs where available. For example using `writeMany()`
-save multiple network connections when using Memcached
+save multiple network connections when using Memcached:
 
-```php
+``` php
 $result = Cache::writeMany([
     'article-' . $slug => $article,
     'article-' . $slug . '-comments' => $comments
@@ -304,18 +280,15 @@ $result = Cache::writeMany([
 
 // $result will contain
 ['article-first-post' => true, 'article-first-post-comments' => true]
-
 ```
 
 ### Atomic writes
 
-#### Static Method `Cake\Cache\Cache::add($key, $value $config = 'default')`
-
 Using `Cache::add()` will let you atomically set a key to a value if the key
 does not already exist in the cache. If the key already exists in the cache
-backend or the write fails, `add()` will return `false`
+backend or the write fails, `add()` will return `false`:
 
-```php
+``` php
 // Set a key to act as a lock
 $result = Cache::add($lockKey, true);
 if (!$result) {
@@ -325,25 +298,21 @@ if (!$result) {
 
 // Remove the lock key.
 Cache::delete($lockKey);
-
 ```
 
 > [!WARNING]
-
-File based caching does not support atomic writes.
+> File based caching does not support atomic writes.
 
 ### Read Through Caching
-
-#### Static Method `Cake\Cache\Cache::remember($key, $callable, $config = 'default')`
 
 Cache helps with read-through caching. If the named cache key exists,
 it will be returned. If the key does not exist, the callable will be invoked
 and the results stored in the cache at the provided key.
 
 For example, you often want to cache remote service call results. You could use
-`remember()` to make this simple
+`remember()` to make this simple:
 
-```php
+``` php
 class IssueService
 {
     public function allIssues($repo)
@@ -353,12 +322,9 @@ class IssueService
         });
     }
 }
-
 ```
 
 ## Reading From a Cache
-
-#### Static Method `Cake\Cache\Cache::read($key, $config = 'default')`
 
 `Cache::read()` is used to read the cached value stored under
 `$key` from the `$config`. If `$config` is null the default
@@ -367,9 +333,9 @@ if it is a valid cache or `null` if the cache has expired or
 doesn't exist. Use strict comparison operators `===` or `!==`
 to check the success of the `Cache::read()` operation.
 
-For example
+For example:
 
-```php
+``` php
 $cloud = Cache::read('cloud');
 if ($cloud !== null) {
     return $cloud;
@@ -382,13 +348,12 @@ if ($cloud !== null) {
 Cache::write('cloud', $cloud);
 
 return $cloud;
-
 ```
 
 Or if you are using another cache configuration called `short`, you can
-specify it in `Cache::read()` and `Cache::write()` calls as below
+specify it in `Cache::read()` and `Cache::write()` calls as below:
 
-```php
+``` php
 // Read key "cloud", but from short configuration instead of default
 $cloud = Cache::read('cloud', 'short');
 if ($cloud === null) {
@@ -400,103 +365,79 @@ if ($cloud === null) {
 }
 
 return $cloud;
-
 ```
 
 ### Reading Multiple Keys at Once
 
-#### Static Method `Cake\Cache\Cache::readMany($keys, $config = 'default')`
-
 After you've written multiple keys at once, you'll probably want to read them as
 well. While you could use multiple calls to `read()`, `readMany()` allows
 CakePHP to use more efficient storage APIs where available. For example using
-`readMany()` save multiple network connections when using Memcached
+`readMany()` save multiple network connections when using Memcached:
 
-```php
+``` php
 $result = Cache::readMany([
     'article-' . $slug,
     'article-' . $slug . '-comments'
 ]);
 // $result will contain
 ['article-first-post' => '...', 'article-first-post-comments' => '...']
-
 ```
 
 ## Deleting From a Cache
 
-#### Static Method `Cake\Cache\Cache::delete($key, $config = 'default')`
-
 `Cache::delete()` will allow you to completely remove a cached
-object from the store
+object from the store:
 
-```php
-// Remove a key
-Cache::delete('my_key');
-
-```
+    // Remove a key
+    Cache::delete('my_key');
 
 As of 4.4.0, the `RedisEngine` also provides a `deleteAsync()` method
-which uses the `UNLINK` operation to remove cache keys
+which uses the `UNLINK` operation to remove cache keys:
 
-```php
+``` php
 Cache::pool('redis')->deleteAsync('my_key');
-
 ```
 
 ### Deleting Multiple Keys at Once
 
-#### Static Method `Cake\Cache\Cache::deleteMany($keys, $config = 'default')`
-
-After you've written multiple keys at once, you may want to delete them.  While
+After you've written multiple keys at once, you may want to delete them. While
 you could use multiple calls to `delete()`, `deleteMany()` allows CakePHP to use
 more efficient storage APIs where available. For example using `deleteMany()`
-save multiple network connections when using Memcached
+save multiple network connections when using Memcached:
 
-```php
+``` php
 $result = Cache::deleteMany([
     'article-' . $slug,
     'article-' . $slug . '-comments'
 ]);
 // $result will contain
 ['article-first-post' => true, 'article-first-post-comments' => true]
-
 ```
 
 ## Clearing Cached Data
 
-#### Static Method `Cake\Cache\Cache::clear($config = 'default')`
-
 Destroy all cached values for a cache configuration. In engines like: Apcu,
 Memcached, the cache configuration's prefix is used to remove
 cache entries. Make sure that different cache configurations have different
-prefixes
+prefixes:
 
-```php
-// Will clear all keys.
-Cache::clear();
-
-```
+    // Will clear all keys.
+    Cache::clear();
 
 As of 4.4.0, the `RedisEngine` also provides a `clearBlocking()` method
-which uses the `UNLINK` operation to remove cache keys
+which uses the `UNLINK` operation to remove cache keys:
 
-```php
+``` php
 Cache::pool('redis')->clearBlocking();
-
 ```
 
 > [!NOTE]
 > Because APCu uses isolated caches for webserver and CLI they
 > have to be cleared separately (CLI cannot clear webserver and vice versa).
->
 
 ## Using Cache to Store Counters
 
-#### Static Method `Cake\Cache\Cache::increment($key, $offset = 1, $config = 'default')`
-
-#### Static Method `Cake\Cache\Cache::decrement($key, $offset = 1, $config = 'default')`
-
-Counters in your application are good candidates for storage in a cache.  As an
+Counters in your application are good candidates for storage in a cache. As an
 example, a simple countdown for remaining 'slots' in a contest could be stored
 in Cache. The Cache class exposes atomic ways to increment/decrement counter
 values. Atomic operations are important for these values as it
@@ -504,9 +445,9 @@ reduces the risk of contention, and ability for two users to simultaneously
 lower the value by one, resulting in an incorrect value.
 
 After setting an integer value you can manipulate it using `increment()` and
-`decrement()`
+`decrement()`:
 
-```php
+``` css
 Cache::write('initial_count', 10);
 
 // Later on
@@ -514,13 +455,11 @@ Cache::decrement('initial_count');
 
 // Or
 Cache::increment('initial_count');
-
 ```
 
 > [!NOTE]
 > Incrementing and decrementing do not work with FileEngine. You should use
 > APCu, Redis or Memcached instead.
->
 
 ## Using Cache to Store Common Query Results
 
@@ -528,26 +467,25 @@ You can greatly improve the performance of your application by putting results
 that infrequently change, or that are subject to heavy reads into the cache.
 A perfect example of this are the results from
 `Cake\ORM\Table::find()`. The Query object allows you to cache
-results using the `cache()` method. See the [caching-query-results](../orm/query-builder.md#caching-query-results) section
+results using the `cache()` method. See the [caching-query-results](#caching-query-results) section
 for more information.
-<!-- anchor: cache-groups -->
+
 ## Using Groups
 
 Sometimes you will want to mark multiple cache entries to belong to certain
 group or namespace. This is a common requirement for mass-invalidating keys
 whenever some information changes that is shared among all entries in the same
-group. This is possible by declaring the groups in cache configuration
+group. This is possible by declaring the groups in cache configuration:
 
-```php
+``` css
 Cache::setConfig('site_home', [
     'className' => 'Redis',
     'duration' => '+999 days',
     'groups' => ['comment', 'article'],
 ]);
-
 ```
 
-#### Method `Cake\Cache\Cache::clearGroup($group, $config = 'default')`
+`method` Cake\\Cache\\Cache::**clearGroup**($group, $config = 'default')
 
 Let's say you want to store the HTML generated for your homepage in cache, but
 would also want to automatically invalidate this cache every time a comment or
@@ -556,9 +494,9 @@ we have effectively tagged any key stored into this cache configuration with
 both group names.
 
 For instance, whenever a new post is added, we could tell the Cache engine to
-remove all entries associated to the `article` group
+remove all entries associated to the `article` group:
 
-```php
+``` php
 // src/Model/Table/ArticlesTable.php
 public function afterSave($event, $entity, $options = [])
 {
@@ -566,20 +504,17 @@ public function afterSave($event, $entity, $options = [])
         Cache::clearGroup('article', 'site_home');
     }
 }
-
 ```
 
-#### Static Method `Cake\Cache\Cache::groupConfigs($group = null)`
-
 `groupConfigs()` can be used to retrieve mapping between group and
-configurations, i.e.: having the same group
+configurations, i.e.: having the same group:
 
-```php
+``` php
 // src/Model/Table/ArticlesTable.php
 
 /**
- - A variation of previous example that clears all Cache configurations
- - having the same group
+ * A variation of previous example that clears all Cache configurations
+ * having the same group
  */
 public function afterSave($event, $entity, $options = [])
 {
@@ -590,7 +525,6 @@ public function afterSave($event, $entity, $options = [])
         }
     }
 }
-
 ```
 
 Groups are shared across all cache configs using the same engine and same
@@ -599,31 +533,19 @@ choose a common prefix for all your configs.
 
 ## Globally Enable or Disable Cache
 
-#### Static Method `Cake\Cache\Cache::disable()`
-
 You may need to disable all Cache read & writes when trying to figure out cache
 expiration related issues. You can do this using `enable()` and
-`disable()`
+`disable()`:
 
-```php
-// Disable all cache reads, and cache writes.
-Cache::disable();
-
-```
+    // Disable all cache reads, and cache writes.
+    Cache::disable();
 
 Once disabled, all reads and writes will return `null`.
 
-#### Static Method `Cake\Cache\Cache::enable()`
+Once disabled, you can use `enable()` to re-enable caching:
 
-Once disabled, you can use `enable()` to re-enable caching
-
-```php
-// Re-enable all cache reads, and cache writes.
-Cache::enable();
-
-```
-
-#### Static Method `Cake\Cache\Cache::enabled()`
+    // Re-enable all cache reads, and cache writes.
+    Cache::enable();
 
 If you need to check on the state of Cache, you can use `enabled()`.
 
@@ -635,14 +557,13 @@ directory. If you had a cache engine named `MyCustomCacheEngine`
 it would be placed in either **src/Cache/Engine/MyCustomCacheEngine.php**.
 Or in **plugins/MyPlugin/src/Cache/Engine/MyCustomCacheEngine.php** as
 part of a plugin. Cache configs from plugins need to use the plugin
-dot syntax
+dot syntax:
 
-```php
+``` css
 Cache::setConfig('custom', [
     'className' => 'MyPlugin.MyCustomCache',
     // ...
 ]);
-
 ```
 
 Custom Cache engines must extend `Cake\Cache\CacheEngine` which
@@ -651,52 +572,18 @@ methods.
 
 The required API for a CacheEngine is
 
-### Class `Cake\Cache\CacheEngine`
+`class` Cake\\Cache\\**CacheEngine**
 
-The base class for all cache engines used with Cache.
+`method` Cake\\Cache\\CacheEngine::**write**($key, $value)
 
-#### Method `Cake\Cache\CacheEngine::write($key, $value)`
+`method` Cake\\Cache\\CacheEngine::**read**($key)
 
-:return: boolean for success.
+`method` Cake\\Cache\\CacheEngine::**delete**($key)
 
-Write value for a key into cache, Return `true`
-    if the data was successfully cached, `false` on failure.
+`method` Cake\\Cache\\CacheEngine::**clear**($check)
 
-#### Method `Cake\Cache\CacheEngine::read($key)`
+`method` Cake\\Cache\\CacheEngine::**clearGroup**($group)
 
-:return: The cached value or `null` for failure.
+`method` Cake\\Cache\\CacheEngine::**decrement**($key, $offset = 1)
 
-Read a key from the cache. Return `null` to indicate
-the entry has expired or does not exist.
-
-#### Method `Cake\Cache\CacheEngine::delete($key)`
-
-:return: Boolean `true` on success.
-
-Delete a key from the cache. Return `false` to indicate that
-the entry did not exist or could not be deleted.
-
-#### Method `Cake\Cache\CacheEngine::clear($check)`
-
-:return: Boolean `true` on success.
-
-Delete all keys from the cache. If $check is `true`, you should
-validate that each value is actually expired.
-
-#### Method `Cake\Cache\CacheEngine::clearGroup($group)`
-
-:return: Boolean `true` on success.
-
-Delete all keys from the cache belonging to the same group.
-
-#### Method `Cake\Cache\CacheEngine::decrement($key, $offset = 1)`
-
-:return: Boolean `true` on success.
-
-Decrement a number under the key and return decremented value
-
-#### Method `Cake\Cache\CacheEngine::increment($key, $offset = 1)`
-
-:return: Boolean `true` on success.
-
-Increment a number under the key and return incremented value
+`method` Cake\\Cache\\CacheEngine::**increment**($key, $offset = 1)

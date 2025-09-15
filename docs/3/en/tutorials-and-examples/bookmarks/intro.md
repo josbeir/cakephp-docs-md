@@ -7,106 +7,89 @@ fast.
 
 Here's what you'll need:
 
-#. A database server. We're going to be using MySQL server in this tutorial.
-You'll need to know enough about SQL in order to create a database: CakePHP
-will be taking the reins from there. Since we're using MySQL, also make sure
-that you have `pdo_mysql` enabled in PHP.
-#. Basic PHP knowledge.
+1.  A database server. We're going to be using MySQL server in this tutorial.
+    You'll need to know enough about SQL in order to create a database: CakePHP
+    will be taking the reins from there. Since we're using MySQL, also make sure
+    that you have `pdo_mysql` enabled in PHP.
+2.  Basic PHP knowledge.
 
 Before starting you should make sure that you have got an up to date PHP
 version:
 
-```bash
+``` bash
 php -v
-
 ```
 
-You should at least have got installed PHP |minphpversion| (CLI) or higher.
-Your webserver's PHP version must also be of |minphpversion| or higher, and should best be
+You should at least have got installed PHP 8.1 (CLI) or higher.
+Your webserver's PHP version must also be of 8.1 or higher, and should best be
 the same version your command line interface (CLI) PHP version is of.
 If you'd like to see the completed application, checkout [cakephp/bookmarker](https://github.com/cakephp/bookmarker-tutorial). Let's get started!
 
 ## Getting CakePHP
 
-The easiest way to install CakePHP is to use Composer.  Composer is a simple way
-of installing CakePHP from your terminal or command line prompt.  First, you'll
+The easiest way to install CakePHP is to use Composer. Composer is a simple way
+of installing CakePHP from your terminal or command line prompt. First, you'll
 need to download and install Composer if you haven't done so already. If you
-have cURL installed, it's as easy as running the following
+have cURL installed, it's as easy as running the following:
 
-```
-curl -s https://getcomposer.org/installer | php
-
-```
+    curl -s https://getcomposer.org/installer | php
 
 Or, you can download `composer.phar` from the
 [Composer website](https://getcomposer.org/download/).
 
 Then simply type the following line in your terminal from your
 installation directory to install the CakePHP application skeleton
-in the **bookmarker** directory
+in the **bookmarker** directory:
 
-```
-php composer.phar create-project --prefer-dist cakephp/app:"^3.10" bookmarker
-
-```
+    php composer.phar create-project --prefer-dist cakephp/app:"^3.10" bookmarker
 
 If you downloaded and ran the [Composer Windows Installer](https://getcomposer.org/Composer-Setup.exe), then type the following line in
 your terminal from your installation directory (ie.
-C:\\wamp\\www\\dev\\cakephp3)
+C:\wamp\www\dev\cakephp3):
 
-```sql
-composer self-update && composer create-project --prefer-dist cakephp/app:"^3.10" bookmarker
-
-```
+    composer self-update && composer create-project --prefer-dist cakephp/app:"^3.10" bookmarker
 
 The advantage to using Composer is that it will automatically complete some
 important set up tasks, such as setting the correct file permissions and
 creating your **config/app.php** file for you.
 
 There are other ways to install CakePHP. If you cannot or don't want to use
-Composer, check out the [/installation` section.
+Composer, check out the [/installation](installation.md) section.
 
 Regardless of how you downloaded and installed CakePHP, once your set up is
-completed, your directory setup should look something like the following
+completed, your directory setup should look something like the following:
 
-```
-/bookmarker
-    /bin
-    /config
-    /logs
-    /plugins
-    /src
-    /tests
-    /tmp
-    /vendor
-    /webroot
-    .editorconfig
-    .gitignore
-    .htaccess
-    .travis.yml
-    composer.json
-    index.php
-    phpunit.xml.dist
-    README.md
-
-```
+    /bookmarker
+        /bin
+        /config
+        /logs
+        /plugins
+        /src
+        /tests
+        /tmp
+        /vendor
+        /webroot
+        .editorconfig
+        .gitignore
+        .htaccess
+        .travis.yml
+        composer.json
+        index.php
+        phpunit.xml.dist
+        README.md
 
 Now might be a good time to learn a bit about how CakePHP's directory structure
-works: check out the [cakephp-folder-structure](../../intro/cakephp-folder-structure.md) section.
+works: check out the [/intro/cakephp-folder-structure](intro/cakephp-folder-structure.md) section.
 
 ## Checking our Installation
 
 We can quickly check that our installation is correct, by checking the default
-home page. Before you can do that, you'll need to start the development server
+home page. Before you can do that, you'll need to start the development server:
 
-```
-bin/cake server
-
-```
+    bin/cake server
 
 > [!NOTE]
 > For Windows, the command needs to be `bin\cake server` (note the backslash).
->
 
 This will start PHP's built-in webserver on port 8765. Open up
 **http://localhost:8765** in your web browser to see the welcome page. All the
@@ -121,7 +104,7 @@ haven't already done so, create an empty database for use in this
 tutorial, with a name of your choice, e.g. `cake_bookmarks`. You can execute
 the following SQL to create the necessary tables:
 
-```sql
+``` sql
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
@@ -156,7 +139,6 @@ CREATE TABLE bookmarks_tags (
     FOREIGN KEY tag_key(tag_id) REFERENCES tags(id),
     FOREIGN KEY bookmark_key(bookmark_id) REFERENCES bookmarks(id)
 );
-
 ```
 
 You may have noticed that the `bookmarks_tags` table used a composite primary
@@ -164,7 +146,7 @@ key. CakePHP supports composite primary keys almost everywhere, making it easier
 to build multi-tenanted applications.
 
 The table and column names we used were not arbitrary. By using CakePHP's
-[conventions.md), we can leverage CakePHP better
+[naming conventions](intro/conventions.md), we can leverage CakePHP better
 and avoid having to configure the framework. CakePHP is flexible enough to
 accommodate even inconsistent legacy database schemas, but adhering to the
 conventions will save you time.
@@ -176,43 +158,28 @@ For many, this will be the first and last time you will need to configure
 anything.
 
 The configuration should be pretty straightforward: just replace the
-values in the](intro/conventions.md), we can leverage CakePHP better
-and avoid having to configure the framework. CakePHP is flexible enough to
-accommodate even inconsistent legacy database schemas, but adhering to the
-conventions will save you time.
-
-## Database Configuration
-
-Next, let's tell CakePHP where our database is and how to connect to it.
-For many, this will be the first and last time you will need to configure
-anything.
-
-The configuration should be pretty straightforward: just replace the
-values in the.md)`Datasources.default`` array in the **config/app.php** file
+values in the `Datasources.default` array in the **config/app.php** file
 with those that apply to your setup. A sample completed configuration
-array might look something like the following
+array might look something like the following:
 
-```php
-return [
-    // More configuration above.
-    'Datasources' => [
-        'default' => [
-            'className' => 'Cake\Database\Connection',
-            'driver' => 'Cake\Database\Driver\Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            'username' => 'cakephp',
-            'password' => 'AngelF00dC4k3~',
-            'database' => 'cake_bookmarks',
-            'encoding' => 'utf8',
-            'timezone' => 'UTC',
-            'cacheMetadata' => true,
+    return [
+        // More configuration above.
+        'Datasources' => [
+            'default' => [
+                'className' => 'Cake\Database\Connection',
+                'driver' => 'Cake\Database\Driver\Mysql',
+                'persistent' => false,
+                'host' => 'localhost',
+                'username' => 'cakephp',
+                'password' => 'AngelF00dC4k3~',
+                'database' => 'cake_bookmarks',
+                'encoding' => 'utf8',
+                'timezone' => 'UTC',
+                'cacheMetadata' => true,
+            ],
         ],
-    ],
-    // More configuration below.
-];
-
-```
+        // More configuration below.
+    ];
 
 Once you've saved your **config/app.php** file, you should see that 'CakePHP is
 able to connect to the database' section have a checkmark.
@@ -220,21 +187,17 @@ able to connect to the database' section have a checkmark.
 > [!NOTE]
 > A copy of CakePHP's default configuration file is found in
 > **config/app.default.php**.
->
 
 ## Generating Scaffold Code
 
 Because our database is following the CakePHP conventions, we can use the
-[bake console](../../bake/usage.md) application to quickly generate a basic
-application. In your command line run the following commands
+[bake console](bake/usage.md) application to quickly generate a basic
+application. In your command line run the following commands:
 
-```
-// On Windows you'll need to use bin\cake instead.
-bin/cake bake all users
-bin/cake bake all bookmarks
-bin/cake bake all tags
-
-```
+    // On Windows you'll need to use bin\cake instead.
+    bin/cake bake all users
+    bin/cake bake all bookmarks
+    bin/cake bake all tags
 
 This will generate the controllers, models, views, their corresponding test
 cases, and fixtures for our users, bookmarks and tags resources. If you've
@@ -262,9 +225,9 @@ implement this behavior on the entity object. Because, we want to hash the
 password each time it is set, we'll use a mutator/setter method. CakePHP will
 call convention based setter methods any time a property is set in one of your
 entities. Let's add a setter for the password. In **src/Model/Entity/User.php**
-add the following
+add the following:
 
-```php
+``` php
 namespace App\Model\Entity;
 
 use Cake\Auth\DefaultPasswordHasher; //include this line
@@ -280,7 +243,6 @@ class User extends Entity
         return $hasher->hash($value);
     }
 }
-
 ```
 
 Now update one of the users you created earlier, if you change their password,
@@ -290,7 +252,6 @@ use sha1 or md5 if you're working with an existing database.
 
 > [!NOTE]
 > If the password doesn't get hashed, make sure you followed the same case for the password member of the class while naming the setter function
->
 
 ## Getting Bookmarks with a Specific Tag
 
@@ -304,9 +265,9 @@ Ideally, we'd have a URL that looks like
 **http://localhost:8765/bookmarks/tagged/funny/cat/gifs**. This would let us
 find all the bookmarks that have the 'funny', 'cat' or 'gifs' tags. Before we
 can implement this, we'll add a new route. Your **config/routes.php** should
-look like
+look like:
 
-```php
+``` php
 <?php
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\Router;
@@ -338,7 +299,6 @@ Router::scope('/', function ($routes) {
     // Connect the conventions based default routes.
     $routes->fallbacks();
 });
-
 ```
 
 The above defines a new 'route' which connects the **/bookmarks/tagged/** path,
@@ -347,9 +307,9 @@ URLs look, from how they are implemented. If we were to visit
 **http://localhost:8765/bookmarks/tagged**, we would see a helpful error page
 from CakePHP informing you that the controller action does not exist. Let's
 implement that missing method now. In **src/Controller/BookmarksController.php**
-add the following
+add the following:
 
-```php
+``` php
 public function tags()
 {
     // The 'pass' key is provided by CakePHP and contains all
@@ -367,10 +327,9 @@ public function tags()
         'tags' => $tags
     ]);
 }
-
 ```
 
-To access other parts of the request data, consult the [cake-request](../../controllers/request-response.md#cake-request)
+To access other parts of the request data, consult the [cake-request](#cake-request)
 section.
 
 ### Creating the Finder Method
@@ -379,9 +338,9 @@ In CakePHP we like to keep our controller actions slim, and put most of our
 application's logic in the models. If you were to visit the
 **/bookmarks/tagged** URL now you would see an error that the `findTagged()`
 method has not been implemented yet, so let's do that. In
-**src/Model/Table/BookmarksTable.php** add the following
+**src/Model/Table/BookmarksTable.php** add the following:
 
-```php
+``` php
 // The $query argument is a query builder instance.
 // The $options array will contain the 'tags' option we passed
 // to find('tagged') in our controller action.
@@ -402,17 +361,16 @@ public function findTagged(Query $query, array $options)
 
     return $bookmarks->group(['Bookmarks.id']);
 }
-
 ```
 
-We just implemented a [custom finder method](../../orm/retrieving-data-and-resultsets.md#custom-find-methods). This is
+We just implemented a [custom finder method](#custom-find-methods). This is
 a very powerful concept in CakePHP that allows you to package up re-usable
-queries. Finder methods always get a [query-builder](../../orm/query-builder.md) object and an
+queries. Finder methods always get a [/orm/query-builder](orm/query-builder.md) object and an
 array of options as parameters. Finders can manipulate the query and add any
 required conditions or criteria. When complete, finder methods must return
 a modified query object. In our finder we've leveraged the `innerJoinWith()`,
 `where()` and `group()` methods which allow us to find distinct bookmarks
-that have a matching tag.  When no tags are provided we use a
+that have a matching tag. When no tags are provided we use a
 `leftJoinWith()` and modify the 'where' condition, finding bookmarks without
 tags.
 
@@ -421,10 +379,10 @@ tags.
 Now if you visit the **/bookmarks/tagged** URL, CakePHP will show an error
 letting you know that you have not made a view file. Next, let's build the
 view file for our `tags()` action. In **src/Template/Bookmarks/tags.ctp**
-put the following content
+put the following content:
 
-```php
-\<<h1>\>
+``` php
+<h1>
     Bookmarks tagged with
     <?= $this->Text->toList(h($tags)) ?>
 </h1>
@@ -433,7 +391,7 @@ put the following content
 <?php foreach ($bookmarks as $bookmark): ?>
     <article>
         <!-- Use the HtmlHelper to create a link -->
-        \<<h4>\><?= $this->Html->link($bookmark->title, $bookmark->url) ?></h4>
+        <h4><?= $this->Html->link($bookmark->title, $bookmark->url) ?></h4>
         <small><?= h($bookmark->url) ?></small>
 
         <!-- Use the TextHelper to format text -->
@@ -441,11 +399,10 @@ put the following content
     </article>
 <?php endforeach; ?>
 </section>
-
 ```
 
-In the above code we use the [/views/helpers/html` and
-[text](../../views/helpers/text.md) helpers to assist in generating our view output. We
+In the above code we use the [/views/helpers/html](views/helpers/html.md) and
+[/views/helpers/text](views/helpers/text.md) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
 remember to always use `h()` when outputting user data to prevent HTML
 injection issues.
@@ -467,5 +424,5 @@ However, everyone can see everyone else's tags. In the next chapter, we'll
 implement authentication and restrict the visible bookmarks to only those that
 belong to the current user.
 
-Now continue to [part-two](part-two.md) to
-continue building your application or :doc:`dive into the documentation](../../topics.md) to learn more about what CakePHP can do for you.
+Now continue to [/tutorials-and-examples/bookmarks/part-two](tutorials-and-examples/bookmarks/part-two.md) to
+continue building your application or [dive into the documentation](topics.md) to learn more about what CakePHP can do for you.

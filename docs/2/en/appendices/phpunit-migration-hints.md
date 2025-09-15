@@ -1,8 +1,3 @@
----
-title: PHPUnit Migration Hints
-keywords: "free transition,vendor directory,static methods,teardown,test cases,pear,dependencies,test case,replacements,phpunit,migration,simpletest,cakephp,discover channel"
----
-
 # PHPUnit Migration Hints
 
 Migrating your test cases to [PHPUnit 3.7](https://www.phpunit.de/manual/current/en/)
@@ -41,12 +36,9 @@ deprecated.
 The method `getTests` is no longer supported. You can use filters instead. The
 web test runner now takes an additional query string parameter that allows you
 to specify a basic regular expression. This regular expression is used to
-restrict the methods that are run
+restrict the methods that are run:
 
-```
-e.g. filter=myMethod
-
-```
+    e.g. filter=myMethod
 
 Only tests containing the string `myMethod` will be run on the next refresh.
 The cake test shell also supports a --filter option to filter methods.
@@ -58,17 +50,17 @@ SimpleTest. Where possible `CakeTestCase` provides a wrapper for the
 SimpleTest method names. These compatibility wrappers will be removed in 2.1.0.
 The following methods will be affected.
 
-- `assertEqual` -> `assertEquals`
-- `assertNotEqual` -> `assertNotEquals`
-- `assertPattern` -> `assertRegExp`
-- `assertIdentical` -> `assertSame`
-- `assertNotIdentical` -> `assertNotSame`
-- `assertNoPattern` -> `assertNotRegExp`
-- `assertNoErrors` -> no replacement
-- `expectError` -> `setExpectedException`
-- `expectException` -> `setExpectedException`
-- `assertReference` -> `assertSame`
-- `assertIsA` -> `assertType`
+- `assertEqual` -\> `assertEquals`
+- `assertNotEqual` -\> `assertNotEquals`
+- `assertPattern` -\> `assertRegExp`
+- `assertIdentical` -\> `assertSame`
+- `assertNotIdentical` -\> `assertNotSame`
+- `assertNoPattern` -\> `assertNotRegExp`
+- `assertNoErrors` -\> no replacement
+- `expectError` -\> `setExpectedException`
+- `expectException` -\> `setExpectedException`
+- `assertReference` -\> `assertSame`
+- `assertIsA` -\> `assertType`
 
 Some methods take their arguments in different orders, be sure to check the
 methods you are using when updating them.
@@ -88,50 +80,44 @@ straightforward mock object expectations.
 
 ##### Replace expectOnce() no params
 
-```php
+``` php
 expectOnce\(([^\)]+)\);
 expects(\$this->once())->method($1);
-
 ```
 
 ##### Replace expectOnce() with params
 
-```php
+``` php
 expectOnce\(([^,]+), array\((.+)\)\);
 expects(\$this->once())->method($1)->with($2);
-
 ```
 
 ##### Replace expectAt()
 
-```php
+``` php
 expectAt\((\d+), (.+), array\((.+)\)\);
 expects(\$this->at($1))->method($2)->with($3);
-
 ```
 
 ##### Replace expectNever
 
-```php
+``` php
 expectNever\(([^\)]+)\);
 expects(\$this->never())->method($1);
-
 ```
 
 ##### Replace setReturnValue
 
-```php
+``` php
 setReturnValue\(([^,]+), (.+)\);
 expects(\$this->once())->method($1)->will($this->returnValue($2));
-
 ```
 
 ##### Replace setReturnValueAt
 
-```php
+``` php
 setReturnValueAt((\d+), ([^,]+), (.+));
 expects(\$this->at($1))->method($2)->will($this->returnValue($3));
-
 ```
 
 ### Group tests
@@ -139,14 +125,15 @@ expects(\$this->at($1))->method($2)->will($this->returnValue($3));
 Group tests have been removed as PHPUnit treats individual test cases and test
 suites as composable entities in the runner. You can place group tests inside
 the cases directory and use `PHPUnit_Framework_TestSuite` as a base class. An
-example Testsuite would look like
+example Testsuite would look like:
 
-```php
+``` php
 class AllJavascriptHelpersTest extends PHPUnit_Framework_TestSuite {
 
 /**
- - Suite define the tests for this suite
- - * @return void
+ * Suite define the tests for this suite
+ *
+ * @return void
  */
     public static function suite() {
         $suite = new PHPUnit_Framework_TestSuite('JsHelper and all Engine Helpers');
@@ -159,9 +146,7 @@ class AllJavascriptHelpersTest extends PHPUnit_Framework_TestSuite {
         return $suite;
     }
 }
-
 ```
 
 `TestManger` no longer has methods to add tests to group tests either. It is
 recommended that you use the methods PHPUnit offers.
-

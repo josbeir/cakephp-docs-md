@@ -1,20 +1,22 @@
 # Shells
 
-**Namespace:** `Cake\Console`
+`class` Cake\\Console\\**Shell**
 
-### Class `Cake\Console\Shell`
+<div class="deprecated">
 
-> **deprecated:** 3.6.0
+3.6.0
 Shells are deprecated as of 3.6.0, but will not be removed until 5.x.
-    Use [commands](commands.md) instead.
+Use [/console-commands/commands](console-commands/commands.md) instead.
+
+</div>
 
 ## Creating a Shell
 
 Let's create a shell for use in the Console. For this example, we'll create a
 simple Hello world shell. In your application's **src/Shell** directory create
-**HelloShell.php**. Put the following code inside it
+**HelloShell.php**. Put the following code inside it:
 
-```php
+``` php
 namespace App\Shell;
 
 use Cake\Console\Shell;
@@ -26,33 +28,26 @@ class HelloShell extends Shell
         $this->out('Hello world.');
     }
 }
-
 ```
 
 The conventions for shell classes are that the class name should match the file
 name, with the suffix of Shell. In our shell we created a `main()` method.
 This method is called when a shell is called with no additional commands. We'll
 add some more commands in a bit, but for now let's just run our shell. From your
-application directory, run
+application directory, run:
 
-```
-bin/cake hello
+    bin/cake hello
 
-```
+You should see the following output:
 
-You should see the following output::
-
-```
-Hello world.
-
-```
+    Hello world.
 
 As mentioned before, the `main()` method in shells is a special method called
 whenever there are no other commands or arguments given to a shell. Since our
 main method wasn't very interesting let's add another command that does
-something
+something:
 
-```php
+``` php
 namespace App\Shell;
 
 use Cake\Console\Shell;
@@ -69,16 +64,12 @@ class HelloShell extends Shell
         $this->out('Hey there ' . $name);
     }
 }
-
 ```
 
 After saving this file, you should be able to run the following command and see
-your name printed out
+your name printed out:
 
-```
-bin/cake hello hey_there your-name
-
-```
+    bin/cake hello hey_there your-name
 
 Any public method not prefixed by an `_` is allowed to be called from the
 command line. As you can see, methods invoked from the command line are
@@ -102,25 +93,24 @@ There will be times when building more advanced console applications, you'll
 want to compose functionality into re-usable classes that can be shared across
 many shells. Tasks allow you to extract commands into classes. For example the
 `bake` command is made almost entirely of tasks. You define a tasks for a
-shell using the `$tasks` property
+shell using the `$tasks` property:
 
-```php
+``` php
 class UserShell extends Shell
 {
     public $tasks = ['Template'];
 }
-
 ```
 
-You can use tasks from plugins using the standard :term:`plugin syntax`.
+You can use tasks from plugins using the standard `plugin syntax`.
 Tasks are stored in `Shell/Task/` in files named after their classes. So if
 we were to create a new 'FileGenerator' task, you would create
 **src/Shell/Task/FileGeneratorTask.php**.
 
 Each task must at least implement a `main()` method. The ShellDispatcher,
-will call this method when the task is invoked. A task class looks like
+will call this method when the task is invoked. A task class looks like:
 
-```php
+``` php
 namespace App\Shell\Task;
 
 use Cake\Console\Shell;
@@ -131,14 +121,13 @@ class FileGeneratorTask extends Shell
     {
     }
 }
-
 ```
 
 A shell can also access its tasks as properties, which makes tasks great for
 making re-usable chunks of functionality similar to
-[components](../controllers/components.md)
+[/controllers/components](controllers/components.md):
 
-```php
+``` php
 // Found in src/Shell/SeaShell.php
 class SeaShell extends Shell
 {
@@ -150,24 +139,21 @@ class SeaShell extends Shell
         $this->Sound->main();
     }
 }
-
 ```
 
-You can also access tasks directly from the command line::
+You can also access tasks directly from the command line:
 
-```bash
+``` bash
 $ cake sea sound
-
 ```
 
 > [!NOTE]
 > In order to access tasks directly from the command line, the task
-> **must** be included in the shell class' $tasks property.
->
+> **must** be included in the shell class' \$tasks property.
 
-Also, the task name must be added as a sub-command to the Shell's OptionParser
+Also, the task name must be added as a sub-command to the Shell's OptionParser:
 
-```php
+``` php
 public function getOptionParser()
 {
     $parser = parent::getOptionParser();
@@ -181,34 +167,31 @@ public function getOptionParser()
 
     return $parser;
 }
-
 ```
 
 ### Loading Tasks On The Fly with TaskRegistry
 
 You can load tasks on the fly using the Task registry object. You can load tasks
-that were not declared in $tasks this way
+that were not declared in \$tasks this way:
 
-```php
+``` php
 $project = $this->Tasks->load('Project');
-
 ```
 
 Would load and return a ProjectTask instance. You can load tasks from plugins
-using
+using:
 
-```php
+``` php
 $progressBar = $this->Tasks->load('ProgressBar.ProgressBar');
-
 ```
 
 ## Using Models in Your Shells
 
 You'll often need access to your application's business logic in shell
 utilities. You can load models in shells, just as you would in a controller
-using `Cake\ORM\Locator\LocatorAwareTrait::fetchTable()`
+using `Cake\ORM\Locator\LocatorAwareTrait::fetchTable()`:
 
-```php
+``` php
 namespace App\Shell;
 
 use Cake\Console\Shell;
@@ -228,7 +211,6 @@ class UserShell extends Shell
         $this->out(print_r($user, true));
     }
 }
-
 ```
 
 The above shell, will fetch a user by username and display the information
@@ -237,24 +219,23 @@ stored in the database.
 ## Shell Helpers
 
 If you have complex output generation logic, you can use
-[command-helpers](input-output.md#command-helpers) to encapsulate this logic in a re-usable way.
-<!-- anchor: invoking-other-shells-from-your-shell -->
+[command-helpers](#command-helpers) to encapsulate this logic in a re-usable way.
+
 ## Invoking Other Shells from Your Shell
 
-#### Method `Cake\Console\Shell::dispatchShell($args)`
+`method` Cake\\Console\\Shell::**dispatchShell**($args)
 
 There are still many cases where you will want to invoke one shell from another though.
 `Shell::dispatchShell()` gives you the ability to call other shells by providing the
 `argv` for the sub shell. You can provide arguments and options either
-as var args or as a string
+as var args or as a string:
 
-```php
+``` php
 // As a string
 $this->dispatchShell('schema create Blog --plugin Blog');
 
 // As an array
 $this->dispatchShell('schema', 'create', 'Blog', '--plugin', 'Blog');
-
 ```
 
 The above shows how you can call the schema shell to create the schema for a plugin
@@ -265,9 +246,9 @@ from inside your plugin's shell.
 It can sometimes be useful to pass on extra parameters (that are not shell arguments)
 to the dispatched Shell. In order to do this, you can now pass an array to
 `dispatchShell()`. The array is expected to have a `command` key as well
-as an `extra` key
+as an `extra` key:
 
-```php
+``` php
 // Using a command string
 $this->dispatchShell([
    'command' => 'schema create Blog --plugin Blog',
@@ -283,7 +264,6 @@ $this->dispatchShell([
         'foo' => 'bar'
     ]
 ]);
-
 ```
 
 Parameters passed through `extra` will be merged in the `Shell::$params`
@@ -294,18 +274,18 @@ the CakePHP console welcome message from being displayed on dispatched shells.
 
 ## Parsing CLI Options
 
-Shells use [option-parsers](option-parsers.md) to define their options,
+Shells use [/console-commands/option-parsers](console-commands/option-parsers.md) to define their options,
 arguments and automate help generation.
 
 ## Interacting with Input/Output
 
 Shells allow you to access a `ConsoleIo` instance via the `getIo()` method.
-See the [input-output](input-output.md) section for more information.
+See the [/console-commands/input-output](console-commands/input-output.md) section for more information.
 
 In addition to the `ConsoleIo` object, Shell classes offer a suite of shortcut
-methods. These methods are shortcuts and aliases to those found on `ConsoleIo`
+methods. These methods are shortcuts and aliases to those found on `ConsoleIo`:
 
-```php
+``` php
 // Get arbitrary text from the user.
 $color = $this->in('What color do you like?');
 
@@ -323,24 +303,22 @@ $this->err('Error message');
 
 // Write to stderr and raise a stop exception
 $this->abort('Fatal error');
-
 ```
 
-It also provides two convenience methods regarding the output level::
+It also provides two convenience methods regarding the output level:
 
-```php
+``` php
 // Would only appear when verbose output is enabled (-v)
 $this->verbose('Verbose message');
 
 // Would appear at all levels.
 $this->quiet('Quiet message');
-
 ```
 
 Shell also includes methods for clearing output, creating blank lines, or
-drawing a line of dashes
+drawing a line of dashes:
 
-```php
+``` php
 // Output 2 newlines
 $this->out($this->nl(2));
 
@@ -349,22 +327,20 @@ $this->clear();
 
 // Draw a horizontal line
 $this->hr();
-
 ```
 
 ## Stopping Shell Execution
 
 When your shell commands have reached a condition where you want execution to
 stop, you can use `abort()` to raise a `StopException` that will halt the
-process
+process:
 
-```php
+``` php
 $user = $this->Users->get($this->args[0]);
 if (!$user) {
     // Halt with an error message and error code.
     $this->abort('User cannot be found', 128);
 }
-
 ```
 
 ## Status and Error Codes
@@ -378,9 +354,9 @@ values to 1.
 The Cake Shell `dispatch` function also catches the `StopException` and
 uses its exception code value as the shell's exit code. As described above, you
 can use the `abort()` method to print a message and exit with a specific
-code, or raise the `StopException` directly as shown in the example
+code, or raise the `StopException` directly as shown in the example:
 
-```php
+``` php
 namespace App\Shell\Task;
 
 use Cake\Console\Shell;
@@ -402,20 +378,18 @@ class ErroneousShell extends Shell
         throw new StopException("", 2);
     }
 }
-
 ```
 
 The example above will return the following exit codes when executed on a
-command-line
+command-line:
 
-```bash
+``` bash
 $ bin/cake erroneousshell ; echo $?
-    0
+0
 $ bin/cake erroneousshell itFails ; echo $?
 1
 $ bin/cake erroneousshell itFailsSpecifically ; echo $?
 2
-
 ```
 
 > [!TIP]
@@ -423,24 +397,17 @@ $ bin/cake erroneousshell itFailsSpecifically ; echo $?
 > `sysexits.h`.
 > Avoid exit codes above 127, as these are used to indicate process exit
 > by signal, such as SIGKILL or SIGSEGV.
->
+
 > [!NOTE]
 > You can read more about conventional exit codes in the sysexit manual page
 > on most Unix systems (`man sysexits`), or the `System Error Codes` help
 > page in Windows.
->
 
 ## Hook Methods
 
-#### Method `Cake\Console\Shell::initialize()`
+`method` Cake\\Console\\Shell::**initialize**()
 
-Initializes the Shell, acts as constructor for subclasses and allows
-configuration of tasks prior to shell execution.
-
-#### Method `Cake\Console\Shell::startup()`
-
-Starts up the Shell and displays the welcome message. Allows for checking
-and configuring prior to command or main execution.
+`method` Cake\\Console\\Shell::**startup**()
 
 > [!TIP]
 > Override the `startup()` method if you want to remove the welcome
@@ -450,4 +417,3 @@ and configuring prior to command or main execution.
 > `sysexits.h`.
 > Avoid exit codes above 127, as these are used to indicate process exit
 > by signal, such as SIGKILL or SIGSEGV.
->

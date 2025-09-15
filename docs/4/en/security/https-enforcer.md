@@ -1,14 +1,9 @@
----
-title: HTTPS Enforcer Middleware
-keywords: "security, https, require https"
----
-<!-- anchor: https-enforcer-middleware -->
 # HTTPS Enforcer Middleware
 
 If you want your application to only be available via HTTPS connections you can
-use the `HttpsEnforcerMiddleware`
+use the `HttpsEnforcerMiddleware`:
 
-```php
+``` php
 use Cake\Http\Middleware\HttpsEnforcerMiddleware;
 
 // Always raise an exception and never redirect.
@@ -27,7 +22,7 @@ $https = new HttpsEnforcerMiddleware([
     'headers' => ['X-Https-Upgrade' => 1],
 ]);
 
-// Disable HTTPs enforcement when `debug` is on.
+// Disable HTTPs enforcement when ``debug`` is on.
 $https = new HttpsEnforcerMiddleware([
     'disableOnDebug' => true,
 ]);
@@ -36,7 +31,6 @@ $https = new HttpsEnforcerMiddleware([
 $https = new HttpsEnforcerMiddleware([
     'trustProxies' => ['192.168.1.1'],
 ]);
-
 ```
 
 If a non-HTTP request is received that does not use GET a `BadRequestException` will be raised.
@@ -46,9 +40,9 @@ If a non-HTTP request is received that does not use GET a `BadRequestException` 
 When your application requires SSL it is a good idea to set the
 `Strict-Transport-Security` header. This header value is cached in the
 browser, and informs browsers that they should always connect with HTTPS connections.
-You can configure this header with the `hsts` option
+You can configure this header with the `hsts` option:
 
-```php
+``` php
 $https = new HttpsEnforcerMiddleware([
     'hsts' => [
         // How long the header value should be cached for.
@@ -60,15 +54,18 @@ $https = new HttpsEnforcerMiddleware([
         'preload' => true,
     ],
 ]);
-
 ```
 
-> [!IMPORTANT]
-> Added in version 4.4.0
-> The `hsts` option was added.
->
-> [!IMPORTANT]
-> Added in version 4.5.0
+<div class="versionadded">
 
+4.4.0
+The `hsts` option was added.
+
+</div>
+
+<div class="versionadded">
+
+4.5.0
 The `trustedProxies` option was added.
 
+</div>

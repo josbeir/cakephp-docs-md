@@ -1,18 +1,10 @@
----
-title: Running Shells as cronjobs
-keywords: "cronjob,bash script,crontab"
----
-
 # Running Shells as cronjobs
 
 A common thing to do with a shell is making it run as a cronjob to
 clean up the database once in a while or send newsletters. This is
-trivial to setup, for example
+trivial to setup, for example:
 
-```bash
-*/5  *    *    *    *  cd /full/path/to/app && Console/cake myshell myparam
-```
-
+    */5  *    *    *    *  cd /full/path/to/app && Console/cake myshell myparam
     # *    *    *    *    *  command to execute
     # │    │    │    │    │
     # │    │    │    │    │
@@ -23,5 +15,4 @@ trivial to setup, for example
     # │    \──────────────────── hour (0 - 23)
     # \───────────────────────── min (0 - 59)
 
-You can see more info here: https://en.wikipedia.org/wiki/Cron
-
+You can see more info here: <https://en.wikipedia.org/wiki/Cron>

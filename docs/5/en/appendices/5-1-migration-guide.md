@@ -83,7 +83,7 @@ removed in 6.0.0.
   a typesafe way to cast request data or other input and return `null` when conversion fails.
 - `pathCombine()` was added to help build paths without worrying about duplicate and trailing slashes.
 - A new `events` hook was added to the `BaseApplication` as well as the `BasePlugin` class. This hook
-  is the recommended way to register global event listeners for you application. See [Registering Listeners](../core-libraries/events.md#registering-event-listeners)
+  is the recommended way to register global event listeners for you application. See [Registering Listeners](#registering-event-listeners)
 
 ### Database
 
@@ -167,8 +167,8 @@ removed in 6.0.0.
 ### Helpers
 
 - `TextHelper::autoLinkUrls()` has options added for better link label printing:
-  - ``stripProtocol`: Strips `http://` and `https://` from the beginning of the link. Default off.
+  - `stripProtocol`: Strips `http://` and `https://` from the beginning of the link. Default off.
   - `maxLength`: The maximum length of the link label. Default off.
   - `ellipsis`: The string to append to the end of the link label. Defaults to UTF8 version.
 - `HtmlHelper::meta()` can now create a meta tag containing the current CSRF
-  token using `meta('csrfToken')``.
+  token using `meta('csrfToken')`.

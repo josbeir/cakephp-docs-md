@@ -1,8 +1,3 @@
----
-title: Caching
-keywords: "uniform api,xcache,cache engine,cache system,atomic operations,php class,disk storage,static methods,php extension,consistent manner,similar features,apc,memcache,queries,cakephp,elements,servers,memory"
----
-
 # Caching
 
 Caching is frequently used to reduce the time it takes to create or read from
@@ -40,17 +35,27 @@ to implement your own caching systems. The built-in caching engines are:
 - `RedisEngine` Uses the [phpredis](https://github.com/phpredis/phpredis)
   extension (2.2.3 minimum). Redis provides a fast and persistent cache system
   similar to memcached, also provides atomic operations.
-> **versionchanged:** 2.3
+
+<div class="versionchanged">
+
+2.3
 FileEngine is always the default cache engine. In the past a number of people
 had difficulty setting up and deploying APC correctly both in CLI + web.
 Using files should make setting up CakePHP simpler for new developers.
-> **versionchanged:** 2.5
+
+</div>
+
+<div class="versionchanged">
+
+2.5
 The Memcached engine was added. And the Memcache engine was deprecated.
+
+</div>
 
 Regardless of the CacheEngine you choose to use, your application interacts with
 `Cache` in a consistent manner. This means you can easily swap cache engines
 as your application grows. In addition to the `Cache` class, the
-[cache](helpers/cache.md) allows for full page caching, which
+[/core-libraries/helpers/cache](core-libraries/helpers/cache.md) allows for full page caching, which
 can greatly improve performance as well.
 
 ## Configuring Cache class
@@ -71,28 +76,24 @@ also lets you incrementally change the storage as needed.
 > [!NOTE]
 > You must specify which engine to use. It does **not** default to
 > File.
->
 
-Example
+Example:
 
-```php
-// Cache configuration for data that can be cached for a short time only.
-Cache::config('short', array(
-    'engine' => 'File',
-    'duration' => '+1 hours',
-    'path' => CACHE,
-    'prefix' => 'cake_short_'
-));
+    // Cache configuration for data that can be cached for a short time only.
+    Cache::config('short', array(
+        'engine' => 'File',
+        'duration' => '+1 hours',
+        'path' => CACHE,
+        'prefix' => 'cake_short_'
+    ));
 
-// Cache configuration for data that can be cached for a long time.
-Cache::config('long', array(
-    'engine' => 'File',
-    'duration' => '+1 week',
-    'probability' => 100,
-    'path' => CACHE . 'long' . DS,
-));
-
-```
+    // Cache configuration for data that can be cached for a long time.
+    Cache::config('long', array(
+        'engine' => 'File',
+        'duration' => '+1 week',
+        'probability' => 100,
+        'path' => CACHE . 'long' . DS,
+    ));
 
 By placing the above code in your `app/Config/bootstrap.php` you will
 have two additional Cache configurations. The name of these
@@ -102,13 +103,15 @@ parameter for `Cache::write()` and `Cache::read()`, e.g. `Cache::read('my_data',
 > [!NOTE]
 > When using the FileEngine you might need to use the `mask` option to
 > ensure cache files are made with the correct permissions.
->
-> [!IMPORTANT]
-> Added in version 2.4
->
-> In debug mode missing directories will now be automatically created to avoid unnecessary
-> errors thrown when using the FileEngine.
->
+
+<div class="versionadded">
+
+2.4
+
+In debug mode missing directories will now be automatically created to avoid unnecessary
+errors thrown when using the FileEngine.
+
+</div>
 
 ## Creating a storage engine for Cache
 
@@ -119,21 +122,19 @@ directory. If you had a cache engine named `MyCustomCacheEngine`
 it would be placed in either `app/Lib/Cache/Engine/MyCustomCacheEngine.php`
 as an app/libs or in `$plugin/Lib/Cache/Engine/MyCustomCacheEngine.php` as
 part of a plugin. Cache configs from plugins need to use the plugin
-dot syntax.
+dot syntax. :
 
-```php
+``` css
 Cache::config('custom', array(
     'engine' => 'CachePack.MyCustomCache',
     // ...
 ));
-
 ```
 
 > [!NOTE]
 > App and Plugin cache engines should be configured in
 > `app/Config/bootstrap.php`. If you try to configure them in core.php
 > they will not work correctly.
->
 
 Custom Cache engines must extend `CacheEngine` which defines
 a number of abstract methods as well as provides a few initialization
@@ -141,81 +142,34 @@ methods.
 
 The required API for a CacheEngine is
 
-### Class `CacheEngine`
+`class` **CacheEngine**
 
-The base class for all cache engines used with Cache.
+`method` CacheEngine::**write**($key, $value, $config = 'default')
 
-#### Method `write($key, $value, $config = 'default')`
+`method` CacheEngine::**read**($key, $config = 'default')
 
-:return: boolean for success.
+`method` CacheEngine::**delete**($key, $config = 'default')
 
-Write value for a key into cache, optional string $config
-specifies configuration name to write to.
+`method` CacheEngine::**clear**($check)
 
-#### Method `read($key, $config = 'default')`
+`method` CacheEngine::**clearGroup**($group)
 
-:return: The cached value or false for failure.
+`method` CacheEngine::**decrement**($key, $offset = 1)
 
-Read a key from the cache, optional string $config
-specifies configuration name to read from. Return false to
-indicate the entry has expired or does not exist.
+`method` CacheEngine::**increment**($key, $offset = 1)
 
-#### Method `delete($key, $config = 'default')`
+`method` CacheEngine::**gc**()
 
-:return: Boolean true on success.
-
-Delete a key from the cache, optional string $config
-specifies configuration name to delete from. Return false to
-indicate that the entry did not exist or could not be deleted.
-
-#### Method `clear($check)`
-
-:return: Boolean true on success.
-
-Delete all keys from the cache. If $check is true, you should
-validate that each value is actually expired.
-
-#### Method `clearGroup($group)`
-
-:return: Boolean true on success.
-
-Delete all keys from the cache belonging to the same group.
-
-#### Method `decrement($key, $offset = 1)`
-
-:return: The decremented value on success, false otherwise.
-
-Decrement a number under the key and return decremented value
-
-#### Method `increment($key, $offset = 1)`
-
-:return: The incremented value on success, false otherwise.
-
-Increment a number under the key and return incremented value
-
-#### Method `gc()`
-
-Not required, but used to do clean up when resources expire.
-FileEngine uses this to delete files containing expired content.
-
-#### Method `add($key, $value)`
-
-Set a value in the cache if it did not already exist. Should use
-an atomic check and set where possible.
-
-> [!IMPORTANT]
-> Added in version 2.8
-> add method was added in 2.8.0.
->
+`method` CacheEngine::**add**($key, $value)
 
 ## Using Cache to store common query results
 
 You can greatly improve the performance of your application by putting
 results that infrequently change, or that are subject to heavy reads into the
 cache. A perfect example of this are the results from `Model::find()`.
-A method that uses Cache to store results could look like
+A method that uses Cache to store results could look like:
 
-```php
+``` php
 class Post extends AppModel {
 
     public function newest() {
@@ -227,7 +181,6 @@ class Post extends AppModel {
         return $result;
     }
 }
-
 ```
 
 You could improve the above code by moving the cache reading logic into
@@ -236,9 +189,9 @@ That is an exercise you can do though.
 
 As of 2.5 you can accomplish the above much more simple by using
 `Cache::remember()`. Assuming you are using PHP 5.3 or
-newer, using the `remember()` method would look like
+newer, using the `remember()` method would look like:
 
-```php
+``` php
 class Post extends AppModel {
 
     public function newest() {
@@ -251,7 +204,6 @@ class Post extends AppModel {
         }, 'long');
     }
 }
-
 ```
 
 ## Using Cache to store counters
@@ -264,9 +216,9 @@ contention, a scenario where two users simultaneously lower the value by one,
 resulting in an incorrect value.
 
 After setting an integer value, you can manipulate it using
-`Cache::increment()` and `Cache::decrement()`
+`Cache::increment()` and `Cache::decrement()`:
 
-```php
+``` css
 Cache::write('initial_count', 10);
 
 // Later on
@@ -274,32 +226,31 @@ Cache::decrement('initial_count');
 
 // or
 Cache::increment('initial_count');
-
 ```
 
 > [!NOTE]
 > Incrementing and decrementing do not work with FileEngine. You should use
 > APC, Redis or Memcached instead.
->
 
 ## Using groups
 
-> [!IMPORTANT]
-> Added in version 2.2
->
+<div class="versionadded">
+
+2.2
+
+</div>
 
 Sometimes you will want to mark multiple cache entries to belong to a certain
 group or namespace. This is a common requirement for mass-invalidating keys
 whenever some information changes that is shared among all entries in the same
-group. This is possible by declaring the groups in cache configuration
+group. This is possible by declaring the groups in cache configuration:
 
-```php
+``` css
 Cache::config('site_home', array(
     'engine' => 'Redis',
     'duration' => '+999 days',
     'groups' => array('comment', 'post')
 ));
-
 ```
 
 Let's say you want to store the HTML generated for your homepage in cache, but
@@ -309,9 +260,9 @@ we have effectively tagged any key stored into this cache configuration with
 both group names.
 
 For instance, whenever a new post is added, we could tell the Cache engine to
-remove all entries associated to the `post` group
+remove all entries associated to the `post` group:
 
-```php
+``` php
 // Model/Post.php
 
 public function afterSave($created, $options = array()) {
@@ -319,22 +270,23 @@ public function afterSave($created, $options = array()) {
         Cache::clearGroup('post', 'site_home');
     }
 }
-
 ```
 
-> [!IMPORTANT]
-> Added in version 2.4
->
+<div class="versionadded">
+
+2.4
+
+</div>
 
 `Cache::groupConfigs()` can be used to retrieve mapping between
-group and configurations, i.e.: having the same group
+group and configurations, i.e.: having the same group:
 
-```php
+``` php
 // Model/Post.php
 
 /**
- - A variation of previous example that clears all Cache configurations
- - having the same group
+ * A variation of previous example that clears all Cache configurations
+ * having the same group
  */
 public function afterSave($created, $options = array()) {
     if ($created) {
@@ -344,7 +296,6 @@ public function afterSave($created, $options = array()) {
         }
     }
 }
-
 ```
 
 Groups are shared across all cache configs using the same engine and same
@@ -353,166 +304,6 @@ choose a common prefix for all your configs.
 
 ## Cache API
 
-### Class `Cache`
+`class` **Cache**
 
-The Cache class in CakePHP provides a generic frontend for several
-backend caching systems. Different Cache configurations and engines
-can be set up in your app/Config/core.php
-
-#### Static Method `config($name = null, $settings = array())`
-
-`Cache::config()` is used to create additional Cache
-configurations. These additional configurations can have different
-duration, engines, paths, or prefixes than your default cache
-config.
-
-#### Static Method `read($key, $config = 'default')`
-
-`Cache::read()` is used to read the cached value stored under
-`$key` from the `$config`. If $config is null the default
-config will be used. `Cache::read()` will return the cached value
-    if it is a valid cache or `false` if the cache has expired or
-doesn't exist. The contents of the cache might evaluate false, so
-make sure you use the strict comparison operators: `===` or
-`!==`.
-
-For example
-
-```php
-$cloud = Cache::read('cloud');
-
-if ($cloud !== false) {
-    return $cloud;
-}
-
-// generate cloud data
-// ...
-
-// store data in cache
-Cache::write('cloud', $cloud);
-return $cloud;
-
-```
-
-#### Static Method `write($key, $value, $config = 'default')`
-
-`Cache::write()` will write a $value to the Cache. You can read or
-delete this value later by referring to it by `$key`. You may
-specify an optional configuration to store the cache in as well. If
-no `$config` is specified, default will be used. `Cache::write()`
-can store any type of object and is ideal for storing results of
-model finds
-
-```php
-if (($posts = Cache::read('posts')) === false) {
-    $posts = $this->Post->find('all');
-    Cache::write('posts', $posts);
-}
-
-```
-
-Using `Cache::write()` and `Cache::read()` to easily reduce the number
-of trips made to the database to fetch posts.
-
-#### Static Method `delete($key, $config = 'default')`
-
-`Cache::delete()` will allow you to completely remove a cached
-object from the Cache store.
-
-#### Static Method `set($settings = array(), $value = null, $config = 'default')`
-
-`Cache::set()` allows you to temporarily override a cache config's
-settings for one operation (usually a read or write). If you use
-`Cache::set()` to change the settings for a write, you should
-also use `Cache::set()` before reading the data back in. If you
-fail to do so, the default settings will be used when the cache key
-is read.
-
-```php
-Cache::set(array('duration' => '+30 days'));
-Cache::write('results', $data);
-
-// Later on
-
-Cache::set(array('duration' => '+30 days'));
-$results = Cache::read('results');
-
-```
-
-If you find yourself repeatedly calling `Cache::set()` then perhaps
-you should create a new `Cache::config()`. This will remove the
-need to call `Cache::set()`.
-
-#### Static Method `increment($key, $offset = 1, $config = 'default')`
-
-Atomically increment a value stored in the cache engine. Ideal for
-modifying counters or semaphore type values.
-
-#### Static Method `decrement($key, $offset = 1, $config = 'default')`
-
-Atomically decrement a value stored in the cache engine. Ideal for
-modifying counters or semaphore type values.
-
-#### Static Method `add($key, $value, $config = 'default')`
-
-Add data to the cache, but only if the key does not exist already.
-In the case that data did exist, this method will return false.
-Where possible data is checked & set atomically.
-
-> [!IMPORTANT]
-> Added in version 2.8
-> add method was added in 2.8.0.
->
-
-#### Static Method `clear($check, $config = 'default')`
-
-Destroy all cached values for a cache configuration. In engines like Apc,
-Memcache and Wincache, the cache configuration's prefix is used to remove
-cache entries. Make sure that different cache configurations have different
-prefixes.
-
-#### Method `clearGroup($group, $config = 'default')`
-
-:return: Boolean true on success.
-
-Delete all keys from the cache belonging to the same group.
-
-#### Static Method `gc($config)`
-
-Garbage collects entries in the cache configuration. This is primarily
-used by FileEngine. It should be implemented by any Cache engine
-that requires manual eviction of cached data.
-
-#### Static Method `groupConfigs($group = null)`
-
-:return: Array of groups and its related configuration names.
-
-Retrieve group names to config mapping.
-
-#### Static Method `remember($key, $callable, $config = 'default')`
-
-Provides an easy way to do read-through caching. If the cache key exists
-it will be returned. If the key does not exist, the callable will be invoked
-and the results stored in the cache at the provided key.
-
-For example, you often want to cache query results. You could use
-`remember()` to make this simple. Assuming you are using PHP 5.3 or
-newer
-
-```php
-class Articles extends AppModel {
-    function all() {
-        $model = $this;
-        return Cache::remember('all_articles', function () use ($model){
-            return $model->find('all');
-        });
-    }
-}
-
-```
-
-> [!IMPORTANT]
-> Added in version 2.5
-> remember() was added in 2.5.
->
->
+`method` Cache::**clearGroup**($group, $config = 'default')

@@ -1,8 +1,3 @@
----
-title: Tickets
-keywords: "bug reporting system,code snippet,reporting security,private mailing,release announcement,google,ticket system,core team,security issue,bug tracker,irc channel,test cases,support questions,bug report,security issues,bug reports,exploits,vulnerability,repository"
----
-
 # Tickets
 
 Getting feedback and help from the community in the form of tickets is an
@@ -24,15 +19,15 @@ the best bug report possible:
 - **Do** give as many details as possible about your environment: (OS, PHP
   version, CakePHP version).
 - **Don't** use the ticket system to ask support questions. Use the [Google
-  Group](https://groups.google.com/group/cake-php), the #cakephp IRC channel or
-  Stack Overflow <https://stackoverflow.com/questions/tagged/cakephp>
+  Group](https://groups.google.com/group/cake-php), the \#cakephp IRC channel or
+  Stack Overflow \<<https://stackoverflow.com/questions/tagged/cakephp>\>
   for that.
 
 ## Reporting security issues
 
 If you've found a security issue in CakePHP, please use the following procedure
 instead of the normal bug reporting system. Instead of using the bug tracker,
-mailing list or IRC please send an email to **security [at] cakephp.org**.
+mailing list or IRC please send an email to **security \[at\] cakephp.org**.
 Emails sent to this address go to the CakePHP core team on a private mailing
 list.
 
@@ -46,4 +41,3 @@ CakePHP team will take the following actions:
 - Prepare a post describing the vulnerability, and the possible exploits.
 - Release new versions of all affected versions.
 - Prominently feature the problem in the release announcement.
-

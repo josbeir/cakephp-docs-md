@@ -1,14 +1,11 @@
----
-title: Appendices
-keywords: "migration guide,migration path,new features,glossary"
----
-
 # Appendices
 
 Appendices contain information regarding the new features
 introduced in each version and the migration path between versions.
 
 ## 3.x Migration Guide
+
+- [3 X Migration Guide](appendices/3-x-migration-guide.md)
 
 ## Forwards Compatibility Shimming
 
@@ -19,3 +16,6 @@ the [Shim plugin](https://github.com/dereuromark/cakephp-shim) that can help mit
 The closer your 3.x app is to 4.x, the smaller will be the diff of changes, and the smoother will be the final upgrade.
 
 ## General Information
+
+- [Cakephp Development Process](appendices/cakephp-development-process.md)
+- [Glossary](appendices/glossary.md)

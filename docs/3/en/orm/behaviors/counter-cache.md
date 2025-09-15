@@ -1,8 +1,6 @@
 # CounterCache
 
-**Namespace:** `Cake\ORM\Behavior`
-
-### Class `Cake\ORM\Behavior\CounterCacheBehavior`
+`class` Cake\\ORM\\Behavior\\**CounterCacheBehavior**
 
 Often times web applications need to display counts of related objects. For
 example, when showing a list of articles you may want to display how many
@@ -17,9 +15,9 @@ be of the type INT.
 You enable the CounterCache behavior like any other behavior, but it won't do
 anything until you configure some relations and the field counts that should be
 stored on each of them. Using our example below, we could cache the comment
-count for each article with the following
+count for each article with the following:
 
-```php
+``` php
 class CommentsTable extends Table
 {
     public function initialize(array $config)
@@ -29,7 +27,6 @@ class CommentsTable extends Table
         ]);
     }
 }
-
 ```
 
 The CounterCache configuration should be a map of relation names and the
@@ -43,9 +40,9 @@ or execute SQL you have written.
 
 If you need to keep a cached counter for less than all of the related records,
 you can supply additional conditions or finder methods to generate a
-counter value
+counter value:
 
-```php
+``` php
 // Use a specific find method.
 // In this case find(published)
 $this->addBehavior('CounterCache', [
@@ -55,13 +52,12 @@ $this->addBehavior('CounterCache', [
         ]
     ]
 ]);
-
 ```
 
 If you don't have a custom finder method you can provide an array of conditions
-to find records instead
+to find records instead:
 
-```php
+``` php
 $this->addBehavior('CounterCache', [
     'Articles' => [
         'comment_count' => [
@@ -69,13 +65,12 @@ $this->addBehavior('CounterCache', [
         ]
     ]
 ]);
-
 ```
 
 If you want CounterCache to update multiple fields, for example both showing a
-conditional count and a basic count you can add these fields in the array
+conditional count and a basic count you can add these fields in the array:
 
-```php
+``` php
 $this->addBehavior('CounterCache', [
     'Articles' => ['comment_count',
         'published_comment_count' => [
@@ -83,15 +78,14 @@ $this->addBehavior('CounterCache', [
         ]
     ]
 ]);
-
 ```
 
 If you want to calculate the CounterCache field value on your own, you can set
 the `ignoreDirty` option to `true`.
 This will prevent the field from being recalculated if you've set it dirty
-before
+before:
 
-```php
+``` php
 $this->addBehavior('CounterCache', [
     'Articles' => [
         'comment_count' => [
@@ -99,13 +93,12 @@ $this->addBehavior('CounterCache', [
         ]
     ]
 ]);
-
 ```
 
 Lastly, if a custom finder and conditions are not suitable you can provide
-a callback function. Your function must return the count value to be stored
+a callback function. Your function must return the count value to be stored:
 
-```php
+``` php
 $this->addBehavior('CounterCache', [
     'Articles' => [
         'rating_avg' => function ($event, $entity, $table, $original) {
@@ -113,12 +106,11 @@ $this->addBehavior('CounterCache', [
         }
     ]
 ]);
-
 ```
 
 Your function can return `false` to skip updating the counter column, or
 a `Query` object that produced the count value. If you return a `Query`
-object, your query will be used as a subquery in the update statement.  The
+object, your query will be used as a subquery in the update statement. The
 `$table` parameter refers to the table object holding the behavior (not the
 target relation) for convenience. The callback is invoked at least once with
 `$original` set to `false`. If the entity-update changes the association
@@ -135,7 +127,11 @@ then updates the counter of the *previously* associated item.
 > You need to enable the CounterCache behavior in a custom `through` table
 > configured in association options and set the `cascadeCallbacks` configuration
 > option to true. See how to configure a custom join table
-> [using-the-through-option](../associations.md#using-the-through-option).
-> **versionchanged:** 3.6.0
+> [using-the-through-option](#using-the-through-option).
 
+<div class="versionchanged">
+
+3.6.0
 Returning `false` to skip updates was added.
+
+</div>

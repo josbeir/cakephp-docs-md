@@ -7,18 +7,21 @@ managing these associations easy. The four association types in CakePHP are:
 hasOne, hasMany, belongsTo, and belongsToMany.
 
 | Relationship | Association Type | Example |
-| --- | --- | --- |
+|----|----|----|
 | one to one | hasOne | A user has one profile. |
+| ------------- | --------------------- | --------------------------------------- |
 | one to many | hasMany | A user can have multiple articles. |
+| ------------- | --------------------- | --------------------------------------- |
 | many to one | belongsTo | Many articles belong to a user. |
+| ------------- | --------------------- | --------------------------------------- |
 | many to many | belongsToMany | Tags belong to many articles. |
 
 Associations are defined during the `initialize()` method of your table
 object. Methods matching the association type allow you to define the
 associations in your application. For example if we wanted to define a belongsTo
-association in our ArticlesTable
+association in our ArticlesTable:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
@@ -30,15 +33,14 @@ class ArticlesTable extends Table
         $this->belongsTo('Authors');
     }
 }
-
 ```
 
 The simplest form of any association setup takes the table alias you want to
 associate with. By default all of the details of an association will use the
 CakePHP conventions. If you want to customize how your associations are handled
-you can modify them with setters
+you can modify them with setters:
 
-```php
+``` php
 class ArticlesTable extends Table
 {
     public function initialize(array $config)
@@ -50,27 +52,25 @@ class ArticlesTable extends Table
             ->setProperty('person');
     }
 }
-
 ```
 
-You can also use arrays to customize your associations::
+You can also use arrays to customize your associations:
 
-```php
+``` php
 $this->belongsTo('Authors', [
     'className' => 'Publishing.Authors',
     'foreignKey' => 'authorid',
     'propertyName' => 'person'
 ]);
-
 ```
 
 However, arrays do not offer the typehinting and autocomplete benefits that the fluent interface does.
 
 The same table can be used multiple times to define different types of
 associations. For example consider a case where you want to separate
-approved comments and those that have not been moderated yet
+approved comments and those that have not been moderated yet:
 
-```php
+``` php
 class ArticlesTable extends Table
 {
     public function initialize(array $config)
@@ -85,14 +85,13 @@ class ArticlesTable extends Table
             ->setProperty('unapproved_comments');
     }
 }
-
 ```
 
 As you can see, by specifying the `className` key, it is possible to use the
 same table as different associations for the same table. You can even create
-self-associated tables to create parent-child relationships
+self-associated tables to create parent-child relationships:
 
-```php
+``` php
 class CategoriesTable extends Table
 {
     public function initialize(array $config)
@@ -106,14 +105,13 @@ class CategoriesTable extends Table
         ]);
     }
 }
-
 ```
 
 You can also setup associations in mass by making a single call to
 `Table::addAssociations()` which accepts an array containing a set of
-table names indexed by association type as an argument
+table names indexed by association type as an argument:
 
-```php
+``` php
 class PostsTable extends Table
 {
     public function initialize(array $config)
@@ -127,13 +125,12 @@ class PostsTable extends Table
        ]);
     }
 }
-
 ```
 
 Each association type accepts multiple associations where the keys are the
 aliases, and the values are association config data. If numeric keys are used
 the values will be treated as association aliases.
-<!-- anchor: has-one-associations -->
+
 ## HasOne Associations
 
 Let's set up a Users table with a hasOne relationship to the Addresses table.
@@ -145,22 +142,22 @@ called 'user_id'. The basic pattern is:
 
 **hasOne:** the *other* model contains the foreign key.
 
-| Relation | Schema |
-| --- | --- |
-| Users hasOne Addresses | addresses.user\_id |
-| Doctors hasOne Mentors | mentors.doctor\_id |
+| Relation               | Schema             |
+|------------------------|--------------------|
+| Users hasOne Addresses | addresses.user_id  |
+| ---------------------- | ------------------ |
+| Doctors hasOne Mentors | mentors.doctor_id  |
 
 > [!NOTE]
 > It is not mandatory to follow CakePHP conventions, you can override the name
 > of any `foreignKey` in your associations definitions. Nevertheless, sticking
 > to conventions will make your code less repetitive, easier to read and to
 > maintain.
->
 
 Once you create the `UsersTable` and `AddressesTable` classes, you can make
-the association with the following code
+the association with the following code:
 
-```php
+``` php
 class UsersTable extends Table
 {
     public function initialize(array $config)
@@ -168,14 +165,13 @@ class UsersTable extends Table
         $this->hasOne('Addresses');
     }
 }
-
 ```
 
 If you need more control, you can define your associations using the setters.
 For example, you might want to limit the association to include only certain
-records
+records:
 
-```php
+``` php
 class UsersTable extends Table
 {
     public function initialize(array $config)
@@ -186,12 +182,11 @@ class UsersTable extends Table
             ->setDependent(true);
     }
 }
-
 ```
 
-If you want to break different addresses into multiple associations, you can do something like::
+If you want to break different addresses into multiple associations, you can do something like:
 
-```php
+``` php
 class UsersTable extends Table
 {
     public function initialize(array $config)
@@ -210,13 +205,11 @@ class UsersTable extends Table
             ->setDependent(true);
     }
 }
-
 ```
 
 > [!NOTE]
 > If a column is shared by multiple hasOne associations, you must qualify it with the association alias.
 > In the above example, the 'label' column is qualified with the 'HomeAddress' and 'WorkAddress' aliases.
->
 
 Possible keys for hasOne association arrays include:
 
@@ -225,9 +218,9 @@ Possible keys for hasOne association arrays include:
   it should be 'Addresses'. The default value is the name of the association.
 - **foreignKey**: The name of the foreign key column in the other table. The
   default value is the underscored, singular name of the current model,
-  suffixed with '\_id' such as 'user\_id' in the above example.
+  suffixed with '\_id' such as 'user_id' in the above example.
 - **bindingKey**: The name of the column in the current table used to match the
-  `foreignKey`.  The default value is the primary key of the current table
+  `foreignKey`. The default value is the primary key of the current table
   such as 'id' of Users in the above example.
 - **conditions**: An array of find() compatible conditions such as
   `['Addresses.primary' => true]`
@@ -250,24 +243,22 @@ Possible keys for hasOne association arrays include:
 - **finder**: The finder method to use when loading associated records.
 
 Once this association has been defined, find operations on the Users table can
-contain the Address record if it exists
+contain the Address record if it exists:
 
-```php
+``` php
 // In a controller or table method.
 $query = $users->find('all')->contain(['Addresses']);
 foreach ($query as $user) {
     echo $user->address->street;
 }
-
 ```
 
 The above would emit SQL that is similar to:
 
-```sql
+``` sql
 SELECT * FROM users INNER JOIN addresses ON addresses.user_id = users.id;
 ```
 
-<!-- anchor: belongs-to-associations -->
 ## BelongsTo Associations
 
 Now that we have Address data access from the User table, let's define
@@ -281,18 +272,18 @@ convention:
 
 **belongsTo:** the *current* model contains the foreign key.
 
-| Relation | Schema |
-| --- | --- |
-| Addresses belongsTo Users | addresses.user\_id |
-| Mentors belongsTo Doctors | mentors.doctor\_id |
+| Relation                  | Schema             |
+|---------------------------|--------------------|
+| Addresses belongsTo Users | addresses.user_id  |
+| ------------------------- | ------------------ |
+| Mentors belongsTo Doctors | mentors.doctor_id  |
 
 > [!TIP]
 > If a table contains a foreign key, it belongs to the other table.
->
 
-We can define the belongsTo association in our Addresses table as follows
+We can define the belongsTo association in our Addresses table as follows:
 
-```php
+``` php
 class AddressesTable extends Table
 {
     public function initialize(array $config)
@@ -300,12 +291,11 @@ class AddressesTable extends Table
         $this->belongsTo('Users');
     }
 }
-
 ```
 
-We can also define a more specific relationship using the setters::
+We can also define a more specific relationship using the setters:
 
-```php
+``` php
 class AddressesTable extends Table
 {
     public function initialize(array $config)
@@ -316,7 +306,6 @@ class AddressesTable extends Table
             ->setJoinType('INNER');
     }
 }
-
 ```
 
 Possible keys for belongsTo association arrays include:
@@ -326,9 +315,9 @@ Possible keys for belongsTo association arrays include:
   it should be 'Users'. The default value is the name of the association.
 - **foreignKey**: The name of the foreign key column in the current table. The
   default value is the underscored, singular name of the other model,
-  suffixed with '\_id' such as 'user\_id' in the above example.
+  suffixed with '\_id' such as 'user_id' in the above example.
 - **bindingKey**: The name of the column in the other table used to match the
-  `foreignKey`.  The default value is the primary key of the other table
+  `foreignKey`. The default value is the primary key of the other table
   such as 'id' of Users in the above example.
 - **conditions**: An array of find() compatible conditions or SQL strings such
   as `['Users.active' => true]`
@@ -344,24 +333,22 @@ Possible keys for belongsTo association arrays include:
 - **finder**: The finder method to use when loading associated records.
 
 Once this association has been defined, find operations on the Addresses table can
-contain the User record if it exists
+contain the User record if it exists:
 
-```php
+``` php
 // In a controller or table method.
 $query = $addresses->find('all')->contain(['Users']);
 foreach ($query as $address) {
     echo $address->user->username;
 }
-
 ```
 
 The above would output SQL similar to:
 
-```sql
+``` sql
 SELECT * FROM addresses LEFT JOIN users ON addresses.user_id = users.id;
 ```
 
-<!-- anchor: has-many-associations -->
 ## HasMany Associations
 
 An example of a hasMany association is "Articles hasMany Comments". Defining this
@@ -373,15 +360,17 @@ convention:
 
 **hasMany:** the *other* model contains the foreign key.
 
-| Relation | Schema |
-| --- | --- |
-| Articles hasMany Comments | Comments.article\_id |
-| Products hasMany Options | Options.product\_id |
-| Doctors hasMany Patients | Patients.doctor\_id |
+| Relation                   | Schema               |
+|----------------------------|----------------------|
+| Articles hasMany Comments  | Comments.article_id  |
+| -------------------------- | -------------------- |
+| Products hasMany Options   | Options.product_id   |
+| -------------------------- | -------------------- |
+| Doctors hasMany Patients   | Patients.doctor_id   |
 
-We can define the hasMany association in our Articles model as follows
+We can define the hasMany association in our Articles model as follows:
 
-```php
+``` php
 class ArticlesTable extends Table
 {
     public function initialize(array $config)
@@ -389,12 +378,11 @@ class ArticlesTable extends Table
         $this->hasMany('Comments');
     }
 }
-
 ```
 
-We can also define a more specific relationship using the setters::
+We can also define a more specific relationship using the setters:
 
-```php
+``` php
 class ArticlesTable extends Table
 {
     public function initialize(array $config)
@@ -404,28 +392,26 @@ class ArticlesTable extends Table
             ->setDependent(true);
     }
 }
-
 ```
 
-Sometimes you may want to configure composite keys in your associations
+Sometimes you may want to configure composite keys in your associations:
 
-```php
+``` php
 // Within ArticlesTable::initialize() call
 $this->hasMany('Comments')
     ->setForeignKey([
         'article_id',
         'article_hash'
     ]);
-
 ```
 
 Relying on the example above, we have passed an array containing the desired
 composite keys to `setForeignKey()`. By default the `bindingKey` would be
 automatically defined as `id` and `hash` respectively, but let's assume that
 you need to specify different binding fields than the defaults. You can setup it
-manually with `setBindingKey()`
+manually with `setBindingKey()`:
 
-```php
+``` php
 // Within ArticlesTable::initialize() call
 $this->hasMany('Comments')
     ->setForeignKey([
@@ -436,7 +422,6 @@ $this->hasMany('Comments')
         'whatever_id',
         'whatever_hash'
     ]);
-
 ```
 
 Like hasOne associations, `foreignKey` is in the other (Comments)
@@ -449,9 +434,9 @@ Possible keys for hasMany association arrays include:
   it should be 'Comments'. The default value is the name of the association.
 - **foreignKey**: The name of the foreign key column in the other table. The
   default value is the underscored, singular name of the current model,
-  suffixed with '\_id' such as 'article\_id' in the above example.
+  suffixed with '\_id' such as 'article_id' in the above example.
 - **bindingKey**: The name of the column in the current table used to match the
-  `foreignKey`.  The default value is the primary key of the current table
+  `foreignKey`. The default value is the primary key of the current table
   such as 'id' of Articles in the above example.
 - **conditions**: an array of find() compatible conditions or SQL
   strings such as `['Comments.visible' => true]`
@@ -477,54 +462,50 @@ Possible keys for hasMany association arrays include:
 - **finder**: The finder method to use when loading associated records.
 
 Once this association has been defined, find operations on the Articles table
-can contain the Comment records if they exist
+can contain the Comment records if they exist:
 
-```php
+``` php
 // In a controller or table method.
 $query = $articles->find('all')->contain(['Comments']);
 foreach ($query as $article) {
     echo $article->comments[0]->text;
 }
-
 ```
 
 The above would output SQL similar to:
 
-```sql
+``` sql
 SELECT * FROM articles;
 SELECT * FROM comments WHERE article_id IN (1, 2, 3, 4, 5);
-
 ```
 
 When the subquery strategy is used, SQL similar to the following will be
 generated:
 
-```sql
+``` sql
 SELECT * FROM articles;
 SELECT * FROM comments WHERE article_id IN (SELECT id FROM articles);
-
 ```
 
 You may want to cache the counts for your hasMany associations. This is useful
 when you often need to show the number of associated records, but don't want to
 load all the records just to count them. For example, the comment count on any
 given article is often cached to make generating lists of articles more
-efficient. You can use the [CounterCacheBehavior](behaviors/counter-cache.md) to cache counts of associated records.
+efficient. You can use the [CounterCacheBehavior](orm/behaviors/counter-cache.md) to cache counts of associated records.
 
 You should make sure that your database tables do not contain columns that match
 association property names. If for example you have counter fields that conflict
 with association properties, you must either rename the association property, or
 the column name.
-<!-- anchor: belongs-to-many-associations -->
+
 ## BelongsToMany Associations
 
 > [!NOTE]
 > In 3.0 and onward `hasAndBelongsToMany` / `HABTM` has been renamed to
 > `belongsToMany` / `BTM`.
->
 
 An example of a BelongsToMany association is "Article BelongsToMany Tags", where
-the tags from one article are shared with other articles.  BelongsToMany is
+the tags from one article are shared with other articles. BelongsToMany is
 often referred to as "has and belongs to many", and is a classic "many to many"
 association.
 
@@ -536,7 +517,7 @@ I write.
 
 Three database tables are required for a BelongsToMany association. In the
 example above we would need tables for `articles`, `tags` and
-`articles_tags`.  The `articles_tags` table contains the data that links
+`articles_tags`. The `articles_tags` table contains the data that links
 tags and articles together. The joining table is named after the two tables
 involved, separated with an underscore by convention. In its simplest form, this
 table consists of `article_id` and `tag_id`.
@@ -545,13 +526,15 @@ table consists of `article_id` and `tag_id`.
 names.
 
 | Relationship | Join Table Fields |
-| --- | --- |
+|----|----|
 | Articles belongsToMany Tags | articles_tags.id, articles_tags.tag_id, articles_tags.article_id |
-| Patients belongsToMany Doctors | doctors_patients.id, doctors_patients.doctor_id, doctors_patients.patient_id. |
+| ------------------------------ | ---------------------------------------------------------------- |
+| Patients belongsToMany Doctors | doctors_patients.id, doctors_patients.doctor_id,
+doctors_patients.patient_id. |
 
-We can define the belongsToMany association in both our models as follows
+We can define the belongsToMany association in both our models as follows:
 
-```php
+``` php
 // In src/Model/Table/ArticlesTable.php
 class ArticlesTable extends Table
 {
@@ -569,12 +552,11 @@ class TagsTable extends Table
         $this->belongsToMany('Articles');
     }
 }
-
 ```
 
-We can also define a more specific relationship using configuration::
+We can also define a more specific relationship using configuration:
 
-```php
+``` php
 // In src/Model/Table/TagsTable.php
 class TagsTable extends Table
 {
@@ -585,7 +567,6 @@ class TagsTable extends Table
         ]);
     }
 }
-
 ```
 
 Possible keys for belongsToMany association arrays include:
@@ -608,7 +589,7 @@ Possible keys for belongsToMany association arrays include:
   model found on the join model, or list in case of composite foreign keys.
   The default value for this key is the underscored, singular name of
   the target model, suffixed with '\_id'.
-- **conditions**: An array of `find()` compatible conditions.  If you have
+- **conditions**: An array of `find()` compatible conditions. If you have
   conditions on an associated table, you should use a 'through' model, and
   define the necessary belongsTo associations on it.
 - **sort**: an array of find() compatible order clauses.
@@ -637,33 +618,31 @@ Possible keys for belongsToMany association arrays include:
 - **finder**: The finder method to use when loading associated records.
 
 Once this association has been defined, find operations on the Articles table can
-contain the Tag records if they exist
+contain the Tag records if they exist:
 
-```php
+``` php
 // In a controller or table method.
 $query = $articles->find('all')->contain(['Tags']);
 foreach ($query as $article) {
     echo $article->tags[0]->text;
 }
-
 ```
 
 The above would output SQL similar to:
 
-```sql
+``` sql
 SELECT * FROM articles;
 SELECT * FROM tags
 INNER JOIN articles_tags ON (
   tags.id = article_tags.tag_id
   AND article_id IN (1, 2, 3, 4, 5)
 );
-
 ```
 
 When the subquery strategy is used, SQL similar to the following will be
 generated:
 
-```sql
+``` sql
 SELECT * FROM articles;
 SELECT * FROM tags
 INNER JOIN articles_tags ON (
@@ -672,7 +651,6 @@ INNER JOIN articles_tags ON (
 );
 ```
 
-<!-- anchor: using-the-through-option -->
 ### Using the 'through' Option
 
 If you plan on adding extra information to the join/pivot table, or if you need
@@ -681,36 +659,27 @@ to use join columns outside of the conventions, you will need to define the
 the belongsToMany association will be created.
 
 It is sometimes desirable to store additional data with a many to many
-association. Consider the following
+association. Consider the following:
 
-```
-Student BelongsToMany Course
-Course BelongsToMany Student
-
-```
+    Student BelongsToMany Course
+    Course BelongsToMany Student
 
 A Student can take many Courses and a Course can be taken by many Students. This
-is a simple many to many association. The following table would suffice
+is a simple many to many association. The following table would suffice:
 
-```
-id | student_id | course_id
-
-```
+    id | student_id | course_id
 
 Now what if we want to store the number of days that were attended by the
-student on the course and their final grade? The table we'd want would be
+student on the course and their final grade? The table we'd want would be:
 
-```
-id | student_id | course_id | days_attended | grade
-
-```
+    id | student_id | course_id | days_attended | grade
 
 The way to implement our requirement is to use a **join model**, otherwise known
 as a **hasMany through** association. That is, the association is a model
 itself. So, we can create a new model CoursesMemberships. Take a look at the
-following models
+following models:
 
-```php
+``` php
 class StudentsTable extends Table
 {
     public function initialize(array $config)
@@ -739,7 +708,6 @@ class CoursesMembershipsTable extends Table
         $this->belongsTo('Courses');
     }
 }
-
 ```
 
 The CoursesMemberships join table uniquely identifies a given Student's
@@ -747,21 +715,20 @@ participation on a Course in addition to extra meta-information.
 
 ## Default Association Conditions
 
-The `finder` option allows you to use a [custom finder](retrieving-data-and-resultsets.md#custom-find-methods) to load associated record data. Using a finder method
-lets you encapsulate and reuse your query logic
+The `finder` option allows you to use a [custom finder](#custom-find-methods) to load associated record data. Using a finder method
+lets you encapsulate and reuse your query logic:
 
-```php
+``` php
 // When the authors association is loaded,
 // AuthorsTable::findActive() will be called.
 $this->belongsTo('Authors')
     ->setFinder('active')
 
 // Pass options to the association finder
-// The passed options will be added to the `$options` parameter
+// The passed options will be added to the ``$options`` parameter
 // of findActive()
 $this->belongsTo('Authors')
     ->setFinder(['active' => ['temporary' => true]]);
-
 ```
 
 There are some limitations when using finders to load data in associations that
@@ -779,4 +746,4 @@ above restrictions and can also use result formatters or map/reduce functions.
 
 ## Loading Associations
 
-Once you've defined your associations you can [eager load associations](retrieving-data-and-resultsets.md#eager-loading-associations) when fetching results.
+Once you've defined your associations you can [eager load associations](#eager-loading-associations) when fetching results.

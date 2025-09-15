@@ -1,8 +1,3 @@
----
-title: Deployment
-keywords: "stack traces,application extensions,set document,installation documentation,development features,generic error,document root,func,debug,caches,error messages,configuration files,webroot,deployment,cakephp,applications"
----
-
 # Deployment
 
 Once your application is complete, or even before that you'll want to deploy it.
@@ -11,9 +6,9 @@ There are a few things you should do when deploying a CakePHP application.
 ## Check your security
 
 If you're throwing your application out into the wild, it's a good idea to make
-sure it doesn't have any leaks. Check the [security-component](core-libraries/components/security-component.md) to guard against
-CSRF attacks, form field tampering, and others. Doing [data-validation](models/data-validation.md), and/or
-[sanitize](core-utility-libraries/sanitize.md) is also a great idea, for protecting your
+sure it doesn't have any leaks. Check the [/core-libraries/components/security-component](core-libraries/components/security-component.md) to guard against
+CSRF attacks, form field tampering, and others. Doing [/models/data-validation](models/data-validation.md), and/or
+[/core-utility-libraries/sanitize](core-utility-libraries/sanitize.md) is also a great idea, for protecting your
 database and also against XSS attacks. Check that only your `webroot` directory
 is publicly visible, and that your secrets (such as your app salt and
 any security keys) are private and unique as well!
@@ -25,7 +20,7 @@ keeping your code secure and your application safer. CakePHP applications
 should have the document root set to the application's `app/webroot`. This
 makes the application and configuration files inaccessible through a URL.
 Setting the document root is different for different webservers. See the
-[url-rewriting](installation/url-rewriting.md) documentation for webserver specific
+[/installation/url-rewriting](installation/url-rewriting.md) documentation for webserver specific
 information.
 
 In all cases you will want to set the virtual host/domain's document to be
@@ -51,35 +46,26 @@ In addition to the above, many plugins and application extensions use `debug`
 to modify their behavior.
 
 You can check against an environment variable to set the debug level dynamically
-between environments. This will avoid deploying an application with debug > 0 and
+between environments. This will avoid deploying an application with debug \> 0 and
 also save yourself from having to change the debug level each time before deploying
 to a production environment.
 
-For example, you can set an environment variable in your Apache configuration
+For example, you can set an environment variable in your Apache configuration:
 
-```
-SetEnv CAKEPHP_DEBUG 2
+    SetEnv CAKEPHP_DEBUG 2
 
-```
+And then you can set the debug level dynamically in `core.php`:
 
-And then you can set the debug level dynamically in `core.php`
-
-```php
-if (getenv('CAKEPHP_DEBUG')) {
-	Configure::write('debug', 2);
-} else {
-	Configure::write('debug', 0);
-}
-
-```
+    if (getenv('CAKEPHP_DEBUG')) {
+        Configure::write('debug', 2);
+    } else {
+        Configure::write('debug', 0);
+    }
 
 ## Improve your application's performance
 
 Since handling static assets, such as images, JavaScript and CSS files of plugins,
 through the Dispatcher is incredibly inefficient, it is strongly recommended to symlink
-them for production. For example like this
+them for production. For example like this:
 
-```
-ln -s app/Plugin/YourPlugin/webroot/css/yourplugin.css app/webroot/css/yourplugin.css
-
-```
+    ln -s app/Plugin/YourPlugin/webroot/css/yourplugin.css app/webroot/css/yourplugin.css

@@ -7,30 +7,27 @@ changes and improvements made for 2.1.
 
 These classes are now required to be part of the app directory, as they were
 removed from the CakePHP core. If you do not already have these classes, you
-can use the following while upgrading
+can use the following while upgrading:
 
-```php
-// app/View/Helper/AppHelper.php
-App::uses('Helper', 'View');
-class AppHelper extends Helper {
-}
+    // app/View/Helper/AppHelper.php
+    App::uses('Helper', 'View');
+    class AppHelper extends Helper {
+    }
 
-// app/Model/AppModel.php
-App::uses('Model', 'Model');
-class AppModel extends Model {
-}
+    // app/Model/AppModel.php
+    App::uses('Model', 'Model');
+    class AppModel extends Model {
+    }
 
-// app/Controller/AppController.php
-App::uses('Controller', 'Controller');
-class AppController extends Controller {
-}
+    // app/Controller/AppController.php
+    App::uses('Controller', 'Controller');
+    class AppController extends Controller {
+    }
 
-// app/Console/Command/AppShell.php
-App::uses('Shell', 'Console');
-class AppShell extends Shell {
-}
-
-```
+    // app/Console/Command/AppShell.php
+    App::uses('Shell', 'Console');
+    class AppShell extends Shell {
+    }
 
 If your application already has these files/classes you don't need to do
 anything.
@@ -61,8 +58,13 @@ or update your webservers URL re-writing scheme to match the changes done in
   handles this for you.
 
 ### CakeSession
-> **versionchanged:** 2.1.1
+
+<div class="versionchanged">
+
+2.1.1
 CakeSession no longer sets the P3P header, as this is the responsibility of your application.
+
+</div>
 
 ## Behaviors
 
@@ -86,7 +88,7 @@ including file excerpts and argument dumps for all functions in the stack.
 
 ### debug()
 
-`debug()` now uses `Debugger` internally. This makes it consistent
+<span class="title-ref">debug()</span> now uses `Debugger` internally. This makes it consistent
 with Debugger, and takes advantage of improvements made there.
 
 ### Set
@@ -109,7 +111,7 @@ with Debugger, and takes advantage of improvements made there.
 ### App
 
 - `App::build()` now has the ability to register new packages using
-  `App::REGISTER`. See [app-build-register](../core-utility-libraries/app.md#app-build-register) for more information.
+  `App::REGISTER`. See [app-build-register](#app-build-register) for more information.
 - Classes that could not be found on configured paths will be searched inside
   `APP` as a fallback path. This makes autoloading nested directories in
   `app/Vendor` easier.
@@ -119,14 +121,11 @@ with Debugger, and takes advantage of improvements made there.
 ### Test Shell
 
 A new TestShell has been added. It reduces the typing required to run unit
-tests, and offers a file path based UI
+tests, and offers a file path based UI:
 
-```
-./Console/cake test app Model/Post
-./Console/cake test app Controller/PostsController
-./Console/cake test Plugin View/Helper/MyHelper
-
-```
+    ./Console/cake test app Model/Post
+    ./Console/cake test app Controller/PostsController
+    ./Console/cake test Plugin View/Helper/MyHelper
 
 The old testsuite shell and its syntax are still available.
 
@@ -138,8 +137,8 @@ The old testsuite shell and its syntax are still available.
 
 ### Router
 
-- Routes can now use a special `/**` syntax to include all trailing arguments
-  as a single passed argument. See the section on [connecting-routes](../development/routing.md#connecting-routes) for
+- Routes can now use a special [**](**.md) syntax to include all trailing arguments
+  as a single passed argument. See the section on [connecting-routes](#connecting-routes) for
   more information.
 - `Router::resourceMap()` was added.
 - `Router::defaultRouteClass()` was added. This method allows you to
@@ -154,7 +153,7 @@ The old testsuite shell and its syntax are still available.
 ### CakeResponse
 
 - Added `CakeResponse::cookie()` for setting cookies.
-- Added a number of methods for [cake-response-caching](../controllers/request-response.md#cake-response-caching)
+- Added a number of methods for [cake-response-caching](#cake-response-caching)
 
 ## Controller
 
@@ -164,12 +163,12 @@ The old testsuite shell and its syntax are still available.
   instead of false. Additionally different values are handled slightly
   differently, but will behave the same in most cases.
 
-- `true` Will load the default model and merge with AppController.
-- An array will load those models and merge with AppController.
-- An empty array will not load any models other than those declared in the
-base class.
-- `false` will not load any models, and will not merge with the base class
-either.
+  > - `true` Will load the default model and merge with AppController.
+  > - An array will load those models and merge with AppController.
+  > - An empty array will not load any models other than those declared in the
+  >   base class.
+  > - `false` will not load any models, and will not merge with the base class
+  >   either.
 
 ## Components
 
@@ -215,7 +214,7 @@ either.
 - `HtmlHelper::image()` now has a `fullBase` option.
 - `HtmlHelper::media()` has been added. You can use this method to
   create HTML5 audio/video elements.
-- :term:`plugin syntax` support has been added for
+- `plugin syntax` support has been added for
   `HtmlHelper::script()`, `HtmlHelper::css()`, `HtmlHelper::image()`.
   You can now easily link to plugin assets using `Plugin.asset`.
 - `HtmlHelper::getCrumbList()` had the `$startText` parameter added.
@@ -223,22 +222,25 @@ either.
 ## View
 
 - `View::$output` is deprecated.
+
 - `$content_for_layout` is deprecated. Use `$this->fetch('content');`
   instead.
-- `$scripts_for_layout` is deprecated. Use the following instead
 
-```php
-echo $this->fetch('meta');
-echo $this->fetch('css');
-echo $this->fetch('script');
+- `$scripts_for_layout` is deprecated. Use the following instead:
 
-```
+  ``` php
+  echo $this->fetch('meta');
+  echo $this->fetch('css');
+  echo $this->fetch('script');
+  ```
 
-  `$scripts_for_layout` is still available, but the [view blocks](../views.md#view-blocks) API
+  `$scripts_for_layout` is still available, but the [view blocks](#view-blocks) API
   gives a more extensible & flexible replacement.
+
 - The `Plugin.view` syntax is now available everywhere. You can use this
   syntax anywhere you reference the name of a view, layout or element.
-- The `$options['plugin']` option for `View::element()` is
+
+- The `$options['plugin']` option for `~View::element()` is
   deprecated. You should use `Plugin.element_name` instead.
 
 ### Content type views
@@ -246,13 +248,13 @@ echo $this->fetch('script');
 Two new view classes have been added to CakePHP. A new `JsonView`
 and `XmlView` allow you to easily generate XML and JSON views. You
 can learn more about these classes in the section on
-[/views/json-and-xml-views`
+[/views/json-and-xml-views](views/json-and-xml-views.md)
 
 ### Extending views
 
 `View` has a new method allowing you to wrap or 'extend' a
 view/element/layout with another file. See the section on
-[extending-views](../views.md#extending-views) for more information on this feature.
+[extending-views](#extending-views) for more information on this feature.
 
 ### Themes
 
@@ -264,7 +266,7 @@ View classes which extend from `ThemeView` should extend `View`.
 
 View blocks are a flexible way to create slots or blocks in your views. Blocks
 replace `$scripts_for_layout` with a more robust and flexible API. See the
-section on [view-blocks](../views.md#view-blocks) for more information.
+section on [view-blocks](#view-blocks) for more information.
 
 ## Helpers
 
@@ -277,7 +279,7 @@ This includes elements, layouts and views.
 
 ### CacheHelper
 
-- `<!--nocache-->` tags now work inside elements correctly.
+- [](#--nocache--) tags now work inside elements correctly.
 
 ### FormHelper
 
@@ -305,10 +307,10 @@ This includes elements, layouts and views.
 
 - Web test runner now displays the PHPUnit version number.
 - Web test runner now defaults to displaying app tests.
-- Fixtures can be created in different datasources other than $test.
+- Fixtures can be created in different datasources other than \$test.
 - Models loaded using the ClassRegistry and using another datasource will get
-  their datasource name prepended with `test_` (e.g datasource `master` will
-  try to use `test_master` in the testsuite)
+  their datasource name prepended with `test_` (e.g datasource <span class="title-ref">master</span> will
+  try to use <span class="title-ref">test_master</span> in the testsuite)
 - Test cases are generated with class specific setup methods.
 
 ## Events

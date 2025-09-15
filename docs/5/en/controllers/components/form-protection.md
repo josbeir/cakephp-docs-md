@@ -1,11 +1,6 @@
----
-title: FormProtection
-keywords: "configurable parameters,form protection component,configuration parameters,protection features,tighter security,php class,meth,array,submission,security class,disable security,unlockActions"
----
-
 # Form Protection Component
 
-### Class `FormProtection(ComponentCollection $collection, array $config = [])`
+`class` **FormProtection(ComponentCollection**
 
 The FormProtection Component provides protection against form data tampering.
 
@@ -22,12 +17,11 @@ in your `initialize()` method.
 > your forms. In addition, you must **not** override any of the fields' "name"
 > attributes. The FormProtection Component looks for certain indicators that are
 > created and managed by the FormHelper (especially those created in
-> `Cake\View\Helper\FormHelper::create()` and
-> `Cake\View\Helper\FormHelper::end()`).  Dynamically altering
+> `~Cake\View\Helper\FormHelper::create()` and
+> `~Cake\View\Helper\FormHelper::end()`). Dynamically altering
 > the fields that are submitted in a POST request, such as disabling, deleting
 > or creating new fields via JavaScript, is likely to cause the form token
 > validation to fail.
->
 
 ## Form tampering prevention
 
@@ -49,7 +43,6 @@ and compare the hash.
 > [!NOTE]
 > The FormProtectionComponent will **not** prevent select options from being
 > added/changed. Nor will it prevent radio options from being added/changed.
->
 
 ## Usage
 
@@ -58,27 +51,27 @@ Configuring the form protection component is generally done in the controller's
 
 Available options are:
 
-validate
+validate  
 Set to `false` to completely skip the validation of POST
 requests, essentially turning off form validation.
 
-unlockedFields
+unlockedFields  
 Set to a list of form fields to exclude from POST validation. Fields can be
 unlocked either in the Component, or with
 `FormHelper::unlockField()`. Fields that have been unlocked are
 not required to be part of the POST and hidden unlocked fields do not have
 their values checked.
 
-unlockedActions
+unlockedActions  
 Actions to exclude from POST validation checks.
 
-validationFailureCallback
+validationFailureCallback  
 Callback to call in case of validation failure. Must be a valid Closure.
 Unset by default in which case exception is thrown on validation failure.
 
 ## Disabling form tampering checks
 
-```php
+``` php
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -102,7 +95,6 @@ class WidgetsController extends AppController
         }
     }
 }
-
 ```
 
 The above example would disable form tampering prevention for admin prefixed
@@ -111,10 +103,10 @@ routes.
 ## Disabling form tampering for specific actions
 
 There may be cases where you want to disable form tampering prevention for an
-action (ex. AJAX requests).  You may "unlock" these actions by listing them in
-`$this->FormProtection->setConfig('unlockedActions', ['edit']);` in your `beforeFilter()`
+action (ex. AJAX requests). You may "unlock" these actions by listing them in
+`$this->FormProtection->setConfig('unlockedActions', ['edit']);` in your `beforeFilter()`:
 
-```php
+``` php
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -135,7 +127,6 @@ class WidgetController extends AppController
         $this->FormProtection->setConfig('unlockedActions', ['edit']);
     }
 }
-
 ```
 
 This example would disable all security checks for the edit action.
@@ -147,9 +138,9 @@ You can configure this behavior by setting the `validationFailureCallback`
 configuration option to a callback function in the controller.
 
 By configuring a callback method you can customize how the failure handling process
-works
+works:
 
-```php
+``` php
 use Cake\Controller\Exception\FormProtectionException;
 
 public function beforeFilter(EventInterface $event): void
@@ -165,5 +156,4 @@ public function beforeFilter(EventInterface $event): void
         }
     );
 }
-
 ```

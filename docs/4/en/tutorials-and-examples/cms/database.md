@@ -1,12 +1,13 @@
 # CMS Tutorial - Creating the Database
 
-Now that we have CakePHP installed, let's set up the database for our <abbr title="Content Management System">CMS</abbr> application. If you haven't already done so, create
+Now that we have CakePHP installed, let's set up the database for our `CMS
+(Content Management System)` application. If you haven't already done so, create
 an empty database for use in this tutorial, with the name of your choice such as
 `cake_cms`.
 If you are using MySQL/MariaDB, you can execute the following SQL to create the
 necessary tables:
 
-```SQL
+``` sql
 USE cake_cms;
 
 CREATE TABLE users (
@@ -53,13 +54,12 @@ VALUES
 INSERT INTO articles (user_id, title, slug, body, published, created, modified)
 VALUES
 (1, 'First Post', 'first-post', 'This is the first post.', 1, NOW(), NOW());
-
 ```
 
 If you are using PostgreSQL, connect to the `cake_cms` database and execute the
 following SQL instead:
 
-```SQL
+``` sql
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
@@ -104,7 +104,6 @@ VALUES
 INSERT INTO articles (user_id, title, slug, body, published, created, modified)
 VALUES
 (1, 'First Post', 'first-post', 'This is the first post.', TRUE, NOW(), NOW());
-
 ```
 
 You may have noticed that the `articles_tags` table used a composite primary
@@ -112,7 +111,7 @@ key. CakePHP supports composite primary keys almost everywhere, allowing you to
 have simpler schemas that don't require additional `id` columns.
 
 The table and column names we used were not arbitrary. By using CakePHP's
-[naming conventions](../../intro/conventions.md), we can leverage CakePHP more
+[naming conventions](intro/conventions.md), we can leverage CakePHP more
 effectively and avoid needing to configure the framework. While CakePHP is
 flexible enough to accommodate almost any database schema, adhering to the
 conventions will save you time as you can leverage the convention-based defaults
@@ -123,9 +122,9 @@ CakePHP provides.
 Next, let's tell CakePHP where our database is and how to connect to it. Replace
 the values in the `Datasources.default` array in your **config/app_local.php** file
 with those that apply to your setup. A sample completed configuration array
-might look something like the following
+might look something like the following:
 
-```php
+``` php
 <?php
 return [
     // More configuration above.
@@ -147,7 +146,6 @@ return [
     ],
     // More configuration below.
 ];
-
 ```
 
 Once you've saved your **config/app.php** file, you should see that the 'CakePHP is
@@ -156,7 +154,6 @@ able to connect to the database' section has a green chef hat.
 > [!NOTE]
 > If you have **config/app_local.php** in your app folder, you need to
 > configure your database connection in that file instead.
->
 
 ## Creating our First Model
 
@@ -169,9 +166,9 @@ CakePHP's models are composed of `Table` and `Entity` objects. `Table`
 objects provide access to the collection of entities stored in a specific table.
 They are stored in **src/Model/Table**. The file we'll be creating will be saved
 to **src/Model/Table/ArticlesTable.php**. The completed file should look like
-this
+this:
 
-```php
+``` php
 <?php
 // src/Model/Table/ArticlesTable.php
 namespace App\Model\Table;
@@ -185,10 +182,9 @@ class ArticlesTable extends Table
         $this->addBehavior('Timestamp');
     }
 }
-
 ```
 
-We've attached the [timestamp](../../orm/behaviors/timestamp.md) behavior, which will
+We've attached the [/orm/behaviors/timestamp](orm/behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -200,14 +196,13 @@ conventions to know that the `id` column is our table's primary key.
 > that if you accidentally name your file wrong (i.e. articlestable.php or
 > ArticleTable.php), CakePHP will not recognize any of your settings and will
 > use the generated model instead.
->
 
 We'll also create an Entity class for our Articles. Entities represent a single
 record in the database and provide row-level behavior for our data. Our entity
 will be saved to **src/Model/Entity/Article.php**. The completed file should
-look like this
+look like this:
 
-```php
+``` php
 <?php
 // src/Model/Entity/Article.php
 namespace App\Model\Entity;
@@ -222,13 +217,12 @@ class Article extends Entity
         'slug' => false,
     ];
 }
-
 ```
 
 Right now, our entity is quite slim; we've only set up the `_accessible`
 property, which controls how properties can be modified by
-[entities-mass-assignment](../../orm/entities.md#entities-mass-assignment).
+[entities-mass-assignment](#entities-mass-assignment).
 
 We can't do much with our models yet. Next, we'll create our first
-[Controller and Template](articles-controller.md) to allow us to interact
+[Controller and Template](tutorials-and-examples/cms/articles-controller.md) to allow us to interact
 with our model.

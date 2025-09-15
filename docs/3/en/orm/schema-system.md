@@ -1,7 +1,5 @@
 # Schema System
 
-**Namespace:** `Cake\Database\Schema`
-
 CakePHP features a schema system that is capable of reflecting and generating
 schema information for tables in SQL datastores. The schema system can
 generate/reflect a schema for any SQL platform that CakePHP supports.
@@ -10,18 +8,18 @@ The main pieces of the schema system are `Cake\Database\Schema\Collection` and
 `Cake\Database\Schema\TableSchema`. These classes give you access to
 database-wide and individual Table object features respectively.
 
-The primary use of the schema system is for [test-fixtures](../development/testing.md#test-fixtures). However, it
+The primary use of the schema system is for [test-fixtures](#test-fixtures). However, it
 can also be used in your application if required.
 
-## Schema\\TableSchema Objects
+## Schema\TableSchema Objects
 
-### Class `Cake\Database\Schema\TableSchema`
+`class` Cake\\Database\\Schema\\**TableSchema**
 
 The schema subsystem provides a simple TableSchema object to hold data about a
 table in a database. This object is returned by the schema reflection
-features
+features:
 
-```php
+``` php
 use Cake\Database\Schema\TableSchema;
 
 // Create a table one column at a time.
@@ -43,20 +41,18 @@ $schema->addColumn('id', [
 
 // Schema\TableSchema classes could also be created with array data
 $schema = new TableSchema('posts', $columns);
-
 ```
 
 `Schema\TableSchema` objects allow you to build up information about a table's schema. It helps to
 normalize and validate the data used to describe a table. For example, the
-following two forms are equivalent
+following two forms are equivalent:
 
-```php
+``` php
 $schema->addColumn('title', 'string');
 // and
 $schema->addColumn('title', [
   'type' => 'string'
 ]);
-
 ```
 
 While equivalent, the 2nd form allows more detail and control. This emulates
@@ -64,27 +60,26 @@ the existing features available in Schema files + the fixture schema in 2.x.
 
 ### Accessing Column Data
 
-Columns are either added as constructor arguments, or via `addColumn()`. Once
-fields are added information can be fetched using `column()` or `columns()`
+Columns are either added as constructor arguments, or via <span class="title-ref">addColumn()</span>. Once
+fields are added information can be fetched using <span class="title-ref">column()</span> or \`columns()\`:
 
-```php
+``` php
 // Get the array of data about a column
 $c = $schema->column('title');
 
 // Get the list of all columns.
 $cols = $schema->columns();
-
 ```
 
 ### Indexes and Constraints
 
 Indexes are added using the `addIndex()`. Constraints are added using
-`addConstraint()`.  Indexes and constraints cannot be added for columns that do
+`addConstraint()`. Indexes and constraints cannot be added for columns that do
 not exist, as it would result in an invalid state. Indexes are different from
 constraints, and exceptions will be raised if you try to mix types between the
-methods. An example of both methods is
+methods. An example of both methods is:
 
-```php
+``` php
 $schema = new TableSchema('posts');
 $schema->addColumn('id', 'integer')
   ->addColumn('author_id', 'integer')
@@ -114,40 +109,37 @@ $schema->addConstraint('author_id_idx', [
   'update' => 'cascade',
   'delete' => 'cascade'
 ]);
-
 ```
 
 If you add a primary key constraint to a single integer column it will automatically
 be converted into a auto-increment/serial column depending on the database
-platform
+platform:
 
-```php
+``` php
 $schema = new TableSchema('posts');
 $schema->addColumn('id', 'integer')
 ->addConstraint('primary', [
     'type' => 'primary',
     'columns' => ['id']
 ]);
-
 ```
 
 In the above example the `id` column would generate the following SQL in
 MySQL:
 
-```sql
+``` sql
 CREATE TABLE `posts` (
     `id` INTEGER AUTO_INCREMENT,
     PRIMARY KEY (`id`)
 )
-
 ```
 
 If your primary key contains more than one column, none of them will
 automatically be converted to an auto-increment value. Instead you will need to
 tell the table object which column in the composite key you want to
-auto-increment
+auto-increment:
 
-```php
+``` php
 $schema = new TableSchema('posts');
 $schema->addColumn('id', [
     'type' => 'integer',
@@ -158,7 +150,6 @@ $schema->addColumn('id', [
     'type' => 'primary',
     'columns' => ['id', 'account_id']
 ]);
-
 ```
 
 The `autoIncrement` option only works with `integer` and `biginteger`
@@ -168,9 +159,9 @@ columns.
 
 Indexes and constraints can be read out of a table object using accessor
 methods. Assuming that `$schema` is a populated TableSchema instance you could do the
-following
+following:
 
-```php
+``` php
 // Get contraints. Will return the
 // names of all constraints.
 $constraints = $schema->constraints()
@@ -184,7 +175,6 @@ $indexes = $schema->indexes()
 
 // Get data about a single index.
 $index = $schema->index('author_id_idx')
-
 ```
 
 ### Adding Table Options
@@ -192,14 +182,13 @@ $index = $schema->index('author_id_idx')
 Some drivers (primarily MySQL) support and require additional table metadata. In
 the case of MySQL the `CHARSET`, `COLLATE` and `ENGINE` properties are
 required for maintaining a table's structure in MySQL. The following could be
-used to add table options
+used to add table options:
 
-```php
+``` php
 $schema->options([
   'engine' => 'InnoDB',
   'collate' => 'utf8_unicode_ci',
 ]);
-
 ```
 
 Platform dialects only handle the keys they are interested in
@@ -208,9 +197,9 @@ and ignore the rest. Not all options are supported on all platforms.
 ### Converting Tables into SQL
 
 Using the `createSql()` or `dropSql()` you can get
-platform specific SQL for creating or dropping a specific table
+platform specific SQL for creating or dropping a specific table:
 
-```php
+``` php
 $db = ConnectionManager::get('default');
 $schema = new TableSchema('posts', $fields, $indexes);
 
@@ -223,7 +212,6 @@ foreach ($queries as $sql) {
 // Drop a table
 $sql = $schema->dropSql($db);
 $db->execute($sql);
-
 ```
 
 By using a connection's driver the schema data can be converted into platform
@@ -234,13 +222,13 @@ array of queries is always returned.
 
 ## Schema Collections
 
-### Class `Cake\Database\Schema\Collection`
+`class` Cake\\Database\\Schema\\**Collection**
 
 `Collection` provides access to the various tables available on a connection.
 You can use it to get the list of tables or reflect tables into
-`TableSchema` objects. Basic usage of the class looks like
+`TableSchema` objects. Basic usage of the class looks like:
 
-```php
+``` php
 $db = ConnectionManager::get('default');
 
 // Create a schema collection.
@@ -252,5 +240,4 @@ $tables = $collection->listTables();
 
 // Get a single table (instance of Schema\TableSchema)
 $tableSchema = $collection->describe('posts');
-
 ```

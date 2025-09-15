@@ -8,26 +8,28 @@ tests.
 
 To upgrade to the new fixture system, you need to make a few updates:
 
-#. First, remove the `<listeners>` block from your `phpunit.xml`.
-#. Add the following to your `phpunit.xml`
+1.  First, remove the [](#listeners) block from your `phpunit.xml`.
 
-```html
-<extensions>
-    <extension class="\Cake\TestSuite\Fixture\PHPUnitExtension" />
-</extensions>
+2.  Add the following to your `phpunit.xml`:
 
-```
+    ``` html
+    <extensions>
+        <extension class="\Cake\TestSuite\Fixture\PHPUnitExtension" />
+    </extensions>
+    ```
 
-This removes schema management from the test fixture manager. Instead your
-application needs to create/update schema at the beginning of each test run.
-#. Next, update `tests/bootstrap.php` to create schema. There are a few
-different ways to create schema. Refer to [creating-test-database-schema](../development/testing.md#creating-test-database-schema)
-   for the methods provided by CakePHP.
-#. Then, remove all the `$fields` and `$import` properties from your fixtures.
-These properties are unused in the new fixture system.
+    This removes schema management from the test fixture manager. Instead your
+    application needs to create/update schema at the beginning of each test run.
+
+3.  Next, update `tests/bootstrap.php` to create schema. There are a few
+    different ways to create schema. Refer to [creating-test-database-schema](#creating-test-database-schema)
+    for the methods provided by CakePHP.
+
+4.  Then, remove all the `$fields` and `$import` properties from your fixtures.
+    These properties are unused in the new fixture system.
 
 Your tests should continue to pass, and you can experiment with
-[fixture-state-management](../development/testing.md#fixture-state-management). `TransactionStrategy` which yield significant
+[fixture-state-management](#fixture-state-management). `TransactionStrategy` which yield significant
 performance improvements. The trade-off with `TransactionStrategy` is that
 your auto-increment values will no longer start at `1` with each test.
 
@@ -35,7 +37,7 @@ your auto-increment values will no longer start at `1` with each test.
 
 The following documentation applies only to the listener-based fixtures that are
 the default prior to 4.3.0.
-<!-- anchor: fixture-schema -->
+
 ### Fixture Schema
 
 We use `$fields` to specify which fields will be part of this table, and how
@@ -43,10 +45,10 @@ they are defined. The format used to define these fields is the same used with
 `Cake\Database\Schema\Table`. The keys available for table
 definition are:
 
-type
+type  
 CakePHP internal data type. Currently supported:
 
-- ``string`: maps to `VARCHAR`
+- `string`: maps to `VARCHAR`
 - `char`: maps to `CHAR`
 - `uuid`: maps to `UUID`
 - `text`: maps to `TEXT`
@@ -61,13 +63,17 @@ CakePHP internal data type. Currently supported:
 - `time`: maps to `TIME`
 - `date`: maps to `DATE`
 - `binary`: maps to `BLOB`
-length
+
+length  
 Set to the specific length the field should take.
-precision
+
+precision  
 Set the number of decimal places used on float & decimal fields.
-null
-Set to either `true` (to allow NULLs) or `false`` (to disallow NULLs).
-default
+
+null  
+Set to either `true` (to allow NULLs) or `false` (to disallow NULLs).
+
+default  
 Default value the field takes.
 
 ### Importing Table Information
@@ -81,44 +87,41 @@ definition to create the table definition used in the test suite.
 
 Let's start with an example. Assuming you have a table named articles, change the example
 fixture given in the previous section
-(**tests/Fixture/ArticlesFixture.php**) to
+(**tests/Fixture/ArticlesFixture.php**) to:
 
-```php
+``` php
 class ArticlesFixture extends TestFixture
 {
     public $import = ['table' => 'articles'];
 }
-
 ```
 
-If you want to use a different connection, use::
+If you want to use a different connection, use:
 
-```php
+``` php
 class ArticlesFixture extends TestFixture
 {
     public $import = ['table' => 'articles', 'connection' => 'other'];
 }
-
 ```
 
 Usually, you have a Table class along with your fixture. You can also
-use that to retrieve the table name
+use that to retrieve the table name:
 
-```php
+``` php
 class ArticlesFixture extends TestFixture
 {
     public $import = ['model' => 'Articles'];
 }
-
 ```
 
 It also supports plugin syntax.
 
 You can naturally import your table definition from an existing model/table, but
 have your records defined directly on the fixture as it was shown on previous
-section. For example
+section. For example:
 
-```php
+``` php
 class ArticlesFixture extends TestFixture
 {
     public $import = ['table' => 'articles'];
@@ -146,7 +149,6 @@ class ArticlesFixture extends TestFixture
         ]
     ];
 }
-
 ```
 
 Finally, it's possible to not load/create any schema in a fixture. This is useful if you

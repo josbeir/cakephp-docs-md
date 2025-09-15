@@ -1,8 +1,3 @@
----
-title: Code
-keywords: "cakephp source code,code patches,test ref,descriptive name,bob barker,initial setup,global user,database connection,clone,repository,user information,enhancement,back patches,checkout"
----
-
 # Code
 
 Patches and pull requests are a great way to contribute code back to CakePHP.
@@ -21,18 +16,14 @@ setup. You'll need the following software:
 - PHPUnit 3.7.0 or greater (3.7.38 recommended)
 - MySQL, SQLite, or Postgres
 
-Set up your user information with your name/handle and working email address
+Set up your user information with your name/handle and working email address:
 
-```
-git config --global user.name 'Bob Barker'
-git config --global user.email 'bob.barker@example.com'
-
-```
+    git config --global user.name 'Bob Barker'
+    git config --global user.email 'bob.barker@example.com'
 
 > [!NOTE]
 > If you are new to Git, we highly recommend you to read the excellent and free
 > [ProGit](https://git-scm.com/book/) book.
->
 
 Get a clone of the CakePHP source code from GitHub:
 
@@ -40,26 +31,20 @@ Get a clone of the CakePHP source code from GitHub:
 - Fork the [CakePHP repository](https://github.com/cakephp/cakephp) by clicking
   the **Fork** button.
 
-After your fork is made, clone your fork to your local machine
+After your fork is made, clone your fork to your local machine:
 
-```
-git clone git@github.com:YOURNAME/cakephp.git
-
-```
+    git clone git@github.com:YOURNAME/cakephp.git
 
 Add the original CakePHP repository as a remote repository. You'll use this
 later to fetch changes from the CakePHP repository. This will let you stay up
-to date with CakePHP
+to date with CakePHP:
 
-```bash
-cd cakephp
-git remote add upstream git://github.com/cakephp/cakephp.git
-
-```
+    cd cakephp
+    git remote add upstream git://github.com/cakephp/cakephp.git
 
 Now that you have CakePHP setup you should be able to define a `$test`
-[database connection](../development/configuration.md#database-configuration), and
-[run all the tests](../development/testing.md#running-tests).
+[database connection](#database-configuration), and
+[run all the tests](#running-tests).
 
 ## Working on a patch
 
@@ -70,61 +55,48 @@ The branch you create should be based on the version that your fix/enhancement
 is for. For example if you are fixing a bug in `2.3` you would want to use
 the `2.3` branch as the base for your branch. If your change is a bug fix
 for the current stable release, you should use the `master` branch. This
-makes merging your changes in later much simpler
+makes merging your changes in later much simpler:
 
-```bash
-# fixing a bug on 2.3
-git fetch upstream
-git checkout -b ticket-1234 upstream/2.3
-
-```
+    # fixing a bug on 2.3
+    git fetch upstream
+    git checkout -b ticket-1234 upstream/2.3
 
 > [!TIP]
 > Use a descriptive name for your branch, referencing the ticket or feature
 > name is a good convention. e.g. ticket-1234, feature-awesome
->
 
 The above will create a local branch based on the upstream (CakePHP) 2.3 branch.
 Work on your fix, and make as many commits as you need; but keep in mind the
 following:
 
-- Follow the [cakephp-coding-conventions](cakephp-coding-conventions.md).
+- Follow the [/contributing/cakephp-coding-conventions](contributing/cakephp-coding-conventions.md).
 - Add a test case to show the bug is fixed, or that the new feature works.
 - Keep your commits logical, and write good clear and concise commit messages.
 
 ## Submitting a pull request
 
 Once your changes are done and you're ready for them to be merged into CakePHP,
-you'll want to update your branch
+you'll want to update your branch:
 
-```html
-git checkout 2.3
-git fetch upstream
-git merge upstream/2.3
-git checkout <branch_name>
-git rebase 2.3
-
-```
+    git checkout 2.3
+    git fetch upstream
+    git merge upstream/2.3
+    git checkout <branch_name>
+    git rebase 2.3
 
 This will fetch + merge in any changes that have happened in CakePHP since you
 started. It will then rebase - or replay your changes on top of the current
 code. You might encounter a conflict during the `rebase`. If the rebase
 quits early you can see which files are conflicted/un-merged with `git status`.
-Resolve each conflict, and then continue the rebase
+Resolve each conflict, and then continue the rebase:
 
-```html
-git add <filename> # do this for each conflicted file.
-git rebase --continue
-
-```
+    git add <filename> # do this for each conflicted file.
+    git rebase --continue
 
 Check that all your tests continue to pass. Then push your branch to your
-fork
+fork:
 
-```html
-git push origin <branch-name>
-
-```
+    git push origin <branch-name>
 
 Once your branch is on GitHub, you can submit a pull request on GitHub.
 
@@ -146,8 +118,6 @@ branch, as you cannot edit it once the pull request is created.
 > MIT License, and the [Cake Software Foundation](https://cakefoundation.org/)
 > will become the owner of any contributed code. Contributors should follow the
 > [CakePHP Community Guidelines](https://community.cakephp.org/guidelines).
->
 
 All bug fixes merged into a maintenance branch will also be merged into upcoming
 releases periodically by the core team.
-

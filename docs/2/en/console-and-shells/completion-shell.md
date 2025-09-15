@@ -1,8 +1,10 @@
 # Completion Shell
 
-> [!IMPORTANT]
-> Added in version 2.5
->
+<div class="versionadded">
+
+2.5
+
+</div>
 
 Working with the console gives the developer a lot of possibilities but having
 to completely know and write those commands can be tedious. Especially when
@@ -20,19 +22,13 @@ autocompletion process.
 
 For the first step commands outputs the available Shell Commands, including
 plugin name when applicable. (All returned possibilities, for this and the other
-sub commands, are separated by a space.) For example
+sub commands, are separated by a space.) For example:
 
-```
-./Console/cake Completion commands
+    ./Console/cake Completion commands
 
-```
+Returns:
 
-Returns::
-
-```
-acl api bake command_list completion console i18n schema server test testsuite upgrade
-
-```
+    acl api bake command_list completion console i18n schema server test testsuite upgrade
 
 Your completion script can select the relevant commands from that list to
 continue with. (For this and the following sub commands.)
@@ -41,43 +37,31 @@ continue with. (For this and the following sub commands.)
 
 Once the preferred command has been chosen subCommands comes in as the second
 step and outputs the possible sub command for the given shell command. For
-example
+example:
 
-```
-./Console/cake Completion subcommands bake
+    ./Console/cake Completion subcommands bake
 
-```
+Returns:
 
-Returns::
-
-```
-controller db_config fixture model plugin project test view
-
-```
+    controller db_config fixture model plugin project test view
 
 ### options
 
 As the third and final options outputs options for the given (sub) command as
 set in getOptionParser. (Including the default options inherited from Shell.)
-For example
+For example:
 
-```
-./Console/cake Completion options bake
+    ./Console/cake Completion options bake
 
-```
+Returns:
 
-Returns::
-
-```
---help -h --verbose -v --quiet -q --connection -c --theme -t
-
-```
+    --help -h --verbose -v --quiet -q --connection -c --theme -t
 
 ## Bash Example
 
-The following bash example comes from the original author
+The following bash example comes from the original author:
 
-```php
+``` php
 # bash completion for CakePHP console
 
 _cake()
@@ -117,6 +101,7 @@ _cake()
         return 0
     fi
 
+
     opts=$(${cake} Completion fuzzy "${COMP_WORDS[@]:1}")
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
     if [[ $COMPREPLY = "" ]] ; then
@@ -127,5 +112,4 @@ _cake()
 }
 
 complete -F _cake cake Console/cake
-
 ```

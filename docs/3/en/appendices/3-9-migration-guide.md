@@ -5,14 +5,13 @@ changes and improvements made.
 
 To upgrade to 3.9.x run the following composer command:
 
-```bash
+``` bash
 php composer.phar require --update-with-dependencies "cakephp/cakephp:3.9.*"
-
 ```
 
 ## Deprecations
 
-- `ConsoleIo::info()`, `success()`,  `warning()` and `error()` will no
+- `ConsoleIo::info()`, `success()`, `warning()` and `error()` will no
   longer accept `null` values in the `message` parameter in 4.0.
 - Using a comma separated string for `$fixtures` in test cases is deprecated.
   Instead use an array, or implement the new `getFixtures()` method on your
@@ -70,7 +69,7 @@ php composer.phar require --update-with-dependencies "cakephp/cakephp:3.9.*"
 - `Number::getDefaultCurrencyFormat()` and
   `Number::setDefaultCurrencyFormat()` were added. These methods let you
   define the formatting style for currency values.
-- The `setJsonEncodeFormat` method on  `Time`, `FrozenTime`, `Date` and
+- The `setJsonEncodeFormat` method on `Time`, `FrozenTime`, `Date` and
   `FrozenDate` now accepts a callable that can be used to return a custom
   string.
 - The i18n global functions now only return strings. The changes made to 4.0 to

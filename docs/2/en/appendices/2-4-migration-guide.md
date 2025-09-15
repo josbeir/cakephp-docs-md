@@ -16,7 +16,7 @@ the changes and improvements made in 2.4.
 
 ### BakeShell
 
-- `cake bake model` now supports baking `$behaviors`. Finding `lft`, `rght` and `parent_id` fields
+- `cake bake model` now supports baking `$behaviors`. Finding <span class="title-ref">lft</span>, <span class="title-ref">rght</span> and <span class="title-ref">parent_id</span> fields
   in your table it will add the Tree behavior, for example. You can also extend the ModelTask to support your own
   behaviors to be recognized.
 - `cake bake` for views, models, controllers, tests and fixtures now supports a `-f` or `--force` parameter to
@@ -35,7 +35,6 @@ the changes and improvements made in 2.4.
 - Constants `IMAGES_URL`, `JS_URL`, `CSS_URL` have been deprecated and
   replaced with config variables `App.imageBaseUrl`, `App.jsBaseUrl`,
   `App.cssBaseUrl` respectively.
-
 - Constants `IMAGES`, `JS`, `CSS` have been deprecated.
 
 ### Object
@@ -45,6 +44,7 @@ the changes and improvements made in 2.4.
 ## Components
 
 ### AuthComponent
+
 - AuthComponent now supports proper stateless mode when using 'Basic' or 'Digest'
   authenticators. Starting of session can be prevented by setting `AuthComponent::$sessionKey`
   to false. Also now when using only 'Basic' or 'Digest' you are no longer
@@ -52,8 +52,9 @@ the changes and improvements made in 2.4.
 - Property `AuthComponent::$authError` can be set to boolean `false` to suppress flash message from being displayed.
 
 ### PasswordHasher
+
 - Authenticating objects now use new password hasher objects for password hash
-  generation and checking. See [hashing-passwords](../core-libraries/components/authentication.md#hashing-passwords) for more info.
+  generation and checking. See [hashing-passwords](#hashing-passwords) for more info.
 
 ### DbAcl
 
@@ -73,7 +74,7 @@ the changes and improvements made in 2.4.
 ### Datasource
 
 - The Mysql, Postgres, and Sqlserver datasources now support a 'settings' array in the
-  connection definition. This key => value pair will be issued as `SET` commands when the
+  connection definition. This key =\> value pair will be issued as `SET` commands when the
   connection is created.
 - The MySQL driver now supports SSL options.
 
@@ -83,12 +84,12 @@ the changes and improvements made in 2.4.
 
 - JSONP support has been added to `JsonView`.
 - The `_serialize` key now supports renaming serialized variables.
-- When debug > 0 JSON will be pretty printed.
+- When debug \> 0 JSON will be pretty printed.
 
 ### XmlView
 
 - The `_serialize` key now supports renaming serialized variables.
-- When debug > 0 XML will be pretty printed.
+- When debug \> 0 XML will be pretty printed.
 
 ### HtmlHelper
 
@@ -106,7 +107,7 @@ the changes and improvements made in 2.4.
 ### PaginatorHelper
 
 - `PaginatorHelper::param()` has been added.
-- The first page no longer contains `/page:1` or `?page=1` in the URL. This helps prevent
+- The first page no longer contains [Page:1](page:1.md) or `?page=1` in the URL. This helps prevent
   duplicate content issues where you would need to use canonical or noindex otherwise.
 
 ### FormHelper
@@ -147,11 +148,11 @@ the changes and improvements made in 2.4.
 ### L10n
 
 - `ell` is now the default locale for Greek as specified by ISO 639-3 and `gre` its alias.
-  The locale folders have to be adjusted accordingly (from `/Locale/gre/` to `/Locale/ell/`).
+  The locale folders have to be adjusted accordingly (from <span class="title-ref">/Locale/gre/</span> to <span class="title-ref">/Locale/ell/</span>).
 - `fas` is now the default locale for Farsi as specified by ISO 639-3 and `per` its alias.
-  The locale folders have to be adjusted accordingly (from `/Locale/per/` to `/Locale/fas/`).
+  The locale folders have to be adjusted accordingly (from <span class="title-ref">/Locale/per/</span> to <span class="title-ref">/Locale/fas/</span>).
 - `sme` is now the default locale for Sami as specified by ISO 639-3 and `smi` its alias.
-  The locale folders have to be adjusted accordingly (from `/Locale/smi/` to `/Locale/sme/`).
+  The locale folders have to be adjusted accordingly (from <span class="title-ref">/Locale/smi/</span> to <span class="title-ref">/Locale/sme/</span>).
 - `mkd` replaces `mk` as default locale for Macedonian as specified by ISO 639-3.
   The corresponding locale folders have to be adjusted, as well.
 - Catalog code `in` has been dropped in favor of `id` (Indonesian),
@@ -174,12 +175,12 @@ the changes and improvements made in 2.4.
 
 ### FileLog
 
-- Two new config options `size` and `rotate` have been added for [FileLog](../core-libraries/logging.md#file-log) engine.
+- Two new config options `size` and `rotate` have been added for [FileLog](#file-log) engine.
 - In debug mode missing directories will now be automatically created to avoid unnecessary errors thrown.
 
 ### SyslogLog
 
-- The new logging engine [SyslogLog](../core-libraries/logging.md#syslog-log) was added to stream messages to syslog.
+- The new logging engine [SyslogLog](#syslog-log) was added to stream messages to syslog.
 
 ## Cache
 
@@ -240,4 +241,3 @@ the changes and improvements made in 2.4.
 - `Router::fullBaseUrl()` was added together with `App.fullBaseUrl` Configure value. They replace
   `FULL_BASE_URL` which is now deprecated.
 - `Router::parse()` now parses query string arguments.
-

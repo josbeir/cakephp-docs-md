@@ -1,8 +1,6 @@
 # Command Objects
 
-**Namespace:** `Cake\Console`
-
-### Class `Cake\Console\Command`
+`class` Cake\\Console\\**Command**
 
 CakePHP comes with a number of built-in commands for speeding up your
 development, and automating routine tasks. You can use these same libraries to
@@ -12,9 +10,9 @@ create commands for your application and plugins.
 
 Let's create our first Command. For this example, we'll create a
 simple Hello world command. In your application's **src/Command** directory create
-**HelloCommand.php**. Put the following code inside it
+**HelloCommand.php**. Put the following code inside it:
 
-```php
+``` php
 <?php
 namespace App\Command;
 
@@ -31,29 +29,24 @@ class HelloCommand extends Command
         return static::CODE_SUCCESS;
     }
 }
-
 ```
 
 Command classes must implement an `execute()` method that does the bulk of
 their work. This method is called when a command is invoked. Lets call our first
 command application directory, run:
 
-```bash
+``` bash
 bin/cake hello
-
 ```
 
-You should see the following output::
+You should see the following output:
 
-```
-Hello world.
-
-```
+    Hello world.
 
 Our `execute()` method isn't very interesting let's read some input from the
-command line
+command line:
 
-```php
+``` php
 <?php
 namespace App\Command;
 
@@ -81,32 +74,27 @@ class HelloCommand extends Command
         return static::CODE_SUCCESS;
     }
 }
-
 ```
 
 After saving this file, you should be able to run the following command:
 
-```bash
+``` bash
 bin/cake hello jillian
 
 # Outputs
 Hello jillian
-
 ```
 
 ## Changing the Default Command Name
 
 CakePHP will use conventions to generate the name your commands use on the
 command line. If you want to overwrite the generated name implement the
-`defaultName()` method in your command
+`defaultName()` method in your command:
 
-```php
-public static function defaultName(): string
-{
-    return 'oh_hi';
-}
-
-```
+    public static function defaultName(): string
+    {
+        return 'oh_hi';
+    }
 
 The above would make our `HelloCommand` accessible by `cake oh_hi` instead
 of `cake hello`.
@@ -115,9 +103,9 @@ of `cake hello`.
 
 As we saw in the last example, we can use the `buildOptionParser()` hook
 method to define arguments. We can also define options. For example, we could
-add a `yell` option to our `HelloCommand`
+add a `yell` option to our `HelloCommand`:
 
-```php
+``` php
 // ...
 protected function buildOptionParser(ConsoleOptionParser $parser): ConsoleOptionParser
 {
@@ -143,24 +131,23 @@ public function execute(Arguments $args, ConsoleIo $io): int
 
     return static::CODE_SUCCESS;
 }
-
 ```
 
-See the [option-parsers](option-parsers.md) section for more information.
+See the [/console-commands/option-parsers](console-commands/option-parsers.md) section for more information.
 
 ## Creating Output
 
 Commands are provided a `ConsoleIo` instance when executed. This object allows
-you to interact with `stdout`, `stderr` and create files.  See the
-[input-output](input-output.md) section for more information.
+you to interact with `stdout`, `stderr` and create files. See the
+[/console-commands/input-output](console-commands/input-output.md) section for more information.
 
 ## Using Models in Commands
 
 You'll often need access to your application's business logic in console
-commands.  You can load models in commands, just as you would in a controller
-using `$this->fetchTable()` since command use the `LocatorAwareTrait`
+commands. You can load models in commands, just as you would in a controller
+using `$this->fetchTable()` since command use the `LocatorAwareTrait`:
 
-```php
+``` php
 <?php
 declare(strict_types=1);
 
@@ -196,7 +183,6 @@ class UserCommand extends Command
         return static::CODE_SUCCESS;
     }
 }
-
 ```
 
 The above command, will fetch a user by username and display the information
@@ -205,9 +191,9 @@ stored in the database.
 ## Exit Codes and Stopping Execution
 
 When your commands hit an unrecoverable error you can use the `abort()` method
-to terminate execution
+to terminate execution:
 
-```php
+``` php
 // ...
 public function execute(Arguments $args, ConsoleIo $io): int
 {
@@ -220,12 +206,11 @@ public function execute(Arguments $args, ConsoleIo $io): int
 
     return static::CODE_SUCCESS;
 }
-
 ```
 
-You can also use `abort()` on the `$io` object to emit a message and code::
+You can also use `abort()` on the `$io` object to emit a message and code:
 
-```php
+``` php
 public function execute(Arguments $args, ConsoleIo $io): int
 {
     $name = $args->getArgument('name');
@@ -236,7 +221,6 @@ public function execute(Arguments $args, ConsoleIo $io): int
 
     return static::CODE_SUCCESS;
 }
-
 ```
 
 You can pass any desired exit code into `abort()`.
@@ -249,21 +233,19 @@ You can pass any desired exit code into `abort()`.
 > You can read more about conventional exit codes in the sysexit manual page
 > on most Unix systems (`man sysexits`), or the `System Error Codes` help
 > page in Windows.
->
 
 ## Calling other Commands
 
 You may need to call other commands from your command. You can use
-`executeCommand` to do that
+`executeCommand` to do that:
 
-```php
+``` php
 // You can pass an array of CLI options and arguments.
 $this->executeCommand(OtherCommand::class, ['--verbose', 'deploy']);
 
 // Can pass an instance of the command if it has constructor args
 $command = new OtherCommand($otherArgs);
 $this->executeCommand($command, ['--verbose', 'deploy']);
-
 ```
 
 > [!NOTE]
@@ -271,12 +253,11 @@ $this->executeCommand($command, ['--verbose', 'deploy']);
 > parent command's `ConsoleIo` instance as the optional 3rd argument to
 > avoid a potential "open files" limit that could occur in some environments.
 
-<!-- anchor: console-command-description -->
 ## Setting Command Description
 
-You may want to set a command description via
+You may want to set a command description via:
 
-```php
+``` php
 class UserCommand extends Command
 {
     public static function getDescription(): string
@@ -284,23 +265,21 @@ class UserCommand extends Command
         return 'My custom description';
     }
 }
-
 ```
 
 This will show your description in the Cake CLI:
 
-```bash
+``` bash
 bin/cake
 
 App:
   - user
   └─── My custom description
-
 ```
 
 As well as in the help section of your command:
 
-```bash
+``` bash
 cake user --help
 My custom description
 
@@ -308,7 +287,6 @@ Usage:
 cake user [-h] [-q] [-v]
 ```
 
-<!-- anchor: console-integration-testing -->
 ## Testing Commands
 
 To make testing console applications easier, CakePHP comes with a
@@ -322,12 +300,11 @@ you would use in the CLI to this method.
 
 > [!NOTE]
 > For CakePHP 4.4 onwards the `Cake\Console\TestSuite\ConsoleIntegrationTestTrait` namespace should be used.
->
 
 Let's start with a very simple command, located in
-**src/Command/UpdateTableCommand.php**
+**src/Command/UpdateTableCommand.php**:
 
-```php
+``` php
 namespace App\Command;
 
 use Cake\Command\Command;
@@ -344,15 +321,14 @@ class UpdateTableCommand extends Command
         return $parser;
     }
 }
-
 ```
 
 To write an integration test for this shell, we would create a test case in
 **tests/TestCase/Command/UpdateTableTest.php** that uses the
 `Cake\TestSuite\ConsoleIntegrationTestTrait` trait. This shell doesn't do much at the
-moment, but let's just test that our shell's description is displayed in `stdout`
+moment, but let's just test that our shell's description is displayed in `stdout`:
 
-```php
+``` php
 namespace App\Test\TestCase\Command;
 
 use Cake\TestSuite\ConsoleIntegrationTestTrait;
@@ -374,14 +350,13 @@ class UpdateTableCommandTest extends TestCase
         $this->assertOutputContains('My cool console app');
     }
 }
-
 ```
 
 Our test passes! While this is very trivial example, it shows that creating an
 integration test case for console applications can follow command line
-conventions. Let's continue by adding more logic to our command
+conventions. Let's continue by adding more logic to our command:
 
-```php
+``` php
 namespace App\Command;
 
 use Cake\Command\Command;
@@ -416,13 +391,12 @@ class UpdateTableCommand extends Command
         return static::CODE_SUCCESS;
     }
 }
-
 ```
 
 This is a more complete shell that has required options and relevant logic.
-Modify your test case to the following snippet of code
+Modify your test case to the following snippet of code:
 
-```php
+``` php
 namespace Cake\Test\TestCase\Command;
 
 use Cake\Command\Command;
@@ -461,7 +435,6 @@ class UpdateTableCommandTest extends TestCase
         FrozenTime::setTestNow(null);
     }
 }
-
 ```
 
 As you can see from the `testUpdateModified` method, we are testing that our
@@ -481,9 +454,9 @@ inputs you expect as the second parameter of `exec()`. They should be
 included as an array in the order that you expect them.
 
 Continuing with our example command, let's add an interactive confirmation.
-Update the command class to the following
+Update the command class to the following:
 
-```php
+``` php
 namespace App\Command;
 
 use Cake\Command\Command;
@@ -523,15 +496,14 @@ class UpdateTableCommand extends Command
         return static::CODE_SUCCESS;
     }
 }
-
 ```
 
 Now that we have an interactive subcommand, we can add a test case that tests
 that we receive the proper response, and one that tests that we receive an
 incorrect response. Remove the `testUpdateModified` method and, add the following methods to
-**tests/TestCase/Command/UpdateTableCommandTest.php**
+**tests/TestCase/Command/UpdateTableCommandTest.php**:
 
-```php
+``` php
 public function testUpdateModifiedSure()
 {
     $now = new FrozenTime('2017-01-01 00:00:00');
@@ -560,7 +532,6 @@ public function testUpdateModifiedUnsure()
     $user = $this->getTableLocator()->get('Users')->get(1);
     $this->assertSame($original, $user->timestamp);
 }
-
 ```
 
 In the first test case, we confirm the question, and records are updated. In the
@@ -570,19 +541,18 @@ our error message was written to `stderr`.
 ### Testing the CommandRunner
 
 To test shells that are dispatched using the `CommandRunner` class, enable it
-in your test case with the following method
+in your test case with the following method:
 
-```php
+``` php
 $this->useCommandRunner();
-
 ```
 
 ### Assertion methods
 
 The `Cake\TestSuite\ConsoleIntegrationTestTrait` trait provides a number of
-assertion methods that make help assert against console output
+assertion methods that make help assert against console output:
 
-```php
+``` php
 // assert that the shell exited as success
 $this->assertExitSuccess();
 
@@ -603,5 +573,4 @@ $this->assertOutputRegExp($expected);
 
 // assert that stderr matches a regular expression
 $this->assertErrorRegExp($expected);
-
 ```

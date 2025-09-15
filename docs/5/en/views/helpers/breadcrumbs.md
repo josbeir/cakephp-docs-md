@@ -1,14 +1,6 @@
----
-title: BreadcrumbsHelper
-description: The role of the BreadcrumbsHelper in CakePHP is provide a way to easily manage breadcrumbs.
-keywords: "breadcrumbs helper,cakephp crumbs"
----
-
 # Breadcrumbs
 
-**Namespace:** `Cake\View\Helper`
-
-### Class `Cake\View\Helper\BreadcrumbsHelper(View $view, array $config = [])`
+`class` Cake\\View\\Helper\\**BreadcrumbsHelper(View**
 
 BreadcrumbsHelper provides a way to easily deal with the creation and rendering
 of a breadcrumbs trail for your app.
@@ -20,13 +12,13 @@ arguments:
 
 - **title** The string to be displayed as a the title of the crumb
 - **url** A string or an array of parameters that will be given to the
-  [/views/helpers/url`
+  [/views/helpers/url](views/helpers/url.md)
 - **options** An array of attributes for the `item` and `itemWithoutLink`
-  templates. See the section about [defining attributes for the item](defining_attributes_item.md) for more information.
+  templates. See the section about [defining attributes for the item](#defining_attributes_item) for more information.
 
-In addition to adding to the end of the trail, you can do a variety of operations
+In addition to adding to the end of the trail, you can do a variety of operations:
 
-```php
+``` php
 // Add at the end of the trail
 $this->Breadcrumbs->add(
     'Products',
@@ -76,7 +68,6 @@ $this->Breadcrumbs->insertAfter(
     'Products',
     ['controller' => 'products', 'action' => 'index']
 );
-
 ```
 
 Using these methods gives you the ability to work with CakePHP's 2-step
@@ -86,139 +77,71 @@ precisely where you want to add a breadcrumb.
 
 ## Rendering the Breadcrumbs Trail
 
-After adding crumbs to the trail, you can easily render it using the](#defining attributes for the item](defining_attributes_item.md) for more information.
-
-In addition to adding to the end of the trail, you can do a variety of operations
-
-```php
-// Add at the end of the trail
-$this->Breadcrumbs->add(
-    'Products',
-    ['controller' => 'products', 'action' => 'index']
-);
-
-// Add multiple crumbs at the end of the trail
-$this->Breadcrumbs->add([
-    ['title' => 'Products', 'url' => ['controller' => 'products', 'action' => 'index']],
-    ['title' => 'Product name', 'url' => ['controller' => 'products', 'action' => 'view', 1234]],
-]);
-
-// Prepended crumbs will be put at the top of the list
-$this->Breadcrumbs->prepend(
-    'Products',
-    ['controller' => 'products', 'action' => 'index']
-);
-
-// Prepend multiple crumbs at the top of the trail, in the order given
-$this->Breadcrumbs->prepend([
-    ['title' => 'Products', 'url' => ['controller' => 'products', 'action' => 'index']],
-    ['title' => 'Product name', 'url' => ['controller' => 'products', 'action' => 'view', 1234]],
-]);
-
-// Insert in a specific slot. If the slot is out of
-// bounds, an exception will be raised.
-$this->Breadcrumbs->insertAt(
-    2,
-    'Products',
-    ['controller' => 'products', 'action' => 'index']
-);
-
-// Insert before another crumb, based on the title.
-// If the named crumb title cannot be found,
-// an exception will be raised.
-$this->Breadcrumbs->insertBefore(
-    'A product name', // the title of the crumb to insert before
-    'Products',
-    ['controller' => 'products', 'action' => 'index']
-);
-
-// Insert after another crumb, based on the title.
-// If the named crumb title cannot be found,
-// an exception will be raised.
-$this->Breadcrumbs->insertAfter(
-    'A product name', // the title of the crumb to insert after
-    'Products',
-    ['controller' => 'products', 'action' => 'index']
-);
-
-```
-
-Using these methods gives you the ability to work with CakePHP's 2-step
-rendering process. Since templates and layouts are rendered from the inside out
-(meaning, included elements are rendered first), this allows you to define
-precisely where you want to add a breadcrumb.
-
-## Rendering the Breadcrumbs Trail
-
-After adding crumbs to the trail, you can easily render it using the)`render()` method. This method accepts two array arguments:
+After adding crumbs to the trail, you can easily render it using the
+`render()` method. This method accepts two array arguments:
 
 - `$attributes` : An array of attributes that will applied to the `wrapper`
   template. This gives you the ability to add attributes to the HTML tag. It
   accepts the special `templateVars` key to allow the insertion of custom
   template variables in the template.
+
 - `$separator` : An array of attributes for the `separator` template.
   Possible properties are:
 
   - `separator` The string to be displayed as a separator
   - `innerAttrs` To provide attributes in case your separator is divided
-in two elements
+    in two elements
   - `templateVars` Allows the insertion of custom template variable in the
-template
+    template
 
   All other properties will be converted as HTML attributes and will replace
-  the `attrs`` key in the template. If you use the default for this option
+  the `attrs` key in the template. If you use the default for this option
   (empty), it will not render a separator.
 
-Here is an example of how to render a trail
+Here is an example of how to render a trail:
 
-```php
+``` php
 echo $this->Breadcrumbs->render(
     ['class' => 'breadcrumbs-trail'],
     ['separator' => '<i class="fa fa-angle-right"></i>']
 );
-
 ```
 
 ### Customizing the Output
 
 The BreadcrumbsHelper internally uses the `StringTemplateTrait`, which gives
 the ability to easily customize output of various HTML strings.
-It includes four templates, with the following default declaration
+It includes four templates, with the following default declaration:
 
-```html
-[
-    'wrapper' => '<ul{{attrs}}>{{content}}</ul>',
-    'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}',
-    'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}',
-    'separator' => '<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>'
-]
-
-```
+    [
+        'wrapper' => '<ul{{attrs}}>{{content}}</ul>',
+        'item' => '<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}',
+        'itemWithoutLink' => '<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}',
+        'separator' => '<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>'
+    ]
 
 You can easily customize them using the `setTemplates()` method from the
-`StringTemplateTrait`
+`StringTemplateTrait`:
 
-```php
+``` php
 $this->Breadcrumbs->setTemplates([
     'wrapper' => '<nav class="breadcrumbs"><ul{{attrs}}>{{content}}</ul></nav>',
 ]);
-
 ```
 
 Since your templates will be rendered, the `templateVars` option
-allows you to add your own template variables in the various templates
+allows you to add your own template variables in the various templates:
 
-```php
+``` php
 $this->Breadcrumbs->setTemplates([
     'item' => '<li{{attrs}}>{{icon}}<a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}'
 ]);
-
 ```
 
 And to define the `{{icon}}` parameter, just specify it when adding the
-crumb to the trail
+crumb to the trail:
 
-```php
+``` php
 $this->Breadcrumbs->add(
     'Products',
     ['controller' => 'products', 'action' => 'index'],
@@ -230,15 +153,14 @@ $this->Breadcrumbs->add(
 );
 ```
 
-<!-- anchor: defining_attributes_item -->
 ### Defining Attributes for the Item
 
 If you want to apply specific HTML attributes to both the item and its sub-item
 , you can leverage the `innerAttrs` key, which the `$options` argument
 provides. Everything except `innerAttrs` and `templateVars` will be
-rendered as HTML attributes
+rendered as HTML attributes:
 
-```php
+``` php
 $this->Breadcrumbs->add(
     'Products',
     ['controller' => 'products', 'action' => 'index'],
@@ -256,15 +178,14 @@ $this->Breadcrumbs->add(
 <li class="products-crumb" data-foo="bar">
     <a href="/products/index" class="inner-products-crumb" id="the-products-crumb">Products</a>
 </li>
-
 ```
 
 ## Clearing the Breadcrumbs
 
 You can clear the bread crumbs using the `reset()` method. This can be useful
-when you want to transform the crumbs and overwrite the list
+when you want to transform the crumbs and overwrite the list:
 
-```php
+``` php
 $crumbs = $this->Breadcrumbs->getCrumbs();
 $crumbs = collection($crumbs)->map(function ($crumb) {
     $crumb['options']['class'] = 'breadcrumb-item';
@@ -273,5 +194,4 @@ $crumbs = collection($crumbs)->map(function ($crumb) {
 })->toArray();
 
 $this->Breadcrumbs->reset()->add($crumbs);
-
 ```

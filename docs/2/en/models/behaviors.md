@@ -1,8 +1,3 @@
----
-title: Behaviors
-keywords: "tree manipulation,manipulation methods,model behaviors,access control list,model class,tree structures,php class,business contract,class category,database table,bakery,inheritance,functionality,interaction,logic,cakephp,models,essence"
----
-
 # Behaviors
 
 Model behaviors are a way to organize some of the functionality
@@ -27,7 +22,7 @@ interact with the underlying structure.
 
 CakePHP already includes behaviors for tree structures, translated content,
 access control list interaction, not to mention the community-contributed
-behaviors already available in the CakePHP Bakery ([https://bakery.cakephp.org](https://bakery.cakephp.org)). In this section, we'll cover the basic usage
+behaviors already available in the CakePHP Bakery (<https://bakery.cakephp.org>). In this section, we'll cover the basic usage
 pattern for adding behaviors to models, how to use CakePHP's built-in behaviors,
 and how to create our own.
 
@@ -36,54 +31,50 @@ In essence, Behaviors are
 
 There are a number of Behaviors included in CakePHP. To find out more about each
 one, reference the chapters below:
-<!--@include: ../core-libraries/toc-behaviors.md{10,}-->
 
 ## Using Behaviors
 
 Behaviors are attached to models through the `$actsAs` model class
-variable
+variable:
 
-```php
+``` php
 class Category extends AppModel {
     public $actsAs = array('Tree');
 }
-
 ```
 
 This example shows how a Category model could be managed in a tree
 structure using the TreeBehavior. Once a behavior has been
 specified, use the methods added by the behavior as if they always
-existed as part of the original model
+existed as part of the original model:
 
-```php
+``` php
 // Set ID
 $this->Category->id = 42;
 
 // Use behavior method, children():
 $kids = $this->Category->children();
-
 ```
 
 Some behaviors may require or allow settings to be defined when the
 behavior is attached to the model. Here, we tell our TreeBehavior
 the names of the "left" and "right" fields in the underlying
-database table
+database table:
 
-```php
+``` php
 class Category extends AppModel {
     public $actsAs = array('Tree' => array(
         'left'  => 'left_node',
         'right' => 'right_node'
     ));
 }
-
 ```
 
 We can also attach several behaviors to a model. There's no reason
 why, for example, our Category model should only behave as a tree,
-it may also need internationalization support
+it may also need internationalization support:
 
-```php
+``` php
 class Category extends AppModel {
     public $actsAs = array(
         'Tree' => array(
@@ -93,7 +84,6 @@ class Category extends AppModel {
         'Translate'
     );
 }
-
 ```
 
 So far we have been adding behaviors to models using a model class
@@ -102,12 +92,11 @@ models throughout the model's lifetime. However, we may need to
 "detach" behaviors from our models at runtime. Let's say that on
 our previous Category model, which is acting as a Tree and a
 Translate model, we need for some reason to force it to stop acting
-as a Translate model
+as a Translate model:
 
-```php
+``` php
 // Detach a behavior from our model:
 $this->Category->Behaviors->unload('Translate');
-
 ```
 
 That will make our Category model stop behaving as a Translate
@@ -116,70 +105,64 @@ Translate behavior from acting upon our normal model operations:
 our finds, our saves, etc. In fact, we are looking to disable the
 behavior from acting upon our CakePHP model callbacks. Instead of
 detaching the behavior, we then tell our model to stop informing of
-these callbacks to the Translate behavior
+these callbacks to the Translate behavior:
 
-```php
+``` php
 // Stop letting the behavior handle our model callbacks
 $this->Category->Behaviors->disable('Translate');
-
 ```
 
 We may also need to find out if our behavior is handling those
 model callbacks, and if not we then restore its ability to react to
-them
+them:
 
-```php
+``` php
 // If our behavior is not handling model callbacks
 if (!$this->Category->Behaviors->enabled('Translate')) {
     // Tell it to start doing so
     $this->Category->Behaviors->enable('Translate');
 }
-
 ```
 
 Just as we could completely detach a behavior from a model at
 runtime, we can also attach new behaviors. Say that our familiar
 Category model needs to start behaving as a Christmas model, but
-only on Christmas day
+only on Christmas day:
 
-```php
+``` php
 // If today is Dec 25
 if (date('m/d') === '12/25') {
     // Our model needs to behave as a Christmas model
     $this->Category->Behaviors->load('Christmas');
 }
-
 ```
 
-We can also use the load method to override behavior settings::
+We can also use the load method to override behavior settings:
 
-```php
+``` php
 // We will change one setting from our already attached behavior
 $this->Category->Behaviors->load('Tree', array('left' => 'new_left_node'));
-
 ```
 
 And using aliasing, we can customize the alias it will be loaded as, also allowing it to be loaded
-multiple times with different settings
+multiple times with different settings:
 
-```php
+``` php
 // The behavior will be available as 'MyTree'
 $this->Category->Behaviors->load('MyTree', array('className' => 'Tree'));
-
 ```
 
 There's also a method to obtain the list of behaviors a model has
 attached. If we pass the name of a behavior to the method, it will
 tell us if that behavior is attached to the model, otherwise it
-will give us the list of attached behaviors
+will give us the list of attached behaviors:
 
-```php
+``` php
 // If the Translate behavior is not attached
 if (!$this->Category->Behaviors->loaded('Translate')) {
     // Get the list of all behaviors the model has attached
     $behaviors = $this->Category->Behaviors->loaded();
 }
-
 ```
 
 ## Creating Behaviors
@@ -189,7 +172,7 @@ automatically. The callbacks are similar to those found in Models:
 `beforeFind`, `afterFind`, `beforeValidate`, `afterValidate`,
 `beforeSave`, `afterSave`, `beforeDelete`, `afterDelete` and
 `onError` - see
-[callback-methods](callback-methods.md).
+[/models/callback-methods](models/callback-methods.md).
 
 Your behaviors should be placed in `app/Model/Behavior`. They are named in CamelCase and
 postfixed by `Behavior`, ex. NameBehavior.php.
@@ -204,9 +187,9 @@ model behavior attachment. Information about specifying settings can be found in
 the chapters about core behaviors and their configuration.
 
 A quick example that illustrates how behavior settings can be
-passed from the model to the behavior
+passed from the model to the behavior:
 
-```php
+``` php
 class Post extends AppModel {
     public $actsAs = array(
         'YourBehavior' => array(
@@ -214,14 +197,13 @@ class Post extends AppModel {
         )
     );
 }
-
 ```
 
 Since behaviors are shared across all the model instances that use them, it's a
 good practice to store the settings per alias/model name that is using the
-behavior. When created behaviors will have their `setup()` method called
+behavior. When created behaviors will have their `setup()` method called:
 
-```php
+``` php
 public function setup(Model $Model, $settings = array()) {
     if (!isset($this->settings[$Model->alias])) {
         $this->settings[$Model->alias] = array(
@@ -233,44 +215,40 @@ public function setup(Model $Model, $settings = array()) {
     $this->settings[$Model->alias] = array_merge(
         $this->settings[$Model->alias], (array)$settings);
 }
-
 ```
 
 ## Creating behavior methods
 
 Behavior methods are automatically available on any model acting as
-the behavior. For example if you had
+the behavior. For example if you had:
 
-```php
+``` php
 class Duck extends AppModel {
     public $actsAs = array('Flying');
 }
-
 ```
 
 You would be able to call `FlyingBehavior` methods as if they were
 methods on your Duck model. When creating behavior methods you
 automatically get passed a reference of the calling model as the
 first parameter. All other supplied parameters are shifted one
-place to the right. For example
+place to the right. For example:
 
-```php
+``` php
 $this->Duck->fly('toronto', 'montreal');
-
 ```
 
 Although this method takes two parameters, the method signature
-should look like
+should look like:
 
-```php
+``` php
 public function fly(Model $Model, $from, $to) {
     // Do some flying.
 }
-
 ```
 
 Keep in mind that methods called in a `$this->doIt()` fashion
-from inside a behavior method will not get the $model parameter
+from inside a behavior method will not get the \$model parameter
 automatically appended.
 
 ### Mapped methods
@@ -280,9 +258,9 @@ matching methods. Behaviors can also define mapped methods. Mapped methods use
 pattern matching for method invocation. This allows you to create methods
 similar to `Model::findAllByXXX` methods on your behaviors. Mapped methods need
 to be declared in your behaviors `$mapMethods` array. The method signature for
-a mapped method is slightly different than a normal behavior mixin method
+a mapped method is slightly different than a normal behavior mixin method:
 
-```php
+``` php
 class MyBehavior extends ModelBehavior {
     public $mapMethods = array('/do(\w+)/' => 'doSomething');
 
@@ -291,21 +269,19 @@ class MyBehavior extends ModelBehavior {
         //do something
     }
 }
-
 ```
 
 The above will map every `doXXX()` method call to the behavior. As you can
 see, the model is still the first parameter, but the called method name will be
 the 2nd parameter. This allows you to munge the method name for additional
 information, much like `Model::findAllByXX`. If the above behavior was
-attached to a model the following would happen
+attached to a model the following would happen:
 
-```php
+``` php
 $model->doReleaseTheHounds('karl', 'lenny');
 
 // would output
 'ReleaseTheHounds', 'karl', 'lenny'
-
 ```
 
 ## Behavior callbacks
@@ -317,77 +293,40 @@ and augment the parameters or splice in additional behavior.
 
 All behavior callbacks are fired **before** the model callbacks are:
 
--  `beforeFind`
--  `afterFind`
--  `beforeValidate`
--  `afterValidate`
--  `beforeSave`
--  `afterSave`
--  `beforeDelete`
--  `afterDelete`
+- `beforeFind`
+- `afterFind`
+- `beforeValidate`
+- `afterValidate`
+- `beforeSave`
+- `afterSave`
+- `beforeDelete`
+- `afterDelete`
 
 ### Creating a behavior callback
 
-### Class `ModelBehavior`
+`class` **ModelBehavior**
 
 Model behavior callbacks are defined as simple methods in your
 behavior class. Much like regular behavior methods, they receive a
 `$Model` parameter as the first argument. This parameter is the
 model that the behavior method was invoked on.
 
-#### Method `setup(Model $Model, array $settings = array())`
+`method` ModelBehavior::**setup**(Model $Model, array $settings = array())
 
-Called when a behavior is attached to a model. The settings come from the
-attached model's `$actsAs` property.
+`method` ModelBehavior::**cleanup**(Model $Model)
 
-#### Method `cleanup(Model $Model)`
+`method` ModelBehavior::**beforeFind**(Model $Model, array $query)
 
-Called when a behavior is detached from a model. The base method removes
-model settings based on `$model->alias`. You can override this method and
-provide custom cleanup functionality.
+`method` ModelBehavior::**afterFind**(Model $Model, mixed $results, boolean $primary = false)
 
-#### Method `beforeFind(Model $Model, array $query)`
+`method` ModelBehavior::**beforeValidate**(Model $Model, array $options = array())
 
-If a behavior's beforeFind return's false it will abort the find().
-Returning an array will augment the query parameters used for the
-find operation.
+`method` ModelBehavior::**afterValidate**(Model $Model)
 
-#### Method `afterFind(Model $Model, mixed $results, boolean $primary = false)`
+`method` ModelBehavior::**beforeSave**(Model $Model, array $options = array())
 
-You can use the afterFind to augment the results of a find. The
-    return value will be passed on as the results to either the next
-behavior in the chain or the model's afterFind.
+`method` ModelBehavior::**afterSave**(Model $Model, boolean $created, array $options = array())
 
-#### Method `beforeValidate(Model $Model, array $options = array())`
+`method` ModelBehavior::**beforeDelete**(Model $Model, boolean $cascade = true)
 
-You can use beforeValidate to modify a model's validate array or
-handle any other pre-validation logic. Returning false from a
-beforeValidate callback will abort the validation and cause it to
-fail.
-
-#### Method `afterValidate(Model $Model)`
-
-You can use afterValidate to perform any data cleanup or preparation
-    if needed.
-
-#### Method `beforeSave(Model $Model, array $options = array())`
-
-You can return false from a behavior's beforeSave to abort the
-save. Return true to allow it continue.
-
-#### Method `afterSave(Model $Model, boolean $created, array $options = array())`
-
-You can use afterSave to perform clean up operations related to
-your behavior. $created will be true when a record is created, and
-false when a record is updated.
-
-#### Method `beforeDelete(Model $Model, boolean $cascade = true)`
-
-You can return false from a behavior's beforeDelete to abort the
-delete. Return true to allow it continue.
-
-#### Method `afterDelete(Model $Model)`
-
-You can use afterDelete to perform clean up operations related to
-your behavior.
-
+`method` ModelBehavior::**afterDelete**(Model $Model)

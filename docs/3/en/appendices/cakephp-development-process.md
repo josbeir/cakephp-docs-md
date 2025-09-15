@@ -1,8 +1,3 @@
----
-title: CakePHP Development Process
-keywords: "maintenance branch,community interaction,community feature,necessary feature,stable release,ticket system,advanced feature,power users,feature set,chat irc,leading edge,router,new features,members,attempt,development branches,branch development"
----
-
 # CakePHP Development Process
 
 Here we attempt to explain the process we use when developing the
@@ -47,5 +42,5 @@ make general comments on the code.
 If you find an issue, the best answer is to write a test. The best advice we can
 offer in writing tests is to look at the ones included in the core.
 
-As always, if you have any questions or comments, visit us at #cakephp on
+As always, if you have any questions or comments, visit us at \#cakephp on
 irc.freenode.net.

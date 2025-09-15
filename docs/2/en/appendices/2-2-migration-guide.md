@@ -2,42 +2,36 @@
 
 CakePHP 2.2 is a fully API compatible upgrade from 2.0/2.1. This page outlines the
 changes and improvements made for 2.2.
-<!-- anchor: required-steps-to-upgrade-2-2 -->
+
 ## Required steps to upgrade
 
 When upgrading to CakePHP 2.2 its important to add a few new configuration
 values to `app/Config/bootstrap.php`. Adding these will ensure consistent
-behavior with 2.1.x
+behavior with 2.1.x:
 
-```php
-// Enable the Dispatcher filters for plugin assets, and
-// CacheHelper.
-Configure::write('Dispatcher.filters', array(
-    'AssetDispatcher',
-    'CacheDispatcher'
-));
+    // Enable the Dispatcher filters for plugin assets, and
+    // CacheHelper.
+    Configure::write('Dispatcher.filters', array(
+        'AssetDispatcher',
+        'CacheDispatcher'
+    ));
 
-// Add logging configuration.
-CakeLog::config('debug', array(
-    'engine' => 'FileLog',
-    'types' => array('notice', 'info', 'debug'),
-    'file' => 'debug',
-));
-CakeLog::config('error', array(
-    'engine' => 'FileLog',
-    'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
-    'file' => 'error',
-));
-
-```
+    // Add logging configuration.
+    CakeLog::config('debug', array(
+        'engine' => 'FileLog',
+        'types' => array('notice', 'info', 'debug'),
+        'file' => 'debug',
+    ));
+    CakeLog::config('error', array(
+        'engine' => 'FileLog',
+        'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+        'file' => 'error',
+    ));
 
 You will also need to modify `app/Config/core.php`. Change the value of
-`LOG_ERROR` to `LOG_ERR`
+`LOG_ERROR` to `LOG_ERR`:
 
-```
-define('LOG_ERROR', LOG_ERR);
-
-```
+    define('LOG_ERROR', LOG_ERR);
 
 When using `Model::validateAssociated()` or `Model::saveAssociated()` and
 primary model validation fails, the validation errors of associated models are no longer wiped out.
@@ -48,12 +42,9 @@ You might need to update your test cases to reflect this change.
 
 ### I18N extract shell
 
-- An option was added to overwrite existing POT files by default
+- An option was added to overwrite existing POT files by default:
 
-```
-./Console/cake i18n extract --overwrite
-
-```
+      ./Console/cake i18n extract --overwrite
 
 ## Models
 
@@ -105,8 +96,7 @@ You might need to update your test cases to reflect this change.
   data in durable storage like files. Both `PhpReader` and
   `IniReader` work with it.
 - A new config parameter 'Config.timezone' is available in which you can set
-  users' timezone string. eg. You can do `Configure::write('Config.timezone',
-  'Europe/Paris')`. If a method of `CakeTime` class is called with
+  users' timezone string. eg. You can do `Configure::write('Config.timezone', 'Europe/Paris')`. If a method of `CakeTime` class is called with
   `$timezone` parameter as null and 'Config.timezone' is set, then the value
   of 'Config.timezone' will be used. This feature allows you to set users'
   timezone just once instead of passing it each time in function calls.
@@ -167,7 +157,7 @@ You might need to update your test cases to reflect this change.
 
 The `Hash` class was added in 2.2. It replaced Set providing a more
 consistent, reliable and performant API to doing many of the same tasks Set
-does. See the [/core-utility-libraries/hash` page for more detail.
+does. See the [/core-utility-libraries/hash](core-utility-libraries/hash.md) page for more detail.
 
 ### CakeTime
 
@@ -177,13 +167,10 @@ does. See the [/core-utility-libraries/hash` page for more detail.
   `$timezone` parameter is still possible for backwards compatibility.
 - `CakeTime::timeAgoInWords()` had the `accuracy` option added.
   This option allows you to specify how accurate formatted times should be.
-
 - New methods added:
-
   - `CakeTime::toServer()`
   - `CakeTime::timezone()`
   - `CakeTime::listTimezones()`
-
 - The `$dateString` parameter in all methods now accepts a DateTime object.
 
 ## Helpers
@@ -216,10 +203,10 @@ does. See the [/core-utility-libraries/hash` page for more detail.
 - Event listeners can now be attached to the dispatcher calls, those will have
   the ability to change the request information or the response before it is
   sent to the client. Check the full documentation for this new features in
-  [dispatch-filters](../development/dispatch-filters.md)
-- With the addition of [dispatch-filters](../development/dispatch-filters.md) you'll need to
+  [/development/dispatch-filters](development/dispatch-filters.md)
+- With the addition of [/development/dispatch-filters](development/dispatch-filters.md) you'll need to
   update `app/Config/bootstrap.php`. See
-  [required-steps-to-upgrade-2-2](2-2-migration-guide.md#required-steps-to-upgrade-2-2).
+  [required-steps-to-upgrade-2-2](#required-steps-to-upgrade-2-2).
 
 ### Router
 
@@ -237,15 +224,14 @@ Memcache engine.
 
 It is now possible to tag or label cache keys under groups. This makes it
 simpler to mass-delete cache entries associated to the same label. Groups are
-declared at configuration time when creating the cache engine
+declared at configuration time when creating the cache engine:
 
-```php
+``` css
 Cache::config(array(
     'engine' => 'Redis',
     ...
     'groups' => array('post', 'comment', 'user')
 ));
-
 ```
 
 You can have as many groups as you like, but keep in mind they cannot be
@@ -257,13 +243,12 @@ name and deletes all entries labeled with the same string.
 ## Log
 
 Changes in `CakeLog` now require, some additional configuration in
-your `app/Config/bootstrap.php`. See [required-steps-to-upgrade-2-2](2-2-migration-guide.md#required-steps-to-upgrade-2-2),
-and [/core-libraries/logging`.
+your `app/Config/bootstrap.php`. See [required-steps-to-upgrade-2-2](#required-steps-to-upgrade-2-2),
+and [/core-libraries/logging](core-libraries/logging.md).
 
 - The `CakeLog` class now accepts the same log levels as defined in
   [RFC 5424](https://tools.ietf.org/html/rfc5424). Several convenience
   methods have also been added:
-
   - `CakeLog::emergency($message, $scope = array())`
   - `CakeLog::alert($message, $scope = array())`
   - `CakeLog::critical($message, $scope = array())`
@@ -272,9 +257,8 @@ and [/core-libraries/logging`.
   - `CakeLog::notice($message, $scope = array())`
   - `CakeLog::info($message, $scope = array())`
   - `CakeLog::debug($message, $scope = array())`
-
 - A third argument `$scope` has been added to `CakeLog::write`.
-  See [logging-scopes](../core-libraries/logging.md#logging-scopes).
+  See [logging-scopes](#logging-scopes).
 - A new log engine: `ConsoleLog` has been added.
 
 ## Model Validation
@@ -282,14 +266,10 @@ and [/core-libraries/logging`.
 - A new object `ModelValidator` was added to delegate the work of validating
   model data, it should be transparent to the application and fully backwards
   compatible. It also exposes a rich API to add, modify and remove validation
-  rules. Check docs for this object in [data-validation](../models/data-validation.md).
-
+  rules. Check docs for this object in [/models/data-validation](models/data-validation.md).
 - Custom validation functions in your models need to have "public" visibility
   so that they are accessible by `ModelValidator`.
-
 - New validation rules added:
-
   - `Validation::naturalNumber()`
   - `Validation::mimeType()`
   - `Validation::uploadError()`
-

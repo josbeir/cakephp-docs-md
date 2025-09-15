@@ -1,8 +1,3 @@
----
-title: REST
-keywords: "application programmers,default routes,core functionality,result format,mashups,recipe database,request method,easy access,config,soap,recipes,logic,audience,cakephp,running,api"
----
-
 # REST
 
 Many newer application programmers are realizing the need to open their core
@@ -18,13 +13,13 @@ for direction. Exposing an API via REST in CakePHP is simple.
 ## The Simple Setup
 
 The fastest way to get up and running with REST is to add a few lines to setup
-[resource routes](routing.md#resource-routes) in your config/routes.php file.
+[resource routes](#resource-routes) in your config/routes.php file.
 
 Once the router has been set up to map REST requests to certain controller
 actions, we can move on to creating the logic in our controller actions. A basic
-controller might look something like this
+controller might look something like this:
 
-```php
+``` php
 // src/Controller/RecipesController.php
 class RecipesController extends AppController
 {
@@ -98,13 +93,12 @@ class RecipesController extends AppController
         ]);
     }
 }
-
 ```
 
 RESTful controllers often use parsed extensions to serve up different views
 based on different kinds of requests. Since we're dealing with REST requests,
 we'll be making XML views. You can make JSON views using CakePHP's
-built-in [json-and-xml-views](../views/json-and-xml-views.md). By using the built in
+built-in [/views/json-and-xml-views](views/json-and-xml-views.md). By using the built in
 `XmlView` we can define a `_serialize` view variable. This special
 view variable is used to define which view variables `XmlView` should
 serialize into XML.
@@ -113,15 +107,14 @@ If we wanted to modify the data before it is converted into XML we should not
 define the `_serialize` view variable, and instead use template files. We place
 the REST views for our RecipesController inside **src/Template/Recipes/xml**. We can also use
 the `Xml` for quick-and-easy XML output in those views. Here's what
-our index view might look like
+our index view might look like:
 
-```php
+``` php
 // src/Template/Recipes/xml/index.ctp
 // Do some formatting and manipulation on
 // the $recipes array.
 $xml = Xml::fromArray(['response' => $recipes]);
 echo $xml->asXML();
-
 ```
 
 When serving up a specific content type using `Cake\Routing\Router::extensions()`,
@@ -130,9 +123,9 @@ Since we're using XML as the content type, there is no built-in helper,
 however if you were to create one it would automatically be loaded
 for our use in those views.
 
-The rendered XML will end up looking something like this
+The rendered XML will end up looking something like this:
 
-```html
+``` html
 <recipes>
     <recipe>
         <id>234</id>
@@ -145,12 +138,11 @@ The rendered XML will end up looking something like this
         </author>
         <comment>
             <id>245</id>
-            \<body\>Yummy yummmy</body>
+            <body>Yummy yummmy</body>
         </comment>
     </recipe>
     ...
 </recipes>
-
 ```
 
 Creating the logic for the edit action is a bit trickier, but not by much. Since
@@ -158,9 +150,9 @@ you're providing an API that outputs XML, it's a natural choice to receive XML
 as input. Not to worry, the
 `Cake\Controller\Component\RequestHandler` and
 `Cake\Routing\Router` classes make things much easier. If a POST or
-PUT request has an XML content-type, then the input is run through  CakePHP's
+PUT request has an XML content-type, then the input is run through CakePHP's
 `Xml` class, and the array representation of the data is assigned to
-`$this->request->getData()`.  Because of this feature, handling XML and POST data in
+`$this->request->getData()`. Because of this feature, handling XML and POST data in
 parallel is seamless: no changes are required to the controller or model code.
 Everything you need should end up in `$this->request->getData()`.
 
@@ -177,4 +169,4 @@ need them, using `RequestHandler::addInputType()`.
 ## RESTful Routing
 
 CakePHP's Router makes connecting RESTful resource routes easy. See the section
-on [resource-routes](routing.md#resource-routes) for more information.
+on [resource-routes](#resource-routes) for more information.

@@ -5,16 +5,12 @@ deprecations and features added in 4.4.
 
 ## Upgrading to 4.4.0
 
-You can can use composer to upgrade to CakePHP 4.4.0
+You can can use composer to upgrade to CakePHP 4.4.0:
 
-```
-php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.4"
-
-```
+    php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.4"
 
 > [!NOTE]
 > CakePHP 4.4 requires PHP 7.4 or greater.
->
 
 ## Deprecations
 
@@ -22,20 +18,16 @@ php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.4"
 duration of 4.x but will be removed in 5.0.
 
 You can use the
-[upgrade tool](4-0-upgrade-guide.md#upgrade-tool-use) to automate updating usage of deprecated
-features
+[upgrade tool](#upgrade-tool-use) to automate updating usage of deprecated
+features:
 
-```html
-bin/cake upgrade rector --rules cakephp44 <path/to/app/src>
-
-```
+    bin/cake upgrade rector --rules cakephp44 <path/to/app/src>
 
 > [!NOTE]
 > This only updates CakePHP 4.4 changes. Make sure you apply CakePHP 4.3 changes first.
->
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](../development/errors.md#deprecation-warnings) for more information.
+path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
 
 ### Controller
 
@@ -57,21 +49,20 @@ The `ErrorHandler` and `ConsoleErrorHandler` classes are now deprecated.
 They have been replaced by the new `ExceptionTrap` and `ErrorTrap` classes.
 The trap classes provide a more extensible and consistent error & exception
 handling framework. To upgrade to the new system you can replace the usage of
-`ErrorHandler` and `ConsoleErrorHandler` (such as in your `config/bootstrap.php`) with
+`ErrorHandler` and `ConsoleErrorHandler` (such as in your `config/bootstrap.php`) with:
 
-```php
+``` php
 use Cake\Error\ErrorTrap;
 use Cake\Error\ExceptionTrap;
 
 (new ErrorTrap(Configure::read('Error')))->register();
 (new ExceptionTrap(Configure::read('Error')))->register();
-
 ```
 
 If you have defined the `Error.errorLogger` configure value, you will need to
 use `Error.logger` instead.
 
-See the [errors](../development/errors.md) for more detailed documentation. Additionally
+See the [/development/errors](development/errors.md) for more detailed documentation. Additionally
 the following methods related to the deprecated error handling system are
 deprecated:
 
@@ -92,24 +83,23 @@ be removed in 5.0.
 - Replace `accepts()` with `$this->request->accepts()`.
 - Replace `requestedWith()` with a custom request detector (for example,
   `$this->request->is('json')`).
-- Replace `prefers()` with `ContentTypeNegotiation`. See [controller-viewclasses](../controllers.md#controller-viewclasses).
+- Replace `prefers()` with `ContentTypeNegotiation`. See [controller-viewclasses](#controller-viewclasses).
 - Replace `renderAs()` with controller content negotiation features on
   `Controller`.
-- Replace `checkHttpCache` option with [check-http-cache](../controllers/components/check-http-cache.md).
-- Use [controller-viewclasses](../controllers.md#controller-viewclasses) instead of defining view class mappings in
+- Replace `checkHttpCache` option with [/controllers/components/check-http-cache](controllers/components/check-http-cache.md).
+- Use [controller-viewclasses](#controller-viewclasses) instead of defining view class mappings in
   `RequestHandlerComponent`.
 
 The automatic view switching for 'ajax' requests offered by
 `RequestHandlerComponent` is deprecated. Instead you can either
 handle this in a controller action or `Controller.beforeRender` callback
-with
+with:
 
-```php
+``` php
 // In a controller action, or in beforeRender.
 if ($this->request->is('ajax')) {
     $this->viewBuilder()->setClassName('Ajax');
 }
-
 ```
 
 Alternatively, you can have the HTML view class switch to the `ajax` layout as
@@ -145,21 +135,16 @@ Use the `Controller::$paginate` property or the `$settings` parameter of
 - `ConsoleIntegrationTestTrait` was moved to the console package along with
   dependencies to allow testing console applications without requiring the full
   cakephp/cakephp package.
-
   - `Cake\TestSuite\ConsoleIntegrationTestTrait` moved to `Cake\Console\TestSuite\ConsoleIntegrationTestTrait`
   - `Cake\TestSuite\Constraint\Console\*` moved to `Cake\Console\TestSuite\Constraint\*`
   - `Cake\TestSuite\Stub\ConsoleInput` moved to `Cake\Console\TestSuite\StubConsoleInput`
   - `Cake\TestSuite\Stub\ConsoleOutput` moved to `Cake\Console\TestSuite\StubConsoleOutput`
   - `Cake\TestSuite\Stub\MissingConsoleInputException` moved to `Cake\Console\TestSuite\MissingConsoleInputException`
-
 - `ContainerStubTrait` was moved to the core package to allow testing console applications
   without requiring the full cakephp/cakephp package.
-
   - `Cake\TestSuite\ContainerStubTrait` moved to `Cake\Core\TestSuite\ContainerStubTrait`
-
 - `HttpClientTrait` was moved to the http package to allow testing http applications
   without requiring the full cakephp/cakephp package.
-
   - `Cake\TestSuite\HttpClientTrait` moved to `Cake\Http\TestSuite\HttpClientTrait`
 
 ## Behavior Changes
@@ -189,7 +174,7 @@ change the semantics or behavior of methods.
 ### Command
 
 - `bin/cake routes` now highlights collisions in route templates.
-- `Command::getDescription()` allows you to set a custom description. See [console-command-description](../console-commands/commands.md#console-command-description)
+- `Command::getDescription()` allows you to set a custom description. See [console-command-description](#console-command-description)
 
 ### Controller
 
@@ -200,7 +185,7 @@ change the semantics or behavior of methods.
 
 ### Core
 
-- The previously experimental API for the [dependency-injection](../development/dependency-injection.md) container,
+- The previously experimental API for the [/development/dependency-injection](development/dependency-injection.md) container,
   introduced in CakePHP 4.2, is now considered stable.
 
 ### Database
@@ -215,7 +200,7 @@ change the semantics or behavior of methods.
 
 - `ErrorTrap` and `ExceptionTrap` were added. These classes form the
   foundation of an updated error handling system for applications. Read more
-  about these classes in [errors](../development/errors.md).
+  about these classes in [/development/errors](development/errors.md).
 
 ### Http
 

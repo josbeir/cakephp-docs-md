@@ -1,12 +1,8 @@
 # Saving Data
 
-**Namespace:** `Cake\ORM`
+`class` Cake\\ORM\\**Table**
 
-### Class `Cake\ORM\Table`
-
-:noindex:
-
-After you have [loaded your data](retrieving-data-and-resultsets.md) you
+After you have [loaded your data</orm/retrieving-data-and-resultsets>](loaded your data</orm/retrieving-data-and-resultsets>.md) you
 will probably want to update and save the changes.
 
 ## A Glance Over Saving Data
@@ -18,9 +14,9 @@ or changing data in the code to be sent to the database.
 ### Inserting Data
 
 The easiest way to insert data in the database is by creating a new entity and
-passing it to the `save()` method in the `Table` class
+passing it to the `save()` method in the `Table` class:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -34,7 +30,6 @@ if ($articlesTable->save($article)) {
     // The $article entity contains the id now
     $id = $article->id;
 }
-    
 ```
 
 The `save()` method returns the successfully saved entity or `false` on failure.
@@ -42,9 +37,9 @@ The `save()` method returns the successfully saved entity or `false` on failure.
 ### Updating Data
 
 Updating your data is equally easy, and the `save()` method is also used for
-that purpose
+that purpose:
 
-```php
+``` php
 use Cake\ORM\TableRegistry;
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -53,7 +48,6 @@ $article = $articlesTable->get(12); // Return article with id 12
 
 $article->title = 'CakePHP is THE best PHP framework!';
 $articlesTable->save($article);
-
 ```
 
 CakePHP will know whether to perform an insert or an update based on the return
@@ -62,9 +56,9 @@ value of the `isNew()` method. Entities that were retrieved with `get()` or
 
 ### Saving With Associations
 
-By default the `save()` method will also save one level of associations
+By default the `save()` method will also save one level of associations:
 
-```php
+``` php
 // Prior to 3.6 use TableRegistry::get('Articles')
 $articlesTable = TableRegistry::getTableLocator()->get('Articles');
 $author = $articlesTable->Authors->findByUserName('mark')->first();
@@ -77,12 +71,11 @@ if ($articlesTable->save($article)) {
     // The foreign key value was set automatically.
     echo $article->author_id;
 }
-
 ```
 
-The `save()` method is also able to create new records for associations::
+The `save()` method is also able to create new records for associations:
 
-```php
+``` php
 $firstComment = $articlesTable->Comments->newEntity();
 $firstComment->body = 'The CakePHP features are outstanding';
 
@@ -98,29 +91,27 @@ $article->comments = [$firstComment, $secondComment];
 $article->tags = [$tag1, $tag2];
 
 $articlesTable->save($article);
-
 ```
 
 ### Associate Many To Many Records
 
 The previous example demonstrates how to associate a few tags to an article.
 Another way of accomplishing the same thing is by using the `link()`
-method in the association
+method in the association:
 
-```php
+``` php
 $tag1 = $articlesTable->Tags->findByName('cakephp')->first();
 $tag2 = $articlesTable->Tags->newEntity();
 $tag2->name = 'awesome';
 
 $articlesTable->Tags->link($article, [$tag1, $tag2]);
-
 ```
 
 ### Unlink Many To Many Records
 
-Unlinking many to many records is done via the `unlink()` method
+Unlinking many to many records is done via the `unlink()` method:
 
-```php
+``` php
 $tags = $articlesTable
     ->Tags
     ->find()
@@ -128,22 +119,21 @@ $tags = $articlesTable
     ->toList();
 
 $articlesTable->Tags->unlink($article, $tags);
-
 ```
 
 When modifying records by directly setting or changing the properties no
 validation happens, which is a problem when accepting form data. The following
 sections will demonstrate how to efficiently convert form data into entities so
 that they can be validated and saved.
-<!-- anchor: converting-request-data -->
+
 ## Converting Request Data into Entities
 
 Before editing and saving data back to your database, you'll need to convert
 the request data from the array format held in the request, and the entities
 that the ORM uses. The Table class provides an easy and efficient way to convert
-one or many entities from request data. You can convert a single entity using
+one or many entities from request data. You can convert a single entity using:
 
-```php
+``` php
 // In a controller
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -151,20 +141,18 @@ $articles = TableRegistry::getTableLocator()->get('Articles');
 
 // Validate and convert to an Entity object
 $entity = $articles->newEntity($this->request->getData());
-
 ```
 
 > [!NOTE]
 > If you are using newEntity() and the resulting entities are missing some or
 > all of the data they were passed, double check that the columns you want to
-> set are listed in the `$_accessible` property of your entity. See [entities-mass-assignment](entities.md#entities-mass-assignment).
->
+> set are listed in the `$_accessible` property of your entity. See [entities-mass-assignment](#entities-mass-assignment).
 
 The request data should follow the structure of your entities. For example if
 you have an article, which belonged to a user, and had many comments, your
-request data should resemble
+request data should resemble:
 
-```php
+``` php
 $data = [
     'title' => 'CakePHP For the Win',
     'body' => 'Baking with CakePHP makes web development fun!',
@@ -177,22 +165,20 @@ $data = [
         ['body' => 'CakePHP performance is terrific!'],
     ]
 ];
-
 ```
 
 By default, the `newEntity()` method validates the data that gets passed to
-it, as explained in the [validating-request-data](validation.md#validating-request-data) section. If you wish to
-bypass data validation pass the `'validate' => false` option
+it, as explained in the [validating-request-data](#validating-request-data) section. If you wish to
+bypass data validation pass the `'validate' => false` option:
 
-```php
+``` php
 $entity = $articles->newEntity($data, ['validate' => false]);
-
 ```
 
 When building forms that save nested associations, you need to define which
-associations should be marshalled
+associations should be marshalled:
 
-```php
+``` php
 // In a controller
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -204,13 +190,12 @@ $entity = $articles->newEntity($this->request->getData(), [
         'Tags', 'Comments' => ['associated' => ['Users']]
     ]
 ]);
-
 ```
 
 The above indicates that the 'Tags', 'Comments' and 'Users' for the Comments
-should be marshalled. Alternatively, you can use dot notation for brevity
+should be marshalled. Alternatively, you can use dot notation for brevity:
 
-```php
+``` php
 // In a controller
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -220,22 +205,20 @@ $articles = TableRegistry::getTableLocator()->get('Articles');
 $entity = $articles->newEntity($this->request->getData(), [
     'associated' => ['Tags', 'Comments.Users']
 ]);
-
 ```
 
-You may also disable marshalling of possible nested associations like so::
+You may also disable marshalling of possible nested associations like so:
 
-```php
+``` php
 $entity = $articles->newEntity($data, ['associated' => []]);
 // or...
 $entity = $articles->patchEntity($entity, $data, ['associated' => []]);
-
 ```
 
 Associated data is also validated by default unless told otherwise. You may also
-change the validation set to be used per association
+change the validation set to be used per association:
 
-```php
+``` php
 // In a controller
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -249,16 +232,17 @@ $entity = $articles->newEntity($this->request->getData(), [
         'Comments.Users' => ['validate' => 'signup']
     ]
 ]);
-
 ```
 
-The [using-different-validators-per-association](validation.md#using-different-validators-per-association) chapter has more
+The [using-different-validators-per-association](#using-different-validators-per-association) chapter has more
 information on how to use different validators for associated marshalling.
 
 The following diagram gives an overview of what happens inside the
 `newEntity()` or `patchEntity()` method:
 
-![Flow diagram showing the marshalling/validation process.](/validation-cycle.png)
+<figure class="align-left">
+<img src="/validation-cycle.png" alt="/_static/img/validation-cycle.png" />
+</figure>
 
 You can always count on getting an entity back from `newEntity()`. If
 validation fails your entity will contain errors, and any invalid fields will
@@ -268,9 +252,9 @@ not be populated in the created entity.
 
 If you are saving belongsToMany associations you can either use a list of entity
 data or a list of ids. When using a list of entity data your request data should
-look like
+look like:
 
-```php
+``` php
 $data = [
     'title' => 'My title',
     'body' => 'The text',
@@ -280,13 +264,12 @@ $data = [
         ['name' => 'Internet'],
     ]
 ];
-
 ```
 
 The above will create 2 new tags. If you want to link an article with existing
-tags you can use a list of ids. Your request data should look like
+tags you can use a list of ids. Your request data should look like:
 
-```php
+``` php
 $data = [
     'title' => 'My title',
     'body' => 'The text',
@@ -295,13 +278,12 @@ $data = [
         '_ids' => [1, 2, 3, 4]
     ]
 ];
-
 ```
 
 If you need to link against some existing belongsToMany records, and create new
-ones at the same time you can use an expanded format
+ones at the same time you can use an expanded format:
 
-```php
+``` php
 $data = [
     'title' => 'My title',
     'body' => 'The text',
@@ -313,7 +295,6 @@ $data = [
         ['id' => 21]
     ]
 ];
-
 ```
 
 When the above data is converted into entities, you will have 4 tags. The first
@@ -321,30 +302,31 @@ two will be new objects, and the second two will be references to existing
 records.
 
 When converting belongsToMany data, you can disable entity creation, by
-using the `onlyIds` option
+using the `onlyIds` option:
 
-```php
+``` php
 $result = $articles->patchEntity($entity, $data, [
     'associated' => ['Tags' => ['onlyIds' => true]],
 ]);
-
 ```
 
 When used, this option restricts belongsToMany association marshalling to only
 use the `_ids` data.
 
-> [!IMPORTANT]
-> Added in version 3.1.0
-> The `onlyIds` option was added in 3.1.0
->
+<div class="versionadded">
+
+3.1.0
+The `onlyIds` option was added in 3.1.0
+
+</div>
 
 ### Converting HasMany Data
 
 If you want to update existing hasMany associations and update their
 properties, you should first ensure your entity is loaded with the hasMany
-association populated. You can then use request data similar to
+association populated. You can then use request data similar to:
 
-```php
+``` php
 $data = [
     'title' => 'My Title',
     'body' => 'The text',
@@ -354,13 +336,12 @@ $data = [
         ['comment' => 'Create a new comment'],
     ]
 ];
-
 ```
 
 If you are saving hasMany associations and want to link existing records to a
-new parent record you can use the `_ids` format
+new parent record you can use the `_ids` format:
 
-```php
+``` php
 $data = [
     'title' => 'My new article',
     'body' => 'The text',
@@ -369,35 +350,35 @@ $data = [
         '_ids' => [1, 2, 3, 4]
     ]
 ];
-
 ```
 
 When converting hasMany data, you can disable the new entity creation, by using
 the `onlyIds` option. When enabled, this option restricts hasMany marshalling
 to only use the `_ids` key and ignore all other data.
 
-> [!IMPORTANT]
-> Added in version 3.1.0
-> The `onlyIds` option was added in 3.1.0
->
+<div class="versionadded">
+
+3.1.0
+The `onlyIds` option was added in 3.1.0
+
+</div>
 
 ### Converting Multiple Records
 
 When creating forms that create/update multiple records at once you can use
-`newEntities()`
+`newEntities()`:
 
-```php
+``` php
 // In a controller.
 
 // Prior to 3.6 use TableRegistry::get('Articles')
 $articles = TableRegistry::getTableLocator()->get('Articles');
 $entities = $articles->newEntities($this->request->getData());
-
 ```
 
-In this situation, the request data for multiple articles should look like::
+In this situation, the request data for multiple articles should look like:
 
-```php
+``` php
 $data = [
     [
         'title' => 'First post',
@@ -408,13 +389,12 @@ $data = [
         'published' => 1
     ],
 ];
-
 ```
 
 Once you've converted request data into entities you can `save()` or
-`delete()` them
+`delete()` them:
 
-```php
+``` php
 // In a controller.
 foreach ($entities as $entity) {
     // Save entity
@@ -423,14 +403,13 @@ foreach ($entities as $entity) {
     // Delete entity
     $articles->delete($entity);
 }
-
 ```
 
 The above will run a separate transaction for each entity saved. If you'd like
 to process all the entities as a single transaction you can use
-`transactional()`
+`transactional()`:
 
-```php
+``` php
 // In a controller.
 $articles->getConnection()->transactional(function () use ($articles, $entities) {
     foreach ($entities as $entity) {
@@ -439,15 +418,14 @@ $articles->getConnection()->transactional(function () use ($articles, $entities)
 });
 ```
 
-<!-- anchor: changing-accessible-fields -->
 ### Changing Accessible Fields
 
 It's also possible to allow `newEntity()` to write into non accessible fields.
-For example, `id` is usually absent from the `_accessible` property.  In
+For example, `id` is usually absent from the `_accessible` property. In
 such case, you can use the `accessibleFields` option. It could be useful to
-keep ids of associated entities
+keep ids of associated entities:
 
-```php
+``` php
 // In a controller
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -463,7 +441,6 @@ $entity = $articles->newEntity($this->request->getData(), [
         ]
     ]
 ]);
-
 ```
 
 The above will keep the association unchanged between Comments and Users for the
@@ -473,8 +450,7 @@ concerned entity.
 > If you are using newEntity() and the resulting entities are missing some or
 > all of the data they were passed, double check that the columns you want to
 > set are listed in the `$_accessible` property of your entity. See
-> [entities-mass-assignment](entities.md#entities-mass-assignment).
->
+> [entities-mass-assignment](#entities-mass-assignment).
 
 ### Merging Request Data Into Entities
 
@@ -482,9 +458,9 @@ In order to update entities you may choose to apply request data directly to an
 existing entity. This has the advantage that only the fields that actually
 changed will be saved, as opposed to sending all fields to the database to be
 persisted. You can merge an array of raw data into an existing entity using the
-`patchEntity()` method
+`patchEntity()` method:
 
-```php
+``` php
 // In a controller.
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -492,35 +468,32 @@ $articles = TableRegistry::getTableLocator()->get('Articles');
 $article = $articles->get(1);
 $articles->patchEntity($article, $this->request->getData());
 $articles->save($article);
-
 ```
 
 #### Validation and patchEntity
 
 Similar to `newEntity()`, the `patchEntity` method will validate the data
 before it is copied to the entity. The mechanism is explained in the
-[validating-request-data](validation.md#validating-request-data) section. If you wish to disable validation while
-patching an entity, pass the `validate` option as follows
+[validating-request-data](#validating-request-data) section. If you wish to disable validation while
+patching an entity, pass the `validate` option as follows:
 
-```php
+``` php
 // In a controller.
 
 // Prior to 3.6 use TableRegistry::get('Articles')
 $articles = TableRegistry::getTableLocator()->get('Articles');
 $article = $articles->get(1);
 $articles->patchEntity($article, $data, ['validate' => false]);
-
 ```
 
 You may also change the validation set used for the entity or any of the
-associations
+associations:
 
-```php
+``` php
 $articles->patchEntity($article, $this->request->getData(), [
     'validate' => 'custom',
     'associated' => ['Tags', 'Comments.Users' => ['validate' => 'signup']]
 ]);
-
 ```
 
 #### Patching HasMany and BelongsToMany
@@ -529,9 +502,9 @@ As explained in the previous section, the request data should follow the
 structure of your entity. The `patchEntity()` method is equally capable of
 merging associations, by default only the first level of associations are
 merged, but if you wish to control the list of associations to be merged or
-merge deeper to deeper levels, you can use the third parameter of the method
+merge deeper to deeper levels, you can use the third parameter of the method:
 
-```php
+``` php
 // In a controller.
 $associated = ['Tags', 'Comments.Users'];
 $article = $articles->get(1, ['contain' => $associated]);
@@ -539,33 +512,30 @@ $articles->patchEntity($article, $this->request->getData(), [
     'associated' => $associated
 ]);
 $articles->save($article);
-
 ```
 
 Associations are merged by matching the primary key field in the source entities
 to the corresponding fields in the data array. Associations will construct new
 entities if no previous entity is found for the association's target property.
 
-For example give some request data like the following
+For example give some request data like the following:
 
-```php
+``` php
 $data = [
     'title' => 'My title',
     'user' => [
         'username' => 'mark'
     ]
 ];
-
 ```
 
 Trying to patch an entity without an entity in the user property will create
-a new user entity
+a new user entity:
 
-```php
+``` php
 // In a controller.
 $entity = $articles->patchEntity(new Article, $data);
 echo $entity->user->username; // Echoes 'mark'
-
 ```
 
 The same can be said about hasMany and belongsToMany associations, with
@@ -574,17 +544,15 @@ an important caveat:
 > [!NOTE]
 > For belongsToMany associations, ensure the relevant entity has
 > a property accessible for the associated entity.
->
 
-If a Product belongsToMany Tag
+If a Product belongsToMany Tag:
 
-```php
+``` php
 // in the Product Entity
 protected $_accessible = [
     // .. other properties
    'tags' => true,
 ];
-
 ```
 
 > [!NOTE]
@@ -595,11 +563,10 @@ protected $_accessible = [
 > Remember that using either `patchEntity()` or `patchEntities()` does not
 > persist the data, it just edits (or creates) the given entities. In order to
 > save the entity you will have to call the table's `save()` method.
->
 
-For example, consider the following case
+For example, consider the following case:
 
-```php
+``` php
 $data = [
     'title' => 'My title',
     'body' => 'The text',
@@ -619,23 +586,19 @@ $newData = [
 ];
 $articles->patchEntity($entity, $newData);
 $articles->save($entity);
-
 ```
 
 At the end, if the entity is converted back to an array you will obtain the
-following result
+following result:
 
-```json
-[
-    'title' => 'My title',
-    'body' => 'The text',
-    'comments' => [
-        ['body' => 'Changed comment', 'id' => 1],
-        ['body' => 'A new comment'],
-    ]
-];
-
-```
+    [
+        'title' => 'My title',
+        'body' => 'The text',
+        'comments' => [
+            ['body' => 'Changed comment', 'id' => 1],
+            ['body' => 'A new comment'],
+        ]
+    ];
 
 As you can see, the comment with id 2 is no longer there, as it could not be
 matched to anything in the `$newData` array. This happens because CakePHP is
@@ -647,9 +610,9 @@ operations to be executed when persisting the entity again.
 Please note that this does not mean that the comment with id 2 was removed from
 the database, if you wish to remove the comments for that article that are not
 present in the entity, you can collect the primary keys and execute a batch
-delete for those not in the list
+delete for those not in the list:
 
-```php
+``` php
 // In a controller.
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -659,7 +622,6 @@ $comments->deleteAll([
     'article_id' => $article->id,
     'id NOT IN' => $present
 ]);
-
 ```
 
 As you can see, this also helps creating solutions where an association needs to
@@ -668,9 +630,9 @@ be implemented like a single set.
 You can also patch multiple entities at once. The consideration made for
 patching hasMany and belongsToMany associations apply for patching multiple
 entities: Matches are done by the primary key field value and missing matches in
-the original entities array will be removed and not present in the result
+the original entities array will be removed and not present in the result:
 
-```php
+``` php
 // In a controller.
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -680,14 +642,13 @@ $patched = $articles->patchEntities($list, $this->request->getData());
 foreach ($patched as $entity) {
     $articles->save($entity);
 }
-
 ```
 
 Similarly to using `patchEntity()`, you can use the third argument for
 controlling the associations that will be merged in each of the entities in the
-array
+array:
 
-```php
+``` php
 // In a controller.
 $patched = $articles->patchEntities(
     $list,
@@ -696,14 +657,13 @@ $patched = $articles->patchEntities(
 );
 ```
 
-<!-- anchor: before-marshal -->
 ### Modifying Request Data Before Building Entities
 
 If you need to modify request data before it is converted into entities, you can
 use the `Model.beforeMarshal` event. This event lets you manipulate the
-request data just before entities are created
+request data just before entities are created:
 
-```php
+``` php
 // Include use statements at the top of your file.
 use Cake\Event\Event;
 use ArrayObject;
@@ -715,7 +675,6 @@ public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $opti
         $data['username'] = mb_strtolower($data['username']);
     }
 }
-
 ```
 
 The `$data` parameter is an `ArrayObject` instance, so you don't have to
@@ -729,9 +688,9 @@ The `Model.beforeMarshal` event is triggered just at the start of the
 validation process, one of the reasons is that `beforeMarshal` is allowed to
 change the validation rules and the saving options, such as the field whitelist.
 Validation is triggered just after this event is finished. A common example of
-changing the data before it is validated is trimming all fields before saving
+changing the data before it is validated is trimming all fields before saving:
 
-```php
+``` php
 // Include use statements at the top of your file.
 use Cake\Event\Event;
 use ArrayObject;
@@ -745,7 +704,6 @@ public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $opti
         }
     }
 }
-
 ```
 
 Because of how the marshalling process works, if a field does not pass
@@ -759,7 +717,7 @@ elsewhere.
 
 ### Validating Data Before Building Entities
 
-The [validation](validation.md) chapter has more information on how to use the
+The [/orm/validation](orm/validation.md) chapter has more information on how to use the
 validation features of CakePHP to ensure your data stays correct and consistent.
 
 ### Avoiding Property Mass Assignment Attacks
@@ -767,24 +725,23 @@ validation features of CakePHP to ensure your data stays correct and consistent.
 When creating or merging entities from request data you need to be careful of
 what you allow your users to change or add in the entities. For example, by
 sending an array in the request containing the `user_id` an attacker could
-change the owner of an article, causing undesirable effects
+change the owner of an article, causing undesirable effects:
 
-```php
+``` php
 // Contains ['user_id' => 100, 'title' => 'Hacked!'];
 $data = $this->request->getData();
 $entity = $this->patchEntity($entity, $data);
 $this->save($entity);
-
 ```
 
 There are two ways of protecting you against this problem. The first one is by
 setting the default columns that can be safely set from a request using the
-[entities-mass-assignment](entities.md#entities-mass-assignment) feature in the entities.
+[entities-mass-assignment](#entities-mass-assignment) feature in the entities.
 
 The second way is by using the `fieldList` option when creating or merging
-data into an entity
+data into an entity:
 
-```php
+``` php
 // Contains ['user_id' => 100, 'title' => 'Hacked!'];
 $data = $this->request->getData();
 
@@ -793,12 +750,11 @@ $entity = $this->patchEntity($entity, $data, [
     'fieldList' => ['title']
 ]);
 $this->save($entity);
-
 ```
 
-You can also control which properties can be assigned for associations::
+You can also control which properties can be assigned for associations:
 
-```php
+``` php
 // Only allow changing the title and tags
 // and the tag name is the only column that can be set
 $entity = $this->patchEntity($entity, $data, [
@@ -806,7 +762,6 @@ $entity = $this->patchEntity($entity, $data, [
     'associated' => ['Tags' => ['fieldList' => ['name']]]
 ]);
 $this->save($entity);
-
 ```
 
 Using this feature is handy when you have many different functions your users
@@ -815,17 +770,22 @@ privileges.
 
 The `fieldList` options is also accepted by the `newEntity()`,
 `newEntities()` and `patchEntities()` methods.
-> **deprecated:** 3.4.0
+
+<div class="deprecated">
+
+3.4.0
 Use `fields` instead of `fieldList`.
-<!-- anchor: saving-entities -->
+
+</div>
+
 ## Saving Entities
 
-#### Method `Cake\ORM\Table::save(Entity $entity, array $options = [])`
+`method` Cake\\ORM\\Table::**save**(Entity $entity, array $options = [])
 
 When saving request data to your database you need to first hydrate a new entity
-using `newEntity()` for passing into `save()`. For example
+using `newEntity()` for passing into `save()`. For example:
 
-```php
+``` php
 // In a controller
 
 // Prior to 3.6 use TableRegistry::get('Articles')
@@ -834,89 +794,84 @@ $article = $articles->newEntity($this->request->getData());
 if ($articles->save($article)) {
     // ...
 }
-
 ```
 
 The ORM uses the `isNew()` method on an entity to determine whether or not an
 insert or update should be performed. If the `isNew()` method returns `true`
 and the entity has a primary key value, an 'exists' query will be issued. The
 'exists' query can be suppressed by passing `'checkExisting' => false` in the
-`$options` argument
+`$options` argument:
 
-```php
+``` php
 $articles->save($article, ['checkExisting' => false]);
-
 ```
 
 Once you've loaded some entities you'll probably want to modify them and update
-your database. This is a pretty simple exercise in CakePHP
+your database. This is a pretty simple exercise in CakePHP:
 
-```php
+``` php
 // Prior to 3.6 use TableRegistry::get('Articles')
 $articles = TableRegistry::getTableLocator()->get('Articles');
 $article = $articles->find('all')->where(['id' => 2])->first();
 
 $article->title = 'My new title';
 $articles->save($article);
-
 ```
 
-When saving, CakePHP will [apply your rules](validation.md#application-rules), and wrap
+When saving, CakePHP will [apply your rules](#application-rules), and wrap
 the save operation in a database transaction. It will also only update
 properties that have changed. The above `save()` call would generate SQL
 like:
 
-```sql
+``` sql
 UPDATE articles SET title = 'My new title' WHERE id = 2;
-
 ```
 
 If you had a new entity, the following SQL would be generated:
 
-```sql
+``` sql
 INSERT INTO articles (title) VALUES ('My new title');
-
 ```
 
 When an entity is saved a few things happen:
 
-1. Rule checking will be started if not disabled.
-2. Rule checking will trigger the `Model.beforeRules` event. If this event is
-stopped, the save operation will fail and return `false`.
-3. Rules will be checked. If the entity is being created, the `create` rules
-will be used. If the entity is being updated, the `update` rules will be
-used.
-4. The `Model.afterRules` event will be triggered.
-5. The `Model.beforeSave` event is dispatched. If it is stopped, the save will
-be aborted, and save() will return `false`.
-6. Parent associations are saved. For example, any listed belongsTo
-associations will be saved.
-7. The modified fields on the entity will be saved.
-8. Child associations are saved. For example, any listed hasMany, hasOne, or
-belongsToMany associations will be saved.
-9. The `Model.afterSave` event will be dispatched.
+1.  Rule checking will be started if not disabled.
+2.  Rule checking will trigger the `Model.beforeRules` event. If this event is
+    stopped, the save operation will fail and return `false`.
+3.  Rules will be checked. If the entity is being created, the `create` rules
+    will be used. If the entity is being updated, the `update` rules will be
+    used.
+4.  The `Model.afterRules` event will be triggered.
+5.  The `Model.beforeSave` event is dispatched. If it is stopped, the save will
+    be aborted, and save() will return `false`.
+6.  Parent associations are saved. For example, any listed belongsTo
+    associations will be saved.
+7.  The modified fields on the entity will be saved.
+8.  Child associations are saved. For example, any listed hasMany, hasOne, or
+    belongsToMany associations will be saved.
+9.  The `Model.afterSave` event will be dispatched.
 10. The `Model.afterSaveCommit` event will be dispatched.
 
 The following diagram illustrates the above process:
 
-![Flow diagram showing the save process.](/save-cycle.png)
+<figure class="align-left">
+<img src="/save-cycle.png" alt="/_static/img/save-cycle.png" />
+</figure>
 
-See the [application-rules](validation.md#application-rules) section for more information on creating and
+See the [application-rules](#application-rules) section for more information on creating and
 using rules.
 
 > [!WARNING]
 > If no changes are made to the entity when it is saved, the callbacks will
 > not fire because no save is performed.
->
 
 The `save()` method will return the modified entity on success, and `false`
 on failure. You can disable rules and/or transactions using the
-`$options` argument for save
+`$options` argument for save:
 
-```php
+``` php
 // In a controller or table method.
 $articles->save($article, ['checkRules' => false, 'atomic' => false]);
-
 ```
 
 ### Saving Associations
@@ -927,57 +882,53 @@ example saving an Article, will also automatically update any dirty entities
 that are directly related to articles table.
 
 You can fine tune which associations are saved by using the `associated`
-option
+option:
 
-```php
+``` php
 // In a controller.
 
 // Only save the comments association
 $articles->save($entity, ['associated' => ['Comments']]);
-
 ```
 
-You can define save distant or deeply nested associations by using dot notation::
+You can define save distant or deeply nested associations by using dot notation:
 
-```php
+``` php
 // Save the company, the employees and related addresses for each of them.
 $companies->save($entity, ['associated' => ['Employees.Addresses']]);
-
 ```
 
 Moreover, you can combine the dot notation for associations with the options
-array
+array:
 
-```php
+``` php
 $companies->save($entity, [
   'associated' => [
     'Employees',
     'Employees.Addresses'
   ]
 ]);
-
 ```
 
 Your entities should be structured in the same way as they are when loaded from
 the database. See the form helper documentation for [how to build inputs
-for associations](../views/helpers/form.md#associated-form-inputs).
+for associations](#associated-form-inputs).
 
 If you are building or modifying association data after building your entities
-you will have to mark the association property as modified with `setDirty()`
+you will have to mark the association property as modified with `setDirty()`:
 
-```php
+``` php
 $company->author->name = 'Master Chef';
 // Prior to 3.5 use dirty()
 $company->setDirty('author', true);
-
 ```
 
 ### Saving BelongsTo Associations
 
 When saving belongsTo associations, the ORM expects a single nested entity named with
-the singular, [underscored](../core-libraries/inflector.md#inflector-methods-summary) version of the association name. For example
+the singular, [underscored](#inflector-methods-summary) version of the association name. For example:
 
-```php
+``` php
 // In a controller.
 $data = [
     'title' => 'First Post',
@@ -994,15 +945,14 @@ $article = $articles->newEntity($data, [
 ]);
 
 $articles->save($article);
-
 ```
 
 ### Saving HasOne Associations
 
 When saving hasOne associations, the ORM expects a single nested entity named with the
-singular, [underscored](../core-libraries/inflector.md#inflector-methods-summary) version of the association name. For example
+singular, [underscored](#inflector-methods-summary) version of the association name. For example:
 
-```php
+``` php
 // In a controller.
 $data = [
     'id' => 1,
@@ -1018,15 +968,14 @@ $user = $users->newEntity($data, [
     'associated' => ['Profiles']
 ]);
 $users->save($user);
-
 ```
 
 ### Saving HasMany Associations
 
 When saving hasMany associations, the ORM expects an array of entities named with the
-plural, [underscored](../core-libraries/inflector.md#inflector-methods-summary) version of the association name. For example
+plural, [underscored](#inflector-methods-summary) version of the association name. For example:
 
-```php
+``` php
 // In a controller.
 $data = [
     'title' => 'First Post',
@@ -1042,53 +991,49 @@ $article = $articles->newEntity($data, [
     'associated' => ['Comments']
 ]);
 $articles->save($article);
-
 ```
 
 When saving hasMany associations, associated records will either be updated, or
 inserted. For the case that the record already has associated records in the
 database, you have the choice between two saving strategies:
 
-append
+append  
 Associated records are updated in the database or, if not matching any
 existing record, inserted.
-replace
+
+replace  
 Any existing records that do not match the records provided will be deleted
 from the database. Only provided records will remain (or be inserted).
 
 By default the `append` saving strategy is used.
-See [has-many-associations](associations.md#has-many-associations) for details on defining the `saveStrategy`.
+See [has-many-associations](#has-many-associations) for details on defining the `saveStrategy`.
 
 Whenever you add new records to an existing association you should always mark
 the association property as 'dirty'. This lets the ORM know that the association
-property has to be persisted
+property has to be persisted:
 
-```php
+``` php
 $article->comments[] = $comment;
 // Prior to 3.5 use dirty()
 $article->setDirty('comments', true);
-
 ```
 
 Without the call to `setDirty()` the updated comments will not be saved.
 
 If you are creating a new entity, and want to add existing records to a has
 many/belongs to many association you need to initialize the association property
-first
+first:
 
-```php
-$article->comments = [];
-
-```
+    $article->comments = [];
 
 Without initialization calling `$article->comments[] = $comment;` will have no effect.
 
 ### Saving BelongsToMany Associations
 
 When saving belongsToMany associations, the ORM expects an array of entities named with
-the plural, [underscored](../core-libraries/inflector.md#inflector-methods-summary) version of the association name. For example
+the plural, [underscored](#inflector-methods-summary) version of the association name. For example:
 
-```php
+``` php
 // In a controller.
 $data = [
     'title' => 'First Post',
@@ -1104,54 +1049,52 @@ $article = $articles->newEntity($data, [
     'associated' => ['Tags']
 ]);
 $articles->save($article);
-
 ```
 
 When converting request data into entities, the `newEntity()` and
 `newEntities()` methods will handle both arrays of properties, as well as a
 list of ids at the `_ids` key. Using the `_ids` key makes it easy to build a
 select box or checkbox based form controls for belongs to many associations. See
-the [converting-request-data](saving-data.md#converting-request-data) section for more information.
+the [converting-request-data](#converting-request-data) section for more information.
 
 When saving belongsToMany associations, you have the choice between two saving
 strategies:
 
-append
+append  
 Only new links will be created between each side of this association. This
 strategy will not destroy existing links even though they may not be present
 in the array of entities to be saved.
-replace
+
+replace  
 When saving, existing links will be removed and new links will be created in
 the junction table. If there are existing link in the database to some of
 the entities intended to be saved, those links will be updated, not deleted
 and then re-saved.
 
-See [belongs-to-many-associations](associations.md#belongs-to-many-associations) for details on defining the `saveStrategy`.
+See [belongs-to-many-associations](#belongs-to-many-associations) for details on defining the `saveStrategy`.
 
 By default the `replace` strategy is used. Whenever you add new records into
 an existing association you should always mark the association property as
 'dirty'. This lets the ORM know that the association property has to be
-persisted
+persisted:
 
-```php
+``` php
 $article->tags[] = $tag;
 // Prior to 3.5 use dirty()
 $article->setDirty('tags', true);
-
 ```
 
 Without the call to `setDirty()` the updated tags will not be saved.
 
 Often you'll find yourself wanting to make an association between two existing
 entities, eg. a user coauthoring an article. This is done by using the method
-`link()`, like this
+`link()`, like this:
 
-```php
+``` php
 $article = $this->Articles->get($articleId);
 $user = $this->Users->get($userId);
 
 $this->Articles->Users->link($article, [$user]);
-
 ```
 
 When saving belongsToMany Associations, it can be relevant to save some
@@ -1161,15 +1104,14 @@ be either `upvote` or `downvote` and is represented by a string. The
 relation is between Users and Articles.
 
 Saving that association, and the `vote_type` is done by first adding some data
-to `_joinData` and then saving the association with `link()`, example
+to `_joinData` and then saving the association with `link()`, example:
 
-```php
+``` php
 $article = $this->Articles->get($articleId);
 $user = $this->Users->get($userId);
 
 $user->_joinData = new Entity(['vote_type' => $voteType], ['markNew' => true]);
 $this->Articles->Users->link($article, [$user]);
-
 ```
 
 ### Saving Additional Data to the Join Table
@@ -1179,29 +1121,25 @@ additional columns on it. CakePHP makes it simple to save properties into these
 columns. Each entity in a belongsToMany association has a `_joinData` property
 that contains the additional columns on the junction table. This data can be
 either an array or an Entity instance. For example if Students BelongsToMany
-Courses, we could have a junction table that looks like
+Courses, we could have a junction table that looks like:
 
-```
-id | student_id | course_id | days_attended | grade
-
-```
+    id | student_id | course_id | days_attended | grade
 
 When saving data you can populate the additional columns on the junction table
-by setting data to the `_joinData` property
+by setting data to the `_joinData` property:
 
-```php
+``` php
 $student->courses[0]->_joinData->grade = 80.12;
 $student->courses[0]->_joinData->days_attended = 30;
 
 $studentsTable->save($student);
-
 ```
 
 The `_joinData` property can be either an entity, or an array of data if you
 are saving entities built from request data. When saving junction table data
-from request data your POST data should look like
+from request data your POST data should look like:
 
-```php
+``` php
 $data = [
     'first_name' => 'Sally',
     'last_name' => 'Parker',
@@ -1219,12 +1157,11 @@ $data = [
 $student = $this->Students->newEntity($data, [
     'associated' => ['Courses._joinData']
 ]);
-
 ```
 
-See the [associated-form-inputs](../views/helpers/form.md#associated-form-inputs) documentation for how to build inputs with
+See the [associated-form-inputs](#associated-form-inputs) documentation for how to build inputs with
 `FormHelper` correctly.
-<!-- anchor: saving-complex-types -->
+
 ### Saving Complex Types
 
 Tables are capable of storing data represented in basic types, like strings,
@@ -1233,10 +1170,10 @@ complex types such as arrays or objects and serialize this data into simpler
 types that can be saved in the database.
 
 This functionality is achieved by using the custom types system. See the
-[adding-custom-database-types](database-basics.md#adding-custom-database-types) section to find out how to build custom
-column Types
+[adding-custom-database-types](#adding-custom-database-types) section to find out how to build custom
+column Types:
 
-```php
+``` php
 // Only prior to 3.6, you have to add a new type map in config/bootstrap.php
 use Cake\Database\Type;
 
@@ -1251,13 +1188,12 @@ class UsersTable extends Table
     {
         $schema->setColumnType('preferences', 'json');
 
-        // Prior to 3.6 you should use `columnType` instead of `setcolumnType`.
+        // Prior to 3.6 you should use ``columnType`` instead of ``setcolumnType``.
         $schema->columnType('preferences', 'json');
 
         return $schema;
     }
 }
-
 ```
 
 The code above maps the `preferences` column to the `json` custom type.
@@ -1265,9 +1201,9 @@ This means that when retrieving data for that column, it will be unserialized
 from a JSON string in the database and put into an entity as an array.
 
 Likewise, when saved, the array will be transformed back into its JSON
-representation
+representation:
 
-```php
+``` php
 $user = new User([
     'preferences' => [
         'sports' => ['football', 'baseball'],
@@ -1275,7 +1211,6 @@ $user = new User([
     ]
 ]);
 $usersTable->save($user);
-
 ```
 
 When using complex types it is important to validate that the data you are
@@ -1285,7 +1220,7 @@ would not normally be able to.
 
 ## Strict Saving
 
-#### Method `Cake\ORM\Table::saveOrFail($entity, $options = [])`
+`method` Cake\\ORM\\Table::**saveOrFail**($entity, $options = [])
 
 Using this method will throw an
 `Cake\ORM\Exception\PersistenceFailedException` if:
@@ -1300,36 +1235,36 @@ operations without human monitoring, for example, inside a Shell task.
 > [!NOTE]
 > If you use this method in a controller, be sure to catch the
 > `PersistenceFailedException` that could be raised.
->
 
 If you want to track down the entity that failed to save, you can use the
-`Cake\ORM\Exception\PersistenceFailedException::getEntity()` method
+`Cake\ORM\Exception\PersistenceFailedException::getEntity()` method:
 
-```php
+``` php
 try {
     $table->saveOrFail($entity);
 } catch (\Cake\ORM\Exception\PersistenceFailedException $e) {
     echo $e->getEntity();
 }
-
 ```
 
 As this internally perfoms a `Cake\ORM\Table::save()` call, all
 corresponding save events will be triggered.
 
-> [!IMPORTANT]
-> Added in version 3.4.1
->
+<div class="versionadded">
+
+3.4.1
+
+</div>
 
 ## Find or Create an Entity
 
-#### Method `Cake\ORM\Table::findOrCreate($search, $callback = null, $options = [])`
+`method` Cake\\ORM\\Table::**findOrCreate**($search, $callback = null, $options = [])
 
 Find an existing record based on `$search` or create a new record using the
 properties in `$search` and calling the optional `$callback`. This method is
-ideal in scenarios where you need to reduce the chance of duplicate records
+ideal in scenarios where you need to reduce the chance of duplicate records:
 
-```php
+``` php
 $record = $table->findOrCreate(
     ['email' => 'bobbi@example.com'],
     function ($entity) use ($otherData) {
@@ -1337,7 +1272,6 @@ $record = $table->findOrCreate(
         $entity->name = $otherData['name'];
     }
 );
-
 ```
 
 If your find conditions require custom order, associations or conditions, then
@@ -1353,13 +1287,13 @@ options for this method are:
 
 ## Saving Multiple Entities
 
-#### Method `Cake\ORM\Table::saveMany($entities, $options = [])`
+`method` Cake\\ORM\\Table::**saveMany**($entities, $options = [])
 
 Using this method you can save multiple entities atomically. `$entities` can
 be an array of entities created using `newEntities()` / `patchEntities()`.
-`$options` can have the same options as accepted by `save()`
+`$options` can have the same options as accepted by `save()`:
 
-```php
+``` php
 $data = [
     [
         'title' => 'First post',
@@ -1375,24 +1309,25 @@ $data = [
 $articles = TableRegistry::getTableLocator()->get('Articles');
 $entities = $articles->newEntities($data);
 $result = $articles->saveMany($entities);
-
 ```
 
 The result will be updated entities on success or `false` on failure.
 
-> [!IMPORTANT]
-> Added in version 3.2.8
->
+<div class="versionadded">
+
+3.2.8
+
+</div>
 
 ## Bulk Updates
 
-#### Method `Cake\ORM\Table::updateAll($fields, $conditions)`
+`method` Cake\\ORM\\Table::**updateAll**($fields, $conditions)
 
 There may be times when updating rows individually is not efficient or
 necessary. In these cases it is more efficient to use a bulk-update to modify
-many rows at once, by assigning the new field values, and conditions for the update
+many rows at once, by assigning the new field values, and conditions for the update:
 
-```php
+``` php
 // Publish all the unpublished articles.
 function publishAllUnpublished()
 {
@@ -1406,13 +1341,12 @@ function publishAllUnpublished()
         ]
     );
 }
-
 ```
 
 If you need to do bulk updates and use SQL expressions, you will need to use an
-expression object as `updateAll()` uses prepared statements under the hood
+expression object as `updateAll()` uses prepared statements under the hood:
 
-```php
+``` php
 use Cake\Database\Expression\QueryExpression;
 
 ...
@@ -1422,7 +1356,6 @@ function incrementCounters()
     $expression = new QueryExpression('view_count = view_count + 1');
     $this->updateAll([$expression], ['published' => true]);
 }
-
 ```
 
 A bulk-update will be considered successful if 1 or more rows are updated.
@@ -1430,12 +1363,11 @@ A bulk-update will be considered successful if 1 or more rows are updated.
 > [!WARNING]
 > updateAll will *not* trigger beforeSave/afterSave events. If you need those
 > first load a collection of records and update them.
->
 
 `updateAll()` is for convenience only. You can use this more flexible
-interface as well
+interface as well:
 
-```php
+``` php
 // Publish all the unpublished articles.
 function publishAllUnpublished()
 {
@@ -1445,7 +1377,6 @@ function publishAllUnpublished()
         ->where(['published' => false])
         ->execute();
 }
-
 ```
 
-Also see: [query-builder-updating-data](query-builder.md#query-builder-updating-data).
+Also see: [query-builder-updating-data](#query-builder-updating-data).

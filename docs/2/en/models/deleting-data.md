@@ -1,40 +1,34 @@
----
-title: Deleting Data
-keywords: "doc models,custom logic,callback methods,model class,database model,callbacks,information model,request data,deleteall,fragment,leverage,array,cakephp,failure,recipes,benefit,delete,data model"
----
-
 # Deleting Data
 
 CakePHP's Model class offers a few ways to delete records from your database.
-<!-- anchor: model-delete -->
+
 ## delete
 
 `delete(integer $id = null, boolean $cascade = true);`
 
-Deletes the record identified by $id. By default, also deletes records dependent
+Deletes the record identified by \$id. By default, also deletes records dependent
 on the record specified to be deleted.
 
 For example, when deleting a User record that is tied to many Recipe records
 (User 'hasMany' or 'hasAndBelongsToMany' Recipes):
 
--  if $cascade is set to true, the related Recipe records are also deleted if
-the model's dependent-value is set to true.
--  if $cascade is set to false, the Recipe records will remain after the User
-has been deleted.
+- if \$cascade is set to true, the related Recipe records are also deleted if
+  the model's dependent-value is set to true.
+- if \$cascade is set to false, the Recipe records will remain after the User
+  has been deleted.
 
 If your database supports foreign keys and cascading deletes, it's often more
 efficient to rely on that feature than CakePHP's cascading. The one benefit to
 using the cascade feature of `Model::delete()` is that it allows you to
-leverage behaviors and model callbacks
+leverage behaviors and model callbacks:
 
-```php
+``` php
 $this->Comment->delete($this->request->data('Comment.id'));
-
 ```
 
 You can hook custom logic into the delete process using the `beforeDelete` and
 `afterDelete` callbacks present in both Models and Behaviors. See
-[callback-methods](callback-methods.md) for more information.
+[/models/callback-methods](models/callback-methods.md) for more information.
 
 > [!NOTE]
 > If you delete a record with dependent records and one of their delete
@@ -42,7 +36,6 @@ You can hook custom logic into the delete process using the `beforeDelete` and
 > further event propagation nor does it change the return value of the initial
 > `delete`.
 
-<!-- anchor: model-deleteall -->
 ## deleteAll
 
 `deleteAll(mixed $conditions, $cascade = true, $callbacks = false)`
@@ -57,12 +50,11 @@ should be supplied as a SQL fragment or array.
 
 Return boolean True on success, false on failure.
 
-Example
+Example:
 
-```php
+``` php
 // Delete with array conditions similar to find()
 $this->Comment->deleteAll(array('Comment.spam' => true), false);
-
 ```
 
 If you delete with either callbacks and/or cascade, rows will be found and then
@@ -74,5 +66,3 @@ bindModel() or unbindModel() to change the associations, you should set
 > [!NOTE]
 > deleteAll() will return true even if no records are deleted, as the conditions
 > for the delete query were successful and no matching records remain.
->
->

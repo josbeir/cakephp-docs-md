@@ -4,7 +4,7 @@ CakePHP 5.0 contains breaking changes, and is not backwards compatible with 4.x
 releases. Before attempting to upgrade to 5.0, first upgrade to 4.5 and resolve
 all deprecation warnings.
 
-Refer to the [/appendices/5-0-upgrade-guide` for step by step instructions
+Refer to the [/appendices/5-0-upgrade-guide](appendices/5-0-upgrade-guide.md) for step by step instructions
 on how to upgrade to 5.0.
 
 ## Deprecated Features Removed
@@ -21,29 +21,33 @@ changes made:
 
 - Type declarations were added to all function parameter and returns where possible. These are intended
   to match the docblock annotations, but include fixes for incorrect annotations.
+
 - Type declarations were added to all class properties where possible. These also include some fixes for
   incorrect annotations.
-- The `SECOND`, `MINUTE`, `HOUR`, `DAY`,  `WEEK`, `MONTH`, `YEAR` constants were removed.
-- Use of `#[\AllowDynamicProperties]` removed everywhere. It was used for the following classes:
-- `Command/Command`
-- `Console/Shell`
-- `Controller/Component`
-- `Controller/Controller`
-- `Mailer/Mailer`
-- `View/Cell`
-- `View/Helper`
-- `View/View`
-- The supported database engine versions were updated:
-- MySQL (5.7 or higher)
-- MariaDB (10.1 or higher)
-- PostgreSQL (9.6 or higher)
-- Microsoft SQL Server (2012 or higher)
-- SQLite 3 (3.16 or higher)
+
+- The `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `YEAR` constants were removed.
+
+- Use of `#[\AllowDynamicProperties]` removed everywhere. It was used for the following classes:  
+  - `Command/Command`
+  - `Console/Shell`
+  - `Controller/Component`
+  - `Controller/Controller`
+  - `Mailer/Mailer`
+  - `View/Cell`
+  - `View/Helper`
+  - `View/View`
+
+- The supported database engine versions were updated:  
+  - MySQL (5.7 or higher)
+  - MariaDB (10.1 or higher)
+  - PostgreSQL (9.6 or higher)
+  - Microsoft SQL Server (2012 or higher)
+  - SQLite 3 (3.16 or higher)
 
 ### Auth
 
-- `Auth` has been removed. Use the [cakephp/authentication](https://book.cakephp.org/authentication/3/en/index.html) and
-  [cakephp/authorization](https://book.cakephp.org/authorization/3/en/index.html) plugins instead.
+- <span class="title-ref">Auth</span> has been removed. Use the [cakephp/authentication](https://book.cakephp.org/authentication/3/en/index.md) and
+  [cakephp/authorization](https://book.cakephp.org/authorization/3/en/index.md) plugins instead.
 
 ### Cache
 
@@ -59,7 +63,7 @@ changes made:
 
 - `BaseCommand::__construct()` was removed.
 - `ConsoleIntegrationTestTrait::useCommandRunner()` was removed since it's no longer needed.
-- `Shell` has been removed and should be replaced with [Command](https://book.cakephp.org/5/en/console-commands/commands.html)
+- `Shell` has been removed and should be replaced with [Command](https://book.cakephp.org/5/en/console-commands/commands.md)
 - `ConsoleOptionParser::addSubcommand()` was removed alongside the removal of
   `Shell`. Subcommands should be replaced with `Command` classes that
   implement `Command::defaultName()` to define the necessary command name.
@@ -162,7 +166,7 @@ changes made:
 
 ### I18n
 
-- `FrozenDate` was renamed to `Date` and `FrozenTime` was renamed to `DateTime`.
+- `FrozenDate` was renamed to <span class="title-ref">Date</span> and `FrozenTime` was renamed to <span class="title-ref">DateTime</span>.
 - `Time` now extends `Cake\Chronos\ChronosTime` and is therefore immutable.
 - `Date` objects do not extend `DateTimeInterface` anymore - therefore you can't compare them with `DateTime` objects.
   See the [cakephp/chronos release documentation](https://github.com/cakephp/chronos/releases/tag/3.0.2) for more information.
@@ -181,7 +185,7 @@ changes made:
 
 ### Mailer
 
-- `Email` has been removed. Use [Mailer](https://book.cakephp.org/5/en/core-libraries/email.html) instead.
+- `Email` has been removed. Use [Mailer](https://book.cakephp.org/5/en/core-libraries/email.md) instead.
 - `cake.mailer` has been added as an alternative to the `email` scope
 
 ### ORM
@@ -217,7 +221,7 @@ changes made:
 - `TestSuite` was removed. Users should use environment variables to customize
   unit test settings instead.
 - `TestListenerTrait` was removed. PHPUnit dropped support for these listeners.
-  See [/appendices/phpunit10`
+  See [/appendices/phpunit10](appendices/phpunit10.md)
 - `IntegrationTestTrait::configRequest()` now merges config when called multiple times
   instead of replacing the currently present config.
 
@@ -229,7 +233,7 @@ changes made:
   tests.
 - Previously, most data validation error messages were simply `The provided value is invalid`.
   Now, the data validation error messages are worded more precisely.
-  For example, ``The provided value must be greater than or equal to \`5\```.
+  For example, `` The provided value must be greater than or equal to \`5\ ``\`.
 
 ### View
 
@@ -273,7 +277,7 @@ CakePHP 5 leverages the expanded type system feature available in PHP 8.1+.
 CakePHP also uses `assert()` to provide improved error messages and additional
 type soundness. In production mode, you can configure PHP to not generate
 code for `assert()` yielding improved application performance. See the
-[symlink-assets](../deployment.md#symlink-assets) for how to do this.
+[symlink-assets](#symlink-assets) for how to do this.
 
 ### Collection
 
@@ -284,7 +288,7 @@ code for `assert()` yielding improved application performance. See the
 ### Core
 
 - The `services()` method was added to `PluginInterface`.
-- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](../plugins.md#loading-a-plugin).
+- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](#loading-a-plugin).
 
 ### Database
 
@@ -313,15 +317,14 @@ code for `assert()` yielding improved application performance. See the
 Entities have a new opt-in functionality that allows making entities handle
 properties more strictly. The new behavior is called 'required fields'. When
 enabled, accessing properties that are not defined in the entity will raise
-exceptions. This impacts the following usage
+exceptions. This impacts the following usage:
 
-```php
+``` php
 $entity->get();
 $entity->has();
 $entity->getOriginal();
 isset($entity->attribute);
 $entity->attribute;
-
 ```
 
 Fields are considered defined if they pass `array_key_exists`. This includes
@@ -332,9 +335,9 @@ this the default behavior in the future.
 ### Typed Finder Parameters
 
 Table finders can now have typed arguments as required instead of an options array.
-For e.g. a finder for fetching posts by category or user
+For e.g. a finder for fetching posts by category or user:
 
-```php
+``` php
 public function findByCategoryOrUser(SelectQuery $query, array $options)
 {
     if (isset($options['categoryId'])) {
@@ -346,12 +349,11 @@ public function findByCategoryOrUser(SelectQuery $query, array $options)
 
     return $query;
 }
-
 ```
 
-can now be written as::
+can now be written as:
 
-```php
+``` php
 public function findByCategoryOrUser(SelectQuery $query, ?int $categoryId = null, ?int $userId = null)
 {
     if ($categoryId) {
@@ -363,16 +365,15 @@ public function findByCategoryOrUser(SelectQuery $query, ?int $categoryId = null
 
     return $query;
 }
-
 ```
 
 The finder can then be called as `find('byCategoryOrUser', userId: $somevar)`.
 You can even include the special named arguments for setting query clauses.
 `find('byCategoryOrUser', userId: $somevar, conditions: ['enabled' => true])`.
 
-A similar change has been applied to the `RepositoryInterface::get()` method
+A similar change has been applied to the `RepositoryInterface::get()` method:
 
-```php
+``` php
 public function view(int $id)
 {
     $author = $this->Authors->get($id, [
@@ -380,17 +381,15 @@ public function view(int $id)
         'finder' => 'latest',
     ]);
 }
-
 ```
 
-can now be written as::
+can now be written as:
 
-```php
+``` php
 public function view(int $id)
 {
     $author = $this->Authors->get($id, contain: ['Books'], finder: 'latest');
 }
-
 ```
 
 ### TestSuite
@@ -398,6 +397,7 @@ public function view(int $id)
 - `IntegrationTestTrait::requestAsJson()` has been added to set JSON headers for the next request.
 
 ### Plugin Installer
+
 - The plugin installer has been updated to automatically handle class autoloading
   for your app plugins. So you can remove the namespace to path mappings for your
   plugins from your `composer.json` and just run `composer dumpautoload`.

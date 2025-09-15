@@ -9,7 +9,7 @@ the changes and improvements made in 3.1.
   `cakephp/app` repo. Your current code base is not affected by this, but it is
   recommended to use this route class from now on.
 - Name prefix options were added to the various route builder methods. See the
-  [named-routes](../development/routing.md#named-routes) section for more information.
+  [named-routes](#named-routes) section for more information.
 
 ## Console
 
@@ -25,14 +25,14 @@ the changes and improvements made in 3.1.
 ### Shell Helpers Added
 
 - Console applications can now create helper classes that encapsulate re-usable
-  blocks of output logic. See the [/console-and-shells/helpers` section
+  blocks of output logic. See the [/console-and-shells/helpers](console-and-shells/helpers.md) section
   for more information.
 
 ### RoutesShell
 
 - RoutesShell has been added and now provides you a simple to use CLI
   interface for testing and debugging routes. See the
-  [routes-shell](../console-and-shells/routes-shell.md) section for more information.
+  [/console-and-shells/routes-shell](console-and-shells/routes-shell.md) section for more information.
 
 ## Controller
 
@@ -47,16 +47,15 @@ the changes and improvements made in 3.1.
   - layoutPath
 
   Instead of setting these properties on your controllers, you should set them
-  on the view using methods with matching names
+  on the view using methods with matching names:
 
-```php
-// In a controller, instead of
-$this->layout = 'advanced';
+  ``` php
+  // In a controller, instead of
+  $this->layout = 'advanced';
 
-// You should use
-$this->viewBuilder()->layout('advanced');
-
-```
+  // You should use
+  $this->viewBuilder()->layout('advanced');
+  ```
 
 These methods should be called after you've determined which view class will be
 used by a controller/action.
@@ -108,7 +107,7 @@ used by a controller/action.
 
 ## Network
 
-### Http\Client
+### HttpClient
 
 - The default mime type used when sending requests has changed. Previously
   `multipart/form-data` would always be used. In 3.1, `multipart/form-data`
@@ -117,15 +116,11 @@ used by a controller/action.
 
 ## ORM
 
-You can now [Lazily Eager Load Associations](loading-additional-associations.md). This feature allows you to conditionally
+You can now [Lazily Eager Load Associations](#loading-additional-associations). This feature allows you to conditionally
 load additional associations into a result set, entity or collection of
 entities.
 
-The](#Lazily Eager Load Associations](loading-additional-associations.md). This feature allows you to conditionally
-load additional associations into a result set, entity or collection of
-entities.
-
-The)`patchEntity()` and `newEntity()` method now support the `onlyIds`
+The `patchEntity()` and `newEntity()` method now support the `onlyIds`
 option. This option allows you to restrict hasMany/belongsToMany association
 marshalling to only use the `_ids` list. This option defaults to `false`.
 
@@ -206,4 +201,4 @@ marshalling to only use the `_ids` list. This option defaults to `false`.
 
 ### TestFixture
 
-`model`` key is now supported to retrieve the table name for importing.
+`model` key is now supported to retrieve the table name for importing.

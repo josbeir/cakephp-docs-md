@@ -1,36 +1,27 @@
-# AGENTS.md
+# CakePHP Documentation Project Agent Guidelines
 
-## Build & Preview Commands
-- Start local docs server: `npm run docs:dev`
-- Build static site: `npm run docs:build`
-- Build for local static output: `npm run docs:buildLocal`
-- Preview built site: `npm run docs:preview`
-- **No test or lint scripts are defined.**
+## Build Commands
+- **Build HTML docs**: `make html` (all languages) or `make html-en` (English only)
+- **Build EPUB**: `make epub` or `make epub-en`
+- **Build PDF**: `make latex-en` then `make pdf-en`
+- **Clean builds**: `make clean`
+- **Single language build**: Navigate to language dir (e.g., `en/`) and run `make html`
 
-## Code Style Guidelines
-- **JavaScript:**
-  - Use ES module imports (`import ... from ...`).
-  - Prefer single quotes, 2-space indentation, and trailing commas where possible.
-  - Use descriptive, camelCase for variables/functions; PascalCase for classes.
-  - Handle errors with try/catch and clear error messages.
-  - Keep lines ≤ 100 chars when possible.
-  - Comment code clearly in English.
-- **PHP in docs/examples:**
-  - Follow [PSR-12](https://www.php-fig.org/psr/psr-12/) and [CakePHP Coding Conventions](docs/en/contributing/cakephp-coding-conventions.md).
-  - Four-space indentation, camelBack for functions/variables, CamelCase for classes.
-  - Always use curly braces for control structures.
-  - Add tests for new features (if relevant).
+## Dependencies
+- Python 3 with pip
+- Install requirements: `pip install -r requirements.txt`
+- For PDF: LaTeX package required
 
-## Documentation Conversion Tool
-- `bin/convert.php` is a CLI tool to convert CakePHP’s RST docs to Markdown.
-- Usage: `php bin/convert.php [input_dir] [output_dir]`
-- Handles Sphinx/CakePHP RST features: headings, code blocks, admonitions, PHP/class/method directives, cross-references, images, lists, tables, and more.
-- Preserves custom directives and converts them to Markdown/GitHub alert syntax.
-- Focuses on the `/en` folder by default, but can process any RST directory.
-- Copies static assets (`_static`) to the output directory.
-- Implements robust error handling and outputs conversion progress.
-- Run with `-h` or `--help` for full usage details.
+## Project Structure
+- **Documentation source**: `legacy/{lang}/` (RST format)
+- **Config**: `legacy/config/conf.py` (Sphinx configuration)
+- **Build output**: `build/` directory
+- **Experimental Markdown**: `convert_all.sh` converts RST to Markdown in `markdown/en/`
 
-## General
-- No Cursor or Copilot rules are present.
-- See `docs/en/contributing/code.md` and `docs/en/contributing/cakephp-coding-conventions.md` for more details on PHP code style.
+## Content Guidelines
+- Format: reStructuredText (RST) with Sphinx
+- Follow PSR-12 coding standards for PHP examples
+- Use 4 spaces for indentation in code examples
+- Include `.. todo::` for outstanding issues
+- Use proper Sphinx directives for code blocks, notes, warnings
+- Keep documentation practical and example-driven

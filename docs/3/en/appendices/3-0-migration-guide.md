@@ -13,7 +13,6 @@ this guide for all the new features and API changes.
 
 > [!WARNING]
 > CakePHP 3.0 will not work if you do not meet the above requirements.
->
 
 ## Upgrade Tool
 
@@ -39,7 +38,7 @@ directory, those options are no longer supported. Instead you should use
 
 All of CakePHP's core classes are now namespaced and follow PSR-4 autoloading
 specifications. For example **src/Cache/Cache.php** is namespaced as
-`Cake\Cache\Cache`.  Global constants and helper methods like `__()`
+`Cake\Cache\Cache`. Global constants and helper methods like `__()`
 and `debug()` are not namespaced for convenience sake.
 
 ## Removed Constants
@@ -57,12 +56,12 @@ The following deprecated constants have been removed:
 ## Configuration
 
 Configuration in CakePHP 3.0 is significantly different than in previous
-versions. You should read the [/development/configuration` documentation
+versions. You should read the [/development/configuration](development/configuration.md) documentation
 for how configuration is done in 3.0.
 
 You can no longer use `App::build()` to configure additional class paths.
 Instead you should map additional paths using your application's autoloader. See
-the section on [additional-class-paths](../development/configuration.md#additional-class-paths) for more information.
+the section on [additional-class-paths](#additional-class-paths) for more information.
 
 Three new configure variables provide the path configuration for plugins,
 views and locale files. You can add multiple paths to `App.paths.templates`,
@@ -77,7 +76,7 @@ your **app.php** config file as well as any usage of `Configure::read('App.wwwRo
 CakePHP 3.0 features a new ORM that has been re-built from the ground up. The
 new ORM is significantly different and incompatible with the previous one.
 Upgrading to the new ORM will require extensive changes in any application that
-is being upgraded. See the new [orm](../orm.md) documentation for information on how
+is being upgraded. See the new [/orm](orm.md) documentation for information on how
 to use the new ORM.
 
 ## Basics
@@ -169,8 +168,8 @@ of returning `false`.
 The `Object` class has been removed. It formerly contained a grab bag of
 methods that were used in various places across the framework. The most useful
 of these methods have been extracted into traits. You can use the
-:php:trait:`Cake\\Log\\LogTrait` to access the `log()` method. The
-:php:trait:`Cake\\Routing\\RequestActionTrait` provides `requestAction()`.
+`Cake\Log\LogTrait` to access the `log()` method. The
+`Cake\Routing\RequestActionTrait` provides `requestAction()`.
 
 ## Console
 
@@ -181,9 +180,8 @@ console with `bin/cake`.
 ### TaskCollection Replaced
 
 This class has been renamed to `Cake\Console\TaskRegistry`.
-See the section on [registry-objects](../core-libraries/registry-objects.md) for more information
-on the features provided by the new class. You can use the `cake upgrade
-rename_collections` to assist in upgrading your code. Tasks no longer have
+See the section on [/core-libraries/registry-objects](core-libraries/registry-objects.md) for more information
+on the features provided by the new class. You can use the `cake upgrade rename_collections` to assist in upgrading your code. Tasks no longer have
 access to callbacks, as there were never any callbacks to use.
 
 ### Shell
@@ -226,20 +224,20 @@ CakePHP and [Phinx](https://phinx.org/).
 
 - `bin/cake i18n extract` no longer includes untranslated validation
   messages. If you want translated validation messages you should wrap those
-  messages in `__()` calls like any other content.
+  messages in <span class="title-ref">\_\_()</span> calls like any other content.
 
 ### BakeShell / TemplateTask
 
 - Bake is no longer part of the core source and is superseded by
   [CakePHP Bake Plugin](https://github.com/cakephp/bake)
 - Bake templates have been moved under **src/Template/Bake**.
-- The syntax of Bake templates now uses erb-style tags (`<% %>`) to denote
+- The syntax of Bake templates now uses erb-style tags ([](#-)) to denote
   templating logic, allowing php code to be treated as plain text.
 - The `bake view` command has been renamed `bake template`.
 
 ## Event
 
-The `getEventManager()` method,  was removed on all objects that had it.  An
+The `getEventManager()` method, was removed on all objects that had it. An
 `eventManager()` method is now provided by the `EventManagerTrait`. The
 `EventManagerTrait` contains the logic of instantiating and keeping
 a reference to a local event manager.
@@ -259,19 +257,15 @@ dispatching events you can no longer use the following options:
   synchronization issues with configuration options.
 - Log engines are now lazily loaded upon the first write to the logs.
 - `Cake\Log\Log::engine()` has been added.
-- The following methods have been removed from `Cake\Log\Log`
-
-```
-`defaultLevels()`, `enabled()`, `enable()`, `disable()`.
-```
-
+- The following methods have been removed from `Cake\Log\Log` ::
+  `defaultLevels()`, `enabled()`, `enable()`, `disable()`.
 - You can no longer create custom levels using `Log::levels()`.
 - When configuring loggers you should use `'levels'` instead of `'types'`.
-- You can no longer specify custom log levels.  You must use the default set of
-  log levels.  You should use logging scopes to create custom log files or
+- You can no longer specify custom log levels. You must use the default set of
+  log levels. You should use logging scopes to create custom log files or
   specific handling for different sections of your application. Using
   a non-standard log level will now throw an exception.
-- :php:trait:`Cake\\Log\\LogTrait` was added. You can use this trait in your
+- `Cake\Log\LogTrait` was added. You can use this trait in your
   classes to add the `log()` method.
 - The logging scope passed to `Cake\Log\Log::write()` is now
   forwarded to the log engines' `write()` method in order to provide better
@@ -286,26 +280,25 @@ dispatching events you can no longer use the following options:
 ### Named Parameters
 
 Named parameters were removed in 3.0. Named parameters were added in 1.2.0 as
-a 'pretty' version of query string parameters.  While the visual benefit is
+a 'pretty' version of query string parameters. While the visual benefit is
 arguable, the problems named parameters created are not.
 
 Named parameters required special handling in CakePHP as well as any PHP or
 JavaScript library that needed to interact with them, as named parameters are
-not implemented or understood by any library *except* CakePHP.  The additional
+not implemented or understood by any library *except* CakePHP. The additional
 complexity and code required to support named parameters did not justify their
-existence, and they have been removed.  In their place you should use standard
-query string parameters or passed arguments.  By default `Router` will treat
+existence, and they have been removed. In their place you should use standard
+query string parameters or passed arguments. By default `Router` will treat
 any additional parameters to `Router::url()` as query string arguments.
 
 Since many applications will still need to parse incoming URLs containing named
-parameters.  `Cake\Routing\Router::parseNamedParams()` has
+parameters. `Cake\Routing\Router::parseNamedParams()` has
 been added to allow backwards compatibility with existing URLs.
 
 ### RequestActionTrait
 
 - `Cake\Routing\RequestActionTrait::requestAction()` has had
   some of the extra options changed:
-
   - `options[url]` is now `options[query]`.
   - `options[data]` is now `options[post]`.
   - Named parameters are no longer supported.
@@ -317,7 +310,7 @@ been added to allow backwards compatibility with existing URLs.
 - The `ext` option has been replaced with the `_ext` option.
 - `_scheme`, `_port`, `_host`, `_base`, `_full`, `_ext` options added.
 - String URLs are no longer modified by adding the plugin/controller/prefix names.
-- The default fallback route handling was removed.  If no routes
+- The default fallback route handling was removed. If no routes
   match a parameter set `/` will be returned.
 - Route classes are responsible for *all* URL generation including
   query string parameters. This makes routes far more powerful and flexible.
@@ -359,12 +352,12 @@ means if your application used `Dispatcher.filters`, you should now use
 
 In addition to configuration changes, dispatcher filters have had some
 conventions updated, and features added. See the
-[/development/dispatch-filters` documentation for more information.
+[/development/dispatch-filters](development/dispatch-filters.md) documentation for more information.
 
-### Filter\AssetFilter
+### FilterAssetFilter
 
 - Plugin & theme assets handled by the AssetFilter are no longer read via
-  `include` instead they are treated as plain text files.  This fixes a number
+  `include` instead they are treated as plain text files. This fixes a number
   of issues with JavaScript libraries like TinyMCE and environments with
   short_tags enabled.
 - Support for the `Asset.filter` configuration and hooks were removed. This
@@ -378,7 +371,7 @@ conventions updated, and features added. See the
 - `Cake\Network\Request::port()` was added.
 - `Cake\Network\Request::scheme()` was added.
 - `Cake\Network\Request::cookie()` was added.
-- `Cake\Network\Request::$trustProxy` was added.  This makes it easier to put
+- `Cake\Network\Request::$trustProxy` was added. This makes it easier to put
   CakePHP applications behind load balancers.
 - `Cake\Network\Request::$data` is no longer merged with the prefixed data
   key, as that prefix has been removed.
@@ -400,7 +393,7 @@ conventions updated, and features added. See the
 ## Sessions
 
 The session class is no longer static, instead the session can be accessed
-through the request object. See the [sessions](../development/sessions.md) documentation
+through the request object. See the [/development/sessions](development/sessions.md) documentation
 for using the session object.
 
 - `Cake\Network\Session` and related session classes have been
@@ -422,15 +415,15 @@ for using the session object.
 - The default value of `Cake\Network\Session::clear()`'s argument `$renew` has been changed
   from `true` to `false`.
 
-## Network\\Http
+## Network\Http
 
 - `HttpSocket` is now `Cake\Network\Http\Client`.
-- Http\Client has been re-written from the ground up. It has a simpler/easier to
+- HttpClient has been re-written from the ground up. It has a simpler/easier to
   use API, support for new authentication systems like OAuth, and file uploads.
   It uses PHP's stream APIs so there is no requirement for cURL. See the
-  [httpclient](../core-libraries/httpclient.md) documentation for more information.
+  [/core-libraries/httpclient](core-libraries/httpclient.md) documentation for more information.
 
-## Network\\Email
+## Network\Email
 
 - `Cake\Network\Email\Email::config()` is now used to define
   configuration profiles. This replaces the `EmailConfig` classes in previous
@@ -468,7 +461,7 @@ for using the session object.
   models + controllers were far more intertwined.
 - `Controller::loadModel()` now loads table objects.
 - The `Controller::$scaffold` property has been removed. Dynamic scaffolding
-  has been removed from CakePHP core.  An improved scaffolding plugin, named CRUD, can be found here: https://github.com/FriendsOfCake/crud
+  has been removed from CakePHP core. An improved scaffolding plugin, named CRUD, can be found here: <https://github.com/FriendsOfCake/crud>
 - The `Controller::$ext` property has been removed. You now have to extend and
   override the `View::$_ext` property if you want to use a non-default view file
   extension.
@@ -484,7 +477,7 @@ for using the session object.
   The 3rd argument `$exit` has been dropped. The method can no longer send
   response and exit script, instead it returns a `Response` instance with
   appropriate headers set.
-- The `base`, `webroot`, `here`, `data`,  `action`, and `params`
+- The `base`, `webroot`, `here`, `data`, `action`, and `params`
   magic properties have been removed. You should access all of these properties
   on `$this->request` instead.
 - Underscore prefixed controller methods like `_someMethod()` are no longer
@@ -496,14 +489,13 @@ for using the session object.
 The dynamic scaffolding in CakePHP has been removed from CakePHP core. It was
 infrequently used, and never intended for production use. An improved
 scaffolding plugin, named CRUD, can be found here:
-https://github.com/FriendsOfCake/crud
+<https://github.com/FriendsOfCake/crud>
 
 ### ComponentCollection Replaced
 
 This class has been renamed to `Cake\Controller\ComponentRegistry`.
-See the section on [registry-objects](../core-libraries/registry-objects.md) for more information
-on the features provided by the new class. You can use the `cake upgrade
-rename_collections` to assist in upgrading your code.
+See the section on [/core-libraries/registry-objects](core-libraries/registry-objects.md) for more information
+on the features provided by the new class. You can use the `cake upgrade rename_collections` to assist in upgrading your code.
 
 ### Component
 
@@ -519,10 +511,9 @@ rename_collections` to assist in upgrading your code.
   Instead, it is a post-constructor hook like `Table::initialize()` and
   `Controller::initialize()`. The new `Component::beforeFilter()` method is
   bound to the same event that `Component::initialize()` used to be. The
-  initialize method should have the following signature `initialize(array
-  $config)`.
+  initialize method should have the following signature `initialize(array $config)`.
 
-## Controller\\Components
+## Controller\Components
 
 ### CookieComponent
 
@@ -535,7 +526,7 @@ rename_collections` to assist in upgrading your code.
   data accessed through `config()`.
 - `write()` no longer takes `encryption` or `expires` parameters. Both of
   these are now managed through config data. See
-  [cookie](../controllers/components/cookie.md) for more information.
+  [/controllers/components/cookie](controllers/components/cookie.md) for more information.
 - The path for cookies now defaults to app's base path instead of "/".
 
 ### AuthComponent
@@ -557,7 +548,6 @@ rename_collections` to assist in upgrading your code.
   To login a user you now have to call `identify()` which returns user info upon
   successful identification and then use `setUser()` to save the info to
   session for persistence across requests.
-
 - `BaseAuthenticate::_password()` has been removed. Use a `PasswordHasher`
   class instead.
 - `BaseAuthenticate::logout()` has been removed.
@@ -574,13 +564,9 @@ well.
 
 ### RequestHandlerComponent
 
-- The following methods have been removed from RequestHandler component
-
-```php
-`isAjax()`, `isFlash()`, `isSSL()`, `isPut()`, `isPost()`, `isGet()`, `isDelete()`.
-Use the `Cake\Network\Request::is()` method instead with relevant argument.
-```
-
+- The following methods have been removed from RequestHandler component::
+  `isAjax()`, `isFlash()`, `isSSL()`, `isPut()`, `isPost()`, `isGet()`, `isDelete()`.
+  Use the `Cake\Network\Request::is()` method instead with relevant argument.
 - `RequestHandler::setContent()` was removed, use `Cake\Network\Response::type()` instead.
 - `RequestHandler::getReferer()` was removed, use `Cake\Network\Request::referer()` instead.
 - `RequestHandler::getClientIP()` was removed, use `Cake\Network\Request::clientIp()` instead.
@@ -605,7 +591,7 @@ Use the `Cake\Network\Request::is()` method instead with relevant argument.
 ### SessionComponent
 
 - `SessionComponent::setFlash()` is deprecated. You should use
-  [flash](../controllers/components/flash.md) instead.
+  [/controllers/components/flash](controllers/components/flash.md) instead.
 
 ### Error
 
@@ -617,7 +603,7 @@ value.
 ## Model
 
 The Model layer in 2.x has been entirely re-written and replaced. You should
-review the [orm-migration](orm-migration.md) for information on how to use the
+review the [/appendices/orm-migration](appendices/orm-migration.md) for information on how to use the
 new ORM.
 
 - The `Model` class has been removed.
@@ -630,23 +616,22 @@ new ORM.
 
 - ConnectionManager has been moved to the `Cake\Datasource` namespace.
 - ConnectionManager has had the following methods removed:
-
   - `sourceList`
   - `getSourceName`
   - `loadDataSource`
   - `enumConnectionObjects`
-
-- `Cake\Database\ConnectionManager::config()` has been added and is
+- `~Cake\Database\ConnectionManager::config()` has been added and is
   now the only way to configure connections.
-- `Cake\Database\ConnectionManager::get()` has been added. It
+- `~Cake\Database\ConnectionManager::get()` has been added. It
   replaces `getDataSource()`.
-- `Cake\Database\ConnectionManager::configured()` has been added. It
+- `~Cake\Database\ConnectionManager::configured()` has been added. It
   and `config()` replace `sourceList()` & `enumConnectionObjects()` with
   a more standard and consistent API.
 - `ConnectionManager::create()` has been removed.
   It can be replaced by `config($name, $config)` and `get($name)`.
 
 ### Behaviors
+
 - Underscore prefixed behavior methods like `_someMethod()` are no longer
   treated as private methods. Use proper visibility keywords instead.
 
@@ -725,9 +710,8 @@ The following View folders have been renamed to avoid naming collisions with con
 ### HelperCollection Replaced
 
 This class has been renamed to `Cake\View\HelperRegistry`.
-See the section on [registry-objects](../core-libraries/registry-objects.md) for more information
-on the features provided by the new class. You can use the `cake upgrade
-rename_collections` to assist in upgrading your code.
+See the section on [/core-libraries/registry-objects](core-libraries/registry-objects.md) for more information
+on the features provided by the new class. You can use the `cake upgrade rename_collections` to assist in upgrading your code.
 
 ### View Class
 
@@ -736,8 +720,8 @@ rename_collections` to assist in upgrading your code.
 - `View::getVar()` has been removed, use `Cake\View\View::get()` instead.
 - `View::$ext` has been removed and instead a protected property `View::$_ext`
   has been added.
-- `View::addScript()` has been removed. Use [view-blocks](../views.md#view-blocks) instead.
-- The `base`, `webroot`, `here`, `data`,  `action`, and `params`
+- `View::addScript()` has been removed. Use [view-blocks](#view-blocks) instead.
+- The `base`, `webroot`, `here`, `data`, `action`, and `params`
   magic properties have been removed. You should access all of these properties
   on `$this->request` instead.
 - `View::start()` no longer appends to an existing block. Instead it will
@@ -772,7 +756,7 @@ rename_collections` to assist in upgrading your code.
   variable. This allows you to configure the options used when generating
   XML.
 
-## View\\Helper
+## View\Helper
 
 - The `$settings` property is now called `$_config` and should be accessed
   through the `config()` method.
@@ -787,7 +771,6 @@ rename_collections` to assist in upgrading your code.
   helper. `Helper::url()` is now available as `Cake\View\Helper\UrlHelper::build()`.
 - Magic accessors to deprecated properties have been removed. The following
   properties now need to be accessed from the request object:
-
   - base
   - here
   - webroot
@@ -838,7 +821,7 @@ In addition to these larger changes, some smaller breaking changes have been
 made as well. These changes should help streamline the HTML FormHelper generates
 and reduce the problems people had in the past:
 
-- The `data[` prefix was removed from all generated inputs.  The prefix serves no real purpose anymore.
+- The `data[` prefix was removed from all generated inputs. The prefix serves no real purpose anymore.
 - The various standalone input methods like `text()`, `select()` and others
   no longer generate id attributes.
 - The `inputDefaults` option has been removed from `create()`.
@@ -854,7 +837,7 @@ and reduce the problems people had in the past:
   method.
 - The `showParents` option has been removed from select().
 - The `div`, `before`, `after`, `between` and `errorMessage` options
-  have been removed from `input()`.  You can use templates to update the
+  have been removed from `input()`. You can use templates to update the
   wrapping HTML. The `templates` option allows you to override the loaded
   templates for one input.
 - The `separator`, `between`, and `legend` options have been removed from
@@ -890,7 +873,7 @@ and reduce the problems people had in the past:
   and `inputsubmit` are now `formStart`, `formEnd`, `hiddenBlock` and `inputSubmit`.
   Make sure you change them if they are customized in your app.
 
-It is recommended that you review the [/views/helpers/form`
+It is recommended that you review the [/views/helpers/form](views/helpers/form.md)
 documentation for more details on how to use the FormHelper in 3.0.
 
 ### HtmlHelper
@@ -901,8 +884,7 @@ documentation for more details on how to use the FormHelper in 3.0.
 - The second parameter `$options` for `HtmlHelper::css()` now always requires an array as documented.
 - The first parameter `$data` for `HtmlHelper::style()` now always requires an array as documented.
 - The `inline` parameter has been removed from meta(), css(), script(), scriptBlock()
-  methods. You should use the `block` option instead. Setting `block =>
-  true` will emulate the previous behavior.
+  methods. You should use the `block` option instead. Setting `block => true` will emulate the previous behavior.
 - `HtmlHelper::meta()` now requires `$type` to be a string. Additional options can
   further on be passed as `$options`.
 - `HtmlHelper::nestedList()` now requires `$options` to be an array. The forth argument for the tag type
@@ -928,19 +910,19 @@ documentation for more details on how to use the FormHelper in 3.0.
   Use `{{page}}` style placeholders instead.
 - `url()` has been renamed to `generateUrl()` to avoid method declaration clashes with `Helper::url()`.
 
-By default all links and inactive texts are wrapped in `\<li\>` elements. This
+By default all links and inactive texts are wrapped in [](#li) elements. This
 helps make CSS easier to write, and improves compatibility with popular CSS
 frameworks.
 
 Instead of the various options in each method, you should use the templates
-feature. See the [paginator-templates](../views/helpers/paginator.md#paginator-templates) documentation for
+feature. See the [paginator-templates](#paginator-templates) documentation for
 information on how to use templates.
 
 ### TimeHelper
 
-- `TimeHelper::__set()`, `TimeHelper::__get()`, and  `TimeHelper::__isset()` were
+- `TimeHelper::__set()`, `TimeHelper::__get()`, and `TimeHelper::__isset()` were
   removed. These were magic methods for deprecated attributes.
-- `TimeHelper::serverOffset()` has been removed.  It promoted incorrect time math practices.
+- `TimeHelper::serverOffset()` has been removed. It promoted incorrect time math practices.
 - `TimeHelper::niceShort()` has been removed.
 
 ### NumberHelper
@@ -950,7 +932,7 @@ information on how to use templates.
 ### SessionHelper
 
 - The `SessionHelper` has been deprecated. You can use `$this->request->session()` directly,
-  and the flash message functionality has been moved into [/views/helpers/flash` instead.
+  and the flash message functionality has been moved into [/views/helpers/flash](views/helpers/flash.md) instead.
 
 ### JsHelper
 
@@ -987,62 +969,52 @@ the `Locale` class in PHP.
 The default application language will no longer be changed automatically by the
 browser accepted language nor by having the `Config.language` value set in the
 browser session. You can, however, use a dispatcher filter to get automatic
-language switching from the `Accept-Language` header sent by the browser
+language switching from the `Accept-Language` header sent by the browser:
 
-```php
-// In config/bootstrap.php
-DispatcherFactory::addFilter('LocaleSelector');
-
-```
+    // In config/bootstrap.php
+    DispatcherFactory::addFilter('LocaleSelector');
 
 There is no built-in replacement for automatically selecting the language by
 setting a value in the user session.
 
 The default formatting function for translated messages is no longer
 `sprintf`, but the more advanced and feature rich `MessageFormatter` class.
-In general you can rewrite placeholders in messages as follows
+In general you can rewrite placeholders in messages as follows:
 
-```css
-// Before:
-__('Today is a %s day in %s', 'Sunny', 'Spain');
+    // Before:
+    __('Today is a %s day in %s', 'Sunny', 'Spain');
 
-// After:
-__('Today is a {0} day in {1}', 'Sunny', 'Spain');
+    // After:
+    __('Today is a {0} day in {1}', 'Sunny', 'Spain');
 
-```
+You can avoid rewriting your messages by using the old `sprintf` formatter:
 
-You can avoid rewriting your messages by using the old `sprintf` formatter::
-
-```php
+``` css
 I18n::defaultFormatter('sprintf');
-
 ```
 
 Additionally, the `Config.language` value was removed and it can no longer be
 used to control the current language of the application. Instead, you can use
-the `I18n` class
+the `I18n` class:
 
-```php
-// Before
-Configure::write('Config.language', 'fr_FR');
+    // Before
+    Configure::write('Config.language', 'fr_FR');
 
-// Now
-I18n::setLocale('en_US');
-
-```
+    // Now
+    I18n::setLocale('en_US');
 
 - The methods below have been moved:
 
-- From `Cake\I18n\Multibyte::utf8()` to `Cake\Utility\Text::utf8()`
-- From `Cake\I18n\Multibyte::ascii()` to `Cake\Utility\Text::ascii()`
-- From `Cake\I18n\Multibyte::checkMultibyte()` to `Cake\Utility\Text::isMultibyte()`
+  > - From `Cake\I18n\Multibyte::utf8()` to `Cake\Utility\Text::utf8()`
+  > - From `Cake\I18n\Multibyte::ascii()` to `Cake\Utility\Text::ascii()`
+  > - From `Cake\I18n\Multibyte::checkMultibyte()` to `Cake\Utility\Text::isMultibyte()`
 
 - Since CakePHP now requires the mbstring extension, the
   `Multibyte` class has been removed.
+
 - Error messages throughout CakePHP are no longer passed through I18n
   functions. This was done to simplify the internals of CakePHP and reduce
-  overhead. The developer facing messages are rarely, if ever, actually translated -
-  so the additional overhead reaps very little benefit.
+  overhead. The developer facing messages are rarely, if ever, actually translated -so the additional overhead reaps very little benefit.
 
 ## L10n
 
@@ -1052,6 +1024,7 @@ I18n::setLocale('en_US');
 
 - The `TestShell` has been removed. CakePHP, the application skeleton and
   newly baked plugins all use `phpunit` to run tests.
+
 - The webrunner (webroot/test.php) has been removed. CLI adoption has greatly
   increased since the initial release of 2.x. Additionaly, CLI runners offer
   superior integration with IDE's and other automated tooling.
@@ -1059,18 +1032,19 @@ I18n::setLocale('en_US');
   If you find yourself in need of a way to run tests from a browser you should
   checkout [VisualPHPUnit](https://github.com/NSinopoli/VisualPHPUnit). It
   offers many additional features over the old webrunner.
+
 - `ControllerTestCase` is deprecated and will be removed for CakePHP 3.0.0.
-  You should use the new [integration-testing](../development/testing.md#integration-testing) features instead.
-- Fixtures should now be referenced using their plural form
+  You should use the new [integration-testing](#integration-testing) features instead.
 
-```php
-// Instead of
-$fixtures = ['app.article'];
+- Fixtures should now be referenced using their plural form:
 
-// You should use
-$fixtures = ['app.articles'];
+  ``` php
+  // Instead of
+  $fixtures = ['app.article'];
 
-```
+  // You should use
+  $fixtures = ['app.articles'];
+  ```
 
 ## Utility
 
@@ -1094,23 +1068,20 @@ The folder and file classes have been renamed:
 - Transliterations for `Cake\Utility\Inflector::slug()` have changed.
   If you use custom transliterations you will need to update your code. Instead
   of regular expressions, transliterations use simple string replacement. This
-  yielded significant performance improvements
+  yielded significant performance improvements:
 
-```php
-// Instead of
-Inflector::rules('transliteration', [
-    '/ä|æ/' => 'ae',
-    '/å/' => 'aa'
-]);
+      // Instead of
+      Inflector::rules('transliteration', [
+          '/ä|æ/' => 'ae',
+          '/å/' => 'aa'
+      ]);
 
-// You should use
-Inflector::rules('transliteration', [
-    'ä' => 'ae',
-    'æ' => 'ae',
-    'å' => 'aa'
-]);
-
-```
+      // You should use
+      Inflector::rules('transliteration', [
+          'ä' => 'ae',
+          'æ' => 'ae',
+          'å' => 'aa'
+      ]);
 
 - Separate set of uninflected and irregular rules for pluralization and
   singularization have been removed. Instead we now have a common list for each.
@@ -1137,10 +1108,10 @@ Inflector::rules('transliteration', [
   to CakePHP 2.3.1 has been removed. You should re-encrypt values using
   `Security::encrypt()` and a recent version of CakePHP 2.x before migrating.
 - The ability to generate a blowfish hash has been removed. You can no longer use type
-  "blowfish" for `Security::hash()`. One should just use PHP's `password_hash()`
-  and `password_verify()` to generate and verify blowfish hashes. The compability
+  "blowfish" for `Security::hash()`. One should just use PHP's <span class="title-ref">password_hash()</span>
+  and <span class="title-ref">password_verify()</span> to generate and verify blowfish hashes. The compability
   library [ircmaxell/password-compat](https://packagist.org/packages/ircmaxell/password-compat)
-  which is installed along with CakePHP provides these functions for PHP < 5.5.
+  which is installed along with CakePHP provides these functions for PHP \< 5.5.
 - OpenSSL is now used over mcrypt when encrypting/decrypting data. This change
   provides better performance and future proofs CakePHP against distros dropping
   support for mcrypt.
@@ -1149,13 +1120,12 @@ Inflector::rules('transliteration', [
 > [!WARNING]
 > Data encrypted with Security::encrypt() in previous versions is not
 > compatible with the openssl implementation. You should [set the
-> implementation to mcrypt](../core-libraries/security.md#force-mcrypt) when upgrading.
->
+> implementation to mcrypt](#force-mcrypt) when upgrading.
 
 ### Time
 
 - `CakeTime` has been renamed to `Cake\I18n\Time`.
-- `CakeTime::serverOffset()` has been removed.  It promoted incorrect time math practises.
+- `CakeTime::serverOffset()` has been removed. It promoted incorrect time math practises.
 - `CakeTime::niceShort()` has been removed.
 - `CakeTime::convert()` has been removed.
 - `CakeTime::convertSpecifiers()` has been removed.
@@ -1176,18 +1146,16 @@ Time is not a collection of static methods anymore, it extends `DateTime` to
 inherit all its methods and adds location aware formatting functions with the
 help of the `intl` extension.
 
-In general, expressions looking like this
+In general, expressions looking like this:
 
-```php
+``` css
 CakeTime::aMethod($date);
-
 ```
 
-Can be migrated by rewriting it to::
+Can be migrated by rewriting it to:
 
-```php
+``` php
 (new Time($date))->aMethod();
-
 ```
 
 ### Number
@@ -1210,4 +1178,4 @@ class.
 
 - `Xml::build()` now requires `$options` to be an array.
 - `Xml::build()` no longer accepts a URL. If you need to create an XML
-  document from a URL, use [Http\\Client](../core-libraries/httpclient.md#http-client-xml-json).
+  document from a URL, use [Http\\Client](#http-client-xml-json).

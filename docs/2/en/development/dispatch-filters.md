@@ -1,14 +1,10 @@
----
-title: Dispatcher Filters
-description: Dispatcher filters are a middleware layer for CakePHP allowing to alter the request or response before it is sent
-keywords: "middleware, filters, dispatcher, request, response, rack, application stack, events, beforeDispatch, afterDispatch, router"
----
-
 # Dispatcher Filters
 
-> [!IMPORTANT]
-> Added in version 2.2
->
+<div class="versionadded">
+
+2.2
+
+</div>
 
 There are several reasons to want a piece of code to be run before any
 controller code is executed or right before the response is sent to the client,
@@ -20,23 +16,22 @@ request dispatching cycle would take.
 CakePHP provides for such cases a clean and extensible interface for attaching
 filters to this dispatching cycle, similar to a middleware layer thought to
 provide stackable services or routines for every request. We call them
-`Dispatcher Filters`
+<span class="title-ref">Dispatcher Filters</span>
 
 ## Configuring Filters
 
 Filters are usually configured in the `bootstrap.php` file, but you could easily
 load them from any other configuration file before the request is dispatched.
-Adding and removing filters is done through the `Configure` class, using the
+Adding and removing filters is done through the <span class="title-ref">Configure</span> class, using the
 special key `Dispatcher.filters`. By default CakePHP comes with a couple filter
 classes already enabled for all requests, let's take a look at how they are
-added
+added:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
     'AssetDispatcher',
     'CacheDispatcher'
 ));
-
 ```
 
 Each of those array values are class names that will be instantiated and added
@@ -55,30 +50,28 @@ limited to this role, as we will show shortly in this section.
 
 You can add your own class names to the list of filters, and they will get
 executed in the order they were defined. There is also an alternative way for
-attaching filters that do not involve the special `DispatcherFilter` classes
+attaching filters that do not involve the special `DispatcherFilter` classes:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
     'my-filter' => array(
         'callable' => array($classInstance, 'methodName'),
         'on' => 'after'
     )
 ));
-
 ```
 
 As shown above, you can pass any valid PHP [callback](https://www.php.net/callback)
-type, as you may remember, a `callback` is anything that PHP can execute with
+type, as you may remember, a <span class="title-ref">callback</span> is anything that PHP can execute with
 `call_user_func`. We do make a little exception, if a string is provided it will
 be treated as a class name, not as a possible function name. This of course
-gives the ability to PHP 5.3 users to attach anonymous functions as filters
+gives the ability to PHP 5.3 users to attach anonymous functions as filters:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
    'my-filter' => array('callable' => function($event) {...}, 'on' => 'before'),
    //more filters here
 ));
-
 ```
 
 The `on` key only takes `before` and `after` as valid values, and evidently
@@ -88,9 +81,9 @@ get the chance to define a priority for your filters, if none is specified then
 a default of `10` is selected for you
 
 As all filters will have default priority `10`, should you want to run a filter before
-any other in the list, select lower priority numbers as needed
+any other in the list, select lower priority numbers as needed:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
    'my-filter' => array(
         'callable' => function($event) {...},
@@ -104,20 +97,18 @@ Configure::write('Dispatcher.filters', array(
     ),
    //more filters here
 ));
-
 ```
 
 Obviously, when defining priorities the order in which filters are declared does
 not matter but for those having the same. When defining filters as class names
 there is no option to define priority in-line, we will get into that soon.
 Finally, CakePHP's plugin notation can be used to define filters located in
-plugins
+plugins:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
     'MyPlugin.MyFilter',
 ));
-
 ```
 
 Feel free to remove the default attached filters if you choose to use a more
@@ -125,30 +116,34 @@ advanced/faster way of serving theme and plugin assets or if you do not wish to
 use built-in full page caching, or just implement your own.
 
 If you need to pass constructor parameters or settings to you dispatch filter
-classes you can do that by providing an array of settings
+classes you can do that by providing an array of settings:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
     'MyAssetFilter' => array('service' => 'google.com')
 ));
-
 ```
 
 When the filter key is a valid classname, the value can be an array of
 parameters that are passed to the dispatch filter. By default the base class
 will assign these settings to the `$settings` property after merging them with
 the defaults in the class.
-> **versionchanged:** 2.5
+
+<div class="versionchanged">
+
+2.5
 You can now provide constructor settings to dispatch filters in 2.5.
+
+</div>
 
 ## Filter Classes
 
 Dispatcher filters, when defined as class names in configuration, should extend
-the class `DispatcherFilter` provided in the `Routing` CakePHP's directory.
+the class `DispatcherFilter` provided in the <span class="title-ref">Routing</span> CakePHP's directory.
 Let's create a simple filter to respond to a specific URL with a 'Hello World'
-text
+text:
 
-```php
+``` php
 App::uses('DispatcherFilter', 'Routing');
 class HelloWorldFilter extends DispatcherFilter {
 
@@ -165,7 +160,6 @@ class HelloWorldFilter extends DispatcherFilter {
         }
     }
 }
-
 ```
 
 This class should be saved in a file in `app/Routing/Filter/HelloWorldFilter.php`
@@ -175,14 +169,14 @@ previous section. There is plenty to explain here, let's begin with the
 
 As mentioned before, when using filter classes you can only define the order in
 which they are run using the `$priority` property in the class, default value is
-10 if the property is declared, this means that it will get executed _after_ the
+10 if the property is declared, this means that it will get executed \_[after]() the
 Router class has parsed the request. We do not want this to happen in our
 previous example, because most probably you do not have any controller set up
 for answering to that URL, hence we chose 9 as our priority.
 
 `DispatcherFilter` exposes two methods that can be overridden in subclasses,
 they are `beforeDispatch` and `afterDispatch`, and are executed before or after
-any controller is executed respectively. Both methods receive a  `CakeEvent`
+any controller is executed respectively. Both methods receive a `CakeEvent`
 object containing the `request` and `response` objects
 (`CakeRequest` and `CakeResponse` instances) along with an
 `additionalParams` array inside the `data` property. The latter contains
@@ -195,9 +189,9 @@ object as response immediately to the client. We also added
 this one.
 
 Let's now create another filter for altering response headers in any public
-page, in our case it would be anything served from the `PagesController`
+page, in our case it would be anything served from the `PagesController`:
 
-```php
+``` php
 App::uses('DispatcherFilter', 'Routing');
 class HttpCacheFilter extends DispatcherFilter {
 
@@ -214,7 +208,6 @@ class HttpCacheFilter extends DispatcherFilter {
         }
     }
 }
-
 ```
 
 This filter will send a expiration header to 1 day in the future for
@@ -229,9 +222,9 @@ callback.
 Our last example will use an anonymous function (only available on PHP 5.3+) to
 serve a list of posts in JSON format, we encourage you to do so using
 controllers and the `JsonView` class, but let's imagine you need to save a
-few milliseconds for this mission-critical API endpoint
+few milliseconds for this mission-critical API endpoint:
 
-```php
+``` php
 $postsList = function($event) {
     if ($event->data['request']->url !== 'posts/recent.json') {
         return;
@@ -252,7 +245,6 @@ Configure::write('Dispatcher.filters', array(
         'on'=> 'before'
     )
 ));
-
 ```
 
 In previous example we have selected a priority of `9` for our filter, so to skip
@@ -264,6 +256,5 @@ For obvious reasons this has the potential of making your app very difficult
 to maintain. Filters are an extremely powerful tool when used wisely, adding
 response handlers for each URL in your app is not a good use for it. But if you
 got a valid reason to do so, then you have a clean solution at hand. Keep in
-mind that not everything needs to be a filter, `Controllers` and `Components` are
+mind that not everything needs to be a filter, <span class="title-ref">Controllers</span> and <span class="title-ref">Components</span> are
 usually a more accurate choice for adding any request handling code to your app.
-

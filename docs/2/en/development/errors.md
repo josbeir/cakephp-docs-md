@@ -1,8 +1,3 @@
----
-title: Error Handling
-keywords: "stack traces,error constants,error array,default displays,anonymous functions,error handlers,default error,error level,exception handler,php error,error handler,write error,core classes,exception handling,configuration error,application code,callback,custom error,exceptions,bitmasks,fatal error"
----
-
 # Error Handling
 
 For 2.0 `Object::cakeError()` has been removed. Instead it has been replaced with
@@ -18,17 +13,16 @@ and exception handler using configure.
 
 Error configuration is done inside your application's `app/Config/core.php`
 file. You can define a callback to be fired each time your application triggers
-any PHP error. [exceptions](exceptions.md) are handled separately.
+any PHP error. [/development/exceptions](development/exceptions.md) are handled separately.
 The callback can be any PHP callable, including an anonymous function. The
-default error handling configuration looks like
+default error handling configuration looks like:
 
-```php
+``` css
 Configure::write('Error', array(
     'handler' => 'ErrorHandler::handleError',
     'level' => E_ALL & ~E_DEPRECATED,
     'trace' => true
 ));
-
 ```
 
 You have 5 built-in options when configuring error handlers:
@@ -45,7 +39,7 @@ You have 5 built-in options when configuring error handlers:
   running in the console. If undefined, CakePHP's default handlers will be
   used.
 
-ErrorHandler by default, displays errors when `debug` > 0, and logs errors when
+ErrorHandler by default, displays errors when `debug` \> 0, and logs errors when
 debug = 0. The type of errors captured in both cases is controlled by `Error.level`.
 The fatal error handler will be called independent of `debug` level or `Error.level`
 configuration, but the result will be different based on `debug` level.
@@ -53,24 +47,30 @@ configuration, but the result will be different based on `debug` level.
 > [!NOTE]
 > If you use a custom error handler, the trace setting will have no effect,
 > unless you refer to it in your error handling function.
->
-> [!IMPORTANT]
-> Added in version 2.2
-> The `Error.consoleHandler` option was added in 2.2.
->
-> **versionchanged:** 2.2
 
+<div class="versionadded">
+
+2.2
+The `Error.consoleHandler` option was added in 2.2.
+
+</div>
+
+<div class="versionchanged">
+
+2.2
 The `Error.handler` and `Error.consoleHandler` will receive the fatal error
 codes as well. The default behavior is show a page to internal server error
 (`debug` disabled) or a page with the message, file and line (`debug` enabled).
+
+</div>
 
 ## Creating your own error handler
 
 You can create an error handler out of any callback type. For example you could
 use a class called `AppError` to handle your errors. The following would
-need to be done
+need to be done:
 
-```php
+``` php
 //in app/Config/core.php
 Configure::write('Error.handler', 'AppError::handleError');
 
@@ -84,31 +84,29 @@ class AppError {
         echo 'There has been an error!';
     }
 }
-
 ```
 
 This class/method will print out 'There has been an error!' each time an error
 occurs. Since you can define an error handler as any callback type, you could
-use an anonymous function if you are using PHP5.3 or greater.
+use an anonymous function if you are using PHP5.3 or greater. :
 
-```php
+``` php
 Configure::write('Error.handler', function($code, $description, $file = null,
     $line = null, $context = null) {
     echo 'Oh no something bad happened';
 });
-
 ```
 
 It is important to remember that errors captured by the configured error handler will be php
 errors, and that if you need custom error handling, you probably also want to configure
-[exceptions](exceptions.md) handling as well.
+[/development/exceptions](development/exceptions.md) handling as well.
 
 ## Changing fatal error behavior
 
 Since CakePHP 2.2 the `Error.handler` will receive the fatal error codes as well.
-If you do not want to show the cake error page, you can override it like
+If you do not want to show the cake error page, you can override it like:
 
-```php
+``` php
 //in app/Config/core.php
 Configure::write('Error.handler', 'AppError::handleError');
 
@@ -133,9 +131,7 @@ class AppError {
         );
     }
 }
-
 ```
 
 If you want to keep the default fatal error behavior, you can call `ErrorHandler::handleFatalError()`
 from your custom handler.
-

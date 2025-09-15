@@ -1,8 +1,3 @@
----
-title: Models
-keywords: "information workflow,csv file,object oriented programming,model class,model classes,model definition,internal model,core model,simple declaration,application model,php class,database table,data model,data access,external web,inheritance,different ways,validity,functionality,queries"
----
-
 # Models
 
 Models are the classes that form the business layer in your application.
@@ -32,14 +27,13 @@ blog, for example, may have many blog posts and each blog post may have many
 comments. The Blog, Post, and Comment are all examples of models, each
 associated with another.
 
-Here is a simple example of a model definition in CakePHP
+Here is a simple example of a model definition in CakePHP:
 
-```php
+``` php
 App::uses('AppModel', 'Model');
 class Ingredient extends AppModel {
     public $name = 'Ingredient';
 }
-
 ```
 
 With just this simple declaration, the Ingredient model is endowed with all the
@@ -63,7 +57,7 @@ See also [Behaviors](models/behaviors.md) for more information on how to
 apply similar logic to multiple models.
 
 Back to our Ingredient model. In order to work on it, create the PHP file in the
-`/app/Model/` directory. By convention, it should have the same name as the
+[App / Model / ](app/Model/.md) directory. By convention, it should have the same name as the
 class, which for this example will be `Ingredient.php`.
 
 > [!NOTE]
@@ -76,19 +70,18 @@ class, which for this example will be `Ingredient.php`.
 > attached to your model, and you're getting SQL errors that are the name of
 > the method you're calling, it's a sure sign that CakePHP can't find your
 > model and you need to check the file names, your application cache, or both.
->
+
 > [!NOTE]
 > Some class names are not usable for model names. For instance, "File" cannot
 > be used, since "File" is a class that already exists in the CakePHP core.
->
 
 When your model is defined, it can be accessed from within your
 [Controller](controllers.md). CakePHP will automatically make the model
 available for access when its name matches that of the controller. For example,
 a controller named IngredientsController will automatically initialize the
-Ingredient model and attach it to the controller at `$this->Ingredient`
+Ingredient model and attach it to the controller at `$this->Ingredient`:
 
-```php
+``` php
 class IngredientsController extends AppController {
     public function index() {
         //grab all ingredients and pass it to the view:
@@ -96,13 +89,12 @@ class IngredientsController extends AppController {
         $this->set('ingredients', $ingredients);
     }
 }
-
 ```
 
 Associated models are available through the main model. In the following
-example, Recipe has an association with the Ingredient model
+example, Recipe has an association with the Ingredient model:
 
-```php
+``` php
 class Recipe extends AppModel {
 
     public function steakRecipes() {
@@ -110,7 +102,6 @@ class Recipe extends AppModel {
         return $this->findAllByMainIngredient($ingredient['Ingredient']['id']);
     }
 }
-
 ```
 
 This shows how to use models that are already linked. To understand how
@@ -118,3 +109,16 @@ associations are defined, take a look at the
 [Associations section](models/associations-linking-models-together.md)
 
 ## More on models
+
+- [Associations Linking Models Together](models/associations-linking-models-together.md)
+- [Retrieving Your Data](models/retrieving-your-data.md)
+- [Saving Your Data](models/saving-your-data.md)
+- [Deleting Data](models/deleting-data.md)
+- [Data Validation](models/data-validation.md)
+- [Callback Methods](models/callback-methods.md)
+- [Behaviors](models/behaviors.md)
+- [Datasources](models/datasources.md)
+- [Model Attributes](models/model-attributes.md)
+- [Additional Methods And Properties](models/additional-methods-and-properties.md)
+- [Virtual Fields](models/virtual-fields.md)
+- [Transactions](models/transactions.md)

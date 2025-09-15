@@ -10,9 +10,8 @@ enable new users to register.
 
 Use composer to install the Authentication Plugin:
 
-```bash
+``` bash
 composer require "cakephp/authentication:~3.0"
-
 ```
 
 ### Adding Password Hashing
@@ -22,9 +21,8 @@ templates for the `users` table in your database. You can do this manually
 like you did before for the ArticlesController, or you can use the bake shell
 to generate the classes for you using:
 
-```bash
+``` bash
 bin/cake bake all users
-
 ```
 
 If you create or update a user with this setup, you might notice that
@@ -41,9 +39,9 @@ implement this behavior on the entity object. Because we want to hash the
 password each time it is set, we'll use a mutator/setter method. CakePHP will
 call a convention based setter method any time a property is set in one of your
 entities. Let's add a setter for the password. In **src/Model/Entity/User.php**
-add the following
+add the following:
 
-```php
+``` php
 <?php
 namespace App\Model\Entity;
 
@@ -63,7 +61,6 @@ class User extends Entity
         return null;
     }
 }
-
 ```
 
 Now, point your browser to **http://localhost:8765/users** to see a list of users.
@@ -82,7 +79,6 @@ is the [recommended password hash algorithm for PHP](https://www.php.net/manual/
 > It will be needed in the next steps.
 > After updating the password, you'll see a long string stored in the password column.
 > Note bcrypt will generate a different hash even for the same password saved twice.
->
 
 ## Adding Login
 
@@ -98,15 +94,15 @@ The Plugin will handle the authentication process using 3 different classes:
   this is before your Controllers are processed by the framework, and will pick the
   credentials and process them to check if the user is authenticated.
 
-If you remember, we used `AuthComponent`
+If you remember, we used <span class="title-ref">AuthComponent</span>
 before to handle all these steps. Now the logic is divided into specific classes and
 the authentication process happens before your controller layer. First it checks if the user
 is authenticated (based on the configuration you provided) and injects the user and
 the authentication results into the request for further reference.
 
-In **src/Application.php**, add the following imports
+In **src/Application.php**, add the following imports:
 
-```php
+``` php
 // In src/Application.php add the following imports
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
@@ -114,22 +110,18 @@ use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
-
 ```
 
-Then implement the authentication interface on your `Application` class::
+Then implement the authentication interface on your `Application` class:
 
-```php
-// in src/Application.php
-class Application extends BaseApplication
-    implements AuthenticationServiceProviderInterface
-{
+    // in src/Application.php
+    class Application extends BaseApplication
+        implements AuthenticationServiceProviderInterface
+    {
 
-```
+Then add the following:
 
-Then add the following
-
-```php
+``` php
 // src/Application.php
 public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 {
@@ -171,12 +163,11 @@ public function getAuthenticationService(ServerRequestInterface $request): Authe
 
     return $authenticationService;
 }
-
 ```
 
-In your `AppController` class add the following code::
+In your `AppController` class add the following code:
 
-```php
+``` php
 // src/Controller/AppController.php
 public function initialize(): void
 {
@@ -185,11 +176,10 @@ public function initialize(): void
 
     // Add this line to check authentication result and lock your site
     $this->loadComponent('Authentication.Authentication');
-
 ```
 
 Now, on every request, the `AuthenticationMiddleware` will inspect
-the request session to look for an authenticated user. If we are loading the `/users/login`
+the request session to look for an authenticated user. If we are loading the [Users / login](users/login.md)
 page, it will also inspect the posted form data (if any) to extract the credentials.
 By default the credentials will be extracted from the `username` and `password`
 fields in the request data.
@@ -198,7 +188,7 @@ The authentication result will be injected in a request attribute named
 `$this->request->getAttribute('authentication')` from your controller actions.
 All your pages will be restricted as the `AuthenticationComponent` is checking the
 result on every request. When it fails to find any authenticated user, it will redirect the
-user to the `/users/login` page.
+user to the [Users / login](users/login.md) page.
 Note at this point, the site won't work as we don't have a login page yet.
 If you visit your site, you'll get an "infinite redirect loop" so let's fix that.
 
@@ -206,12 +196,11 @@ If you visit your site, you'll get an "infinite redirect loop" so let's fix that
 > If your application serves from both SSL and non-SSL protocols, then you might have problems
 > with sessions being lost, in case your application is on non-SSL protocol. You need to enable
 > access by setting session.cookie_secure to false in your config config/app.php or config/app_local.php.
-> (See [CakePHP’s defaults on session.cookie_secure](../../development/sessions.md))
->
+> (See [CakePHP’s defaults on session.cookie_secure](development/sessions.md))
 
-In your `UsersController`, add the following code
+In your `UsersController`, add the following code:
 
-```php
+``` php
 public function beforeFilter(\Cake\Event\EventInterface $event): void
 {
     parent::beforeFilter($event);
@@ -239,16 +228,15 @@ public function login()
         $this->Flash->error(__('Invalid username or password'));
     }
 }
-
 ```
 
-Add the template logic for your login action::
+Add the template logic for your login action:
 
-```php
+``` php
 <!-- in /templates/Users/login.php -->
 <div class="users form">
     <?= $this->Flash->render() ?>
-    \<<h3>\>Login</h3>
+    <h3>Login</h3>
     <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Please enter your username and password') ?></legend>
@@ -260,20 +248,19 @@ Add the template logic for your login action::
 
     <?= $this->Html->link("Add User", ['action' => 'add']) ?>
 </div>
-
 ```
 
 Now login page will allow us to correctly login into the application.
 Test it by requesting any page of your site. After being redirected
-to the `/users/login` page, enter the email and password you
+to the [Users / login](users/login.md) page, enter the email and password you
 picked previously when creating your user. You should be redirected
 successfully after login.
 
 We need to add a couple more details to configure our application.
 We want all `view` and `index` pages accessible without logging in so we'll add this specific
-configuration in AppController
+configuration in AppController:
 
-```php
+``` php
 // in src/Controller/AppController.php
 public function beforeFilter(\Cake\Event\EventInterface $event): void
 {
@@ -282,26 +269,24 @@ public function beforeFilter(\Cake\Event\EventInterface $event): void
     // actions public, skipping the authentication check
     $this->Authentication->addUnauthenticatedActions(['index', 'view']);
 }
-
 ```
 
 > [!NOTE]
 > If you don't have a user with a hashed password yet, comment the
 > `$this->loadComponent('Authentication.Authentication')` line in your
 > AppController and all other lines where Authentication is used. Then go to
-> `/users/add` to create a new user picking email and password. Afterward,
+> [Users / add](users/add.md) to create a new user picking email and password. Afterward,
 > make sure to uncomment the lines we just temporarily commented!
->
 
-Try it out by visiting `/articles/add` before logging in! Since this action is not
+Try it out by visiting [Articles / add](articles/add.md) before logging in! Since this action is not
 allowed, you will be redirected to the login page. After logging in
-successfully, CakePHP will automatically redirect you back to `/articles/add`.
+successfully, CakePHP will automatically redirect you back to [Articles / add](articles/add.md).
 
 ## Logout
 
-Add the logout action to the `UsersController` class
+Add the logout action to the `UsersController` class:
 
-```php
+``` php
 // in src/Controller/UsersController.php
 public function logout()
 {
@@ -313,22 +298,20 @@ public function logout()
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }
 }
-
 ```
 
-Now you can visit `/users/logout` to log out. You should then be sent to the login
+Now you can visit [Users / logout](users/logout.md) to log out. You should then be sent to the login
 page.
 
 ## Enabling Registrations
 
 If you try to visit **/users/add** without being logged in, you will be
 redirected to the login page. We should fix that as we want to allow people to
-sign up for our application. In the `UsersController` fix the following line
+sign up for our application. In the `UsersController` fix the following line:
 
-```php
+``` php
 // Add to the beforeFilter method of UsersController
 $this->Authentication->addUnauthenticatedActions(['login', 'add']);
-
 ```
 
 The above tells `AuthenticationComponent` that the `add()` action of the
@@ -339,4 +322,4 @@ user editing, viewing or listing in this tutorial, but that is an exercise you
 can complete on your own.
 
 Now that users can log in, we'll want to limit users to only edit articles that
-they created by [applying authorization policies](authorization.md).
+they created by [applying authorization policies](./authorization.md).

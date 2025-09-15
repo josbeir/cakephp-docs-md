@@ -1,8 +1,3 @@
----
-title: Components
-keywords: "array controller,core libraries,authentication request,array name,access control lists,public components,controller code,core components,cookiemonster,login cookie,configuration settings,functionality,logic,sessions,cakephp,doc"
----
-
 # Components
 
 Components are packages of logic that are shared between controllers.
@@ -16,16 +11,23 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-<!-- anchor: configuring-components -->
+- [Authentication](controllers/components/authentication.md)
+- [Flash](controllers/components/flash.md)
+- [Security](controllers/components/security.md)
+- [Pagination](controllers/components/pagination.md)
+- [Request Handling](controllers/components/request-handling.md)
+- [Form Protection](controllers/components/form-protection.md)
+- [Check Http Cache](controllers/components/check-http-cache.md)
+
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
-requiring configuration are [security](components/security.md) and
-[form-protection](components/form-protection.md).  Configuration for these components,
+requiring configuration are [/controllers/components/security](controllers/components/security.md) and
+[/controllers/components/form-protection](controllers/components/form-protection.md). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
-Controller's `initialize()` method or via the `$components` array
+Controller's `initialize()` method or via the `$components` array:
 
-```php
+``` php
 class PostsController extends AppController
 {
     public function initialize(): void
@@ -38,45 +40,42 @@ class PostsController extends AppController
     }
 
 }
-
 ```
 
 You can configure components at runtime using the `setConfig()` method. Often,
 this is done in your controller's `beforeFilter()` method. The above could
-also be expressed as
+also be expressed as:
 
-```php
+``` php
 public function beforeFilter(EventInterface $event)
 {
     $this->FormProtection->setConfig('unlockedActions', ['index']);
 }
-
 ```
 
 Like helpers, components implement `getConfig()` and `setConfig()` methods
-to read and write configuration data
+to read and write configuration data:
 
-```php
+``` php
 // Read config data.
 $this->FormProtection->getConfig('unlockedActions');
 
 // Set config
 $this->Csrf->setConfig('cookieName', 'token');
-
 ```
 
 As with helpers, components will automatically merge their `$_defaultConfig`
 property with constructor configuration to create the `$_config` property
-which is accessible with `getConfig()` and  `setConfig()`.
+which is accessible with `getConfig()` and `setConfig()`.
 
 ### Aliasing Components
 
 One common setting to use is the `className` option, which allows you to
 alias components. This feature is useful when you want to
 replace `$this->Auth` or another common Component reference with a custom
-implementation
+implementation:
 
-```php
+``` php
 // src/Controller/PostsController.php
 class PostsController extends AppController
 {
@@ -95,7 +94,6 @@ class MyAuthComponent extends AuthComponent
 {
     // Add your code to override the core AuthComponent
 }
-
 ```
 
 The above would *alias* `MyAuthComponent` to `$this->Auth` in your
@@ -104,19 +102,17 @@ controllers.
 > [!NOTE]
 > Aliasing a component replaces that instance anywhere that component is used,
 > including inside other Components.
->
 
 ### Loading Components on the Fly
 
 You might not need all of your components available on every controller
 action. In situations like this you can load a component at runtime using the
-`loadComponent()` method in your controller
+`loadComponent()` method in your controller:
 
-```php
+``` php
 // In a controller action
 $this->loadComponent('OneTimer');
 $time = $this->OneTimer->getTime();
-
 ```
 
 > [!NOTE]
@@ -124,16 +120,15 @@ $time = $this->OneTimer->getTime();
 > callbacks called. If you rely on the `beforeFilter` or `startup`
 > callbacks being called, you may need to call them manually depending on when
 > you load your component.
->
 
 ## Using Components
 
 Once you've included some components in your controller, using them is pretty
 simple. Each component you use is exposed as a property on your controller. If
 you had loaded up the `Cake\Controller\Component\FlashComponent`
-in your controller, you could access it like so
+in your controller, you could access it like so:
 
-```php
+``` php
 class PostsController extends AppController
 {
     public function initialize(): void
@@ -150,31 +145,29 @@ class PostsController extends AppController
             return $this->redirect(['action' => 'index']);
         }
     }
-
 ```
 
 > [!NOTE]
 > Since both Models and Components are added to Controllers as
 > properties they share the same 'namespace'. Be sure to not give a
 > component and a model the same name.
->
+
 > [!WARNING]
-> Component methods **don't** have access to [dependency-injection](../development/dependency-injection.md)
+> Component methods **don't** have access to [/development/dependency-injection](development/dependency-injection.md)
 > like Controller actions have. Use a service class inside your controller actions
 > instead of a component if you need this functionality.
 
-<!-- anchor: creating-a-component -->
 ## Creating a Component
 
 Suppose our application needs to perform a complex mathematical operation in
-many different parts of the application.  We could create a component to house
+many different parts of the application. We could create a component to house
 this shared logic for use in many different controllers.
 
 The first step is to create a new component file and class. Create the file in
 **src/Controller/Component/MathComponent.php**. The basic structure for the
-component would look something like this
+component would look something like this:
 
-```php
+``` php
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
@@ -186,22 +179,20 @@ class MathComponent extends Component
         return $amount1 + $amount2;
     }
 }
-
 ```
 
 > [!NOTE]
 > All components must extend `Cake\Controller\Component`. Failing
 > to do this will trigger an exception.
->
 
 ### Including your Component in your Controllers
 
 Once our component is finished, we can use it in the application's
 controllers by loading it during the controller's `initialize()` method.
 Once loaded, the controller will be given a new attribute named after the
-component, through which we can access an instance of it
+component, through which we can access an instance of it:
 
-```php
+``` php
 // In a controller
 // Make the new component available at $this->Math,
 // as well as the standard $this->Csrf
@@ -211,15 +202,14 @@ public function initialize(): void
     $this->loadComponent('Math');
     $this->loadComponent('Csrf');
 }
-
 ```
 
 When including Components in a Controller you can also declare a
 set of parameters that will be passed on to the Component's
 constructor. These parameters can then be handled by
-the Component
+the Component:
 
-```php
+``` php
 // In your controller.
 public function initialize(): void
 {
@@ -230,7 +220,6 @@ public function initialize(): void
     ]);
     $this->loadComponent('Csrf');
 }
-
 ```
 
 The above would pass the array containing precision and randomGenerator to
@@ -239,9 +228,9 @@ The above would pass the array containing precision and randomGenerator to
 ### Using Other Components in your Component
 
 Sometimes one of your components may need to use another component.
-You can load other components by adding them to the `$components` property
+You can load other components by adding them to the <span class="title-ref">\$components</span> property:
 
-```php
+``` php
 // src/Controller/Component/CustomComponent.php
 namespace App\Controller\Component;
 
@@ -276,22 +265,19 @@ class ExistingComponent extends Component
         // ...
     }
 }
-
 ```
 
 > [!NOTE]
 > In contrast to a component included in a controller
 > no callbacks will be triggered on a component's component.
->
 
 ### Accessing a Component's Controller
 
 From within a Component you can access the current controller through the
-registry
+registry:
 
-```php
+``` php
 $controller = $this->getController();
-
 ```
 
 ## Component Callbacks
@@ -299,54 +285,35 @@ $controller = $this->getController();
 Components also offer a few request life-cycle callbacks that allow them to
 augment the request cycle.
 
-#### Method `beforeFilter(EventInterface $event)`
+`method` Class::**beforeFilter**(EventInterface $event)
 
-Is called before the controller's
-beforeFilter method, but *after* the controller's initialize() method.
+`method` Class::**startup**(EventInterface $event)
 
-#### Method `startup(EventInterface $event)`
+`method` Class::**beforeRender**(EventInterface $event)
 
-Is called after the controller's beforeFilter
-method but before the controller executes the current action
-handler.
+`method` Class::**shutdown**(EventInterface $event)
 
-#### Method `beforeRender(EventInterface $event)`
+`method` Class::**beforeRedirect**(EventInterface $event, $url, Response $response)
 
-Is called after the controller executes the requested action's logic,
-but before the controller renders views and layout.
-
-#### Method `shutdown(EventInterface $event)`
-
-Is called before output is sent to the browser.
-
-#### Method `beforeRedirect(EventInterface $event, $url, Response $response)`
-
-Is invoked when the controller's redirect
-method is called but before any further action. If this method
-returns `false` the controller will not continue on to redirect the
-request. The $url, and $response parameters allow you to inspect and modify
-the location or any other headers in the response.
-<!-- anchor: redirect-component-events -->
 ## Using Redirects in Component Events
 
-To redirect from within a component callback method you can use the following
+To redirect from within a component callback method you can use the following:
 
-```php
+``` php
 public function beforeFilter(EventInterface $event)
 {
     $event->stopPropagation();
 
     return $this->getController()->redirect('/');
 }
-
 ```
 
 By stopping the event you let CakePHP know that you don't want any other
 component callbacks to run, and that the controller should not handle the action
 any further. As of 4.1.0 you can raise a `RedirectException` to signal
-a redirect
+a redirect:
 
-```php
+``` php
 use Cake\Http\Exception\RedirectException;
 use Cake\Routing\Router;
 
@@ -354,20 +321,18 @@ public function beforeFilter(EventInterface $event)
 {
     throw new RedirectException(Router::url('/'))
 }
-
 ```
 
 Raising an exception will halt all other event listeners and create a new
 response that doesn't retain or inherit any of the current response's headers.
-When raising a `RedirectException` you can include additional headers
+When raising a `RedirectException` you can include additional headers:
 
-```php
-throw new RedirectException(Router::url('/'), 302, [
-    'Header-Key' => 'value',
-]);
+    throw new RedirectException(Router::url('/'), 302, [
+        'Header-Key' => 'value',
+    ]);
 
-```
+<div class="versionadded">
 
-> [!IMPORTANT]
-> Added in version 4.1.0
->
+4.1.0
+
+</div>

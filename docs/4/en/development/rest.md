@@ -1,8 +1,3 @@
----
-title: REST
-keywords: "application programmers,default routes,core functionality,result format,mashups,recipe database,request method,access,config,soap,recipes,logic,audience,cakephp,running,api"
----
-
 # REST
 
 Many newer application programmers are realizing the need to open their core
@@ -18,13 +13,13 @@ for direction. Exposing an API via REST in CakePHP is simple.
 ## The Simple Setup
 
 The fastest way to get up and running with REST is to add a few lines to setup
-[resource routes](routing.md#resource-routes) in your config/routes.php file.
+[resource routes](#resource-routes) in your config/routes.php file.
 
 Once the router has been set up to map REST requests to certain controller
 actions, we can move on to creating the logic in our controller actions. A basic
-controller might look something like this
+controller might look something like this:
 
-```php
+``` php
 // src/Controller/RecipesController.php
 use Cake\View\JsonView;
 
@@ -94,14 +89,13 @@ class RecipesController extends AppController
         $this->viewBuilder()->setOption('serialize', ['message']);
     }
 }
-
 ```
 
 RESTful controllers often use parsed extensions to serve up different views
 based on different kinds of requests. We're defining the content-type based
 views we support in this controller. We're including CakePHP's `JsonView`. To
-learn more about it and Xml based views see [json-and-xml-views](../views/json-and-xml-views.md). By
-using  `JsonView` we can define a `serialize` option. This option
+learn more about it and Xml based views see [/views/json-and-xml-views](views/json-and-xml-views.md). By
+using `JsonView` we can define a `serialize` option. This option
 is used to define which view variables `JsonView` should serialize into JSON.
 
 If we wanted to modify the data before it is converted into JSON we should not
@@ -112,11 +106,10 @@ Creating the logic for the edit action requires another step. Because our
 resources are serialized as JSON it would be ergonomic if our requests also
 contained the JSON representation.
 
-In our `Application` class ensure the following is present
+In our `Application` class ensure the following is present:
 
-```php
+``` php
 $middlewareQueue->add(new BodyParserMiddleware());
-
 ```
 
 This middleware will use the `content-type` header to detect the format of
@@ -137,4 +130,4 @@ need them, using `BodyParserMiddleware::addParser()`.
 ## RESTful Routing
 
 CakePHP's Router lets you connect RESTful resource routes with a fluent
-interface. See the section on [resource-routes](routing.md#resource-routes) for more information.
+interface. See the section on [resource-routes](#resource-routes) for more information.

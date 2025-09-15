@@ -1,12 +1,6 @@
----
-title: CacheHelper
-description: "The Cache helper assists in caching entire layouts and views, saving time repetitively retrieving data."
-keywords: "cache helper,view caching,cache action,cakephp cache,nocache,clear cache"
----
-
 # CacheHelper
 
-### Class `CacheHelper(View $view, array $settings = array())`
+`class` **CacheHelper(View**
 
 The Cache helper assists in caching entire layouts and views, saving time
 repetitively retrieving data. View Caching in CakePHP temporarily stores parsed
@@ -31,29 +25,29 @@ in your `APP/Config/core.php` uncomment the Configure write call for
 files when handling requests.
 
 Once you've uncommented the `Cache.check` line you will need to add the helper
-to your controller's `$helpers` array
+to your controller's `$helpers` array:
 
-```php
+``` php
 class PostsController extends AppController {
     public $helpers = array('Cache');
 }
-
 ```
 
-You will also need to add the CacheDispatcher to your dispatcher filters in your bootstrap::
+You will also need to add the CacheDispatcher to your dispatcher filters in your bootstrap:
 
-```php
+``` css
 Configure::write('Dispatcher.filters', array(
     'CacheDispatcher'
 ));
-
 ```
 
-> [!IMPORTANT]
-> Added in version 2.3
+<div class="versionadded">
 
-  If you have a setup with multiple domains or languages you can use
-  `Configure::write('Cache.viewPrefix', 'YOURPREFIX');` to store the view cache files prefixed.
+2.3
+If you have a setup with multiple domains or languages you can use
+<span class="title-ref">Configure::write('Cache.viewPrefix', 'YOURPREFIX');</span> to store the view cache files prefixed.
+
+</div>
 
 ### Additional configuration options
 
@@ -65,36 +59,33 @@ in seconds you want those views cached. The time value can be
 expressed in a `strtotime()` format (e.g. "1 hour", or "3 minutes").
 
 Using the example of an ArticlesController, that receives a lot of
-traffic that needs to be cached
+traffic that needs to be cached:
 
-```php
+``` php
 public $cacheAction = array(
     'view' => 36000,
     'index' => 48000
 );
-
 ```
 
 This will cache the view action 10 hours, and the index action 13 hours. By
 making `$cacheAction` a `strtotime()` friendly value you can cache every action in the
-controller
+controller:
 
-```php
+``` php
 public $cacheAction = "1 hour";
-
 ```
 
 You can also enable controller/component callbacks for cached views
 created with `CacheHelper`. To do so you must use the array
-format for `$cacheAction` and create an array like the following
+format for `$cacheAction` and create an array like the following:
 
-```php
+``` php
 public $cacheAction = array(
     'view' => array('callbacks' => true, 'duration' => 21600),
     'add' => array('callbacks' => true, 'duration' => 36000),
     'index' => array('callbacks' => true, 'duration' => 48000)
 );
-
 ```
 
 By setting `callbacks => true` you tell CacheHelper that you want
@@ -106,7 +97,6 @@ beforeFilter, and component startup callbacks.
 > Setting `callbacks => true` partly defeats the
 > purpose of caching. This is also the reason it is disabled by
 > default.
->
 
 ## Marking Non-Cached Content in Views
 
@@ -115,9 +105,9 @@ For example, certain parts of the page may look different whether a
 user is currently logged in or browsing your site as a guest.
 
 To indicate blocks of content that are *not* to be cached, wrap
-them in `<!--nocache--> <!--/nocache-->` like so:
+them in [](#--nocache--)[](#--nocache--) like so:
 
-```php
+``` php
 <!--nocache-->
 <?php if ($this->Session->check('User.name')): ?>
     Welcome, <?php echo h($this->Session->read('User.name')); ?>.
@@ -125,13 +115,11 @@ them in `<!--nocache--> <!--/nocache-->` like so:
     <?php echo $this->Html->link('Login', 'users/login'); ?>
 <?php endif; ?>
 <!--/nocache-->
-
 ```
 
 > [!NOTE]
 > You cannot use `nocache` tags in elements. Since there are no callbacks
 > around elements, they cannot be cached.
->
 
 It should be noted that once an action is cached, the controller method for the
 action will not be called. When a cache file is created, the request object,
@@ -141,7 +129,6 @@ and view variables are serialized with PHP's `serialize()`.
 > If you have view variables that contain un-serializable content such as
 > SimpleXML objects, resource handles, or closures you might not be able to
 > use view caching.
->
 
 ## Clearing the Cache
 
@@ -155,10 +142,8 @@ view is cleared, and new content is generated on the next request.
 > This automatic cache clearing requires the controller/model name to be part
 > of the URL. If you've used routing to change your URLs this feature will not
 > work.
->
 
 If you need to manually clear the cache, you can do so by calling
 Cache::clear(). This will clear **all** cached data, excluding
 cached view files. If you need to clear the cached view files, use
 `clearCache()`.
-

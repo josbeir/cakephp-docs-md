@@ -1,11 +1,6 @@
----
-title: Access Control Lists
-keywords: "fantasy novel,access control list,request objects,online diary,request object,acls,adventurers,gandalf,lingo,web service,computer system,grandma,lord of the rings,entities,assets,logic,cakephp,stuff,control objects,control object"
----
-
 # Access Control Lists
 
-### Class `AclComponent(ComponentCollection $collection, array $settings = array())`
+`class` **AclComponent(ComponentCollection**
 
 ## Understanding How ACL Works
 
@@ -27,8 +22,8 @@ your grandma's online diary.
 
 To review:
 
--  ACO - Access Control Object - Represents something that is wanted
--  ARO - Access Request Object - Represents something that wants something else
+- ACO - Access Control Object - Represents something that is wanted
+- ARO - Access Request Object - Represents something that wants something else
 
 Essentially, ACLs are used to decide when an ARO can have
 access to an ACO.
@@ -42,15 +37,15 @@ healthy amount of privacy and security for the other members of the
 party. The first thing he needs to do is create a list of the AROs
 (requesters) involved:
 
--  Gandalf
--  Aragorn
--  Bilbo
--  Frodo
--  Gollum
--  Legolas
--  Gimli
--  Pippin
--  Merry
+- Gandalf
+- Aragorn
+- Bilbo
+- Frodo
+- Gollum
+- Legolas
+- Gimli
+- Pippin
+- Merry
 
 > [!NOTE]
 > Realize that ACL is *not* the same as authentication. ACL is what
@@ -58,33 +53,107 @@ party. The first thing he needs to do is create a list of the AROs
 > usually used in concert, it's important to realize the difference
 > between knowing who someone is (authentication) and knowing what
 > they can do (ACL).
->
 
 The next thing Gandalf needs to do is make an initial list of
 ACOs (resources) the system will handle. His list might look
 something like:
 
--  Weapons
--  The One Ring
--  Salted Pork
--  Diplomacy
--  Ale
+- Weapons
+- The One Ring
+- Salted Pork
+- Diplomacy
+- Ale
 
 Traditionally, systems were managed using a sort of matrix that
 showed a basic set of users and permissions relating to objects. If
 this information were stored in a table, it might look like this:
 
-| x | Weapons | The Ring | Salted Pork | Diplomacy | Ale |
-| --- | --- | --- | --- | --- | --- |
-| Gandalf |  |  | Allow | Allow | Allow |
-| Aragorn | Allow |  | Allow | Allow | Allow |
-| Bilbo |  |  |  |  | Allow |
-| Frodo |  | Allow |  |  | Allow |
-| Gollum |  |  | Allow |  |  |
-| Legolas | Allow |  | Allow | Allow | Allow |
-| Gimli | Allow |  | Allow |  |  |
-| Pippin |  |  |  | Allow | Allow |
-| Merry |  |  |  | Allow | Allow |
+<table>
+<thead>
+<tr class="header">
+<th>x</th>
+<th>Weapons</th>
+<th>The Ring</th>
+<th>Salted Pork</th>
+<th>Diplomacy</th>
+<th>Ale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gandalf</td>
+<td></td>
+<td></td>
+<td>Allow</td>
+<td>Allow</td>
+<td>Allow</td>
+</tr>
+<tr class="even">
+<td><p>--------Aragorn</p></td>
+<td><p>--------Allow</p></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr class="odd">
+<td><p>--------Bilbo</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr class="even">
+<td><p>--------Frodo</p></td>
+<td><hr /></td>
+<td><p>---------Allow</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr class="odd">
+<td><p>--------Gollum</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><hr /></td>
+<td><hr /></td>
+</tr>
+<tr class="even">
+<td><p>--------Legolas</p></td>
+<td><p>--------Allow</p></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr class="odd">
+<td><p>--------Gimli</p></td>
+<td><p>--------Allow</p></td>
+<td><hr /></td>
+<td><p>------------Allow</p></td>
+<td><hr /></td>
+<td><hr /></td>
+</tr>
+<tr class="even">
+<td><p>--------Pippin</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+<tr class="odd">
+<td><p>--------Merry</p></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><hr /></td>
+<td><p>----------Allow</p></td>
+<td><p>-------Allow</p></td>
+</tr>
+</tbody>
+</table>
 
 At first glance, it seems that this sort of system could work
 rather well. Assignments can be made to protect security (only
@@ -94,7 +163,7 @@ fine-grained and easy to read, right?
 
 For a small system like this, maybe a matrix setup would work. But
 for a growing system, or a system with a large number of resources
-(ACOs) and users (AROs), a table can quickly become unwieldy. 
+(ACOs) and users (AROs), a table can quickly become unwieldy.
 Imagine trying to control access to the hundreds of war
 encampments and trying to manage them by unit. Another drawback to
 matrices is that you can't create logical groups of users
@@ -112,127 +181,106 @@ fashion while maintaining a good grip on the big picture.
 Being the wise leader he is, Gandalf elects to use ACL in his new
 system, and organizes his objects along the following lines:
 
--  Fellowship of the Ring™
-
--  Warriors
-
--  Aragorn
--  Legolas
--  Gimli
-
--  Wizards
-
--  Gandalf
-
--  Hobbits
-
--  Frodo
--  Bilbo
--  Merry
--  Pippin
-
--  Visitors
-
--  Gollum
+- Fellowship of the Ring™
+  - Warriors
+    - Aragorn
+    - Legolas
+    - Gimli
+  - Wizards
+    - Gandalf
+  - Hobbits
+    - Frodo
+    - Bilbo
+    - Merry
+    - Pippin
+  - Visitors
+    - Gollum
 
 Using a tree structure for AROs allows Gandalf to define
 permissions that apply to entire groups of users at once. So, using
 our ARO tree, Gandalf can tack on a few group-based permissions:
 
--  Fellowship of the Ring
-(**Deny**: all)
-
--  Warriors
-(**Allow**: Weapons, Ale, Elven Rations, Salted Pork)
-
--  Aragorn
--  Legolas
--  Gimli
-
--  Wizards
-(**Allow**: Salted Pork, Diplomacy, Ale)
-
--  Gandalf
-
--  Hobbits
-(**Allow**: Ale)
-
--  Frodo
--  Bilbo
--  Merry
--  Pippin
-
--  Visitors
-(**Allow**: Salted Pork)
-
--  Gollum
+- Fellowship of the Ring
+  (**Deny**: all)
+  - Warriors
+    (**Allow**: Weapons, Ale, Elven Rations, Salted Pork)
+    - Aragorn
+    - Legolas
+    - Gimli
+  - Wizards
+    (**Allow**: Salted Pork, Diplomacy, Ale)
+    - Gandalf
+  - Hobbits
+    (**Allow**: Ale)
+    - Frodo
+    - Bilbo
+    - Merry
+    - Pippin
+  - Visitors
+    (**Allow**: Salted Pork)
+    - Gollum
 
 If we wanted to use ACL to see whether Pippin was allowed to access
 the ale, we'd first consult the tree to retrieve his path through it, which is
-Fellowship->Hobbits->Pippin. Then we see the different permissions
+Fellowship-\>Hobbits-\>Pippin. Then we see the different permissions
 that reside at each of those points, and use the most specific
 permission relating to Pippin and the Ale.
 
-| ARO Node | Permission Info | Result |
-| --- | --- | --- |
-| Fellowship of the Ring | Deny all | Denying access to ale. |
-| Hobbits | Allow 'ale' | Allowing access to ale! |
-| Pippin | -- | Still allowing ale! |
+| ARO Node                | Permission Info  | Result                  |
+|-------------------------|------------------|-------------------------|
+| Fellowship of the Ring  | Deny all         | Denying access to ale.  |
+| ----------------------- | ---------------- | ----------------------- |
+| Hobbits                 | Allow 'ale'      | Allowing access to ale! |
+| ----------------------- | ---------------- | ----------------------- |
+| Pippin                  | --               | Still allowing ale!     |
 
 > [!NOTE]
 > Since the 'Pippin' node in the ACL tree doesn't specifically deny
 > access to the ale ACO, the final result is that we allow access to
 > that ACO.
->
 
 The tree also allows us to make finer adjustments for more granular
 control, while still keeping the ability to make sweeping changes
 to groups of AROs:
 
--  Fellowship of the Ring
-(**Deny**: all)
-
--  Warriors
-(**Allow**: Weapons, Ale, Elven Rations, Salted Pork)
-
--  Aragorn
-(Allow: Diplomacy)
--  Legolas
--  Gimli
-
--  Wizards
-(**Allow**: Salted Pork, Diplomacy, Ale)
-
--  Gandalf
-
--  Hobbits
-(**Allow**: Ale)
-
--  Frodo
-(Allow: Ring)
--  Bilbo
--  Merry
-(Deny: Ale)
--  Pippin
-(Allow: Diplomacy)
-
--  Visitors
-(**Allow**: Salted Pork)
-
--  Gollum
+- Fellowship of the Ring
+  (**Deny**: all)
+  - Warriors
+    (**Allow**: Weapons, Ale, Elven Rations, Salted Pork)
+    - Aragorn
+      (Allow: Diplomacy)
+    - Legolas
+    - Gimli
+  - Wizards
+    (**Allow**: Salted Pork, Diplomacy, Ale)
+    - Gandalf
+  - Hobbits
+    (**Allow**: Ale)
+    - Frodo
+      (Allow: Ring)
+    - Bilbo
+    - Merry
+      (Deny: Ale)
+    - Pippin
+      (Allow: Diplomacy)
+  - Visitors
+    (**Allow**: Salted Pork)
+    - Gollum
 
 This approach allows us the ability to make both wide-reaching
 permissions changes and fine-grained adjustments. This allows
 us to say that all hobbits can have access to ale, with one
 exception: Merry. To see whether Merry can access the Ale, we'd find his
-path in the tree: Fellowship->Hobbits->Merry. Then we'd work our way down,
+path in the tree: Fellowship-\>Hobbits-\>Merry. Then we'd work our way down,
 keeping track of ale-related permissions:
 
-| ARO Node | Permission Info | Result |
-| --- | --- | --- |
-| Fellowship of the Ring | Deny all | Denying access to ale. |
-| Hobbits | Allow 'ale' | Allowing access to ale! |
-| Merry | Deny Ale | Denying ale. |
+| ARO Node                | Permission Info  | Result                  |
+|-------------------------|------------------|-------------------------|
+| Fellowship of the Ring  | Deny all         | Denying access to ale.  |
+| ----------------------- | ---------------- | ----------------------- |
+| Hobbits                 | Allow 'ale'      | Allowing access to ale! |
+| ----------------------- | ---------------- | ----------------------- |
+| Merry                   | Deny Ale         | Denying ale.            |
 
 ## Defining Permissions: CakePHP's INI-based ACL
 
@@ -245,86 +293,80 @@ for some reason might not be using a database.
 
 By default, CakePHP's ACL is database-driven. To enable INI-based
 ACL, you'll need to tell CakePHP what system you're using by
-updating the following lines in app/Config/core.php
+updating the following lines in app/Config/core.php:
 
-```php
-// Change these lines:
-Configure::write('Acl.classname', 'DbAcl');
-Configure::write('Acl.database', 'default');
+    // Change these lines:
+    Configure::write('Acl.classname', 'DbAcl');
+    Configure::write('Acl.database', 'default');
 
-// to look like this:
-Configure::write('Acl.classname', 'IniAcl');
-//Configure::write('Acl.database', 'default');
-
-```
+    // to look like this:
+    Configure::write('Acl.classname', 'IniAcl');
+    //Configure::write('Acl.database', 'default');
 
 ARO/ACO permissions are specified in **/app/Config/acl.ini.php**.
 The basic idea is that AROs are specified in an INI section that
 has three properties: groups, allow, and deny.
 
--  groups: names of ARO groups of which this ARO is a member
--  allow: names of ACOs to which this ARO has access
--  deny: names of ACOs to which this ARO should be denied access
+- groups: names of ARO groups of which this ARO is a member
+- allow: names of ACOs to which this ARO has access
+- deny: names of ACOs to which this ARO should be denied access
 
 ACOs are specified in INI sections that only include the allow and
 deny properties.
 
 As an example, let's see how the Fellowship ARO structure we've
-been crafting would look in INI syntax
+been crafting would look in INI syntax:
 
-```
-;-------------------------------------
-; AROs
-;-------------------------------------
-[aragorn]
-groups = warriors
-allow = diplomacy
+    ;-------------------------------------
+    ; AROs
+    ;-------------------------------------
+    [aragorn]
+    groups = warriors
+    allow = diplomacy
 
-[legolas]
-groups = warriors
+    [legolas]
+    groups = warriors
 
-[gimli]
-groups = warriors
+    [gimli]
+    groups = warriors
 
-[gandalf]
-groups = wizards
+    [gandalf]
+    groups = wizards
 
-[frodo]
-groups = hobbits
-allow = ring
+    [frodo]
+    groups = hobbits
+    allow = ring
 
-[bilbo]
-groups = hobbits
+    [bilbo]
+    groups = hobbits
 
-[merry]
-groups = hobbits
-deny = ale
+    [merry]
+    groups = hobbits
+    deny = ale
 
-[pippin]
-groups = hobbits
+    [pippin]
+    groups = hobbits
 
-[gollum]
-groups = visitors
+    [gollum]
+    groups = visitors
 
-;-------------------------------------
-; ARO Groups
-;-------------------------------------
-[warriors]
-allow = weapons, ale, salted_pork
+    ;-------------------------------------
+    ; ARO Groups
+    ;-------------------------------------
+    [warriors]
+    allow = weapons, ale, salted_pork
 
-[wizards]
-allow = salted_pork, diplomacy, ale
+    [wizards]
+    allow = salted_pork, diplomacy, ale
 
-[hobbits]
-allow = ale
+    [hobbits]
+    allow = ale
 
-[visitors]
-allow = salted_pork
+    [visitors]
+    allow = salted_pork
 
-```
-
-Now that you've got your permissions defined via the INI mechanism, 
-you can skip to [the section on checking permissions](access-control-lists.md#checking-permissions)
+Now that you've got your permissions defined via the INI mechanism,
+you can skip to [the section on checking permissions](#checking-permissions)
 using the ACL component. Alternatively, you can keep reading to see how
 you would define the same permissions using a database ACL.
 
@@ -343,69 +385,64 @@ retrieve nodes in tree format. The console application is used to
 initialize your database and interact with your ACO and ARO trees.
 
 To get started, first you'll need to make sure your
-`/app/Config/database.php` is present and correctly configured.
+[App / Config / database.php](app/Config/database.php.md) is present and correctly configured.
 
 Once you've done that, use the CakePHP console to create your ACL
-database tables
+database tables:
 
-```bash
+``` bash
 $ cake schema create DbAcl
-
 ```
 
 Running this command will drop and re-create the tables necessary
 to store ACO and ARO information in tree format. The output of the
-console application should look something like the following
+console application should look something like the following:
 
-```
----------------------------------------------------------------
-```
+    ---------------------------------------------------------------
+    Cake Schema Shell
+    ---------------------------------------------------------------
 
-### Cake Schema Shell
+    The following tables will be dropped.
+    acos
+    aros
+    aros_acos
 
-The following tables will be dropped.
-acos
-aros
-aros_acos
+    Are you sure you want to drop the tables? (y/n)
+    [n] > y
+    Dropping tables.
+    acos updated.
+    aros updated.
+    aros_acos updated.
 
-Are you sure you want to drop the tables? (y/n)
-[n] > y
-Dropping tables.
-acos updated.
-aros updated.
-aros_acos updated.
+    The following tables will be created.
+    acos
+    aros
+    aros_acos
 
-The following tables will be created.
-acos
-aros
-aros_acos
-
-Are you sure you want to create the tables? (y/n)
-[y] > y
-Creating tables.
-acos updated.
-aros updated.
-aros_acos updated.
-End create.
+    Are you sure you want to create the tables? (y/n)
+    [y] > y
+    Creating tables.
+    acos updated.
+    aros updated.
+    aros_acos updated.
+    End create.
 
 > [!NOTE]
 > This replaces an older deprecated command, "initdb".
->
 
 You can also use the SQL file found in
 `app/Config/Schema/db_acl.sql`, but that's nowhere near as fun.
 
 When finished, you should have three new database tables in your
-system: acos, aros, and aros\_acos (the join table to create
+system: acos, aros, and aros_acos (the join table to create
 permissions information between the two trees).
 
 > [!NOTE]
 > If you're curious about how CakePHP stores tree information in these
 > tables, read up on modified database tree traversal. The ACL
-> component uses CakePHP's [tree](../behaviors/tree.md)
+> component uses CakePHP's [/core-libraries/behaviors/tree](core-libraries/behaviors/tree.md)
 > to manage the trees' inheritances. The model class files for ACL
 > can be found in `lib/Cake/Model/`.
->
 
 Now that we're all set up, let's work on creating some ARO and ACO
 trees.
@@ -423,7 +460,6 @@ your database - you can provide a textual alias for the object.
 > In general, when you're creating a group or higher-level object,
 > use an alias. If you're managing access to a specific item or
 > record in the database, use the model/foreign key method.
->
 
 You create new ACL objects using the core CakePHP ACL models. In
 doing so, there are a number of fields you'll want to use when
@@ -451,11 +487,10 @@ new child.
 
 Before we can create new ACL objects, we'll need to load up their
 respective classes. The easiest way to do this is to include CakePHP's
-ACL Component in your controller's $components array
+ACL Component in your controller's \$components array:
 
-```php
+``` php
 public $components = array('Acl');
-
 ```
 
 Once we've got that done, let's see some examples of creating
@@ -465,7 +500,6 @@ in a controller action:
 > [!NOTE]
 > While the examples here focus on ARO creation, the same techniques
 > can be used to create an ACO tree.
->
 
 Remaining with our Fellowship example, let's first create our ARO
 groups. Because they won't have specific records tied
@@ -473,9 +507,9 @@ to them, we'll use aliases to create the ACL objects. Here, we create them
 via a controller action, but we could do it elsewhere.
 
 Our approach shouldn't be drastically new - we're just using
-models to save data like we always do
+models to save data like we always do:
 
-```php
+``` php
 public function any_action() {
     $aro = $this->Acl->Aro;
 
@@ -506,27 +540,26 @@ public function any_action() {
 
     // Other action logic goes here...
 }
-
 ```
 
 Once we've got the groups, we can use the ACL console
-application to verify the tree structure
+application to verify the tree structure:
 
-```bash
+``` bash
 $ cake acl view aro
 
-```
+Aro tree:
+---------------------------------------------------------------
+  [1]warriors
 
-### Aro tree:
-[1]warriors
+  [2]wizards
 
-[2]wizards
+  [3]hobbits
 
-[3]hobbits
-
-[4]visitors
+  [4]visitors
 
 ---------------------------------------------------------------
+```
 
 The tree is still simple at this point, but at least we've
 got some verification that we've got four top-level nodes. Let's
@@ -537,10 +570,9 @@ specific model records in our database.
 
 > [!NOTE]
 > When adding child nodes to a tree, make sure to use the ACL node
-> ID, rather than a foreign\_key value.
->
+> ID, rather than a foreign_key value.
 
-```php
+``` php
 public function any_action() {
     $aro = new Aro();
 
@@ -616,51 +648,49 @@ public function any_action() {
 
     // Other action logic goes here...
 }
-
 ```
 
 > [!NOTE]
-> Typically you won't supply both an alias and a model/foreign\_key,
+> Typically you won't supply both an alias and a model/foreign_key,
 > but we're using both here to make the structure of the tree easier
 > to read for demonstration purposes.
->
 
 The output of that console application command should now be a
 little more interesting. Let's give it a try:
 
-```bash
+``` bash
 $ cake acl view aro
 
-```
+Aro tree:
+---------------------------------------------------------------
+  [1]warriors
 
-### Aro tree:
-[1]warriors
+    [5]Aragorn
 
-[5]Aragorn
+    [6]Legolas
 
-[6]Legolas
+    [7]Gimli
 
-[7]Gimli
+  [2]wizards
 
-[2]wizards
+    [8]Gandalf
 
-[8]Gandalf
+  [3]hobbits
 
-[3]hobbits
+    [9]Frodo
 
-[9]Frodo
+    [10]Bilbo
 
-[10]Bilbo
+    [11]Merry
 
-[11]Merry
+    [12]Pippin
 
-[12]Pippin
+  [4]visitors
 
-[4]visitors
-
-[13]Gollum
+    [13]Gollum
 
 ---------------------------------------------------------------
+```
 
 Now that we've got our ARO tree setup properly, let's discuss a
 possible approach for structuring an ACO tree. While we can
@@ -677,11 +707,11 @@ Let's set up an ACO tree that will mimic a CakePHP
 app setup. Since we have five ACOs, we'll create an ACO tree that
 should end up looking something like the following:
 
--  Weapons
--  Rings
--  PorkChops
--  DiplomaticEfforts
--  Ales
+- Weapons
+- Rings
+- PorkChops
+- DiplomaticEfforts
+- Ales
 
 You can create children nodes under each of these five main ACOs,
 but using CakePHP's built-in action management covers basic CRUD
@@ -700,10 +730,10 @@ between the two groups. This is done using CakePHP's core Acl
 component. Let's continue with our example.
 
 Here we'll work with Acl permisions in the context of a controller
-action. Let's set up some basic permissions using the AclComponent in 
-an action inside our controller
+action. Let's set up some basic permissions using the AclComponent in
+an action inside our controller:
 
-```php
+``` php
 class SomethingsController extends AppController {
     // You might want to place this in the AppController
     // instead, but here works great too.
@@ -721,7 +751,6 @@ class SomethingsController extends AppController {
 
         die(print_r('done', 1));
     }
-
 ```
 
 The first call we make to the AclComponent allows any user under
@@ -731,7 +760,7 @@ their aliases.
 
 Notice the usage of the third parameter? One nice thing about the CakePHP
 ACL setup is that permissions contain four built-in properties related
-to CRUD (create, read, update, and delete) actions for convenience. The 
+to CRUD (create, read, update, and delete) actions for convenience. The
 default options for that parameter are `create`, `read`, `update`,
 and `delete` but you can add a column in the `aros_acos`
 database table (prefixed with \_ - for example `_admin`) and use
@@ -742,9 +771,9 @@ permission decision. We want Aragorn to keep his full-access
 privileges, but we want to deny other warriors in the group the ability to
 delete Weapons records. We're using the alias syntax to address the
 AROs above, but you might want to use the model/foreign key syntax
-yourself. What we have above is equivalent to this
+yourself. What we have above is equivalent to this:
 
-```php
+``` php
 // 6342 = Legolas
 // 1564 = Gimli
 
@@ -758,7 +787,6 @@ $this->Acl->deny(
   'Weapons',
   'delete'
 );
-
 ```
 
 > [!NOTE]
@@ -766,26 +794,24 @@ $this->Acl->deny(
 > string ('/users/employees/developers'). Addressing a node using
 > model/foreign key syntax uses an array with two parameters:
 > `array('model' => 'User', 'foreign_key' => 8282)`.
->
 
 The next section will help us validate our setup by using the
 AclComponent to check the permissions we've just set up.
-<!-- anchor: checking-permissions -->
+
 ### Checking Permissions: The ACL Component
 
 Let's use the AclComponent to make sure dwarves and elves can't
 remove things from the armory. At this point, we should be able to
 use the AclComponent to make a check between the ACOs and AROs
-we've created. The basic syntax for making a permissions check is
+we've created. The basic syntax for making a permissions check is:
 
-```php
+``` php
 $this->Acl->check($aro, $aco, $action = '*');
-
 ```
 
-Let's give it a try inside a controller action::
+Let's give it a try inside a controller action:
 
-```php
+``` php
 public function index() {
     // These all return true:
     $this->Acl->check('warriors/Aragorn', 'Weapons');
@@ -806,11 +832,9 @@ public function index() {
     $result = $this->Acl->check('warriors/Legolas', 'Weapons', 'delete');
     $result = $this->Acl->check('warriors/Gimli', 'Weapons', 'delete');
 }
-
 ```
 
 The usage here is for demonstration, but this type of checking
 can be used to decide whether to allow an action,
 show an error message, or redirect the user to
 a login.
-

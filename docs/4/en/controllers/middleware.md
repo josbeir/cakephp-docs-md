@@ -1,8 +1,3 @@
----
-title: Http Middleware
-keywords: "http, middleware, psr-7, request, response, wsgi, application, baseapplication, https"
----
-
 # Middleware
 
 Middleware objects give you the ability to 'wrap' your application in re-usable,
@@ -10,14 +5,16 @@ composable layers of Request handling, or response building logic. Visually,
 your application ends up at the center, and middleware is wrapped around the app
 like an onion. Here we can see an application wrapped with Routes, Assets,
 Exception Handling and CORS header middleware.
-![](/middleware-setup.png)
+
+![image](/middleware-setup.png)
 
 When a request is handled by your application it enters from the outermost
 middleware. Each middleware can either delegate the request/response to the next
 layer, or return a response. Returning a response prevents lower layers from
 ever seeing the request. An example of that is the AssetMiddleware handling
 a request for a plugin image during development.
-![](/middleware-request.png)
+
+![image](/middleware-request.png)
 
 If no middleware take action to handle the request, a controller will be located
 and have its action invoked, or an exception will be raised generating an error
@@ -34,7 +31,7 @@ CakePHP provides several middleware to handle common tasks in web applications:
 
 - `Cake\Error\Middleware\ErrorHandlerMiddleware` traps exceptions from the
   wrapped middleware and renders an error page using the
-  [/development/errors` Exception handler.
+  [/development/errors](development/errors.md) Exception handler.
 - `Cake\Routing\AssetMiddleware` checks whether the request is referring to a
   theme or plugin asset file, such as a CSS, JavaScript or image file stored in
   either a plugin's webroot folder or the corresponding one for a Theme.
@@ -47,19 +44,18 @@ CakePHP provides several middleware to handle common tasks in web applications:
   obfuscated data.
 - `Cake\Http\Middleware\BodyParserMiddleware` allows you to decode JSON, XML
   and other encoded request bodies based on `Content-Type` header.
-- [security-headers.md)
-  makes it possible to add security related headers like](Cake\Http\Middleware\HttpsEnforcerMiddleware](../security/https-enforcer.md)
+- [Cake\Http\Middleware\HttpsEnforcerMiddleware](security/https-enforcer.md)
   requires HTTPS to be used.
-- [Cake\Http\Middleware\CsrfProtectionMiddleware](../security/csrf.md) adds
+- [Cake\Http\Middleware\CsrfProtectionMiddleware](security/csrf.md) adds
   double-submit cookie based CSRF protection to your application.
-- [Cake\Http\Middleware\SessionCsrfProtectionMiddleware](../security/csrf.md)
+- [Cake\Http\Middleware\SessionCsrfProtectionMiddleware](security/csrf.md)
   adds session based CSRF protection to your application.
-- [Cake\Http\Middleware\CspMiddleware](../security/content-security-policy.md)
+- [Cake\Http\Middleware\CspMiddleware](security/content-security-policy.md)
   makes it simpler to add Content-Security-Policy headers to your application.
-- [Cake\Http\Middleware\SecurityHeadersMiddleware](../security/security-headers.md)
-  makes it possible to add security related headers like.md)`X-Frame-Options` to
+- [Cake\Http\Middleware\SecurityHeadersMiddleware](security/security-headers.md)
+  makes it possible to add security related headers like `X-Frame-Options` to
   responses.
-<!-- anchor: using-middleware -->
+
 ## Using Middleware
 
 Middleware can be applied to your application globally, to individual
@@ -68,9 +64,9 @@ routing scopes, or to specific controllers.
 To apply middleware to all requests, use the `middleware` method of your
 `App\Application` class. Your application's `middleware` hook method will be
 called at the beginning of the request process, you can use the
-`MiddlewareQueue`` object to attach middleware
+`MiddlewareQueue` object to attach middleware:
 
-```php
+``` php
 namespace App;
 
 use Cake\Http\BaseApplication;
@@ -93,13 +89,12 @@ class Application extends BaseApplication
         return $middlewareQueue;
     }
 }
-
 ```
 
 In addition to adding to the end of the `MiddlewareQueue` you can do
-a variety of operations
+a variety of operations:
 
-```php
+``` php
 $layer = new \App\Middleware\CustomMiddleware;
 
 // Added middleware will be last in line.
@@ -127,19 +122,18 @@ $middlewareQueue->insertAfter(
     'Cake\Error\Middleware\ErrorHandlerMiddleware',
     $layer
 );
-
 ```
 
 If your middleware is only applicable to a subset of routes or individual
-controllers you can use [Route scoped middleware](../development/routing.md#route-scoped-middleware),
-or [Controller middleware](../controllers.md#controller-middleware).
+controllers you can use [Route scoped middleware](#route-scoped-middleware),
+or [Controller middleware](#controller-middleware).
 
 ### Adding Middleware from Plugins
 
 Plugins can use their `middleware` hook method to apply any middleware they
-have to the application's middleware queue
+have to the application's middleware queue:
 
-```php
+``` php
 // in plugins/ContactManager/src/Plugin.php
 namespace ContactManager;
 
@@ -156,7 +150,6 @@ class Plugin extends BasePlugin
         return $middlewareQueue;
     }
 }
-
 ```
 
 ## Creating Middleware
@@ -173,9 +166,9 @@ for smaller tasks they make testing harder, and can create a complicated
 - Middleware must implement `Psr\Http\Server\MiddlewareInterface`.
 
 Middleware can return a response either by calling `$handler->handle()` or by
-creating their own response. We can see both options in our simple middleware
+creating their own response. We can see both options in our simple middleware:
 
-```php
+``` php
 // In src/Middleware/TrackingCookieMiddleware.php
 namespace App\Middleware;
 
@@ -209,13 +202,12 @@ class TrackingCookieMiddleware implements MiddlewareInterface
         return $response;
     }
 }
-
 ```
 
 Now that we've made a very simple middleware, let's attach it to our
-application
+application:
 
-```php
+``` php
 // In src/Application.php
 namespace App;
 
@@ -236,13 +228,12 @@ class Application
 }
 ```
 
-<!-- anchor: routing-middleware -->
 ## Routing Middleware
 
 Routing middleware is responsible for applying your application's routes and
-resolving the plugin, controller, and action a request is going to
+resolving the plugin, controller, and action a request is going to:
 
-```php
+``` php
 // In Application.php
 public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 {
@@ -251,15 +242,14 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
 }
 ```
 
-<!-- anchor: encrypted-cookie-middleware -->
 ## Encrypted Cookie Middleware
 
 If your application has cookies that contain data you want to obfuscate and
 protect against user tampering, you can use CakePHP's encrypted cookie
 middleware to transparently encrypt and decrypt cookie data via middleware.
-Cookie data is encrypted with via OpenSSL using AES
+Cookie data is encrypted with via OpenSSL using AES:
 
-```php
+``` php
 use Cake\Http\Middleware\EncryptedCookieMiddleware;
 
 $cookies = new EncryptedCookieMiddleware(
@@ -269,26 +259,24 @@ $cookies = new EncryptedCookieMiddleware(
 );
 
 $middlewareQueue->add($cookies);
-
 ```
 
 > [!NOTE]
 > It is recommended that the encryption key you use for cookie data, is used
 > *exclusively* for cookie data.
->
 
 The encryption algorithms and padding style used by the cookie middleware are
 backwards compatible with `CookieComponent` from earlier versions of CakePHP.
-<!-- anchor: body-parser-middleware -->
+
 ## Body Parser Middleware
 
 If your application accepts JSON, XML or other encoded request bodies, the
 `BodyParserMiddleware` will let you decode those requests into an array that
 is available via `$request->getParsedData()` and `$request->getData()`. By
 default only `json` bodies will be parsed, but XML parsing can be enabled with
-an option. You can also define your own parsers
+an option. You can also define your own parsers:
 
-```php
+``` php
 use Cake\Http\Middleware\BodyParserMiddleware;
 
 // only JSON will be parsed.
@@ -307,5 +295,4 @@ $bodies->addParser(['text/csv'], function ($body, $request) {
     // Use a CSV parsing library.
     return Csv::parse($body);
 });
-
 ```

@@ -1,8 +1,3 @@
----
-title: Schema management and migrations
-keywords: "schema files,schema management,schema objects,database schema,table statements,database changes,migrations,versioning,snapshots,sql,snapshot,shell,config,functionality,choices,models,php files,php file,directory,running"
----
-
 # Schema management and migrations
 
 The SchemaShell provides a functionality to create schema objects,
@@ -13,11 +8,10 @@ snapshots.
 
 A generated schema file allows you to easily transport a database
 agnostic schema. You can generate a schema file of your database
-using
+using:
 
-```bash
+``` bash
 $ Console/cake schema generate
-
 ```
 
 This will generate a schema.php file in your `app/Config/Schema`
@@ -27,14 +21,12 @@ directory.
 > The schema shell will only process tables for which there are
 > models defined. To force the schema shell to process all the
 > tables, you must add the `-f` option in the command line.
->
 
 To later rebuild the database schema from your previously made
-schema.php file run
+schema.php file run:
 
-```bash
+``` bash
 $ Console/cake schema create
-
 ```
 
 This will drop and create the tables based on the contents of the
@@ -42,11 +34,10 @@ schema.php.
 
 Schema files can also be used to generate sql dump files. To
 generate a sql file containing the `CREATE TABLE` statements,
-run
+run:
 
-```bash
+``` bash
 $ Console/cake schema dump --write filename.sql
-
 ```
 
 Where filename.sql is the desired filename for the sql dump. If you
@@ -61,17 +52,14 @@ CakeSchema callbacks. Every schema file is generated with a
 `before($event = array())` and a `after($event = array())` method.
 
 The `$event` param holds an array with two keys. One to tell if a
-table is being dropped or created and another for errors. Examples
+table is being dropped or created and another for errors. Examples:
 
-```
-array('drop' => 'posts', 'errors' => null)
-array('create' => 'posts', 'errors' => null)
+    array('drop' => 'posts', 'errors' => null)
+    array('create' => 'posts', 'errors' => null)
 
-```
+Adding data to a posts table for example would like this:
 
-Adding data to a posts table for example would like this::
-
-```php
+``` php
 App::uses('Post', 'Model');
 public function after($event = array()) {
     if (isset($event['create'])) {
@@ -89,7 +77,6 @@ public function after($event = array()) {
         }
     }
 }
-
 ```
 
 The `before()` and `after()` callbacks run each time a table is created
@@ -97,9 +84,9 @@ or dropped on the current schema.
 
 When inserting data to more than one table you'll need to flush the database
 cache after each table is created. Cache can be disable by setting
-`$db->cacheSources = false` in the before action().
+`$db->cacheSources = false` in the before action(). :
 
-```php
+``` php
 public $connection = 'default';
 
 public function before($event = array()) {
@@ -107,26 +94,24 @@ public function before($event = array()) {
     $db->cacheSources = false;
     return true;
 }
-
 ```
 
 If you use models in your callbacks make sure to initialize them with the
-correct datasource, lest they fallback to their default datasources
+correct datasource, lest they fallback to their default datasources:
 
-```php
+``` php
 public function before($event = array()) {
     $articles = ClassRegistry::init('Articles', array(
         'ds' => $this->connection
     ));
     // Do things with articles.
 }
-
 ```
 
 ## Writing CakePHP Schema by Hand
 
 The CakeSchema class is the base class for all database schemas. Each schema
-class is able to generate a set of tables.  The schema shell console class
+class is able to generate a set of tables. The schema shell console class
 `SchemaShell` in the `lib/Cake/Console/Command` directory interprets command
 line, and base schema class can read from the database, or generate the database
 table.
@@ -140,11 +125,11 @@ engine type. Each Dbo implements the tableParameters they support.
 
 ### Example
 
-Here is a full example from the acl class
+Here is a full example from the acl class :
 
-```php
+``` php
 /**
- - ACO - Access Control Object - Something that is wanted
+ * ACO - Access Control Object - Something that is wanted
  */
     public $acos = array(
         'id' => array(
@@ -182,7 +167,6 @@ Here is a full example from the acl class
         ),
         'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
     );
-
 ```
 
 ### Columns
@@ -191,35 +175,32 @@ Each column is encoded as a key value associative array.
 The field name is the key of the field, the value is another array with some of
 the following attributes.
 
-Example column
+Example column:
 
-```
-'id' => array(
-    'type' => 'integer',
-    'null' => false,
-    'default' => null,
-    'length' => 10,
-    'key' => 'primary'
- ),
+    'id' => array(
+        'type' => 'integer',
+        'null' => false,
+        'default' => null,
+        'length' => 10,
+        'key' => 'primary'
+     ),
 
-```
-
-key
+key  
 The `primary` key defines the primary key index.
 
-null
+null  
 Is the field nullable?
 
-default
+default  
 What is the default value of the field?
 
-limit
+limit  
 The limit of the type of the field.
 
-length
+length  
 What is the length of the field?
 
-type
+type  
 One of the following types
 
 - integer
@@ -235,62 +216,61 @@ One of the following types
 - string
 - text
 - binary
-> **versionchanged:** 2.10.0
+
+<div class="versionchanged">
+
+2.10.0
 The `smallinteger` and `tinyinteger` types were added in 2.10.0
 
-## Table key `indexes`
+</div>
 
-The key name `indexes` is put in the table array instead of a field name.
+## Table key <span class="title-ref">indexes</span>
 
-column
+The key name <span class="title-ref">indexes</span> is put in the table array instead of a field name.
+
+column  
 This is either a single column name or an array of columns.
 
-e.g. Single
+e.g. Single :
 
-```
-'indexes' => array(
-    'PRIMARY' => array(
-        'column' => 'id',
-        'unique' => 1
+    'indexes' => array(
+        'PRIMARY' => array(
+            'column' => 'id',
+            'unique' => 1
+        )
     )
-)
 
-```
+e.g. Multiple :
 
-e.g. Multiple ::
-
-```
-'indexes' => array(
-    'AB_KEY' => array(
-        'column' => array(
-            'a_id',
-            'b_id'
-        ),
-        'unique' => 1
+    'indexes' => array(
+        'AB_KEY' => array(
+            'column' => array(
+                'a_id',
+                'b_id'
+            ),
+            'unique' => 1
+        )
     )
-)
 
-```
-
-unique
+unique  
 If the index is unique, set this to 1, otherwise 0.
 
-## Table key `tableParameters`
+## Table key <span class="title-ref">tableParameters</span>
 
 tableParameters are supported only in MySQL.
 
 You can use tableParameters to set a variety of MySQL specific settings.
 
--  `engine` Control the storage engine used for your tables.
--  `charset` Control the character set used for tables.
--  `encoding` Control the encoding used for tables.
+- `engine` Control the storage engine used for your tables.
+- `charset` Control the character set used for tables.
+- `encoding` Control the encoding used for tables.
 
 In addition to tableParameters MySQL dbo's implement
 `fieldParameters`. `fieldParameters` allow you to control MySQL
 specific settings per column.
 
--  `charset` Set the character set used for a column
--  `encoding` Set the encoding used for a column
+- `charset` Set the character set used for a column
+- `encoding` Set the encoding used for a column
 
 See below for examples on how to use table and field parameters in
 your schema files.
@@ -298,9 +278,9 @@ your schema files.
 **Using tableParameters in schema files**
 
 You use `tableParameters` just as you would any other key in a
-schema file. Much like `indexes`
+schema file. Much like `indexes`:
 
-```php
+``` php
 var $comments => array(
     'id' => array(
         'type' => 'integer',
@@ -320,7 +300,6 @@ var $comments => array(
         'collate' => 'latin1_general_ci'
     )
 );
-
 ```
 
 is an example of a table using `tableParameters` to set some
@@ -335,33 +314,28 @@ you develop features you have an easy and database agnostic way to
 distribute database changes. Migrations are achieved through either
 SCM controlled schema files or schema snapshots. Versioning a
 schema file with the schema shell is quite easy. If you already
-have a schema file created running
+have a schema file created running:
 
-```bash
+``` bash
 $ Console/cake schema generate
-
 ```
 
-Will bring up the following choices::
+Will bring up the following choices:
 
-```
-Generating Schema...
-Schema file exists.
- [O]verwrite
- [S]napshot
- [Q]uit
-Would you like to do? (o/s/q)
+    Generating Schema...
+    Schema file exists.
+     [O]verwrite
+     [S]napshot
+     [Q]uit
+    Would you like to do? (o/s/q)
 
-```
-
-Choosing [s] (snapshot) will create an incremented schema.php. So
-if you have schema.php, it will create schema\_2.php and so on. You
+Choosing \[s\] (snapshot) will create an incremented schema.php. So
+if you have schema.php, it will create schema_2.php and so on. You
 can then restore to any of these schema files at any time by
-running
+running:
 
-```sql
+``` bash
 $ cake schema update -s 2
-
 ```
 
 Where 2 is the snapshot number you wish to run. The schema shell
@@ -374,7 +348,6 @@ You can perform a dry run by adding a `--dry` to your command.
 > [!NOTE]
 > Please note that schema generation in 2.x does not handle foreign key
 > constraints.
->
 
 ## Workflow examples
 
@@ -383,23 +356,23 @@ You can perform a dry run by adding a `--dry` to your command.
 On a project which use versioning, the usage of cake schema
 would follow these steps:
 
-1. Create or modify your database tables
-2. Execute cake schema to export a full description of your
-database
-3. Commit the created or updated schema.php file
+1.  Create or modify your database tables
 
-```bash
-$ # once your database has been updated
-$ Console/cake schema generate
-$ git commit -a
+2.  Execute cake schema to export a full description of your
+    database
 
-```
+3.  Commit the created or updated schema.php file:
+
+    ``` bash
+    $ # once your database has been updated
+    $ Console/cake schema generate
+    $ git commit -a
+    ```
 
 > [!NOTE]
 > If the project is not versioned, managing schemas would
 > be done through snapshots. (see previous section to
 > manage snapshots)
->
 
 ### Getting the last changes
 
@@ -407,14 +380,13 @@ When you pull the last changes of your repository, and discover
 changes in the structure of the database (possibly because
 of an error message saying you are missing a table):
 
-1. Execute cake schema to update your database
+1.  Execute cake schema to update your database:
 
-```bash
-$ git pull
-$ Console/cake schema create
-$ Console/cake schema update
-
-```
+    ``` bash
+    $ git pull
+    $ Console/cake schema create
+    $ Console/cake schema update
+    ```
 
 All these operations can be done in dry-run mode with a `--dry` option.
 
@@ -428,21 +400,17 @@ More specifically, you can't automatically drop your tables once they have
 been created.
 
 Using `update` will, on the contrary, drop any field which differ from the
-schema file
+schema file:
 
-```bash
+``` bash
 $ git revert HEAD
 $ Console/cake schema update
-
 ```
 
-Will bring up the following choices::
+Will bring up the following choices:
 
-```sql
-The following statements will run.
-ALTER TABLE `roles`
-DROP `position`;
-Are you sure you want to alter the tables? (y/n)
-[n] >
-
-```
+    The following statements will run.
+    ALTER TABLE `roles`
+    DROP `position`;
+    Are you sure you want to alter the tables? (y/n)
+    [n] >

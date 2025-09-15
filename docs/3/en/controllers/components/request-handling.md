@@ -1,11 +1,6 @@
----
-title: Request Handling
-keywords: "handler component,javascript libraries,public components,null returns,model data,request data,content types,file extensions,ajax,meth,content type,array,conjunction,cakephp,insight,php"
----
-
 # Request Handling
 
-### Class `RequestHandlerComponent(ComponentCollection $collection, array $config = [])`
+`class` **RequestHandlerComponent(ComponentCollection**
 
 The Request Handler component is used in CakePHP to obtain additional
 information about the HTTP requests that are made to your application. You can
@@ -21,9 +16,9 @@ the requested extension exists, it will be added to the Controllers Helper
 array. Lastly, if XML/JSON data is POST'ed to your Controllers, it will be
 parsed into an array which is assigned to `$this->request->getData()`, and can then
 be accessed as you would standard POST data. In order to make use of
-RequestHandler it must be included in your `initialize()` method
+RequestHandler it must be included in your `initialize()` method:
 
-```php
+``` php
 class WidgetsController extends AppController
 {
     public function initialize()
@@ -34,7 +29,6 @@ class WidgetsController extends AppController
 
     // Rest of controller
 }
-
 ```
 
 ## Obtaining Request Information
@@ -42,100 +36,28 @@ class WidgetsController extends AppController
 Request Handler has several methods that provide information about
 the client and its request.
 
-#### Method `accepts($type = null)`
-
-    $type can be a string, or an array, or null. If a string, `accepts()`
-will return `true` if the client accepts the content type. If an
-    array is specified, `accepts()` return `true` if any one of the content
-types is accepted by the client. If null returns an array of the
-content-types that the client accepts. For example
-
-```php
-class ArticlesController extends AppController
-{
-    public function initialize()
-    {
-        parent::initialize();
-        $this->loadComponent('RequestHandler');
-    }
-
-    public function beforeFilter(Event $event)
-    {
-        if ($this->RequestHandler->accepts('html')) {
-            // Execute code only if client accepts an HTML (text/html)
-            // response.
-        } elseif ($this->RequestHandler->accepts('xml')) {
-            // Execute XML-only code
-        }
-        if ($this->RequestHandler->accepts(['xml', 'rss', 'atom'])) {
-            // Executes if the client accepts any of the above: XML, RSS
-            // or Atom.
-        }
-    }
-}
-
-```
+`method` RequestHandlerComponent(ComponentCollection::**accepts**($type = null)
 
 Other request 'type' detection methods include:
 
-#### Method `isXml()`
+`method` RequestHandlerComponent(ComponentCollection::**isXml**()
 
-Returns `true` if the current request accepts XML as a response.
+`method` RequestHandlerComponent(ComponentCollection::**isRss**()
 
-#### Method `isRss()`
+`method` RequestHandlerComponent(ComponentCollection::**isAtom**()
 
-Returns `true` if the current request accepts RSS as a response.
+`method` RequestHandlerComponent(ComponentCollection::**isMobile**()
 
-#### Method `isAtom()`
-
-Returns `true` if the current call accepts an Atom response, false
-otherwise.
-
-#### Method `isMobile()`
-
-Returns `true` if user agent string matches a mobile web browser, or
-    if the client accepts WAP content. The supported Mobile User Agent
-strings are:
-
--  Android
--  AvantGo
--  BlackBerry
--  DoCoMo
--  Fennec
--  iPad
--  iPhone
--  iPod
--  J2ME
--  MIDP
--  NetFront
--  Nokia
--  Opera Mini
--  Opera Mobi
--  PalmOS
--  PalmSource
--  portalmmm
--  Plucker
--  ReqwirelessWeb
--  SonyEricsson
--  Symbian
--  UP.Browser
--  webOS
--  Windows CE
--  Windows Phone OS
--  Xiino
-
-#### Method `isWap()`
-
-Returns `true` if the client accepts WAP content.
+`method` RequestHandlerComponent(ComponentCollection::**isWap**()
 
 All of the above request detection methods can be used in a similar
 fashion to filter functionality intended for specific content
 types. For example when responding to AJAX requests, you often will
 want to disable browser caching, and change the debug level.
 However, you want to allow caching for non-AJAX requests. The
-following would accomplish that
+following would accomplish that:
 
-```php
+``` php
 if ($this->request->is('ajax')) {
     $this->response = $this->response->withDisabledCache();
 
@@ -143,7 +65,6 @@ if ($this->request->is('ajax')) {
     $this->response->disableCache();
 }
 // Continue Controller action
-
 ```
 
 ## Automatically Decoding Request Data
@@ -151,9 +72,9 @@ if ($this->request->is('ajax')) {
 Add a request data decoder. The handler should contain a callback, and any
 additional arguments for the callback. The callback should return
 an array of data contained in the request input. For example adding a CSV
-handler could look like
+handler could look like:
 
-```php
+``` php
 class ArticlesController extends AppController
 {
     public function initialize()
@@ -173,78 +94,83 @@ class ArticlesController extends AppController
         ]);
     }
 }
-
 ```
 
 You can use any [callable](https://php.net/callback) for the handling function.
 You can also pass additional arguments to the callback, this is useful for
-callbacks like `json_decode`
+callbacks like `json_decode`:
 
-```php
+``` php
 $this->RequestHandler->addInputType('json', ['json_decode', true]);
 
 // After 3.1.0 you should use
 $this->RequestHandler->config('inputTypeMap.json', ['json_decode', true]);
-
 ```
 
 The above will make `$this->request->getData()` an array of the JSON input data,
 without the additional `true` you'd get a set of `stdClass` objects.
-> **deprecated:** 3.1.0
+
+<div class="deprecated">
+
+3.1.0
 As of 3.1.0 the `addInputType()` method is deprecated. You should use
 `config()` to add input types at runtime.
-> **versionchanged:** 3.6.0
-You should prefer using [body-parser-middleware](../middleware.md#body-parser-middleware) instead of
+
+</div>
+
+<div class="versionchanged">
+
+3.6.0
+You should prefer using [body-parser-middleware](#body-parser-middleware) instead of
 RequestHandlerComponent.
+
+</div>
 
 ## Checking Content-Type Preferences
 
-#### Method `prefers($type = null)`
+`method` RequestHandlerComponent(ComponentCollection::**prefers**($type = null)
 
 Determines which content-types the client prefers. If no parameter
-is given the most likely content type is returned. If $type is an
+is given the most likely content type is returned. If \$type is an
 array the first type the client accepts will be returned.
 Preference is determined primarily by the file extension parsed by
 Router if one has been provided, and secondly by the list of
-content-types in `HTTP_ACCEPT`
+content-types in `HTTP_ACCEPT`:
 
-```php
+``` php
 $this->RequestHandler->prefers('json');
-
 ```
 
 ## Responding To Requests
 
-#### Method `renderAs($controller, $type)`
+`method` RequestHandlerComponent(ComponentCollection::**renderAs**($controller, $type)
 
 Change the render mode of a controller to the specified type. Will
 also append the appropriate helper to the controller's helper array
-if available and not already in the array
+if available and not already in the array:
 
-```php
+``` php
 // Force the controller to render an xml response.
 $this->RequestHandler->renderAs($this, 'xml');
-
 ```
 
 This method will also attempt to add a helper that matches your current content
 type. For example if you render as `rss`, the `RssHelper` will be added.
 
-#### Method `respondAs($type, $options)`
+`method` RequestHandlerComponent(ComponentCollection::**respondAs**($type, $options)
 
 Sets the response header based on content-type map names. This method lets you
-set a number of response properties at once
+set a number of response properties at once:
 
-```php
+``` php
 $this->RequestHandler->respondAs('xml', [
     // Force download
     'attachment' => true,
     'charset' => 'UTF-8'
 ]);
-
 ```
 
-#### Method `responseType()`
+`method` RequestHandlerComponent(ComponentCollection::**responseType**()
 
 Returns the current response type Content-type header or null if one has yet to
 be set.
@@ -267,9 +193,9 @@ stopped, saving processing time, saving bandwidth and no content is returned to
 the client. The response status code is then set to `304 Not Modified`.
 
 You can opt-out this automatic checking by setting the `checkHttpCache`
-setting to `false`
+setting to `false`:
 
-```php
+``` php
 public function initialize()
 {
     parent::initialize();
@@ -277,7 +203,6 @@ public function initialize()
         'checkHttpCache' => false
     ]);
 }
-
 ```
 
 ## Using Custom ViewClasses
@@ -286,9 +211,9 @@ When using JsonView/XmlView you might want to override the default serialization
 with a custom View class, or add View classes for other types.
 
 You can map existing and new types to your custom classes. You can also set this
-automatically by using the `viewClassMap` setting
+automatically by using the `viewClassMap` setting:
 
-```php
+``` php
 public function initialize()
 {
     parent::initialize();
@@ -302,6 +227,10 @@ public function initialize()
 }
 ```
 
-> **deprecated:** 3.1.0
+<div class="deprecated">
+
+3.1.0
 As of 3.1.0 the `viewClassMap()` method is deprecated. You should use
 `config()` to change the viewClassMap at runtime.
+
+</div>

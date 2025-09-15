@@ -5,16 +5,12 @@ deprecations and features added in 4.6.
 
 ## Upgrading to 4.6.0
 
-You can can use composer to upgrade to CakePHP 4.6.0
+You can can use composer to upgrade to CakePHP 4.6.0:
 
-```
-php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.6"
-
-```
+    php composer.phar require --update-with-dependencies "cakephp/cakephp:^4.6"
 
 > [!NOTE]
 > CakePHP 4.6 requires PHP 7.4 or greater.
->
 
 ## New Features
 

@@ -1,120 +1,96 @@
----
-title: Glossary
-keywords: "html attributes,array class,array controller,glossary glossary,target blank,fields,properties,columns,dot notation,routing configuration,forgery,replay,router,syntax,config,submissions"
----
-
 # Glossary
 
-.. glossary
+<div class="glossary">
 
-```php
-CDN
-    Content Delivery Network. A 3rd party vendor you can pay to help
-    distribute your content to data centers around the world. This helps
-    put your static assets closer to geographically distributed users.
+CDN  
+Content Delivery Network. A 3rd party vendor you can pay to help
+distribute your content to data centers around the world. This helps
+put your static assets closer to geographically distributed users.
 
-columns
-    Used in the ORM when referring to the table columns in an database
-    table.
+columns  
+Used in the ORM when referring to the table columns in an database
+table.
 
-CSRF
-    Cross Site Request Forgery. Prevents replay attacks, double
-    submissions and forged requests from other domains.
+CSRF  
+Cross Site Request Forgery. Prevents replay attacks, double
+submissions and forged requests from other domains.
 
-DSN
-    Data Source Name. A connection string format that is formed like a URI.
-    CakePHP supports DSNs for Cache, Database, Log and Email connections.
+DSN  
+Data Source Name. A connection string format that is formed like a URI.
+CakePHP supports DSNs for Cache, Database, Log and Email connections.
 
-dot notation
-    Dot notation defines an array path, by separating nested levels with `.`
-    For example::
+dot notation  
+Dot notation defines an array path, by separating nested levels with `.`
+For example:
 
-```
+    Cache.default.engine
 
-Cache.default.engine
+Would point to the following value:
 
-```
-    Would point to the following value::
+    [
+        'Cache' => [
+            'default' => [
+                'engine' => 'File'
+            ]
+        ]
+    ]
 
-```json
-[
-'Cache' => [
-'default' => [
-'engine' => 'File'
-]
-]
-]
+DRY  
+Don't repeat yourself. Is a principle of software development aimed at
+reducing repetition of information of all kinds. In CakePHP DRY is used
+to allow you to code things once and re-use them across your
+application.
 
-```
+fields  
+A generic term used to describe both entity properties, or database
+columns. Often used in conjunction with the FormHelper.
 
-DRY
-    Don't repeat yourself. Is a principle of software development aimed at
-    reducing repetition of information of all kinds. In CakePHP DRY is used
-    to allow you to code things once and re-use them across your
-    application.
+HTML attributes  
+An array of key =\> values that are composed into HTML attributes. For example:
 
-fields
-    A generic term used to describe both entity properties, or database
-    columns. Often used in conjunction with the FormHelper.
+    // Given
+    ['class' => 'my-class', 'target' => '_blank']
 
-HTML attributes
-    An array of key => values that are composed into HTML attributes. For example::
+    // Would generate
+    class="my-class" target="_blank"
 
-```
-// Given
-['class' => 'my-class', 'target' => '_blank']
+If an option can be minimized or accepts its name as the value, then `true`
+can be used:
 
-// Would generate
-class="my-class" target="_blank"
+    // Given
+    ['checked' => true]
 
-```
+    // Would generate
+    checked="checked"
 
-    If an option can be minimized or accepts its name as the value, then `true`
-    can be used::
+PaaS  
+Platform as a Service. Platform as a Service providers will provide
+cloud based hosting, database and caching resources. Some popular
+providers include Heroku, EngineYard and PagodaBox
 
-```
-// Given
-['checked' => true]
+properties  
+Used when referencing columns mapped onto an ORM entity.
 
-// Would generate
-checked="checked"
+plugin syntax  
+Plugin syntax refers to the dot separated class name indicating classes
+are part of a plugin:
 
-```
+    // The plugin is "DebugKit", and the class name is "Toolbar".
+    'DebugKit.Toolbar'
 
-PaaS
-    Platform as a Service. Platform as a Service providers will provide
-    cloud based hosting, database and caching resources. Some popular
-    providers include Heroku, EngineYard and PagodaBox
+    // The plugin is "AcmeCorp/Tools", and the class name is "Toolbar".
+    'AcmeCorp/Tools.Toolbar'
 
-properties
-    Used when referencing columns mapped onto an ORM entity.
+routes.php  
+A file in `config` directory that contains routing configuration.
+This file is included before each request is processed.
+It should connect all the routes your application needs so
+requests can be routed to the correct controller + action.
 
-plugin syntax
-    Plugin syntax refers to the dot separated class name indicating classes
-    are part of a plugin::
+routing array  
+An array of attributes that are passed to `Router::url()`.
+They typically look like:
 
-```php
-// The plugin is "DebugKit", and the class name is "Toolbar".
-'DebugKit.Toolbar'
+    ['controller' => 'Posts', 'action' => 'view', 5]
 
-// The plugin is "AcmeCorp/Tools", and the class name is "Toolbar".
-'AcmeCorp/Tools.Toolbar'
-
-```
-
-routes.php
-    A file in `config` directory that contains routing configuration.
-    This file is included before each request is processed.
-    It should connect all the routes your application needs so
-    requests can be routed to the correct controller + action.
-
-routing array
-    An array of attributes that are passed to `Router::url()`.
-    They typically look like::
-
-```json
-['controller' => 'Posts', 'action' => 'view', 5]
-
-```
-
-```
+</div>

@@ -1,18 +1,10 @@
----
-title: Running Shells as cronjobs
-keywords: "cronjob,bash script,crontab"
----
-
 # Running Shells as Cron Jobs
 
 A common thing to do with a shell is making it run as a cronjob to
 clean up the database once in a while or send newsletters. This is
-trivial to setup, for example
+trivial to setup, for example:
 
-```bash
-*/5  *    *    *    *  cd /full/path/to/root && bin/cake myshell myparam
-```
-
+    */5  *    *    *    *  cd /full/path/to/root && bin/cake myshell myparam
     # *    *    *    *    *  command to execute
     # │    │    │    │    │
     # │    │    │    │    │
@@ -23,23 +15,18 @@ trivial to setup, for example
     # │    \──────────────────── hour (0 - 23)
     # \───────────────────────── min (0 - 59)
 
-You can see more info here: https://en.wikipedia.org/wiki/Cron
+You can see more info here: <https://en.wikipedia.org/wiki/Cron>
 
 > [!TIP]
-> Use `-q` (or `--quiet`) to silence any output for cronjobs.
->
+> Use `-q` (or <span class="title-ref">--quiet</span>) to silence any output for cronjobs.
 
-### Cron Jobs on Shared Hosting
+## Cron Jobs on Shared Hosting
 
 On some shared hostings `cd /full/path/to/root && bin/cake mycommand myparam`
 might not work. Instead you can use
 `php /full/path/to/root/bin/cake.php mycommand myparam`.
 
 > [!NOTE]
-> register_argc_argv has to be turned on by including `register_argc_argv
-> = 1` in your php.ini.  If you cannot change register_argc_argv globally,
+> register_argc_argv has to be turned on by including `register_argc_argv = 1` in your php.ini. If you cannot change register_argc_argv globally,
 > you can tell the cron job to use your own configuration by
-> specifying it with `-d register_argc_argv=1` parameter. Example: `php
-> -d register_argc_argv=1 /full/path/to/root/bin/cake.php myshell
-> myparam`
->
+> specifying it with `-d register_argc_argv=1` parameter. Example: `php -d register_argc_argv=1 /full/path/to/root/bin/cake.php myshell myparam`

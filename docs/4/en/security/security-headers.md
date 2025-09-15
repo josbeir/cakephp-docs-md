@@ -1,4 +1,3 @@
-<!-- anchor: security-header-middleware -->
 # Security Header Middleware
 
 The `SecurityHeaderMiddleware` layer allows you to apply security related
@@ -12,9 +11,9 @@ headers to responses:
 - `Referrer-Policy`
 
 This middleware is configured using a fluent interface before it is applied to
-your application's middleware stack
+your application's middleware stack:
 
-```php
+``` php
 use Cake\Http\Middleware\SecurityHeadersMiddleware;
 
 $securityHeaders = new SecurityHeadersMiddleware();
@@ -27,8 +26,4 @@ $securityHeaders
     ->noSniff();
 
 $middlewareQueue->add($securityHeaders);
-
 ```
-
-:title lang=en: Security Header Middleware
-:keywords lang=en: x-frame-options, cross-domain, referrer-policy, download-options, middleware, content-type-options

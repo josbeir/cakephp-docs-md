@@ -1,5 +1,5 @@
-.claude
-.vscode
+.claude/
+.vscode/
 .vitepress/dist
 .vitepress/cache
 node_modules/
@@ -9,3 +9,4 @@ legacy
 /pandoc/
 /test/
 /temp/*
+AGENTS.md

@@ -1,11 +1,6 @@
----
-title: Containable
-keywords: "model behavior,author daniel,article content,new addition,wear and tear,array,aaa,email,fly,models"
----
-
 # Containable
 
-### Class `ContainableBehavior()`
+`class` **ContainableBehavior()**
 
 A new addition to the CakePHP 1.2 core is the
 `ContainableBehavior`. This model behavior allows you to filter
@@ -21,34 +16,32 @@ altering the associations of your models. It does this by using
 the supplied containments to generate a series of `bindModel` and
 `unbindModel` calls. Since Containable only modifies existing relationships it
 will not allow you to restrict results by distant associations. Instead
-you should refer to [joining-tables](../../models/associations-linking-models-together.md#joining-tables).
+you should refer to [joining-tables](#joining-tables).
 
-To use the new behavior, you can add it to the $actsAs property of
-your model
+To use the new behavior, you can add it to the \$actsAs property of
+your model:
 
-```php
+``` php
 class Post extends AppModel {
     public $actsAs = array('Containable');
 }
-
 ```
 
-You can also attach the behavior on the fly::
+You can also attach the behavior on the fly:
 
-```php
+``` php
 $this->Post->Behaviors->load('Containable');
 ```
 
-<!-- anchor: using-containable -->
-#### Using Containable
+## Using Containable
 
 To see how Containable works, let's look at a few examples. First,
 we'll start off with a `find()` call on a model named 'Post'. Let's say
 that 'Post' hasMany 'Comment', and 'Post' hasAndBelongsToMany 'Tag'. The
 amount of data fetched in a normal `find()` call is rather
-extensive
+extensive:
 
-```php
+``` php
 debug($this->Post->find('all'));
 
 [0] => Array
@@ -101,7 +94,6 @@ debug($this->Post->find('all'));
         (
             [Post] => Array
                 (...
-
 ```
 
 For some interfaces in your application, you may not need that much
@@ -110,55 +102,49 @@ information from the Post model. One thing the
 returns.
 
 For example, to get only the post-related information, you can do
-the following
+the following:
 
-```php
+``` php
 $this->Post->contain();
 $this->Post->find('all');
-
 ```
 
 You can also invoke Containable's magic from inside the find()
-call
+call:
 
-```php
+``` php
 $this->Post->find('all', array('contain' => false));
-
 ```
 
-Having done that, you end up with something a lot more concise::
+Having done that, you end up with something a lot more concise:
 
-```json
-[0] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 1
-                    [title] => First article
-                    [content] => aaa
-                    [created] => 2008-05-18 00:00:00
-                )
-        )
-[1] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 2
-                    [title] => Second article
-                    [content] => bbb
-                    [created] => 2008-05-19 00:00:00
-                )
-        )
-
-```
+    [0] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 1
+                        [title] => First article
+                        [content] => aaa
+                        [created] => 2008-05-18 00:00:00
+                    )
+            )
+    [1] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 2
+                        [title] => Second article
+                        [content] => bbb
+                        [created] => 2008-05-19 00:00:00
+                    )
+            )
 
 This sort of help isn't new: in fact, you can do that without the
-`ContainableBehavior` doing something like this
+`ContainableBehavior` doing something like this:
 
-```php
+``` php
 $this->Post->recursive = -1;
 $this->Post->find('all');
-
 ```
 
 Containable really shines when you have complex associations, and
@@ -171,19 +157,17 @@ the `contain()` method.
 The contain method's first argument accepts the name, or an array
 of names, of the models to keep in the find operation. If we wanted
 to fetch all posts and their related tags (without any comment
-information), we'd try something like this
+information), we'd try something like this:
 
-```php
+``` php
 $this->Post->contain('Tag');
 $this->Post->find('all');
-
 ```
 
-Again, we can use the contain key inside a find() call::
+Again, we can use the contain key inside a find() call:
 
-```php
+``` php
 $this->Post->find('all', array('contain' => 'Tag'));
-
 ```
 
 Without Containable, you'd end up needing to use the
@@ -191,210 +175,194 @@ Without Containable, you'd end up needing to use the
 paring off multiple models. Containable creates a cleaner way to
 accomplish this same task.
 
-#### Containing deeper associations
+## Containing deeper associations
 
 Containable also goes a step deeper: you can filter the data of the
 *associated* models. If you look at the results of the original
 find() call, notice the author field in the Comment model. If you
 are interested in the posts and the names of the comment authors —
-and nothing else — you could do something like the following
+and nothing else — you could do something like the following:
 
-```php
+``` php
 $this->Post->contain('Comment.author');
 $this->Post->find('all');
 
 // or..
 
 $this->Post->find('all', array('contain' => 'Comment.author'));
-
 ```
 
 Here, we've told Containable to give us our post information, and
 just the author field of the associated Comment model. The output
-of the find call might look something like this
+of the find call might look something like this:
 
-```json
-[0] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 1
-                    [title] => First article
-                    [content] => aaa
-                    [created] => 2008-05-18 00:00:00
-                )
-            [Comment] => Array
-                (
-                    [0] => Array
-                        (
-                            [author] => Daniel
-                            [post_id] => 1
-                        )
-                    [1] => Array
-                        (
-                            [author] => Sam
-                            [post_id] => 1
-                        )
-                )
-        )
-[1] => Array
-        (...
-
-```
+    [0] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 1
+                        [title] => First article
+                        [content] => aaa
+                        [created] => 2008-05-18 00:00:00
+                    )
+                [Comment] => Array
+                    (
+                        [0] => Array
+                            (
+                                [author] => Daniel
+                                [post_id] => 1
+                            )
+                        [1] => Array
+                            (
+                                [author] => Sam
+                                [post_id] => 1
+                            )
+                    )
+            )
+    [1] => Array
+            (...
 
 As you can see, the Comment arrays only contain the author field
-(plus the post\_id which is needed by CakePHP to map the results).
+(plus the post_id which is needed by CakePHP to map the results).
 
 You can also filter the associated Comment data by specifying a
-condition
+condition:
 
-```php
+``` php
 $this->Post->contain('Comment.author = "Daniel"');
 $this->Post->find('all');
 
 //or...
 
 $this->Post->find('all', array('contain' => 'Comment.author = "Daniel"'));
-
 ```
 
 This gives us a result that gives us posts with comments authored
-by Daniel
+by Daniel:
 
-```json
-[0] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 1
-                    [title] => First article
-                    [content] => aaa
-                    [created] => 2008-05-18 00:00:00
-                )
-            [Comment] => Array
-                (
-                    [0] => Array
-                        (
-                            [id] => 1
-                            [post_id] => 1
-                            [author] => Daniel
-                            [email] => dan@example.com
-                            [website] => http://example.com
-                            [comment] => First comment
-                            [created] => 2008-05-18 00:00:00
-                        )
-                )
-        )
-
-```
+    [0] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 1
+                        [title] => First article
+                        [content] => aaa
+                        [created] => 2008-05-18 00:00:00
+                    )
+                [Comment] => Array
+                    (
+                        [0] => Array
+                            (
+                                [id] => 1
+                                [post_id] => 1
+                                [author] => Daniel
+                                [email] => dan@example.com
+                                [website] => http://example.com
+                                [comment] => First comment
+                                [created] => 2008-05-18 00:00:00
+                            )
+                    )
+            )
 
 There is an important caveat to using Containable when filtering on a deeper association. In the previous example,
 assume you had 3 posts in your database and Daniel had commented on 2 of those posts. The operation
-$this->Post->find('all', array('contain' => 'Comment.author = "Daniel"')); would return ALL 3 posts, not
-just the 2 posts that Daniel had commented on. It won't return all comments however, just comments by Daniel.
+\$this-\>Post-\>find('all', array('contain' =\> 'Comment.author = "Daniel"')); would return ALL 3 posts, not
+just the 2 posts that Daniel had commented on. It won't return all comments however, just comments by Daniel. :
 
-```json
-[0] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 1
-                    [title] => First article
-                    [content] => aaa
-                    [created] => 2008-05-18 00:00:00
-                )
-            [Comment] => Array
-                (
-                    [0] => Array
-                        (
-                            [id] => 1
-                            [post_id] => 1
-                            [author] => Daniel
-                            [email] => dan@example.com
-                            [website] => http://example.com
-                            [comment] => First comment
-                            [created] => 2008-05-18 00:00:00
-                        )
-                )
-        )
-[1] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 2
-                    [title] => Second article
-                    [content] => bbb
-                    [created] => 2008-05-18 00:00:00
-                )
-            [Comment] => Array
-                (
-                )
-        )
-[2] => Array
-        (
-            [Post] => Array
-                (
-                    [id] => 3
-                    [title] => Third article
-                    [content] => ccc
-                    [created] => 2008-05-18 00:00:00
-                )
-            [Comment] => Array
-                (
-                    [0] => Array
-                        (
-                            [id] => 22
-                            [post_id] => 3
-                            [author] => Daniel
-                            [email] => dan@example.com
-                            [website] => http://example.com
-                            [comment] => Another comment
-                            [created] => 2008-05-18 00:00:00
-                        )
-                )
-        )
-
-```
+    [0] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 1
+                        [title] => First article
+                        [content] => aaa
+                        [created] => 2008-05-18 00:00:00
+                    )
+                [Comment] => Array
+                    (
+                        [0] => Array
+                            (
+                                [id] => 1
+                                [post_id] => 1
+                                [author] => Daniel
+                                [email] => dan@example.com
+                                [website] => http://example.com
+                                [comment] => First comment
+                                [created] => 2008-05-18 00:00:00
+                            )
+                    )
+            )
+    [1] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 2
+                        [title] => Second article
+                        [content] => bbb
+                        [created] => 2008-05-18 00:00:00
+                    )
+                [Comment] => Array
+                    (
+                    )
+            )
+    [2] => Array
+            (
+                [Post] => Array
+                    (
+                        [id] => 3
+                        [title] => Third article
+                        [content] => ccc
+                        [created] => 2008-05-18 00:00:00
+                    )
+                [Comment] => Array
+                    (
+                        [0] => Array
+                            (
+                                [id] => 22
+                                [post_id] => 3
+                                [author] => Daniel
+                                [email] => dan@example.com
+                                [website] => http://example.com
+                                [comment] => Another comment
+                                [created] => 2008-05-18 00:00:00
+                            )
+                    )
+            )
 
 If you want to filter the posts by the comments, so that posts without a comment by Daniel won't be
-returned, the easiest way is to find all the comments by Daniel and contain the Posts.
+returned, the easiest way is to find all the comments by Daniel and contain the Posts. :
 
-```php
+``` php
 $this->Comment->find('all', array(
     'conditions' => 'Comment.author = "Daniel"',
     'contain' => 'Post'
 ));
-
 ```
 
-Additional filtering can be performed by supplying the standard [model-find](../../models/retrieving-your-data.md#model-find) options::
+Additional filtering can be performed by supplying the standard [model-find](#model-find) options:
 
-```php
+``` php
 $this->Post->find('all', array('contain' => array(
     'Comment' => array(
         'conditions' => array('Comment.author =' => "Daniel"),
         'order' => 'Comment.created DESC'
     )
 )));
-
 ```
 
 Here's an example of using the `ContainableBehavior` when you've
 got deep and complex model relationships.
 
-Let's consider the following model associations
+Let's consider the following model associations:
 
-```
-User->Profile
-User->Account->AccountSummary
-User->Post->PostAttachment->PostAttachmentHistory->HistoryNotes
-User->Post->Tag
+    User->Profile
+    User->Account->AccountSummary
+    User->Post->PostAttachment->PostAttachmentHistory->HistoryNotes
+    User->Post->Tag
 
-```
+This is how we retrieve the above associations with Containable:
 
-This is how we retrieve the above associations with Containable::
-
-```php
+``` php
 $this->User->find('all', array(
     'contain' => array(
         'Profile',
@@ -416,7 +384,6 @@ $this->User->find('all', array(
         )
     )
 ));
-
 ```
 
 Keep in mind that `contain` key is only used once in the main
@@ -429,31 +396,30 @@ model, you don't need to use 'contain' again for related models.
 > all models used in containment, you may consider attaching it to
 > your AppModel.
 
-<!-- anchor: containablebehavior-options -->
-#### ContainableBehavior options
+## ContainableBehavior options
 
 The `ContainableBehavior` has a number of options that can be set
 when the Behavior is attached to a model. The settings allow you to
 fine tune the behavior of Containable and work with other behaviors
 more easily.
 
--  **recursive** (boolean, optional) set to true to allow
-containable to automatically determine the recursiveness level
-needed to fetch specified models, and set the model recursiveness
-to this level. setting it to false disables this feature. The
-default value is `true`.
--  **notices** (boolean, optional) issues E\_NOTICES for bindings
-referenced in a containable call that are not valid. The default
-value is `true`.
--  **autoFields**: (boolean, optional) auto-add needed fields to
-fetch requested bindings. The default value is `true`.
--  **order**: (string, optional) the order of how the contained 
-elements are sorted.
-   
-From the previous example, this is an example of how to force the posts 
-to be ordered by the date when they were last updated
+- **recursive** (boolean, optional) set to true to allow
+  containable to automatically determine the recursiveness level
+  needed to fetch specified models, and set the model recursiveness
+  to this level. setting it to false disables this feature. The
+  default value is `true`.
+- **notices** (boolean, optional) issues E_NOTICES for bindings
+  referenced in a containable call that are not valid. The default
+  value is `true`.
+- **autoFields**: (boolean, optional) auto-add needed fields to
+  fetch requested bindings. The default value is `true`.
+- **order**: (string, optional) the order of how the contained
+  elements are sorted.
 
-```php
+From the previous example, this is an example of how to force the posts
+to be ordered by the date when they were last updated:
+
+``` php
 $this->User->find('all', array(
     'contain' => array(
         'Profile',
@@ -462,54 +428,48 @@ $this->User->find('all', array(
         )
     )
 ));
-
 ```
 
 You can change ContainableBehavior settings at run time by
 reattaching the behavior as seen in
-[/models/behaviors` (Using Behaviors).
+[/models/behaviors](models/behaviors.md) (Using Behaviors).
 
 ContainableBehavior can sometimes cause issues with other behaviors
 or queries that use aggregate functions and/or GROUP BY statements.
 If you get invalid SQL errors due to mixing of aggregate and
-non-aggregate fields, try disabling the `autoFields` setting.
+non-aggregate fields, try disabling the `autoFields` setting. :
 
-```php
+``` php
 $this->Post->Behaviors->load('Containable', array('autoFields' => false));
-
 ```
 
-## Using Containable with pagination
+### Using Containable with pagination
 
 By including the 'contain' parameter in the `$paginate` property
 it will apply to both the find('count') and the find('all') done on
 the model.
 
-See the section [using-containable](containable.md#using-containable) for further details.
+See the section [using-containable](#using-containable) for further details.
 
-Here's an example of how to contain associations when paginating
+Here's an example of how to contain associations when paginating:
 
-```php
+``` php
 $this->paginate['User'] = array(
     'contain' => array('Profile', 'Account'),
     'order' => 'User.username'
 );
 
 $users = $this->paginate('User');
-
 ```
 
 > [!NOTE]
 > If you contained the associations through the model instead,
-> it will not honor Containable's :ref:`recursive option](containablebehavior-options.md).
-> So if you set recursive to -1 for example for the model, it won't work
-
-```php
+> it will not honor Containable's [recursive option](#containablebehavior-options).
+> So if you set recursive to -1 for example for the model, it won't work:
 >
+> ``` php
 > $this->User->recursive = -1;
 > $this->User->contain(array('Profile', 'Account'));
 >
 > $users = $this->paginate('User');
->
->
-```
+> ```

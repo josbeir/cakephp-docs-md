@@ -1,8 +1,3 @@
----
-title: New Features in CakePHP 2.0
-keywords: "time reductions,doctypes,model construction,key value,option one,database connection,content view,configuration file,constructor,great time,array,new features,bootstrap process,elements,new models"
----
-
 # New Features in CakePHP 2.0
 
 ## Models
@@ -17,7 +12,7 @@ issued or information for one of the columns is required.
 
 ## View
 
-### View::$output
+### View::\$output
 
 View will now always have the last rendered content (view or layout) accessible
 through `$this->output`. In helpers you can use `$this->_View->output`. Modifying
@@ -27,7 +22,7 @@ this property will change the content that comes out of the view rendering.
 
 ### HtmlHelper
 
-- `getCrumbList()` Creates breadcrumb links wrapped in `\<li\>` elements.
+- `getCrumbList()` Creates breadcrumb links wrapped in [](#li) elements.
 - `loadConfig()` has moved from `Helper` to `HtmlHelper`
   class. This method now uses the new reader classes (see 2.0 `Configure`)
   to load your config file. As an option you can pass the path as second parameter
@@ -35,15 +30,15 @@ this property will change the content that comes out of the view rendering.
   (and the reader) in `Controller::$helpers` (example below) to load on helper
   constructor. In configuration file you can set the below keys:
 
- - `tags` Should be an array with key value;
- - `minimizedAttributes` Should be a list;
- - `docTypes` Should be an array with key value;
- - `attributeFormat` Should be a string;
- - `minimizedAttributeFormat` Should be a string.
+> - `tags` Should be an array with key value;
+> - `minimizedAttributes` Should be a list;
+> - `docTypes` Should be an array with key value;
+> - `attributeFormat` Should be a string;
+> - `minimizedAttributeFormat` Should be a string.
 
-Example of how to set configuration file on controller
+Example of how to set configuration file on controller:
 
-```php
+``` php
 public $helpers = array(
     'Html' => array(
         // Option one: an array with filename and reader name
@@ -52,7 +47,6 @@ public $helpers = array(
         'configFile' => 'config_file'
     )
 );
-
 ```
 
 ### FormHelper
@@ -93,9 +87,9 @@ of changes, see the session section for more information.
 Route objects can now return full URLs, and `Router` will not further
 modify them beyond adding the query string and fragment elements. For example
 this could be used to create routes to handle subdomains, or enabling https/http
-flags. An example of a route class that supports subdomains would be
+flags. An example of a route class that supports subdomains would be:
 
-```php
+``` php
 class SubdomainRoute extends CakeRoute {
 
     public function match($params) {
@@ -108,33 +102,31 @@ class SubdomainRoute extends CakeRoute {
         return $path;
     }
 }
-
 ```
 
 When creating links you could do the following to make links pointing at other
 subdomains.
 
-```php
+``` php
 echo $this->Html->link(
     'Other domain',
      array('subdomain' => 'test', 'controller' => 'posts', 'action' => 'add')
 );
-
 ```
 
-The above would create a link with http://test.localhost/posts/add as the url.
+The above would create a link with <http://test.localhost/posts/add> as the url.
 
 ### Xml
 
 `Xml` has had a number of changes. Read more about
-[xml](../core-utility-libraries/xml.md) class.
+[/core-utility-libraries/xml](core-utility-libraries/xml.md) class.
 
 ## New Lib features
 
 ### Configure readers
 
 `Configure` can now be configured to load configuration files from a
-variety of sources and formats. The [configuration](../development/configuration.md) section
+variety of sources and formats. The [/development/configuration](development/configuration.md) section
 contains more information about the changes made to configure.
 
 `Configure::read()` without any arguments allows you to read all
@@ -142,7 +134,7 @@ values from configure, instead of just the debug value.
 
 ### Error and exception handling
 
-CakePHP 2.0 has had [exceptions](../development/exceptions.md) and [errors](../development/errors.md)
+CakePHP 2.0 has had [/development/exceptions](development/exceptions.md) and [/development/errors](development/errors.md)
 handling rebuilt, to be more flexible and give more power to developers.
 
 ### String::wrap()
@@ -153,16 +145,14 @@ text easier. It's used in Shells whenever you use `Shell::wrapText()`.
 ### debug()
 
 `debug()` no longer outputs HTML in the console. Instead it makes
-output like the following
+output like the following:
 
-```
-########## DEBUG ##########
-Array
-(
-    [0] => test
-```
-
-# )
+    ########## DEBUG ##########
+    Array
+    (
+        [0] => test
+    )
+    ###########################
 
 This should improve readability of `debug()` on the command line.
 
@@ -181,13 +171,12 @@ introduced as well.
 #### Automatic parsing of Accept headers
 
 If a client sends a single Accept mime type that matches one of the extensions
-enabled in :php:class`Router`, `RequestHandler` will treat it the
+enabled in :php:class\`Router\`, `RequestHandler` will treat it the
 same an extension. This expands CakePHP's support for REST style endpoints. To
-use this feature start off by enabling extensions in `app/Config/routes.php`
+use this feature start off by enabling extensions in `app/Config/routes.php`:
 
-```php
+``` css
 Router::parseExtensions('json', 'xml');
-
 ```
 
 Once you have created layouts and views for your extensions, you will be able to
@@ -209,7 +198,7 @@ validatePost in order to do dynamic forms, disabling the CSRF protection at the
 same time. For 2.0 CSRF checking has been separated from form tampering giving
 you greater control.
 
-For more information see [security-csrf](../core-libraries/components/security-component.md#security-csrf)
+For more information see [security-csrf](#security-csrf)
 
 ## Controller
 
@@ -226,11 +215,10 @@ changes.
 
 Pagination now provides a default maxLimit for pagination at 100.
 
-This limit can be overridden with the paginate variable on Controller
+This limit can be overridden with the paginate variable on Controller:
 
-```php
+``` php
 $this->paginate = array('maxLimit' => 1000);
-
 ```
 
 This default is provided to prevent user URL manipulation causing excessive
@@ -243,38 +231,35 @@ You can now alias helpers, components and behaviors to use your class instead of
 a different one. This means that you can very easily make a `MyHtml` helper
 and not need to replace every instance of `$this->Html` in your views. To do
 this, pass the 'className' key along with your class, like you would with
-models
+models:
 
-```php
+``` php
 public $helpers = array(
     'Html' => array(
         'className' => 'MyHtml'
     )
 );
-
 ```
 
-Similarly, you can alias components for use in your controllers::
+Similarly, you can alias components for use in your controllers:
 
-```php
+``` php
 public $components = array(
     'Email' => array(
         'className' => 'QueueEmailer'
     )
 );
-
 ```
 
 Calls to the Email component would call the QueueEmailer component instead.
-Finally, you can alias behaviors as well
+Finally, you can alias behaviors as well:
 
-```php
+``` php
 public $actsAs = array(
     'Containable' => array(
         'className' => 'SuperContainable'
     )
 );
-
 ```
 
 Because of the way 2.0 utilizes collections and shares them across the
@@ -288,4 +273,3 @@ instead.
 
 A new method `ConnectionManager::drop()` was added to allow
 removing connections at runtime.
-

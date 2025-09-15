@@ -4,7 +4,7 @@ CakePHP 4.0 contains breaking changes, and is not backwards compatible with 3.x
 releases. Before attempting to upgrade to 4.0, first upgrade to 3.8 and resolve
 all deprecation warnings.
 
-Refer to the [/appendices/4-0-upgrade-guide` for step by step instructions
+Refer to the [/appendices/4-0-upgrade-guide](appendices/4-0-upgrade-guide.md) for step by step instructions
 on how to upgrade to 4.0.
 
 ## Deprecated Features Removed
@@ -28,7 +28,7 @@ features will continue to function in 4.x and will be removed in 5.0.0.
   in 5.0.0. You should use the authentication and authorization libs mentioned
   above instead.
 - `SecurityComponent` is deprecated. Instead use the `FormProtectionComponent`
-  for form tampering protection and the [https-enforcer-middleware](../security/https-enforcer.md#https-enforcer-middleware) for
+  for form tampering protection and the [https-enforcer-middleware](#https-enforcer-middleware) for
   `requireSecure` feature.
 
 ### Filesystem
@@ -63,6 +63,7 @@ features will continue to function in 4.x and will be removed in 5.0.0.
   instead.
 
 ### App
+
 - `App::path()` has been deprecated for class paths.
   Use `\Cake\Core\App::classPath()` instead.
 
@@ -98,7 +99,7 @@ changes made:
   request attribute instead of request param. Hence you should now use
   `$request->getAttribute('isAjax')` instead of `$request->getParam('isAjax')`.
 - The request body parsing features of `RequestHandlerComponent` have been
-  removed. You should use the [body-parser-middleware](../controllers/middleware.md#body-parser-middleware) instead.
+  removed. You should use the [body-parser-middleware](#body-parser-middleware) instead.
 - `Cake\Controller\Component\PaginatorComponent` now sets paging params info as
   request attribute instead of request param. Hence you should now use
   `$request->getAttribute('paging')` instead of `$request->getParam('paging')`.
@@ -146,32 +147,23 @@ changes made:
   names.
 - The MySQL, PostgreSQL and SqlServer database schemas now map columns that support
   fractional seconds to the new abstract fractional types.
-
   - **MySQL**
-
-    #. `DATETIME(1-6)` => `datetimefractional`
-    #. `TIMESTAMP(1-6)` => `timestampfractional`
-
+    1.  `DATETIME(1-6)` =\> `datetimefractional`
+    2.  `TIMESTAMP(1-6)` =\> `timestampfractional`
   - **PostgreSQL**
-
-    #. `TIMESTAMP` => `timestampfractional`
-    #. `TIMESTAMP(1-6)` => `timestampfractional`
-
+    1.  `TIMESTAMP` =\> `timestampfractional`
+    2.  `TIMESTAMP(1-6)` =\> `timestampfractional`
   - **SqlServer**
-
-    #. `DATETIME2` => `datetimefractional`
-    #. `DATETIME2(1-7) => `datetimefractional`
-
+    1.  `DATETIME2` =\> `datetimefractional`
+    2.  `DATETIME2(1-7) =>`datetimefractional\`\`
 - PostgreSQL schema now maps columns that support time zones to the new abstract
   time zone types. Specifying (0) precision does not change the type mapping like
   it does with regular fractional types above.
-
   - **PostgreSQL**
-
-    #. `TIMESTAMPTZ` => `timestamptimezone`
-    #. `TIMESTAMPTZ(0-6)` => `timestamptimezone`
-    #. `TIMESTAMP WITH TIME ZONE` => `timestamptimezone`
-    #. `TIMESTAMP(0-6) WITH TIME ZONE` => `timestamptimezone`
+    1.  `TIMESTAMPTZ` =\> `timestamptimezone`
+    2.  `TIMESTAMPTZ(0-6)` =\> `timestamptimezone`
+    3.  `TIMESTAMP WITH TIME ZONE` =\> `timestamptimezone`
+    4.  `TIMESTAMP(0-6) WITH TIME ZONE` =\> `timestamptimezone`
 
 ### Datasources
 
@@ -215,13 +207,13 @@ changes made:
 - The keys of array returned by `Cake\Http\Response::getCookie()` have changed.
   `expire` is changed to `expires` and `httpOnly` to `httponly`.
 
-### Http\Session
+### HttpSession
 
 - The Session cookie name is no longer set to `CAKEPHP` by default. Instead
   the default cookie name defined in your `php.ini` file is used. You can use
   the `Session.cookie` configuration option to set the cookie name.
 - Session cookies now have `SameSite` attribute set to `Lax` by default.
-  Check [session-configuration](../development/sessions.md#session-configuration) section for more info.
+  Check [session-configuration](#session-configuration) section for more info.
 
 ### I18n
 
@@ -274,7 +266,7 @@ changes made:
   and `Router::setRequestContext()` have been removed, use `Router::setRequest()`
   instead. `Router::popRequest()` has been removed. `Router::getRequest()`
   no longer has a `$current` argument.
-- `Router::url()` and all routes generation methods (`HtmlHelper::link()`, `UrlHelper::build()`, ...) will not automatically move unknown variables to `?` query. `Router::url(['_name' => 'route', 'c' => 1234])` should be rewritten to `Router::url(['_name' => 'route', '?' => ['c' => 1234]])`. 
+- `Router::url()` and all routes generation methods (`HtmlHelper::link()`, `UrlHelper::build()`, ...) will not automatically move unknown variables to `?` query. `Router::url(['_name' => 'route', 'c' => 1234])` should be rewritten to `Router::url(['_name' => 'route', '?' => ['c' => 1234]])`.
 
 ### TestSuite
 
@@ -343,7 +335,7 @@ changes made:
 ### Log
 
 - Logging related methods like `Cake\Log\LogTrait::log()`, `Cake\Log\Log::write()` etc.
-  now only accept string for `$message`` argument. This change was necessary to align the
+  now only accept string for `$message` argument. This change was necessary to align the
   API with [PSR-3](https://www.php-fig.org/psr/psr-3/) standard.
 
 ### Miscellaneous
@@ -378,7 +370,7 @@ changes made:
 ### Database
 
 - If your database's timezone does not match PHP timezone then you can use
-  `DateTime::setDatabaseTimezone()`. See [datetime-type](../orm/database-basics.md#datetime-type) for details.
+  `DateTime::setDatabaseTimezone()`. See [datetime-type](#datetime-type) for details.
 - `DateTime::setKeepDatabaseTimezone()` allows you to keep the database time zone
   in the DateTime objects created by queries.
 - `Cake\Database\Log\LoggedQuery` now implements `JsonSerializable`.
@@ -431,7 +423,7 @@ changes made:
 ### Mailer
 
 - Email message generation responsibility has now been transferred to
-  `Cake\Mailer\Renderer`.  This is mainly an architectural change and doesn't
+  `Cake\Mailer\Renderer`. This is mainly an architectural change and doesn't
   impact how `Email` class is used. The only difference is that you now need
   to use `Email::setViewVars()` instead of `Email::set()` to set template
   variables.
@@ -462,7 +454,7 @@ changes made:
 ### Routing
 
 - `Cake\Routing\Asset` was added. This class exposes asset URL generation in
-  a static interface similar to `Router::url()`. See [asset-routing](../development/routing.md#asset-routing) for
+  a static interface similar to `Router::url()`. See [asset-routing](#asset-routing) for
   more information.
 
 ### TestSuite
@@ -484,7 +476,7 @@ changes made:
   "notEmpty" in an entity's ORM table class. This feature can be toggled with the
   `autoSetCustomValidity` class configuration option.
 - `FormHelper` now generates native HTML5 input tags for datetime fields.
-  Check the [Form Helper](../views/helpers/form.md#create-datetime-controls) page for more details.
+  Check the [Form Helper](#create-datetime-controls) page for more details.
   If you need to retain the former markup, a shimmed FormHelper can be found in
   [Shim plugin](https://github.com/dereuromark/cakephp-shim) with the old
   behavior/generation (4.x branch).

@@ -1,12 +1,6 @@
----
-title: RssHelper
-description: The RSS helper makes generating XML for RSS feeds easy.
-keywords: "rss helper,rss feed,isrss,rss item,channel data,document data,parse extensions,request handler"
----
-
 # RssHelper
 
-### Class `RssHelper(View $view, array $settings = array())`
+`class` **RssHelper(View**
 
 The RSS helper makes generating XML for RSS feeds easy.
 
@@ -20,11 +14,10 @@ After a few simple steps you can simply append the desired
 extension .rss to `posts/index` making your URL `posts/index.rss`.
 Before we jump too far ahead trying to get our webservice up and
 running we need to do a few things. First parseExtensions needs to
-be activated, this is done in `app/Config/routes.php`
+be activated, this is done in `app/Config/routes.php`:
 
-```php
+``` css
 Router::parseExtensions('rss');
-
 ```
 
 In the call above we've activated the .rss extension. When using
@@ -38,19 +31,17 @@ add in the rss-specific code.
 ### Controller Code
 
 It is a good idea to add RequestHandler to your PostsController's
-$components array. This will allow a lot of automagic to occur
+\$components array. This will allow a lot of automagic to occur:
 
-```php
+``` php
 public $components = array('RequestHandler');
-
 ```
 
 Our view will also use the `TextHelper` for formatting, so that
-should be added to the controller as well
+should be added to the controller as well:
 
-```php
+``` php
 public $helpers = array('Text');
-
 ```
 
 Before we can make an RSS version of our posts/index we need to get
@@ -61,9 +52,9 @@ information can also go in the view. That will come later though,
 for now if you have a different set of logic for the data used to
 make the RSS feed and the data for the HTML view you can use the
 `RequestHandler::isRss()` method, otherwise your controller can stay
-the same
+the same:
 
-```php
+``` php
 // Modify the Posts Controller action that corresponds to
 // the action which deliver the rss feed, which is the
 // index action in our example
@@ -87,7 +78,6 @@ public function index() {
     $posts = $this->paginate();
     $this->set(compact('posts'));
 }
-
 ```
 
 With all the View variables set we need to create an rss layout.
@@ -95,9 +85,9 @@ With all the View variables set we need to create an rss layout.
 ### Layout
 
 An Rss layout is very simple, put the following contents in
-`app/View/Layouts/rss/default.ctp`
+`app/View/Layouts/rss/default.ctp`:
 
-```php
+``` php
 if (!isset($documentData)) {
     $documentData = array();
 }
@@ -109,7 +99,6 @@ if (!isset($channelData['title'])) {
 }
 $channel = $this->Rss->channel(array(), $channelData, $this->fetch('content'));
 echo $this->Rss->document($documentData, $channel);
-
 ```
 
 It doesn't look like much but thanks to the power in the `RssHelper`
@@ -131,21 +120,20 @@ setting the `$documentData` and `$channelData` variables for the
 layout, these contain all the metadata for our RSS feed. This is
 done by using the `View::set()` method which is analogous to the
 `Controller::set()` method. Here though we are passing the channel's
-metadata back to the layout
+metadata back to the layout:
 
-```php
+``` php
 $this->set('channelData', array(
     'title' => __("Most Recent Posts"),
     'link' => $this->Html->url('/', true),
     'description' => __("Most recent posts."),
     'language' => 'en-us'
 ));
-
 ```
 
 The second part of the view generates the elements for the actual
 records of the feed. This is accomplished by looping through the
-data that has been passed to the view ($items) and using the
+data that has been passed to the view (\$items) and using the
 `RssHelper::item()` method. The other method you can use,
 `RssHelper::items()` which takes a callback and an array of items for
 the feed. (The method I have seen used for the callback has always
@@ -158,11 +146,10 @@ helper that you may need. The `RssHelper::item()` transforms the
 associative array into an element for each key value pair.
 
 > [!NOTE]
-> You will need to modify the $postLink variable as appropriate to
+> You will need to modify the \$postLink variable as appropriate to
 > your application.
->
 
-```php
+``` php
 foreach ($posts as $post) {
     $postTime = strtotime($post['Post']['created']);
 
@@ -191,7 +178,6 @@ foreach ($posts as $post) {
         'pubDate' => $post['Post']['created']
     ));
 }
-
 ```
 
 You can see above that we can use the loop to prepare the data to be transformed
@@ -202,91 +188,45 @@ body of your blog. In the code above we used `strip_tags()` and
 as they could cause validation errors. Once we have set up the data for the
 feed, we can then use the `RssHelper::item()` method to create the XML
 in RSS format. Once you have all this setup, you can test your RSS feed by going
-to your site `/posts/index.rss` and you will see your new feed. It is always
+to your site [Posts / index.rss](posts/index.rss.md) and you will see your new feed. It is always
 important that you validate your RSS feed before making it live. This can be
 done by visiting sites that validate the XML such as Feed Validator or the w3c
-site at https://validator.w3.org/feed/.
+site at <https://validator.w3.org/feed/>.
 
 > [!NOTE]
 > You may need to set the value of 'debug' in your core configuration
 > to 1 or to 0 to get a valid feed, because of the various debug
 > information added automagically under higher debug settings that
 > break XML syntax or feed validation rules.
->
 
 ## Rss Helper API
 
-#### Property `action`
+> Current action
+>
+> Base URL
+>
+> POSTed model data
+>
+> Name of the current field
+>
+> Helpers used by the RSS Helper
+>
+> URL to current action
+>
+> Name of current model
+>
+> Parameter array
+>
+> Default spec version of generated RSS.
 
-Current action
+`method` RssHelper(View::**channel**(array $attrib = array (), array $elements = array (), mixed $content = null)
 
-#### Property `base`
+`method` RssHelper(View::**document**(array $attrib = array (), string $content = null)
 
-Base URL
+`method` RssHelper(View::**elem**(string $name, array $attrib = array (), mixed $content = null, boolean $endTag = true)
 
-#### Property `data`
+`method` RssHelper(View::**item**(array $att = array (), array $elements = array ())
 
-POSTed model data
+`method` RssHelper(View::**items**(array $items, mixed $callback = null)
 
-#### Property `field`
-
-Name of the current field
-
-#### Property `helpers`
-
-Helpers used by the RSS Helper
-
-#### Property `here`
-
-URL to current action
-
-#### Property `model`
-
-Name of current model
-
-#### Property `params`
-
-Parameter array
-
-#### Property `version`
-
-Default spec version of generated RSS.
-
-#### Method `channel(array $attrib = array (), array $elements = array (), mixed $content = null)`
-
-:rtype: string
-
-Returns an RSS `<channel />` element.
-
-#### Method `document(array $attrib = array (), string $content = null)`
-
-:rtype: string
-
-Returns an RSS document wrapped in `<rss />` tags.
-
-#### Method `elem(string $name, array $attrib = array (), mixed $content = null, boolean $endTag = true)`
-
-:rtype: string
-
-Generates an XML element.
-
-#### Method `item(array $att = array (), array $elements = array ())`
-
-:rtype: string
-
-Converts an array into an `<item />` element and its contents.
-
-#### Method `items(array $items, mixed $callback = null)`
-
-:rtype: string
-
-Transforms an array of data using an optional callback, and maps it to a
-set of `<item />` tags.
-
-#### Method `time(mixed $time)`
-
-:rtype: string
-
-Converts a time in any format to an RSS time. See
-`TimeHelper::toRSS()`.
-
+`method` RssHelper(View::**time**(mixed $time)

@@ -1,8 +1,3 @@
----
-title: Understanding Model-View-Controller
-keywords: "model view controller,model layer,formatted result,model objects,music documents,business logic,text representation,first glance,retrieving data,software design,html page,videos music,new friends,interaction,cakephp,interface,photo,presentation,mvc,photos"
----
-
 # Understanding Model-View-Controller
 
 CakePHP follows the
@@ -50,13 +45,13 @@ a response with the aid of both the Model and the View layer.
 A controller can be seen as a manager that ensures that all resources needed for
 completing a task are delegated to the correct workers. It waits for petitions
 from clients, checks their validity according to authentication or authorization rules,
-delegates data fetching or processing to the model, selects the 
+delegates data fetching or processing to the model, selects the
 type of presentational data that the clients are accepting, and finally delegates
 the rendering process to the View layer.
 
 ## CakePHP request cycle
 
-|Figure 1|
+![Figure 1](/basic_mvc.png)
 
 Figure: 1: A typical MVC Request in CakePHP
 
@@ -96,7 +91,4 @@ first application using CakePHP, you won't want to do it any other
 way.
 
 To get started on your first CakePHP application,
-[try the blog tutorial now](../tutorials-and-examples/blog/blog.md)
-
-.. |Figure 1| image:: //basic_mvc.png
-
+[try the blog tutorial now](tutorials-and-examples/blog/blog.md)

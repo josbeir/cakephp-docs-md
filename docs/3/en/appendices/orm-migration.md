@@ -16,9 +16,9 @@ a few issues that we wanted to fix.
 - Containable - Should be part of the ORM, not a crazy hacky behavior.
 - Recursive - This should be better controlled as defining which associations
   are included, not a level of recursiveness.
-- DboSource - It is a beast, and Model relies on it more than datasource.  That
+- DboSource - It is a beast, and Model relies on it more than datasource. That
   separation could be cleaner and simpler.
-- Validation - Should be separate, it's a giant crazy function right now.  Making
+- Validation - Should be separate, it's a giant crazy function right now. Making
   it a reusable bit would make the framework more extensible.
 
 The ORM in CakePHP 3.0 solves these and many more problems. The new ORM
@@ -39,7 +39,7 @@ operations. Now the ORM is split into more layers:
   limitations.
 - `Cake\Database\Type` - Is the gateway class to CakePHP database type
   conversion system. It is a pluggable framework for adding abstract column
-  types and providing mappings between database,  PHP representations and PDO
+  types and providing mappings between database, PHP representations and PDO
   bindings for each data type. For example datetime columns are represented as
   `DateTime` instances in your code now.
 - `Cake\ORM\Table` - The main entry point into the new ORM. Provides access
@@ -72,7 +72,7 @@ Table objects are the gateway into your data. They handle many of the tasks that
 - Triggering callback events.
 - Interacting with behaviors.
 
-The documentation chapter on [/orm/table-objects` provides far more detail
+The documentation chapter on [/orm/table-objects](orm/table-objects.md) provides far more detail
 on how to use table objects than this guide can. Generally when moving existing
 model code over it will end up in a table object. Table objects don't contain
 any platform dependent SQL. Instead they collaborate with entities and the query
@@ -82,7 +82,7 @@ interested parties through published events.
 ### Query Objects
 
 While these are not classes you will build yourself, your application code will
-make extensive use of the [query-builder](../orm/query-builder.md) which is central to the new
+make extensive use of the [/orm/query-builder](orm/query-builder.md) which is central to the new
 ORM. The query builder makes it easy to build simple or complex queries
 including those that were previously very difficult in CakePHP like `HAVING`,
 `UNION` and sub-queries.
@@ -100,7 +100,7 @@ could not contain any logic or behavior. While the community made this
 short-coming less painful with projects like CakeEntity, the array results were
 often a short coming that caused many developers trouble. For CakePHP 3.0, the
 ORM always returns object result sets unless you explicitly disable that
-feature. The chapter on [entities](../orm/entities.md) covers the various tasks you can
+feature. The chapter on [/orm/entities](orm/entities.md) covers the various tasks you can
 accomplish with entities.
 
 Entities are created in one of two ways. Either by loading data from the
@@ -131,23 +131,20 @@ entity association properties will be populated based on the association type.
 > [!NOTE]
 > BelongsTo and HasOne associations will use the singular form in entity
 > properties, while HasMany and BelongsToMany (HABTM) will use plural forms.
->
 
 The convention change for table objects is most apparent when building queries.
-Instead of expressing queries like
+Instead of expressing queries like:
 
-```php
+``` php
 // Wrong
 $query->where(['User.active' => 1]);
-
 ```
 
-You need to use the plural form::
+You need to use the plural form:
 
-```php
+``` php
 // Correct
 $query->where(['Users.active' => 1]);
-
 ```
 
 ### Find returns a Query Object
@@ -156,60 +153,54 @@ One important difference in the new ORM is that calling `find` on a table will
 not return the results immediately, but will return a Query object; this serves
 several purposes.
 
-It is possible to alter queries further, after calling `find`
+It is possible to alter queries further, after calling `find`:
 
-```php
+``` php
 // Prior to 3.6 use TableRegistry::get('Articles')
 $articles = TableRegistry::getTableLocator()->get('Articles');
 $query = $articles->find();
 $query->where(['author_id' => 1])->order(['title' => 'DESC']);
-
 ```
 
 It is possible to stack custom finders to append conditions, sorting, limit and
-any other clause to the same query before it is executed
+any other clause to the same query before it is executed:
 
-```php
+``` php
 $query = $articles->find('approved')->find('popular');
 $query->find('latest');
-
 ```
 
 You can compose queries one into the other to create subqueries easier than
-ever
+ever:
 
-```php
+``` php
 $query = $articles->find('approved');
 $favoritesQuery = $article->find('favorites', ['for' => $user]);
 $query->where(['id' => $favoritesQuery->select(['id'])]);
-
 ```
 
 You can decorate queries with iterators and call methods without even touching
 the database. This is great when you have parts of your view cached and having
-the results taken from the database is not actually required
+the results taken from the database is not actually required:
 
-```php
+``` php
 // No queries made in this example!
 $results = $articles->find()
     ->order(['title' => 'DESC'])
     ->formatResults(function (\Cake\Collection\CollectionInterface $results) {
         return $results->extract('title');
     });
-
 ```
 
 Queries can be seen as the result object, trying to iterate the query, calling
-`toArray()` or any method inherited from [collections.md),
+`toArray()` or any method inherited from [collection](core-libraries/collections.md),
 will result in the query being executed and results returned to you.
 
-The biggest difference you will find when coming from CakePHP 2.x is that](collection](../core-libraries/collections.md),
-will result in the query being executed and results returned to you.
+The biggest difference you will find when coming from CakePHP 2.x is that
+`find('first')` does not exist anymore. There is a trivial replacement for it,
+and it is the `first()` method:
 
-The biggest difference you will find when coming from CakePHP 2.x is that.md)`find('first')` does not exist anymore. There is a trivial replacement for it,
-and it is the `first()`` method
-
-```php
+``` php
 // Before
 $article = $this->Article->find('first');
 
@@ -230,15 +221,13 @@ $article = $this->Articles->find('all', [
 $article = $this->Articles->find()
     ->where(['author_id' => 1])
     ->first();
-
 ```
 
 If you are loading a single record by its primary key, it will be better to
-just call `get()`
+just call `get()`:
 
-```php
+``` php
 $article = $this->Articles->get(10);
-
 ```
 
 ### Finder Method Changes
@@ -246,9 +235,9 @@ $article = $this->Articles->get(10);
 Returning a query object from a find method has several advantages, but comes at
 a cost for people migrating from 2.x. If you had some custom find methods in
 your models, they will need some modifications. This is how you create custom
-finder methods in 3.0
+finder methods in 3.0:
 
-```php
+``` php
 class ArticlesTable
 {
     public function findPopular(Query $query, array $options)
@@ -264,24 +253,23 @@ class ArticlesTable
         });
     }
 }
-
 ```
 
 As you can see, they are pretty straightforward, they get a Query object instead
 of an array and must return a Query object back. For 2.x users that implemented
-afterFind logic in custom finders, you should check out the [map-reduce](../orm/retrieving-data-and-resultsets.md#map-reduce)
+afterFind logic in custom finders, you should check out the [map-reduce](#map-reduce)
 section, or use the features found on the
-[collection objects](../core-libraries/collections.md). If in your
+[collection objects](core-libraries/collections.md). If in your
 models you used to rely on having an afterFind for all find operations you can
 migrate this code in one of a few ways:
 
-1. Override your entity constructor method and do additional formatting there.
-2. Create accessor methods in your entity to create the virtual fields.
-3. Redefine `findAll()` and use `formatResults`.
+1.  Override your entity constructor method and do additional formatting there.
+2.  Create accessor methods in your entity to create the virtual fields.
+3.  Redefine `findAll()` and use `formatResults`.
 
-In the 3rd case above your code would look like
+In the 3rd case above your code would look like:
 
-```php
+``` php
 public function findAll(Query $query, array $options)
 {
     return $query->formatResults(function (\Cake\Collection\CollectionInterface $results) {
@@ -290,16 +278,15 @@ public function findAll(Query $query, array $options)
         });
     })
 }
-
 ```
 
 You may have noticed that custom finders receive an options array. You can pass
 any extra information to your finder using this parameter. This is great
 news for people migrating from 2.x. Any of the query keys that were used in
 previous versions will be converted automatically for you in 3.x to the correct
-functions
+functions:
 
-```php
+``` php
 // This works in both CakePHP 2.x and 3.0
 $articles = $this->Articles->find('all', [
     'fields' => ['id', 'title'],
@@ -311,17 +298,15 @@ $articles = $this->Articles->find('all', [
     'order' => ['title' => 'DESC'],
     'limit' => 10,
 ]);
-
 ```
 
-If your application uses 'magic' or [dynamic-finders](../orm/retrieving-data-and-resultsets.md#dynamic-finders), you will have to
+If your application uses 'magic' or [dynamic-finders](#dynamic-finders), you will have to
 adapt those calls. In 3.x the `findAllBy*` methods have been removed, instead
 `findBy*` always returns a query object. To get the first result, you need to
-use the `first()` method
+use the `first()` method:
 
-```php
+``` php
 $article = $this->Articles->findByTitle('A great post!')->first();
-
 ```
 
 Hopefully, migrating from older versions is not as daunting as it first seems.
@@ -344,19 +329,17 @@ to manage associations was to set `recursive` to `-1` and use Containable to
 manage all associations. In CakePHP 3.0 ContainableBehavior, recursive,
 bindModel, and unbindModel have all been removed. Instead the `contain()`
 method has been promoted to be a core feature of the query builder. Associations
-are only loaded if they are explicitly turned on. For example
+are only loaded if they are explicitly turned on. For example:
 
-```php
+``` php
 $query = $this->Articles->find('all');
-
 ```
 
 Will **only** load data from the `articles` table as no associations have been
-included. To load articles and their related authors you would do
+included. To load articles and their related authors you would do:
 
-```php
+``` php
 $query = $this->Articles->find('all')->contain(['Authors']);
-
 ```
 
 By only loading associated data that has been specifically requested you spend
@@ -370,10 +353,10 @@ properties. These features have been removed in 3.0. Because of how ResultSets
 iteratively generate entities, the `afterFind` callback was not possible.
 Both afterFind and virtual fields can largely be replaced with virtual
 properties on entities. For example if your User entity has both first and last
-name columns you can add an accessor for `full_name` and generate the property
-on the fly
+name columns you can add an accessor for <span class="title-ref">full_name</span> and generate the property
+on the fly:
 
-```php
+``` php
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -385,20 +368,19 @@ class User extends Entity
         return $this->first_name . '  ' . $this->last_name;
     }
 }
-
 ```
 
 Once defined you can access your new property using `$user->full_name`.
-Using the [map-reduce](../orm/retrieving-data-and-resultsets.md#map-reduce) features of the ORM allow you to build aggregated
+Using the [map-reduce](#map-reduce) features of the ORM allow you to build aggregated
 data from your results, which is another use case that the `afterFind`
 callback was often used for.
 
 While virtual fields are no longer an explicit feature of the ORM, adding
 calculated fields is easy to do in your finder methods. By using the query
 builder and expression objects you can achieve the same results that virtual
-fields gave
+fields gave:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
@@ -413,7 +395,6 @@ class ReviewsTable extends Table
         return $query;
     }
 }
-
 ```
 
 ### Associations No Longer Defined as Properties
@@ -423,9 +404,9 @@ defined in properties like `$belongsTo` and `$hasMany`. In CakePHP 3.0,
 associations are created with methods. Using methods allows us to sidestep the
 many limitations class definitions have, and provide only one way to define
 associations. Your `initialize()` method and all other parts of your application
-code, interact with the same API when manipulating associations
+code, interact with the same API when manipulating associations:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
@@ -441,13 +422,12 @@ class ReviewsTable extends Table
         $this->belongsToMany('Tags')
     }
 }
-
 ```
 
 As you can see from the example above each of the association types uses
 a method to create the association. One other difference is that
 `hasAndBelongsToMany` has been renamed to `belongsToMany`. To find out more
-about creating associations in 3.0 see the section on [/orm/associations`.
+about creating associations in 3.0 see the section on [/orm/associations](orm/associations.md).
 
 Another welcome improvement to CakePHP is the ability to create your own
 association classes. If you have association types that are not covered by the
@@ -463,9 +443,9 @@ indirection, complicating rule changes at runtime. Furthermore, validation rules
 being defined as a property made it difficult for a model to have multiple sets
 of validation rules. In CakePHP 3.0, both these problems have been remedied.
 Validation rules are always built with a `Validator` object, and it is trivial
-to have multiple sets of rules
+to have multiple sets of rules:
 
-```php
+``` php
 namespace App\Model\Table;
 
 use Cake\ORM\Table;
@@ -488,7 +468,6 @@ class ReviewsTable extends Table
         return $validator;
     }
 }
-
 ```
 
 You can define as many validation methods as you need. Each method should be
@@ -498,24 +477,22 @@ In previous versions of CakePHP 'validation' and the related callbacks covered
 a few related but different uses. In CakePHP 3.0, what was formerly called
 validation is now split into two concepts:
 
-#. Data type and format validation.
-#. Enforcing application, or business rules.
+1.  Data type and format validation.
+2.  Enforcing application, or business rules.
 
 Validation is now applied before ORM entities are created from request data.
 This step lets you ensure data matches the data type, format, and basic shape
 your application expects. You can use your validators when converting request
 data into entities by using the `validate` option. See the documentation on
-[converting-request-data](../orm/saving-data.md#converting-request-data) for more information.
+[converting-request-data](#converting-request-data) for more information.
 
-[Application rules](application-rules.md) allow you to define rules that
+[Application rules](#application-rules) allow you to define rules that
 ensure your application's rules, state and workflows are enforced. Rules are
-defined in your Table's](#Application rules](application-rules.md) allow you to define rules that
-ensure your application's rules, state and workflows are enforced. Rules are
-defined in your Table's)`buildRules()` method. Behaviors can add rules using
-the `buildRules()` hook method. An example `buildRules()`` method for our
-articles table could be
+defined in your Table's `buildRules()` method. Behaviors can add rules using
+the `buildRules()` hook method. An example `buildRules()` method for our
+articles table could be:
 
-```php
+``` php
 // In src/Model/Table/ArticlesTable.php
 namespace App\Model\Table;
 
@@ -541,7 +518,6 @@ class ArticlesTable extends Table
         return $rules;
     }
 }
-
 ```
 
 ### Identifier Quoting Disabled by Default
@@ -553,27 +529,23 @@ outweighs any benefit it provides. Because of this identifier quoting has been
 disabled by default in 3.0. You should only need to enable identifier quoting if
 you are using column names or table names that contain special characters or are
 reserved words. If required, you can enable identifier quoting when configuring
-a connection
+a connection:
 
-```
-// In config/app.php
-'Datasources' => [
-    'default' => [
-        'className' => 'Cake\Database\Driver\Mysql',
-        'username' => 'root',
-        'password' => 'super_secret',
-        'host' => 'localhost',
-        'database' => 'cakephp',
-        'quoteIdentifiers' => true,
-    ]
-],
-
-```
+    // In config/app.php
+    'Datasources' => [
+        'default' => [
+            'className' => 'Cake\Database\Driver\Mysql',
+            'username' => 'root',
+            'password' => 'super_secret',
+            'host' => 'localhost',
+            'database' => 'cakephp',
+            'quoteIdentifiers' => true,
+        ]
+    ],
 
 > [!NOTE]
 > Identifiers in `QueryExpression` objects will not be quoted, and you will
 > need to quote them manually or use IdentifierExpression objects.
->
 
 ## Updating Behaviors
 
@@ -597,9 +569,9 @@ The base class for behaviors has changed. Behaviors should now extend
 will be raised. In addition to the base class changing, the constructor for
 behaviors has been modified, and the `startup()` method has been removed.
 Behaviors that need access to the table they are attached to should define
-a constructor
+a constructor:
 
-```php
+``` php
 namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
@@ -614,7 +586,6 @@ class SluggableBehavior extends Behavior
         $this->_table = $table;
     }
 }
-
 ```
 
 ### Mixin Methods Signature Changes
@@ -622,38 +593,35 @@ class SluggableBehavior extends Behavior
 Behaviors continue to offer the ability to add 'mixin' methods to Table objects,
 however the method signature for these methods has changed. In CakePHP 3.0,
 behavior mixin methods can expect the **same** arguments provided to the table
-'method'. For example
+'method'. For example:
 
-```php
+``` php
 // Assume table has a slug() method provided by a behavior.
 $table->slug($someValue);
-
 ```
 
 The behavior providing the `slug()` method will receive only 1 argument, and its
-method signature should look like
+method signature should look like:
 
-```php
+``` php
 public function slug($value)
 {
     // Code here.
 }
-
 ```
 
 ### Callback Method Signature Changes
 
 Behavior callbacks have been unified with all other listener methods. Instead of
 their previous arguments, they need to expect an event object as their first
-argument
+argument:
 
-```php
+``` php
 public function beforeFind(Event $event, Query $query, array $options)
 {
     // Code.
 }
-
 ```
 
-See [table-callbacks](../orm/table-objects.md#table-callbacks) for the signatures of all the callbacks a behavior
+See [table-callbacks](#table-callbacks) for the signatures of all the callbacks a behavior
 can subscribe to.

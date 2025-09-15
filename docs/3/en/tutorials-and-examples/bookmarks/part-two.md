@@ -1,26 +1,21 @@
 # Bookmarker Tutorial Part 2
 
-After finishing [the first part of this tutorial](intro.md) you should have a very basic
+After finishing [the first part of this tutorial](tutorials-and-examples/bookmarks/intro.md) you should have a very basic
 bookmarking application. In this chapter we'll be adding authentication and
 restricting the bookmarks each user can see/modify to only the ones they own.
 
 ## Adding Login
 
-In CakePHP, authentication is handled by [/controllers/components`.
+In CakePHP, authentication is handled by [/controllers/components](controllers/components.md).
 Components can be thought of as ways to create reusable chunks of controller
 code related to a specific feature or concept. Components can also hook into the
 controller's event life-cycle and interact with your application that way. To
-get started, we'll add the [ continues to work.
-            $this->Auth->allow(['display']);
-        }
-    }
-
-We've just told CakePHP that we want to load the](controllers/components/authentication.md) to our application. We'll pretty much
+get started, we'll add the [AuthComponent](controllers/components/authentication.md) to our application. We'll pretty much
 want every method to require authentication, so we'll add AuthComponent in our
-AppController
+AppController:
 
-```php
-/ In src/Controller/AppController.php
+``` php
+// In src/Controller/AppController.php
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -43,24 +38,23 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
-            'unauthorizedRedirect' => $this->referer() / If unauthorized, return them to page they were just on
+            'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
         ]);
 
-        / Allow the display action so our pages controller
-        / continues to work.
+        // Allow the display action so our pages controller
+        // continues to work.
         $this->Auth->allow(['display']);
     }
 }
-
 ```
 
-We've just told CakePHP that we want to load the.md)`Flash` and `Auth`
+We've just told CakePHP that we want to load the `Flash` and `Auth`
 components. In addition, we've customized the configuration of AuthComponent, as
-our users table uses `email`` as the username. Now, if you go to any URL you'll
+our users table uses `email` as the username. Now, if you go to any URL you'll
 be kicked to **/users/login**, which will show an error page as we have
-not written that code yet. So let's create the login action
+not written that code yet. So let's create the login action:
 
-```php
+``` php
 // In src/Controller/UsersController.php
 public function login()
 {
@@ -73,25 +67,22 @@ public function login()
         $this->Flash->error('Your username or password is incorrect.');
     }
 }
-
 ```
 
-And in **src/Template/Users/login.ctp** add the following::
+And in **src/Template/Users/login.ctp** add the following:
 
-```php
-\<<h1>\>Login</h1>
+``` php
+<h1>Login</h1>
 <?= $this->Form->create() ?>
 <?= $this->Form->control('email') ?>
 <?= $this->Form->control('password') ?>
 <?= $this->Form->button('Login') ?>
 <?= $this->Form->end() ?>
-
 ```
 
 > [!NOTE]
-
-The `control()` method is available since 3.4. For prior versions you can
-   use the `input()` method instead.
+> The `control()` method is available since 3.4. For prior versions you can
+> use the `input()` method instead.
 
 Now that we have a simple login form, we should be able to log in with one of
 the users that has a hashed password.
@@ -100,14 +91,13 @@ the users that has a hashed password.
 > If none of your users have hashed passwords, comment the
 > `loadComponent('Auth')` line. Then go and edit the user,
 > saving a new password for them.
->
 
 ## Adding Logout
 
 Now that people can log in, you'll probably want to provide a way to log out as
-well. Again, in the `UsersController`, add the following code
+well. Again, in the `UsersController`, add the following code:
 
-```php
+``` php
 public function initialize()
 {
     parent::initialize();
@@ -119,27 +109,25 @@ public function logout()
     $this->Flash->success('You are now logged out.');
     return $this->redirect($this->Auth->logout());
 }
-
 ```
 
 This code whitelists the `logout` action as a public action, and implements
-the logout method. Now you can visit `/users/logout` to log out. You should
+the logout method. Now you can visit [Users / logout](users/logout.md) to log out. You should
 then be sent to the login page.
 
 ## Enabling Registrations
 
 If you aren't logged in and you try to visit **/users/add** you will be kicked
 to the login page. We should fix that as we want to allow people to sign up for
-our application. In the `UsersController` add the following
+our application. In the `UsersController` add the following:
 
-```php
+``` php
 public function initialize()
 {
     parent::initialize();
     // Add the 'add' action to the allowed actions list.
     $this->Auth->allow(['logout', 'add']);
 }
-
 ```
 
 The above tells `AuthComponent` that the `add()` action does *not* require
@@ -156,27 +144,23 @@ ones they made. We'll do this using an 'authorization' adapter. Since our
 requirements are pretty simple, we can write some simple code in our
 `BookmarksController`. But before we do that, we'll want to tell the
 AuthComponent how our application is going to authorize actions. In your
-`AppController` add the following
+`AppController` add the following:
 
-```php
+``` php
 public function isAuthorized($user)
 {
     return false;
 }
-
 ```
 
 Also, add the following to the configuration for `Auth` in your
-`AppController`
+`AppController`:
 
-```
-'authorize' => 'Controller',
+    'authorize' => 'Controller',
 
-```
+Your `initialize()` method should now look like:
 
-Your `initialize()` method should now look like::
-
-```php
+``` php
 public function initialize()
 {
     $this->loadComponent('Flash');
@@ -201,14 +185,13 @@ public function initialize()
     // continues to work.
     $this->Auth->allow(['display']);
 }
-
 ```
 
 We'll default to denying access, and incrementally grant access where it makes
 sense. First, we'll add the authorization logic for bookmarks. In your
-`BookmarksController` add the following
+`BookmarksController` add the following:
 
-```php
+``` php
 public function isAuthorized($user)
 {
     $action = $this->request->getParam('action');
@@ -230,17 +213,15 @@ public function isAuthorized($user)
     }
     return parent::isAuthorized($user);
 }
-
 ```
 
 Now if you try to view, edit or delete a bookmark that does not belong to you,
 you should be redirected back to the page you came from. If no error message is
-displayed, add the following to your layout
+displayed, add the following to your layout:
 
-```php
+``` php
 // In src/Template/Layout/default.ctp
 <?= $this->Flash->render() ?>
-
 ```
 
 You should now see the authorization error messages.
@@ -249,16 +230,16 @@ You should now see the authorization error messages.
 
 While view and delete are working, edit, add and index have a few problems:
 
-#. When adding a bookmark you can choose the user.
-#. When editing a bookmark you can choose the user.
-#. The list page shows bookmarks from other users.
+1.  When adding a bookmark you can choose the user.
+2.  When editing a bookmark you can choose the user.
+3.  The list page shows bookmarks from other users.
 
 Let's tackle the add form first. To begin with remove the `control('user_id')`
 from **src/Template/Bookmarks/add.ctp**. With that removed, we'll also update
 the `add()` action from **src/Controller/BookmarksController.php** to look
-like
+like:
 
-```php
+``` php
 public function add()
 {
     $bookmark = $this->Bookmarks->newEntity();
@@ -275,15 +256,14 @@ public function add()
     $this->set(compact('bookmark', 'tags'));
     $this->set('_serialize', ['bookmark']);
 }
-
 ```
 
 By setting the entity property with the session data, we remove any possibility
 of the user modifying which user a bookmark is for. We'll do the same for the
 edit form and action. Your `edit()` action from
-**src/Controller/BookmarksController.php** should look like
+**src/Controller/BookmarksController.php** should look like:
 
-```php
+``` php
 public function edit($id = null)
 {
     $bookmark = $this->Bookmarks->get($id, [
@@ -302,16 +282,15 @@ public function edit($id = null)
     $this->set(compact('bookmark', 'tags'));
     $this->set('_serialize', ['bookmark']);
 }
-
 ```
 
 ### List View
 
 Now, we only need to show bookmarks for the currently logged in user. We can do
 that by updating the call to `paginate()`. Make your `index()` action from
-**src/Controller/BookmarksController.php** look like
+**src/Controller/BookmarksController.php** look like:
 
-```php
+``` php
 public function index()
 {
     $this->paginate = [
@@ -322,7 +301,6 @@ public function index()
     $this->set('bookmarks', $this->paginate($this->Bookmarks));
     $this->set('_serialize', ['bookmarks']);
 }
-
 ```
 
 We should also update the `tags()` action and the related finder method, but
@@ -339,9 +317,9 @@ a better experience to our users, and use some more great features in the ORM.
 
 Because we'll want a simple way to access the formatted tags for an entity, we
 can add a virtual/computed field to the entity. In
-**src/Model/Entity/Bookmark.php** add the following
+**src/Model/Entity/Bookmark.php** add the following:
 
-```php
+``` php
 use Cake\Collection\Collection;
 
 protected function _getTagString()
@@ -358,7 +336,6 @@ protected function _getTagString()
     }, '');
     return trim($str, ', ');
 }
-
 ```
 
 This will let us access the `$bookmark->tag_string` computed property. We'll
@@ -367,9 +344,9 @@ property to the `_accessible` list in your entity, as we'll want to 'save' it
 later on.
 
 In **src/Model/Entity/Bookmark.php** add the `tag_string` to `$_accessible`
-this way
+this way:
 
-```php
+``` php
 protected $_accessible = [
     'user_id' => true,
     'title' => true,
@@ -379,18 +356,16 @@ protected $_accessible = [
     'tags' => true,
     'tag_string' => true,
 ];
-
 ```
 
 ### Updating the Views
 
 With the entity updated we can add a new control for our tags. In
 **src/Template/Bookmarks/add.ctp** and **src/Template/Bookmarks/edit.ctp**,
-replace the existing `tags._ids` control with the following
+replace the existing `tags._ids` control with the following:
 
-```php
+``` php
 echo $this->Form->control('tag_string', ['type' => 'text']);
-
 ```
 
 ### Persisting the Tag String
@@ -399,9 +374,9 @@ Now that we can view existing tags as a string, we'll want to save that data as
 well. Because we marked the `tag_string` as accessible, the ORM will copy that
 data from the request into our entity. We can use a `beforeSave()` hook method
 to parse the tag string and find/build the related entities. Add the following
-to **src/Model/Table/BookmarksTable.php**
+to **src/Model/Table/BookmarksTable.php**:
 
-```php
+``` php
 public function beforeSave($event, $entity, $options)
 {
     if ($entity->tag_string) {
@@ -439,12 +414,11 @@ protected function _buildTags($tagString)
     }
     return $out;
 }
-
 ```
 
 While this code is a bit more complicated than what we've done so far, it helps
 to showcase how powerful the ORM in CakePHP is. You can manipulate query
-results using the [collections](../../core-libraries/collections.md) methods, and handle
+results using the [/core-libraries/collections](core-libraries/collections.md) methods, and handle
 scenarios where you are creating entities on the fly with ease.
 
 ## Wrapping Up
@@ -454,5 +428,5 @@ authorization/access control scenarios. We've also added some nice UX
 improvements by leveraging the FormHelper and ORM capabilities.
 
 Thanks for taking the time to explore CakePHP. Next, you can complete the
-[blog](../blog/blog.md), learn more about the
-[orm](../../orm.md), or you can peruse the [topics](../../topics.md).
+[/tutorials-and-examples/blog/blog](tutorials-and-examples/blog/blog.md), learn more about the
+[/orm](orm.md), or you can peruse the [/topics](topics.md).

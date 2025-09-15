@@ -7,29 +7,24 @@ these mechanical changes easier, CakePHP provides a CLI based upgrade tool.
 ## Installation
 
 The upgrade tool is installed as a standalone application. You'll need to clone
-the upgrade tool with git, and install the dependencies with composer
+the upgrade tool with git, and install the dependencies with composer:
 
-```bash
-git clone https://github.com/cakephp/upgrade.git -b 3.x
-cd upgrade
-php ../composer.phar install
+    git clone https://github.com/cakephp/upgrade.git -b 3.x
+    cd upgrade
+    php ../composer.phar install
 
-```
+At this point you should be able to get the help for the upgrade tool:
 
-At this point you should be able to get the help for the upgrade tool::
+    cd upgrade
+    bin/cake upgrade --help
 
-```bash
-cd upgrade
-bin/cake upgrade --help
+The above should output something like the following:
 
-```
-
-The above should output something like the following
-
-```sql
-### Welcome to CakePHP v3.0.8 Console
+    Welcome to CakePHP v3.0.8 Console
+    ---------------------------------------------------------------
     App : src
-### Path: /Users/markstory/Sites/cake_plugins/upgrade/src/
+    Path: /Users/markstory/Sites/cake_plugins/upgrade/src/
+    ---------------------------------------------------------------
     A shell to help automate upgrading from CakePHP 2.x to 3.x. Be sure to
     have a backup of your application before running these commands.
 
@@ -81,37 +76,29 @@ it on a 2.x application.
 > Make sure you have backups/version control for your application's code.
 >
 > It is also a good idea to make a backup/commits after each sub-command.
->
-To start off run the `locations` command::
 
-```bash
-# View the options for the command
-bin/cake upgrade locations --help
+To start off run the `locations` command:
 
-# Run the command in dry run mode.
-bin/cake upgrade locations --dry-run /path/to/app
+    # View the options for the command
+    bin/cake upgrade locations --help
 
-```
+    # Run the command in dry run mode.
+    bin/cake upgrade locations --dry-run /path/to/app
 
 The above will give a dry run output of what would happen. When you are ready to
 run the command for real, remove the `--dry-run` flag. By using the `--git`
 flag the upgrade tool can automate moving files in git.
 
 Once file locations have been updated, you can add namespaces to your code using
-the `namespaces` command::
+the `namespaces` command:
 
-```bash
-# View the options for the command
-bin/cake upgrade namespaces --help
+    # View the options for the command
+    bin/cake upgrade namespaces --help
 
-# Run the command in dry run mode
-bin/cake upgrade namespaces --dry-run /path/to/app
+    # Run the command in dry run mode
+    bin/cake upgrade namespaces --dry-run /path/to/app
 
-# Run the command for real
-bin/cake upgrade namespaces /path/to/app
-
-```
+    # Run the command for real
+    bin/cake upgrade namespaces /path/to/app
 
 After these two commands, you can run the remaining subcommands in any order.
-
-```

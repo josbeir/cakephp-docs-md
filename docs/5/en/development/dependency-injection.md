@@ -9,7 +9,7 @@ You can use the service container to define 'application services'. These
 classes can use models and interact with other objects like loggers and mailers
 to build re-usable workflows and business logic for your application.
 
-CakePHP will use the :term:`DI container` in the following situations:
+CakePHP will use the `DI container` in the following situations:
 
 - Constructing controllers.
 - Calling actions on your controllers.
@@ -19,7 +19,7 @@ CakePHP will use the :term:`DI container` in the following situations:
 
 ## Controller Example
 
-```php
+``` php
 // In src/Controller/UsersController.php
 class UsersController extends AppController
 {
@@ -39,7 +39,6 @@ public function services(ContainerInterface $container): void
 {
     $container->add(UsersService::class);
 }
-
 ```
 
 In this example, the `UsersController::ssoCallback()` action needs to fetch
@@ -50,7 +49,7 @@ testing.
 
 ## Command Example
 
-```php
+``` php
 // In src/Command/CheckUsersCommand.php
 use Cake\Console\CommandFactoryInterface;
 
@@ -77,7 +76,6 @@ public function services(ContainerInterface $container): void
         ->addArgument(CommandFactoryInterface::class);
     $container->add(UsersService::class);
 }
-
 ```
 
 The injection process is a bit different here. Instead of adding the
@@ -88,7 +86,7 @@ of the command.
 
 ## Component Example
 
-```php
+``` php
 // In src/Controller/Component/SearchComponent.php
 class SearchComponent extends Component
 {
@@ -114,25 +112,23 @@ public function services(ContainerInterface $container): void
         ->addArgument(UsersService::class);
     $container->add(UsersService::class);
 }
-
 ```
 
 ## Adding Services
 
 In order to have services created by the container, you need to tell it which
 classes it can create and how to build those classes. The
-simplest definition is via a class name
+simplest definition is via a class name:
 
-```php
+``` php
 // Add a class by its name.
 $container->add(BillingService::class);
-
 ```
 
 Your application and plugins define the services they have in the
-`services()` hook method
+`services()` hook method:
 
-```php
+``` php
 // in src/Application.php
 namespace App;
 
@@ -147,12 +143,11 @@ class Application extends BaseApplication
         $container->add(BillingService::class);
     }
 }
-
 ```
 
-You can define implementations for interfaces that your application uses::
+You can define implementations for interfaces that your application uses:
 
-```php
+``` php
 use App\Service\AuditLogServiceInterface;
 use App\Service\AuditLogService;
 
@@ -160,31 +155,28 @@ use App\Service\AuditLogService;
 
 // Add an implementation for an interface.
 $container->add(AuditLogServiceInterface::class, AuditLogService::class);
-
 ```
 
-The container can leverage factory functions to create objects if necessary
+The container can leverage factory functions to create objects if necessary:
 
-```php
+``` php
 $container->add(AuditLogServiceInterface::class, function (...$args) {
     return new AuditLogService(...$args);
 });
-
 ```
 
 Factory functions will receive all of the resolved dependencies for the class
 as arguments.
 
 Once you've defined a class, you also need to define the dependencies it
-requires. Those dependencies can be either objects or primitive values
+requires. Those dependencies can be either objects or primitive values:
 
-```php
+``` php
 // Add a primitive value like a string, array or number.
 $container->add('apiKey', 'abc123');
 
 $container->add(BillingService::class)
     ->addArgument('apiKey');
-
 ```
 
 Your services can depend on `ServerRequest` in controller actions as it will
@@ -194,42 +186,39 @@ be added automatically.
 
 By default services are not shared. Every object (and dependencies) is created
 each time it is fetched from the container. If you want to re-use a single
-instance, often referred to as a singleton, you can mark a service as 'shared'
+instance, often referred to as a singleton, you can mark a service as 'shared':
 
-```php
+``` php
 // in your Application::services() method.
 
 $container->addShared(BillingService::class);
-
 ```
 
 ### Extending Definitions
 
 Once a service is defined you can modify or update the service definition by
 extending them. This allows you to add additional arguments to services defined
-elsewhere
+elsewhere:
 
-```php
+``` php
 // Add an argument to a partially defined service elsewhere.
 $container->extend(BillingService::class)
     ->addArgument('logLevel');
-
 ```
 
 ### Tagging Services
 
 By tagging services you can get all of those services resolved at the same
 time. This can be used to build services that combine collections of other
-services like in a reporting system
+services like in a reporting system:
 
-```php
+``` php
 $container->add(BillingReport::class)->addTag('reports');
 $container->add(UsageReport::class)->addTag('reports');
 
 $container->add(ReportAggregate::class, function () use ($container) {
     return new ReportAggregate($container->get('reports'));
 });
-
 ```
 
 ### Using Configuration Data
@@ -237,14 +226,13 @@ $container->add(ReportAggregate::class, function () use ($container) {
 Often you'll need configuration data in your services. While you could add
 all the configuration keys your service needs into the container, that can be
 tedious. To make configuration easier to work with CakePHP includes an
-injectable configuration reader
+injectable configuration reader:
 
-```php
+``` php
 use Cake\Core\ServiceConfig;
 
 // Use a shared instance
 $container->addShared(ServiceConfig::class);
-
 ```
 
 The `ServiceConfig` class provides a read-only view of all the data available
@@ -260,9 +248,9 @@ their first use.
 
 ### Creating Service Providers
 
-An example ServiceProvider would look like
+An example ServiceProvider would look like:
 
-```php
+``` php
 namespace App\ServiceProvider;
 
 use Cake\Core\ContainerInterface;
@@ -282,23 +270,21 @@ class BillingServiceProvider extends ServiceProvider
         $container->add('configKey', 'some value');
     }
 }
-
 ```
 
 Service providers use their `services()` method to define all the services they
-will provide. Additionally those services  **must be** defined in the `$provides`
+will provide. Additionally those services **must be** defined in the `$provides`
 property. Failing to include a service in the `$provides` property will result
 in it not be loadable from the container.
 
 ### Using Service Providers
 
 To load a service provider add it into the container using the
-`addServiceProvider()` method
+`addServiceProvider()` method:
 
-```php
+``` php
 // in your Application::services() method.
 $container->addServiceProvider(new BillingServiceProvider());
-
 ```
 
 ### Bootable ServiceProviders
@@ -307,9 +293,9 @@ If your service provider needs to run logic when it is added to the container,
 you can implement the `bootstrap()` method. This situation can come up when your
 service provider needs to load additional configuration files, load additional
 service providers or modify a service defined elsewhere in your application. An
-example of a bootable service would be
+example of a bootable service would be:
 
-```php
+``` php
 namespace App\ServiceProvider;
 
 use Cake\Core\ServiceProvider;
@@ -329,14 +315,13 @@ class BillingServiceProvider extends ServiceProvider
 }
 ```
 
-<!-- anchor: mocking-services-in-tests -->
 ## Mocking Services in Tests
 
 In tests that use `ConsoleIntegrationTestTrait` or `IntegrationTestTrait`
 you can replace services that are injected via the container with mocks or
-stubs
+stubs:
 
-```php
+``` php
 // In a test method or setup().
 $this->mockService(StripeService::class, function () {
     return new FakeStripe();
@@ -344,7 +329,6 @@ $this->mockService(StripeService::class, function () {
 
 // If you need to remove a mock
 $this->removeMockService(StripeService::class);
-
 ```
 
 Any defined mocks will be replaced in your application's container during
@@ -353,9 +337,9 @@ are cleaned up at the end of each test.
 
 ## Auto Wiring
 
-Auto Wiring is turned off by default. To enable it
+Auto Wiring is turned off by default. To enable it:
 
-```php
+``` php
 // In src/Application.php
 public function services(ContainerInterface $container): void
 {
@@ -363,19 +347,17 @@ public function services(ContainerInterface $container): void
         new \League\Container\ReflectionContainer()
     );
 }
-
 ```
 
 While your dependencies will now be resolved automatically, this approach will
 not cache resolutions which can be detrimental to performance. To enable
-caching
+caching:
 
-```php
+``` php
 $container->delegate(
      // or consider using the value of Configure::read('debug')
     new \League\Container\ReflectionContainer(true)
 );
-
 ```
 
 Read more about auto wiring in the [PHP League Container documentation](https://container.thephpleague.com/4.x/auto-wiring/).

@@ -1,8 +1,3 @@
----
-title: The Pages Controller
-keywords: "pages controller,default controller,lib,cakephp,ships,php,file folder"
----
-
 # The Pages Controller
 
 CakePHP ships with a default controller `PagesController.php`. This is a
@@ -15,13 +10,16 @@ Controller to meet your needs.
 When you "bake" an app using CakePHP's console utility the Pages Controller is
 created in your `app/Controller/` folder. You can also copy the file from
 `lib/Cake/Console/Templates/skel/Controller/PagesController.php`.
-> **versionchanged:** 2.1
+
+<div class="versionchanged">
+
+2.1
 With CakePHP 2.0 the Pages Controller was part of `lib/Cake`. Since 2.1
 the Pages Controller is no longer part of the core but ships in the app
 folder.
 
+</div>
+
 > [!WARNING]
 > Do not directly modify ANY file under the `lib/Cake` folder to avoid
 > issues when updating the core in future.
->
->

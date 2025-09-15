@@ -16,15 +16,14 @@ There are two ways you can generate data views. The first is by using the
 
 Before you can use the data view classes, you'll first need to load the
 `Cake\Controller\Component\RequestHandlerComponent` in your
-controller
+controller:
 
-```php
+``` php
 public function initialize()
 {
     ...
     $this->loadComponent('RequestHandler');
 }
-
 ```
 
 This can be done in your `AppController` and will enable automatic view class
@@ -33,11 +32,11 @@ switching on content types. You can also set the component up with the
 data types.
 
 You can optionally enable the json and/or xml extensions with
-[file-extensions](../development/routing.md#file-extensions). This will allow you to access the `JSON`, `XML` or
+[file-extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
 any other special format views by using a custom URL ending with the name of the
 response type as a file extension such as `http://example.com/articles.json`.
 
-By default, when not enabling [file-extensions](../development/routing.md#file-extensions), the request, the `Accept`
+By default, when not enabling [file-extensions](#file-extensions), the request, the `Accept`
 header is used for, selecting which type of format should be rendered to the
 user. An example `Accept` format that is used to render `JSON` responses is
 `application/json`.
@@ -52,9 +51,9 @@ custom formatting before your data is converted into json/xml.
 If you need to do any formatting or manipulation of your view variables before
 generating the response, you should use template files. The value of
 `_serialize` can be either a string or an array of view variables to
-serialize
+serialize:
 
-```php
+``` php
 namespace App\Controller;
 
 class ArticlesController extends AppController
@@ -73,12 +72,11 @@ class ArticlesController extends AppController
         $this->set('_serialize', 'articles');
     }
 }
-
 ```
 
-You can also define `_serialize` as an array of view variables to combine::
+You can also define `_serialize` as an array of view variables to combine:
 
-```php
+``` php
 namespace App\Controller;
 
 class ArticlesController extends AppController
@@ -100,11 +98,10 @@ class ArticlesController extends AppController
         $this->set('_serialize', ['articles', 'comments']);
     }
 }
-
 ```
 
 Defining `_serialize` as an array has added the benefit of automatically
-appending a top-level `<response>` element when using `XmlView`.
+appending a top-level [](#response) element when using `XmlView`.
 If you use a string value for `_serialize` and XmlView, make sure that your
 view variable has a single top-level element. Without a single top-level
 element the Xml will fail to generate.
@@ -114,9 +111,9 @@ element the Xml will fail to generate.
 You should use template files if you need to do some manipulation of your view
 content before creating the final output. For example if we had articles, that had
 a field containing generated HTML, we would probably want to omit that from a
-JSON response. This is a situation where a view file would be useful
+JSON response. This is a situation where a view file would be useful:
 
-```php
+``` php
 // Controller code
 class ArticlesController extends AppController
 {
@@ -132,7 +129,6 @@ foreach ($articles as &$article) {
     unset($article->generated_html);
 }
 echo json_encode(compact('articles'));
-
 ```
 
 You can do more complex manipulations, or use helpers to do formatting as well.
@@ -144,24 +140,23 @@ output the serialized content.
 > `'_serialize' => true` to all XML/JSON requests. You will need to remove
 > this code from the beforeRender callback or set `'_serialize' => false` in
 > your controller's action if you want to use view files.
->
 
 ## Creating XML Views
 
-### Class `XmlView`
+`class` **XmlView**
 
 By default when using `_serialize` the XmlView will wrap your serialized
-view variables with a `<response>` node. You can set a custom name for
+view variables with a [](#response) node. You can set a custom name for
 this node using the `_rootNode` view variable.
 
 The XmlView class supports the `_xmlOptions` variable that allows you to
 customize the options used to generate XML, e.g. `tags` vs `attributes`.
 
-An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.html). This document type requires that you
+An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.md). This document type requires that you
 change `_rootNode` and set attributes. Attributes are defined using the `@`
-prefix
+prefix:
 
-```php
+``` php
 public function sitemap()
 {
     $pages = $this->Pages->find();
@@ -184,26 +179,24 @@ public function sitemap()
     ]);
     $this->set('_serialize', ['@xmlns', 'url']);
 }
-
 ```
 
 ## Creating JSON Views
 
-### Class `JsonView`
+`class` **JsonView**
 
 The JsonView class supports the `_jsonOptions` variable that allows you to
 customize the bit-mask used to generate JSON. See the
 [json_encode](https://php.net/json_encode) documentation for the valid
 values of this option.
 
-For example, to serialize validation error output of CakePHP entities in a consistent form of JSON do
+For example, to serialize validation error output of CakePHP entities in a consistent form of JSON do:
 
-```php
+``` php
 // In your controller's action when saving failed
 $this->set('errors', $articles->errors());
 $this->set('_jsonOptions', JSON_FORCE_OBJECT);
 $this->set('_serialize', ['errors']);
-
 ```
 
 ### JSONP Responses
@@ -217,11 +210,11 @@ parameter name instead of "callback" set `_jsonp` to required name instead of
 
 ## Example Usage
 
-While the [RequestHandlerComponent](../controllers/components/request-handling.md) can automatically set the view based
+While the [RequestHandlerComponent](controllers/components/request-handling.md) can automatically set the view based
 on the request content-type or extension, you could also handle view
-mappings in your controller
+mappings in your controller:
 
-```php
+``` php
 // src/Controller/VideosController.php
 namespace App\Controller;
 
@@ -263,5 +256,4 @@ class VideosController extends AppController
         return $this->response->withDownload('report-' . date('YmdHis') . '.' . $format);
     }
 }
-
 ```

@@ -5,31 +5,24 @@ deprecations and features added in 4.2.
 
 ## Upgrading to 4.2.0
 
-You can use composer to upgrade to CakePHP 4.2.0
+You can use composer to upgrade to CakePHP 4.2.0:
 
-```
-php composer.phar require --update-with-dependencies "cakephp/cakephp:4.2.x"
-
-```
+    php composer.phar require --update-with-dependencies "cakephp/cakephp:4.2.x"
 
 ## Deprecations
 
 4.2 introduces a few deprecations. All of these features will continue for the
 duration of 4.x but will be removed in 5.0. You can use the
-[upgrade tool](4-0-upgrade-guide.md#upgrade-tool-use) to automate updating usage of deprecated
-features
+[upgrade tool](#upgrade-tool-use) to automate updating usage of deprecated
+features:
 
-```html
-bin/cake upgrade rector --rules cakephp42 <path/to/app/src>
-
-```
+    bin/cake upgrade rector --rules cakephp42 <path/to/app/src>
 
 > [!NOTE]
 > This only updates CakePHP 4.2 changes. Make sure you apply CakePHP 4.1 changes first.
->
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](../development/errors.md#deprecation-warnings) for more information.
+path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
 
 ### Core
 
@@ -91,11 +84,10 @@ change the semantics or behavior of methods.
   for `HttpException` only. Other exceptions that should return a non-500
   HTTP code are controlled by `ExceptionRenderer::$exceptionHttpCodes`.
 
-> [!NOTE]
-> If you need to restore the previous behavior until your exceptions are updated,
-> you can create a custom ExceptionRenderer and override the `getHttpCode()` function.
-> See [custom-exceptionrenderer](../development/errors.md#custom-exceptionrenderer) for more information.
->
+  > [!NOTE]
+  > If you need to restore the previous behavior until your exceptions are updated,
+  > you can create a custom ExceptionRenderer and override the `getHttpCode()` function.
+  > See [custom-exceptionrenderer](#custom-exceptionrenderer) for more information.
 
 - `ConsoleErrorHandler` now uses the exception code as the exit code for
   `ConsoleException` only.
@@ -115,8 +107,9 @@ Behind the API, some breaking changes are necessary moving forward.
 They usually only affect tests.
 
 ### I18n
+
 - The dependency on [Aura.Intl](https://github.com/auraphp/Aura.Intl) package has been
-  removed as it is no longer maintained. If your app/plugin has [custom translation loaders](../core-libraries/internationalization-and-localization.md#creating-generic-translators)
+  removed as it is no longer maintained. If your app/plugin has [custom translation loaders](#creating-generic-translators)
   then they need to now return a `Cake\I18n\Package` instance instead of `Aura\Intl\Package`.
   Both the classes are API compatible so you won't need to change anything else.
 
@@ -130,18 +123,18 @@ They usually only affect tests.
 
 We're adding a new process to enable us to ship features, collect feedback from
 the community and evolve those features. We're calling this process
-[experimental-features](../contributing/backwards-compatibility.md#experimental-features).
+[experimental-features](#experimental-features).
 
 ### Core
 
-- Experimental support for a [/development/dependency-injection` container
+- Experimental support for a [/development/dependency-injection](development/dependency-injection.md) container
   was added.
 
 ### Console
 
 - `ConsoleIo::comment()` was added. This method formats text with a blue
   foreground like comments in the generated help text.
-- `TableHelper` now supports a `text-right` formatting tag, which aligns
+- `TableHelper` now supports a [](#text-right) formatting tag, which aligns
   cell content with the right edge instead of the left.
 
 ### Database
@@ -150,16 +143,18 @@ the community and evolve those features. We're calling this process
   This was changed to fix significant performance issues with server-side SCROLL cursors.
   Users should see a performance boost with most results sets.
 
-> [!WARNING]
-> For users with large query results, this may cause an error allocating the client-side buffer unless
-> `Query::disableBufferedResults()` is called.
-> The maximum buffer size can be configured in `php.ini` with `pdo_sqlsrv.client_buffer_max_kb_size`.
-> See https://docs.microsoft.com/en-us/sql/connect/php/cursor-types-pdo-sqlsrv-driver?view=sql-server-ver15#pdo_sqlsrv-and-client-side-cursors
-> for more information.
+  > [!WARNING]
+  > For users with large query results, this may cause an error allocating the client-side buffer unless
+  > `Query::disableBufferedResults()` is called.
+  > The maximum buffer size can be configured in `php.ini` with `pdo_sqlsrv.client_buffer_max_kb_size`.
+  > See <https://docs.microsoft.com/en-us/sql/connect/php/cursor-types-pdo-sqlsrv-driver?view=sql-server-ver15#pdo_sqlsrv-and-client-side-cursors>
+  > for more information.
 
 - `Query::isResultsCastingEnabled()` was added to get the current result
   casting mode.
+
 - `StringExpression` was added to use string literals with collation.
+
 - `IdentifierExpression` now supports collation.
 
 ### Http
@@ -180,7 +175,7 @@ the community and evolve those features. We're calling this process
 
 ### ORM
 
-- `Table::subquery()` and  `Query::subquery()` were added. These methods
+- `Table::subquery()` and `Query::subquery()` were added. These methods
   lets you create query objects that don't have automatic aliasing. This helps
   reduce overhead and complexity of building subqueries and common table
   expressions.
@@ -193,7 +188,7 @@ the community and evolve those features. We're calling this process
   `assertMailSubjectContainsAt()` were added.
 - `mockService()` was added to `ConsoleIntegrationTestTrait` and
   `IntegrationTestCaseTrait`. This method enables services injected with the
-  [dependency-injection](../development/dependency-injection.md) container to be replaced with mock
+  [/development/dependency-injection](development/dependency-injection.md) container to be replaced with mock
   or stub objects.
 
 ### View

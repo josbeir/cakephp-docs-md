@@ -27,7 +27,6 @@ removed in 6.0.0.
 
 - The ability to cast an `EntityInterface` instance to string has been deprecated.
   You should `json_encode()` the entity instead.
-
 - Mass assigning multiple entity fields using `EntityInterface::set()` is deprecated.
   Use `EntityInterface::patch()` instead. For e.g. change usage like
   `$entity->set(['field1' => 'value1', 'field2' => 'value2'])` to
@@ -42,7 +41,7 @@ removed in 6.0.0.
 
 - The `errorClass` option of `FormHelper` has been deprecated in favour of
   using a template string. To upgrade move your `errorClass` definition to
-  a template set. See [customizing-templates](../views/helpers/form.md#customizing-templates).
+  a template set. See [customizing-templates](#customizing-templates).
 
 ## New Features
 
@@ -118,4 +117,3 @@ removed in 6.0.0.
   import maps for your JavaScript files.
 - `FormHelper` now uses the `containerClass` template to apply a class to
   the form control div. The default value is `input`.
-

@@ -1,8 +1,3 @@
----
-title: Additional Methods and Properties
-keywords: "model classes,model functions,model class,interval,array"
----
-
 # Additional Methods and Properties
 
 While CakePHP's model functions should get you where you need to
@@ -13,7 +8,7 @@ Any operation that handles the saving and fetching of data is best
 housed in your model classes. This concept is often referred to as
 the fat model.
 
-```php
+``` php
 class Example extends AppModel {
     public function getRecent() {
         $conditions = array(
@@ -23,24 +18,21 @@ class Example extends AppModel {
         return $this->find('all', compact('conditions'));
     }
 }
-
 ```
 
 This `getRecent()` method can now be used within the controller.
 
-```php
+``` php
 $recent = $this->Example->getRecent();
-
 ```
 
 ## `Model::associations()`
 
-Get associations
+Get associations:
 
-```php
+``` php
 $result = $this->Example->associations();
 // $result equals array('belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany')
-
 ```
 
 ## `Model::buildQuery(string $type = 'first', array $query = array())`
@@ -65,23 +57,15 @@ If ID is not provided it calls `Model::getID()` to obtain the current record ID 
 then performs a `Model::find('count')` on the currently configured datasource to
 ascertain the existence of the record in persistent storage.
 
-.. note
+> Parameter \$id was added in 2.1. Prior to that it does not take any parameter.
 
-```php
-Parameter $id was added in 2.1. Prior to that it does not take any parameter.
-
-```
-
-::
-
-```php
+``` php
 $this->Example->id = 9;
 if ($this->Example->exists()) {
     // ...
 }
 
 $exists = $this->Foo->exists(2);
-
 ```
 
 ## `Model::getAffectedRows()`
@@ -111,4 +95,3 @@ Returns the ID of the last record this model inserted.
 ## `Model::getLastInsertID()`
 
 Alias to `getInsertID()`.
-

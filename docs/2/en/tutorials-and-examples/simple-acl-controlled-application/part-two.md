@@ -1,8 +1,3 @@
----
-title: Simple Acl controlled Application - part 2
-keywords: "shell interface,magic solution,aco,unzipped,config,sync,syntax,cakephp,php,running,acl"
----
-
 # Simple Acl controlled Application - part 2
 
 ## An Automated tool for creating ACOs
@@ -18,64 +13,51 @@ be downloaded in [The GitHub Downloads page](https://github.com/markstory/acl_ex
 We're going to briefly describe how to use it to generate all our ACO's
 
 First grab a copy of the plugin and unzipped or clone it using git into
-`app/Plugin/AclExtras`. Then activate the plugin in your `app/Config/boostrap.php`
-file as shown below
+<span class="title-ref">app/Plugin/AclExtras</span>. Then activate the plugin in your <span class="title-ref">app/Config/boostrap.php</span>
+file as shown below:
 
-```php
-//app/Config/boostrap.php
-// ...
-CakePlugin::load('AclExtras');
+    //app/Config/boostrap.php
+    // ...
+    CakePlugin::load('AclExtras');
 
-```
+Finally execute the following command in the CakePHP console:
 
-Finally execute the following command in the CakePHP console::
+    ./Console/cake AclExtras.AclExtras aco_sync
 
-```
-./Console/cake AclExtras.AclExtras aco_sync
+You can get a complete guide for all available commands like this:
 
-```
+    ./Console/cake AclExtras.AclExtras -h
+    ./Console/cake AclExtras.AclExtras aco_sync -h
 
-You can get a complete guide for all available commands like this
-
-```
-./Console/cake AclExtras.AclExtras -h
-./Console/cake AclExtras.AclExtras aco_sync -h
-
-```
-
-Once populated your `acos` table proceed to create your application permissions.
+Once populated your <span class="title-ref">acos</span> table proceed to create your application permissions.
 
 ## Setting up permissions
 
 Creating permissions much like creating ACO's has no magic solution, nor will I
 be providing one. To allow ARO's access to ACO's from the shell interface use
 the AclShell. For more information on how to use it consult the AclShell help
-which can be accessed by running
+which can be accessed by running:
 
-```
-./Console/cake acl --help
-
-```
+    ./Console/cake acl --help
 
 Note: \* needs to be quoted ('\*')
 
 In order to allow with the `AclComponent` we would use the
-following code syntax in a custom method
+following code syntax in a custom method:
 
-```php
+``` php
 $this->Acl->allow($aroAlias, $acoAlias);
-
 ```
 
 We are going to add in a few allow/deny statements now. Add the
 following to a temporary function in your `UsersController` and
 visit the address in your browser to run them (e.g.
-http://localhost/cake/app/users/initdb). If you do a
+<http://localhost/cake/app/users/initdb>). If you do a
 `SELECT * FROM aros_acos` you should see a whole pile of 1's and
 -1's. Once you've confirmed your permissions are set, remove the
-function
+function:
 
-```php
+``` php
 public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->allow('initDB'); // We can remove this line after we're finished
@@ -101,7 +83,7 @@ public function initDB() {
     $this->Acl->allow($group, 'controllers/Posts/edit');
     $this->Acl->allow($group, 'controllers/Widgets/add');
     $this->Acl->allow($group, 'controllers/Widgets/edit');
-        
+
     // allow basic users to log out
     $this->Acl->allow($group, 'controllers/users/logout');
 
@@ -109,7 +91,6 @@ public function initDB() {
     echo "all done";
     exit;
 }
-
 ```
 
 We now have set up some basic access rules. We've allowed
@@ -133,24 +114,22 @@ edit will revert to those in the Acl.
 
 Now we want to take out the references to `Auth->allowedActions`
 in your users and groups controllers. Then add the following to
-your posts and widgets controllers
+your posts and widgets controllers:
 
-```php
+``` php
 public function beforeFilter() {
     parent::beforeFilter();
     $this->Auth->allow('index', 'view');
 }
-
 ```
 
 This removes the 'off switches' we put in earlier on the users and
 groups controllers, and gives public access on the index and view
 actions in posts and widgets controllers. In
-`AppController::beforeFilter()` add the following
+`AppController::beforeFilter()` add the following:
 
-```php
+``` php
 $this->Auth->allow('display');
-
 ```
 
 This makes the 'display' action public. This will keep our
@@ -166,8 +145,8 @@ we will need to create a login view before anyone can login. Add
 the following to `app/View/Users/login.ctp` if you haven't done
 so already:
 
-```php
-\<<h2>\>Login</h2>
+``` php
+<h2>Login</h2>
 <?php
 echo $this->Form->create('User', array(
     'url' => array(
@@ -178,20 +157,18 @@ echo $this->Form->create('User', array(
 echo $this->Form->input('User.username');
 echo $this->Form->input('User.password');
 echo $this->Form->end('Login');
-
 ```
 
 If a user is already logged in, redirect him by adding this to your
-UsersController
+UsersController:
 
-```php
+``` php
 public function login() {
     if ($this->Session->read('Auth.User')) {
         $this->Session->setFlash('You are logged in!');
         return $this->redirect('/');
     }
 }
-
 ```
 
 You should now be able to login and everything should work
@@ -202,12 +179,11 @@ displayed if you added the `echo $this->Session->flash('auth')`
 
 Now onto the logout. Earlier we left this function blank, now is
 the time to fill it. In `UsersController::logout()` add the
-following
+following:
 
-```php
+``` php
 $this->Session->setFlash('Good-Bye');
 $this->redirect($this->Auth->logout());
-
 ```
 
 This sets a Session flash message and logs out the User using
@@ -224,4 +200,3 @@ by user at the same time. You can also set permissions on a global
 and per-controller and per-action basis. Furthermore, you have a
 reusable block of code to easily expand your ACO table as your app
 grows.
-

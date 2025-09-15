@@ -5,9 +5,8 @@ changes and improvements made in 3.8.
 
 To upgrade to 3.8.x run the following composer command:
 
-```bash
+``` bash
 php composer.phar require --update-with-dependencies "cakephp/cakephp:3.8.*"
-
 ```
 
 ## Deprecations
@@ -25,8 +24,8 @@ php composer.phar require --update-with-dependencies "cakephp/cakephp:3.8.*"
 - `Cake\ORM\Table::findOrCreate()` now throws a `PersistenceFailedException`
   if the find fails and the entity created from `$search` contains invalid
   data. Previously an invalid entity would be saved.
-- `Command` classes that have their `$modelClass` property set will now 
-  autoload that model. The manual `loadModel()` call with empty argument is 
+- `Command` classes that have their `$modelClass` property set will now
+  autoload that model. The manual `loadModel()` call with empty argument is
   not necessary anymore. This makes it consistent to how Shell classes worked.
 - The default format for `Cake\I18n\Time`, `FrozenTime`, `Date`, and
   `FrozenDate` is now `yyyy-MM-dd'T'HH':'mm':'ssxxx` which solves

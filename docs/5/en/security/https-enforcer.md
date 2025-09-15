@@ -1,14 +1,9 @@
----
-title: HTTPS Enforcer Middleware
-keywords: "security, https, require https"
----
-<!-- anchor: https-enforcer-middleware -->
 # HTTPS Enforcer Middleware
 
 If you want your application to only be available via HTTPS connections you can
-use the `HttpsEnforcerMiddleware`
+use the `HttpsEnforcerMiddleware`:
 
-```php
+``` php
 use Cake\Http\Middleware\HttpsEnforcerMiddleware;
 
 // Always raise an exception and never redirect.
@@ -27,7 +22,7 @@ $https = new HttpsEnforcerMiddleware([
     'headers' => ['X-Https-Upgrade' => 1],
 ]);
 
-// Disable HTTPs enforcement when `debug` is on.
+// Disable HTTPs enforcement when ``debug`` is on.
 $https = new HttpsEnforcerMiddleware([
     'disableOnDebug' => true,
 ]);
@@ -36,13 +31,12 @@ $https = new HttpsEnforcerMiddleware([
 $https = new HttpsEnforcerMiddleware([
     'trustProxies' => ['192.168.1.1'],
 ]);
-
 ```
 
 If a non-HTTP request is received that does not use GET a `BadRequestException` will be raised.
 
-NOTE: The Strict-Transport-Security header is ignored by the browser when your site has only been 
-accessed using HTTP. Once your site is accessed over HTTPS with no certificate errors, the browser 
+NOTE: The Strict-Transport-Security header is ignored by the browser when your site has only been
+accessed using HTTP. Once your site is accessed over HTTPS with no certificate errors, the browser
 knows your site is HTTPS capable and will honor the Strict-Transport-Security header.
 
 ## Adding Strict-Transport-Security
@@ -50,9 +44,9 @@ knows your site is HTTPS capable and will honor the Strict-Transport-Security he
 When your application requires SSL it is a good idea to set the
 `Strict-Transport-Security` header. This header value is cached in the
 browser, and informs browsers that they should always connect with HTTPS connections.
-You can configure this header with the `hsts` option
+You can configure this header with the `hsts` option:
 
-```php
+``` php
 $https = new HttpsEnforcerMiddleware([
     'hsts' => [
         // How long the header value should be cached for.
@@ -64,5 +58,4 @@ $https = new HttpsEnforcerMiddleware([
         'preload' => true,
     ],
 ]);
-
 ```
