@@ -43,7 +43,7 @@
 - [Internationalization And Localization](core-libraries/internationalization-and-localization.md)
 - [Logging](core-libraries/logging.md)
 - [Form](core-libraries/form.md)
-- [Pagination](controllers/components/pagination.md)
+- [Pagination](components/pagination.md)
 - [Plugins](plugins.md)
 - [Rest](development/rest.md)
 - [Security](security.md)

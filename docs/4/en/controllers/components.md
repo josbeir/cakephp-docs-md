@@ -11,13 +11,13 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Authentication](controllers/components/authentication.md)
-- [Flash](controllers/components/flash.md)
-- [Security](controllers/components/security.md)
-- [Pagination](controllers/components/pagination.md)
-- [Request Handling](controllers/components/request-handling.md)
-- [Form Protection](controllers/components/form-protection.md)
-- [Check Http Cache](controllers/components/check-http-cache.md)
+- [Authentication](components/authentication.md)
+- [Flash](components/flash.md)
+- [Security](components/security.md)
+- [Pagination](components/pagination.md)
+- [Request Handling](components/request-handling.md)
+- [Form Protection](components/form-protection.md)
+- [Check Http Cache](components/check-http-cache.md)
 
 ## Configuring Components
 

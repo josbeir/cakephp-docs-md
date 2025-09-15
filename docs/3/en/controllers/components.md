@@ -11,13 +11,13 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Authentication](controllers/components/authentication.md)
-- [Cookie](controllers/components/cookie.md)
-- [Csrf](controllers/components/csrf.md)
-- [Flash](controllers/components/flash.md)
-- [Security](controllers/components/security.md)
-- [Pagination](controllers/components/pagination.md)
-- [Request Handling](controllers/components/request-handling.md)
+- [Authentication](components/authentication.md)
+- [Cookie](components/cookie.md)
+- [Csrf](components/csrf.md)
+- [Flash](components/flash.md)
+- [Security](components/security.md)
+- [Pagination](components/pagination.md)
+- [Request Handling](components/request-handling.md)
 
 ## Configuring Components
 

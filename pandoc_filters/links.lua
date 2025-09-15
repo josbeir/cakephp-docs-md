@@ -225,11 +225,8 @@ function Span(elem)
             link_url = link_url:gsub("^/", "")
             link_url = link_url .. ".md"
             
-            -- Calculate relative path from current file to target
-            local current_file = get_current_file()
-            if current_file ~= "" then
-                link_url = calculate_relative_path(current_file, link_url)
-            end
+            -- Make the URL relative if appropriate
+            link_url = make_relative_path(link_url)
             
             return pandoc.Link(link_text, link_url)
         end

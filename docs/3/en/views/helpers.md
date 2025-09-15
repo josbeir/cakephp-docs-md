@@ -11,17 +11,17 @@ creating well-formed markup (including forms), aid in formatting text, times and
 numbers, and can even speed up AJAX functionality. For more information on the
 helpers included in CakePHP, check out the chapter for each helper:
 
-- [Breadcrumbs](views/helpers/breadcrumbs.md)
-- [Flash](views/helpers/flash.md)
-- [Form](views/helpers/form.md)
-- [Html](views/helpers/html.md)
-- [Number](views/helpers/number.md)
-- [Paginator](views/helpers/paginator.md)
-- [Rss](views/helpers/rss.md)
-- [Session](views/helpers/session.md)
-- [Text](views/helpers/text.md)
-- [Time](views/helpers/time.md)
-- [Url](views/helpers/url.md)
+- [Breadcrumbs](helpers/breadcrumbs.md)
+- [Flash](helpers/flash.md)
+- [Form](helpers/form.md)
+- [Html](helpers/html.md)
+- [Number](helpers/number.md)
+- [Paginator](helpers/paginator.md)
+- [Rss](helpers/rss.md)
+- [Session](helpers/session.md)
+- [Text](helpers/text.md)
+- [Time](helpers/time.md)
+- [Url](helpers/url.md)
 
 ## Configuring Helpers
 

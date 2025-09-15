@@ -11,9 +11,9 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Flash](controllers/components/flash.md)
-- [Form Protection](controllers/components/form-protection.md)
-- [Check Http Cache](controllers/components/check-http-cache.md)
+- [Flash](components/flash.md)
+- [Form Protection](components/form-protection.md)
+- [Check Http Cache](components/check-http-cache.md)
 
 ## Configuring Components
 

@@ -8,10 +8,10 @@ Alternatively, you can refer to the non-official CakePHP plugin repository
 [Bakery](https://bakery.cakephp.org/) for existing applications
 and components.
 
-- [Installation](tutorials-and-examples/cms/installation.md)
-- [Database](tutorials-and-examples/cms/database.md)
-- [Articles Model](tutorials-and-examples/cms/articles-model.md)
-- [Articles Controller](tutorials-and-examples/cms/articles-controller.md)
-- [Tags And Users](tutorials-and-examples/cms/tags-and-users.md)
-- [Authentication](tutorials-and-examples/cms/authentication.md)
-- [Authorization](tutorials-and-examples/cms/authorization.md)
+- [Installation](cms/installation.md)
+- [Database](cms/database.md)
+- [Articles Model](cms/articles-model.md)
+- [Articles Controller](cms/articles-controller.md)
+- [Tags And Users](cms/tags-and-users.md)
+- [Authentication](cms/authentication.md)
+- [Authorization](cms/authorization.md)

@@ -61,10 +61,10 @@ class ArticlesTable extends Table
 
 ## Core Behaviors
 
-- [Counter Cache](orm/behaviors/counter-cache.md)
-- [Timestamp](orm/behaviors/timestamp.md)
-- [Translate](orm/behaviors/translate.md)
-- [Tree](orm/behaviors/tree.md)
+- [Counter Cache](behaviors/counter-cache.md)
+- [Timestamp](behaviors/timestamp.md)
+- [Translate](behaviors/translate.md)
+- [Tree](behaviors/tree.md)
 
 ## Creating a Behavior
 
