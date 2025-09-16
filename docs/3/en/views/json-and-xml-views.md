@@ -2,7 +2,7 @@
 
 The `JsonView` and `XmlView`
 let you create JSON and XML responses, and integrate with the
-`Cake\Controller\Component\RequestHandlerComponent`.
+`Cake\\Controller\\Component\\RequestHandlerComponent`.
 
 By enabling `RequestHandlerComponent` in your application, and enabling
 support for the `json` and/or `xml` extensions, you can automatically
@@ -15,7 +15,7 @@ There are two ways you can generate data views. The first is by using the
 ## Enabling Data Views in Your Application
 
 Before you can use the data view classes, you'll first need to load the
-`Cake\Controller\Component\RequestHandlerComponent` in your
+`Cake\\Controller\\Component\\RequestHandlerComponent` in your
 controller:
 
 ``` php
@@ -32,11 +32,11 @@ switching on content types. You can also set the component up with the
 data types.
 
 You can optionally enable the json and/or xml extensions with
-[file-extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
+[File Extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
 any other special format views by using a custom URL ending with the name of the
 response type as a file extension such as `http://example.com/articles.json`.
 
-By default, when not enabling [file-extensions](#file-extensions), the request, the `Accept`
+By default, when not enabling [File Extensions](#file-extensions), the request, the `Accept`
 header is used for, selecting which type of format should be rendered to the
 user. An example `Accept` format that is used to render `JSON` responses is
 `application/json`.
@@ -101,7 +101,7 @@ class ArticlesController extends AppController
 ```
 
 Defining `_serialize` as an array has added the benefit of automatically
-appending a top-level [](#response) element when using `XmlView`.
+appending a top-level `<response>` element when using `XmlView`.
 If you use a string value for `_serialize` and XmlView, make sure that your
 view variable has a single top-level element. Without a single top-level
 element the Xml will fail to generate.
@@ -146,13 +146,13 @@ output the serialized content.
 `class` **XmlView**
 
 By default when using `_serialize` the XmlView will wrap your serialized
-view variables with a [](#response) node. You can set a custom name for
+view variables with a `<response>` node. You can set a custom name for
 this node using the `_rootNode` view variable.
 
 The XmlView class supports the `_xmlOptions` variable that allows you to
 customize the options used to generate XML, e.g. `tags` vs `attributes`.
 
-An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.md). This document type requires that you
+An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.html). This document type requires that you
 change `_rootNode` and set attributes. Attributes are defined using the `@`
 prefix:
 
@@ -210,7 +210,7 @@ parameter name instead of "callback" set `_jsonp` to required name instead of
 
 ## Example Usage
 
-While the [RequestHandlerComponent](components/request-handling.md) can automatically set the view based
+While the [RequestHandlerComponent](../controllers/components/request-handling.md) can automatically set the view based
 on the request content-type or extension, you could also handle view
 mappings in your controller:
 

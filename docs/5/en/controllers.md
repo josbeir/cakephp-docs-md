@@ -33,7 +33,7 @@ well.
 
 As stated in the introduction, the `AppController` class is the parent class
 to all of your application's controllers. `AppController` itself extends the
-`Cake\Controller\Controller` class included in CakePHP.
+`Cake\\Controller\\Controller` class included in CakePHP.
 `AppController` is defined in **src/Controller/AppController.php** as
 follows:
 
@@ -74,11 +74,11 @@ class AppController extends Controller
 ## Request Flow
 
 When a request is made to a CakePHP application, CakePHP's
-`Cake\Routing\Router` and `Cake\Routing\Dispatcher`
-classes use [routes-configuration](#routes-configuration) to find and create the correct
+`Cake\\Routing\\Router` and `Cake\\Routing\\Dispatcher`
+classes use [Routes Configuration](development/routing.md#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [cake-request](#cake-request) for more information on the
+property. See the section on [Cake Request](controllers/request-response.md#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -126,7 +126,7 @@ once a controller action has completed, CakePHP will handle rendering and
 delivering the View.
 
 If for some reason you'd like to skip the default behavior, you can return a
-`Cake\Http\Response` object from the action with the fully
+`Cake\\Http\\Response` object from the action with the fully
 created response.
 
 In order for you to use a controller effectively in your own application, we'll
@@ -286,7 +286,7 @@ This would render **plugins/Users/templates/UserDetails/custom_file.php**
 
 Controllers can define a list of view classes they support. After the
 controller's action is complete CakePHP will use the view list to perform
-content-type negotiation with either [file-extensions](#file-extensions) or `Accept`
+content-type negotiation with either [File Extensions](development/routing.md#file-extensions) or `Accept`
 headers. This enables your application to re-use the same controller action to
 render an HTML view or render a JSON or XML response. To define the list of
 supported view classes for a controller is done with the `addViewClasses()`
@@ -326,7 +326,7 @@ public function export(): void
 
 If within your controller actions you need to process the request or load data
 differently based on the content type you can use
-[check-the-request](#check-the-request):
+[Check The Request](controllers/request-response.md#check-the-request):
 
 ``` php
 // In a controller action
@@ -449,7 +449,7 @@ return $this->redirect('/order/confirm', 301);
 return $this->redirect('/order/confirm', 303);
 ```
 
-See the [redirect-component-events](#redirect-component-events) section for how to redirect out of
+See the [Redirect Component Events](controllers/components.md#redirect-component-events) section for how to redirect out of
 a life-cycle handler.
 
 ## Loading Additional Tables/Models
@@ -556,7 +556,7 @@ methods are implemented by your controllers
 
 `method` Cake\\Controller\\Controller::**afterFilter**(EventInterface $event)
 
-In addition to controller life-cycle callbacks, [/controllers/components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components.md)
 also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks
@@ -620,5 +620,5 @@ Middleware defined by a controller will be called **before** `beforeFilter()` an
 
 ## More on Controllers
 
-- [Pages Controller](controllers/pages-controller.md)
+- [The Pages Controller](controllers/pages-controller.md)
 - [Components](controllers/components.md)

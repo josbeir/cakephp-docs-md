@@ -11,14 +11,14 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Flash](components/flash.md)
-- [Form Protection](components/form-protection.md)
-- [Check Http Cache](components/check-http-cache.md)
+- [Flash](../controllers/components/flash.md)
+- [Form Protection Component](../controllers/components/form-protection.md)
+- [Checking HTTP Cache](../controllers/components/check-http-cache.md)
 
 ## Configuring Components
 
 Many of the core components require configuration. One example would be
-the [/controllers/components/form-protection](components/form-protection.md). Configuration for these components,
+the [Form Protection Component](../controllers/components/form-protection.md). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 
@@ -119,7 +119,7 @@ $time = $this->OneTimer->getTime();
 
 Once you've included some components in your controller, using them is pretty
 simple. Each component you use is exposed as a property on your controller. If
-you had loaded up the `Cake\Controller\Component\FlashComponent`
+you had loaded up the `Cake\\Controller\\Component\\FlashComponent`
 in your controller, you could access it like so:
 
 ``` php
@@ -149,7 +149,7 @@ class PostsController extends AppController
 <div class="versionchanged">
 
 5.1.0
-Components are able to use [/development/dependency-injection](development/dependency-injection.md) to receive services.
+Components are able to use [Dependency Injection](../development/dependency-injection.md) to receive services.
 
 </div>
 
@@ -178,10 +178,10 @@ class MathComponent extends Component
 ```
 
 > [!NOTE]
-> All components must extend `Cake\Controller\Component`. Failing
+> All components must extend `Cake\\Controller\\Component`. Failing
 > to do this will trigger an exception.
 
-Components can use [/development/dependency-injection](development/dependency-injection.md) to receive services
+Components can use [Dependency Injection](../development/dependency-injection.md) to receive services
 as constructor parameters:
 
 ``` php

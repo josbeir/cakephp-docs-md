@@ -17,7 +17,7 @@ handles.
 
 Your application's controllers extend the `AppController` class, which in turn
 extends the core `Controller` class. The `AppController`
-class can be defined in [App / Controller / AppController.php](app/Controller/AppController.php.md) and it should
+class can be defined in `/app/Controller/AppController.php` and it should
 contain methods that are shared between all of your application's controllers.
 
 Controllers provide a number of methods that handle requests. These are called
@@ -33,7 +33,7 @@ As stated in the introduction, the `AppController` class is the
 parent class to all of your application's controllers.
 `AppController` itself extends the `Controller` class included in the
 CakePHP core library. `AppController` is defined in
-[App / Controller / AppController.php](app/Controller/AppController.php.md) as follows:
+`/app/Controller/AppController.php` as follows:
 
 ``` php
 class AppController extends Controller {
@@ -76,11 +76,11 @@ public function beforeFilter() {
 ## Request parameters
 
 When a request is made to a CakePHP application, CakePHP's `Router` and
-`Dispatcher` classes use [routes-configuration](#routes-configuration) to find and
+`Dispatcher` classes use [Routes Configuration](development/routing.md#routes-configuration) to find and
 create the correct controller. The request data is encapsulated in a request
 object. CakePHP puts all of the important request information into the
 `$this->request` property. See the section on
-[cake-request](#cake-request) for more information on the CakePHP request object.
+[Cake Request](controllers/request-response.md#cake-request) for more information on the CakePHP request object.
 
 ## Controller actions
 
@@ -92,7 +92,7 @@ to write.
 By convention, CakePHP renders a view with an inflected version of the action
 name. Returning to our online bakery example, our RecipesController might contain the
 `view()`, `share()`, and `search()` actions. The controller would be found
-in [App / Controller / RecipesController.php](app/Controller/RecipesController.php.md) and contain:
+in `/app/Controller/RecipesController.php` and contain:
 
     # /app/Controller/RecipesController.php
 
@@ -168,13 +168,13 @@ insert logic around the request life-cycle:
 
 `method` Controller::**afterFilter**()
 
-In addition to controller life-cycle callbacks, [/controllers/components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components.md)
 also provide a similar set of callbacks.
 
 ## Controller Methods
 
 For a complete list of controller methods and their descriptions
-visit the [CakePHP API](https://api.cakephp.org/2.x/class-Controller.md).
+visit the [CakePHP API](https://api.cakephp.org/2.x/class-Controller.html).
 
 ### Interacting with Views
 
@@ -228,7 +228,7 @@ This would render `app/Plugin/Users/View/UserDetails/custom_file.ctp`
 
 ### Callbacks
 
-In addition to the [controller-life-cycle](#controller-life-cycle),
+In addition to the [Controller Life Cycle](#controller-life-cycle),
 CakePHP also supports callbacks related to scaffolding.
 
 `method` Controller::**beforeScaffold**($method)
@@ -258,7 +258,7 @@ CakePHP also supports callbacks related to scaffolding.
 ## Controller Attributes
 
 For a complete list of controller attributes and their descriptions
-visit the [CakePHP API](https://api.cakephp.org/2.x/class-Controller.md).
+visit the [CakePHP API](https://api.cakephp.org/2.x/class-Controller.html).
 
 > The `~Controller::$name` attribute should be set to the
 > name of the controller. Usually this is just the plural form of the
@@ -331,12 +331,12 @@ given by `~Controller::$helpers` to the view as an object reference variable
 > therefore it is not necessary (for example) to redeclare the
 > `FormHelper`, or anything that is declared in your `AppController`.
 >
-> The components array allows you to set which [/controllers/components](controllers/components.md)
+> The components array allows you to set which [Components](controllers/components.md)
 > a controller will use. Like `~Controller::$helpers` and
 > `~Controller::$uses` components in your controllers are
 > merged with those in `AppController`. As with
 > `~Controller::$helpers` you can pass settings
-> into `~Controller::$components`. See [configuring-components](#configuring-components) for more information.
+> into `~Controller::$components`. See [Configuring Components](controllers/components.md#configuring-components) for more information.
 
 ### Other Attributes
 
@@ -375,7 +375,7 @@ and what they do.
 
 ## More on controllers
 
-- [Request Response](controllers/request-response.md)
+- [Request and Response objects](controllers/request-response.md)
 - [Scaffolding](controllers/scaffolding.md)
-- [Pages Controller](controllers/pages-controller.md)
+- [The Pages Controller](controllers/pages-controller.md)
 - [Components](controllers/components.md)

@@ -300,7 +300,7 @@ $response = $http->get('http://foo.com/test.php');
 
 The above will replace the domain, scheme, and port. However, this request will
 continue using all the other options defined when the scoped client was created.
-See [http_client_request_options](#http_client_request_options) for more information on the options
+See [Http Client Request Options](#http_client_request_options) for more information on the options
 supported.
 
 ## Setting and Managing Cookies

@@ -227,7 +227,7 @@ The app skeleton comes preconfigured with a session config like this:
 
 This means CakePHP will handle sessions via what is configured in your `php.ini`.
 In most cases this will be the default configuration so PHP will save any newly
-created session as a file in e.g. [Var / lib / php / session](var/lib/php/session.md)
+created session as a file in e.g. `/var/lib/php/session`
 
 But this also means any computationally heavy task like querying a large dataset
 combined with an active session will **lock that session file** - therefore
@@ -235,7 +235,7 @@ blocking users to e.g. open a second tab of your app to do something else
 in the meantime.
 
 To prevent this behavior you will have to change the way how sessions are being
-handled in CakePHP by using a different session handler like [sessions-cache-sessions](#sessions-cache-sessions)
+handled in CakePHP by using a different session handler like [Sessions Cache Sessions](#sessions-cache-sessions)
 combined with the [Redis Engine](#caching-redisengine) or another cache engine.
 
 > [!TIP]
@@ -327,7 +327,7 @@ class ComboSession extends DatabaseSession
 
 Our class extends the built-in `DatabaseSession` so we don't have to duplicate
 all of its logic and behavior. We wrap each operation with
-a `Cake\Cache\Cache` operation. This lets us fetch sessions from
+a `Cake\\Cache\\Cache` operation. This lets us fetch sessions from
 the fast cache, and not have to worry about what happens when we fill the cache.
 In **config/app.php** make the session block look like:
 
@@ -470,5 +470,5 @@ Flash messages are small messages displayed to end users once. They are often
 used to present error messages, or confirm that actions took place successfully.
 
 To set and display flash messages you should use
-[FlashComponent](components/flash.md) and
-[FlashHelper](helpers/flash.md)
+[FlashComponent](../controllers/components/flash.md) and
+[FlashHelper](../views/helpers/flash.md)

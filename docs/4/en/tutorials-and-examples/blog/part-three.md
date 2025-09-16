@@ -4,7 +4,7 @@
 
 Let's continue our blog application and imagine we want to categorize our
 articles. We want the categories to be ordered, and for this, we will use the
-[Tree behavior](behaviors/tree.md) to help us organize the
+[Tree behavior](../../orm/behaviors/tree.md) to help us organize the
 categories.
 
 But first, we need to modify our tables.
@@ -190,7 +190,7 @@ echo $this->Form->control('parent_id', [
 
 ## Attach TreeBehavior to CategoriesTable
 
-The [TreeBehavior](behaviors/tree.md) helps you manage hierarchical Tree
+The [TreeBehavior](../../orm/behaviors/tree.md) helps you manage hierarchical Tree
 structures in database table. It uses the [MPTT logic](https://www.sitepoint.com/hierarchical-data-database-2/) to manage the data.
 MPTT tree structures are optimized for reads, which often makes them a good fit
 for read heavy applications like blogs.
@@ -241,7 +241,7 @@ These fields are automatically managed by the TreeBehavior when
 a category is saved.
 
 Using your web browser, add some new categories using the
-[Yoursite / categories / add](yoursite/categories/add.md) controller action.
+`/yoursite/categories/add` controller action.
 
 ## Reordering Categories with TreeBehavior
 
@@ -396,5 +396,5 @@ echo $this->Form->button(__('Save Article'));
 echo $this->Form->end();
 ```
 
-When you go to the address [Yoursite / articles / add](yoursite/articles/add.md) you should see a list
+When you go to the address `/yoursite/articles/add` you should see a list
 of categories to choose.

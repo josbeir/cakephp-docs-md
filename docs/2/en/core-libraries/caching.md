@@ -55,7 +55,7 @@ The Memcached engine was added. And the Memcache engine was deprecated.
 Regardless of the CacheEngine you choose to use, your application interacts with
 `Cache` in a consistent manner. This means you can easily swap cache engines
 as your application grows. In addition to the `Cache` class, the
-[/core-libraries/helpers/cache](helpers/cache.md) allows for full page caching, which
+[CacheHelper](../core-libraries/helpers/cache.md) allows for full page caching, which
 can greatly improve performance as well.
 
 ## Configuring Cache class

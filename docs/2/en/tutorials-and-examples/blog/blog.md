@@ -25,7 +25,7 @@ Here's what you'll need:
     done, the better: but fear not if you're a procedural fan.
 4.  Finally, you'll need a basic knowledge of the MVC programming pattern.
     A quick overview can be found in
-    [/cakephp-overview/understanding-model-view-controller](cakephp-overview/understanding-model-view-controller.md). Don't worry,
+    [Understanding Model-View-Controller](../../cakephp-overview/understanding-model-view-controller.md). Don't worry,
     it's only half a page or so.
 
 Let's get started!
@@ -58,13 +58,13 @@ something like the following:
 
 Now might be a good time to learn a bit about how CakePHP's directory
 structure works: check out the
-[/getting-started/cakephp-folder-structure](getting-started/cakephp-folder-structure.md) section.
+[CakePHP Folder Structure](../../getting-started/cakephp-folder-structure.md) section.
 
 ### Tmp directory permissions
 
 Next we'll need to make the `app/tmp` directory writable by the webserver.
 The best way to do this is to find out what user your webserver
-runs as. You can run [](#php-echo-execwhoami-) inside any PHP file your
+runs as. You can run `<?php echo exec('whoami'); ?>` inside any PHP file your
 webserver can execute. You should see a username printed. Change the ownership of
 the `app/tmp` directory to that user. The final command you run
 (in \*nix) might look something like this:
@@ -105,12 +105,12 @@ statements into your database:
 The choices on table and column names are not arbitrary. If you
 follow CakePHP's database naming conventions, and CakePHP's class naming
 conventions (both outlined in
-[/getting-started/cakephp-conventions](getting-started/cakephp-conventions.md)), you'll be able to take
+[CakePHP Conventions](../../getting-started/cakephp-conventions.md)), you'll be able to take
 advantage of a lot of free functionality and avoid configuration.
 CakePHP is flexible enough to accommodate even the worst legacy
 database schema, but adhering to convention will save you time.
 
-Check out [/getting-started/cakephp-conventions](getting-started/cakephp-conventions.md) for more
+Check out [CakePHP Conventions](../../getting-started/cakephp-conventions.md) for more
 information, but suffice it to say that naming our table 'posts'
 automatically hooks it to our Post model, and having fields called
 'modified' and 'created' will be automagically managed by CakePHP.
@@ -122,7 +122,7 @@ connect to it. For many, this is the first and last time you
 configure anything.
 
 A copy of CakePHP's database configuration file is found in
-[App / Config / database.php.default](app/Config/database.php.default.md). Make a copy of this file in
+`/app/Config/database.php.default`. Make a copy of this file in
 the same directory, but name it `database.php`.
 
 The config file should be pretty straightforward: just replace the
@@ -163,7 +163,7 @@ in security hashes. The second is defining a custom number (or
 "seed") for use in encryption.
 
 The security salt is used for generating hashes. Change the default
-`Security.salt` value in [App / Config / core.php](app/Config/core.php.md). The replacement value
+`Security.salt` value in `/app/Config/core.php`. The replacement value
 should be long, hard to guess and be as random as you can make it:
 
     /**
@@ -172,7 +172,7 @@ should be long, hard to guess and be as random as you can make it:
     Configure::write('Security.salt', 'pl345e-P45s_7h3*S@l7!');
 
 The cipher seed is used for encrypt/decrypt strings. Change the default
-`Security.cipherSeed` value by editing [App / Config / core.php](app/Config/core.php.md). The
+`Security.cipherSeed` value by editing `/app/Config/core.php`. The
 replacement value should be a large random integer:
 
     /**
@@ -188,6 +188,6 @@ it probably means mod_rewrite is not functioning on your system. Please refer
 to one of the sections below about URL rewriting for your webserver to get
 you up and running:
 
-- [Url Rewriting](installation/url-rewriting.md)
+- [URL Rewriting](../../installation/url-rewriting.md)
 
-Now continue to [/tutorials-and-examples/blog/part-two](blog/part-two.md) to start building your first CakePHP application.
+Now continue to [Blog Tutorial - Adding a layer](../../tutorials-and-examples/blog/part-two.md) to start building your first CakePHP application.

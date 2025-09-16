@@ -9,7 +9,7 @@ the changes and improvements made in 3.1.
   `cakephp/app` repo. Your current code base is not affected by this, but it is
   recommended to use this route class from now on.
 - Name prefix options were added to the various route builder methods. See the
-  [named-routes](#named-routes) section for more information.
+  [Named Routes](#named-routes) section for more information.
 
 ## Console
 
@@ -25,14 +25,14 @@ the changes and improvements made in 3.1.
 ### Shell Helpers Added
 
 - Console applications can now create helper classes that encapsulate re-usable
-  blocks of output logic. See the [/console-and-shells/helpers](console-and-shells/helpers.md) section
+  blocks of output logic. See the [Shell Helpers](../console-and-shells/helpers.md) section
   for more information.
 
 ### RoutesShell
 
 - RoutesShell has been added and now provides you a simple to use CLI
   interface for testing and debugging routes. See the
-  [/console-and-shells/routes-shell](console-and-shells/routes-shell.md) section for more information.
+  [Routes Shell](../console-and-shells/routes-shell.md) section for more information.
 
 ## Controller
 

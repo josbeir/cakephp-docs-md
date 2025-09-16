@@ -9,10 +9,10 @@ Layer.
 CakePHP comes with a few built-in View classes for handling the most
 common rendering scenarios:
 
-- To create XML or JSON webservices you can use the [views/json-and-xml-views](views/json-and-xml-views.md).
+- To create XML or JSON webservices you can use the [JSON and XML views](views/json-and-xml-views.md).
 - To serve protected files, or dynamically generated files, you can use
-  [cake-response-file](#cake-response-file).
-- To create multiple themed views, you can use [views/themes](views/themes.md).
+  [Cake Response File](controllers/request-response.md#cake-response-file).
+- To create multiple themed views, you can use [Themes](views/themes.md).
 
 ## View Templates
 
@@ -29,11 +29,11 @@ serving to. If you'd prefer using a templating language like
 Twig, or Smarty, a subclass of View will bridge your templating
 language and CakePHP.
 
-A view file is stored in [App / View / ](app/View/.md), in a subfolder named after the
+A view file is stored in `/app/View/`, in a subfolder named after the
 controller that uses the file. It has a filename corresponding to its action.
 For example, the view file for the Products
 controller's "view()" action would normally be found in
-[App / View / Products / view.ctp](app/View/Products/view.ctp.md).
+`/app/View/Products/view.ctp`.
 
 The view layer in CakePHP can be made up of a number of different
 parts. Each part has different uses, and will be covered in this
@@ -121,7 +121,7 @@ $this->extend('/Common/view');
 $this->extend('/Common/index');
 ```
 
-The above will result in [Common / index.ctp](Common/index.ctp.md) being rendered as the parent view
+The above will result in `/Common/index.ctp` being rendered as the parent view
 to the current view.
 
 You can nest extended views as many times as necessary. Each view can extend
@@ -204,7 +204,7 @@ echo $this->fetch('navbar');
 
 In the above example, the `navbar` block will only contain the content added
 in the first section. Since the block was defined in the child view, the
-default content with the [](#p) tag will be discarded.
+default content with the `<p>` tag will be discarded.
 
 <div class="versionadded">
 
@@ -313,12 +313,12 @@ A layout contains presentation code that wraps around a view.
 Anything you want to see in all of your views should be placed in a
 layout.
 
-CakePHP's default layout is located at [App / View / Layouts / default.ctp](app/View/Layouts/default.ctp.md).
+CakePHP's default layout is located at `/app/View/Layouts/default.ctp`.
 If you want to change the overall look of your application, then this is
 the right place to start, because controller-rendered view code is placed
 inside of the default layout when the page is rendered.
 
-Other layout files should be placed in [App / View / Layouts](app/View/Layouts.md).
+Other layout files should be placed in `/app/View/Layouts`.
 When you create a layout, you need to tell CakePHP where to place
 the output of your views. To do so, make sure your layout includes a
 place for `$this->fetch('content')` Here's an example of what a default layout
@@ -460,7 +460,7 @@ make a view more readable, placing the rendering of repeating
 elements in its own file. They can also help you re-use content
 fragments in your application.
 
-Elements live in the [App / View / Elements / ](app/View/Elements/.md) folder, and have the .ctp
+Elements live in the `/app/View/Elements/` folder, and have the .ctp
 filename extension. They are output using the element method of the
 view:
 
@@ -482,7 +482,7 @@ echo $this->element('helpbox', array(
 Inside the element file, all the passed variables are available as
 members of the parameter array (in the same way that
 `Controller::set()` in the controller works with view files). In the
-above example, the [App / View / Elements / helpbox.ctp](app/View/Elements/helpbox.ctp.md) file can use the
+above example, the `/app/View/Elements/helpbox.ctp` file can use the
 `$helptext` variable:
 
     // Inside app/View/Elements/helpbox.ctp
@@ -566,7 +566,7 @@ like the following:
 You can take advantage of CakePHP view caching if you supply a
 cache parameter. If set to true, it will cache the element in the
 'default' Cache configuration. Otherwise, you can set which cache configuration
-should be used. See [/core-libraries/caching](core-libraries/caching.md) for more information on
+should be used. See [Caching](core-libraries/caching.md) for more information on
 configuring `Cache`. A simple example of caching an element would
 be:
 
@@ -712,6 +712,6 @@ To call any view method use `$this->method()`
 ## More about Views
 
 - [Themes](views/themes.md)
-- [Media View](views/media-view.md)
-- [Json And Xml Views](views/json-and-xml-views.md)
+- [Media Views](views/media-view.md)
+- [JSON and XML views](views/json-and-xml-views.md)
 - [Helpers](views/helpers.md)

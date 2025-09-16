@@ -5,13 +5,13 @@ introduced in each version and the migration path between versions.
 
 ## 4.x Migration Guide
 
-- [4 0 Migration Guide](appendices/4-0-migration-guide.md)
-- [4 1 Migration Guide](appendices/4-1-migration-guide.md)
-- [4 2 Migration Guide](appendices/4-2-migration-guide.md)
-- [4 3 Migration Guide](appendices/4-3-migration-guide.md)
-- [4 4 Migration Guide](appendices/4-4-migration-guide.md)
-- [4 5 Migration Guide](appendices/4-5-migration-guide.md)
-- [4 6 Migration Guide](appendices/4-6-migration-guide.md)
+- [4.0 Migration Guide](appendices/4-0-migration-guide.md)
+- [4.1 Migration Guide](appendices/4-1-migration-guide.md)
+- [4.2 Migration Guide](appendices/4-2-migration-guide.md)
+- [4.3 Migration Guide](appendices/4-3-migration-guide.md)
+- [4.4 Migration Guide](appendices/4-4-migration-guide.md)
+- [4.5 Migration Guide](appendices/4-5-migration-guide.md)
+- [4.6 Migration Guide](appendices/4-6-migration-guide.md)
 - [Fixture Upgrade](appendices/fixture-upgrade.md)
 
 ## Backwards Compatibility Shimming
@@ -31,5 +31,5 @@ changes, and the smoother will be the final upgrade.
 
 ## General Information
 
-- [Cakephp Development Process](appendices/cakephp-development-process.md)
+- [CakePHP Development Process](appendices/cakephp-development-process.md)
 - [Glossary](appendices/glossary.md)

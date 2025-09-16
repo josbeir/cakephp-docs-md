@@ -52,10 +52,10 @@ To get all routing parameters as an array use `getAttribute()`:
 $parameters = $this->request->getAttribute('params');
 ```
 
-All [route-elements](#route-elements) are accessed through this interface.
+All [Route Elements](#route-elements) are accessed through this interface.
 
-In addition to [route-elements](#route-elements), you also often need access to
-[passed-arguments](#passed-arguments). These are both available on the request object as
+In addition to [Route Elements](#route-elements), you also often need access to
+[Passed Arguments](#passed-arguments). These are both available on the request object as
 well:
 
 ``` php
@@ -71,7 +71,7 @@ are also all found in the routing parameters:
   plugin.
 - `controller` The controller handling the current request.
 - `action` The action handling the current request.
-- `prefix` The prefix for the current action. See [prefix-routing](#prefix-routing) for
+- `prefix` The prefix for the current action. See [Prefix Routing](#prefix-routing) for
   more information.
 
 ### Query String Parameters
@@ -119,7 +119,7 @@ $query = $this->request->getQueryParams();
 `method` Cake\\Http\\ServerRequest::**getData**($name, $default = null)
 
 All POST data can be accessed using
-`Cake\Http\ServerRequest::getData()`. Any form data that
+`Cake\\Http\\ServerRequest::getData()`. Any form data that
 contains a `data` prefix will have that data prefix removed. For example:
 
 ``` php
@@ -136,7 +136,7 @@ $foo = $this->request->getData('Value.that.does.not.exist');
 
 ### File Uploads
 
-Uploaded files can be accessed through the request body data, using the `Cake\Http\ServerRequest::getData()`
+Uploaded files can be accessed through the request body data, using the `Cake\\Http\\ServerRequest::getData()`
 method described above. For example, a file from an input element with a name attribute of `MyModel[attachment]`, can
 be accessed like this:
 
@@ -182,20 +182,20 @@ Support for uploaded files as objects in the request data was added in version 3
 </div>
 
 Furthermore uploaded files can be accessed as objects separately from the request data via the
-`Cake\Http\ServerRequest::getUploadedFile()` and
-`Cake\Http\ServerRequest::getUploadedFiles()` methods. These methods will always return objects,
+`Cake\\Http\\ServerRequest::getUploadedFile()` and
+`Cake\\Http\\ServerRequest::getUploadedFiles()` methods. These methods will always return objects,
 irrespectively of the `App.uploadedFilesAsObjects` configuration.
 
 `method` Cake\\Http\\ServerRequest::**getUploadedFile**($path)
 
 Returns the uploaded file at a specific path. The path uses the same dot syntax as the
-`Cake\Http\ServerRequest::getData()` method:
+`Cake\\Http\\ServerRequest::getData()` method:
 
 ``` php
 $attachment = $this->request->getUploadedFile('MyModel.attachment');
 ```
 
-Unlike `Cake\Http\ServerRequest::getData()`, `Cake\Http\ServerRequest::getUploadedFile()` would
+Unlike `Cake\\Http\\ServerRequest::getData()`, `Cake\\Http\\ServerRequest::getUploadedFile()` would
 only return data when an actual file upload exists for the given path, if there is regular, non-file request body data
 present at the given path, then this method will return `null`, just like it would for any non-existent path.
 
@@ -243,9 +243,9 @@ $this->request = $this->request->withUploadedFiles($files);
 
 > [!NOTE]
 > Uploaded files that have been added to the request via this method, will *not* be available in the request body
-> data, ie you cannot retrieve them via `Cake\Http\ServerRequest::getData()`! If you need them in the
-> request data (too), then you have to set them via `Cake\Http\ServerRequest::withData()` or
-> `Cake\Http\ServerRequest::withParsedBody()`.
+> data, ie you cannot retrieve them via `Cake\\Http\\ServerRequest::getData()`! If you need them in the
+> request data (too), then you have to set them via `Cake\\Http\\ServerRequest::withData()` or
+> `Cake\\Http\\ServerRequest::withParsedBody()`.
 
 ### PUT, PATCH or DELETE Data
 
@@ -297,9 +297,9 @@ $env = $this->request->getServerParams();
 
 ### XML or JSON Data
 
-Applications employing [/development/rest](development/rest.md) often exchange data in
+Applications employing [REST](../development/rest.md) often exchange data in
 non-URL-encoded post bodies. You can read input data in any format using
-`~Cake\Http\ServerRequest::input()`. By providing a decoding function,
+`~Cake\\Http\\ServerRequest::input()`. By providing a decoding function,
 you can receive the content in a deserialized format:
 
 ``` php
@@ -309,7 +309,7 @@ $jsonData = $this->request->input('json_decode');
 
 Some deserializing methods require additional parameters when called, such as
 the 'as array' parameter on `json_decode`. If you want XML converted into a
-DOMDocument object, `~Cake\Http\ServerRequest::input()` supports
+DOMDocument object, `~Cake\\Http\\ServerRequest::input()` supports
 passing in additional parameters as well:
 
 ``` php
@@ -355,7 +355,7 @@ $isPost = $this->request->is('post');
 ```
 
 You can also extend the request detectors that are available, by using
-`Cake\Http\ServerRequest::addDetector()` to create new kinds of
+`Cake\\Http\\ServerRequest::addDetector()` to create new kinds of
 detectors. There are different types of detectors that you can create:
 
 - Environment value comparison - Compares a value fetched from `env()`
@@ -457,9 +457,9 @@ Detectors can take additional parameters as of 3.3.0.
 </div>
 
 `ServerRequest` also includes methods like
-`Cake\Http\ServerRequest::domain()`,
-`Cake\Http\ServerRequest::subdomains()` and
-`Cake\Http\ServerRequest::host()` to make applications that use
+`Cake\\Http\\ServerRequest::domain()`,
+`Cake\\Http\\ServerRequest::subdomains()` and
+`Cake\\Http\\ServerRequest::host()` to make applications that use
 subdomains simpler.
 
 ### Session Data
@@ -470,7 +470,7 @@ To access the session for a given request use the `session()` method:
 $userName = $this->request->session()->read('Auth.User.name');
 ```
 
-For more information, see the [/development/sessions](development/sessions.md) documentation for how
+For more information, see the [Sessions](../development/sessions.md) documentation for how
 to use the session object.
 
 ### Host and Domain Name
@@ -656,7 +656,7 @@ $cookies = $this->request->getCookieParams();
 $cookies = $this->request->getCookieCollection()
 ```
 
-See the `Cake\Http\Cookie\CookieCollection` documentation for how
+See the `Cake\\Http\\Cookie\\CookieCollection` documentation for how
 to work with cookie collection.
 
 <div class="versionadded">
@@ -676,14 +676,14 @@ to work with cookie collection.
 
 `class` Cake\\Http\\**Response**
 
-`Cake\Http\Response` is the default response class in CakePHP.
+`Cake\\Http\\Response` is the default response class in CakePHP.
 It encapsulates a number of features and functionality for generating HTTP
 responses in your application. It also assists in testing, as it can be
 mocked/stubbed allowing you to inspect headers that will be sent.
-Like `Cake\Http\ServerRequest`, `Cake\Http\Response`
+Like `Cake\\Http\\ServerRequest`, `Cake\\Http\\Response`
 consolidates a number of methods previously found on `Controller`,
 `RequestHandlerComponent` and `Dispatcher`. The old
-methods are deprecated in favour of using `Cake\Http\Response`.
+methods are deprecated in favour of using `Cake\\Http\\Response`.
 
 `Response` provides an interface to wrap the common response-related
 tasks such as:
@@ -698,7 +698,7 @@ tasks such as:
 `method` Cake\\Http\\Response::**withType**($contentType = null)
 
 You can control the Content-Type of your application's responses with
-`Cake\Http\Response::withType()`. If your application needs to deal
+`Cake\\Http\\Response::withType()`. If your application needs to deal
 with content types that are not built into Response, you can map them with
 `type()` as well:
 
@@ -723,7 +723,7 @@ are using it.
 `method` Cake\\Http\\Response::**withFile**($path, $options = [])
 
 There are times when you want to send files as responses for your requests.
-You can accomplish that by using `Cake\Http\Response::withFile()`:
+You can accomplish that by using `Cake\\Http\\Response::withFile()`:
 
 ``` php
 public function sendFile($id)
@@ -746,8 +746,8 @@ return $this->response;
 As shown in the above example, you must pass the file path to the method.
 CakePHP will send a proper content type header if it's a known file type listed
 in <span class="title-ref">CakeHttpResponse::\$\_mimeTypes</span>. You can add new types prior to calling
-`Cake\Http\Response::withFile()` by using the
-`Cake\Http\Response::withType()` method.
+`Cake\\Http\\Response::withFile()` by using the
+`Cake\\Http\\Response::withType()` method.
 
 If you want, you can also force a file to be downloaded instead of displayed in
 the browser by specifying the options:
@@ -816,7 +816,7 @@ $this->response->body(function () use ($path) {
 
 `method` Cake\\Http\\Response::**withHeader**($header, $value)
 
-Setting headers is done with the `Cake\Http\Response::withHeader()`
+Setting headers is done with the `Cake\\Http\\Response::withHeader()`
 method. Like all of the PSR-7 interface methods, this method returns a *new*
 instance with the new header:
 
@@ -839,7 +839,7 @@ Headers are not sent when set. Instead, they are held until the response is
 emitted by `Cake\Http\Server`.
 
 You can now use the convenience method
-`Cake\Http\Response::withLocation()` to directly set or get the
+`Cake\\Http\\Response::withLocation()` to directly set or get the
 redirect location header.
 
 ### Setting the Body
@@ -867,7 +867,7 @@ $response = $response->withType('application/json')
 `method` Cake\\Http\\Response::**withBody**($body)
 
 To set the response body, use the `withBody()` method, which is provided by the
-`Zend\Diactoros\MessageTrait`:
+`Zend\\Diactoros\\MessageTrait`:
 
 ``` php
 $response = $response->withBody($stream);
@@ -876,10 +876,10 @@ $response = $response->withBody($stream);
 $this->response->body('My Body');
 ```
 
-Be sure that `$stream` is a `Psr\Http\Message\StreamInterface` object.
+Be sure that `$stream` is a `Psr\\Http\\Message\\StreamInterface` object.
 See below on how to create a new stream.
 
-You can also stream responses from files using `Zend\Diactoros\Stream` streams:
+You can also stream responses from files using `Zend\\Diactoros\\Stream` streams:
 
 ``` php
 // To stream from a file
@@ -933,7 +933,7 @@ $this->response->charset('UTF-8');
 `method` Cake\\Http\\Response::**withDisabledCache**()
 
 You sometimes need to force browsers not to cache the results of a controller
-action. `Cake\Http\Response::withDisabledCache()` is intended for just
+action. `Cake\\Http\\Response::withDisabledCache()` is intended for just
 that:
 
 ``` php
@@ -954,7 +954,7 @@ public function index()
 `method` Cake\\Http\\Response::**withCache**($since, $time = '+1 day')
 
 You can also tell clients that you want them to cache responses. By using
-`Cake\Http\Response::withCache()`:
+`Cake\\Http\\Response::withCache()`:
 
 ``` php
 public function index()
@@ -981,7 +981,7 @@ Rather than forcing you to code the logic for caching and for invalidating
 (refreshing) it once the data has changed, HTTP uses two models, expiration and
 validation, which usually are much simpler to use.
 
-Apart from using `Cake\Http\Response::withCache()`, you can also use
+Apart from using `Cake\\Http\\Response::withCache()`, you can also use
 many other methods to fine-tune HTTP cache headers to take advantage of browser
 or reverse proxy caching.
 
@@ -1061,7 +1061,7 @@ in order to determine whether it matches a cached resource.
 
 To take advantage of this header, you must either call the
 `checkNotModified()` method manually or include the
-[/controllers/components/request-handling](components/request-handling.md) in your controller:
+[Request Handling](../controllers/components/request-handling.md) in your controller:
 
 ``` php
 public function index()
@@ -1098,7 +1098,7 @@ response was modified or not based on their cache.
 
 To take advantage of this header, you must either call the
 `checkNotModified()` method manually or include the
-[/controllers/components/request-handling](components/request-handling.md) in your controller:
+[Request Handling](../controllers/components/request-handling.md) in your controller:
 
 ``` php
 public function view()
@@ -1145,7 +1145,7 @@ if ($this->response->checkNotModified($this->request)) {
 
 ## Setting Cookies
 
-Cookies can be added to response using either an array or a `Cake\Http\Cookie\Cookie`
+Cookies can be added to response using either an array or a `Cake\\Http\\Cookie\\Cookie`
 object:
 
 ``` php
@@ -1173,7 +1173,7 @@ $this->response->cookie('remember', [
 ]);
 ```
 
-See the [creating-cookies](#creating-cookies) section for how to use the cookie object. You
+See the [Creating Cookies](#creating-cookies) section for how to use the cookie object. You
 can use `withExpiredCookie()` to send an expired cookie in the response. This
 will make the browser remove its local cookie:
 
@@ -1304,7 +1304,7 @@ $response = $this->response->withCookieCollection($cookies);
 ```
 
 Cookies set to responses can be encrypted using the
-[encrypted-cookie-middleware](#encrypted-cookie-middleware).
+[Encrypted Cookie Middleware](#encrypted-cookie-middleware).
 
 <div class="versionadded">
 

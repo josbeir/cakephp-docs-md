@@ -3,8 +3,8 @@
 <div class="deprecated">
 
 4.0.0
-`SecurityComponent` has been deprecated. Use [/controllers/components/form-protection](components/form-protection.md) instead
-for form tampering protection or [/security/https-enforcer](security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
+`SecurityComponent` has been deprecated. Use [FormProtection](../../controllers/components/form-protection.md) instead
+for form tampering protection or [HTTPS Enforcer Middleware](../../security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
 
 </div>
 
@@ -36,15 +36,15 @@ components in your `initialize()` method.
 > your forms. In addition, you must **not** override any of the fields' "name"
 > attributes. The Security Component looks for certain indicators that are
 > created and managed by the FormHelper (especially those created in
-> `~Cake\View\Helper\FormHelper::create()` and
-> `~Cake\View\Helper\FormHelper::end()`). Dynamically altering
+> `~Cake\\View\\Helper\\FormHelper::create()` and
+> `~Cake\\View\\Helper\\FormHelper::end()`). Dynamically altering
 > the fields that are submitted in a POST request, such as disabling, deleting
 > or creating new fields via JavaScript, is likely to cause the request to be
 > send to the blackhole callback.
 >
 > You should always verify the HTTP method being used before executing to avoid
 > side-effects. You should [check the HTTP method](#check-the-request) or
-> use `Cake\Http\ServerRequest::allowMethod()` to ensure the correct
+> use `Cake\\Http\\ServerRequest::allowMethod()` to ensure the correct
 > HTTP method is used.
 
 ## Handling Blackhole Callbacks
@@ -91,7 +91,7 @@ The `$type` parameter can have the following values:
 
 ## Restrict Actions to SSL
 
-This functionality was removed into [https-enforcer-middleware](#https-enforcer-middleware).
+This functionality was removed into [Https Enforcer Middleware](#https-enforcer-middleware).
 
 ## Form Tampering Prevention
 
@@ -156,13 +156,15 @@ class WidgetsController extends AppController
 The above example would disable form tampering prevention for admin prefixed
 routes.
 
+<a id="security-csrf"></a>
+
 ## CSRF Protection
 
 CSRF or Cross Site Request Forgery is a common vulnerability in web
 applications. It allows an attacker to capture and replay a previous request,
 and sometimes submit data requests using image tags or resources on other
 domains. To enable CSRF protection features use the
-[csrf-middleware](#csrf-middleware).
+[Csrf Middleware](#csrf-middleware).
 
 ## Disabling Form Tampering for Specific Actions
 

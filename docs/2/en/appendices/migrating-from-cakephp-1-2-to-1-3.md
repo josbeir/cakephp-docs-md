@@ -290,7 +290,7 @@ update simply change your core.php:
 See the New features guide for more information on using prefix
 routes. A small change has also been done to routing params. Routed
 params should now only consist of alphanumeric chars, - and \_ or
-[[A Z0 9 _+]+ / ]([A-Z0-9-_+]+/.md):
+`/[A-Z0-9-_+]+/`:
 
 ``` css
 Router::connect('/:$%@#param/:action/*', array(...)); // BAD
@@ -368,7 +368,7 @@ This feature was also undocumented, and untested.
 **Object**
 
 - `Object::$_log` has been removed. `CakeLog::write` is now
-  called statically. See [/core-libraries/logging](core-libraries/logging.md)
+  called statically. See [Logging](../core-libraries/logging.md)
   for more information on changes made to logging.
 
 **Sanitize**
@@ -417,7 +417,7 @@ addition `Cache::isInitialized()` now checks cache
 *configuration names*, not cache *engine names*. You can still use
 `Cache::set()` or `Cache::engine()` to modify cache
 configurations. Also checkout the
-[/appendices/new-features-in-cakephp-1-3](appendices/new-features-in-cakephp-1-3.md) for
+[New features in CakePHP 1.3](../appendices/new-features-in-cakephp-1-3.md) for
 more information on the additional methods added to `Cache`.
 
 It should be noted that using an app/libs or plugin cache engine
@@ -541,8 +541,8 @@ PaginatorHelper has had a number of enhancements applied to make
 styling easier.
 `prev()`, `next()`, `first()` and `last()`
 
-The disabled state of these methods now defaults to [](#span) tags
-instead of [](#div) tags.
+The disabled state of these methods now defaults to `<span>` tags
+instead of `<div>` tags.
 
 passedArgs are now auto merged with URL options in paginator.
 
@@ -574,7 +574,7 @@ being sorted, either asc or desc.
 - `FormHelper::submit()` Can now create other types of inputs
   other than type=submit. Use the type option to control the type of
   input generated.
-- `FormHelper::button()` Now creates [](#button) elements
+- `FormHelper::button()` Now creates `<button>` elements
   instead of reset or clear inputs. If you want to generate those
   types of inputs use `FormHelper::submit()` with a
   `'type' => 'reset'` option for example.
@@ -582,7 +582,7 @@ being sorted, either asc or desc.
   create hidden fieldset elements. Instead they create hidden div
   elements. This improves validation with HTML4.
 
-Also be sure to check the [form-improvements-1-3](#form-improvements-1-3) for additional changes and
+Also be sure to check the [Form Improvements 1 3](#form-improvements-1-3) for additional changes and
 new features in the FormHelper.
 
 **HtmlHelper**

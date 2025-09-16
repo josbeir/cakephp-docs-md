@@ -6,7 +6,7 @@ CakePHP raises extend `CakeException`, and there are class/task
 specific exceptions that extend this base class.
 
 CakePHP also provides a number of exception classes that you can use for HTTP
-errors. See the section on [built-in-exceptions](#built-in-exceptions) for more information.
+errors. See the section on [Built In Exceptions](#built-in-exceptions) for more information.
 
 ## Exception configuration
 

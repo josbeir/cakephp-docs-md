@@ -6,7 +6,7 @@
 
 4.4.0
 The paginator component is deprecated as of 4.4.0 and will be removed in 5.0.
-You can use pagination from controllers as explained [here](controllers/pagination.md)
+You can use pagination from controllers as explained [here](../../controllers/pagination.md)
 
 </div>
 
@@ -22,7 +22,7 @@ CakePHP eases the burden on the developer by providing a terse way to
 paginate data.
 
 Pagination in CakePHP is offered by a component in the controller. You then use
-`~Cake\View\Helper\PaginatorHelper` in your view templates to
+`~Cake\\View\\Helper\\PaginatorHelper` in your view templates to
 generate pagination controls.
 
 ## Basic Usage
@@ -78,9 +78,9 @@ class ArticlesController extends AppController
 > Default `order` options must be defined as an array.
 
 While you can include any of the options supported by
-`~Cake\ORM\Table::find()` such as `fields` in your pagination
+`~Cake\\ORM\\Table::find()` such as `fields` in your pagination
 settings. It is cleaner and simpler to bundle your pagination options into
-a [custom-find-methods](#custom-find-methods). You can use your finder in pagination by using the
+a [Custom Find Methods](#custom-find-methods). You can use your finder in pagination by using the
 `finder` option:
 
 ``` php
@@ -214,13 +214,13 @@ paginate both tags and articles at the same time:
 
     /dashboard?article[page]=1&tag[page]=3
 
-See the [paginator-helper-multiple](#paginator-helper-multiple) section for how to generate scoped HTML
+See the [Paginator Helper Multiple](#paginator-helper-multiple) section for how to generate scoped HTML
 elements and URLs for pagination.
 
 ### Paginating the Same Model multiple Times
 
 To paginate the same model multiple times within a single controller action you
-need to define an alias for the model. See [table-registry-usage](#table-registry-usage) for
+need to define an alias for the model. See [Table Registry Usage](#table-registry-usage) for
 additional details on how to use the table registry:
 
 ``` php
@@ -343,5 +343,5 @@ public function index()
 
 ## Pagination in the View
 
-Check the `~Cake\View\Helper\PaginatorHelper` documentation for
+Check the `~Cake\\View\\Helper\\PaginatorHelper` documentation for
 how to create links for pagination navigation.

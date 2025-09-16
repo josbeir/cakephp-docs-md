@@ -8,7 +8,7 @@ tests.
 
 To upgrade to the new fixture system, you need to make a few updates:
 
-1.  First, remove the [](#listeners) block from your `phpunit.xml`.
+1.  First, remove the `<listeners>` block from your `phpunit.xml`.
 
 2.  Add the following to your `phpunit.xml`:
 
@@ -22,14 +22,14 @@ To upgrade to the new fixture system, you need to make a few updates:
     application needs to create/update schema at the beginning of each test run.
 
 3.  Next, update `tests/bootstrap.php` to create schema. There are a few
-    different ways to create schema. Refer to [creating-test-database-schema](#creating-test-database-schema)
+    different ways to create schema. Refer to [Creating Test Database Schema](#creating-test-database-schema)
     for the methods provided by CakePHP.
 
 4.  Then, remove all the `$fields` and `$import` properties from your fixtures.
     These properties are unused in the new fixture system.
 
 Your tests should continue to pass, and you can experiment with
-[fixture-state-management](#fixture-state-management). `TransactionStrategy` which yield significant
+[Fixture State Management](#fixture-state-management). `TransactionStrategy` which yield significant
 performance improvements. The trade-off with `TransactionStrategy` is that
 your auto-increment values will no longer start at `1` with each test.
 
@@ -42,7 +42,7 @@ the default prior to 4.3.0.
 
 We use `$fields` to specify which fields will be part of this table, and how
 they are defined. The format used to define these fields is the same used with
-`Cake\Database\Schema\Table`. The keys available for table
+`Cake\\Database\\Schema\\Table`. The keys available for table
 definition are:
 
 type  

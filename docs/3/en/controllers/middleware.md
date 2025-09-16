@@ -30,7 +30,7 @@ CakePHP provides several middleware to handle common tasks in web applications:
 
 - `Cake\Error\Middleware\ErrorHandlerMiddleware` traps exceptions from the
   wrapped middleware and renders an error page using the
-  [/development/errors](development/errors.md) Exception handler.
+  [Error & Exception Handling](../development/errors.md) Exception handler.
 - `Cake\Routing\AssetMiddleware` checks whether the request is referring to a
   theme or plugin asset file, such as a CSS, JavaScript or image file stored in
   either a plugin's webroot folder or the corresponding one for a Theme.
@@ -57,7 +57,7 @@ routing scopes.
 
 To apply middleware to all requests, use the `middleware` method of your
 `App\Application` class. If you don't have an `App\Application` class, see
-the section on [adding-http-stack](#adding-http-stack) for more information. Your application's
+the section on [Adding Http Stack](#adding-http-stack) for more information. Your application's
 `middleware` hook method will be called at the beginning of the request
 process, you can use the `MiddlewareQueue` object to attach middleware:
 
@@ -196,13 +196,13 @@ important attributes in any request handled by CakePHP:
 - `params` contains the results of route matching once routing rules have been
   processed.
 - `session` contains an instance of CakePHP's `Session` object. See
-  [accessing-session-object](#accessing-session-object) for more information on how to use the session
+  [Accessing Session Object](#accessing-session-object) for more information on how to use the session
   object.
 
 ### Interacting with Responses
 
 The methods available to create a server response are the same as those
-available when interacting with [httpclient-response-objects](#httpclient-response-objects). While the
+available when interacting with [Httpclient Response Objects](#httpclient-response-objects). While the
 interface is the same the usage scenarios are different.
 
 When modifying the response, it is important to remember that responses are

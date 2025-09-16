@@ -72,7 +72,7 @@ Table objects are the gateway into your data. They handle many of the tasks that
 - Triggering callback events.
 - Interacting with behaviors.
 
-The documentation chapter on [/orm/table-objects](orm/table-objects.md) provides far more detail
+The documentation chapter on [Table Objects](../orm/table-objects.md) provides far more detail
 on how to use table objects than this guide can. Generally when moving existing
 model code over it will end up in a table object. Table objects don't contain
 any platform dependent SQL. Instead they collaborate with entities and the query
@@ -82,7 +82,7 @@ interested parties through published events.
 ### Query Objects
 
 While these are not classes you will build yourself, your application code will
-make extensive use of the [/orm/query-builder](orm/query-builder.md) which is central to the new
+make extensive use of the [Query Builder](../orm/query-builder.md) which is central to the new
 ORM. The query builder makes it easy to build simple or complex queries
 including those that were previously very difficult in CakePHP like `HAVING`,
 `UNION` and sub-queries.
@@ -100,7 +100,7 @@ could not contain any logic or behavior. While the community made this
 short-coming less painful with projects like CakeEntity, the array results were
 often a short coming that caused many developers trouble. For CakePHP 3.0, the
 ORM always returns object result sets unless you explicitly disable that
-feature. The chapter on [/orm/entities](orm/entities.md) covers the various tasks you can
+feature. The chapter on [Entities](../orm/entities.md) covers the various tasks you can
 accomplish with entities.
 
 Entities are created in one of two ways. Either by loading data from the
@@ -193,7 +193,7 @@ $results = $articles->find()
 ```
 
 Queries can be seen as the result object, trying to iterate the query, calling
-`toArray()` or any method inherited from [collection](core-libraries/collections.md),
+`toArray()` or any method inherited from [collection](../core-libraries/collections.md),
 will result in the query being executed and results returned to you.
 
 The biggest difference you will find when coming from CakePHP 2.x is that
@@ -257,9 +257,9 @@ class ArticlesTable
 
 As you can see, they are pretty straightforward, they get a Query object instead
 of an array and must return a Query object back. For 2.x users that implemented
-afterFind logic in custom finders, you should check out the [map-reduce](#map-reduce)
+afterFind logic in custom finders, you should check out the [Map Reduce](#map-reduce)
 section, or use the features found on the
-[collection objects](core-libraries/collections.md). If in your
+[collection objects](../core-libraries/collections.md). If in your
 models you used to rely on having an afterFind for all find operations you can
 migrate this code in one of a few ways:
 
@@ -300,7 +300,7 @@ $articles = $this->Articles->find('all', [
 ]);
 ```
 
-If your application uses 'magic' or [dynamic-finders](#dynamic-finders), you will have to
+If your application uses 'magic' or [Dynamic Finders](#dynamic-finders), you will have to
 adapt those calls. In 3.x the `findAllBy*` methods have been removed, instead
 `findBy*` always returns a query object. To get the first result, you need to
 use the `first()` method:
@@ -371,7 +371,7 @@ class User extends Entity
 ```
 
 Once defined you can access your new property using `$user->full_name`.
-Using the [map-reduce](#map-reduce) features of the ORM allow you to build aggregated
+Using the [Map Reduce](#map-reduce) features of the ORM allow you to build aggregated
 data from your results, which is another use case that the `afterFind`
 callback was often used for.
 
@@ -427,7 +427,7 @@ class ReviewsTable extends Table
 As you can see from the example above each of the association types uses
 a method to create the association. One other difference is that
 `hasAndBelongsToMany` has been renamed to `belongsToMany`. To find out more
-about creating associations in 3.0 see the section on [/orm/associations](orm/associations.md).
+about creating associations in 3.0 see the section on [Associations - Linking Tables Together](../orm/associations.md).
 
 Another welcome improvement to CakePHP is the ability to create your own
 association classes. If you have association types that are not covered by the
@@ -484,7 +484,7 @@ Validation is now applied before ORM entities are created from request data.
 This step lets you ensure data matches the data type, format, and basic shape
 your application expects. You can use your validators when converting request
 data into entities by using the `validate` option. See the documentation on
-[converting-request-data](#converting-request-data) for more information.
+[Converting Request Data](#converting-request-data) for more information.
 
 [Application rules](#application-rules) allow you to define rules that
 ensure your application's rules, state and workflows are enforced. Rules are
@@ -623,5 +623,5 @@ public function beforeFind(Event $event, Query $query, array $options)
 }
 ```
 
-See [table-callbacks](#table-callbacks) for the signatures of all the callbacks a behavior
+See [Table Callbacks](#table-callbacks) for the signatures of all the callbacks a behavior
 can subscribe to.

@@ -79,7 +79,7 @@ class Application extends BaseApplication
 ```
 
 In the above example, the only commands available would be `help`, `version`
-and `user`. See the [plugin-commands](#plugin-commands) section for how to add commands in
+and `user`. See the [Plugin Commands](plugins.md#plugin-commands) section for how to add commands in
 your plugins.
 
 > [!NOTE]
@@ -118,25 +118,25 @@ available commands.
 
 ## Commands
 
-See the [/console-commands/commands](console-commands/commands.md) chapter on how to create your first
+See the [Command Objects](console-commands/commands.md) chapter on how to create your first
 command. Then learn more about commands:
 
-- [Commands](console-commands/commands.md)
-- [Input Output](console-commands/input-output.md)
+- [Command Objects](console-commands/commands.md)
+- [Command Input/Output](console-commands/input-output.md)
 - [Option Parsers](console-commands/option-parsers.md)
-- [Cron Jobs](console-commands/cron-jobs.md)
+- [Running Shells as Cron Jobs](console-commands/cron-jobs.md)
 
 ## CakePHP Provided Commands
 
-- [Cache](console-commands/cache.md)
-- [Completion](console-commands/completion.md)
-- [Counter Cache](console-commands/counter-cache.md)
-- [I18n](console-commands/i18n.md)
-- [Plugin](console-commands/plugin.md)
-- [Schema Cache](console-commands/schema-cache.md)
-- [Routes](console-commands/routes.md)
-- [Server](console-commands/server.md)
-- [Repl](console-commands/repl.md)
+- [Cache Tool](console-commands/cache.md)
+- [Completion Tool](console-commands/completion.md)
+- [CounterCache Tool](console-commands/counter-cache.md)
+- [I18N Tool](console-commands/i18n.md)
+- [Plugin Tool](console-commands/plugin.md)
+- [Schema Cache Tool](console-commands/schema-cache.md)
+- [Routes Tool](console-commands/routes.md)
+- [Server Tool](console-commands/server.md)
+- [Interactive Console (REPL)](console-commands/repl.md)
 
 ## Routing in the Console Environment
 

@@ -63,7 +63,7 @@ important set up tasks, such as setting the correct file permissions and
 creating your **config/app.php** file for you.
 
 There are other ways to install CakePHP. If you cannot or don't want to use
-Composer, check out the [/installation](installation.md) section.
+Composer, check out the [Installation](installation.md) section.
 
 Regardless of how you downloaded and installed CakePHP, once your set up is
 completed, your directory setup should look like the following, though other
@@ -85,7 +85,7 @@ files may also be present:
       README.md
 
 Now might be a good time to learn a bit about how CakePHP's directory structure
-works: check out the [/intro/cakephp-folder-structure](intro/cakephp-folder-structure.md) section.
+works: check out the [CakePHP Folder Structure](intro/cakephp-folder-structure.md) section.
 
 If you get lost during this tutorial, you can see the finished result [on GitHub](https://github.com/cakephp/cms-tutorial).
 
@@ -115,7 +115,7 @@ bullet points should be green chef hats other than CakePHP being able to connect
 your database. If not, you may need to install additional PHP extensions, or set
 directory permissions.
 
-Next, we will build our [Database</tutorials-and-examples/cms/database>](Database</tutorials-and-examples/cms/database>.md).
+Next, we will build our [Database](tutorials-and-examples/cms/database.md).
 
 ## CMS Tutorial - Creating the Database
 
@@ -325,7 +325,7 @@ classes, then:
 
 Read more about building migrations and data seeding: [Migrations](https://book.cakephp.org/migrations/4/)
 
-With the database built, we can now build [Models](cms/articles-model.md).
+With the database built, we can now build [Models](tutorials-and-examples/cms/articles-model.md).
 
 ## CMS Tutorial - Creating our First Model
 
@@ -359,7 +359,7 @@ class ArticlesTable extends Table
 }
 ```
 
-We've attached the [/orm/behaviors/timestamp](behaviors/timestamp.md) behavior, which will
+We've attached the [Timestamp](orm/behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -404,7 +404,7 @@ class Article extends Entity
 
 Right now, our entity is quite slim; we've only set up the `_accessible`
 property, which controls how properties can be modified by
-[entities-mass-assignment](#entities-mass-assignment).
+[Entities Mass Assignment](orm/entities.md#entities-mass-assignment).
 
 > [!TIP]
 > The `ArticlesTable` and `Article` Entity classes can be generated from a
@@ -415,7 +415,7 @@ property, which controls how properties can be modified by
 > ```
 
 We can't do much with this model yet. Next, we'll create our first
-[Controller and Template](cms/articles-controller.md)
+[Controller and Template](tutorials-and-examples/cms/articles-controller.md)
 to allow us to interact with our model.
 
 ## CMS Tutorial - Creating the Articles Controller
@@ -466,9 +466,9 @@ access the logic there by requesting **www.example.com/articles/index**.
 Similarly, if we were to define a function called `foobar()`, users would be
 able to access that at **www.example.com/articles/foobar**. You may be tempted
 to name your controllers and actions in a way that allows you to obtain specific
-URLs. Resist that temptation. Instead, follow the [/intro/conventions](intro/conventions.md)
+URLs. Resist that temptation. Instead, follow the [CakePHP Conventions](intro/conventions.md)
 creating readable, meaningful action names. You can then use
-[/development/routing](development/routing.md) to connect the URLs you want to the actions you've
+[Routing](development/routing.md) to connect the URLs you want to the actions you've
 created.
 
 Our controller action is very simple. It fetches a paginated set of articles
@@ -526,15 +526,15 @@ In the last section we assigned the 'articles' variable to the view using
 local variables which we used in the above code.
 
 You might have noticed the use of an object called `$this->Html`. This is an
-instance of the CakePHP [HtmlHelper](helpers/html.md). CakePHP comes
+instance of the CakePHP [HtmlHelper](views/helpers/html.md). CakePHP comes
 with a set of view helpers that make tasks like creating links, forms, and
-pagination buttons. You can learn more about [/views/helpers](views/helpers.md) in their
+pagination buttons. You can learn more about [Helpers](views/helpers.md) in their
 chapter, but what's important to note here is that the `link()` method will
 generate an HTML link with the given link text (the first parameter) and URL
 (the second parameter).
 
 When specifying URLs in CakePHP, it is recommended that you use arrays or
-[named routes](#named-routes). These syntaxes allow you to
+[named routes](development/routing.md#named-routes). These syntaxes allow you to
 leverage the reverse routing features CakePHP offers.
 
 At this point, you should be able to point your browser to
@@ -558,12 +558,12 @@ public function view($slug = null)
 
 While this is a simple action, we've used some powerful CakePHP features. We
 start our action off by using `findBySlug()` which is
-a [Dynamic Finder](#dynamic-finders). This method allows us to create a basic query that
+a [Dynamic Finder](orm/retrieving-data-and-resultsets.md#dynamic-finders). This method allows us to create a basic query that
 finds articles by a given slug. We then use `firstOrFail()` to either fetch
 the first record, or throw a `\Cake\Datasource\Exception\RecordNotFoundException`.
 
 Our action takes a `$slug` parameter, but where does that parameter come from?
-If a user requests [Articles / view / first post](articles/view/first-post.md), then the value 'first-post' is
+If a user requests `/articles/view/first-post`, then the value 'first-post' is
 passed as `$slug` by CakePHP's routing and dispatching layers. If we
 reload our browser with our new action saved, we'd see another CakePHP error
 page telling us we're missing a view template; let's fix that.
@@ -582,9 +582,9 @@ Let's create the view for our new 'view' action and place it in
 <p><?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?></p>
 ```
 
-You can verify that this is working by trying the links at [Articles / index](articles/index.md) or
+You can verify that this is working by trying the links at `/articles/index` or
 manually requesting an article by accessing URLs like
-[Articles / view / first post](articles/view/first-post.md).
+`/articles/view/first-post`.
 
 ### Adding Articles
 
@@ -636,7 +636,7 @@ class ArticlesController extends AppController
 ```
 
 > [!NOTE]
-> You need to include the [/controllers/components/flash](components/flash.md) component in
+> You need to include the [Flash](controllers/components/flash.md) component in
 > any controller where you will use it. Often it makes sense to include it in
 > your `AppController`, which is there already for this tutorial.
 
@@ -649,7 +649,7 @@ Here's what the `add()` action does:
 Every CakePHP request includes a request object which is accessible using
 `$this->request`. The request object contains information regarding the
 request that was just received. We use the
-`Cake\Http\ServerRequest::is()` method to check that the request
+`Cake\\Http\\ServerRequest::is()` method to check that the request
 is a HTTP POST request.
 
 Our POST data is available in `$this->request->getData()`. You can use the
@@ -662,12 +662,12 @@ After saving our new article we use FlashComponent's `success()` method to set
 a message into the session. The `success` method is provided using PHP's
 [magic method features](https://php.net/manual/en/language.oop5.overloading.php#object.call). Flash
 messages will be displayed on the next page after redirecting. In our layout we have
-[](#-this-)Flash->render() ?> which displays flash messages and clears the
+`<?= $this->Flash->render() ?>` which displays flash messages and clears the
 corresponding session variable. Finally, after saving is complete, we use
-`Cake\Controller\Controller::redirect` to send the user back to the
+`Cake\\Controller\\Controller::redirect` to send the user back to the
 articles list. The param `['action' => 'index']` translates to URL
-[Articles](articles.md) i.e the index action of the `ArticlesController`. You can refer
-to `Cake\Routing\Router::url()` function on the [API](https://api.cakephp.org) to see the formats in which you can specify a URL
+`/articles` i.e the index action of the `ArticlesController`. You can refer
+to `Cake\\Routing\\Router::url()` function on the [API](https://api.cakephp.org) to see the formats in which you can specify a URL
 for various CakePHP functions.
 
 ### Create Add Template
@@ -710,7 +710,7 @@ customize the label, the input or any other aspect of the form controls using
 options. The `$this->Form->end()` call closes the form.
 
 Now let's go back and update our **templates/Articles/index.php**
-view to include a new "Add Article" link. Before the [](#table), add
+view to include a new "Add Article" link. Before the `<table>`, add
 the following line:
 
 ``` php
@@ -722,7 +722,7 @@ the following line:
 If we were to save an Article right now, saving would fail as we are not
 creating a slug attribute, and the column is `NOT NULL`. Slug values are
 typically a URL-safe version of an article's title. We can use the
-[beforeSave() callback](#table-callbacks) of the ORM to populate our slug:
+[beforeSave() callback](orm/table-objects.md#table-callbacks) of the ORM to populate our slug:
 
 ``` php
 <?php
@@ -848,7 +848,7 @@ articles:
 ### Update Validation Rules for Articles
 
 Up until this point our Articles had no input validation done. Lets fix that by
-using [a validator](#validating-request-data):
+using [a validator](orm/validation.md#validating-request-data):
 
 ``` php
 // src/Model/Table/ArticlesTable.php
@@ -879,11 +879,11 @@ body fields must not be empty, and have certain length constraints.
 CakePHP's validation engine is powerful and flexible. It provides a suite of
 frequently used rules for tasks like email addresses, IP addresses etc. and the
 flexibility for adding your own validation rules. For more information on that
-setup, check the [/core-libraries/validation](core-libraries/validation.md) documentation.
+setup, check the [Validation](core-libraries/validation.md) documentation.
 
 Now that your validation rules are in place, use the app to try to add
 an article with an empty title or body to see how it works. Since we've used the
-`Cake\View\Helper\FormHelper::control()` method of the FormHelper to
+`Cake\\View\\Helper\\FormHelper::control()` method of the FormHelper to
 create our form elements, our validation error messages will be shown
 automatically.
 
@@ -912,7 +912,7 @@ public function delete($slug)
 
 This logic deletes the article specified by `$slug`, and uses
 `$this->Flash->success()` to show the user a confirmation
-message after redirecting them to [Articles](articles.md). If the user attempts to
+message after redirecting them to `/articles`. If the user attempts to
 delete an article using a GET request, `allowMethod()` will throw an exception.
 Uncaught exceptions are captured by CakePHP's exception handler, and a nice
 error page is displayed. There are many built-in
@@ -964,7 +964,7 @@ that allow users to delete articles:
 </table>
 ```
 
-Using `~Cake\View\Helper\FormHelper::deleteLink()` will create a link
+Using `~Cake\\View\\Helper\\FormHelper::deleteLink()` will create a link
 that uses JavaScript to do a DELETE request deleting our article.
 Prior to CakePHP 5.2 you need to use `postLink()` instead.
 
@@ -983,4 +983,4 @@ Prior to CakePHP 5.2 you need to use `postLink()` instead.
 > However, this does not build the **templates/Articles/\*.php** files.
 
 With a basic articles management setup, we'll create the [basic actions
-for our Tags and Users tables](cms/tags-and-users.md).
+for our Tags and Users tables](tutorials-and-examples/cms/tags-and-users.md).

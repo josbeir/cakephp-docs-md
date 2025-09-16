@@ -92,7 +92,7 @@ In our `RecipesController`, we have several actions that define the logic
 to create, edit, view and delete recipes. In each of our actions we're using
 the `serialize` option to tell CakePHP which view variables should be
 serialized when making API responses. We'll connect our controller to the
-application URLs with [resource-routes](#resource-routes):
+application URLs with [Resource Routes](#resource-routes):
 
 ``` php
 // in config/routes.php
@@ -102,8 +102,8 @@ $routes->scope('/', function (RouteBuilder $routes): void {
 });
 ```
 
-These routes will enable URLs like [Recipes.json](recipes.json.md) to return a JSON encoded
-response. Clients could also make a request to [Recipes](recipes.md) with the
+These routes will enable URLs like `/recipes.json` to return a JSON encoded
+response. Clients could also make a request to `/recipes` with the
 `Content-Type: application/json` header as well.
 
 ## Encoding Response Data
@@ -111,7 +111,7 @@ response. Clients could also make a request to [Recipes](recipes.md) with the
 In the above controller, we're defining a `viewClasses()` method. This method
 defines which views your controller has available for content-negotitation.
 We're including CakePHP's `JsonView` which enables JSON based responses. To
-learn more about it and Xml based views see [/views/json-and-xml-views](views/json-and-xml-views.md). is
+learn more about it and Xml based views see [JSON and XML views](../views/json-and-xml-views.md). is
 used by CakePHP to select a view class to render a REST response with.
 
 Next, we have several methods that expose basic logic to create, edit, view and
@@ -123,7 +123,7 @@ If we wanted to modify the data before it is converted into JSON we should not
 define the `serialize` option, and instead use template files. We would place
 the REST templates for our RecipesController inside **templates/Recipes/json**.
 
-See the [controller-viewclasses](#controller-viewclasses) for more information on how CakePHP's
+See the [Controller Viewclasses](#controller-viewclasses) for more information on how CakePHP's
 response negotiation functionality.
 
 ## Parsing Request Bodies

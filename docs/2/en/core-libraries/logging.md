@@ -16,7 +16,7 @@ Logging data in CakePHP is easy - the log() function is a part of
 the Object class, which is the common ancestor for almost all
 CakePHP classes. If the context is a CakePHP class (Model,
 Controller, Component... almost anything), you can log your data.
-You can also use `CakeLog::write()` directly. See [writing-to-logs](#writing-to-logs)
+You can also use `CakeLog::write()` directly. See [Writing To Logs](#writing-to-logs)
 
 ## Creating and configuring log streams
 
@@ -117,7 +117,7 @@ As of 2.4 `FileLog` engine takes a few new options:
 Errors and Exceptions can also be logged by configuring the
 corresponding values in your core.php file. Errors will be
 displayed when debug \> 0 and logged when debug == 0. Set `Exception.log`
-to true to log uncaught exceptions. See [/development/configuration](development/configuration.md)
+to true to log uncaught exceptions. See [Configuration](../development/configuration.md)
 for more information.
 
 ## Interacting with log streams

@@ -33,7 +33,7 @@ well.
 
 As stated in the introduction, the `AppController` class is the parent class
 to all of your application's controllers. `AppController` itself extends the
-`Cake\Controller\Controller` class included in CakePHP.
+`Cake\\Controller\\Controller` class included in CakePHP.
 `AppController` is defined in **src/Controller/AppController.php** as
 follows:
 
@@ -81,11 +81,11 @@ class will always override those in `AppController`.
 ## Request Flow
 
 When a request is made to a CakePHP application, CakePHP's
-`Cake\Routing\Router` and `Cake\Routing\Dispatcher`
-classes use [routes-configuration](#routes-configuration) to find and create the correct
+`Cake\\Routing\\Router` and `Cake\\Routing\\Dispatcher`
+classes use [Routes Configuration](development/routing.md#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [cake-request](#cake-request) for more information on the
+property. See the section on [Cake Request](controllers/request-response.md#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -133,7 +133,7 @@ once a controller action has completed, CakePHP will handle rendering and
 delivering the View.
 
 If for some reason you'd like to skip the default behavior, you can return a
-`Cake\Http\Response` object from the action with the fully
+`Cake\\Http\\Response` object from the action with the fully
 created response.
 
 In order for you to use a controller effectively in your own application, we'll
@@ -424,7 +424,7 @@ $this->loadModel('Locations', 'ElasticIndex');
 
 This method is used for paginating results fetched by your models.
 You can specify page sizes, model find conditions and more. See the
-[pagination](components/pagination.md) section for more details on
+[pagination](controllers/components/pagination.md) section for more details on
 how to use `paginate()`.
 
 The `$paginate` attribute gives you an easy way to customize how `paginate()`
@@ -459,7 +459,7 @@ public function initialize()
 
 The `$components` property on your controllers allows you to configure
 components. Configured components and their dependencies will be created by
-CakePHP for you. Read the [configuring-components](#configuring-components) section for more
+CakePHP for you. Read the [Configuring Components](controllers/components.md#configuring-components) section for more
 information. As mentioned earlier the `$components` property will be merged
 with the property defined in each of your controller's parent classes.
 
@@ -483,7 +483,7 @@ therefore it is not necessary (for example) to redeclare the
 
 3.0
 Loading Helpers from the controller is provided for backwards compatibility
-reasons. You should see [configuring-helpers](#configuring-helpers) for how to load helpers.
+reasons. You should see [Configuring Helpers](views/helpers.md#configuring-helpers) for how to load helpers.
 
 </div>
 
@@ -511,7 +511,7 @@ methods are implemented by your controllers
 
 `method` Cake\\Controller\\Controller::**afterFilter**(Event $event)
 
-In addition to controller life-cycle callbacks, [/controllers/components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components.md)
 also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks
@@ -527,5 +527,5 @@ public function beforeFilter(Event $event)
 
 ## More on Controllers
 
-- [Pages Controller](controllers/pages-controller.md)
+- [The Pages Controller](controllers/pages-controller.md)
 - [Components](controllers/components.md)

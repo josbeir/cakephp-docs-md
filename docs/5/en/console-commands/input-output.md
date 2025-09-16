@@ -95,7 +95,7 @@ $io->helper('Table')->output($data);
 +--------------+---------------+---------------+
 ```
 
-You can use the [](#text-right) formatting tag in tables to right align
+You can use the `<text-right>` formatting tag in tables to right align
 content:
 
 ``` php
@@ -349,9 +349,9 @@ new output style you could do:
 $io->setStyle('flashy', ['text' => 'magenta', 'blink' => true]);
 ```
 
-This would then allow you to use a [](#flashy) tag in your shell output, and if
+This would then allow you to use a `<flashy>` tag in your shell output, and if
 ansi colors are enabled, the following would be rendered as blinking magenta
-text [[$this->out('](#flashy)Whoooa](flashy.md) Something went wrong');. When
+text `$this->out('<flashy>Whoooa</flashy> Something went wrong');`. When
 defining styles you can use the following colors for the `text` and
 `background` attributes:
 

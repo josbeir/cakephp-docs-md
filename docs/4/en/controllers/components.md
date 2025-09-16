@@ -11,19 +11,19 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Authentication](components/authentication.md)
-- [Flash](components/flash.md)
-- [Security](components/security.md)
-- [Pagination](components/pagination.md)
-- [Request Handling](components/request-handling.md)
-- [Form Protection](components/form-protection.md)
-- [Check Http Cache](components/check-http-cache.md)
+- [AuthComponent](../controllers/components/authentication.md)
+- [Flash](../controllers/components/flash.md)
+- [Security](../controllers/components/security.md)
+- [Pagination](../controllers/components/pagination.md)
+- [Request Handling](../controllers/components/request-handling.md)
+- [FormProtection](../controllers/components/form-protection.md)
+- [Checking HTTP Cache](../controllers/components/check-http-cache.md)
 
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
-requiring configuration are [/controllers/components/security](components/security.md) and
-[/controllers/components/form-protection](components/form-protection.md). Configuration for these components,
+requiring configuration are [Security](../controllers/components/security.md) and
+[FormProtection](../controllers/components/form-protection.md). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 
@@ -125,7 +125,7 @@ $time = $this->OneTimer->getTime();
 
 Once you've included some components in your controller, using them is pretty
 simple. Each component you use is exposed as a property on your controller. If
-you had loaded up the `Cake\Controller\Component\FlashComponent`
+you had loaded up the `Cake\\Controller\\Component\\FlashComponent`
 in your controller, you could access it like so:
 
 ``` php
@@ -153,7 +153,7 @@ class PostsController extends AppController
 > component and a model the same name.
 
 > [!WARNING]
-> Component methods **don't** have access to [/development/dependency-injection](development/dependency-injection.md)
+> Component methods **don't** have access to [Dependency Injection](../development/dependency-injection.md)
 > like Controller actions have. Use a service class inside your controller actions
 > instead of a component if you need this functionality.
 
@@ -182,7 +182,7 @@ class MathComponent extends Component
 ```
 
 > [!NOTE]
-> All components must extend `Cake\Controller\Component`. Failing
+> All components must extend `Cake\\Controller\\Component`. Failing
 > to do this will trigger an exception.
 
 ### Including your Component in your Controllers

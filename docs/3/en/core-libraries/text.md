@@ -6,7 +6,7 @@ The Text class includes convenience methods for creating and manipulating
 strings and is normally accessed statically. Example:
 `Text::uuid()`.
 
-If you need `Cake\View\Helper\TextHelper` functionalities outside
+If you need `Cake\\View\\Helper\\TextHelper` functionalities outside
 of a `View`, use the `Text` class:
 
 ``` php
@@ -43,7 +43,7 @@ equivalent ASCII characters. The method expects UTF-8 encoding. The character
 conversion can be controlled using transliteration identifiers which you can
 pass using the `$transliteratorId` argument or change the default identifier
 string using `Text::setTransliteratorId()`. ICU transliteration identifiers
-are basically of form [](#source-script)[:](#target-script) and you can specify
+are basically of form `<source script>:<target script>` and you can specify
 multiple conversion pairs separated by `;`. You can find more info about
 transliterator identifiers
 [here](https://unicode-org.github.io/icu/userguide/transforms/general/#transliterator-identifiers):

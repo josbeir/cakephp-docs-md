@@ -12,7 +12,7 @@ CakePHP eases the burden on the developer by providing a terse way to
 paginate data.
 
 Pagination in CakePHP controllers is done through the `paginate()` method. You
-then use `~Cake\View\Helper\PaginatorHelper` in your view templates
+then use `~Cake\\View\\Helper\\PaginatorHelper` in your view templates
 to generate pagination controls.
 
 ## Basic Usage
@@ -54,7 +54,7 @@ class ArticlesController extends AppController
 > [!TIP]
 > Default `order` options must be defined as an array.
 
-You can also use [custom-find-methods](#custom-find-methods) in pagination by using the `finder` option:
+You can also use [Custom Find Methods](#custom-find-methods) in pagination by using the `finder` option:
 
 ``` php
 class ArticlesController extends AppController
@@ -166,7 +166,7 @@ paginate both tags and articles at the same time:
 
     /dashboard?article[page]=1&tag[page]=3
 
-See the [paginator-helper-multiple](#paginator-helper-multiple) section for how to generate scoped HTML
+See the [Paginator Helper Multiple](#paginator-helper-multiple) section for how to generate scoped HTML
 elements and URLs for pagination.
 
 ### Paginating the Same Model multiple Times
@@ -297,5 +297,5 @@ $results = $paginator->paginate(
 
 ## Pagination in the View
 
-Check the `~Cake\View\Helper\PaginatorHelper` documentation for
+Check the `~Cake\\View\\Helper\\PaginatorHelper` documentation for
 how to create links for pagination navigation.

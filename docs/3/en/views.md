@@ -10,10 +10,10 @@ responsibilities of the View Layer.
 CakePHP comes with a few built-in View classes for handling the most common
 rendering scenarios:
 
-- To create XML or JSON webservices you can use the [views/json-and-xml-views](views/json-and-xml-views.md).
+- To create XML or JSON webservices you can use the [JSON and XML views](views/json-and-xml-views.md).
 - To serve protected files, or dynamically generated files, you can use
-  [cake-response-file](#cake-response-file).
-- To create multiple themed views, you can use [views/themes](views/themes.md).
+  [Cake Response File](controllers/request-response.md#cake-response-file).
+- To create multiple themed views, you can use [Themes](views/themes.md).
 
 ## The App View
 
@@ -133,7 +133,7 @@ part has different uses, and will be covered in this chapter:
   build forms, build AJAX functionality, paginate model data, or serve RSS
   feeds.
 - **cells**: these classes provide miniature controller-like features for
-  creating self contained UI components. See the [/views/cells](views/cells.md)
+  creating self contained UI components. See the [View Cells](views/cells.md)
   documentation for more information.
 
 ### View Variables
@@ -142,7 +142,7 @@ Any variables you set in your controller with `set()` will be available in
 both the view and the layout your action renders. In addition, any set variables
 will also be available in any element. If you need to pass additional variables
 from the view to the layout you can either call `set()` in the view template,
-or use a [view-blocks](#view-blocks).
+or use a [View Blocks](#view-blocks).
 
 You should remember to **always** escape any user data before outputting it as
 CakePHP does not automatically escape output. You can escape user content with
@@ -159,7 +159,7 @@ the `h()` function:
 Views have a `set()` method that is analogous to the `set()` found in
 Controller objects. Using set() from your view file will add the variables to
 the layout and elements that will be rendered later. See
-[setting-view_variables](#setting-view_variables) for more information on using `set()`.
+[Setting View Variables](controllers.md#setting-view_variables) for more information on using `set()`.
 
 In your view file you can do:
 
@@ -380,7 +380,7 @@ $this->Html->css('carousel', ['block' => true]);
     // Rest of the layout follows
 ```
 
-The `Cake\View\Helper\HtmlHelper` also allows you to control which
+The `Cake\\View\\Helper\\HtmlHelper` also allows you to control which
 block the scripts and CSS go to:
 
 ``` php
@@ -618,7 +618,7 @@ Cells](views/cells.md).
 You can take advantage of CakePHP view caching if you supply a cache parameter.
 If set to `true`, it will cache the element in the 'default' Cache
 configuration. Otherwise, you can set which cache configuration should be used.
-See [/core-libraries/caching](core-libraries/caching.md) for more information on configuring
+See [Caching](core-libraries/caching.md) for more information on configuring
 `Cache`. A simple example of caching an element would be:
 
 ``` php
@@ -705,7 +705,7 @@ file does not exist, it will be looked for in the default location.
 `method` Cake\\View\\View::**cache**(callable $block, array $options = [])
 
 Sometimes generating a section of your view output can be expensive because of
-rendered [/views/cells](views/cells.md) or expensive helper operations. To help make your
+rendered [View Cells](views/cells.md) or expensive helper operations. To help make your
 application run faster CakePHP provides a way to cache view sections:
 
 ``` php
@@ -734,7 +734,7 @@ insert logic around the rendering life-cycle:
 - `View.afterLayout`
 
 You can attach application [event listeners](core-libraries/events.md) to
-these events or use [Helper Callbacks](#helper-api).
+these events or use [Helper Callbacks](views/helpers.md#helper-api).
 
 ## Creating Your Own View Classes
 
@@ -770,7 +770,7 @@ rendered.
 
 ## More About Views
 
-- [Cells](views/cells.md)
+- [View Cells](views/cells.md)
 - [Themes](views/themes.md)
-- [Json And Xml Views](views/json-and-xml-views.md)
+- [JSON and XML views](views/json-and-xml-views.md)
 - [Helpers](views/helpers.md)

@@ -4,7 +4,7 @@ Model attributes allow you to set properties that can override the
 default model behavior.
 
 For a complete list of model attributes and their descriptions
-visit the [CakePHP API](https://api.cakephp.org/2.x/class-Model.md).
+visit the [CakePHP API](https://api.cakephp.org/2.x/class-Model.html).
 
 ## useDbConfig
 
@@ -262,7 +262,7 @@ regex values allowing the model to try to make matches.
 > It is not necessary to call validate() before save() as save() will
 > automatically validate your data before actually saving.
 
-For more information on validation, see the [/models/data-validation](models/data-validation.md)
+For more information on validation, see the [Data Validation](../models/data-validation.md)
 later on in this manual.
 
 ## virtualFields
@@ -286,7 +286,7 @@ on the database, this can cause SQL errors.
 
 For more information on the `virtualFields` property, its proper
 usage, as well as limitations, see
-[/models/virtual-fields](models/virtual-fields.md).
+[Virtual fields](../models/virtual-fields.md).
 
 ## name
 

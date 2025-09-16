@@ -127,7 +127,7 @@ then updates the counter of the *previously* associated item.
 > You need to enable the CounterCache behavior in a custom `through` table
 > configured in association options and set the `cascadeCallbacks` configuration
 > option to true. See how to configure a custom join table
-> [using-the-through-option](#using-the-through-option).
+> [Using The Through Option](#using-the-through-option).
 
 <div class="versionchanged">
 

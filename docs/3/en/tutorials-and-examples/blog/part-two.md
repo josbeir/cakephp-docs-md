@@ -41,17 +41,17 @@ be used in the `ArticlesController`, and will be tied to a database table called
 > ArticleTable.php), CakePHP will not recognize any of your settings and will
 > use the generated model instead.
 
-For more on models, such as callbacks, and validation, check out the [/orm](orm.md)
+For more on models, such as callbacks, and validation, check out the [Database Access & ORM](../../orm.md)
 chapter of the Manual.
 
 > [!NOTE]
-> If you completed [Part 1 of the Blog Tutorial](blog/blog.md) and created the `articles` table in
+> If you completed [Part 1 of the Blog Tutorial](../../tutorials-and-examples/blog/blog.md) and created the `articles` table in
 > our Blog database you can leverage CakePHP's bake console and its code
 > generation capabilities to create the `ArticlesTable` model:
 >
 >     bin/cake bake model Articles
 
-For more on bake and its code generation features please visit [/bake/usage](bake/usage.md).
+For more on bake and its code generation features please visit [Code Generation with Bake](../../bake/usage.md).
 
 ## Create the Articles Controller
 
@@ -101,9 +101,9 @@ access that at www.example.com/articles/foobar.
 > [!WARNING]
 > You may be tempted to name your controllers and actions a certain
 > way to obtain a certain URL. Resist that temptation. Follow
-> [/intro/conventions](intro/conventions.md) (capitalization, plural names, etc.) and create
+> [CakePHP Conventions](../../intro/conventions.md) (capitalization, plural names, etc.) and create
 > readable, understandable action names. You can map URLs to your code using
-> [/development/routing](development/routing.md) covered later on.
+> [Routing](../../development/routing.md) covered later on.
 
 The single instruction in the action uses `set()` to pass data
 from the controller to the view (which we'll create next). The line
@@ -111,16 +111,16 @@ sets the view variable called 'articles' equal to the return value of
 the `find('all')` method of the `ArticlesTable` object.
 
 > [!NOTE]
-> If you completed [Part 1 of the Blog Tutorial](blog/blog.md) and created the `articles` table in
+> If you completed [Part 1 of the Blog Tutorial](../../tutorials-and-examples/blog/blog.md) and created the `articles` table in
 > your Blog database you can leverage CakePHP's bake console and its code
 > generation capabilities to create the ArticlesController class:
 >
 >     bin/cake bake controller Articles
 
-For more on bake and its code generation features please visit [/bake/usage](bake/usage.md).
+For more on bake and its code generation features please visit [Code Generation with Bake](../../bake/usage.md).
 
 To learn more about CakePHP's controllers, check out the
-[/controllers](controllers.md) chapter.
+[Controllers](../../controllers.md) chapter.
 
 ## Creating Article Views
 
@@ -175,10 +175,10 @@ nice table, our view code might look something like this:
 Hopefully this should look somewhat simple.
 
 You might have noticed the use of an object called `$this->Html`. This is an
-instance of the CakePHP `Cake\View\Helper\HtmlHelper` class.
+instance of the CakePHP `Cake\\View\\Helper\\HtmlHelper` class.
 CakePHP comes with a set of view helpers that make things like linking, form
 output a snap. You can learn more about how to use them in
-[/views/helpers](views/helpers.md), but what's important to note here is that the `link()`
+[Helpers](../../views/helpers.md), but what's important to note here is that the `link()`
 method will generate an HTML link with the given title (the first parameter) and
 URL (the second parameter).
 
@@ -187,14 +187,14 @@ array format. This is explained in more detail in the section on
 Routes. Using the array format for URLs allows you to take
 advantage of CakePHP's reverse routing capabilities. You can also
 specify URLs relative to the base of the application in the form of
-[Controller / action / param1 / param2](controller/action/param1/param2.md) or use [named routes](#named-routes).
+`/controller/action/param1/param2` or use [named routes](#named-routes).
 
 At this point, you should be able to point your browser to
 <http://www.example.com/articles/index>. You should see your view,
 correctly formatted with the title and table listing of the articles.
 
 If you happened to have clicked on one of the links we created in
-this view (that link a article's title to a URL [Articles / view / some\_id](articles/view/some\_id.md)),
+this view (that link a article's title to a URL `/articles/view/some\_id`),
 you were probably informed by CakePHP that the action hasn't yet
 been defined. If you were not so informed, either something has
 gone wrong, or you actually did define it already, in which case
@@ -227,7 +227,7 @@ a single article's information.
 
 Notice that our view action takes a parameter: the ID of the article
 we'd like to see. This parameter is handed to the action through
-the requested URL. If a user requests [Articles / view / 3](articles/view/3.md), then the value
+the requested URL. If a user requests `/articles/view/3`, then the value
 '3' is passed as `$id`.
 
 We also do a bit of error checking to ensure a user is actually accessing
@@ -247,8 +247,8 @@ Now let's create the view for our new 'view' action and place it in
 <p><small>Created: <?= $article->created->format(DATE_RFC850) ?></small></p>
 ```
 
-Verify that this is working by trying the links at [Articles / index](articles/index.md) or
-manually requesting an article by accessing [Articles / view / {id}](articles/view/{id}.md), replacing
+Verify that this is working by trying the links at `/articles/index` or
+manually requesting an article by accessing `/articles/view/{id}`, replacing
 `{id}` by an article 'id'.
 
 ## Adding Articles
@@ -304,7 +304,7 @@ class ArticlesController extends AppController
 ```
 
 > [!NOTE]
-> You need to include the [/controllers/components/flash](components/flash.md) component in any controller
+> You need to include the [Flash](../../controllers/components/flash.md) component in any controller
 > where you will use it. If necessary, include it in your `AppController`.
 
 Here's what the `add()` action does: if the HTTP method of the
@@ -315,7 +315,7 @@ chance to show the user validation errors or other warnings.
 Every CakePHP request includes a `ServerRequest` object which is accessible using
 `$this->request`. The request object contains useful information regarding the
 request that was just received, and can be used to control the flow of your
-application. In this case, we use the `Cake\Http\ServerRequest::is()`
+application. In this case, we use the `Cake\\Http\\ServerRequest::is()`
 method to check that the request is a HTTP POST request.
 
 When a user uses a form to POST data to your application, that
@@ -327,12 +327,12 @@ We use FlashComponent's `success()` and `error()` methods to set a message
 to a session variable. These methods are provided using PHP's [magic method
 features](https://php.net/manual/en/language.oop5.overloading.php#object.call).
 Flash messages will be displayed on the page after redirection. In the layout we
-have [](#-this-)Flash->render() ?> which displays the message and clears the
+have `<?= $this->Flash->render() ?>` which displays the message and clears the
 corresponding session variable. The controller's
-`Cake\Controller\Controller::redirect` function redirects to another
+`Cake\\Controller\\Controller::redirect` function redirects to another
 URL. The param `['action' => 'index']` translates to URL /articles i.e the
 index action of the `ArticlesController`. You can refer to
-`Cake\Routing\Router::url()` function on the [API](https://api.cakephp.org) to see the formats in which you can specify a URL for
+`Cake\\Routing\\Router::url()` function on the [API](https://api.cakephp.org) to see the formats in which you can specify a URL for
 various CakePHP functions.
 
 Calling the `save()` method will check for validation errors and
@@ -346,8 +346,8 @@ validation. Everyone hates coding up endless forms and their
 validation routines. CakePHP makes it easier and faster.
 
 To take advantage of the validation features, you'll need to use CakePHP's
-[/views/helpers/form](helpers/form.md) helper in your views. The
-`Cake\View\Helper\FormHelper` is available by default to all views
+[Form](../../views/helpers/form.md) helper in your views. The
+`Cake\\View\\Helper\\FormHelper` is available by default to all views
 at `$this->Form`.
 
 Here's our add view:
@@ -389,7 +389,7 @@ The `$this->Form->end()` call ends the form. Outputting hidden inputs if
 CSRF/Form Tampering prevention is enabled.
 
 Now let's go back and update our **src/Template/Articles/index.ctp**
-view to include a new "Add Article" link. Before the [](#table), add
+view to include a new "Add Article" link. Before the `<table>`, add
 the following line:
 
 ``` php
@@ -434,11 +434,11 @@ title fields must not be empty, and are required for both create and update
 operations. CakePHP's validation engine is strong, with a number of pre-built
 rules (credit card numbers, email addresses, etc.) and flexibility for adding
 your own validation rules. For more information on that
-setup, check the [/core-libraries/validation](core-libraries/validation.md) documentation.
+setup, check the [Validation](../../core-libraries/validation.md) documentation.
 
 Now that your validation rules are in place, use the app to try to add
 an article with an empty title or body to see how it works. Since we've used the
-`Cake\View\Helper\FormHelper::control()` method of the FormHelper to
+`Cake\\View\\Helper\\FormHelper::control()` method of the FormHelper to
 create our form elements, our validation error messages will be shown
 automatically.
 
@@ -558,11 +558,11 @@ public function delete($id)
 
 This logic deletes the article specified by `$id`, and uses
 `$this->Flash->success()` to show the user a confirmation
-message after redirecting them on to [Articles](articles.md). If the user attempts to
+message after redirecting them on to `/articles`. If the user attempts to
 do a delete using a GET request, the `allowMethod()` will throw an Exception.
 Uncaught exceptions are captured by CakePHP's exception handler, and a nice
 error page is displayed. There are many built-in
-[Exceptions](development/errors.md) that can be used to indicate the various
+[Exceptions](../../development/errors.md) that can be used to indicate the various
 HTTP errors your application might need to generate.
 
 Because we're just executing some logic and redirecting, this
@@ -607,7 +607,7 @@ links that allow users to delete articles, however:
 </table>
 ```
 
-Using `~Cake\View\Helper\FormHelper::postLink()` will create a link
+Using `~Cake\\View\\Helper\\FormHelper::postLink()` will create a link
 that uses JavaScript to do a POST request deleting our article.
 
 > [!WARNING]
@@ -628,7 +628,7 @@ specific actions. So we'll just make a quick change to routes in
 this tutorial.
 
 For more information on advanced routing techniques, see
-[routes-configuration](#routes-configuration).
+[Routes Configuration](#routes-configuration).
 
 By default, CakePHP responds to a request for the root of your site
 (e.g., <http://www.example.com>) using its `PagesController`, rendering
@@ -671,19 +671,19 @@ here for simplicity's sake. Use the rest of this manual as a guide
 for building more feature-rich applications.
 
 Now that you've created a basic CakePHP application, you can either continue to
-[/tutorials-and-examples/blog/part-three](blog/part-three.md), or start your own project. You
-can also peruse the [/topics](topics.md) or [API](https://api.cakephp.org) to
+[Blog Tutorial - Part 3](../../tutorials-and-examples/blog/part-three.md), or start your own project. You
+can also peruse the [Using CakePHP](../../topics.md) or [API](https://api.cakephp.org) to
 learn more about CakePHP.
 
 If you need help, there are many ways to get the help you need - please see the
-[/intro/where-to-get-help](intro/where-to-get-help.md) page. Welcome to CakePHP!
+[Where to Get Help](../../intro/where-to-get-help.md) page. Welcome to CakePHP!
 
 ### Suggested Follow-up Reading
 
 These are common tasks people learning CakePHP usually want to study next:
 
-1.  [view-layouts](#view-layouts): Customizing your website layout
-2.  [view-elements](#view-elements): Including and reusing view snippets
-3.  [/bake/usage](bake/usage.md): Generating basic CRUD code
-4.  [/tutorials-and-examples/blog-auth-example/auth](tutorials-and-examples/blog-auth-example/auth.md): User authentication
+1.  [View Layouts](#view-layouts): Customizing your website layout
+2.  [View Elements](#view-elements): Including and reusing view snippets
+3.  [Code Generation with Bake](../../bake/usage.md): Generating basic CRUD code
+4.  [Blog Tutorial - Authentication and Authorization](../../tutorials-and-examples/blog-auth-example/auth.md): User authentication
     and authorization tutorial

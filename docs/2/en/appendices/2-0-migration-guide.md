@@ -6,7 +6,7 @@ the changes made to the core since the CakePHP 1.3 branch. Be sure to read the
 other pages in this guide for all the new features and API changes.
 
 > [!TIP]
-> Be sure to checkout the [upgrade-shell](#upgrade-shell) included in the 2.0 core to help you
+> Be sure to checkout the [Upgrade Shell](#upgrade-shell) included in the 2.0 core to help you
 > migrate your 1.3 code to 2.0.
 
 ## PHP Version Support
@@ -306,12 +306,12 @@ all types of authentication and to streamline the roles of each component.
 The AuthComponent was entirely re-factored for 2.0, this was done to help reduce
 developer confusion and frustration. In addition, AuthComponent was made more
 flexible and extensible. You can find out more in
-the [/core-libraries/components/authentication](core-libraries/components/authentication.md) guide.
+the [Authentication](../core-libraries/components/authentication.md) guide.
 
 ### EmailComponent
 
 The EmailComponent has been deprecated and has created a new library class to
-send e-mails. See [/core-utility-libraries/email](core-utility-libraries/email.md) Email changes for more details.
+send e-mails. See [CakeEmail](../core-utility-libraries/email.md) Email changes for more details.
 
 ### SessionComponent
 
@@ -333,7 +333,7 @@ CakePHP 2.0.
 The error handling implementation has dramatically changed in 2.0. Exceptions
 have been introduced throughout the framework, and error handling has been
 updated to offer more control and flexibility. You can read more in the
-[/development/exceptions](development/exceptions.md) and [/development/errors](development/errors.md) section.
+[Exceptions](../development/exceptions.md) and [Error Handling](../development/errors.md) section.
 
 ## Lib classes
 
@@ -534,7 +534,7 @@ Cache::write('key', $value, 'something');
   `$this->request->params['ext']`.
 
 - Default plugin routes have changed. Plugin short routes are no longer built
-  in for any actions other than index. Previously [Users](users.md) and [Users / add](users/add.md)
+  in for any actions other than index. Previously `/users` and `/users/add`
   would map to the UsersController in the Users plugin. In 2.0, only the
   `index` action is given a short route. If you wish to continue using short
   routes, you can add a route like:
@@ -574,9 +574,9 @@ or want to implement your own standard you can include your own file with custom
   'debug' instead it returns all values in Configure. Use
   `Configure::read('debug');` if you want the value of debug.
 - `Configure::load()` now requires a ConfigReader to be setup. Read
-  [loading-configuration-files](#loading-configuration-files) for more information.
+  [Loading Configuration Files](#loading-configuration-files) for more information.
 - `Configure::store()` now writes values to a given Cache configuration. Read
-  [loading-configuration-files](#loading-configuration-files) for more information.
+  [Loading Configuration Files](#loading-configuration-files) for more information.
 
 ### Scaffold
 
@@ -614,7 +614,7 @@ CakeSession is now a fully static class, both `SessionHelper` and
 in models or other contexts. All of its methods are called statically.
 
 Session configuration has also changed [see the session section for more
-information](development/sessions.md)
+information](../development/sessions.md)
 
 ### HttpSocket
 
@@ -663,7 +663,7 @@ The motivations for refactoring this functionality came from a few issues.
   manually construct several other objects in order to get a functioning object.
 
 You can read more about HelperCollection in the
-[/core-libraries/collections](core-libraries/collections.md) documentation.
+[Collections](../core-libraries/collections.md) documentation.
 
 ### Deprecated properties
 
@@ -743,9 +743,9 @@ generate caches. You should remember to place CacheHelper after other helpers
 that modify content in their `afterRender` and `afterLayout` callbacks. If
 you don't some changes will not be part of the cached content.
 
-CacheHelper also no longer uses [](#cakenocache) to indicate un-cached
-regions. Instead it uses special HTML/XML comments. [](#--nocache--) and
-[](#--nocache--). This helps CacheHelper generate valid markup and still
+CacheHelper also no longer uses `<cake:nocache>` to indicate un-cached
+regions. Instead it uses special HTML/XML comments. `<!--nocache-->` and
+`<!--/nocache-->`. This helps CacheHelper generate valid markup and still
 perform the same functions as before. You can read more CacheHelper and View
 changes.
 
@@ -761,7 +761,7 @@ The Helper class has more 3 protected attributes:
   generated: (ie `%s="%s"`)
 
 By default the values used in CakePHP 1.3 were not changed. But now you can
-use boolean attributes from HTML, like [](#input-typecheckbox-checked-). To
+use boolean attributes from HTML, like `<input type="checkbox" checked />`. To
 this, just change `$_minimizedAttributeFormat` in your AppHelper to `%s`.
 
 To use with Html/Form helpers and others, you can write:
@@ -791,7 +791,7 @@ Note that `checked` have a numeric key.
 - `Controller::$data` is deprecated, use the request object's data property.
 - `Controller::$params` is deprecated, use the `$this->request` instead.
 - `Controller::$Component` has been moved to `Controller::$Components`. See
-  the [/core-libraries/collections](core-libraries/collections.md) documentation for more information.
+  the [Collections](../core-libraries/collections.md) documentation for more information.
 - `Controller::$view` has been renamed to `Controller::$viewClass`.
   `Controller::$view` is now used to change which view file is rendered.
 - `Controller::render()` now returns a CakeResponse object.
@@ -812,7 +812,7 @@ exists, and serves as a convenience method for loading and using the
 `PaginatorComponent`.
 
 For more information on the new features offered by pagination in 2.0, see the
-[/core-libraries/components/pagination](core-libraries/components/pagination.md) documentation.
+[Pagination](../core-libraries/components/pagination.md) documentation.
 
 ## View
 
@@ -911,7 +911,7 @@ public function afterLayout($layoutFile) {
 
 Element caching, and view callbacks have been changed in 2.0 to help provide you
 with more flexibility and consistency. [Read more about those
-changes](views.md).
+changes](../views.md).
 
 ### CacheHelper decoupled
 
@@ -919,9 +919,9 @@ In previous versions there was a tight coupling between `CacheHelper`
 and `View`. For 2.0 this coupling has been removed and CacheHelper
 just uses callbacks like other helpers to generate full page caches.
 
-### CacheHelper [](#cakenocache) tags changed
+### CacheHelper `<cake:nocache>` tags changed
 
-In previous versions, CacheHelper used a special [](#cakenocache) tag as
+In previous versions, CacheHelper used a special `<cake:nocache>` tag as
 markers for output that should not be part of the full page cache. These tags
 were not part of any XML schema, and were not possible to validate in HTML or
 XML documents. For 2.0, these tags have been replaced with HTML/XML comments:

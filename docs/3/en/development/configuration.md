@@ -26,7 +26,7 @@ but you can switch to INI or JSON files if you'd prefer.
 
 Configuration files are loaded at the beginning of each request during your
 application's 'bootstrap' process. Configuration is loaded into
-`Cake\Core\Configure` and is used to configure the various services
+`Cake\\Core\\Configure` and is used to configure the various services
 provided by CakePHP and your application.
 
 The application skeleton features a **config/app.php** file which should contain
@@ -51,6 +51,8 @@ Configure::config('default', new PhpConfig());
 Configure::load('app', 'default', false);
 Configure::load('other_config', 'default');
 ```
+
+<a id="environment-variables"></a>
 
 ## Environment Variables
 
@@ -247,7 +249,7 @@ information on configuring error and exception handlers.
 
 ### Logging Configuration
 
-See the [log-configuration](#log-configuration) for information on configuring logging in
+See the [Log Configuration](#log-configuration) for information on configuring logging in
 CakePHP.
 
 ### Email Configuration
@@ -257,13 +259,15 @@ configuring email presets in CakePHP.
 
 ### Session Configuration
 
-See the [session-configuration](#session-configuration) for information on configuring session
+See the [Session Configuration](#session-configuration) for information on configuring session
 handling in CakePHP.
 
 ### Routing configuration
 
 See the [Routes Configuration](#routes-configuration) for more information
 on configuring routing and creating routes for your application.
+
+<a id="additional-class-paths"></a>
 
 ## Additional Class Paths
 
@@ -322,7 +326,7 @@ Paths should end with a directory separator, or they will not work properly.
 
 ## Inflection Configuration
 
-See the [inflection-configuration](#inflection-configuration) docs for more information.
+See the [Inflection Configuration](#inflection-configuration) docs for more information.
 
 ## Configure Class
 
@@ -391,7 +395,7 @@ The `$default` parameter was added in 3.5.0
 
 </div>
 
-Reads configuration data just like `Cake\Core\Configure::read`
+Reads configuration data just like `Cake\\Core\\Configure::read`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown:
 
@@ -433,7 +437,7 @@ Configure::delete('Company.name');
 Read and delete a key from Configure. This is useful when you want to
 combine reading and deleting values in a single operation.
 
-Consumes configuration data just like `Cake\Core\Configure::consume`
+Consumes configuration data just like `Cake\\Core\\Configure::consume`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown:
 
@@ -457,9 +461,9 @@ Configure::consumeOrFail('Company');
 ## Reading and writing configuration files
 
 CakePHP comes with two built-in configuration file engines.
-`Cake\Core\Configure\Engine\PhpConfig` is able to read PHP config
+`Cake\\Core\\Configure\\Engine\\PhpConfig` is able to read PHP config
 files, in the same format that Configure has historically read.
-`Cake\Core\Configure\Engine\IniConfig` is able to read ini config
+`Cake\\Core\\Configure\\Engine\\IniConfig` is able to read ini config
 files. See the [PHP documentation](https://php.net/parse_ini_file) for more
 information on the specifics of ini files. To use a core config engine, you'll
 need to attach it to Configure using `Configure::config()`:
@@ -493,6 +497,8 @@ files with that engine would fail:
 Configure::drop('default');
 ```
 
+<a id="loading-configuration-files"></a>
+
 ### Loading Configuration Files
 
 Once you've attached a config engine to Configure you can load configuration
@@ -511,9 +517,9 @@ will not ever overwrite the existing configuration.
 Dumps all or some of the data in Configure into a file or storage system
 supported by a config engine. The serialization format is decided by the config
 engine attached as \$config. For example, if the 'default' engine is
-a `Cake\Core\Configure\Engine\PhpConfig`, the generated file will be
+a `Cake\\Core\\Configure\\Engine\\PhpConfig`, the generated file will be
 a PHP configuration file loadable by the
-`Cake\Core\Configure\Engine\PhpConfig`
+`Cake\\Core\\Configure\\Engine\\PhpConfig`
 
 Given that the 'default' engine is an instance of PhpConfig.
 Save all data in Configure to the file \`my_config.php\`:
@@ -542,7 +548,7 @@ use it in subsequent requests:
     Configure::store('user_1234', 'default');
 
 Stored configuration data is persisted in the named cache configuration. See the
-[/core-libraries/caching](core-libraries/caching.md) documentation for more information on caching.
+[Caching](../core-libraries/caching.md) documentation for more information on caching.
 
 ### Restoring Runtime Configuration
 
@@ -560,12 +566,12 @@ information is merged on top of the existing runtime configuration.
 
 CakePHP provides the ability to load configuration files from a number of
 different sources, and features a pluggable system for [creating your own
-configuration engines](https://api.cakephp.org/3.x/class-Cake.Core.Configure.ConfigEngineInterface.md).
+configuration engines](https://api.cakephp.org/3.x/class-Cake.Core.Configure.ConfigEngineInterface.html).
 The built in configuration engines are:
 
-- [JsonConfig](https://api.cakephp.org/3.x/class-Cake.Core.Configure.Engine.JsonConfig.md)
-- [IniConfig](https://api.cakephp.org/3.x/class-Cake.Core.Configure.Engine.IniConfig.md)
-- [PhpConfig](https://api.cakephp.org/3.x/class-Cake.Core.Configure.Engine.PhpConfig.md)
+- [JsonConfig](https://api.cakephp.org/3.x/class-Cake.Core.Configure.Engine.JsonConfig.html)
+- [IniConfig](https://api.cakephp.org/3.x/class-Cake.Core.Configure.Engine.IniConfig.html)
+- [PhpConfig](https://api.cakephp.org/3.x/class-Cake.Core.Configure.Engine.PhpConfig.html)
 
 By default your application will use `PhpConfig`.
 
@@ -585,8 +591,10 @@ This file is ideal for a number of common bootstrapping tasks:
 - Loading configuration files.
 
 It might be tempting to place formatting functions there in order to use them in
-your controllers. As you'll see in the [/controllers](controllers.md) and [/views](views.md)
+your controllers. As you'll see in the [Controllers](../controllers.md) and [Views](../views.md)
 sections there are better ways you add custom logic to your application.
+
+<a id="application-bootstrap"></a>
 
 ### Application::bootstrap()
 
@@ -615,7 +623,7 @@ class Application extends BaseApplication
 ```
 
 Loading plugins/events in `Application::bootstrap()` makes
-[integration-testing](#integration-testing) easier as events and routes will be re-processed on
+[Integration Testing](#integration-testing) easier as events and routes will be re-processed on
 each test method.
 
 ## Disabling Generic Tables

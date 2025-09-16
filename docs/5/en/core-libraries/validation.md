@@ -2,7 +2,9 @@
 
 The validation package in CakePHP provides features to build validators that can
 validate arbitrary arrays of data with ease. You can find a [list of available
-Validation rules in the API](https://api.cakephp.org/5.x/class-Cake.Validation.Validation.md).
+Validation rules in the API](https://api.cakephp.org/5.x/class-Cake.Validation.Validation.html).
+
+<a id="creating-validators"></a>
 
 ## Creating Validators
 
@@ -120,7 +122,7 @@ when a field can or cannot be empty:
 - `update` The field can be empty when validating an **update**
   operation.
 - A callback that returns `true` or `false` to indicate whether a field is
-  allowed to be empty. See the [conditional-validation](#conditional-validation) section for examples on
+  allowed to be empty. See the [Conditional Validation](#conditional-validation) section for examples on
   how to use this parameter.
 
 An example of these methods in action is:
@@ -147,8 +149,10 @@ $validator
     ->lengthBetween('username', [4, 8]);
 ```
 
-See the [Validator API documentation](https://api.cakephp.org/5.x/class-Cake.Validation.Validator.md) for the
+See the [Validator API documentation](https://api.cakephp.org/5.x/class-Cake.Validation.Validator.html) for the
 full set of validator methods.
+
+<a id="custom-validation-rules"></a>
 
 ### Using Custom Validation Rules
 
@@ -201,6 +205,8 @@ return boolean false or for a custom error message return a string, see the
 [Conditional/Dynamic Error Messages](#dynamic_validation_error_messages)
 section for further details.
 
+<a id="dynamic_validation_error_messages"></a>
+
 ### Conditional/Dynamic Error Messages
 
 Validation rule methods, being it [custom callables](#custom-validation-rules),
@@ -232,6 +238,8 @@ $validator->add('length', 'custom', [
     'message' => 'Generic error message used when `false` is returned'
 ]);
 ```
+
+<a id="conditional-validation"></a>
 
 ### Conditional Validation
 
@@ -361,13 +369,15 @@ When enabled all fields will stop validation on the first failing rule instead
 of checking all possible rules. In this case only a single error message will
 appear under the form field.
 
+<a id="adding-validation-providers"></a>
+
 ### Adding Validation Providers
 
 The `Validator`, `ValidationSet` and `ValidationRule` classes do not
 provide any validation methods themselves. Validation rules come from
 'providers'. You can bind any number of providers to a Validator object.
 Validator instances come with a 'default' provider setup automatically. The
-default provider is mapped to the `~Cake\Validation\Validation`
+default provider is mapped to the `~Cake\\Validation\\Validation`
 class. This makes it simple to use the methods on that class as validation
 rules. When using Validators and the ORM together, additional providers are
 configured for the table and entity objects. You can use the `setProvider()`
@@ -452,7 +462,7 @@ There are a few methods that are common to all classes, defined through the
 
 ### Nesting Validators
 
-When validating [/core-libraries/form](core-libraries/form.md) with nested data, or when working
+When validating [Modelless Forms](../core-libraries/form.md) with nested data, or when working
 with models that contain array data types, it is necessary to validate the
 nested data you have. CakePHP makes it simple to add validators to specific
 attributes. For example, assume you are working with a non-relational database
@@ -499,6 +509,8 @@ $validator->addNestedMany(
 ```
 
 The error message for a nested validator can be found in the `_nested` key.
+
+<a id="reusable-validators"></a>
 
 ### Creating Reusable Validators
 
@@ -573,10 +585,10 @@ if (!$errors) {
 
 > [!NOTE]
 > If you need to validate entities you should use methods like
-> `~Cake\ORM\Table::newEntity()`,
-> `~Cake\ORM\Table::newEntities()`,
-> `~Cake\ORM\Table::patchEntity()`,
-> `~Cake\ORM\Table::patchEntities()`
+> `~Cake\\ORM\\Table::newEntity()`,
+> `~Cake\\ORM\\Table::newEntities()`,
+> `~Cake\\ORM\\Table::patchEntity()`,
+> `~Cake\\ORM\\Table::patchEntities()`
 > as they are designed for that.
 
 ## Validating Entity Data
@@ -634,7 +646,7 @@ CakePHP provides a basic suite of validation methods in the `Validation`
 class. The Validation class contains a variety of static methods that provide
 validators for several common validation situations.
 
-The [API documentation](https://api.cakephp.org/5.x/class-Cake.Validation.Validation.md) for the
+The [API documentation](https://api.cakephp.org/5.x/class-Cake.Validation.Validation.html) for the
 `Validation` class provides a good list of the validation rules that are
 available, and their basic usage.
 

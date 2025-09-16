@@ -86,7 +86,7 @@ For example, if a new English file is created in **en/file.rst**, we should:
 - Do compare to the English content before submitting a correction
   (if you correct something, but don't integrate an 'upstream' change
   your submission won't be accepted).
-- If you need to write an English term, wrap it in [](#em) tags.
+- If you need to write an English term, wrap it in `<em>` tags.
   E.g. "asdf asdf *Controller* asdf" or "asdf asdf Kontroller
   (*Controller*) asfd" as appropriate.
 - Do not submit partial translations.

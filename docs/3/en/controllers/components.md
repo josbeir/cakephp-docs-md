@@ -11,19 +11,19 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Authentication](components/authentication.md)
-- [Cookie](components/cookie.md)
-- [Csrf](components/csrf.md)
-- [Flash](components/flash.md)
-- [Security](components/security.md)
-- [Pagination](components/pagination.md)
-- [Request Handling](components/request-handling.md)
+- [AuthComponent](../controllers/components/authentication.md)
+- [Cookie](../controllers/components/cookie.md)
+- [Cross Site Request Forgery](../controllers/components/csrf.md)
+- [Flash](../controllers/components/flash.md)
+- [Security](../controllers/components/security.md)
+- [Pagination](../controllers/components/pagination.md)
+- [Request Handling](../controllers/components/request-handling.md)
 
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
-requiring configuration are [/controllers/components/authentication](components/authentication.md) and
-[/controllers/components/cookie](components/cookie.md). Configuration for these components,
+requiring configuration are [AuthComponent](../controllers/components/authentication.md) and
+[Cookie](../controllers/components/cookie.md). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 
@@ -129,7 +129,7 @@ $time = $this->OneTimer->getTime();
 
 Once you've included some components in your controller, using them is pretty
 simple. Each component you use is exposed as a property on your controller. If
-you had loaded up the `Cake\Controller\Component\FlashComponent`
+you had loaded up the `Cake\\Controller\\Component\\FlashComponent`
 in your controller, you could access it like so:
 
 ``` php
@@ -180,7 +180,7 @@ class MathComponent extends Component
 ```
 
 > [!NOTE]
-> All components must extend `Cake\Controller\Component`. Failing
+> All components must extend `Cake\\Controller\\Component`. Failing
 > to do this will trigger an exception.
 
 ### Including your Component in your Controllers

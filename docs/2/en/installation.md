@@ -12,7 +12,7 @@ run on a variety of web servers such as lighttpd or Microsoft IIS.
 - PHP 5.3.0 or greater (CakePHP version 2.6 and below support PHP 5.2.8 and
   above). CakePHP version 2.8.0 and above support PHP 7. To use PHP above 7.1
   you may need to install mcrypt via PECL. See
-  [/core-utility-libraries/security](core-utility-libraries/security.md) for more information.
+  [Security](core-utility-libraries/security.md) for more information.
 
 Technically a database engine isn't required, but we imagine that most
 applications will utilize one. CakePHP supports a variety of database storage
@@ -98,9 +98,9 @@ main installation types for CakePHP: development, production, and advanced.
 A development installation is the fastest method to setup CakePHP. This example
 will help you install a CakePHP application and make it available at
 [http://www.example.com/cake\\2\\0/](http://www.example.com/cake\_2\_0/). We assume for the purposes of this example
-that your document root is set to [Var / www / html](var/www/html.md).
+that your document root is set to `/var/www/html`.
 
-Unpack the contents of the CakePHP archive into [Var / www / html](var/www/html.md). You now have
+Unpack the contents of the CakePHP archive into `/var/www/html`. You now have
 a folder in your document root named after the release you've downloaded (e.g.
 cake_2.0.0). Rename this folder to cake_2_0. Your development setup will look
 like this on the file system:
@@ -124,17 +124,17 @@ If you are developing a number of applications, it often makes sense to have
 them share the same CakePHP core checkout. There are a few ways in which you can
 accomplish this. Often the easiest is to use PHP's `include_path`. To start
 off, clone CakePHP into a directory. For this example, we'll use
-[Home / mark / projects](home/mark/projects.md):
+`/home/mark/projects`:
 
     git clone -b 2.x git://github.com/cakephp/cakephp.git /home/mark/projects/cakephp
 
-This will clone CakePHP into your [Home / mark / projects](home/mark/projects.md) directory. If you
+This will clone CakePHP into your `/home/mark/projects` directory. If you
 don't want to use git, you can download a zipball and the remaining steps will
 be the same. Next you'll have to locate and modify your `php.ini`. On \*nix
-systems this is often in [Etc / php.ini](etc/php.ini.md), but using `php -i` and looking for
+systems this is often in `/etc/php.ini`, but using `php -i` and looking for
 'Loaded Configuration File', you can find the actual location. Once you've found
 the correct ini file, modify the `include_path` configuration to include
-[Home / mark / projects / cakephp / lib](home/mark/projects/cakephp/lib.md). An example would look like:
+`/home/mark/projects/cakephp/lib`. An example would look like:
 
     include_path = .:/home/mark/projects/cakephp/lib:/usr/local/php/lib/php
 
@@ -181,7 +181,7 @@ application accessible at <http://www.example.com>.
 ## Advanced Installation and URL Rewriting
 
 - [Advanced Installation](installation/advanced-installation.md)
-- [Url Rewriting](installation/url-rewriting.md)
+- [URL Rewriting](installation/url-rewriting.md)
 
 ## Fire It Up
 

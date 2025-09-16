@@ -41,7 +41,7 @@ removed in 6.0.0.
 
 - The `errorClass` option of `FormHelper` has been deprecated in favour of
   using a template string. To upgrade move your `errorClass` definition to
-  a template set. See [customizing-templates](#customizing-templates).
+  a template set. See [Customizing Templates](#customizing-templates).
 
 ## New Features
 

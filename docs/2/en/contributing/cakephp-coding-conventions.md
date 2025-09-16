@@ -309,10 +309,10 @@ which should look like this:
 
 The included [phpDocumentor](https://phpdoc.org) tags are:
 
-- [@copyright](https://phpdoc.org/docs/latest/references/phpdoc/tags/copyright.md)
-- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.md)
-- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.md)
-- [@license](https://phpdoc.org/docs/latest/references/phpdoc/tags/license.md)
+- [@copyright](https://phpdoc.org/docs/latest/references/phpdoc/tags/copyright.html)
+- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.html)
+- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.html)
+- [@license](https://phpdoc.org/docs/latest/references/phpdoc/tags/license.html)
 
 ### Class DocBlocks
 
@@ -334,14 +334,14 @@ Class DocBlocks should look like this:
 
 Class DocBlocks may contain the following [phpDocumentor](https://phpdoc.org) tags:
 
-- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.md)
-  Using the [@version](#vector)[](#description) format, where `version` and `description` are mandatory.
-- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.md)
-- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.md)
-- [@property](https://phpdoc.org/docs/latest/references/phpdoc/tags/property.md)
-- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.md)
-- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.md)
-- [@uses](https://phpdoc.org/docs/latest/references/phpdoc/tags/uses.md)
+- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html)
+  Using the `@version <vector> <description>` format, where `version` and `description` are mandatory.
+- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.html)
+- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.html)
+- [@property](https://phpdoc.org/docs/latest/references/phpdoc/tags/property.html)
+- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.html)
+- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.html)
+- [@uses](https://phpdoc.org/docs/latest/references/phpdoc/tags/uses.html)
 
 ### Property DocBlocks
 
@@ -360,13 +360,13 @@ protected $_bar = null;
 
 Property DocBlocks may contain the following [phpDocumentor](https://phpdoc.org) tags:
 
-- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.md)
-  Using the [@version](#vector)[](#description) format, where `version` and `description` are mandatory.
-- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.md)
-- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.md)
-- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.md)
-- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.md)
-- [@var](https://phpdoc.org/docs/latest/references/phpdoc/tags/var.md)
+- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html)
+  Using the `@version <vector> <description>` format, where `version` and `description` are mandatory.
+- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.html)
+- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.html)
+- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.html)
+- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.html)
+- [@var](https://phpdoc.org/docs/latest/references/phpdoc/tags/var.html)
 
 ### Method/Function DocBlocks
 
@@ -394,16 +394,16 @@ Method and functions DocBlocks should look like this:
 
 Method and function DocBLocks may contain the following [phpDocumentor](https://phpdoc.org) tags:
 
-- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.md)
-  Using the [@version](#vector)[](#description) format, where `version` and `description` are mandatory.
-- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.md)
-- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.md)
-- [@param](https://phpdoc.org/docs/latest/references/phpdoc/tags/param.md)
-- [@return](https://phpdoc.org/docs/latest/references/phpdoc/tags/return.md)
-- [@throws](https://phpdoc.org/docs/latest/references/phpdoc/tags/throws.md)
-- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.md)
-- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.md)
-- [@uses](https://phpdoc.org/docs/latest/references/phpdoc/tags/uses.md)
+- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html)
+  Using the `@version <vector> <description>` format, where `version` and `description` are mandatory.
+- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.html)
+- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.html)
+- [@param](https://phpdoc.org/docs/latest/references/phpdoc/tags/param.html)
+- [@return](https://phpdoc.org/docs/latest/references/phpdoc/tags/return.html)
+- [@throws](https://phpdoc.org/docs/latest/references/phpdoc/tags/throws.html)
+- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.html)
+- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.html)
+- [@uses](https://phpdoc.org/docs/latest/references/phpdoc/tags/uses.html)
 
 ### Variable Types
 
@@ -478,7 +478,7 @@ When including files with classes or libraries, use only and always the
 
 ## PHP Tags
 
-Always use long tags ([](#php-)) Instead of short tags ([](#-)).
+Always use long tags (`<?php ?>`) Instead of short tags (`<? ?>`).
 
 ## Naming Convention
 

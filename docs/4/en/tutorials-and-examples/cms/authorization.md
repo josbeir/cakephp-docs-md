@@ -257,7 +257,7 @@ public function edit($slug)
 ```
 
 Here we're modifying which properties can be mass-assigned, via the options
-for `patchEntity()`. See the [changing-accessible-fields](#changing-accessible-fields) section for
+for `patchEntity()`. See the [Changing Accessible Fields](#changing-accessible-fields) section for
 more information. Remember to remove the `user_id` control from
 **templates/Articles/edit.php** as we no longer need it.
 
@@ -269,4 +269,4 @@ articles. We've also added some nice UX improvements by leveraging the
 FormHelper and ORM capabilities.
 
 Thank you for taking the time to explore CakePHP. Next, you should learn more about
-the [/orm](orm.md), or you peruse the [/topics](topics.md).
+the [Database Access & ORM](../../orm.md), or you peruse the [Using CakePHP](../../topics.md).

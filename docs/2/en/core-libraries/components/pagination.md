@@ -376,7 +376,7 @@ public function index() {
 
 It's very easy to incorporate AJAX functionality into pagination.
 Using the `JsHelper` and `RequestHandlerComponent` you can
-easily add AJAX pagination to your application. See [ajax-pagination](#ajax-pagination) for
+easily add AJAX pagination to your application. See [Ajax Pagination](#ajax-pagination) for
 more information.
 
 ## Pagination in the view

@@ -428,7 +428,7 @@ further information.
 
 nginx does not make use of .htaccess files like Apache, so it is necessary to
 create those rewritten URLs in the site-available configuration. This is usually
-found in [Etc / nginx / sites available / your_virtual_host_conf_file](etc/nginx/sites-available/your_virtual_host_conf_file.md). Depending
+found in `/etc/nginx/sites-available/your_virtual_host_conf_file`. Depending
 on your setup, you will have to modify this, but at the very least, you will
 need PHP running as a FastCGI instance.
 The following configuration redirects the request to `webroot/index.php`:
@@ -620,7 +620,7 @@ url.rewrite-once = (
 ```
 
 The above lines include PHP CGI configuration and example application
-configuration for an application on the [TestCake](TestCake.md) path.
+configuration for an application on the `/TestCake` path.
 
 ### I Can't Use URL Rewriting
 

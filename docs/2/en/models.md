@@ -57,7 +57,7 @@ See also [Behaviors](models/behaviors.md) for more information on how to
 apply similar logic to multiple models.
 
 Back to our Ingredient model. In order to work on it, create the PHP file in the
-[App / Model / ](app/Model/.md) directory. By convention, it should have the same name as the
+`/app/Model/` directory. By convention, it should have the same name as the
 class, which for this example will be `Ingredient.php`.
 
 > [!NOTE]
@@ -110,15 +110,15 @@ associations are defined, take a look at the
 
 ## More on models
 
-- [Associations Linking Models Together](models/associations-linking-models-together.md)
+- [Associations: Linking Models Together](models/associations-linking-models-together.md)
 - [Retrieving Your Data](models/retrieving-your-data.md)
 - [Saving Your Data](models/saving-your-data.md)
 - [Deleting Data](models/deleting-data.md)
 - [Data Validation](models/data-validation.md)
 - [Callback Methods](models/callback-methods.md)
 - [Behaviors](models/behaviors.md)
-- [Datasources](models/datasources.md)
+- [DataSources](models/datasources.md)
 - [Model Attributes](models/model-attributes.md)
-- [Additional Methods And Properties](models/additional-methods-and-properties.md)
-- [Virtual Fields](models/virtual-fields.md)
+- [Additional Methods and Properties](models/additional-methods-and-properties.md)
+- [Virtual fields](models/virtual-fields.md)
 - [Transactions](models/transactions.md)

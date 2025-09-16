@@ -2,7 +2,7 @@
 
 `class` **Security**
 
-The [security library](https://api.cakephp.org/2.x/class-Security.md)
+The [security library](https://api.cakephp.org/2.x/class-Security.html)
 handles basic security measures such as providing methods for
 hashing and encrypting data.
 

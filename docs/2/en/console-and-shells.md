@@ -47,7 +47,7 @@ $ Console/cake
 
 It's often wise to add the core cake executable to your system path
 so you can use the cake command anywhere. This comes in handy when you are
-creating new projects. See [adding-cake-to-your-path](#adding-cake-to-your-path) for how to make `cake`
+creating new projects. See [Adding Cake To Your Path](#adding-cake-to-your-path) for how to make `cake`
 available systemwide.
 
 Running the Console with no arguments produces this help message:
@@ -106,7 +106,7 @@ If you are on a \*nix system (linux, MacOSX) the following steps will let you ad
 cake executable to your system path.
 
 1.  Locate where your CakePHP install, and cake executable are. For example
-    [Users / mark / cakephp / lib / Cake / Console / cake](Users/mark/cakephp/lib/Cake/Console/cake.md)
+    `/Users/mark/cakephp/lib/Cake/Console/cake`
 
 2.  Edit your `.bashrc` or `.bash_profile` file in your home directory, and add the following:
 
@@ -165,7 +165,7 @@ You should see the following output:
 
 As mentioned before, the `main()` method in shells is a special method called
 whenever there are no other commands or arguments given to a shell. You may have also
-noticed that HelloShell is extending `AppShell`. Much like [app-controller](#app-controller), AppShell
+noticed that HelloShell is extending `AppShell`. Much like [App Controller](controllers.md#app-controller), AppShell
 gives you a base class to contain all your common functions or logic. You can define an AppShell,
 by creating `app/Console/Command/AppShell.php`. If you don't have one, CakePHP will use the
 built-in one. Since our main method wasn't very interesting let's add another command
@@ -248,7 +248,7 @@ class FileGeneratorTask extends Shell {
 ```
 
 A shell can also access its tasks as properties, which makes tasks great for
-making re-usable chunks of functionality similar to [/controllers/components](controllers/components.md):
+making re-usable chunks of functionality similar to [Components](controllers/components.md):
 
 ``` php
 // found in Console/Command/SeaShell.php
@@ -359,9 +359,9 @@ new output style you could do:
 $this->stdout->styles('flashy', array('text' => 'magenta', 'blink' => true));
 ```
 
-This would then allow you to use a [](#flashy) tag in your shell output, and if ansi
+This would then allow you to use a `<flashy>` tag in your shell output, and if ansi
 colours are enabled, the following would be rendered as blinking magenta text
-[[$this->out('](#flashy)Whoooa](flashy.md) Something went wrong');. When defining
+`$this->out('<flashy>Whoooa</flashy> Something went wrong');`. When defining
 styles you can use the following colours for the <span class="title-ref">text</span> and <span class="title-ref">background</span> attributes:
 
 - black
@@ -907,12 +907,12 @@ This asserts that the generated message IDs are valid and fit to the domain the 
 
 ## More topics
 
-- [Helpers](console-and-shells/helpers.md)
-- [Cron Jobs](console-and-shells/cron-jobs.md)
+- [Shell Helpers](console-and-shells/helpers.md)
+- [Running Shells as cronjobs](console-and-shells/cron-jobs.md)
 - [Completion Shell](console-and-shells/completion-shell.md)
-- [Code Generation With Bake](console-and-shells/code-generation-with-bake.md)
-- [Schema Management And Migrations](console-and-shells/schema-management-and-migrations.md)
-- [I18n Shell](console-and-shells/i18n-shell.md)
-- [Acl Shell](console-and-shells/acl-shell.md)
-- [Testsuite Shell](console-and-shells/testsuite-shell.md)
-- [Upgrade Shell](console-and-shells/upgrade-shell.md)
+- [Code Generation with Bake](console-and-shells/code-generation-with-bake.md)
+- [Schema management and migrations](console-and-shells/schema-management-and-migrations.md)
+- [I18N shell](console-and-shells/i18n-shell.md)
+- [ACL Shell](console-and-shells/acl-shell.md)
+- [Test shell](console-and-shells/testsuite-shell.md)
+- [The upgrade shell will do most of the work to upgrade your CakePHP application](console-and-shells/upgrade-shell.md)

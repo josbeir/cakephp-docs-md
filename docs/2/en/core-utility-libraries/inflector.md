@@ -52,4 +52,4 @@ You can try out the inflections online at
 > Resets Inflector back to its initial state, useful in testing.
 >
 > Define new inflection and transliteration rules for Inflector to use.
-> See [inflection-configuration](#inflection-configuration) for more information.
+> See [Inflection Configuration](#inflection-configuration) for more information.

@@ -1,16 +1,16 @@
 # Bookmarker Tutorial Part 2
 
-After finishing [the first part of this tutorial](bookmarks/intro.md) you should have a very basic
+After finishing [the first part of this tutorial](../../tutorials-and-examples/bookmarks/intro.md) you should have a very basic
 bookmarking application. In this chapter we'll be adding authentication and
 restricting the bookmarks each user can see/modify to only the ones they own.
 
 ## Adding Login
 
-In CakePHP, authentication is handled by [/controllers/components](controllers/components.md).
+In CakePHP, authentication is handled by [Components](../../controllers/components.md).
 Components can be thought of as ways to create reusable chunks of controller
 code related to a specific feature or concept. Components can also hook into the
 controller's event life-cycle and interact with your application that way. To
-get started, we'll add the [AuthComponent](components/authentication.md) to our application. We'll pretty much
+get started, we'll add the [AuthComponent](../../controllers/components/authentication.md) to our application. We'll pretty much
 want every method to require authentication, so we'll add AuthComponent in our
 AppController:
 
@@ -110,7 +110,7 @@ public function logout()
 ```
 
 This code configures the `logout` action as a public action and implements
-the logout method. Now you can visit [Users / logout](users/logout.md) to log out. You should
+the logout method. Now you can visit `/users/logout` to log out. You should
 then be sent to the login page.
 
 ## Enabling Registrations
@@ -421,7 +421,7 @@ protected function _buildTags($tagString)
 
 While this code is a bit more complicated than what we've done so far, it helps
 to showcase how powerful the ORM in CakePHP is. You can manipulate query
-results using the [/core-libraries/collections](core-libraries/collections.md) methods, and handle
+results using the [Collections](../../core-libraries/collections.md) methods, and handle
 scenarios where you are creating entities on the fly with ease.
 
 ## Wrapping Up
@@ -431,5 +431,5 @@ authorization/access control scenarios. We've also added some nice UX
 improvements by leveraging the FormHelper and ORM capabilities.
 
 Thanks for taking the time to explore CakePHP. Next, you can complete the
-[/tutorials-and-examples/blog/blog](blog/blog.md), learn more about the
-[/orm](orm.md), or you can peruse the [/topics](topics.md).
+[Blog Tutorial](../../tutorials-and-examples/blog/blog.md), learn more about the
+[Database Access & ORM](../../orm.md), or you can peruse the [Using CakePHP](../../topics.md).

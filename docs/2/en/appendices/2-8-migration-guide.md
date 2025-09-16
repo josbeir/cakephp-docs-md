@@ -39,7 +39,7 @@ CakePHP 2.8 is compatible with, and tested against PHP7.
 ## Shell Helpers Added
 
 Console applications can now create helper classes that encapsulate re-usable
-blocks of output logic. See the [/console-and-shells/helpers](console-and-shells/helpers.md) section
+blocks of output logic. See the [Shell Helpers](../console-and-shells/helpers.md) section
 for more information.
 
 ## I18nShell

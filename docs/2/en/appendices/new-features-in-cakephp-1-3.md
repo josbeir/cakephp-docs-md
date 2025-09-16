@@ -58,7 +58,7 @@ helpers to share names and not create collisions.
 
 **New JsHelper and new features in HtmlHelper**
 
-See [JsHelper documentation](helpers/js.md) for more information
+See [JsHelper documentation](../core-libraries/helpers/js.md) for more information
 
 **Pagination Helper**
 
@@ -111,7 +111,7 @@ for more information.
 
 Logging and `CakeLog` have been enhanced considerably, both in
 features and flexibility. See
-[New Logging features](https://book.cakephp.org/1.3/en/The-Manual/Common-Tasks-With-CakePHP/Logging.md) for more information.
+[New Logging features](https://book.cakephp.org/1.3/en/The-Manual/Common-Tasks-With-CakePHP/Logging.html) for more information.
 
 ## Caching
 
@@ -456,7 +456,7 @@ $dateFormat = __c('d_fmt',LC_TIME,true); // return the preferred dates format fo
 
 You can read a complete guide of possible values in LC_TIME
 definition file in
-[this page](https://sunsson.iptime.org/susv3/basedefs/xbd_chap07.md)
+[this page](https://sunsson.iptime.org/susv3/basedefs/xbd_chap07.html)
 
 ## Miscellaneous
 

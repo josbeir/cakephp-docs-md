@@ -79,7 +79,7 @@ deprecated and immutable variants are now recommended:
 - `Response::file()` would become `Response::withFile()`
 - `Response::download()` would become `Response::withDownload()`
 
-Please see the [adopting-immutable-responses](#adopting-immutable-responses) section for more information
+Please see the [Adopting Immutable Responses](#adopting-immutable-responses) section for more information
 before updating your code as using responses through the immutable methods will
 require additional changes.
 
@@ -416,7 +416,7 @@ your `use` statement to look like:
 ## I18n
 
 - You can now customize the behavior of the fallback message loader. See
-  [creating-generic-translators](#creating-generic-translators) for more information.
+  [Creating Generic Translators](#creating-generic-translators) for more information.
 
 ## Routing
 
@@ -453,7 +453,7 @@ your `use` statement to look like:
 ## FormHelper
 
 - You can now configure the sources which FormHelper reads from. This makes
-  creating GET forms simpler. See [form-values-from-query-string](#form-values-from-query-string) for more
+  creating GET forms simpler. See [Form Values From Query String](#form-values-from-query-string) for more
   information.
 - `FormHelper::control()` was added.
 - `FormHelper::controls()` was added.

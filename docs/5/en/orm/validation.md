@@ -1,6 +1,6 @@
 # Validating Data
 
-Before you [save your data</orm/saving-data>](save your data</orm/saving-data>.md) you
+Before you [save your data](../orm/saving-data.md) you
 will probably want to ensure the data is correct and consistent. In CakePHP we
 have two stages of validation:
 
@@ -8,6 +8,8 @@ have two stages of validation:
     data types and formatting can be applied.
 2.  Before data is saved, domain or application rules can be applied. These rules
     help ensure that your application's data remains consistent.
+
+<a id="validating-request-data"></a>
 
 ## Validating Data Before Building Entities
 
@@ -86,7 +88,7 @@ class ArticlesTable extends Table
 ```
 
 The available validation methods and rules come from the `Validator` class and
-are documented in the [creating-validators](#creating-validators) section.
+are documented in the [Creating Validators](#creating-validators) section.
 
 > [!NOTE]
 > Validation objects are intended primarily for validating user input, i.e.
@@ -123,8 +125,10 @@ class ArticlesTable extends Table
 ```
 
 You can have as many validation sets as necessary. See the [validation
-chapter](core-libraries/validation.md) for more information on building
+chapter](../core-libraries/validation.md) for more information on building
 validation rule-sets.
+
+<a id="using-different-validators-per-association"></a>
 
 ### Using A Different Validation Set For Associations
 
@@ -193,7 +197,7 @@ CakePHP sets up a few providers:
 
 1.  Methods on the table class or its behaviors are available on the `table`
     provider.
-2.  The core `~Cake\Validation\Validation` class is setup as the
+2.  The core `~Cake\\Validation\\Validation` class is setup as the
     `default` provider.
 
 When a validation rule is created you can name the provider of that rule. For
@@ -268,6 +272,8 @@ public function initialize(array $config): void
 }
 ```
 
+<a id="application-rules"></a>
+
 ## Applying Application Rules
 
 While basic data validation is done when [request data is converted into
@@ -288,6 +294,8 @@ before entities are persisted. Some example application rules are:
 - Enforcing usage/rate limit caps.
 
 Application rules are checked when calling the Table `save()` and `delete()` methods.
+
+<a id="creating-a-rules-checker"></a>
 
 ### Creating a Rules Checker
 
@@ -602,6 +610,8 @@ public function buildRules(RulesChecker $rules): RulesChecker
 ```
 
 See the core rules for examples on how to create such rules.
+
+<a id="creating-custom-rule-objects"></a>
 
 ### Creating Custom Rule Objects
 

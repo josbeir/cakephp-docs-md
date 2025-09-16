@@ -62,7 +62,7 @@ with the following command:
     apt-get install bash-completion
 
 Create a file named **cake** in **/etc/bash_completion.d/** and put the
-[bash-completion-file-content](#bash-completion-file-content) inside it.
+[Bash Completion File Content](#bash-completion-file-content) inside it.
 
 Save the file, then restart your console.
 
@@ -71,6 +71,8 @@ Save the file, then restart your console.
 > using **homebrew** with the command `brew install bash-completion`.
 > The target directory for the **cake** file will be
 > **/usr/local/etc/bash_completion.d/**.
+
+<a id="bash-completion-file-content"></a>
 
 ### Bash Completion file content
 

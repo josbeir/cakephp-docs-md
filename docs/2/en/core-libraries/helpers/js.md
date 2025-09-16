@@ -43,7 +43,7 @@ added to the name).
 
 By default scripts are cached, and you must explicitly print out
 the cache. To do this at the end of each page, include this line
-just before the ending [](body.md) tag:
+just before the ending `</body>` tag:
 
 ``` php
 echo $this->Js->writeBuffer(); // Write cached scripts
@@ -183,7 +183,7 @@ the scattering of script tags throughout your document, and the
 inability to buffer scripts added by elements in the layout. The
 new JsHelper if used correctly avoids both of those issues. It is
 recommended that you place `$this->Js->writeBuffer()` at the
-bottom of your layout file above the [](body.md) tag. This will
+bottom of your layout file above the `</body>` tag. This will
 allow all scripts generated in layout elements to be output in one
 place. It should be noted that buffered scripts are handled
 separately from included script files.
@@ -302,6 +302,8 @@ CakePHP core. Whenever you see separate lists for `Options` and
 
 `method` JsHelper(View::**value**($value)
 
+<a id="ajax-pagination"></a>
+
 ## AJAX Pagination
 
 Much like AJAX Pagination in 1.2, you can use the JsHelper to
@@ -352,7 +354,7 @@ and will be ignored.
 
 You then create all the links as needed for your pagination
 features. Since the `JsHelper` automatically buffers all
-generated script content to reduce the number of [](#script) tags
+generated script content to reduce the number of `<script>` tags
 in your source code you **must** write the buffer out. At the
 bottom of your view file. Be sure to include:
 

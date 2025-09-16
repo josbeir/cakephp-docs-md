@@ -73,7 +73,7 @@ class PostsController extends AppController {
 ```
 
 Defining `_serialize` as an array has the added benefit of automatically
-appending a top-level [](#response) element when using `XmlView`.
+appending a top-level `<response>` element when using `XmlView`.
 If you use a string value for `_serialize` and XmlView, make sure that your
 view variable has a single top-level element. Without a single top-level
 element the Xml will fail to generate.

@@ -30,7 +30,7 @@ EPUB, you can now read it on more devices, as well as offline.
 
 ### Build a Blog
 
-Get started with the [blog tutorial</tutorials-and-examples/blog/blog>](blog tutorial</tutorials-and-examples/blog/blog>.md).
+Get started with the [blog tutorial](tutorials-and-examples/blog/blog.md).
 You'll learn the basics of CakePHP, and build a basic blog in the process.
 
 ### Conventions
@@ -40,18 +40,18 @@ Learn about a typical [CakePHP request](getting-started/a-typical-cakephp-reques
 ### Controllers
 
 Controllers handle requests and help co-ordinate and prepare
-responses for the client. Read more about [/controllers](controllers.md).
+responses for the client. Read more about [Controllers](controllers.md).
 
 ### Views
 
 Views are the presentation layer in CakePHP. They convert
 the data fetched from Models into the output format requested by the
-client. Read more about [/views](views.md).
+client. Read more about [Views](views.md).
 
 ### Models
 
 Models are the heart of your application. They handle the validation,
-storage and retrieval of your data. Read more about [/models](models.md).
+storage and retrieval of your data. Read more about [Models](models.md).
 
 ## Getting Help
 

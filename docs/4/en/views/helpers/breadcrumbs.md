@@ -12,7 +12,7 @@ arguments:
 
 - **title** The string to be displayed as a the title of the crumb
 - **url** A string or an array of parameters that will be given to the
-  [/views/helpers/url](helpers/url.md)
+  [Url](../../views/helpers/url.md)
 - **options** An array of attributes for the `item` and `itemWithoutLink`
   templates. See the section about [defining attributes for the item](#defining_attributes_item) for more information.
 
@@ -152,6 +152,8 @@ $this->Breadcrumbs->add(
     ]
 );
 ```
+
+<a id="defining_attributes_item"></a>
 
 ### Defining Attributes for the Item
 

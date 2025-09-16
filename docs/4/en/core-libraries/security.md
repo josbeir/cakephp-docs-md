@@ -2,7 +2,7 @@
 
 `class` Cake\\Utility\\**Security**
 
-The [security library](https://api.cakephp.org/4.x/class-Cake.Utility.Security.md)
+The [security library](https://api.cakephp.org/4.x/class-Cake.Utility.Security.html)
 handles basic security measures such as providing methods for
 hashing and encrypting data.
 
@@ -25,7 +25,7 @@ $result = Security::encrypt($value, $key);
 
 If you do not supply an HMAC salt, the value of `Security::getSalt()` will be used.
 Encrypted values can be decrypted using
-`Cake\Utility\Security::decrypt()`.
+`Cake\\Utility\\Security::decrypt()`.
 
 This method should **never** be used to store passwords.
 

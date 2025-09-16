@@ -7,7 +7,7 @@ work well together or separately.
 The goal of this overview is to introduce the general concepts in CakePHP, and
 give you a quick overview of how those concepts are implemented in CakePHP. If
 you are itching to get started on a project, you can [start with the
-tutorial](cms/installation.md), or [dive into the docs](topics.md).
+tutorial](tutorials-and-examples/cms/installation.md), or [dive into the docs](topics.md).
 
 ## Conventions Over Configuration
 
@@ -73,8 +73,8 @@ or a XML formatted result for others to consume:
 <?php endforeach; ?>
 ```
 
-The View layer provides a number of extension points like [view-templates](#view-templates), [view-elements](#view-elements)
-and [/views/cells](views/cells.md) to let you re-use your presentation logic.
+The View layer provides a number of extension points like [View Templates](views.md#view-templates), [View Elements](views.md#view-elements)
+and [View Cells](views/cells.md) to let you re-use your presentation logic.
 
 The View layer is not only limited to HTML or text representation of the data.
 It can be used to deliver common data formats like JSON, XML, and through
@@ -138,7 +138,7 @@ following steps:
 7.  The controller delegates response creation to the View to generate the output
     resulting from the model data.
 8.  The view uses Helpers and Cells to generate the response body and headers.
-9.  The response is sent back out through the [/controllers/middleware](controllers/middleware.md).
+9.  The response is sent back out through the [Middleware](controllers/middleware.md).
 10. The `HttpServer` emits the response to the webserver.
 
 ## Just the Start
@@ -153,10 +153,10 @@ features in CakePHP are:
   your code works perfectly.
 
 The next obvious steps are to [download CakePHP](installation.md), read the
-[tutorial and build something awesome](cms/installation.md).
+[tutorial and build something awesome](tutorials-and-examples/cms/installation.md).
 
 ## Additional Reading
 
-- [Where To Get Help](intro/where-to-get-help.md)
-- [Conventions](intro/conventions.md)
-- [Cakephp Folder Structure](intro/cakephp-folder-structure.md)
+- [Where to Get Help](intro/where-to-get-help.md)
+- [CakePHP Conventions](intro/conventions.md)
+- [CakePHP Folder Structure](intro/cakephp-folder-structure.md)

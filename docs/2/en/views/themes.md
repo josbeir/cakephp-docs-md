@@ -27,22 +27,22 @@ You can also set or change the theme name within an action or within the
 $this->theme = 'AnotherExample';
 ```
 
-Theme view files need to be within the [App / View / Themed / ](app/View/Themed/.md) folder. Within the
+Theme view files need to be within the `/app/View/Themed/` folder. Within the
 themed folder, create a folder using the same name as your theme name. For
-example, the above theme would be found in [App / View / Themed / AnotherExample](app/View/Themed/AnotherExample.md).
+example, the above theme would be found in `/app/View/Themed/AnotherExample`.
 
 > [!NOTE]
 > It is important to remember that CakePHP expects CamelCase theme names.
 
-Beyond that, the folder structure within the [App / View / Themed / Example / ](app/View/Themed/Example/.md) folder is
-exactly the same as [App / View / ](app/View/.md).
+Beyond that, the folder structure within the `/app/View/Themed/Example/` folder is
+exactly the same as `/app/View/`.
 
 For example, the view file for an edit action of a Posts controller would reside
-at [App / View / Themed / Example / Posts / edit.ctp](app/View/Themed/Example/Posts/edit.ctp.md). Layout files would reside in
-[App / View / Themed / Example / Layouts / ](app/View/Themed/Example/Layouts/.md).
+at `/app/View/Themed/Example/Posts/edit.ctp`. Layout files would reside in
+`/app/View/Themed/Example/Layouts/`.
 
 If a view file can't be found in the theme, CakePHP will try to locate the view
-file in the [App / View / ](app/View/.md) folder. This way, you can create master view files
+file in the `/app/View/` folder. This way, you can create master view files
 and simply override them on a case-by-case basis within your theme folder.
 
 ## Theme assets

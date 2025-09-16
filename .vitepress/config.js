@@ -6,6 +6,7 @@ import { versionReplacer } from './plugins/version-replacer.js'
 export default defineConfig({
   title: 'CakePHP',
   description: 'CakePHP Documentation - The rapid development PHP framework',
+  ignoreDeadLinks: true,
   themeConfig: {
     logo: '/logo.svg',
     nav: [
@@ -49,7 +50,6 @@ export default defineConfig({
       }
     }
   },
-
   locales: {
     root: {
       label: 'English',
@@ -57,11 +57,8 @@ export default defineConfig({
       link: '/5/en/'
     }
   },
-
   srcDir: 'docs',
-  
-  ignoreDeadLinks: true,
-
+  //ignoreDeadLinks: true,
   build: {
     rollupOptions: {
       output: {
@@ -71,13 +68,8 @@ export default defineConfig({
       }
     }
   },
-
   markdown: {
     lineNumbers: true,
-    theme: {
-      light: 'github-light',
-      dark: 'github-dark'
-    },
     config: (md) => {
       md.use(versionReplacer)
     }

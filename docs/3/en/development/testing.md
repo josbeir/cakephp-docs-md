@@ -198,8 +198,8 @@ public function setUp()
 
 Calling the parent method is important in test cases, as `TestCase::setUp()`
 does a number things like backing up the values in
-`~Cake\Core\Configure` and, storing the paths in
-`~Cake\Core\App`.
+`~Cake\\Core\\Configure` and, storing the paths in
+`~Cake\\Core\\App`.
 
 Next, we'll fill out the test method. We'll use some assertions to ensure that
 our code creates the output we expect:
@@ -324,7 +324,7 @@ $ phpdbg -qrr phpunit --coverage-html webroot/coverage tests/TestCase/Model/Tabl
 Often times your application will be composed of several plugins. In these
 situations it can be pretty tedious to run tests for each plugin. You can make
 running tests for each of the plugins that compose your application by adding
-additional [](#testsuite) sections to your application's **phpunit.xml.dist**
+additional `<testsuite>` sections to your application's **phpunit.xml.dist**
 file:
 
 ``` xml
@@ -340,10 +340,10 @@ file:
 </testsuites>
 ```
 
-Any additional test suites added to the [](#testsuites) element will
+Any additional test suites added to the `<testsuites>` element will
 automatically be run when you use `phpunit`.
 
-If you are using [](#testsuites) to use fixtures from plugins that you have
+If you are using `<testsuites>` to use fixtures from plugins that you have
 installed with composer, the plugin's `composer.json` file should add the
 fixture namespace to the autoload section. Example:
 
@@ -492,7 +492,7 @@ all your application's data when running tests.
 
 We use `$fields` to specify which fields will be part of this table, and how
 they are defined. The format used to define these fields is the same used with
-`Cake\Database\Schema\Table`. The keys available for table
+`Cake\\Database\\Schema\\Table`. The keys available for table
 definition are:
 
 type  
@@ -707,8 +707,8 @@ Using the `core` prefix will load fixtures from CakePHP, and using a plugin
 name as the prefix, will load the fixture from the named plugin.
 
 You can control when your fixtures are loaded by setting
-`Cake\TestSuite\TestCase::$autoFixtures` to `false` and later load
-them using `Cake\TestSuite\TestCase::loadFixtures()`:
+`Cake\\TestSuite\\TestCase::$autoFixtures` to `false` and later load
+them using `Cake\\TestSuite\\TestCase::loadFixtures()`:
 
 ``` php
 class ArticlesTest extends TestCase
@@ -872,7 +872,7 @@ creating an instance of our `ArticlesTable` class, and then run our
 `find('published')` method. In `$expected` we set what we expect should be
 the proper result (that we know since we have defined which records are
 initially populated to the article table.) We test that the result equals our
-expectation by using the `assertEquals()` method. See the [running-tests](#running-tests)
+expectation by using the `assertEquals()` method. See the [Running Tests](#running-tests)
 section for more information on how to run your test case.
 
 Using the fixture factories, the test would now look like this:
@@ -1144,7 +1144,7 @@ simulate actual authentication request headers.
 When testing Basic or Digest Authentication, you can add the environment
 variables that [PHP creates](https://php.net/manual/en/features.http-auth.php)
 automatically. These environment variables used in the authentication adapter
-outlined in [basic-authentication](#basic-authentication):
+outlined in [Basic Authentication](#basic-authentication):
 
 ``` php
 public function testBasicAuthentication()
@@ -1233,7 +1233,7 @@ The `setUnlockedFields()` method was added.
 ### Integration Testing PSR-7 Middleware
 
 Integration testing can also be used to test your entire PSR-7 application and
-[/controllers/middleware](controllers/middleware.md). By default `IntegrationTestTrait` will
+[Middleware](../controllers/middleware.md). By default `IntegrationTestTrait` will
 auto-detect the presence of an `App\Application` class and automatically
 enable integration testing of your Application. You can toggle this behavior
 with the `useHttpServer()` method:
@@ -1262,7 +1262,7 @@ public function setUp()
 After enabling the PSR-7 mode, and possibly configuring your application class,
 you can use the remaining `IntegrationTestTrait` features as normal.
 
-You should also take care to try and use [application-bootstrap](#application-bootstrap) to load
+You should also take care to try and use [Application Bootstrap](#application-bootstrap) to load
 any plugins containing events/routes. Doing so will ensure that your
 events/routes are connected for each test case. Alternatively if you wish to
 load plugins manually in a test you can use the `loadPlugins()` method:
@@ -1294,7 +1294,7 @@ PSR-7 Middleware and the `useHttpServer()` method were added in 3.3.0.
 
 ### Testing with Encrypted Cookies
 
-If you use the `Cake\Controller\Component\CookieComponent` in your
+If you use the `Cake\\Controller\\Component\\CookieComponent` in your
 controllers, your cookies are likely encrypted. As of 3.1.7, CakePHP provides
 helper methods for interacting with encrypted cookies in your test cases:
 
@@ -1525,8 +1525,8 @@ $this->assertContentType('application/json');
 ```
 
 In addition to the above assertion methods, you can also use all of the
-assertions in [TestSuite](https://api.cakephp.org/3.x/class-Cake.TestSuite.TestCase.md) and those
-found in [PHPUnit](https://phpunit.readthedocs.io/en/8.5/assertions.md).
+assertions in [TestSuite](https://api.cakephp.org/3.x/class-Cake.TestSuite.TestCase.html) and those
+found in [PHPUnit](https://phpunit.readthedocs.io/en/8.5/assertions.html).
 
 ### Comparing test results to a file
 
@@ -1587,7 +1587,7 @@ git status
 
 ## Console Integration Testing
 
-See [console-integration-testing](#console-integration-testing) for information on testing shells and
+See [Console Integration Testing](#console-integration-testing) for information on testing shells and
 commands.
 
 ## Testing Views
@@ -1780,7 +1780,7 @@ View clases `loadHelpers` method.
 
 ## Testing Events
 
-The [/core-libraries/events](core-libraries/events.md) is a great way to decouple your application
+The [Events System](../core-libraries/events.md) is a great way to decouple your application
 code, but sometimes when testing, you tend to test the results of events in the
 test cases that execute those events. This is an additional form of coupling
 that can be removed by using `assertEventFired` and `assertEventFiredWith`
@@ -1824,7 +1824,7 @@ class CartsTable extends Table
 
 > [!NOTE]
 > To assert that events are fired, you must first enable
-> [tracking-events](#tracking-events) on the event manager you wish to assert against.
+> [Tracking Events](#tracking-events) on the event manager you wish to assert against.
 
 To test the `OrdersTable` above, we enable tracking in `setUp()` then assert
 that the event was fired, and assert that the `$order` entity was passed in
@@ -1885,7 +1885,7 @@ added.
 
 ## Testing Email
 
-See [email-testing](#email-testing) for information on testing email.
+See [Email Testing](#email-testing) for information on testing email.
 
 ## Creating Test Suites
 
@@ -1964,7 +1964,7 @@ following is present in your **composer.json** file:
 
 ## Generating Tests with Bake
 
-If you use [bake](bake/usage.md) to
+If you use [bake](../bake/usage.md) to
 generate scaffolding, it will also generate test stubs. If you need to
 re-generate test case skeletons, or if you want to generate test skeletons for
 code you wrote, you can use `bake`:
@@ -1973,7 +1973,7 @@ code you wrote, you can use `bake`:
 bin/cake bake test <type> <name>
 ```
 
-[](#type) should be one of:
+`<type>` should be one of:
 
 1.  Entity
 2.  Table
@@ -1989,7 +1989,7 @@ bin/cake bake test <type> <name>
 12. Mailer
 13. Command
 
-While [](#name) should be the name of the object you want to bake a test
+While `<name>` should be the name of the object you want to bake a test
 skeleton for.
 
 ## Integration with Jenkins

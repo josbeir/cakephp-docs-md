@@ -346,16 +346,16 @@ the commented block of code.
 Comments can include the following [phpDocumentor](https://phpdoc.org)
 tags:
 
-- [@deprecated](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/deprecated.md)
-  Using the [@version](#vector)[](#description) format, where `version`
+- [@deprecated](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/deprecated.html)
+  Using the `@version <vector> <description>` format, where `version`
   and `description` are mandatory. Version refers to the one it got deprecated in.
-- [@example](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/example.md)
-- [@ignore](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/ignore.md)
-- [@internal](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/internal.md)
-- [@link](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/link.md)
-- [@see](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/see.md)
-- [@since](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/since.md)
-- [@version](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/version.md)
+- [@example](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/example.html)
+- [@ignore](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/ignore.html)
+- [@internal](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/internal.html)
+- [@link](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/link.html)
+- [@see](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/see.html)
+- [@since](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/since.html)
+- [@version](https://docs.phpdoc.org/latest/guide/references/phpdoc/tags/version.html)
 
 PhpDoc tags are very much like JavaDoc tags in Java. Tags are only processed if
 they are the first thing in a DocBlock line, for example:
@@ -466,7 +466,7 @@ When including files with classes or libraries, use only and always the
 
 ## PHP Tags
 
-Always use long tags ([](#php-)) instead of short tags ([](#-)). The short
+Always use long tags (`<?php ?>`) instead of short tags (`<? ?>`). The short
 echo should be used in template files where appropriate.
 
 ### Short Echo

@@ -258,7 +258,7 @@ be removed until 5.0.0:
 - `FormHelper` now supports a `confirmJs` template variable which allows the
   javascript snippet generated for confirmation boxes to be customized.
 - `FormHelper` now has a `autoSetCustomValidity` option for setting HTML5
-  validity messages from custom validation messages. See: [html5-validity-messages](#html5-validity-messages)
+  validity messages from custom validation messages. See: [Html5 Validity Messages](#html5-validity-messages)
 - `ViewBuilder` had `setVar()`, `setVars()`, `getVar()`, `getVars()` and
   `hasVar()` added. These methods will replace the public `viewVars`
   property defined in `ViewVarsTrait`.

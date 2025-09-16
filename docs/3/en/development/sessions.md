@@ -8,7 +8,7 @@ avoided in CakePHP, and instead usage of the Session classes is preferred.
 
 ## Session Configuration
 
-Session configuration is generally defined in [Config / app.php](config/app.php.md). The available
+Session configuration is generally defined in `/config/app.php`. The available
 options are:
 
 - `Session.timeout` - The number of *minutes* before CakePHP's session
@@ -290,7 +290,7 @@ class ComboSession extends DatabaseSession
 
 Our class extends the built-in `DatabaseSession` so we don't have to duplicate
 all of its logic and behavior. We wrap each operation with
-a `Cake\Cache\Cache` operation. This lets us fetch sessions from
+a `Cake\\Cache\\Cache` operation. This lets us fetch sessions from
 the fast cache, and not have to worry about what happens when we fill the cache.
 Using this session handler is also easy. In your **app.php** make the session
 block look like the following:
@@ -325,7 +325,7 @@ This means the session is accessible from:
 - Components
 
 In addition to the basic session object, you can also use the
-`Cake\View\Helper\SessionHelper` to interact with the session in
+`Cake\\View\\Helper\\SessionHelper` to interact with the session in
 your views. A basic example of session usage would be:
 
 ``` php
@@ -423,5 +423,5 @@ Flash messages are small messages displayed to end users once. They are often
 used to present error messages, or confirm that actions took place successfully.
 
 To set and display flash messages you should use
-[/controllers/components/flash](components/flash.md) and
-[/views/helpers/flash](helpers/flash.md)
+[Flash](../controllers/components/flash.md) and
+[Flash](../views/helpers/flash.md)

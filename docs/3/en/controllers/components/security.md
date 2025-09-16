@@ -28,15 +28,15 @@ components in your `initialize()` method.
 > your forms. In addition, you must **not** override any of the fields' "name"
 > attributes. The Security Component looks for certain indicators that are
 > created and managed by the FormHelper (especially those created in
-> `~Cake\View\Helper\FormHelper::create()` and
-> `~Cake\View\Helper\FormHelper::end()`). Dynamically altering
+> `~Cake\\View\\Helper\\FormHelper::create()` and
+> `~Cake\\View\\Helper\\FormHelper::end()`). Dynamically altering
 > the fields that are submitted in a POST request (e.g. disabling, deleting
 > or creating new fields via JavaScript) is likely to cause the request to be
 > send to the blackhole callback.
 >
 > You should always verify the HTTP method being used before executing to avoid
 > side-effects. You should [check the HTTP method](#check-the-request) or
-> use `Cake\Http\ServerRequest::allowMethod()` to ensure the correct
+> use `Cake\\Http\\ServerRequest::allowMethod()` to ensure the correct
 > HTTP method is used.
 
 ## Handling Blackhole Callbacks
@@ -231,7 +231,7 @@ CSRF or Cross Site Request Forgery is a common vulnerability in web
 applications. It allows an attacker to capture and replay a previous request,
 and sometimes submit data requests using image tags or resources on other
 domains. To enable CSRF protection features use the
-[/controllers/components/csrf](components/csrf.md).
+[Cross Site Request Forgery](../../controllers/components/csrf.md).
 
 ## Disabling Security Component for Specific Actions
 

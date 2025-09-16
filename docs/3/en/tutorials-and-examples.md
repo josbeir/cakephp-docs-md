@@ -8,17 +8,8 @@ Alternatively, you can refer to the non-official CakePHP plugin repository
 [Bakery](https://bakery.cakephp.org/) for existing applications
 and components.
 
-- [Installation](cms/installation.md)
-- [Database](cms/database.md)
-- [Articles Controller](cms/articles-controller.md)
-- [Tags And Users](cms/tags-and-users.md)
-- [Authentication](cms/authentication.md)
-
-<!-- -->
-
-- [Intro](bookmarks/intro.md)
-- [Part Two](bookmarks/part-two.md)
-- [Blog](blog/blog.md)
-- [Part Two](blog/part-two.md)
-- [Part Three](blog/part-three.md)
-- [Auth](tutorials-and-examples/blog-auth-example/auth.md)
+- [Content Management Tutorial](tutorials-and-examples/cms/installation.md)
+- [CMS Tutorial - Creating the Database](tutorials-and-examples/cms/database.md)
+- [CMS Tutorial - Creating the Articles Controller](tutorials-and-examples/cms/articles-controller.md)
+- [CMS Tutorial - Tags and Users](tutorials-and-examples/cms/tags-and-users.md)
+- [CMS Tutorial - Authentication](tutorials-and-examples/cms/authentication.md)

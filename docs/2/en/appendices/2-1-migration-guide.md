@@ -111,7 +111,7 @@ with Debugger, and takes advantage of improvements made there.
 ### App
 
 - `App::build()` now has the ability to register new packages using
-  `App::REGISTER`. See [app-build-register](#app-build-register) for more information.
+  `App::REGISTER`. See [App Build Register](#app-build-register) for more information.
 - Classes that could not be found on configured paths will be searched inside
   `APP` as a fallback path. This makes autoloading nested directories in
   `app/Vendor` easier.
@@ -137,8 +137,8 @@ The old testsuite shell and its syntax are still available.
 
 ### Router
 
-- Routes can now use a special [**](**.md) syntax to include all trailing arguments
-  as a single passed argument. See the section on [connecting-routes](#connecting-routes) for
+- Routes can now use a special `/**` syntax to include all trailing arguments
+  as a single passed argument. See the section on [Connecting Routes](#connecting-routes) for
   more information.
 - `Router::resourceMap()` was added.
 - `Router::defaultRouteClass()` was added. This method allows you to
@@ -153,7 +153,7 @@ The old testsuite shell and its syntax are still available.
 ### CakeResponse
 
 - Added `CakeResponse::cookie()` for setting cookies.
-- Added a number of methods for [cake-response-caching](#cake-response-caching)
+- Added a number of methods for [Cake Response Caching](#cake-response-caching)
 
 ## Controller
 
@@ -248,13 +248,13 @@ The old testsuite shell and its syntax are still available.
 Two new view classes have been added to CakePHP. A new `JsonView`
 and `XmlView` allow you to easily generate XML and JSON views. You
 can learn more about these classes in the section on
-[/views/json-and-xml-views](views/json-and-xml-views.md)
+[JSON and XML views](../views/json-and-xml-views.md)
 
 ### Extending views
 
 `View` has a new method allowing you to wrap or 'extend' a
 view/element/layout with another file. See the section on
-[extending-views](#extending-views) for more information on this feature.
+[Extending Views](#extending-views) for more information on this feature.
 
 ### Themes
 
@@ -266,7 +266,7 @@ View classes which extend from `ThemeView` should extend `View`.
 
 View blocks are a flexible way to create slots or blocks in your views. Blocks
 replace `$scripts_for_layout` with a more robust and flexible API. See the
-section on [view-blocks](#view-blocks) for more information.
+section on [View Blocks](#view-blocks) for more information.
 
 ## Helpers
 
@@ -279,7 +279,7 @@ This includes elements, layouts and views.
 
 ### CacheHelper
 
-- [](#--nocache--) tags now work inside elements correctly.
+- `<!--nocache-->` tags now work inside elements correctly.
 
 ### FormHelper
 

@@ -7,7 +7,7 @@ yourself wanting to copy and paste things between controllers, you should
 consider creating your own component to contain the functionality. Creating
 components keeps controller code clean and allows you to reuse code between projects.
 
-Each of the core components is detailed in its own chapter. See [/core-libraries/toc-components](core-libraries/toc-components.md).
+Each of the core components is detailed in its own chapter. See [Components](../core-libraries/toc-components.md).
 This section describes how to configure and use components, and how to create
 your own components.
 
@@ -15,7 +15,7 @@ your own components.
 
 Many of the core components require configuration. Some examples of
 components requiring configuration are
-[/core-libraries/components/authentication](core-libraries/components/authentication.md) and [/core-libraries/components/cookie](core-libraries/components/cookie.md).
+[Authentication](../core-libraries/components/authentication.md) and [Cookie](../core-libraries/components/cookie.md).
 Configuration for these components, and for components in general, is usually done in the
 `$components` array or your controller's `beforeFilter()`
 method:
@@ -128,7 +128,7 @@ class PostsController extends AppController {
 
 You might not need all of your components available on every controller
 action. In situations like this you can load a component at runtime using the
-[Component Collection](core-libraries/collections.md). From inside a
+[Component Collection](../core-libraries/collections.md). From inside a
 controller's method you can do the following:
 
 ``` php
@@ -144,7 +144,7 @@ $this->OneTimer->getTime();
 ## Component Callbacks
 
 Components also offer a few request life-cycle callbacks that allow them
-to augment the request cycle. See the base [component-api](#component-api) for
+to augment the request cycle. See the base [Component Api](#component-api) for
 more information on the callbacks components offer.
 
 ## Creating a Component

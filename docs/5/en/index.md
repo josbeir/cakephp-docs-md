@@ -33,13 +33,13 @@ If you're stuck, there are a number of places [you can get help](intro/where-to-
 Learning a new framework can be intimidating and exciting at the same time. To
 help you along, we have created a cookbook packed with examples and recipes to
 get the common tasks completed. If you are new, you should start off with the
-[/quickstart](quickstart.md) as it will give you a quick tour of what
+[Quick Start Guide](quickstart.md) as it will give you a quick tour of what
 CakePHP has to offer and how it works.
 
 After you've finished the Quickstart tutorial, you can brush up on the key
 elements in a CakePHP application:
 
-- The [CakePHP request cycle](#request-cycle)
+- The [CakePHP request cycle](intro.md#request-cycle)
 - The [conventions](intro/conventions.md) that CakePHP
   uses.
 - [Controllers](controllers.md) handle requests and co-ordinate your models

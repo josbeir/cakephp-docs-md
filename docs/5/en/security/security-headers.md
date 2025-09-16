@@ -1,3 +1,5 @@
+<a id="security-header-middleware"></a>
+
 # Security Header Middleware
 
 The `SecurityHeaderMiddleware` layer allows you to apply security related
@@ -27,5 +29,5 @@ $middlewareQueue->add($securityHeaders);
 ```
 
 Here's a list of [common HTTP headers](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields),
-and the Mozilla [recommended settings](https://infosec.mozilla.org/guidelines/web_security.md)
+and the Mozilla [recommended settings](https://infosec.mozilla.org/guidelines/web_security.html)
 for securing web applications.

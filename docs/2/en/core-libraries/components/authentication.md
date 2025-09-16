@@ -14,7 +14,7 @@ Configuring authentication requires several steps including defining a users
 table, creating a model, controller & views, etc.
 
 This is all covered step by step in the
-[Blog Tutorial](tutorials-and-examples/blog-auth-example/auth.md).
+[Blog Tutorial](../../tutorials-and-examples/blog-auth-example/auth.md).
 
 ## Authentication
 
@@ -802,7 +802,7 @@ map requests to CRUD operations. Provides the ability to authorize
 using CRUD mappings. These mapped results are then checked in the
 AclComponent as specific permissions.
 
-For example, taking [Posts / index](posts/index.md) as the current request. The default
+For example, taking `/posts/index` as the current request. The default
 mapping for `index`, is a `read` permission check. The Acl check would
 then be for the `posts` controller with the `read` permission. This
 allows you to create permission systems that focus more on what is being
@@ -839,7 +839,7 @@ and authentication mechanics in CakePHP.
 >
 > Set to an array of Authentication objects you want to use when
 > logging users in. There are several core authentication objects,
-> see the section on [authentication-objects](#authentication-objects).
+> see the section on [Authentication Objects](#authentication-objects).
 >
 > Error to display when user attempts to access an object or action to which
 > they do not have access.
@@ -854,7 +854,7 @@ and authentication mechanics in CakePHP.
 >
 > Set to an array of Authorization objects you want to use when
 > authorizing users on each request, see the section on
-> [authorization-objects](#authorization-objects).
+> [Authorization Objects](#authorization-objects).
 >
 > Other components utilized by AuthComponent
 >

@@ -240,9 +240,9 @@ following configuration keys are used:
 - `'attachments'`: List of files to attach. See `Email::attachments()`.
 - `'emailFormat'`: Format of email (html, text or both). See `Email::emailFormat()`.
 - `'transport'`: Transport configuration name. See
-  `~Cake\Mailer\Email::configTransport()`.
+  `~Cake\\Mailer\\Email::configTransport()`.
 - `'log'`: Log level to log the email headers and message. `true` will use
-  LOG_DEBUG. See also [logging-levels](#logging-levels).
+  LOG_DEBUG. See also [Logging Levels](#logging-levels).
 - `'helpers'`: Array of helpers used in the email template. `Email::helpers()`.
 
 All these configurations are optional, except `'from'`.
@@ -271,7 +271,7 @@ Use `setHeaders()` instead of `headers()`.
 
 Emails are often much more than just a simple text message. In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
-[view layer](views.md).
+[view layer](../views.md).
 
 The templates for emails reside in a special folder in your application's
 `Template` directory called `Email`. Email views can also use layouts
@@ -405,7 +405,7 @@ you want the filenames to appear in the recipient's mail client:
     The mimetype and contentId are optional in this form.
 
     4.1. When you are using the `contentId`, you can use the file in the HTML
-    body like [](#img-srccidmy-content-id).
+    body like `<img src="cid:my-content-id">`.
 
     4.2. You can use the `contentDisposition` option to disable the
     `Content-Disposition` header for an attachment. This is useful when
@@ -427,7 +427,7 @@ Use `setAttachments()` instead of `attachments()`.
 Transports are classes designed to send the e-mail over some protocol or method.
 CakePHP supports the Mail (default), Debug and SMTP transports.
 
-To configure your method, you must use the `Cake\Mailer\Email::transport()`
+To configure your method, you must use the `Cake\\Mailer\\Email::transport()`
 method or have the transport in your configuration:
 
 ``` php
@@ -476,7 +476,7 @@ called before send() and allows you to accept user configurations. By default,
 this method puts the configuration in protected attribute `$_config`.
 
 If you need to call additional methods on the transport before send, you can use
-`Cake\Mailer\Email::getTransport()` to get an instance of the transport object.
+`Cake\\Mailer\\Email::getTransport()` to get an instance of the transport object.
 Example:
 
 ``` php
@@ -512,10 +512,10 @@ Use `setEmailPattern()` instead of `emailPattern()`.
 
 Sometimes you need a quick way to fire off an email, and you don't necessarily
 want to setup a bunch of configuration ahead of time.
-`Cake\Mailer\Email::deliver()` is intended for that purpose.
+`Cake\\Mailer\\Email::deliver()` is intended for that purpose.
 
 You can create your configuration using
-`Cake\Mailer\Email::config()`, or use an array with all
+`Cake\\Mailer\\Email::config()`, or use an array with all
 options that you need and use the static method `Email::deliver()`.
 Example:
 
@@ -526,7 +526,7 @@ Email::deliver('you@example.com', 'Subject', 'Message', ['from' => 'me@example.c
 This method will send an email to "<you@example.com>", from "<me@example.com>" with
 subject "Subject" and content "Message".
 
-The return of `deliver()` is a `Cake\Mailer\Email` instance with all
+The return of `deliver()` is a `Cake\\Mailer\\Email` instance with all
 configurations set. If you do not want to send the email right away, and wish
 to configure a few things before sending, you can pass the 5th parameter as
 `false`.
@@ -669,7 +669,7 @@ $this->Users->getEventManager()->on($this->getMailer('User'));
 
 > [!NOTE]
 > For information on how to register event listener objects,
-> please refer to the [registering-event-listeners](#registering-event-listeners) documentation.
+> please refer to the [Registering Event Listeners](#registering-event-listeners) documentation.
 
 ## Testing Email
 

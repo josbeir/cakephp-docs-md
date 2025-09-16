@@ -15,7 +15,7 @@ The easiest way to create a `SelectQuery` object is to use `find()` from a
 `Table` object. This method will return an incomplete query ready to be
 modified. You can also use a table's connection object to access the lower level
 query builder that does not include ORM features, if necessary. See the
-[database-queries](#database-queries) section for more information:
+[Database Queries](#database-queries) section for more information:
 
 ``` php
 use Cake\ORM\Locator\LocatorAwareTrait;
@@ -48,7 +48,7 @@ foreach ($query->all() as $article) {
 ```
 
 For the remaining examples, assume that `$articles` is a
-`~Cake\ORM\Table`. When inside controllers, you can use
+`~Cake\\ORM\\Table`. When inside controllers, you can use
 `$this->Articles` instead of `$articles`.
 
 Almost every method in a `SelectQuery` object will return the same query, this means
@@ -156,12 +156,12 @@ foreach ($list as $id => $title) {
 ```
 
 For more information on how to customize the fields used for populating the list
-refer to [table-find-list](#table-find-list) section.
+refer to [Table Find List](#table-find-list) section.
 
 ### ResultSet Is A Collection Object
 
 Once you get familiar with the Query object methods, it is strongly encouraged
-that you visit the [Collection](core-libraries/collections.md) section to
+that you visit the [Collection](../core-libraries/collections.md) section to
 improve your skills in efficiently traversing the results. The ResultSet (returned
 by calling the `SelectQuery`'s `all()` method) implements the collection interface:
 
@@ -265,7 +265,7 @@ $query->where(function (QueryExpression $exp, SelectQuery $q) {
 });
 ```
 
-See the [advanced-query-conditions](#advanced-query-conditions) section to find out how to construct
+See the [Advanced Query Conditions](#advanced-query-conditions) section to find out how to construct
 more complex `WHERE` conditions.
 
 ### Selecting Specific Fields
@@ -333,7 +333,7 @@ to bind to the arguments and/or the return type, for example:
 $query->select(['minDate' => $query->func()->min('date', ['date']);
 ```
 
-For details, see the documentation for `Cake\Database\FunctionsBuilder`.
+For details, see the documentation for `Cake\\Database\\FunctionsBuilder`.
 
 You can access existing wrappers for several SQL functions through `SelectQuery::func()`:
 
@@ -1184,7 +1184,7 @@ $query->where(['Categories.parent_id != Parents.id']);
 > [!WARNING]
 > The field names used in expressions, and SQL snippets should **never**
 > contain untrusted content as you will create SQL Injection vectors. See the
-> [using-sql-functions](#using-sql-functions) section for how to safely include unsafe data
+> [Using Sql Functions](#using-sql-functions) section for how to safely include unsafe data
 > into function calls.
 
 ### Using Identifiers in Expressions
@@ -1310,7 +1310,7 @@ $query->select(['two' => $expr]);
 
 ### Using Connection Roles
 
-If you have configured [read-and-write-connections](#read-and-write-connections) in your application,
+If you have configured [Read And Write Connections](#read-and-write-connections) in your application,
 you can have a query run on the `read` connection using one of the role
 methods:
 
@@ -1365,7 +1365,7 @@ $query->select(function ($query) {
 ### Tuple Comparison
 
 Tuple comparison involves comparing two rows of data (tuples) element by element,
-typically using comparison operators like [](#-), =:
+typically using comparison operators like `<, >, =`:
 
 ``` php
 $products->find()
@@ -1432,7 +1432,7 @@ foreach ($query as $row) {
 $results = $query->all();
 ```
 
-You can use [any of the collection](core-libraries/collections.md) methods
+You can use [any of the collection](../core-libraries/collections.md) methods
 on your query objects to pre-process or transform the results:
 
 ``` php
@@ -1568,7 +1568,7 @@ When the results for a cached query are fetched the following happens:
 The builder can help you retrieve data from multiple tables at the same time
 with the minimum amount of queries possible. To be able to fetch associated
 data, you first need to setup associations between the tables as described in
-the [/orm/associations](orm/associations.md) section. This technique of combining queries
+the [Associations - Linking Tables Together](../orm/associations.md) section. This technique of combining queries
 to fetch associated data from other tables is called **eager loading**.
 
 Eager loading helps avoid many of the potential performance problems
@@ -1730,7 +1730,7 @@ $query = $articles->find()->contain('Comments', function (SelectQuery $q) {
 
 You can control more than just the query clauses used by `contain()`. If you pass an array
 with the association, you can override the `foreignKey`, `joinType` and `strategy`.
-See [/orm/associations](orm/associations.md) for details on the default value and options for each association
+See [Associations - Linking Tables Together](../orm/associations.md) for details on the default value and options for each association
 type.
 
 You can pass `false` as the new `foreignKey` to disable foreign key constraints entirely.
@@ -2128,7 +2128,7 @@ $query->insert(['title', 'body'])
 ```
 
 Generally, it is easier to insert data using entities and
-`~Cake\ORM\Table::save()`. By composing a `SELECT` and
+`~Cake\\ORM\\Table::save()`. By composing a `SELECT` and
 `INSERT` query together, you can create `INSERT INTO ... SELECT` style
 queries:
 
@@ -2146,7 +2146,7 @@ $query = $articles->insertQuery()
 > [!NOTE]
 > Inserting records with the query builder will not trigger events such as
 > `Model.afterSave`. Instead you should use the [ORM to save
-> data](orm/saving-data.md).
+> data](../orm/saving-data.md).
 
 ## Updating Data
 
@@ -2161,12 +2161,12 @@ $query->set(['published' => true])
 ```
 
 Generally, it is easier to update data using entities and
-`~Cake\ORM\Table::patchEntity()`.
+`~Cake\\ORM\\Table::patchEntity()`.
 
 > [!NOTE]
 > Updating records with the query builder will not trigger events such as
 > `Model.afterSave`. Instead you should use the [ORM to save
-> data](orm/saving-data.md).
+> data](../orm/saving-data.md).
 
 ## Deleting Data
 
@@ -2180,7 +2180,7 @@ $query->where(['id' => $id])
 ```
 
 Generally, it is easier to delete data using entities and
-`~Cake\ORM\Table::delete()`.
+`~Cake\\ORM\\Table::delete()`.
 
 ## SQL Injection Prevention
 
@@ -2235,7 +2235,7 @@ $query->select(['two' => $expr]);
 ### Binding values
 
 It is possible to protect against many unsafe situations by using bindings.
-Values can be bound to queries using the `Cake\Database\Query::bind()`
+Values can be bound to queries using the `Cake\\Database\\Query::bind()`
 method.
 
 The following example would be a safe variant of the unsafe, SQL injection prone
@@ -2252,7 +2252,7 @@ $query
 ```
 
 > [!NOTE]
-> Unlike `Cake\Database\StatementInterface::bindValue()`,
+> Unlike `Cake\\Database\\StatementInterface::bindValue()`,
 > `Query::bind()` requires to pass the named placeholders including the
 > colon!
 

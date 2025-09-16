@@ -23,7 +23,7 @@ the changes and improvements made in 2.5.
 
 ### CompletionShell
 
-- The [CompletionShell](console-and-shells/completion-shell.md) was added.
+- The [CompletionShell](../console-and-shells/completion-shell.md) was added.
   It aims to assist in the creation of autocompletion libraries for shell
   environments like bash, or zsh. No shell scripts are included in CakePHP, but
   the underlying tools are now available.
@@ -123,7 +123,7 @@ listeners.
 ### Router
 
 - `Router::mapResources()` accepts `connectOptions` key in the
-  `$options` argument. See [custom-rest-routing](#custom-rest-routing) for more details.
+  `$options` argument. See [Custom Rest Routing](#custom-rest-routing) for more details.
 
 ## Utility
 

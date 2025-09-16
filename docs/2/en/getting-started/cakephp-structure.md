@@ -12,15 +12,15 @@ the details on how to use these tools later on.
 
 Controllers, helpers and models each have a parent class you can use to define
 application-wide changes. AppController (located at
-[App / Controller / AppController.php](app/Controller/AppController.php.md)), AppHelper (located at
-[App / View / Helper / AppHelper.php](app/View/Helper/AppHelper.php.md)) and AppModel (located at
-[App / Model / AppModel.php](app/Model/AppModel.php.md)) are great places to put methods you want to share
+`/app/Controller/AppController.php`), AppHelper (located at
+`/app/View/Helper/AppHelper.php`) and AppModel (located at
+`/app/Model/AppModel.php`) are great places to put methods you want to share
 between all controllers, helpers or models.
 
 Although routes aren't classes or files, they play a role in
 requests made to CakePHP. Route definitions tell CakePHP how to map
 URLs to controller actions. The default behavior assumes that the
-URL [Controller / action / var1 / var2](controller/action/var1/var2.md) maps to
+URL `/controller/action/var1/var2` maps to
 Controller::action(\$var1, \$var2), but you can use routes to
 customize URLs and how they are interpreted by your application.
 

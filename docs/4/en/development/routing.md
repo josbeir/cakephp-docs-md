@@ -37,9 +37,9 @@ viewing an article's content:
 $routes->connect('/articles/*', ['controller' => 'Articles', 'action' => 'view']);
 ```
 
-The above route will accept any URL looking like [Articles / 15](articles/15.md) and invoke the
+The above route will accept any URL looking like `/articles/15` and invoke the
 method `view(15)` in the `ArticlesController`. This will not, though,
-prevent people from trying to access URLs looking like [Articles / foobar](articles/foobar.md). If
+prevent people from trying to access URLs looking like `/articles/foobar`. If
 you wish, you can restrict some parameters to conform to a regular expression:
 
 ``` php
@@ -107,7 +107,7 @@ $routes->scope('/blog', ['plugin' => 'Blog'], function (RouteBuilder $routes) {
 });
 ```
 
-The above route would match [Blog / ](blog/.md) and send it to
+The above route would match `/blog/` and send it to
 `Blog\Controller\ArticlesController::index()`.
 
 The application skeleton comes with a few routes to get you started. Once you've
@@ -160,7 +160,7 @@ $routes->connect(
 
 The first parameter is used to tell the router what sort of URL you're trying to
 control. The URL is a normal slash delimited string, but can also contain
-a wildcard (\*) or [route-elements](#route-elements). Using a wildcard tells the router
+a wildcard (\*) or [Route Elements](#route-elements). Using a wildcard tells the router
 that you are willing to accept any additional arguments supplied. Routes without
 a \* only match the exact template pattern supplied.
 
@@ -185,10 +185,10 @@ $routes->connect(
 $routes->connect('/admin/cms/articles', 'Cms.Admin/Articles::index');
 ```
 
-The first route we connect matches URLs starting with [Users / view](users/view.md) and maps
-those requests to the `UsersController->view()`. The trailing [*](*.md) tells the
+The first route we connect matches URLs starting with `/users/view` and maps
+those requests to the `UsersController->view()`. The trailing `/*` tells the
 router to pass any additional segments as method arguments. For example,
-[Users / view / 123](users/view/123.md) would map to `UsersController->view(123)`.
+`/users/view/123` would map to `UsersController->view(123)`.
 
 The above example also illustrates string targets. String targets provide
 a compact way to define a route's destination. String targets have the following
@@ -210,8 +210,8 @@ Some example string targets are:
     // Prefixed plugin controller
     Vendor/Cms.Management/Admin/Articles::view
 
-Earlier we used the greedy star ([*](*.md)) to capture additional path segments,
-there is also the trailing star ([**](**.md)). Using a trailing double star,
+Earlier we used the greedy star (`/*`) to capture additional path segments,
+there is also the trailing star (`/**`). Using a trailing double star,
 will capture the remainder of a URL as a single passed argument. This is useful
 when you want to use an argument that included a `/` in it:
 
@@ -222,7 +222,7 @@ $routes->connect(
 );
 ```
 
-The incoming URL of [Pages / the example  /  and proof](pages/the-example-/-and-proof.md) would result in a single
+The incoming URL of `/pages/the-example-/-and-proof` would result in a single
 passed argument of `the-example-/-and-proof`.
 
 The second parameter of `connect()` can define any parameters that
@@ -238,11 +238,11 @@ $routes->connect(
 This example uses the second parameter of `connect()` to
 define default parameters. If you built an application that features products for
 different categories of customers, you might consider creating a route. This
-allows you to link to [Government](government.md) rather than [Pages / display / 5](pages/display/5.md).
+allows you to link to `/government` rather than `/pages/display/5`.
 
 A common use for routing is to rename controllers and their actions. Instead of
-accessing our users controller at [Users / some action / 5](users/some-action/5.md), we'd like to be able
-to access it through [Cooks / some action / 5](cooks/some-action/5.md). The following route takes care of
+accessing our users controller at `/users/some-action/5`, we'd like to be able
+to access it through `/cooks/some-action/5`. The following route takes care of
 that:
 
 ``` php
@@ -251,17 +251,17 @@ $routes->connect(
 );
 ```
 
-This is telling the Router that any URL beginning with [Cooks / ](cooks/.md) should be
+This is telling the Router that any URL beginning with `/cooks/` should be
 sent to the `UsersController`. The action called will depend on the value of
-the `{action}` parameter. By using [route-elements](#route-elements), you can create
+the `{action}` parameter. By using [Route Elements](#route-elements), you can create
 variable routes, that accept user input or variables. The above route also uses
 the greedy star. The greedy star indicates that this route should accept any
 additional positional arguments given. These arguments will be made available in
-the [passed-arguments](#passed-arguments) array.
+the [Passed Arguments](#passed-arguments) array.
 
 When generating URLs, routes are used too. Using
 `['controller' => 'Users', 'action' => 'some-action', 5]` as
-a URL will output [Cooks / some action / 5](cooks/some-action/5.md) if the above route is the
+a URL will output `/cooks/some-action/5` if the above route is the
 first match found.
 
 The routes we've connected so far will match any HTTP verb. If you are building
@@ -326,7 +326,7 @@ $routes->connect(
 
 The above example illustrates how to create a quick way to view
 models from any controller by crafting a URL that looks like
-[Controllername / {id}](controllername/{id}.md). The URL provided to `connect()` specifies two
+`/controllername/{id}`. The URL provided to `connect()` specifies two
 route elements: `{controller}` and `{id}`. The `{controller}` element
 is a CakePHP default route element, so the router knows how to match and
 identify controller names in URLs. The `{id}` element is a custom
@@ -361,14 +361,14 @@ The `DashedRoute` class will make sure that the `{controller}` and
 > Patterns used for route elements must not contain any capturing
 > groups. If they do, Router will not function correctly.
 
-Once this route has been defined, requesting [Apples / 5](apples/5.md) would call the `view()`
+Once this route has been defined, requesting `/apples/5` would call the `view()`
 method of the ApplesController. Inside the `view()` method, you would need to
 access the passed ID at `$this->request->getParam('id')`.
 
 If you have a single controller in your application and you do not want the
 controller name to appear in the URL, you can map all URLs to actions in your
 controller. For example, to map all URLs to actions of the `home` controller,
-e.g have URLs like [Demo](demo.md) instead of [Home / demo](home/demo.md), you can do the
+e.g have URLs like `/demo` instead of `/home/demo`, you can do the
 following:
 
 ``` php
@@ -410,8 +410,8 @@ months and days in numerical form. Note that parenthesis (capturing groups)
 are not supported in the regular expressions. You can still specify
 alternates, as above, but not grouped with parenthesis.
 
-Once defined, this route will match [Articles / 2007 / 02 / 01](articles/2007/02/01.md),
-[Articles / 2004 / 11 / 16](articles/2004/11/16.md), handing the requests to
+Once defined, this route will match `/articles/2007/02/01`,
+`/articles/2004/11/16`, handing the requests to
 the `index()` actions of their respective controllers, with the date
 parameters in `$this->request->getParam()`.
 
@@ -423,7 +423,7 @@ CakePHP, and should not be used unless you want the special meaning
 - `controller` Used to name the controller for a route.
 - `action` Used to name the controller action for a route.
 - `plugin` Used to name the plugin a controller is located in.
-- `prefix` Used for [prefix-routing](#prefix-routing)
+- `prefix` Used for [Prefix Routing](#prefix-routing)
 - `_ext` Used for [File extentions routing](#file-extensions).
 - `_base` Set to `false` to remove the base path from the generated URL. If
   your application is not in the root directory, this can be used to generate
@@ -433,12 +433,12 @@ CakePHP, and should not be used unless you want the special meaning
 - `_host` Set the host to use for the link. Defaults to the current host.
 - `_port` Set the port if you need to create links on non-standard ports.
 - `_full` If `true` the value of `App.fullBaseUrl` mentioned in
-  [general-configuration](#general-configuration) will be prepended to generated URLs.
+  [General Configuration](#general-configuration) will be prepended to generated URLs.
 - `#` Allows you to set URL hash fragments.
 - `_https` Set to `true` to convert the generated URL to https or `false`
   to force http. Prior to 4.5.0 use `_ssl`.
 - `_method` Define the HTTP verb/method to use. Useful when working with
-  [resource-routes](#resource-routes).
+  [Resource Routes](#resource-routes).
 - `_name` Name of route. If you have setup named routes, you can use this key
   to specify it.
 
@@ -478,7 +478,7 @@ $routes->connect(
 
 ### Passing Parameters to Action
 
-When connecting routes using [route-elements](#route-elements) you may want to have routed
+When connecting routes using [Route Elements](#route-elements) you may want to have routed
 elements be passed arguments instead. The `pass` option indicates which route
 elements should also be made available as arguments passed into the controller
 functions:
@@ -634,7 +634,7 @@ admin routing, prefix routing
 
 Many applications require an administration section where
 privileged users can make changes. This is often done through a
-special URL such as [Admin / users / edit / 5](admin/users/edit/5.md). In CakePHP, prefix routing
+special URL such as `/admin/users/edit/5`. In CakePHP, prefix routing
 can be enabled by using the `prefix` scope method:
 
 ``` php
@@ -652,8 +652,8 @@ Prefixes are mapped to sub-namespaces in your application's `Controller`
 namespace. By having prefixes as separate controllers you can create smaller and
 simpler controllers. Behavior that is common to the prefixed and non-prefixed
 controllers can be encapsulated using inheritance,
-[/controllers/components](controllers/components.md), or traits. Using our users example, accessing
-the URL [Admin / users / edit / 5](admin/users/edit/5.md) would call the `edit()` method of our
+[Components](../controllers/components.md), or traits. Using our users example, accessing
+the URL `/admin/users/edit/5` would call the `edit()` method of our
 **src/Controller/Admin/UsersController.php** passing 5 as the first parameter.
 The view file used would be **templates/Admin/Users/edit.php**
 
@@ -701,7 +701,7 @@ $routes->plugin('DebugKit', function (RouteBuilder $routes) {
 });
 ```
 
-The above would create a route template like [Debug kit / admin / {controller}](debug-kit/admin/{controller}.md).
+The above would create a route template like `/debug-kit/admin/{controller}`.
 The connected route would have the `plugin` and `prefix` route elements set.
 
 When defining prefixes, you can nest multiple prefixes if necessary:
@@ -714,7 +714,7 @@ $routes->prefix('Manager', function (RouteBuilder $routes) {
 });
 ```
 
-The above would create a route template like [Manager / admin / {controller} / {action}](manager/admin/{controller}/{action}.md).
+The above would create a route template like `/manager/admin/{controller}/{action}`.
 The connected route would have the `prefix` route element set to
 `Manager/Admin`.
 
@@ -766,7 +766,7 @@ echo $this->Html->link(
 );
 ```
 
-This would link to a controller with the namespace `App\Controller\Admin\MyPrefix` and the file path
+This would link to a controller with the namespace `App\\Controller\\Admin\\MyPrefix` and the file path
 `src/Controller/Admin/MyPrefix/TodoItemsController.php`.
 
 > [!NOTE]
@@ -775,7 +775,7 @@ This would link to a controller with the namespace `App\Controller\Admin\MyPrefi
 
 ### Plugin Routing
 
-Routes for [/plugins](plugins.md) should be created using the `plugin()`
+Routes for [Plugins](../plugins.md) should be created using the `plugin()`
 method. This method creates a new routing scope for the plugin's routes:
 
 ``` php
@@ -807,9 +807,9 @@ $routes->prefix('Admin', function (RouteBuilder $routes) {
 });
 ```
 
-The above would create a route that looks like [Admin / debug kit / {controller}](admin/debug-kit/{controller}.md).
+The above would create a route that looks like `/admin/debug-kit/{controller}`.
 It would have the `prefix`, and `plugin` route elements set. The
-[plugin-routes](#plugin-routes) section has more information on building plugin routes.
+[Plugin Routes](#plugin-routes) section has more information on building plugin routes.
 
 ### Creating Links to Plugin Routes
 
@@ -844,7 +844,7 @@ application with the ability to route plugin, controller, and camelized action
 names to a dashed URL.
 
 For example, if we had a `ToDo` plugin, with a `TodoItems` controller, and a
-`showItems()` action, it could be accessed at [To do / todo items / show items](to-do/todo-items/show-items.md)
+`showItems()` action, it could be accessed at `/to-do/todo-items/show-items`
 with the following router connection:
 
 ``` php
@@ -941,7 +941,7 @@ file extensions
 ### Routing File Extensions
 
 To handle different file extensions in your URLs, you can define the extensions
-using the `Cake\Routing\RouteBuilder::setExtensions()` method:
+using the `Cake\\Routing\\RouteBuilder::setExtensions()` method:
 
 ``` php
 $routes->scope('/', function (RouteBuilder $routes) {
@@ -984,7 +984,7 @@ $this->Html->link(
 );
 ```
 
-File extensions are used by [/controllers/components/request-handling](components/request-handling.md)
+File extensions are used by [Request Handling](../controllers/components/request-handling.md)
 to do automatic view switching based on content types.
 
 ## Route Scoped Middleware
@@ -1034,7 +1034,7 @@ $routes->scope('/api', function (RouteBuilder $routes) {
 });
 ```
 
-In the above example, the routes defined in [V1](v1.md) will have 'ratelimit',
+In the above example, the routes defined in `/v1` will have 'ratelimit',
 'auth.api', and 'v1compat' middleware applied. If you re-open a scope, the
 middleware applied to routes in each scope will be isolated:
 
@@ -1048,7 +1048,7 @@ $routes->scope('/blog', function (RouteBuilder $routes) {
 });
 ```
 
-In the above example, the two uses of the [Blog](blog.md) scope do not share
+In the above example, the two uses of the `/blog` scope do not share
 middleware. However, both of these scopes will inherit middleware defined in
 their enclosing scopes.
 
@@ -1160,7 +1160,7 @@ $routes->scope('/api', function (RouteBuilder $routes) {
 The above would map the 'Comments' resource to the
 `App\Controller\Articles\CommentsController`. Having separate controllers lets
 you keep your controller logic simpler. The prefixes created this way are
-compatible with [prefix-routing](#prefix-routing).
+compatible with [Prefix Routing](#prefix-routing).
 
 > [!NOTE]
 > While you can nest resources as deeply as you require, it is not recommended
@@ -1377,7 +1377,7 @@ If you create URLs using strings like:
 $this->Html->link('View', '/articles/view/' . $id);
 ```
 
-And then later decide that [Articles](articles.md) should really be called
+And then later decide that `/articles` should really be called
 'posts' instead, you would have to go through your entire
 application renaming URLs. However, if you defined your link like:
 
@@ -1409,7 +1409,7 @@ array elements.
 
 ### Using `Router::url()`
 
-`Router::url()` allows you to use [routing arrays](#routing-array) in
+`Router::url()` allows you to use `routing arrays <routing array>` in
 situations where the array elements required are fixed or easily deduced.
 
 It will provide reverse routing when the destination url is well defined:
@@ -1431,7 +1431,7 @@ $this->Html->link(
 );
 ```
 
-Elements with numeric keys are treated as [passed-arguments](#passed-arguments).
+Elements with numeric keys are treated as [Passed Arguments](#passed-arguments).
 
 When using routing arrays, you can define both query string parameters and
 document fragments using special keys:
@@ -1450,7 +1450,7 @@ $routes->url([
 
 You can also use any of the special route elements when generating URLs:
 
-- `_ext` Used for [file-extensions](#file-extensions) routing.
+- `_ext` Used for [File Extensions](#file-extensions) routing.
 - `_base` Set to `false` to remove the base path from the generated URL. If
   your application is not in the root directory, this can be used to generate
   URLs that are 'cake relative'.
@@ -1460,7 +1460,7 @@ You can also use any of the special route elements when generating URLs:
 - `_port` Set the port if you need to create links on non-standard ports.
 - `_method` Define the HTTP verb the URL is for.
 - `_full` If `true` the value of `App.fullBaseUrl` mentioned in
-  [general-configuration](#general-configuration) will be prepended to generated URLs.
+  [General Configuration](#general-configuration) will be prepended to generated URLs.
 - `_https` Set to `true` to convert the generated URL to https or `false`
   to force http. Prior to 4.5.0 use `_ssl`
 - `_name` Name of route. If you have setup named routes, you can use this key
@@ -1468,7 +1468,7 @@ You can also use any of the special route elements when generating URLs:
 
 ### Using `Router::reverse()`
 
-`Router::reverse()` allows you to use the [request-parameters](#request-parameters) in cases
+`Router::reverse()` allows you to use the [Request Parameters](#request-parameters) in cases
 where the current URL with some modification is the basis for the destination
 and the elements of the current URL are unpredictable.
 
@@ -1613,8 +1613,8 @@ $routes->scope('/', function (RouteBuilder $routes) {
 })
 ```
 
-Redirects [Home / *](home/*.md) to [Articles / view](articles/view.md) and passes the parameters to
-[Articles / view](articles/view.md). Using an array as the redirect destination allows
+Redirects `/home/*` to `/articles/view` and passes the parameters to
+`/articles/view`. Using an array as the redirect destination allows
 you to use other routes to define where a URL string should be
 redirected to. You can redirect to external locations using
 string URLs as the destination:
@@ -1625,7 +1625,7 @@ $routes->scope('/', function (RouteBuilder $routes) {
 });
 ```
 
-This would redirect [Articles / *](articles/*.md) to `https://google.com` with a
+This would redirect `/articles/*` to `https://google.com` with a
 HTTP status of 302.
 
 ## Entity Routing
@@ -1682,9 +1682,9 @@ provided entity.
 Custom route classes allow you to extend and change how individual routes parse
 requests and handle reverse routing. Route classes have a few conventions:
 
-- Route classes are expected to be found in the `Routing\Route` namespace of
+- Route classes are expected to be found in the `Routing\\Route` namespace of
   your application or plugin.
-- Route classes should extend `Cake\Routing\Route\Route`.
+- Route classes should extend `Cake\\Routing\\Route\\Route`.
 - Route classes should implement one or both of `match()` and/or `parse()`.
 
 The `parse()` method is used to parse an incoming URL. It should generate an
@@ -1824,6 +1824,6 @@ Router::url(['plugin' => 'MyPlugin', 'controller' => 'Locations', 'action' => 'i
 ```
 
 > [!WARNING]
-> If you are using the caching features of [routing-middleware](#routing-middleware) you must
+> If you are using the caching features of [Routing Middleware](#routing-middleware) you must
 > define the URL filters in your application `bootstrap()` as filters are
 > not part of the cached data.

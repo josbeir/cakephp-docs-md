@@ -41,7 +41,7 @@ public function edit($id) {
 ```
 
 When save is called, the data passed to it in the first parameter is validated
-using CakePHP's validation mechanism (see [/models/data-validation](models/data-validation.md) chapter for more
+using CakePHP's validation mechanism (see [Data Validation](../models/data-validation.md) chapter for more
 information). If for some reason your data isn't saving, be sure to check to see
 if some validation rules are being broken. You can debug this situation by
 outputting `Model::$validationErrors`:
@@ -128,7 +128,7 @@ as keys:
   a transaction.
 
 More information about model callbacks is available
-[here](callback-methods.md)
+[here](../callback-methods.md)
 
 > [!TIP]
 > If you don't want the `modified` field to be automatically updated when saving some
@@ -281,7 +281,7 @@ options may be used:
   Should be set to false if database/table does not support transactions.
 - `fieldList`: Equivalent to the \$fieldList parameter in Model::save()
 - `deep`: (since 2.1) If set to true, also associated data is saved; see also
-  [saveAssociated()](#model-saveassociated)
+  [saveAssociated()](#Model-saveAssociated)
 - `callbacks` Set to false to disable callbacks. Using 'before' or 'after'
   will enable only those callbacks.
 - `counterCache` (since 2.4) Boolean to control updating of counter caches (if any)
@@ -586,7 +586,7 @@ will validate all values passed and then try to perform a save for each.
 
 ## Saving hasMany through data
 
-Let's see how data stored in a join table for two models is saved. As shown in the [hasMany-through](#hasmany-through)
+Let's see how data stored in a join table for two models is saved. As shown in the [Hasmany Through](#hasMany-through)
 section, the join table is associated to each model using a <span class="title-ref">hasMany</span> type of relationship.
 Our example involves the Head of Cake School asking us to write an application that allows
 him to log a student's attendance on a course with days attended and grade. Take
@@ -915,7 +915,7 @@ Other ways we might want to present our associated data can include
 a select drop down list. The data can be pulled from the model
 using the `find('list')` method and assigned to a view variable
 of the model name. An input with the same name will automatically
-pull in this data into a [](#select):
+pull in this data into a `<select>`:
 
 ``` php
 // in the controller:
@@ -926,7 +926,7 @@ $this->Form->input('tags');
 ```
 
 A more likely scenario with a HABTM relationship would include a
-[](#select) set to allow multiple selections. For example, a
+`<select>` set to allow multiple selections. For example, a
 Recipe can have multiple Tags assigned to it. In this case, the
 data is pulled out of the model the same way, but the form input is
 declared slightly different. The tag name is defined using the

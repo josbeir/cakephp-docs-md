@@ -105,7 +105,7 @@ msgstr "J'ai {0,number} ans"
 > [!NOTE]
 > Translations are cached - Make sure that you always clear the cache after
 > making changes to translations! You can either use the
-> [cache tool](console-commands/cache.md) and run for example
+> [cache tool](../console-commands/cache.md) and run for example
 > `bin/cake cache clear _cake_core_`, or manually clear the `tmp/cache/persistent`
 > folder (if using file based caching).
 
@@ -113,7 +113,7 @@ msgstr "J'ai {0,number} ans"
 
 To create the pot files from <span class="title-ref">\_\_()</span> and other internationalized types of
 messages that can be found in the application code, you can use the i18n shell.
-Please read the [following chapter](console-commands/i18n.md) to
+Please read the [following chapter](../console-commands/i18n.md) to
 learn more.
 
 ### Setting the Default Locale
@@ -162,7 +162,7 @@ domain:
 > [!NOTE]
 > If you want to translate plugins that are vendor namespaced, you must use
 > the domain string `vendor/plugin_name`. But the related language file
-> will become [plugins/](#vendor)[/](#pluginname)[/resources/locales/](#locale)/plugin_name.po
+> will become `plugins/<Vendor>/<PluginName>/resources/locales/<locale>/plugin_name.po`
 > inside your plugin folder.
 
 Sometimes translations strings can be ambiguous for people translating them.
@@ -345,7 +345,7 @@ zero{No Results} one{One result} few{...} many{...} other{...}
 ```
 
 Make sure you read the
-[Language Plural Rules Guide](https://unicode-org.github.io/cldr-staging/charts/37/supplemental/language_plural_rules.md)
+[Language Plural Rules Guide](https://unicode-org.github.io/cldr-staging/charts/37/supplemental/language_plural_rules.html)
 to get a complete overview of the aliases you can use for each language.
 
 #### Using Gettext Plural Selection
@@ -598,7 +598,7 @@ echo $date; // Displays 05/04/2015 23:00
 echo Number::format(524.23); // Displays 524,23
 ```
 
-Make sure you read the [/core-libraries/time](core-libraries/time.md) and [/core-libraries/number](core-libraries/number.md)
+Make sure you read the [Date & Time](../core-libraries/time.md) and [Number](../core-libraries/number.md)
 sections to learn more about formatting options.
 
 By default dates returned for the ORM results use the `Cake\I18n\Time` class,
@@ -609,7 +609,7 @@ current locale.
 
 When accepting localized data from the request, it is nice to accept datetime
 information in a user's localized format. In a controller, or
-[/controllers/middleware](controllers/middleware.md) you can configure the Date, Time, and
+[Middleware](../controllers/middleware.md) you can configure the Date, Time, and
 DateTime types to parse localized formats:
 
 ``` php
@@ -632,7 +632,7 @@ The default parsing format is the same as the default string format.
 
 When handling data from users in different timezones you will need to convert
 the datetimes in request data into your application's timezone. You can use
-`setUserTimezone()` from a controller or [/controllers/middleware](controllers/middleware.md) to
+`setUserTimezone()` from a controller or [Middleware](../controllers/middleware.md) to
 make this process simpler:
 
 ``` php
@@ -709,4 +709,4 @@ option to restrict which locales will automatically be used.
 
 ## Translate Content/Entities
 
-If you want to translate content/entities then you should look at the [Translate Behavior](behaviors/translate.md).
+If you want to translate content/entities then you should look at the [Translate Behavior](../orm/behaviors/translate.md).

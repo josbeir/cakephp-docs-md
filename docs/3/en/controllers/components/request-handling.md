@@ -9,7 +9,7 @@ input, define how content types map to view classes or template paths.
 
 By default RequestHandler will automatically detect AJAX requests based on the
 `X-Requested-With` HTTP header that many JavaScript libraries use. When used
-in conjunction with `Cake\Routing\Router::extensions()`,
+in conjunction with `Cake\\Routing\\Router::extensions()`,
 RequestHandler will automatically switch the layout and template files to those
 that match non-HTML media types. Furthermore, if a helper with the same name as
 the requested extension exists, it will be added to the Controllers Helper
@@ -121,7 +121,7 @@ As of 3.1.0 the `addInputType()` method is deprecated. You should use
 <div class="versionchanged">
 
 3.6.0
-You should prefer using [body-parser-middleware](#body-parser-middleware) instead of
+You should prefer using [Body Parser Middleware](#body-parser-middleware) instead of
 RequestHandlerComponent.
 
 </div>

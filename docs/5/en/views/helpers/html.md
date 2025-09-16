@@ -297,7 +297,7 @@ and also wanted to include **webroot/img/Blog.icon.png**, you would:
 echo $this->Html->image('Blog.icon.png', ['plugin' => false]);
 ```
 
-If you would like the prefix of the URL to not be [Img](img.md), you can override this setting by specifying the prefix in the `$options` array :
+If you would like the prefix of the URL to not be `/img`, you can override this setting by specifying the prefix in the `$options` array :
 
 ``` php
 echo $this->Html->image("logo.png", ['pathPrefix' => '']);
@@ -425,7 +425,7 @@ Will output:
 </a>
 ```
 
-Also check `Cake\View\Helper\UrlHelper::build()` method
+Also check `Cake\\View\\Helper\\UrlHelper::build()` method
 for more examples of different types of URLs.
 
 `method` Cake\\View\\Helper\\HtmlHelper(View::**linkFromPath**(string $title, string $path, array $params = [], array $options = [])
@@ -600,7 +600,7 @@ $this->Html->scriptBlock('alert("hi")', ['block' => true]);
 `method` Cake\\View\\Helper\\HtmlHelper(View::**scriptEnd**()
 
 You can use the `scriptStart()` method to create a capturing block that will
-output into a [](#script) tag. Captured script snippets can be output inline,
+output into a `<script>` tag. Captured script snippets can be output inline,
 or buffered into a block:
 
 ``` php
@@ -906,4 +906,4 @@ return [
 > Template strings containing a percentage sign (`%`) need special attention,
 > you should prefix this character with another percentage so it looks like
 > `%%`. The reason is that internally templates are compiled to be used with
-> `sprintf()`. Example: [[](#div-stylewidthsize){{content}}](div.md)
+> `sprintf()`. Example: `<div style="width:{{size}}%%">{{content}}</div>`

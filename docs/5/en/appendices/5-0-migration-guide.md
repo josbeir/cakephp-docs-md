@@ -4,7 +4,7 @@ CakePHP 5.0 contains breaking changes, and is not backwards compatible with 4.x
 releases. Before attempting to upgrade to 5.0, first upgrade to 4.5 and resolve
 all deprecation warnings.
 
-Refer to the [/appendices/5-0-upgrade-guide](appendices/5-0-upgrade-guide.md) for step by step instructions
+Refer to the [5.0 Upgrade Guide](../appendices/5-0-upgrade-guide.md) for step by step instructions
 on how to upgrade to 5.0.
 
 ## Deprecated Features Removed
@@ -46,8 +46,8 @@ changes made:
 
 ### Auth
 
-- <span class="title-ref">Auth</span> has been removed. Use the [cakephp/authentication](https://book.cakephp.org/authentication/3/en/index.md) and
-  [cakephp/authorization](https://book.cakephp.org/authorization/3/en/index.md) plugins instead.
+- <span class="title-ref">Auth</span> has been removed. Use the [cakephp/authentication](https://book.cakephp.org/authentication/3/en/index.html) and
+  [cakephp/authorization](https://book.cakephp.org/authorization/3/en/index.html) plugins instead.
 
 ### Cache
 
@@ -63,7 +63,7 @@ changes made:
 
 - `BaseCommand::__construct()` was removed.
 - `ConsoleIntegrationTestTrait::useCommandRunner()` was removed since it's no longer needed.
-- `Shell` has been removed and should be replaced with [Command](https://book.cakephp.org/5/en/console-commands/commands.md)
+- `Shell` has been removed and should be replaced with [Command](https://book.cakephp.org/5/en/console-commands/commands.html)
 - `ConsoleOptionParser::addSubcommand()` was removed alongside the removal of
   `Shell`. Subcommands should be replaced with `Command` classes that
   implement `Command::defaultName()` to define the necessary command name.
@@ -185,7 +185,7 @@ changes made:
 
 ### Mailer
 
-- `Email` has been removed. Use [Mailer](https://book.cakephp.org/5/en/core-libraries/email.md) instead.
+- `Email` has been removed. Use [Mailer](https://book.cakephp.org/5/en/core-libraries/email.html) instead.
 - `cake.mailer` has been added as an alternative to the `email` scope
 
 ### ORM
@@ -221,7 +221,7 @@ changes made:
 - `TestSuite` was removed. Users should use environment variables to customize
   unit test settings instead.
 - `TestListenerTrait` was removed. PHPUnit dropped support for these listeners.
-  See [/appendices/phpunit10](appendices/phpunit10.md)
+  See [PHPUnit 10 Upgrade](../appendices/phpunit10.md)
 - `IntegrationTestTrait::configRequest()` now merges config when called multiple times
   instead of replacing the currently present config.
 
@@ -277,7 +277,7 @@ CakePHP 5 leverages the expanded type system feature available in PHP 8.1+.
 CakePHP also uses `assert()` to provide improved error messages and additional
 type soundness. In production mode, you can configure PHP to not generate
 code for `assert()` yielding improved application performance. See the
-[symlink-assets](#symlink-assets) for how to do this.
+[Symlink Assets](#symlink-assets) for how to do this.
 
 ### Collection
 

@@ -13,7 +13,7 @@ and exception handler using configure.
 
 Error configuration is done inside your application's `app/Config/core.php`
 file. You can define a callback to be fired each time your application triggers
-any PHP error. [/development/exceptions](development/exceptions.md) are handled separately.
+any PHP error. [Exceptions](../development/exceptions.md) are handled separately.
 The callback can be any PHP callable, including an anonymous function. The
 default error handling configuration looks like:
 
@@ -99,7 +99,7 @@ Configure::write('Error.handler', function($code, $description, $file = null,
 
 It is important to remember that errors captured by the configured error handler will be php
 errors, and that if you need custom error handling, you probably also want to configure
-[/development/exceptions](development/exceptions.md) handling as well.
+[Exceptions](../development/exceptions.md) handling as well.
 
 ## Changing fatal error behavior
 

@@ -9,8 +9,8 @@ and with debugging and profiling queries sent to the database.
 
 The functions described in this chapter illustrate what is possible to do with
 the lower-level database access API. If instead you want to learn more about the
-complete ORM, you can read the [/orm/query-builder](orm/query-builder.md) and
-[/orm/table-objects](orm/table-objects.md) sections.
+complete ORM, you can read the [Query Builder](../orm/query-builder.md) and
+[Table Objects](../orm/table-objects.md) sections.
 
 The easiest way to create a database connection is using a `DSN` string:
 
@@ -28,7 +28,7 @@ $connection = ConnectionManager::get('default');
 ```
 
 > [!NOTE]
-> For supported databases, see [installation notes](installation.md).
+> For supported databases, see [installation notes](../installation.md).
 
 ### Running Select Statements
 
@@ -118,7 +118,7 @@ $connection->delete('articles', ['id' => 10]);
 
 By convention database connections are configured in **config/app.php**. The
 connection information defined in this file is fed into
-`Cake\Datasource\ConnectionManager` creating the connection configuration
+`Cake\\Datasource\\ConnectionManager` creating the connection configuration
 your application will be using. Sample connection information can be found in
 **config/app.default.php**. A sample connection configuration would look
 like:
@@ -141,7 +141,7 @@ like:
 The above will create a 'default' connection, with the provided parameters. You
 can define as many connections as you want in your configuration file. You can
 also define additional connections at runtime using
-`Cake\Datasource\ConnectionManager::setConfig()`. An example of that
+`Cake\\Datasource\\ConnectionManager::setConfig()`. An example of that
 would be:
 
 ``` php
@@ -174,7 +174,7 @@ When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
 By default, all Table objects will use the `default` connection. To
-use a non-default connection, see [configuring-table-connections](#configuring-table-connections).
+use a non-default connection, see [Configuring Table Connections](#configuring-table-connections).
 
 There are a number of keys supported in database configuration. A full list is
 as follows:
@@ -249,7 +249,7 @@ at a `debug` level with the `queriesLog` scope.
 quoteIdentifiers  
 Set to `true` if you are using reserved words or special characters in
 your table or column names. Enabling this setting will result in queries
-built using the [/orm/query-builder](orm/query-builder.md) having identifiers quoted when
+built using the [Query Builder](../orm/query-builder.md) having identifiers quoted when
 creating SQL. It should be noted that this decreases performance because
 each query needs to be traversed and manipulated before being executed.
 
@@ -262,7 +262,7 @@ cacheMetadata
 Either boolean `true`, or a string containing the cache configuration to
 store meta data in. Having metadata caching disabled by setting it to `false`
 is not advised and can result in very poor performance. See the
-[database-metadata-cache](#database-metadata-cache) section for more information.
+[Database Metadata Cache](#database-metadata-cache) section for more information.
 
 mask  
 Set the permissions on the generated database file. (Only supported by SQLite)
@@ -274,7 +274,7 @@ mode
 The `mode` flag value to send to SQLite.
 
 At this point, you might want to take a look at the
-[/intro/conventions](intro/conventions.md). The correct naming for your tables (and the addition
+[CakePHP Conventions](../intro/conventions.md). The correct naming for your tables (and the addition
 of some columns) can score you some free functionality and help you avoid
 configuration. For example, if you name your database table big_boxes, your
 table BigBoxesTable, and your controller BigBoxesController, everything will
@@ -328,7 +328,7 @@ references to existing connections.
 ### Accessing Connections
 
 Once configured connections can be fetched using
-`Cake\Datasource\ConnectionManager::get()`. This method will
+`Cake\\Datasource\\ConnectionManager::get()`. This method will
 construct and load a connection if it has not been built before, or return the
 existing known connection:
 
@@ -350,7 +350,7 @@ ConnectionManager::setConfig('my_connection', $config);
 $connection = ConnectionManager::get('my_connection');
 ```
 
-See the [database-configuration](#database-configuration) for more information on the configuration
+See the [Database Configuration](#database-configuration) for more information on the configuration
 data used when creating connections.
 
 ## Data Types
@@ -424,14 +424,14 @@ Maps to the `BLOB` or `BYTEA` type provided by the database.
 
 date  
 Maps to a native `DATE` column type. The return value of this column
-type is `Cake\I18n\Date` which emulates the date related
+type is `Cake\\I18n\\Date` which emulates the date related
 methods of PHP's `DateTime` class.
 
 datetime  
-See [datetime-type](#datetime-type).
+See [Datetime Type](#datetime-type).
 
 datetimefractional  
-See [datetime-type](#datetime-type).
+See [Datetime Type](#datetime-type).
 
 timestamp  
 Maps to the `TIMESTAMP` type.
@@ -446,7 +446,7 @@ json
 Maps to a `JSON` type if it's available, otherwise it maps to `TEXT`.
 
 enum  
-See [enum-type](#enum-type).
+See [Enum Type](#enum-type).
 
 geometry  
 Maps to a generic geometry storage type.
@@ -491,7 +491,7 @@ The `nativeuuid` type was added.
 
 Maps to a native `DATETIME` column type. In PostgreSQL and SQL Server this
 turns into a `TIMESTAMP` type. The default return value of this column type is
-`Cake\I18n\DateTime` which extends [Chronos](https://github.com/cakephp/chronos) and the native `DateTimeImmutable`.
+`Cake\\I18n\\DateTime` which extends [Chronos](https://github.com/cakephp/chronos) and the native `DateTimeImmutable`.
 
 `method` Cake\\Database\\DateTimeType::**setTimezone**(string|\\DateTimeZone|null $timezone)
 
@@ -627,7 +627,7 @@ implement the following methods:
 - `toStatement`: Casts given value to its Statement equivalent.
 - `marshal`: Marshals flat data into PHP objects.
 
-To fulfill the basic interface, extend `Cake\Database\Type`.
+To fulfill the basic interface, extend `Cake\\Database\\Type`.
 For example if we wanted to add a PointMutation type, we could make the following type
 class:
 
@@ -960,7 +960,7 @@ $statement = $connection->execute(
 
 These methods allow you to use rich data types in your applications and properly convert
 them into SQL statements. The last and most flexible way of creating queries is
-to use the [/orm/query-builder](orm/query-builder.md). This approach allows you to build complex and
+to use the [Query Builder](../orm/query-builder.md). This approach allows you to build complex and
 expressive queries without having to use platform specific SQL. When using the
 query builder, no SQL will be sent to the database server until the `execute()`
 method is called, or the query is iterated. Iterating a query will first execute
@@ -1042,7 +1042,7 @@ $connection->transactional(function ($connection) {
 ```
 
 In addition to basic queries, you can execute more complex queries using either
-the [/orm/query-builder](orm/query-builder.md) or [/orm/table-objects](orm/table-objects.md). The transactional method will
+the [Query Builder](../orm/query-builder.md) or [Table Objects](../orm/table-objects.md). The transactional method will
 do the following:
 
 - Call `begin`.
@@ -1099,7 +1099,7 @@ Query logging can be enabled when configuring your connection by setting the
 `log` option to `true`.
 
 When query logging is enabled, queries will be logged to
-`Cake\Log\Log` using the 'debug' level, and the 'queriesLog' scope.
+`Cake\\Log\\Log` using the 'debug' level, and the 'queriesLog' scope.
 You will need to have a logger configured to capture this level & scope. Logging
 to `stderr` can be useful when working on unit tests, and logging to
 files/syslog can be useful when working with web requests:
@@ -1139,7 +1139,7 @@ reason for this is identifier quoting has a few drawbacks:
 
 If you are using a legacy schema that requires identifier quoting you can enable
 it using the `quoteIdentifiers` setting in your
-[database-configuration](#database-configuration). You can also enable this feature at runtime:
+[Database Configuration](#database-configuration). You can also enable this feature at runtime:
 
 ``` php
 $connection->getDriver()->enableAutoQuoting();
@@ -1184,7 +1184,7 @@ $connection->cacheMetadata('orm_metadata');
 ```
 
 CakePHP also includes a CLI tool for managing metadata caches. See the
-[/console-commands/schema-cache](console-commands/schema-cache.md) chapter for more information.
+[Schema Cache Tool](../console-commands/schema-cache.md) chapter for more information.
 
 ## Creating Databases
 

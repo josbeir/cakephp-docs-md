@@ -26,7 +26,7 @@ usage of deprecated features:
 > This only updates CakePHP 4.5 changes. Make sure you apply CakePHP 4.4 changes first.
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
+path basis. See [Deprecation Warnings](#deprecation-warnings) for more information.
 
 ### ORM Query API deprecations
 
@@ -112,8 +112,8 @@ APIs that will exist in the future.
 - `ConsoleOptionParser` now treats all input after a `--` as positional
   arguments. This allows console commands to accept positional arguments that
   begin with a `-` such as date values like `-1 day`.
-- [bin/cake cache clear_group](#name) was added. This command gives a CLI
-  interface to clearing a specific cache group. See [cache-groups](#cache-groups) for how
+- `bin/cake cache clear_group <name>` was added. This command gives a CLI
+  interface to clearing a specific cache group. See [Cache Groups](#cache-groups) for how
   to use cache groups.
 
 ### Controller

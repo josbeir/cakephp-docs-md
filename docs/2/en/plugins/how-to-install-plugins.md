@@ -7,7 +7,7 @@ There are four ways to install a CakePHP plugin:
 - As Git Submodule
 - By Git Cloning
 
-But don't forget to [enable-plugins](#enable-plugins) afterwards.
+But don't forget to [Enable Plugins](#enable-plugins) afterwards.
 
 ## Manually
 
@@ -65,6 +65,8 @@ Execute the following commands in your app folder:
     git submodule add git://github.com/cakephp/contact-manager.git Plugin/ContactManager
     git submodule init
     git submodule update
+
+<a id="enable-plugins"></a>
 
 ## Enable the Plugin
 

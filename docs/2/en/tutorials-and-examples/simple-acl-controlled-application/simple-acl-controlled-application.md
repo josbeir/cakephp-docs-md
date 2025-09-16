@@ -6,11 +6,11 @@
 > framework's features before trying out this tutorial.
 
 In this tutorial you will create a simple application with
-[/core-libraries/components/authentication](core-libraries/components/authentication.md) and
-[/core-libraries/components/access-control-lists](core-libraries/components/access-control-lists.md). This
-tutorial assumes you have read the [/tutorials-and-examples/blog/blog](blog/blog.md)
+[Authentication](../../core-libraries/components/authentication.md) and
+[Access Control Lists](../../core-libraries/components/access-control-lists.md). This
+tutorial assumes you have read the [Blog Tutorial](../../tutorials-and-examples/blog/blog.md)
 and you are familiar with
-[/console-and-shells/code-generation-with-bake](console-and-shells/code-generation-with-bake.md). You should have
+[Code Generation with Bake](../../console-and-shells/code-generation-with-bake.md). You should have
 some experience with CakePHP, and be familiar with MVC concepts.
 This tutorial is a brief introduction to the
 `AuthComponent` and `AclComponent`.
@@ -84,7 +84,7 @@ CREATE TABLE widgets (
 These are the tables we will be using to build the rest of our
 application. Once we have the table structure in the database we
 can start cooking. Use
-[/console-and-shells/code-generation-with-bake](console-and-shells/code-generation-with-bake.md) to quickly
+[Code Generation with Bake](../../console-and-shells/code-generation-with-bake.md) to quickly
 create your models, controllers, and views.
 
 To use cake bake, call `cake bake all` and this will list the 4
@@ -168,7 +168,7 @@ class User extends AppModel {
 ```
 
 Next we need to make some modifications to `AppController`. If
-you don't have [App / Controller / AppController.php](app/Controller/AppController.php.md), create it. Since we want our entire
+you don't have `/app/Controller/AppController.php`, create it. Since we want our entire
 site controlled with Auth and Acl, we will set them up in
 `AppController`:
 
@@ -416,4 +416,4 @@ class AppController extends Controller {
     );
 ```
 
-Continue to [part-two](part-two.md) to continue the tutorial.
+Continue to [Part Two](../../part-two.md) to continue the tutorial.

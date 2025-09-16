@@ -13,7 +13,7 @@ Controller class names are plural, PascalCased, and end in `Controller`.
 conventional controller names.
 
 Public methods on Controllers are often exposed as 'actions' accessible through
-a web browser. For example the [Users / view](users/view.md) maps to the `view()` method
+a web browser. For example the `/users/view` maps to the `view()` method
 of the `UsersController` out of the box. Protected or private methods
 cannot be accessed with routing.
 
@@ -25,7 +25,7 @@ path. For example, `UsersController` (which would be defined in the file name
 
 While you can route multiple word controllers in any way you like, the
 convention is that your URLs are lowercase and dashed using the `DashedRoute`
-class, therefore [Article categories / view all](article-categories/view-all.md) is the correct form to access
+class, therefore `/article-categories/view-all` is the correct form to access
 the `ArticleCategoriesController::viewAll()` action.
 
 When you create links using `this->Html->link()`, you can use the following
@@ -41,7 +41,9 @@ $this->Html->link('link-title', [
 ```
 
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](#routes-configuration).
+[Routes Configuration](#routes-configuration).
+
+<a id="file-and-classname-conventions"></a>
 
 ## File and Class Name Conventions
 
@@ -66,6 +68,8 @@ autoloading. The following are some examples of class names and their filenames:
 Each file would be located in the appropriate folder/namespace in your app
 folder.
 
+<a id="model-and-database-conventions"></a>
+
 ## Database Conventions
 
 Table names corresponding to CakePHP models are plural and underscored. For
@@ -89,7 +93,7 @@ a separate entity/table class for that table.
 
 In addition to using an auto-incrementing integer as primary keys, you can also
 use UUID columns. CakePHP will create UUID values automatically using
-(`Cake\Utility\Text::uuid()`) whenever you save new records using
+(`Cake\\Utility\\Text::uuid()`) whenever you save new records using
 the `Table::save()` method.
 
 ## Model Conventions
@@ -117,8 +121,8 @@ The basic pattern is
 > By default CakePHP uses English inflections. If you have database
 > tables/columns that use another language, you will need to add inflection
 > rules (from singular to plural and vice-versa). You can use
-> `Cake\Utility\Inflector` to define your custom inflection
-> rules. See the documentation about [/core-libraries/inflector](core-libraries/inflector.md) for more
+> `Cake\\Utility\\Inflector` to define your custom inflection
+> rules. See the documentation about [Inflector](../core-libraries/inflector.md) for more
 > information.
 
 ## Plugins Conventions
@@ -157,7 +161,7 @@ file. None of these relationships have been configured by any means other than
 by creating classes and files that you'd need to create anyway.
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [/tutorials-and-examples/cms/installation](cms/installation.md) to see how things fit
+through the [Content Management Tutorial](../tutorials-and-examples/cms/installation.md) to see how things fit
 together.
 
 See [awesome list recommendations](https://github.com/FriendsOfCake/awesome-cakephp/blob/master/CONTRIBUTING.md#tips-for-creating-cakephp-plugins) for details.

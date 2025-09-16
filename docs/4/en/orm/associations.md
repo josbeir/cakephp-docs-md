@@ -466,7 +466,7 @@ Possible keys for hasMany association arrays include:
   records not in the current set will be removed. If the foreign key is a nullable
   column or if `dependent` is true records will be orphaned.
 - **finder**: The finder method to use when loading associated records. See the
-  [association-finder](#association-finder) section for more information.
+  [Association Finder](#association-finder) section for more information.
 
 Once this association has been defined, find operations on the Articles table
 can contain the Comment records if they exist:
@@ -498,7 +498,7 @@ You may want to cache the counts for your hasMany associations. This is useful
 when you often need to show the number of associated records, but don't want to
 load all the records just to count them. For example, the comment count on any
 given article is often cached to make generating lists of articles more
-efficient. You can use the [CounterCacheBehavior](behaviors/counter-cache.md) to cache counts of associated records.
+efficient. You can use the [CounterCacheBehavior](../orm/behaviors/counter-cache.md) to cache counts of associated records.
 
 You should make sure that your database tables do not contain columns that match
 association property names. If for example you have counter fields that conflict
@@ -620,7 +620,7 @@ Possible keys for belongsToMany association arrays include:
   do a wipe and replace to create the links between the passed entities when
   saving.
 - **finder**: The finder method to use when loading associated records. See the
-  [association-finder](#association-finder) section for more information.
+  [Association Finder](#association-finder) section for more information.
 
 Once this association has been defined, find operations on the Articles table can
 contain the Tag records if they exist:

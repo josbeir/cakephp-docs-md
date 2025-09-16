@@ -187,8 +187,8 @@ public function setUp(): void
 
 Calling the parent method is important in test cases, as `TestCase::setUp()`
 does a number things like backing up the values in
-`~Cake\Core\Configure` and, storing the paths in
-`~Cake\Core\App`.
+`~Cake\\Core\\Configure` and, storing the paths in
+`~Cake\\Core\\App`.
 
 Next, we'll fill out the test method. We'll use some assertions to ensure that
 our code creates the output we expect:
@@ -308,7 +308,7 @@ $ phpdbg -qrr phpunit --coverage-html webroot/coverage tests/TestCase/Model/Tabl
 Often times your application will be composed of several plugins. In these
 situations it can be pretty tedious to run tests for each plugin. You can make
 running tests for each of the plugins that compose your application by adding
-additional [](#testsuite) sections to your application's **phpunit.xml.dist**
+additional `<testsuite>` sections to your application's **phpunit.xml.dist**
 file:
 
 ``` xml
@@ -324,10 +324,10 @@ file:
 </testsuites>
 ```
 
-Any additional test suites added to the [](#testsuites) element will
+Any additional test suites added to the `<testsuites>` element will
 automatically be run when you use `phpunit`.
 
-If you are using [](#testsuites) to use fixtures from plugins that you have
+If you are using `<testsuites>` to use fixtures from plugins that you have
 installed with composer, the plugin's `composer.json` file should add the
 fixture namespace to the autoload section. Example:
 
@@ -419,7 +419,7 @@ extension and your `phpunit.xml` file should contain:
 </listeners>
 ```
 
-The listener is deprecated and you should [update your fixture configuration](appendices/fixture-upgrade.md)
+The listener is deprecated and you should [update your fixture configuration](../appendices/fixture-upgrade.md)
 
 ### Creating Schema in Tests
 
@@ -429,7 +429,7 @@ create your schema in your application's `tests/bootstrap.php` file.
 
 ### Creating Schema with Migrations
 
-If you use CakePHP's [migrations plugin](migrations.md) to manage your
+If you use CakePHP's [migrations plugin](../migrations.md) to manage your
 application's schema, you can reuse those migrations to generate your test
 database schema as well:
 
@@ -469,7 +469,7 @@ The migrations plugin will only run unapplied migrations, and will reset
 migrations if your current migration head differs from the applied migrations.
 
 You can also configure how migrations should be run in tests in your datasources
-configuration. See the [migrations docs](migrations.md) for more information.
+configuration. See the [migrations docs](../migrations.md) for more information.
 
 ### Creating Schema with Abstract Schema
 
@@ -650,7 +650,7 @@ rows are bulk inserted.
 4.3.0
 
 Prior to 4.3.0 fixtures would also define the table's schema. You can learn more
-about [fixture-schema](#fixture-schema) if you still need to define schema in your fixtures.
+about [Fixture Schema](#fixture-schema) if you still need to define schema in your fixtures.
 
 </div>
 
@@ -948,7 +948,7 @@ creating an instance of our `ArticlesTable` class, and then run our
 `find('published')` method. In `$expected` we set what we expect should be
 the proper result (that we know since we have defined which records are
 initially populated to the article table.) We test that the result equals our
-expectation by using the `assertEquals()` method. See the [running-tests](#running-tests)
+expectation by using the `assertEquals()` method. See the [Running Tests](#running-tests)
 section for more information on how to run your test case.
 
 Using the fixture factories, the test would now look like this:
@@ -1203,7 +1203,7 @@ simulate actual authentication request headers.
 When testing Basic or Digest Authentication, you can add the environment
 variables that [PHP creates](https://php.net/manual/en/features.http-auth.php)
 automatically. These environment variables used in the authentication adapter
-outlined in [basic-authentication](#basic-authentication):
+outlined in [Basic Authentication](#basic-authentication):
 
 ``` php
 public function testBasicAuthentication(): void
@@ -1277,7 +1277,7 @@ $this->setUnlockedFields(['dynamic_field']);
 ### Integration Testing PSR-7 Middleware
 
 Integration testing can also be used to test your entire PSR-7 application and
-[/controllers/middleware](controllers/middleware.md). By default `IntegrationTestTrait` will
+[Middleware](../controllers/middleware.md). By default `IntegrationTestTrait` will
 auto-detect the presence of an `App\Application` class and automatically
 enable integration testing of your Application.
 
@@ -1291,14 +1291,14 @@ public function setUp(): void
 }
 ```
 
-You should also take care to try and use [application-bootstrap](#application-bootstrap) to load
+You should also take care to try and use [Application Bootstrap](#application-bootstrap) to load
 any plugins containing events/routes. Doing so will ensure that your
 events/routes are connected for each test case. Alternatively if you wish to
 load plugins manually in a test you can use the `loadPlugins()` method.
 
 ### Testing with Encrypted Cookies
 
-If you use the [encrypted-cookie-middleware](#encrypted-cookie-middleware) in your
+If you use the [Encrypted Cookie Middleware](#encrypted-cookie-middleware) in your
 application, there are helper methods for setting encrypted cookies in your
 test cases:
 
@@ -1412,8 +1412,8 @@ In order to simulate exactly how the uploaded file objects would be present on
 a regular request, you not only need to pass them in the request data, but you also
 need to pass them to the test request configuration via the `files` option. It's
 not technically necessary though unless your code accesses uploaded files via the
-`Cake\Http\ServerRequest::getUploadedFile()` or
-`Cake\Http\ServerRequest::getUploadedFiles()` methods.
+`Cake\\Http\\ServerRequest::getUploadedFile()` or
+`Cake\\Http\\ServerRequest::getUploadedFiles()` methods.
 
 Let's assume articles have a teaser image, and a `Articles hasMany Attachments`
 association, the form would look like something like this accordingly, where one
@@ -1680,8 +1680,8 @@ $this->assertContentType('application/json');
 ```
 
 In addition to the above assertion methods, you can also use all of the
-assertions in [TestSuite](https://api.cakephp.org/4.x/class-Cake.TestSuite.TestCase.md) and those
-found in [PHPUnit](https://phpunit.de/manual/current/en/appendixes.assertions.md).
+assertions in [TestSuite](https://api.cakephp.org/4.x/class-Cake.TestSuite.TestCase.html) and those
+found in [PHPUnit](https://phpunit.de/manual/current/en/appendixes.assertions.html).
 
 ### Comparing test results to a file
 
@@ -1742,16 +1742,16 @@ git status
 
 ## Console Integration Testing
 
-See [console-integration-testing](#console-integration-testing) for how to test console commands.
+See [Console Integration Testing](#console-integration-testing) for how to test console commands.
 
 ## Mocking Injected Dependencies
 
-See [mocking-services-in-tests](#mocking-services-in-tests) for how to replace services injected with
+See [Mocking Services In Tests](#mocking-services-in-tests) for how to replace services injected with
 the dependency injection container in your integration tests.
 
 ## Mocking HTTP Client Responses
 
-See [httpclient-testing](#httpclient-testing) to know how to create mock responses to external APIs.
+See [Httpclient Testing](#httpclient-testing) to know how to create mock responses to external APIs.
 
 ## Testing Views
 
@@ -1943,7 +1943,7 @@ View clases `loadHelpers` method.
 
 ## Testing Events
 
-The [/core-libraries/events](core-libraries/events.md) is a great way to decouple your application
+The [Events System](../core-libraries/events.md) is a great way to decouple your application
 code, but sometimes when testing, you tend to test the results of events in the
 test cases that execute those events. This is an additional form of coupling
 that can be removed by using `assertEventFired` and `assertEventFiredWith`
@@ -1989,7 +1989,7 @@ class CartsTable extends Table
 
 > [!NOTE]
 > To assert that events are fired, you must first enable
-> [tracking-events](#tracking-events) on the event manager you wish to assert against.
+> [Tracking Events](#tracking-events) on the event manager you wish to assert against.
 
 To test the `OrdersTable` above, we enable tracking in `setUp()` then assert
 that the event was fired, and assert that the `$order` entity was passed in
@@ -2040,7 +2040,7 @@ $this->assertEventFiredWith('My.Global.Event', 'user', 1);
 
 ## Testing Email
 
-See [email-testing](#email-testing) for information on testing email.
+See [Email Testing](#email-testing) for information on testing email.
 
 ## Creating Test Suites
 
@@ -2119,7 +2119,7 @@ following is present in your **composer.json** file:
 
 ## Generating Tests with Bake
 
-If you use [bake](bake/usage.md) to
+If you use [bake](../bake/usage.md) to
 generate scaffolding, it will also generate test stubs. If you need to
 re-generate test case skeletons, or if you want to generate test skeletons for
 code you wrote, you can use `bake`:
@@ -2128,7 +2128,7 @@ code you wrote, you can use `bake`:
 bin/cake bake test <type> <name>
 ```
 
-[](#type) should be one of:
+`<type>` should be one of:
 
 1.  Entity
 2.  Table
@@ -2144,5 +2144,5 @@ bin/cake bake test <type> <name>
 12. Mailer
 13. Command
 
-While [](#name) should be the name of the object you want to bake a test
+While `<name>` should be the name of the object you want to bake a test
 skeleton for.

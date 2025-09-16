@@ -179,22 +179,29 @@ sys.stdout.write(fixed_content)
     
     # Get absolute path for output
     md_file_abs="$(cd "$(dirname "$md_file")" && pwd)/$(basename "$md_file")"
-    
+
+    # Set destination context and folder for the Lua filter (use absolute paths)
+    export DESTINATION_CONTEXT="$md_file"
+    export DESTINATION_FOLDER="$(cd "$OUTPUT_DIR" && pwd)"
+
     # Change to RST directory and run pandoc for proper include resolution
     (cd "$rst_dir" && \
+    DESTINATION_CONTEXT="$DESTINATION_CONTEXT" \
+    DESTINATION_FOLDER="$DESTINATION_FOLDER" \
     pandoc \
         --from=rst \
         --to=gfm \
         --wrap=preserve \
         --lua-filter="$FILTERS_DIR/meta.lua" \
+        --lua-filter="$FILTERS_DIR/doc_links.lua" \
+        --lua-filter="$FILTERS_DIR/ref.lua" \
         --lua-filter="$FILTERS_DIR/php_domain.lua" \
         --lua-filter="$FILTERS_DIR/containers.lua" \
-        --lua-filter="$FILTERS_DIR/links.lua" \
         --lua-filter="$FILTERS_DIR/language.lua" \
         --lua-filter="$FILTERS_DIR/images.lua" \
         --lua-filter="$FILTERS_DIR/toctree.lua" \
+        --lua-filter="$FILTERS_DIR/anchors.lua" \
         --lua-filter="$FILTERS_DIR/codeblocks.lua" \
-        --lua-filter="$FILTERS_DIR/postprocess.lua" \
         --output="$md_file_abs" \
         "$(basename "$temp_in_rst_dir")")
     

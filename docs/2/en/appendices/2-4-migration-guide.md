@@ -54,7 +54,7 @@ the changes and improvements made in 2.4.
 ### PasswordHasher
 
 - Authenticating objects now use new password hasher objects for password hash
-  generation and checking. See [hashing-passwords](#hashing-passwords) for more info.
+  generation and checking. See [Hashing Passwords](#hashing-passwords) for more info.
 
 ### DbAcl
 
@@ -107,7 +107,7 @@ the changes and improvements made in 2.4.
 ### PaginatorHelper
 
 - `PaginatorHelper::param()` has been added.
-- The first page no longer contains [Page:1](page:1.md) or `?page=1` in the URL. This helps prevent
+- The first page no longer contains `/page:1` or `?page=1` in the URL. This helps prevent
   duplicate content issues where you would need to use canonical or noindex otherwise.
 
 ### FormHelper

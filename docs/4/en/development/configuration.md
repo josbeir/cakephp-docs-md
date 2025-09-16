@@ -23,7 +23,7 @@ configuration
 Configuration is generally stored in either PHP or INI files, and loaded during
 the application bootstrap. CakePHP comes with one configuration file by default,
 but if required you can add additional configuration files and load them in
-your application's bootstrap code. `Cake\Core\Configure` is used
+your application's bootstrap code. `Cake\\Core\\Configure` is used
 for global configuration, and classes like `Cache` provide `setConfig()`
 methods to make configuration simple and transparent.
 
@@ -49,6 +49,8 @@ Configure::setConfig('default', new PhpConfig());
 Configure::load('app', 'default', false);
 Configure::load('other_config', 'default');
 ```
+
+<a id="environment-variables"></a>
 
 ### Environment Variables
 
@@ -87,6 +89,8 @@ $debug = env('APP_DEBUG', false);
 
 The second value passed to the env function is the default value. This value
 will be used if no environment variable exists for the given key.
+
+<a id="general-configuration"></a>
 
 ### General Configuration
 
@@ -219,7 +223,7 @@ information on configuring error and exception handlers.
 
 ### Logging Configuration
 
-See the [log-configuration](#log-configuration) for information on configuring logging in
+See the [Log Configuration](#log-configuration) for information on configuring logging in
 CakePHP.
 
 ### Email Configuration
@@ -229,13 +233,15 @@ configuring email presets in CakePHP.
 
 ### Session Configuration
 
-See the [session-configuration](#session-configuration) for information on configuring session
+See the [Session Configuration](#session-configuration) for information on configuring session
 handling in CakePHP.
 
 ### Routing configuration
 
 See the [Routes Configuration](#routes-configuration) for more information
 on configuring routing and creating routes for your application.
+
+<a id="additional-class-paths"></a>
 
 ## Additional Class Paths
 
@@ -294,7 +300,7 @@ Paths should end with a directory separator, or they will not work properly.
 
 ## Inflection Configuration
 
-See the [inflection-configuration](#inflection-configuration) docs for more information.
+See the [Inflection Configuration](#inflection-configuration) docs for more information.
 
 ## Configure Class
 
@@ -359,7 +365,7 @@ back:
 
 If `$key` is left null, all values in Configure will be returned.
 
-Reads configuration data just like `Cake\Core\Configure::read`
+Reads configuration data just like `Cake\\Core\\Configure::read`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown:
 
@@ -394,7 +400,7 @@ Configure::delete('Company.name');
 Read and delete a key from Configure. This is useful when you want to
 combine reading and deleting values in a single operation.
 
-Consumes configuration data just like `Cake\Core\Configure::consume`
+Consumes configuration data just like `Cake\\Core\\Configure::consume`
 but expects to find a key/value pair. In case the requested pair does not
 exist, a `RuntimeException` will be thrown:
 
@@ -411,9 +417,9 @@ Configure::consumeOrFail('Company');
 ## Reading and writing configuration files
 
 CakePHP comes with two built-in configuration file engines.
-`Cake\Core\Configure\Engine\PhpConfig` is able to read PHP config
+`Cake\\Core\\Configure\\Engine\\PhpConfig` is able to read PHP config
 files, in the same format that Configure has historically read.
-`Cake\Core\Configure\Engine\IniConfig` is able to read ini config
+`Cake\\Core\\Configure\\Engine\\IniConfig` is able to read ini config
 files. See the [PHP documentation](https://php.net/parse_ini_file) for more
 information on the specifics of ini files. To use a core config engine, you'll
 need to attach it to Configure using `Configure::config()`:
@@ -446,6 +452,8 @@ files with that engine would fail:
 ``` css
 Configure::drop('default');
 ```
+
+<a id="loading-configuration-files"></a>
 
 ### Loading Configuration Files
 
@@ -490,9 +498,9 @@ will not ever overwrite the existing configuration.
 Dumps all or some of the data in Configure into a file or storage system
 supported by a config engine. The serialization format is decided by the config
 engine attached as \$config. For example, if the 'default' engine is
-a `Cake\Core\Configure\Engine\PhpConfig`, the generated file will be
+a `Cake\\Core\\Configure\\Engine\\PhpConfig`, the generated file will be
 a PHP configuration file loadable by the
-`Cake\Core\Configure\Engine\PhpConfig`
+`Cake\\Core\\Configure\\Engine\\PhpConfig`
 
 Given that the 'default' engine is an instance of PhpConfig.
 Save all data in Configure to the file \`my_config.php\`:
@@ -521,7 +529,7 @@ use it in subsequent requests:
     Configure::store('user_1234', 'default');
 
 Stored configuration data is persisted in the named cache configuration. See the
-[/core-libraries/caching](core-libraries/caching.md) documentation for more information on caching.
+[Caching](../core-libraries/caching.md) documentation for more information on caching.
 
 ### Restoring Runtime Configuration
 
@@ -539,12 +547,12 @@ information is merged on top of the existing runtime configuration.
 
 CakePHP provides the ability to load configuration files from a number of
 different sources, and features a pluggable system for [creating your own
-configuration engines](https://api.cakephp.org/4.x/interface-Cake.Core.Configure.ConfigEngineInterface.md).
+configuration engines](https://api.cakephp.org/4.x/interface-Cake.Core.Configure.ConfigEngineInterface.html).
 The built in configuration engines are:
 
-- [JsonConfig](https://api.cakephp.org/4.x/class-Cake.Core.Configure.Engine.JsonConfig.md)
-- [IniConfig](https://api.cakephp.org/4.x/class-Cake.Core.Configure.Engine.IniConfig.md)
-- [PhpConfig](https://api.cakephp.org/4.x/class-Cake.Core.Configure.Engine.PhpConfig.md)
+- [JsonConfig](https://api.cakephp.org/4.x/class-Cake.Core.Configure.Engine.JsonConfig.html)
+- [IniConfig](https://api.cakephp.org/4.x/class-Cake.Core.Configure.Engine.IniConfig.html)
+- [PhpConfig](https://api.cakephp.org/4.x/class-Cake.Core.Configure.Engine.PhpConfig.html)
 
 By default your application will use `PhpConfig`.
 
@@ -568,12 +576,13 @@ use Cake\Http\Exception\InternalErrorException;
 $isCakeBakeShellRunning = (PHP_SAPI === 'cli' && isset($argv[1]) && $argv[1] === 'bake');
 if (!$isCakeBakeShellRunning) {
     EventManager::instance()->on('Model.initialize', function($event) {
+        /** @var \Cake\ORM\Table $subject */
         $subject = $event->getSubject();
         if (get_class($subject) === 'Cake\ORM\Table') {
-            $msg = sprintf(
+            $message = sprintf(
                 'Missing table class or incorrect alias when registering table class for database table %s.',
                 $subject->getTable());
-            throw new InternalErrorException($msg);
+            throw new InternalErrorException($message);
         }
     });
 }

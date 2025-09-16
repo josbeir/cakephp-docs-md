@@ -1,6 +1,6 @@
 # Simple Authentication and Authorization Application
 
-Following our [/tutorials-and-examples/blog/blog](blog/blog.md) example, imagine we wanted to
+Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog.md) example, imagine we wanted to
 secure the access to certain URLs, based on the logged in
 user. We also have another requirement, to allow our blog to have multiple authors
 so each one of them can create their own posts, edit and delete them at will
@@ -213,7 +213,7 @@ class AppController extends Controller {
 
 There is not much to configure, as we used the conventions for the users table.
 We just set up the URLs that will be loaded after the login and logout actions is
-performed, in our case to [Posts / ](posts/.md) and `/` respectively.
+performed, in our case to `/posts/` and `/` respectively.
 
 What we did in the `beforeFilter` function was to tell the AuthComponent to not
 require a login for all `index` and `view` actions, in every controller. We want
@@ -302,9 +302,9 @@ following lines:
 </div>
 ```
 
-You can now register a new user by accessing the [Users / add](users/add.md) URL and log-in with the
-newly created credentials by going to [Users / login](users/login.md) URL. Also try to access
-any other URL that was not explicitly allowed such as [Posts / add](posts/add.md), you will see
+You can now register a new user by accessing the `/users/add` URL and log-in with the
+newly created credentials by going to `/users/login` URL. Also try to access
+any other URL that was not explicitly allowed such as `/posts/add`, you will see
 that the application automatically redirects you to the login page.
 
 And that's it! It looks too simple to be truth. Let's go back a bit to explain what
@@ -320,7 +320,7 @@ returns whether the login was successful or not, and in the case it succeeds,
 then we redirect the user to the configured redirection URL that we used when
 adding the AuthComponent to our application.
 
-The logout works by just accessing the [Users / logout](users/logout.md) URL and will redirect
+The logout works by just accessing the `/users/logout` URL and will redirect
 the user to the configured logoutUrl formerly described. This URL is the result
 of the `AuthComponent::logout()` function on success.
 
@@ -448,10 +448,10 @@ You could also be more creative and code something more general in AppController
 on your own rules.
 
 Should you need more control, we suggest you read the complete Auth guide in the
-[/core-libraries/components/authentication](core-libraries/components/authentication.md) section where you will find more
+[Authentication](../../core-libraries/components/authentication.md) section where you will find more
 about configuring the component, creating custom Authorization classes, and much more.
 
 ### Suggested Follow-up Reading
 
-1.  [/console-and-shells/code-generation-with-bake](console-and-shells/code-generation-with-bake.md) Generating basic CRUD code
-2.  [/core-libraries/components/authentication](core-libraries/components/authentication.md): User registration and login
+1.  [Code Generation with Bake](../../console-and-shells/code-generation-with-bake.md) Generating basic CRUD code
+2.  [Authentication](../../core-libraries/components/authentication.md): User registration and login

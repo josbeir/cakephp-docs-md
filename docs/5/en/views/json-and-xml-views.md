@@ -1,9 +1,9 @@
 # JSON and XML views
 
 The `JsonView` and `XmlView` integration with CakePHP's
-[controller-viewclasses](#controller-viewclasses) features and let you create JSON and XML responses.
+[Controller Viewclasses](#controller-viewclasses) features and let you create JSON and XML responses.
 
-These view classes are most commonly used alongside `Cake\Controller\Controller::viewClasses()`.
+These view classes are most commonly used alongside `Cake\\Controller\\Controller::viewClasses()`.
 
 There are two ways you can generate data views. The first is by using the
 `serialize` option, and the second is by creating normal template files.
@@ -24,11 +24,11 @@ public function viewClasses(): array
 ```
 
 You can optionally enable the json and/or xml extensions with
-[file-extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
+[File Extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
 any other special format views by using a custom URL ending with the name of the
 response type as a file extension such as `http://example.com/articles.json`.
 
-By default, when not enabling [file-extensions](#file-extensions), the `Accept`
+By default, when not enabling [File Extensions](#file-extensions), the `Accept`
 header in the request is used for selecting which type of format should be rendered to the
 user. An example `Accept` format that is used to render `JSON` responses is
 `application/json`.
@@ -95,7 +95,7 @@ class ArticlesController extends AppController
 ```
 
 Defining `serialize` as an array has added the benefit of automatically
-appending a top-level [](#response) element when using `XmlView`.
+appending a top-level `<response>` element when using `XmlView`.
 If you use a string value for `serialize` and XmlView, make sure that your
 view variable has a single top-level element. Without a single top-level
 element the Xml will fail to generate.
@@ -133,13 +133,13 @@ output the serialized content.
 `class` **XmlView**
 
 By default when using `serialize` the XmlView will wrap your serialized
-view variables with a [](#response) node. You can set a custom name for
+view variables with a `<response>` node. You can set a custom name for
 this node using the `rootNode` option.
 
 The XmlView class supports the `xmlOptions` option that allows you to
 customize the options, such as `tags` or `attributes`, used to generate XML.
 
-An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.md). This document type requires that you
+An example of using `XmlView` would be to generate a [sitemap.xml](https://www.sitemaps.org/protocol.html). This document type requires that you
 change `rootNode` and set attributes. Attributes are defined using the `@`
 prefix:
 

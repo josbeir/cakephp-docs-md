@@ -259,6 +259,8 @@ foreach ($events as $callable) {
 }
 ```
 
+<a id="event-priorities"></a>
+
 ### Establishing Priorities
 
 In some cases you might want to control the order that listeners are invoked.
@@ -498,7 +500,7 @@ events can make debugging harder and require additional integration testing.
 
 ## Additional Reading
 
-- [Collections](core-libraries/collections.md)
-- [Behaviors](models/behaviors.md)
-- [Components](controllers/components.md)
-- [Helpers](views/helpers.md)
+- [Collections](../core-libraries/collections.md)
+- [Behaviors](../models/behaviors.md)
+- [Components](../controllers/components.md)
+- [Helpers](../views/helpers.md)

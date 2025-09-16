@@ -33,7 +33,7 @@ well.
 
 As stated in the introduction, the `AppController` class is the parent class
 to all of your application's controllers. `AppController` itself extends the
-`Cake\Controller\Controller` class included in CakePHP.
+`Cake\\Controller\\Controller` class included in CakePHP.
 `AppController` is defined in **src/Controller/AppController.php** as
 follows:
 
@@ -74,11 +74,11 @@ class AppController extends Controller
 ## Request Flow
 
 When a request is made to a CakePHP application, CakePHP's
-`Cake\Routing\Router` and `Cake\Routing\Dispatcher`
-classes use [routes-configuration](#routes-configuration) to find and create the correct
+`Cake\\Routing\\Router` and `Cake\\Routing\\Dispatcher`
+classes use [Routes Configuration](development/routing.md#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [cake-request](#cake-request) for more information on the
+property. See the section on [Cake Request](controllers/request-response.md#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -126,7 +126,7 @@ once a controller action has completed, CakePHP will handle rendering and
 delivering the View.
 
 If for some reason you'd like to skip the default behavior, you can return a
-`Cake\Http\Response` object from the action with the fully
+`Cake\\Http\\Response` object from the action with the fully
 created response.
 
 In order for you to use a controller effectively in your own application, we'll
@@ -364,7 +364,7 @@ content-type negotiation is attempted.
 <div class="versionadded">
 
 4.4.0
-Prior to 4.4 you must use [/controllers/components/request-handling](components/request-handling.md)
+Prior to 4.4 you must use [Request Handling](controllers/components/request-handling.md)
 instead of `viewClasses()`.
 
 </div>
@@ -435,7 +435,7 @@ return $this->redirect('/order/confirm', 301);
 return $this->redirect('/order/confirm', 303);
 ```
 
-See the [redirect-component-events](#redirect-component-events) section for how to redirect out of
+See the [Redirect Component Events](controllers/components.md#redirect-component-events) section for how to redirect out of
 a life-cycle handler.
 
 ### Forwarding to an Action on the Same Controller
@@ -570,7 +570,7 @@ methods are implemented by your controllers
 
 `method` Cake\\Controller\\Controller::**afterFilter**(EventInterface $event)
 
-In addition to controller life-cycle callbacks, [/controllers/components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components.md)
 also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks
@@ -618,5 +618,5 @@ Middleware defined by a controller will be called **before** `beforeFilter()` an
 
 ## More on Controllers
 
-- [Pages Controller](controllers/pages-controller.md)
+- [The Pages Controller](controllers/pages-controller.md)
 - [Components](controllers/components.md)

@@ -23,7 +23,7 @@ Configuring authentication requires several steps including defining
 a users table, creating a model, controller & views, etc.
 
 This is all covered step by step in the
-[CMS Tutorial](cms/authentication.md).
+[CMS Tutorial](../../tutorials-and-examples/cms/authentication.md).
 
 If you are looking for existing authentication and/or authorization solutions
 for CakePHP, have a look at the
@@ -1056,7 +1056,7 @@ Controller actions for which user validation is not required.
 authenticate  
 Set to an array of Authentication objects you want to use when
 logging users in. There are several core authentication objects;
-see the section on [authentication-objects](#authentication-objects).
+see the section on [Authentication Objects](#authentication-objects).
 
 authError  
 Error to display when user attempts to access an object or action to which
@@ -1068,7 +1068,7 @@ value to boolean `false`.
 authorize  
 Set to an array of Authorization objects you want to use when
 authorizing users on each request; see the section on
-[authorization-objects](#authorization-objects).
+[Authorization Objects](#authorization-objects).
 
 flash  
 Settings to use when Auth needs to do a flash message with
@@ -1081,7 +1081,7 @@ Available keys are:
 
 loginAction  
 A URL (defined as a string or array) to the controller action that handles
-logins. Defaults to [Users / login](users/login.md).
+logins. Defaults to `/users/login`.
 
 loginRedirect  
 The URL (defined as a string or array) to the controller action users
@@ -1126,5 +1126,5 @@ Without a parameter, the full configuration will be returned.
 
 ## Testing Actions Protected By AuthComponent
 
-See the [testing-authentication](#testing-authentication) section for tips on how to test controller
+See the [Testing Authentication](#testing-authentication) section for tips on how to test controller
 actions that are protected by `AuthComponent`.

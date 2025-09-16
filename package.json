@@ -10,7 +10,7 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.0.0"
+    "vitepress": "^2.0.0-alpha"
   },
   "keywords": ["cakephp", "documentation", "vitepress"],
   "author": "CakePHP Team",

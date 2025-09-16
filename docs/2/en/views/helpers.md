@@ -52,7 +52,7 @@ class BakeriesController extends AppController {
 ```
 
 If you need to enable a helper for all controllers, add the name of
-the helper to the `$helpers` array in [App / Controller / AppController.php](app/Controller/AppController.php.md) (or
+the helper to the `$helpers` array in `/app/Controller/AppController.php` (or
 create it if not present). Remember to include the default Html and
 Form helpers:
 
@@ -144,14 +144,14 @@ do this:
 $mediaHelper = $this->Helpers->load('Media', $mediaSettings);
 ```
 
-The HelperCollection is a [collection](core-libraries/collections.md) and
+The HelperCollection is a [collection](../core-libraries/collections.md) and
 supports the collection API used elsewhere in CakePHP.
 
 ## Callback methods
 
 Helpers feature several callbacks that allow you to augment the
-view rendering process. See the [helper-api](#helper-api) and the
-[/core-libraries/collections](core-libraries/collections.md) documentation for more information.
+view rendering process. See the [Helper Api](#helper-api) and the
+[Collections](../core-libraries/collections.md) documentation for more information.
 
 ## Creating Helpers
 
@@ -162,7 +162,7 @@ Let's say we wanted to create a helper that could be used to output
 a specifically crafted CSS-styled link you needed many different
 places in your application. In order to fit your logic into
 CakePHP's existing helper structure, you'll need to create a new
-class in [App / View / Helper](app/View/Helper.md). Let's call our helper LinkHelper. The
+class in `/app/View/Helper`. Let's call our helper LinkHelper. The
 actual PHP class file would look something like this:
 
     /* /app/View/Helper/LinkHelper.php */
@@ -176,7 +176,7 @@ actual PHP class file would look something like this:
 
 > [!NOTE]
 > Helpers must extend either `AppHelper` or `Helper` or implement all the callbacks
-> in the [helper-api](#helper-api).
+> in the [Helper Api](#helper-api).
 
 ### Including other Helpers
 
@@ -205,7 +205,7 @@ class LinkHelper extends AppHelper {
 ### Using your Helper
 
 Once you've created your helper and placed it in
-[App / View / Helper / ](app/View/Helper/.md), you'll be able to include it in your
+`/app/View/Helper/`, you'll be able to include it in your
 controllers using the special variable `~Controller::$helpers`:
 
 ``` php
@@ -228,7 +228,7 @@ helper:
 All helpers extend a special class, AppHelper (just like models
 extend AppModel and controllers extend AppController). To create
 functionality that would be available to all helpers, create
-[App / View / Helper / AppHelper.php](app/View/Helper/AppHelper.php.md):
+`/app/View/Helper/AppHelper.php`:
 
 ``` css
 App::uses('Helper', 'View');

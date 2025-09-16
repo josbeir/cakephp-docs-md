@@ -23,7 +23,7 @@ releases can have as many breaking changes as required.
 
 For each major and minor release, the CakePHP team will provide a migration
 guide. These guides explain the new features and any breaking changes that are
-in each release. They can be found in the [/appendices](appendices.md) section of the
+in each release. They can be found in the [Appendices](../appendices.md) section of the
 cookbook.
 
 ## Using CakePHP
@@ -131,6 +131,8 @@ value:
     // ...
 
 Will disable runtime deprecation warnings.
+
+<a id="experimental-features"></a>
 
 ## Experimental Features
 

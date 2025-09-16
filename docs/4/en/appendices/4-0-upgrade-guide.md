@@ -22,6 +22,8 @@ If you are not running on **PHP 8.0 or higher**, you will need to upgrade PHP be
 > [!NOTE]
 > Although CakePHP 4.0 requires **a minimum of PHP 7.2**, the upgrade tool requires **a minimum of PHP 8.0**.
 
+<a id="upgrade-tool-use"></a>
+
 ## Use the Upgrade Tool
 
 Because CakePHP 4 adopts strict mode and uses more typehinting, there are many
@@ -93,7 +95,7 @@ method signatures as those found in cakephp/app.
 5.  `config/routes.php` at [routes.php](https://github.com/cakephp/app/blob/4.x/config/routes.php) on GitHub.
 
 If you are providing some kind of REST API, don't forget to include the
-[body-parser-middleware](#body-parser-middleware). Finally, you should consider upgrading to the new
-[AuthenticationMiddleware](/authentication/2/en/index.md)
-and [AuthorizationMiddleware](/authorization/2/en/index.md), if you are still
+[Body Parser Middleware](#body-parser-middleware). Finally, you should consider upgrading to the new
+[AuthenticationMiddleware](/authentication/2/en/index.html)
+and [AuthorizationMiddleware](/authorization/2/en/index.html), if you are still
 using `AuthComponent`.

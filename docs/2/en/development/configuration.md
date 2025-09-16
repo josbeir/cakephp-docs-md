@@ -16,6 +16,8 @@ database.php, database.php.default
 
 </div>
 
+<a id="database-configuration"></a>
+
 ## Database Configuration
 
 CakePHP expects database configuration details to be in a file at
@@ -124,7 +126,7 @@ was added in 2.4.
 > 'prefix\_'.
 
 At this point, you might want to take a look at the
-[/getting-started/cakephp-conventions](getting-started/cakephp-conventions.md). The correct
+[CakePHP Conventions](../getting-started/cakephp-conventions.md). The correct
 naming for your tables (and the addition of some columns) can score
 you some free functionality and help you avoid configuration. For
 example, if you name your database table big_boxes, your model
@@ -282,7 +284,7 @@ ErrorHandler::handleException() is used. It will display a HTML page for
 the exception, and while debug \> 0, framework errors like
 Missing Controller will be displayed. When debug = 0,
 framework errors will be coerced into generic HTTP errors.
-For more information on Exception handling, see the [exceptions](exceptions.md)
+For more information on Exception handling, see the [Exceptions](../exceptions.md)
 section.
 
 <div id="core-configuration-baseurl">
@@ -290,7 +292,7 @@ section.
 App.baseUrl  
 If you don't want or can't get mod_rewrite (or some other
 compatible module) up and running on your server, you'll need to
-use CakePHP's built-in pretty URLs. In [App / Config / core.php](app/Config/core.php.md),
+use CakePHP's built-in pretty URLs. In `/app/Config/core.php`,
 uncomment the line that looks like:
 
 ``` css
@@ -309,7 +311,7 @@ than www.example.com/controllername/actionname/param.
 
 If you are installing CakePHP on a webserver besides Apache, you
 can find instructions for getting URL rewriting working for other
-servers under the [/installation/url-rewriting](installation/url-rewriting.md) section.
+servers under the [URL Rewriting](../installation/url-rewriting.md) section.
 
 App.fullBaseUrl  
 The fully qualified domain name (including protocol) to your application’s root.
@@ -375,7 +377,7 @@ The built-in defaults are:
 - 'database' - Uses CakePHP's database sessions.
 - 'cache' - Use the Cache class to save sessions.
 
-To define a custom session handler, save it at [app/Model/Datasource/Session/](#name).php.
+To define a custom session handler, save it at `app/Model/Datasource/Session/<name>.php`.
 Make sure the class implements `CakeSessionHandlerInterface`
 and set Session.handler to \<name\>
 
@@ -587,6 +589,8 @@ You can also remove attached readers. `Configure::drop('default')`
 would remove the default reader alias. Any future attempts to load configuration
 files with that reader would fail.
 
+<a id="loading-configuration-files"></a>
+
 ### Loading configuration files
 
 > param string \$key  
@@ -765,6 +769,8 @@ exception when they encounter an error.
 `class` **PhpReader**
 
 `class` **IniReader**
+
+<a id="inflection-configuration"></a>
 
 ## Inflection Configuration
 

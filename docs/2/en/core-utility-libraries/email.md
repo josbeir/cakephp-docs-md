@@ -159,6 +159,8 @@ Support for TLS delivery was added in 2.3
 
 </div>
 
+<a id="email-configurations"></a>
+
 ### Configurations
 
 The following configuration keys are used:
@@ -215,7 +217,7 @@ See `CakeEmail::setHeaders()` and `CakeEmail::addHeaders()`
 
 Emails are often much more than just a simple text message. In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
-[view layer](views.md).
+[view layer](../views.md).
 
 The templates for emails reside in a special folder in your applications
 `View` directory called `Emails`. Email views can also use layouts,
@@ -337,7 +339,7 @@ you want the filenames to appear in the recipient's mail client:
     The mimetype and contentId are optional in this form.
 
     4.1. When you are using the `contentId`, you can use the file in the HTML
-    body like [](#img-srccidmy-content-id).
+    body like `<img src="cid:my-content-id">`.
 
     4.2. You can use the `contentDisposition` option to disable the
     `Content-Disposition` header for an attachment. This is useful when

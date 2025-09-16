@@ -48,7 +48,7 @@ The above error level will suppress deprecation warnings from CakePHP.
 
 ### Carbon Replaced with Chronos
 
-The Carbon library has been replaced with [cakephp/chronos](chronos.md).
+The Carbon library has been replaced with [cakephp/chronos](../chronos.md).
 This new library is a fork of Carbon with no additional dependencies. It also
 offer a calendar date object, and immutable versions of both date and datetime
 objects.
@@ -76,15 +76,15 @@ $newTime = $time->modify('+1 day');
 
 In the above code `$time` and `$newTime` are different objects. The
 `$time` object retains its original value, while `$newTime` has the modified
-value. See the [immutable-time](#immutable-time) section for more information. As of 3.2,
+value. See the [Immutable Time](#immutable-time) section for more information. As of 3.2,
 the ORM can map date/datetime columns into immutable objects. See the
-[immutable-datetime-mapping](#immutable-datetime-mapping) section for more information.
+[Immutable Datetime Mapping](#immutable-datetime-mapping) section for more information.
 
 ### CorsBuilder Added
 
 In order to make setting headers related to Cross Origin Requests (CORS) easier,
 a new `CorsBuilder` has been added. This class lets you define CORS related
-headers with a fluent interface. See [cors-headers](#cors-headers) for more information.
+headers with a fluent interface. See [Cors Headers](#cors-headers) for more information.
 
 ### RedirectRoute raises an exception on redirect
 

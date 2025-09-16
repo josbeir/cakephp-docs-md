@@ -3,7 +3,7 @@
 With the basic article creation functionality built, we need to enable multiple
 authors to work in our CMS. Previously, we built all the models, views and
 controllers by hand. This time around we're going to use
-[/bake](bake.md) to create our skeleton code. Bake is a powerful
+[Bake Console](../../bake.md) to create our skeleton code. Bake is a powerful
 code generation `CLI (Command Line Interface)` tool that leverages the
 conventions CakePHP uses to create skeleton `CRUD (Create, Read, Update,
 Delete)` applications very efficiently. We're going to use `bake` to build our
@@ -57,7 +57,7 @@ public function initialize(array $config): void
 
 This association will work with this simple definition because we followed
 CakePHP conventions when creating our tables. For more information, read
-[/orm/associations](orm/associations.md).
+[Associations - Linking Tables Together](../../orm/associations.md).
 
 ## Updating Articles to Enable Tagging
 
@@ -213,7 +213,7 @@ public function tags()
 }
 ```
 
-To access other parts of the request data, consult the [cake-request](#cake-request)
+To access other parts of the request data, consult the [Cake Request](#cake-request)
 section.
 
 Since passed arguments are passed as method parameters, you could also write the
@@ -280,7 +280,7 @@ public function findTagged(Query $query, array $options)
 
 We just implemented a [custom finder method](#custom-find-methods). This is
 a very powerful concept in CakePHP that allows you to package up re-usable
-queries. Finder methods always get a [/orm/query-builder](orm/query-builder.md) object and an
+queries. Finder methods always get a [Query Builder](../../orm/query-builder.md) object and an
 array of options as parameters. Finders can manipulate the query and add any
 required conditions or criteria. When complete, finder methods must return
 a modified query object. In our finder we've leveraged the `distinct()` and
@@ -314,8 +314,8 @@ view file for our `tags()` action:
 </section>
 ```
 
-In the above code we use the [/views/helpers/html](helpers/html.md) and
-[/views/helpers/text](helpers/text.md) helpers to assist in generating our view output. We
+In the above code we use the [Html](../../views/helpers/html.md) and
+[Text](../../views/helpers/text.md) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
 remember to always use `h()` when outputting data to prevent HTML injection
 issues.
@@ -470,7 +470,7 @@ created.
 
 While this code is a bit more complicated than what we've done so far, it helps
 to showcase how powerful the ORM in CakePHP is. You can manipulate query
-results using the [/core-libraries/collections](core-libraries/collections.md) methods, and handle
+results using the [Collections](../../core-libraries/collections.md) methods, and handle
 scenarios where you are creating entities on the fly with ease.
 
 ## Auto-populating the Tag String
@@ -525,4 +525,4 @@ The `contain()` method tells the `ArticlesTable` object to also populate the
 Tags association when the article is loaded. Now when tag_string is called for
 an Article entity, there will be data present to create the string!
 
-Next we'll be adding [authentication](cms/authentication.md).
+Next we'll be adding [authentication](../../tutorials-and-examples/cms/authentication.md).

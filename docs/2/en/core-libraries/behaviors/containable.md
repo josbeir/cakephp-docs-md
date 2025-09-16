@@ -16,7 +16,7 @@ altering the associations of your models. It does this by using
 the supplied containments to generate a series of `bindModel` and
 `unbindModel` calls. Since Containable only modifies existing relationships it
 will not allow you to restrict results by distant associations. Instead
-you should refer to [joining-tables](#joining-tables).
+you should refer to [Joining Tables](#joining-tables).
 
 To use the new behavior, you can add it to the \$actsAs property of
 your model:
@@ -32,6 +32,8 @@ You can also attach the behavior on the fly:
 ``` php
 $this->Post->Behaviors->load('Containable');
 ```
+
+<a id="using-containable"></a>
 
 ## Using Containable
 
@@ -339,7 +341,7 @@ $this->Comment->find('all', array(
 ));
 ```
 
-Additional filtering can be performed by supplying the standard [model-find](#model-find) options:
+Additional filtering can be performed by supplying the standard [Model Find](#model-find) options:
 
 ``` php
 $this->Post->find('all', array('contain' => array(
@@ -396,6 +398,8 @@ model, you don't need to use 'contain' again for related models.
 > all models used in containment, you may consider attaching it to
 > your AppModel.
 
+<a id="containablebehavior-options"></a>
+
 ## ContainableBehavior options
 
 The `ContainableBehavior` has a number of options that can be set
@@ -432,7 +436,7 @@ $this->User->find('all', array(
 
 You can change ContainableBehavior settings at run time by
 reattaching the behavior as seen in
-[/models/behaviors](models/behaviors.md) (Using Behaviors).
+[Behaviors](../../models/behaviors.md) (Using Behaviors).
 
 ContainableBehavior can sometimes cause issues with other behaviors
 or queries that use aggregate functions and/or GROUP BY statements.
@@ -449,7 +453,7 @@ By including the 'contain' parameter in the `$paginate` property
 it will apply to both the find('count') and the find('all') done on
 the model.
 
-See the section [using-containable](#using-containable) for further details.
+See the section [Using Containable](#using-containable) for further details.
 
 Here's an example of how to contain associations when paginating:
 

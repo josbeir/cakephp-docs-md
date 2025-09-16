@@ -146,7 +146,7 @@ appropriate parts of your application. The hooks are:
   collection.
 
 When loading plugins you can configure which hooks are enabled. By default
-plugins without a [plugin-objects](#plugin-objects) have all hooks disabled. New style plugins
+plugins without a [Plugin Objects](#plugin-objects) have all hooks disabled. New style plugins
 allow plugin authors to set defaults, which can be configured by you in your
 application:
 
@@ -279,7 +279,7 @@ bin/cake bake controller --plugin ContactManager Contacts
 ```
 
 Please refer to the chapter
-[/bake/usage](bake/usage.md) if you
+[Code Generation with Bake](bake/usage.md) if you
 have any problems with using the command line. Be sure to re-generate your
 autoloader once you've created your plugin:
 
@@ -398,7 +398,7 @@ $routes->scope('/', function ($routes) {
 });
 ```
 
-The above would result in URLs like [Backend / contact manager / contacts](backend/contact-manager/contacts.md).
+The above would result in URLs like `/backend/contact-manager/contacts`.
 
 ## Plugin Controllers
 
@@ -442,7 +442,7 @@ A plugin's `AppController` can hold controller logic common to all controllers
 in a plugin but is not required if you don't want to use one.
 
 If you want to access what we've got going thus far, visit
-[Contact manager / contacts](contact-manager/contacts.md). You should get a "Missing Model" error
+`/contact-manager/contacts`. You should get a "Missing Model" error
 because we don't have a Contact model defined yet.
 
 If your application includes the default routing CakePHP provides you will be
@@ -460,12 +460,12 @@ also connect routes that use the following pattern:
     /{prefix}/{plugin}/{controller}
     /{prefix}/{plugin}/{controller}/{action}
 
-See the section on [plugin-configuration](#plugin-configuration) for information on how to load
+See the section on [Plugin Configuration](#plugin-configuration) for information on how to load
 plugin specific route files.
 
 For plugins you did not create with bake, you will also need to edit the
 **composer.json** file to add your plugin to the autoload classes, this can be
-done as per the documentation [autoloading-plugin-classes](#autoloading-plugin-classes).
+done as per the documentation [Autoloading Plugin Classes](#autoloading-plugin-classes).
 
 ## Plugin Models
 
@@ -566,7 +566,7 @@ If the plugin prefix is omitted, the layout/view file will be located normally.
 
 > [!NOTE]
 > For information on how to use elements from a plugin, look up
-> [view-elements](#view-elements)
+> [View Elements](views.md#view-elements)
 
 ### Overriding Plugin Templates from Inside Your Application
 
@@ -611,13 +611,13 @@ You may put any type of file in any directory, just like a regular webroot.
 
 > [!WARNING]
 > Handling static assets (such as images, JavaScript and CSS files)
-> through the Dispatcher is very inefficient. See [symlink-assets](#symlink-assets)
+> through the Dispatcher is very inefficient. See [Symlink Assets](deployment.md#symlink-assets)
 > for more information.
 
 ### Linking to Assets in Plugins
 
 You can use the `plugin syntax` when linking to plugin assets using the
-`~Cake\View\Helper\HtmlHelper`'s script, image, or css methods:
+`~Cake\\View\\Helper\\HtmlHelper`'s script, image, or css methods:
 
 ``` php
 // Generates a URL of /contact_manager/css/styles.css
@@ -632,7 +632,7 @@ echo $this->Html->image('ContactManager.logo');
 
 Plugin assets are served using the `AssetMiddleware` middleware by default.
 This is only recommended for development. In production you should
-[symlink plugin assets](#symlink-assets) to improve performance.
+[symlink plugin assets](deployment.md#symlink-assets) to improve performance.
 
 If you are not using the helpers, you can prepend /plugin-name/ to the beginning
 of the URL for an asset within that plugin to serve it. Linking to

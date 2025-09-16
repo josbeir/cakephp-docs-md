@@ -5,6 +5,8 @@
 CakePHP provides the `ConsoleIo` object to commands so that they can
 interactively read user input and output information to the user.
 
+<a id="command-helpers"></a>
+
 ## Command Helpers
 
 Command Helpers can be accessed and used from any command, shell or task:
@@ -240,6 +242,8 @@ for ($i = 9; $i > 0; $i--) {
 > It is important to remember, that you cannot overwrite text
 > once a new line has been output.
 
+<a id="shell-output-level"></a>
+
 ## Output Levels
 
 Console applications often need different levels of verbosity. For example, when
@@ -302,9 +306,9 @@ new output style you could do:
 $io->styles('flashy', ['text' => 'magenta', 'blink' => true]);
 ```
 
-This would then allow you to use a [](#flashy) tag in your shell output, and if
+This would then allow you to use a `<flashy>` tag in your shell output, and if
 ansi colours are enabled, the following would be rendered as blinking magenta
-text [[$this->out('](#flashy)Whoooa](flashy.md) Something went wrong');. When
+text `$this->out('<flashy>Whoooa</flashy> Something went wrong');`. When
 defining styles you can use the following colours for the `text` and
 `background` attributes:
 

@@ -35,7 +35,7 @@ build your own backend. The built-in caching engines are:
   persistent storage and is intended for use in application test suites.
 
 Regardless of the CacheEngine you choose to use, your application interacts with
-`Cake\Cache\Cache`.
+`Cake\\Cache\\Cache`.
 
 <div class="versionadded">
 
@@ -52,7 +52,7 @@ process. Cache engine configurations are defined in **config/app.php**.
 For optimal performance CakePHP requires two cache engines to be defined.
 
 - `_cake_core_` is used for storing file maps, and parsed results of
-  [/core-libraries/internationalization-and-localization](core-libraries/internationalization-and-localization.md) files.
+  [Internationalization & Localization](../core-libraries/internationalization-and-localization.md) files.
 - `_cake_model_`, is used to store schema descriptions for your applications
   models.
 
@@ -115,8 +115,8 @@ Cache::config('other', $object);
 ```
 
 The name of these engine configurations ('short' and 'long') are used as the `$config`
-parameter for `Cake\Cache\Cache::write()` and
-`Cake\Cache\Cache::read()`. When configuring cache engines you can
+parameter for `Cake\\Cache\\Cache::write()` and
+`Cake\\Cache\\Cache::read()`. When configuring cache engines you can
 refer to the class name using the following syntaxes:
 
 ``` php
@@ -246,8 +246,8 @@ Fallbacks can now be disabled via `false`
 ### Removing Configured Cache Engines
 
 Once a configuration is created you cannot change it. Instead you should drop
-the configuration and re-create it using `Cake\Cache\Cache::drop()` and
-`Cake\Cache\Cache::config()`. Dropping a cache engine will remove
+the configuration and re-create it using `Cake\\Cache\\Cache::drop()` and
+`Cake\\Cache\\Cache::config()`. Dropping a cache engine will remove
 the config and destroy the adapter if it was constructed.
 
 ## Writing to a Cache
@@ -272,7 +272,7 @@ of trips made to the database to fetch posts.
 > [!NOTE]
 > If you plan to cache the result of queries made with the CakePHP ORM,
 > it is better to use the built-in cache capabilities of the Query object
-> as described in the [caching-query-results](#caching-query-results) section
+> as described in the [Caching Query Results](#caching-query-results) section
 
 ### Writing Multiple Keys at Once
 
@@ -450,8 +450,8 @@ Cache::increment('initial_count');
 You can greatly improve the performance of your application by putting results
 that infrequently change, or that are subject to heavy reads into the cache.
 A perfect example of this are the results from
-`Cake\ORM\Table::find()`. The Query object allows you to cache
-results using the `cache()` method. See the [caching-query-results](#caching-query-results) section
+`Cake\\ORM\\Table::find()`. The Query object allows you to cache
+results using the `cache()` method. See the [Caching Query Results](#caching-query-results) section
 for more information.
 
 ## Using Groups
@@ -550,7 +550,7 @@ Cache::config('custom', [
 ]);
 ```
 
-Custom Cache engines must extend `Cake\Cache\CacheEngine` which
+Custom Cache engines must extend `Cake\\Cache\\CacheEngine` which
 defines a number of abstract methods as well as provides a few initialization
 methods.
 

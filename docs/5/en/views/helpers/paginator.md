@@ -5,7 +5,7 @@
 The PaginatorHelper is used to output pagination controls such as page numbers
 and next/previous links.
 
-See also [/controllers/pagination](controllers/pagination.md) for information on how to
+See also [Pagination](../../controllers/pagination.md) for information on how to
 create paginated datasets and do paginated queries.
 
 ## Setting the paginated resultset
@@ -254,7 +254,7 @@ pages in the paged data set.
 ### Creating Header Link Tags
 
 PaginatorHelper can be used to create pagination link tags in your page
-[](#head) elements:
+`<head>` elements:
 
 ``` php
 // Create next/prev links for the current model.
@@ -395,7 +395,7 @@ the PaginatorHelper available in views doesn't always need to be restricted as
 such.
 
 See the details on
-[PaginatorHelper](https://api.cakephp.org/5.x/class-Cake.View.Helper.PaginatorHelper.md) in
+[PaginatorHelper](https://api.cakephp.org/5.x/class-Cake.View.Helper.PaginatorHelper.html) in
 the API. As mentioned, the PaginatorHelper also offers sorting features which
 can be integrated into your table column headers:
 
@@ -452,7 +452,7 @@ It is also possible to sort a column based on associations:
 > ```
 >
 > For more information on using the `sortableFields` option, please see
-> [control-which-fields-used-for-ordering](#control-which-fields-used-for-ordering).
+> [Control Which Fields Used For Ordering](#control-which-fields-used-for-ordering).
 
 The final ingredient to pagination display in views is the addition of page
 navigation, also supplied by the PaginationHelper:

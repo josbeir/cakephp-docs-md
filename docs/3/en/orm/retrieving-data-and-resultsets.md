@@ -5,7 +5,7 @@
 While table objects provide an abstraction around a 'repository' or collection
 of objects, when you query for individual records you get 'entity' objects.
 While this section discusses the different ways you can find and load entities,
-you should read the [/orm/entities](orm/entities.md) section for more information on
+you should read the [Entities](../orm/entities.md) section for more information on
 entities.
 
 ## Debugging Queries and ResultSets
@@ -69,7 +69,7 @@ $article = $articles->get($id, [
 ]);
 ```
 
-Optionally you can `get()` an entity using [custom-find-methods](#custom-find-methods). For
+Optionally you can `get()` an entity using [Custom Find Methods](#custom-find-methods). For
 example you may want to get all translations for an entity. You can achieve that
 by using the `finder` option:
 
@@ -95,7 +95,7 @@ $query = $articles->find('all');
 ```
 
 The return value of any `find()` method is always
-a `Cake\ORM\Query` object. The Query class allows you to further
+a `Cake\\ORM\\Query` object. The Query class allows you to further
 refine a query after creating it. Query objects are evaluated lazily, and do not
 execute until you start fetching rows, convert it to an array, or when the
 `all()` method is called:
@@ -123,7 +123,7 @@ $data = $query->toArray();
 ```
 
 > [!NOTE]
-> Once you've started a query you can use the [/orm/query-builder](orm/query-builder.md)
+> Once you've started a query you can use the [Query Builder](../orm/query-builder.md)
 > interface to build more complex queries, adding additional conditions,
 > limits, or include associations using the fluent interface.
 
@@ -166,10 +166,10 @@ Any options that are not in this list will be passed to beforeFind listeners
 where they can be used to modify the query object. You can use the
 `getOptions()` method on a query object to retrieve the options used. While
 you can pass query objects to your controllers, we recommend that you package
-your queries up as [custom-find-methods](#custom-find-methods) instead. Using custom finder
+your queries up as [Custom Find Methods](#custom-find-methods) instead. Using custom finder
 methods will let you re-use your queries and make testing easier.
 
-By default queries and result sets will return [/orm/entities](orm/entities.md) objects. You
+By default queries and result sets will return [Entities](../orm/entities.md) objects. You
 can retrieve basic arrays by disabling hydration:
 
 ``` php
@@ -216,12 +216,12 @@ $query = $articles->find('all', [
 $number = $query->count();
 ```
 
-See [query-count](#query-count) for additional usage of the `count()` method.
+See [Query Count](#query-count) for additional usage of the `count()` method.
 
 ## Finding Key/Value Pairs
 
 It is often useful to generate an associative array of data from your
-application's data. For example, this is very useful when creating [](#select)
+application's data. For example, this is very useful when creating `<select>`
 elements. CakePHP provides a simple to use method for generating 'lists' of
 data:
 
@@ -273,7 +273,7 @@ $data = [
 ```
 
 Results can be grouped into nested sets. This is useful when you want
-bucketed sets, or want to build [](#optgroup) elements with FormHelper:
+bucketed sets, or want to build `<optgroup>` elements with FormHelper:
 
 ``` php
 // In a controller or table method.
@@ -369,7 +369,7 @@ threading will occur on.
 
 > [!TIP]
 > If you need to manage more advanced trees of data, consider using
-> [/orm/behaviors/tree](behaviors/tree.md) instead.
+> [Tree](../orm/behaviors/tree.md) instead.
 
 ## Custom Finder Methods
 
@@ -408,10 +408,10 @@ $query = $articles->find('published')->find('recent');
 ```
 
 While all the examples so far have shown finder methods on table classes, finder
-methods can also be defined on [/orm/behaviors](orm/behaviors.md).
+methods can also be defined on [Behaviors](../orm/behaviors.md).
 
 If you need to modify the results after they have been fetched you should use
-a [map-reduce](#map-reduce) function to modify the results. The map reduce features
+a [Map Reduce](#map-reduce) function to modify the results. The map reduce features
 replace the 'afterFind' callback found in previous versions of CakePHP.
 
 > [!NOTE]
@@ -448,7 +448,7 @@ $query = $users->findAllByUsernameOrEmail('joebob', 'joe@example.com');
 
 While you can use either `OR` or `AND` conditions, you cannot combine the
 two in a single dynamic finder. Other query options like `contain` are also
-not supported with dynamic finders. You should use [custom-find-methods](#custom-find-methods) to
+not supported with dynamic finders. You should use [Custom Find Methods](#custom-find-methods) to
 encapsulate more complex queries. Lastly, you can also combine dynamic finders
 with custom finders:
 
@@ -484,15 +484,15 @@ You should use `contain()` when you want to load the primary model, and its
 associated data. While `contain()` will let you apply additional conditions to
 the loaded associations, you cannot constrain the primary model based on the
 associations. For more details on the `contain()`, look at
-[eager-loading-associations](#eager-loading-associations).
+[Eager Loading Associations](#eager-loading-associations).
 
 You should use `matching()` when you want to restrict the primary model based
 on associations. For example, you want to load all the articles that have
 a specific tag on them. For more details on the `matching()`, look at
-[filtering-by-associated-data](#filtering-by-associated-data).
+[Filtering By Associated Data](#filtering-by-associated-data).
 
 If you prefer to use join functions, you can look at
-[adding-joins](#adding-joins) for more information.
+[Adding Joins](#adding-joins) for more information.
 
 ## Eager Loading Associations Via Contain
 
@@ -1024,15 +1024,15 @@ $articles->Comments->strategy('subquery');
 
 While CakePHP makes it easy to eager load your associations, there may be cases
 where you need to lazy-load associations. You should refer to the
-[lazy-load-associations](#lazy-load-associations) and [loading-additional-associations](#loading-additional-associations)
+[Lazy Load Associations](#lazy-load-associations) and [Loading Additional Associations](#loading-additional-associations)
 sections for more information.
 
 ## Working with Result Sets
 
 Once a query is executed with `all()`, you will get an instance of
-`Cake\ORM\ResultSet`. This object offers powerful ways to manipulate
+`Cake\\ORM\\ResultSet`. This object offers powerful ways to manipulate
 the resulting data from your queries. Like Query objects, ResultSets are
-a [Collection](core-libraries/collections.md) and you can use any collection
+a [Collection](../core-libraries/collections.md) and you can use any collection
 method on ResultSet objects.
 
 Result set objects will lazily load rows from the underlying prepared statement.
@@ -1081,7 +1081,7 @@ JSON respects hidden & virtual field settings on all entity objects
 within a result set.
 
 In addition to making serialization easy, result sets are a 'Collection' object and
-support the same methods that [collection objects](core-libraries/collections.md)
+support the same methods that [collection objects](../core-libraries/collections.md)
 do. For example, you can extract a list of unique tags on a collection of
 articles by running:
 
@@ -1115,8 +1115,8 @@ $results = $articles->find()->contain(['Authors'])->all();
 $authorList = $results->combine('id', 'author.name');
 ```
 
-The [/core-libraries/collections](core-libraries/collections.md) chapter has more detail on what can be
-done with result sets using the collections features. The [format-results](#format-results)
+The [Collections](../core-libraries/collections.md) chapter has more detail on what can be
+done with result sets using the collections features. The [Format Results](#format-results)
 section show how you can add calculated fields, or replace the result set.
 
 ### Getting the First & Last Record From a ResultSet
@@ -1374,7 +1374,7 @@ $query->where(['created >=' => new DateTime('1 day ago')]);
 ```
 
 This is particularly useful for building custom finder methods as described in the
-[custom-find-methods](#custom-find-methods) section:
+[Custom Find Methods](#custom-find-methods) section:
 
 ``` php
 public function findPublished(Query $query, array $options)

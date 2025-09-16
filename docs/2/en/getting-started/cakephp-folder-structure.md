@@ -18,7 +18,7 @@ You'll notice three main folders:
 - The *lib* folder is where we've worked our magic. Make a
   personal commitment **not** to edit files in this folder. We can't
   help you if you've modified the core. Instead, look into modifying
-  [application-extensions](#application-extensions).
+  [Application Extensions](#application-extensions).
 - Finally, the *vendors* folder is where you'll place third-party
   PHP libraries you need to use with your CakePHP applications.
 
@@ -36,7 +36,7 @@ more should be stored here.
 Console  
 Contains the console commands and console tasks for your application.
 This directory can also contain a `Templates` directory to customize the
-output of bake. For more information see [/console-and-shells](console-and-shells.md).
+output of bake. For more information see [Shells, Tasks & Console Tools](../console-and-shells.md).
 
 Controller  
 Contains your application's controllers and their components.
@@ -59,7 +59,7 @@ Test
 This directory contains all the test cases and test fixtures for your
 application. The `Test/Case` directory should mirror your application and
 contain one or more test cases per class in your application. For more
-information on test cases and test fixtures, refer to the [/development/testing](development/testing.md)
+information on test cases and test fixtures, refer to the [Testing](../development/testing.md)
 documentation.
 
 tmp  

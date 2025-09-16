@@ -741,7 +741,7 @@ creating an instance of our `Article` model, and then run our `published()`
 method. In `$expected` we set what we expect should be the proper result (that
 we know since we have defined which records are initially populated to the
 article table.) We test that the result equals our expectation by using the
-`assertEquals` method. See the [running-tests](#running-tests) section for more
+`assertEquals` method. See the [Running Tests](#running-tests) section for more
 information on how to run your test case.
 
 > [!NOTE]
@@ -1288,7 +1288,7 @@ class AllModelTest extends CakeTestSuite {
 ```
 
 The code above will group all test cases found in the
-[App / Test / Case / Model / ](app/Test/Case/Model/.md) folder. To add an individual file, use
+`/app/Test/Case/Model/` folder. To add an individual file, use
 `$suite->addTestFile($filename);`. You can recursively add a directory
 for all tests using:
 

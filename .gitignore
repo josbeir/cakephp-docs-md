@@ -2,6 +2,7 @@
 .vscode/
 .vitepress/dist
 .vitepress/cache
+.vitepress/.temp
 node_modules/
 /node_modules/*
 legacy
@@ -10,3 +11,5 @@ legacy
 /test/
 /temp/*
 AGENTS.md
+docs/test/
+docs/test-*

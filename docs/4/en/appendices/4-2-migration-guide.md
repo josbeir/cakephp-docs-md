@@ -22,7 +22,7 @@ features:
 > This only updates CakePHP 4.2 changes. Make sure you apply CakePHP 4.1 changes first.
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
+path basis. See [Deprecation Warnings](#deprecation-warnings) for more information.
 
 ### Core
 
@@ -87,7 +87,7 @@ change the semantics or behavior of methods.
   > [!NOTE]
   > If you need to restore the previous behavior until your exceptions are updated,
   > you can create a custom ExceptionRenderer and override the `getHttpCode()` function.
-  > See [custom-exceptionrenderer](#custom-exceptionrenderer) for more information.
+  > See [Custom Exceptionrenderer](#custom-exceptionrenderer) for more information.
 
 - `ConsoleErrorHandler` now uses the exception code as the exit code for
   `ConsoleException` only.
@@ -123,18 +123,18 @@ They usually only affect tests.
 
 We're adding a new process to enable us to ship features, collect feedback from
 the community and evolve those features. We're calling this process
-[experimental-features](#experimental-features).
+[Experimental Features](#experimental-features).
 
 ### Core
 
-- Experimental support for a [/development/dependency-injection](development/dependency-injection.md) container
+- Experimental support for a [Dependency Injection](../development/dependency-injection.md) container
   was added.
 
 ### Console
 
 - `ConsoleIo::comment()` was added. This method formats text with a blue
   foreground like comments in the generated help text.
-- `TableHelper` now supports a [](#text-right) formatting tag, which aligns
+- `TableHelper` now supports a `<text-right>` formatting tag, which aligns
   cell content with the right edge instead of the left.
 
 ### Database
@@ -188,7 +188,7 @@ the community and evolve those features. We're calling this process
   `assertMailSubjectContainsAt()` were added.
 - `mockService()` was added to `ConsoleIntegrationTestTrait` and
   `IntegrationTestCaseTrait`. This method enables services injected with the
-  [/development/dependency-injection](development/dependency-injection.md) container to be replaced with mock
+  [Dependency Injection](../development/dependency-injection.md) container to be replaced with mock
   or stub objects.
 
 ### View

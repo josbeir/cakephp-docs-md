@@ -25,6 +25,8 @@ If you are not running on **PHP 8.1 or higher**, you will need to upgrade PHP be
 > [!NOTE]
 > CakePHP 5.0 requires **a minimum of PHP 8.1**.
 
+<a id="upgrade-tool-use"></a>
+
 ## Use the Upgrade Tool
 
 > [!NOTE]

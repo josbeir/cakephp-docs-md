@@ -76,7 +76,7 @@ therefore /red_apples/go_pick is the correct form to access the
 `RedApplesController::go_pick` action.
 
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](#routes-configuration). If you have files/directories in your [Webroot](webroot.md)
+[Routes Configuration](#routes-configuration). If you have files/directories in your `/webroot`
 directory that share a name with one of your routes/controllers, you will be
 directed to the file/directory and, not to your controller.
 
@@ -115,7 +115,7 @@ respectively.
 
 You can use the utility library `Inflector` to check the
 singular/plural of words. See the
-[/core-utility-libraries/inflector](core-utility-libraries/inflector.md) for more
+[Inflector](../core-utility-libraries/inflector.md) for more
 information.
 
 Field names with two or more words are underscored:
@@ -194,5 +194,5 @@ files that you'd need to create anyway.
 
 Now that you've been introduced to CakePHP's fundamentals, you
 might try a run through the
-[/tutorials-and-examples/blog/blog](blog/blog.md) to see how things fit
+[Blog Tutorial](../tutorials-and-examples/blog/blog.md) to see how things fit
 together.

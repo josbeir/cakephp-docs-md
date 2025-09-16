@@ -317,7 +317,7 @@ and also wanted to include **webroot/img/Blog.icon.png**, you would:
 echo $this->Html->image('Blog.icon.png', ['plugin' => false]);
 ```
 
-If you would like the prefix of the URL to not be [Img](img.md), you can override this setting by specifying the prefix in the `$options` array :
+If you would like the prefix of the URL to not be `/img`, you can override this setting by specifying the prefix in the `$options` array :
 
 ``` php
 echo $this->Html->image("logo.png", ['pathPrefix' => '']);
@@ -445,7 +445,7 @@ Will output:
 </a>
 ```
 
-Also check `Cake\View\Helper\UrlHelper::build()` method
+Also check `Cake\\View\\Helper\\UrlHelper::build()` method
 for more examples of different types of URLs.
 
 ### Linking to Videos and Audio Files
@@ -608,7 +608,7 @@ $this->Html->scriptBlock('alert("hi")', ['block' => true]);
 `method` Cake\\View\\Helper\\HtmlHelper(View::**scriptEnd**()
 
 You can use the `scriptStart()` method to create a capturing block that will
-output into a [](#script) tag. Captured script snippets can be output inline,
+output into a `<script>` tag. Captured script snippets can be output inline,
 or buffered into a block:
 
 ``` php
@@ -851,7 +851,7 @@ return [
 > Template strings containing a percentage sign (`%`) need special attention,
 > you should prefix this character with another percentage so it looks like
 > `%%`. The reason is that internally templates are compiled to be used with
-> `sprintf()`. Example: [[](#div-stylewidthsize){{content}}](div.md)
+> `sprintf()`. Example: `<div style="width:{{size}}%%">{{content}}</div>`
 
 ## Creating Breadcrumb Trails with HtmlHelper
 
@@ -901,9 +901,9 @@ You can also fetch the crumbs formatted inside an HTML list:
 echo $this->Html->getCrumbList();
 ```
 
-As options you can use regular HTML parameter that fits in the [](#ul)
+As options you can use regular HTML parameter that fits in the `<ul>`
 (Unordered List) such as `class` and for the specific options, you have:
-`separator` (will be between the [](#li) elements), `firstClass` and
+`separator` (will be between the `<li>` elements), `firstClass` and
 `lastClass` like:
 
 ``` php
@@ -917,10 +917,10 @@ echo $this->Html->getCrumbList(
 );
 ```
 
-This method uses `Cake\View\Helper\HtmlHelper::tag()` to generate
+This method uses `Cake\\View\\Helper\\HtmlHelper::tag()` to generate
 list and its elements. Works similar to
-`~Cake\View\Helper\HtmlHelper::getCrumbs()`, so it uses options
+`~Cake\\View\\Helper\\HtmlHelper::getCrumbs()`, so it uses options
 which every crumb was added with. You can use the `$startText` parameter to
 provide the first breadcrumb link/text. This is useful when you always want to
 include a root link. This option works the same as the `$startText` option for
-`~Cake\View\Helper\HtmlHelper::getCrumbs()`.
+`~Cake\\View\\Helper\\HtmlHelper::getCrumbs()`.

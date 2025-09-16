@@ -385,7 +385,7 @@ retrieve nodes in tree format. The console application is used to
 initialize your database and interact with your ACO and ARO trees.
 
 To get started, first you'll need to make sure your
-[App / Config / database.php](app/Config/database.php.md) is present and correctly configured.
+`/app/Config/database.php` is present and correctly configured.
 
 Once you've done that, use the CakePHP console to create your ACL
 database tables:
@@ -440,7 +440,7 @@ permissions information between the two trees).
 > [!NOTE]
 > If you're curious about how CakePHP stores tree information in these
 > tables, read up on modified database tree traversal. The ACL
-> component uses CakePHP's [/core-libraries/behaviors/tree](core-libraries/behaviors/tree.md)
+> component uses CakePHP's [Tree](../../core-libraries/behaviors/tree.md)
 > to manage the trees' inheritances. The model class files for ACL
 > can be found in `lib/Cake/Model/`.
 
@@ -797,6 +797,8 @@ $this->Acl->deny(
 
 The next section will help us validate our setup by using the
 AclComponent to check the permissions we've just set up.
+
+<a id="checking-permissions"></a>
 
 ### Checking Permissions: The ACL Component
 

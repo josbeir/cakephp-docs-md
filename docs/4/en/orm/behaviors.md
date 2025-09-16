@@ -61,10 +61,10 @@ class ArticlesTable extends Table
 
 ## Core Behaviors
 
-- [Counter Cache](behaviors/counter-cache.md)
-- [Timestamp](behaviors/timestamp.md)
-- [Translate](behaviors/translate.md)
-- [Tree](behaviors/tree.md)
+- [CounterCache](../orm/behaviors/counter-cache.md)
+- [Timestamp](../orm/behaviors/timestamp.md)
+- [Translate](../orm/behaviors/translate.md)
+- [Tree](../orm/behaviors/tree.md)
 
 ## Creating a Behavior
 
@@ -226,7 +226,7 @@ class SluggableBehavior extends Behavior
 The above code shows a few interesting features of behaviors:
 
 - Behaviors can define callback methods by defining methods that follow the
-  [table-callbacks](#table-callbacks) conventions.
+  [Table Callbacks](#table-callbacks) conventions.
 - Behaviors can define a default configuration property. This property is merged
   with the overrides when a behavior is attached to the table.
 
@@ -251,7 +251,7 @@ Alternatively, you can return false from the callback. This has the same effect 
 
 Now that we are able to save articles with slug values, we should implement
 a finder method so we can fetch articles by their slug. Behavior finder
-methods, use the same conventions as [custom-find-methods](#custom-find-methods) do. Our
+methods, use the same conventions as [Custom Find Methods](#custom-find-methods) do. Our
 `find('slug')` method would look like:
 
 ``` php

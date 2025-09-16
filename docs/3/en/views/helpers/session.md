@@ -6,7 +6,7 @@
 
 3.0.0
 The SessionHelper is deprecated in 3.x. Instead you should use either the
-[FlashHelper](helpers/flash.md) or [access the
+[FlashHelper](../../views/helpers/flash.md) or [access the
 session via the request](#accessing-session-object).
 
 </div>

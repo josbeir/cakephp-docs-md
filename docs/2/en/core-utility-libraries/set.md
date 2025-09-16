@@ -745,7 +745,7 @@ available.
 > additional features are welcome. |
 >
 > To learn more about Set::extract() refer to the function testExtract()
-> in [Lib / Cake / Test / Case / Utility / SetTest.php](lib/Cake/Test/Case/Utility/SetTest.php.md).
+> in `/lib/Cake/Test/Case/Utility/SetTest.php`.
 >
 > rtype  
 > array

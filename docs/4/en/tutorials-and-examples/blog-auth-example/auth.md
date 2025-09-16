@@ -1,6 +1,6 @@
 # Blog Tutorial - Authentication
 
-Following our [/tutorials-and-examples/blog/blog](blog/blog.md) example, imagine we
+Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog.md) example, imagine we
 wanted to disallow unauthenticated users to create articles.
 
 ## Creating Users Table and Controller
@@ -278,7 +278,7 @@ public function initialize(): void
 
 Now, on every request, the `AuthenticationMiddleware` will inspect the request
 session to look for an authenticated user. If we are loading the
-[Users / login](users/login.md) page, it'll inspect also the posted form data (if any) to
+`/users/login` page, it'll inspect also the posted form data (if any) to
 extract the credentials. By default the credentials will be extracted from the
 `email` and `password` fields in the request data. The authentication
 result will be injected in a request attribute named `authentication`. You can
@@ -286,7 +286,7 @@ inspect the result at any time using
 `$this->request->getAttribute('authentication')` from your controller actions.
 All your pages will be restricted as the `AuthenticationComponent` is checking
 the result on every request. When it fails to find any authenticated user, it'll
-redirect the user to the [Users / login](users/login.md) page. Note at this point, the site
+redirect the user to the `/users/login` page. Note at this point, the site
 won't work as we don't have a login page yet. If you visit your site, you'll
 get an "infinite redirect loop". So, let's fix that!
 
@@ -344,7 +344,7 @@ Add the template logic for your login action:
 
 Now login page will allow us to correctly login into the application.
 Test it by requesting any page of your site. After being redirected
-to the [Users / login](users/login.md) page, enter the email and password you
+to the `/users/login` page, enter the email and password you
 picked previously when creating your user. You should be redirected
 successfully after login.
 
@@ -381,7 +381,7 @@ public function logout()
 }
 ```
 
-Now you can visit [Users / logout](users/logout.md) to log out. You should then be sent to the
+Now you can visit `/users/logout` to log out. You should then be sent to the
 login page. If you've made it this far, congratulations, you now have a simple
 blog that:
 
@@ -390,5 +390,5 @@ blog that:
 
 ### Suggested Follow-up Reading
 
-1.  [/bake/usage](bake/usage.md) Generating basic CRUD code
+1.  [Code Generation with Bake](../../bake/usage.md) Generating basic CRUD code
 2.  [Authentication Plugin](/authentication/) documentation.

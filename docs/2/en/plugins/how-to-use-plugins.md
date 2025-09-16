@@ -1,7 +1,7 @@
 # How To Use Plugins
 
 Before you can use a plugin, you must install and enable it first.
-See [/plugins/how-to-install-plugins](plugins/how-to-install-plugins.md).
+See [How To Install Plugins](../plugins/how-to-install-plugins.md).
 
 ## Plugin Configuration
 

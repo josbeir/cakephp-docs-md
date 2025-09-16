@@ -443,7 +443,7 @@ debug($time->wasWithinLast('2 weeks'));
 `class` Cake\\I18n\\**Date**
 
 The immutable `Date` class in CakePHP represents calendar dates unaffected by
-time and timezones. The `Date` class wraps the `Cake\Chronos\ChronosDate` class.
+time and timezones. The `Date` class wraps the `Cake\\Chronos\\ChronosDate` class.
 
 > [!NOTE]
 > Unlike the `DateTime` class, `Date` does not extends the `DateTimeInterface`.
@@ -456,12 +456,12 @@ time and timezones. The `Date` class wraps the `Cake\Chronos\ChronosDate` class.
 
 The `Time` class represents clock times independent of date or time zones
 Similar to the `DateTime` and `` `Date `` classes, the `Time` class is also immutable.
-It wraps the `Cake\Chronos\ChronosTime` class.
+It wraps the `Cake\\Chronos\\ChronosTime` class.
 
 ## Accepting Localized Request Data
 
 When creating text inputs that manipulate dates, you'll probably want to accept
-and parse localized datetime strings. See the [parsing-localized-dates](#parsing-localized-dates).
+and parse localized datetime strings. See the [Parsing Localized Dates](#parsing-localized-dates).
 
 ## Supported Timezones
 

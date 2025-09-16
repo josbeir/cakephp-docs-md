@@ -28,7 +28,7 @@ translating content.
 >
 > > [!NOTE]
 > > Check out the
-> > [/core-libraries/internationalization-and-localization](core-libraries/internationalization-and-localization.md) section for
+> > [Internationalization & Localization](../core-libraries/internationalization-and-localization.md) section for
 > > more information.
 >
 > Allows you to override the current domain for a single message lookup.
@@ -70,7 +70,7 @@ translating content.
 > The context is a unique identifier for the translations string that makes it
 > unique within the same domain.
 >
-> Convenience wrapper for instantiating a new `Cake\Collection\Collection`
+> Convenience wrapper for instantiating a new `Cake\\Collection\\Collection`
 > object, wrapping the passed argument. The `$items` parameter takes either
 > a `Traversable` object or an array.
 >
@@ -86,12 +86,12 @@ translating content.
 > If `$showHTML` is `true` or left as `null`, the data is rendered to be
 > browser-friendly. If `$showFrom` is not set to `false`, the debug output
 > will start with the line from which it was called. Also see
-> [/development/debugging](development/debugging.md)
+> [Debugging](../development/debugging.md)
 >
 > It behaves like `debug()`, but execution is also halted.
 > If the core `$debug` variable is `true`, `$var` is printed.
 > If `$showHTML` is `true` or left as `null`, the data is rendered to be
-> browser-friendly. Also see [/development/debugging](development/debugging.md)
+> browser-friendly. Also see [Debugging](../development/debugging.md)
 >
 > <div class="versionchanged">
 >
@@ -102,7 +102,7 @@ translating content.
 > </div>
 >
 > Convenience wrapper for `print_r()`, with the addition of
-> wrapping [](#pre) tags around the output.
+> wrapping `<pre>` tags around the output.
 >
 > <div class="versionchanged">
 >
@@ -113,7 +113,7 @@ translating content.
 > </div>
 >
 > JSON pretty print convenience function, with the addition of
-> wrapping [](#pre) tags around the output.
+> wrapping `<pre>` tags around the output.
 >
 > It is meant for debugging the JSON representation of objects and arrays.
 >

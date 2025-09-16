@@ -6,7 +6,7 @@
 
 4.4.0
 The `RequestHandlerComponent` is deprecated. See the
-[/appendices/4-4-migration-guide](appendices/4-4-migration-guide.md) for how to upgrade your application.
+[4.4 Migration Guide](../../appendices/4-4-migration-guide.md) for how to upgrade your application.
 
 </div>
 
@@ -17,7 +17,7 @@ input, define how content types map to view classes or template paths.
 
 By default RequestHandler will automatically detect AJAX requests based on the
 `X-Requested-With` HTTP header that many JavaScript libraries use. When used
-in conjunction with `Cake\Routing\Router::extensions()`,
+in conjunction with `Cake\\Routing\\Router::extensions()`,
 RequestHandler will automatically switch the layout and template files to those
 that match non-HTML media types. Furthermore, if a helper with the same name as
 the requested extension exists, it will be added to the Controllers Helper
@@ -49,7 +49,7 @@ the client and its request.
 ## Automatically Decoding Request Data
 
 This feature has been removed from `RequestHandlerComponent` in 4.0. You
-should use [body-parser-middleware](#body-parser-middleware) instead.
+should use [Body Parser Middleware](#body-parser-middleware) instead.
 
 ## Checking Content-Type Preferences
 
@@ -156,6 +156,6 @@ public function initialize(): void
 
 4.4.0
 Instead of defining `viewClassMap` you should use
-[controller-viewclasses](#controller-viewclasses) instead.
+[Controller Viewclasses](#controller-viewclasses) instead.
 
 </div>

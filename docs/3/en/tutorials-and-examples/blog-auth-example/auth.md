@@ -1,6 +1,6 @@
 # Blog Tutorial - Authentication and Authorization
 
-Following our [/tutorials-and-examples/blog/blog](blog/blog.md) example, imagine we
+Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog.md) example, imagine we
 wanted to secure access to certain URLs, based on the logged-in
 user. We also have another requirement: to allow our blog to have multiple
 authors who can create, edit, and delete their own articles while disallowing
@@ -126,7 +126,7 @@ tutorial, we will show just the add.ctp:
 ## Authentication (Login and Logout)
 
 We're now ready to add our authentication layer. In CakePHP this is handled by
-the `Cake\Controller\Component\AuthComponent`, a class responsible
+the `Cake\\Controller\\Component\\AuthComponent`, a class responsible
 for requiring login for certain actions, handling user login and logout, and
 also authorizing logged-in users to the actions they are allowed to reach.
 
@@ -171,7 +171,7 @@ class AppController extends Controller
 
 There is not much to configure, as we used the conventions for the users table.
 We just set up the URLs that will be loaded after the login and logout actions
-is performed, in our case to [Articles / ](articles/.md) and `/` respectively.
+is performed, in our case to `/articles/` and `/` respectively.
 
 What we did in the `beforeFilter()` function was to tell the AuthComponent to
 not require a login for all `index()` and `view()` actions, in every
@@ -275,10 +275,10 @@ and add the following lines:
 </div>
 ```
 
-You can now register a new user by accessing the [Users / add](users/add.md) URL and log in
-with the newly created credentials by going to [Users / login](users/login.md) URL. Also, try
+You can now register a new user by accessing the `/users/add` URL and log in
+with the newly created credentials by going to `/users/login` URL. Also, try
 to access any other URL that was not explicitly allowed such as
-[Articles / add](articles/add.md), you will see that the application automatically redirects you
+`/articles/add`, you will see that the application automatically redirects you
 to the login page.
 
 And that's it! It looks too simple to be true. Let's go back a bit to explain
@@ -295,7 +295,7 @@ This function returns whether the login was successful or not, and in the case
 it succeeds, then we redirect the user to the configured redirection URL that we
 used when adding the AuthComponent to our application.
 
-The logout works by just accessing the [Users / logout](users/logout.md) URL and will redirect
+The logout works by just accessing the `/users/logout` URL and will redirect
 the user to the configured logoutUrl formerly described. This URL is the result
 of the `AuthComponent::logout()` function on success.
 
@@ -442,10 +442,10 @@ You could also be more creative and code something more general in AppController
 on your own rules.
 
 Should you need more control, we suggest you read the complete Auth guide in the
-[/controllers/components/authentication](components/authentication.md) section where you will find more
+[AuthComponent](../../controllers/components/authentication.md) section where you will find more
 about configuring the component, creating custom Authorization classes, and much more.
 
 ### Suggested Follow-up Reading
 
-1.  [/bake/usage](bake/usage.md) Generating basic CRUD code
-2.  [/controllers/components/authentication](components/authentication.md): User registration and login
+1.  [Code Generation with Bake](../../bake/usage.md) Generating basic CRUD code
+2.  [AuthComponent](../../controllers/components/authentication.md): User registration and login

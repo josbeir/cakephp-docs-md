@@ -172,7 +172,7 @@ automatically. The callbacks are similar to those found in Models:
 `beforeFind`, `afterFind`, `beforeValidate`, `afterValidate`,
 `beforeSave`, `afterSave`, `beforeDelete`, `afterDelete` and
 `onError` - see
-[/models/callback-methods](models/callback-methods.md).
+[Callback Methods](../models/callback-methods.md).
 
 Your behaviors should be placed in `app/Model/Behavior`. They are named in CamelCase and
 postfixed by `Behavior`, ex. NameBehavior.php.

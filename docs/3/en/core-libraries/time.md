@@ -395,7 +395,7 @@ echo $time->wasWithinLast('2 weeks');
 </div>
 
 The `Date` class in CakePHP implements the same API and methods as
-`Cake\I18n\Time` does. The main difference between `Time` and
+`Cake\\I18n\\Time` does. The main difference between `Time` and
 `Date` is that `Date` does not track time components, and is always in UTC.
 As an example:
 
@@ -478,7 +478,7 @@ $article->updated = $article->updated->modify('+1 hour');
 ## Accepting Localized Request Data
 
 When creating text inputs that manipulate dates, you'll probably want to accept
-and parse localized datetime strings. See the [parsing-localized-dates](#parsing-localized-dates).
+and parse localized datetime strings. See the [Parsing Localized Dates](#parsing-localized-dates).
 
 ## Supported Timezones
 

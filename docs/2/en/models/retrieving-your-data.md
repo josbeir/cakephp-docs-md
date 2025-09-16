@@ -215,7 +215,7 @@ determine what should be used as the array key and value, and
 optionally what to group the results by. By default, the primary key
 for the model is used for the key, and the display field (which can
 be configured using the model attribute
-[model-displayField](#model-displayfield)) is used for the value.
+[Model Displayfield](#model-displayField)) is used for the value.
 Some further examples to clarify:
 
 ``` php
@@ -295,7 +295,7 @@ public function some_function() {
 ```
 
 > [!TIP]
-> A better way to deal with nested data is using the [/core-libraries/behaviors/tree](core-libraries/behaviors/tree.md)
+> A better way to deal with nested data is using the [Tree](../core-libraries/behaviors/tree.md)
 > behavior
 
 In the above code example, `$allCategories` will contain a nested
@@ -632,7 +632,7 @@ while `findBy()` return in the same format as `find('first')`
 
 ### findAllBy
 
-[findAllBy](#fieldname)(string $value, array $fields, array $order, int $limit, int $page, int $recursive)
+`findAllBy<fieldName>(string $value, array $fields, array $order, int $limit, int $page, int $recursive)`
 
 | findAllBy\<x\> Example | Corresponding SQL Fragment |
 |----|----|
@@ -670,11 +670,11 @@ Custom magic finders were added in 2.8.0.
 
 ### findBy
 
-[findBy](#fieldname)(string $value);
+`findBy<fieldName>(string $value);`
 
 The findBy magic functions also accept some optional parameters:
 
-[findBy](#fieldname)(string $value[, mixed $fields[, mixed $order]]);
+`findBy<fieldName>(string $value[, mixed $fields[, mixed $order]]);`
 
 | findBy\<x\> Example | Corresponding SQL Fragment |
 |----|----|

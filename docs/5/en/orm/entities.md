@@ -2,7 +2,7 @@
 
 `class` Cake\\ORM\\**Entity**
 
-While [/orm/table-objects](orm/table-objects.md) represent and provide access to a collection of
+While [Table Objects](../orm/table-objects.md) represent and provide access to a collection of
 objects, entities represent individual rows or domain objects in your
 application. Entities contain methods to manipulate and
 access the data they contain. Fields can also be accessed as properties on the object.
@@ -297,7 +297,7 @@ echo $user->get('full_name');
 
 Do bear in mind that virtual fields cannot be used in finds. If you want
 them to be part of JSON or array representations of your entities,
-see [exposing-virtual-fields](#exposing-virtual-fields).
+see [Exposing Virtual Fields](#exposing-virtual-fields).
 
 ## Checking if an Entity Has Been Modified
 
@@ -389,7 +389,7 @@ $user->setErrors([
 While setting fields to entities in bulk is simple and convenient, it can
 create significant security issues. Bulk assigning user data from the request
 into an entity allows the user to modify any and all columns. When using
-anonymous entity classes or creating the entity class with the [/bake](bake.md)
+anonymous entity classes or creating the entity class with the [Bake Console](../bake.md)
 CakePHP does not protect against mass-assignment.
 
 The `_accessible` property allows you to provide a map of fields and
@@ -461,7 +461,7 @@ $article->setAccess('title', false);
 
 When using the `newEntity()` and `patchEntity()` methods in the `Table`
 objects you can customize mass assignment protection with options. Please refer
-to the [changing-accessible-fields](#changing-accessible-fields) section for more information.
+to the [Changing Accessible Fields](#changing-accessible-fields) section for more information.
 
 ### Bypassing Field Guarding
 
@@ -644,5 +644,5 @@ $user->setHidden(['password', 'recovery_question']);
 
 Accessor & Mutator methods on entities are not intended to contain the logic for
 serializing and unserializing complex data coming from the database. Refer to
-the [saving-complex-types](#saving-complex-types) section to understand how your application can
+the [Saving Complex Types](#saving-complex-types) section to understand how your application can
 store more complex data types like arrays and objects.

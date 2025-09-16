@@ -133,13 +133,13 @@ public function execute(Arguments $args, ConsoleIo $io)
 }
 ```
 
-See the [/console-and-shells/option-parsers](console-and-shells/option-parsers.md) section for more information.
+See the [Option Parsers](../console-and-shells/option-parsers.md) section for more information.
 
 ## Creating Output
 
 Commands are provided a `ConsoleIo` instance when executed. This object allows
 you to interact with `stdout`, `stderr` and create files. See the
-[/console-and-shells/input-output](console-and-shells/input-output.md) section for more information.
+[Command Input/Output](../console-and-shells/input-output.md) section for more information.
 
 ## Using Models in Commands
 
@@ -262,6 +262,8 @@ $this->executeCommand($command, ['--verbose', 'deploy']);
 > When calling `executeCommand()` in a loop, it is recommended to pass in the
 > parent command's `ConsoleIo` instance as the optional 3rd argument to
 > avoid a potential "open files" limit that could occur in some environments.
+
+<a id="console-integration-testing"></a>
 
 ## Testing Commands
 

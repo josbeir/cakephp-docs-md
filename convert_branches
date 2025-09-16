@@ -6,8 +6,8 @@
 set -e
 
 REPO_URL="https://github.com/cakephp/docs.git"
-TEMP_DIR="./temp"
-DOCS_DIR="./docs"
+TEMP_DIR="temp"
+DOCS_DIR="docs"
 
 # Define branches and their numeric versions
 declare -A BRANCHES=(

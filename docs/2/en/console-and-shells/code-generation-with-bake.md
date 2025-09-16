@@ -7,7 +7,7 @@ just talking skeleton classes: Bake can create a fully functional
 application in just a few minutes. In fact, Bake is a natural step
 to take once an application has been scaffolded.
 
-See [the-cakephp-console](#the-cakephp-console) section for instructions on how to use
+See [The Cakephp Console](#the-cakephp-console) section for instructions on how to use
 the CakePHP console in general. Depending on the configuration of your
 setup, you may have to set execute rights on the cake bash script or
 call it using `./Console/cake bake`. The cake console is run using the
@@ -58,7 +58,7 @@ $ cake bake all
 <div class="versionchanged">
 
 2.5
-Test files produced by `bake test` include calls to [PHPunit's markTestIncomplete()](https://phpunit.de/manual/3.7/en/incomplete-and-skipped-tests.md) to draw attention to empty test methods. Before 2.5, empty tests pass silently.
+Test files produced by `bake test` include calls to [PHPunit's markTestIncomplete()](https://phpunit.de/manual/3.7/en/incomplete-and-skipped-tests.html) to draw attention to empty test methods. Before 2.5, empty tests pass silently.
 
 </div>
 

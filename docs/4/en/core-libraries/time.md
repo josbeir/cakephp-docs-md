@@ -448,7 +448,7 @@ debug($time->wasWithinLast('2 weeks'));
 ## FrozenDate
 
 The immutable `FrozenDate` class in CakePHP implements the same API and methods as
-`Cake\I18n\FrozenTime` does. The main difference between `FrozenTime` and
+`Cake\\I18n\\FrozenTime` does. The main difference between `FrozenTime` and
 `FrozenDate` is that `FrozenDate` does not track time components.
 As an example:
 
@@ -535,7 +535,7 @@ $article->updated = $article->updated->modify('+1 hour');
 ## Accepting Localized Request Data
 
 When creating text inputs that manipulate dates, you'll probably want to accept
-and parse localized datetime strings. See the [parsing-localized-dates](#parsing-localized-dates).
+and parse localized datetime strings. See the [Parsing Localized Dates](#parsing-localized-dates).
 
 ## Supported Timezones
 

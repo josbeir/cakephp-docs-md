@@ -69,7 +69,7 @@ The above will create a local branch based on the upstream (CakePHP) 2.x branch.
 Work on your fix, and make as many commits as you need; but keep in mind the
 following:
 
-- Follow the [/contributing/cakephp-coding-conventions](contributing/cakephp-coding-conventions.md).
+- Follow the [Coding Standards](../contributing/cakephp-coding-conventions.md).
 - Add a test case to show the bug is fixed, or that the new feature works.
 - Keep your commits logical, and write clear commit messages that provide
   context on what you changed and why.

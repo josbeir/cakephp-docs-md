@@ -122,10 +122,10 @@ following configuration keys are used:
   variables to be used in the view. See `Mailer::setViewVars()`.
 - `'attachments'`: List of files to attach. See `Mailer::setAttachments()`.
 - `'emailFormat'`: Format of email (html, text or both). See `Mailer::setEmailFormat()`.
-- `'transport'`: Transport configuration name. See [email-transport](#email-transport).
+- `'transport'`: Transport configuration name. See [Email Transport](#email-transport).
 - `'log'`: Log level to log the email headers and message. `true` will use
-  LOG_DEBUG. See [logging-levels](#logging-levels). Note that logs will be emitted under the scope named `email`.
-  See also [logging-scopes](#logging-scopes).
+  LOG_DEBUG. See [Logging Levels](#logging-levels). Note that logs will be emitted under the scope named `email`.
+  See also [Logging Scopes](#logging-scopes).
 - `'helpers'`: Array of helpers used in the email template.
   `ViewBuilder::setHelpers()`/`ViewBuilder::addHelpers()`.
 
@@ -146,7 +146,7 @@ See `Mailer::setHeaders()` and `Mailer::addHeaders()`
 
 Emails are often much more than just a simple text message. In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
-[view layer](views.md).
+[view layer](../views.md).
 
 The templates for emails reside in a special folder `templates/email` of your
 application. Mailer views can also use layouts and elements just like normal views:
@@ -282,7 +282,7 @@ you want the filenames to appear in the recipient's mail client:
     The mimetype and contentId are optional in this form.
 
     3.1. When you are using the `contentId`, you can use the file in the HTML
-    body like [](#img-srccidmy-content-id).
+    body like `<img src="cid:my-content-id">`.
 
     3.2. You can use the `contentDisposition` option to disable the
     `Content-Disposition` header for an attachment. This is useful when
@@ -425,7 +425,7 @@ $this->Users->getEventManager()->on($this->getMailer('User'));
 
 > [!NOTE]
 > For information on how to register event listener objects,
-> please refer to the [registering-event-listeners](#registering-event-listeners) documentation.
+> please refer to the [Registering Event Listeners](#registering-event-listeners) documentation.
 
 ## Configuring Transports
 
@@ -488,7 +488,7 @@ TransportFactory::setConfig('gmail', [
 The above configuration would enable TLS communication for email messages.
 
 To configure your mailer to use a specific transport you can use
-`Cake\Mailer\Mailer::setTransport()` method or have the transport
+`Cake\\Mailer\\Mailer::setTransport()` method or have the transport
 in your configuration:
 
 ``` php

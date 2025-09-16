@@ -521,7 +521,7 @@ Formatting
 >
 > 2.8
 > `$options` now accepts array with `group`, `abbr`, `before`, and `after` keys.
-> Specify `abbr => true` will append the timezone abbreviation in the [](#option) text.
+> Specify `abbr => true` will append the timezone abbreviation in the `<option>` text.
 >
 > </div>
 

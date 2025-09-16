@@ -8,4 +8,4 @@ Shell Helpers were added in 3.1.0
 </div>
 
 Shell Helpers let you package up complex output generation code. See
-[command-helpers](#command-helpers) for more information.
+[Command Helpers](#command-helpers) for more information.

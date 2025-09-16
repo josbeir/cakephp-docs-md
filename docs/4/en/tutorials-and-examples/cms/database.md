@@ -111,7 +111,7 @@ key. CakePHP supports composite primary keys almost everywhere, allowing you to
 have simpler schemas that don't require additional `id` columns.
 
 The table and column names we used were not arbitrary. By using CakePHP's
-[naming conventions](intro/conventions.md), we can leverage CakePHP more
+[naming conventions](../../intro/conventions.md), we can leverage CakePHP more
 effectively and avoid needing to configure the framework. While CakePHP is
 flexible enough to accommodate almost any database schema, adhering to the
 conventions will save you time as you can leverage the convention-based defaults
@@ -184,7 +184,7 @@ class ArticlesTable extends Table
 }
 ```
 
-We've attached the [/orm/behaviors/timestamp](behaviors/timestamp.md) behavior, which will
+We've attached the [Timestamp](../../orm/behaviors/timestamp.md) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -221,8 +221,8 @@ class Article extends Entity
 
 Right now, our entity is quite slim; we've only set up the `_accessible`
 property, which controls how properties can be modified by
-[entities-mass-assignment](#entities-mass-assignment).
+[Entities Mass Assignment](#entities-mass-assignment).
 
 We can't do much with our models yet. Next, we'll create our first
-[Controller and Template](cms/articles-controller.md) to allow us to interact
+[Controller and Template](../../tutorials-and-examples/cms/articles-controller.md) to allow us to interact
 with our model.

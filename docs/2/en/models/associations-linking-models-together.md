@@ -19,7 +19,7 @@ of storage in web applications is a relational database. Most of
 what this section covers will be in that context.
 
 For information on associations with Plugin models, see
-[plugin-models](#plugin-models).
+[Plugin Models](#plugin-models).
 
 ## Relationship Types
 
@@ -330,7 +330,7 @@ Possible keys for belongsTo association arrays include:
   whenever you do a `save()` or `delete()`. If it's a string, then it's the
   field name to use. The value in the counter field represents the
   number of related rows. You can also specify multiple counter caches
-  by defining an array. See [multiple-counterCache](#multiple-countercache).
+  by defining an array. See [Multiple Countercache](#multiple-counterCache).
 - **counterScope**: Optional conditions array to use for updating
   counter cache field.
 
@@ -628,7 +628,7 @@ names.
 
 Make sure primary keys in tables **cakes** and **recipes** have
 "id" fields as assumed by convention. If they're different than
-assumed, they must be changed in model's [model-primaryKey](#model-primarykey).
+assumed, they must be changed in model's [Model Primarykey](#model-primaryKey).
 
 Once this new table has been created, we can define the HABTM
 association in the model files. We're going to skip straight to the
@@ -767,10 +767,10 @@ like to fetch Recipe data when using the Ingredient model.
 > HABTM data is treated like a complete set. Each time a new data association is added,
 > the complete set of associated rows in the database is dropped and created again so you
 > will always need to pass the whole data set for saving. For an alternative to using
-> HABTM, see [hasMany-through](#hasmany-through).
+> HABTM, see [Hasmany Through](#hasMany-through).
 
 > [!TIP]
-> For more information on saving HABTM objects, see [saving-habtm](#saving-habtm)
+> For more information on saving HABTM objects, see [Saving Habtm](#saving-habtm)
 
 ## hasMany through (The Join Model)
 
@@ -1055,7 +1055,7 @@ class Post extends AppModel {
 
 **Fetching a nested array of associated records:**
 
-If your table has a `parent_id` field, you can also use [model-find-threaded](#model-find-threaded)
+If your table has a `parent_id` field, you can also use [Model Find Threaded](#model-find-threaded)
 to fetch a nested array of records using a single query without
 setting up any associations.
 

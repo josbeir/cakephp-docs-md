@@ -21,7 +21,7 @@ available run the command:
 
     ./Console/cake upgrade --help
 
-Or visit the [API docs](https://api.cakephp.org/2.x/class-UpgradeShell.md) for more info.
+Or visit the [API docs](https://api.cakephp.org/2.x/class-UpgradeShell.html) for more info.
 
 ## Upgrade Your App
 

@@ -68,7 +68,7 @@ Remember you'll need to have your local server running. Start a standalone PHP
 server using `bin/cake server`.
 
 You can edit the default user that was created during
-[Installation](installation.md). If you change that user's password,
+[Installation](../../installation.md). If you change that user's password,
 you should see a hashed password instead of the original value on the list or
 view pages. CakePHP hashes passwords with [bcrypt](https://codahale.com/how-to-safely-store-a-password/) by default. We recommend
 bcrypt for all new applications to keep your security standards high. This
@@ -179,7 +179,7 @@ public function initialize(): void
 ```
 
 Now, on every request, the `AuthenticationMiddleware` will inspect
-the request session to look for an authenticated user. If we are loading the [Users / login](users/login.md)
+the request session to look for an authenticated user. If we are loading the `/users/login`
 page, it will also inspect the posted form data (if any) to extract the credentials.
 By default the credentials will be extracted from the `username` and `password`
 fields in the request data.
@@ -188,7 +188,7 @@ The authentication result will be injected in a request attribute named
 `$this->request->getAttribute('authentication')` from your controller actions.
 All your pages will be restricted as the `AuthenticationComponent` is checking the
 result on every request. When it fails to find any authenticated user, it will redirect the
-user to the [Users / login](users/login.md) page.
+user to the `/users/login` page.
 Note at this point, the site won't work as we don't have a login page yet.
 If you visit your site, you'll get an "infinite redirect loop" so let's fix that.
 
@@ -196,7 +196,7 @@ If you visit your site, you'll get an "infinite redirect loop" so let's fix that
 > If your application serves from both SSL and non-SSL protocols, then you might have problems
 > with sessions being lost, in case your application is on non-SSL protocol. You need to enable
 > access by setting session.cookie_secure to false in your config config/app.php or config/app_local.php.
-> (See [CakePHP’s defaults on session.cookie_secure](development/sessions.md))
+> (See [CakePHP’s defaults on session.cookie_secure](../../development/sessions.md))
 
 In your `UsersController`, add the following code:
 
@@ -252,7 +252,7 @@ Add the template logic for your login action:
 
 Now login page will allow us to correctly login into the application.
 Test it by requesting any page of your site. After being redirected
-to the [Users / login](users/login.md) page, enter the email and password you
+to the `/users/login` page, enter the email and password you
 picked previously when creating your user. You should be redirected
 successfully after login.
 
@@ -275,12 +275,12 @@ public function beforeFilter(\Cake\Event\EventInterface $event): void
 > If you don't have a user with a hashed password yet, comment the
 > `$this->loadComponent('Authentication.Authentication')` line in your
 > AppController and all other lines where Authentication is used. Then go to
-> [Users / add](users/add.md) to create a new user picking email and password. Afterward,
+> `/users/add` to create a new user picking email and password. Afterward,
 > make sure to uncomment the lines we just temporarily commented!
 
-Try it out by visiting [Articles / add](articles/add.md) before logging in! Since this action is not
+Try it out by visiting `/articles/add` before logging in! Since this action is not
 allowed, you will be redirected to the login page. After logging in
-successfully, CakePHP will automatically redirect you back to [Articles / add](articles/add.md).
+successfully, CakePHP will automatically redirect you back to `/articles/add`.
 
 ## Logout
 
@@ -300,7 +300,7 @@ public function logout()
 }
 ```
 
-Now you can visit [Users / logout](users/logout.md) to log out. You should then be sent to the login
+Now you can visit `/users/logout` to log out. You should then be sent to the login
 page.
 
 ## Enabling Registrations
@@ -322,4 +322,4 @@ user editing, viewing or listing in this tutorial, but that is an exercise you
 can complete on your own.
 
 Now that users can log in, we'll want to limit users to only edit articles that
-they created by [applying authorization policies](./authorization.md).
+they created by [applying authorization policies](authorization.md).

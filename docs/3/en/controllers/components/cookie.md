@@ -10,8 +10,8 @@ completes.
 <div class="deprecated">
 
 3.5.0
-Cookies are available in the `ServerRequest` see [request-cookies](#request-cookies).
-For encrypted cookies see the [encrypted-cookie-middleware](#encrypted-cookie-middleware).
+Cookies are available in the `ServerRequest` see [Request Cookies](#request-cookies).
+For encrypted cookies see the [Encrypted Cookie Middleware](#encrypted-cookie-middleware).
 
 </div>
 

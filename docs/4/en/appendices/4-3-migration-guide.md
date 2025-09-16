@@ -22,7 +22,7 @@ features:
 > This only updates CakePHP 4.3 changes. Make sure you apply CakePHP 4.2 changes first.
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [deprecation-warnings](#deprecation-warnings) for more information.
+path basis. See [Deprecation Warnings](#deprecation-warnings) for more information.
 
 ### Connection
 
@@ -98,7 +98,7 @@ path basis. See [deprecation-warnings](#deprecation-warnings) for more informati
 ### TestSuite
 
 - `TestFixture::$fields` and `TestFixture::$import` are deprecated. You
-  should convert your application to the [new fixture system](./fixture-upgrade.md).
+  should convert your application to the [new fixture system](fixture-upgrade.md).
 - `TestCase::$dropTables` is deprecated. Dropping tables during a test run is
   not compatible with the new migration/schema dump based fixtures and will be
   removed in 5.0.
@@ -202,7 +202,7 @@ They usually only affect tests.
 ### Controller
 
 - `Controller::middleware()` was added which allows you to define middleware
-  for a single controller only. See [controller-middleware](#controller-middleware) for more information.
+  for a single controller only. See [Controller Middleware](#controller-middleware) for more information.
 - Controllers now support action parameters with `float`, `int`, `bool` or `array` type declarations.
   Boolean passed parameters must be either `0` or `1`.
 
@@ -228,7 +228,7 @@ They usually only affect tests.
   prompt.
 - The `DateTimeType` can now convert request data from the user's timezone
   to the application timezone. See
-  [converting-request-data-from-user-timezone](#converting-request-data-from-user-timezone) for more information.
+  [Converting Request Data From User Timezone](#converting-request-data-from-user-timezone) for more information.
 - `JsonType::setEncodingOptions()` was added. This method lets you define
   `json_encode()` options for when the ORM serializes JSON when persisting
   data.
@@ -264,7 +264,7 @@ They usually only affect tests.
 
 - Log engines now use formatters to format the message string before writing.
   This can be configured with the `formatter` config option. See the
-  [logging-formatters](#logging-formatters) section for more details.
+  [Logging Formatters](#logging-formatters) section for more details.
 - `JsonFormatter` was added and can be set as the `formatter` option for
   any log engine.
 
@@ -288,10 +288,10 @@ They usually only affect tests.
 - `IntegrationTestTrait::enableCsrfToken()` now lets you use custom CSRF
   cookie/session key names.
 - `HttpClientTrait` was added to make writing HTTP mocks easier.
-  See [httpclient-testing](#httpclient-testing) for more information.
+  See [Httpclient Testing](#httpclient-testing) for more information.
 - A new fixture system has been introduced. This fixture system separates schema
   and data enabling you to re-use your existing migrations to define test
-  schema. The [./fixture-upgrade](./fixture-upgrade.md) guide covers how to upgrade.
+  schema. The [Fixture Upgrade](fixture-upgrade.md) guide covers how to upgrade.
 
 ### View
 

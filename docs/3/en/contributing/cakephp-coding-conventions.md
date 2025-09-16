@@ -346,18 +346,18 @@ the commented block of code.
 Comments can include the following [phpDocumentor](https://phpdoc.org)
 tags:
 
-- [@author](https://phpdoc.org/docs/latest/references/phpdoc/tags/author.md)
-- [@copyright](https://phpdoc.org/docs/latest/references/phpdoc/tags/copyright.md)
-- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.md)
-  Using the [@version](#vector)[](#description) format, where `version`
+- [@author](https://phpdoc.org/docs/latest/references/phpdoc/tags/author.html)
+- [@copyright](https://phpdoc.org/docs/latest/references/phpdoc/tags/copyright.html)
+- [@deprecated](https://phpdoc.org/docs/latest/references/phpdoc/tags/deprecated.html)
+  Using the `@version <vector> <description>` format, where `version`
   and `description` are mandatory. Version refers to the one it got deprecated in.
-- [@example](https://phpdoc.org/docs/latest/references/phpdoc/tags/example.md)
-- [@ignore](https://phpdoc.org/docs/latest/references/phpdoc/tags/ignore.md)
-- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.md)
-- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.md)
-- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.md)
-- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.md)
-- [@version](https://phpdoc.org/docs/latest/references/phpdoc/tags/version.md)
+- [@example](https://phpdoc.org/docs/latest/references/phpdoc/tags/example.html)
+- [@ignore](https://phpdoc.org/docs/latest/references/phpdoc/tags/ignore.html)
+- [@internal](https://phpdoc.org/docs/latest/references/phpdoc/tags/internal.html)
+- [@link](https://phpdoc.org/docs/latest/references/phpdoc/tags/link.html)
+- [@see](https://phpdoc.org/docs/latest/references/phpdoc/tags/see.html)
+- [@since](https://phpdoc.org/docs/latest/references/phpdoc/tags/since.html)
+- [@version](https://phpdoc.org/docs/latest/references/phpdoc/tags/version.html)
 
 PhpDoc tags are very much like JavaDoc tags in Java. Tags are only processed if
 they are the first thing in a DocBlock line, for example:
@@ -468,7 +468,7 @@ When including files with classes or libraries, use only and always the
 
 ## PHP Tags
 
-Always use long tags ([](#php-)) instead of short tags ([](#-)). The short
+Always use long tags (`<?php ?>`) instead of short tags (`<? ?>`). The short
 echo should be used in template files (**.ctp**) where appropriate.
 
 ### Short Echo

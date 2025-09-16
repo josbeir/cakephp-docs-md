@@ -13,7 +13,7 @@ Controller class names are plural, CamelCased, and end in `Controller`.
 conventional controller names.
 
 Public methods on Controllers are often exposed as 'actions' accessible through
-a web browser. They are camelBacked. For example the [Users / view me](users/view-me.md) maps to the `viewMe()` method
+a web browser. They are camelBacked. For example the `/users/view-me` maps to the `viewMe()` method
 of the `UsersController` out of the box (if one uses default dashed inflection in routing).
 Protected or private methods cannot be accessed with routing.
 
@@ -27,7 +27,7 @@ path. For example, `UsersController` (which would be defined in the file name
 
 While you can route multiple word controllers in any way you like, the
 convention is that your URLs are lowercase and dashed using the `DashedRoute`
-class, therefore [Menu links / view all](menu-links/view-all.md) is the correct form to access
+class, therefore `/menu-links/view-all` is the correct form to access
 the `MenuLinksController::viewAll()` action.
 
 When you create links using `this->Html->link()`, you can use the following
@@ -43,7 +43,9 @@ $this->Html->link('link-title', [
 ```
 
 For more information on CakePHP URLs and parameter handling, see
-[routes-configuration](#routes-configuration).
+[Routes Configuration](#routes-configuration).
+
+<a id="file-and-classname-conventions"></a>
 
 ## File and Class Name Conventions
 
@@ -67,6 +69,8 @@ autoloading. The following are some examples of class names and their filenames:
 
 Each file would be located in the appropriate folder/namespace in your app
 folder.
+
+<a id="model-and-database-conventions"></a>
 
 ## Database Conventions
 
@@ -93,7 +97,7 @@ keys, you should create a concrete entity/table class for the table.
 
 In addition to using an auto-incrementing integer as primary keys, you can also
 use UUID columns. CakePHP will create UUID values automatically using
-(`Cake\Utility\Text::uuid()`) whenever you save new records using
+(`Cake\\Utility\\Text::uuid()`) whenever you save new records using
 the `Table::save()` method.
 
 ## Model Conventions
@@ -124,8 +128,8 @@ The basic pattern is
 > By default CakePHP uses English inflections. If you have database
 > tables/columns that use another language, you will need to add inflection
 > rules (from singular to plural and vice-versa). You can use
-> `Cake\Utility\Inflector` to define your custom inflection
-> rules. See the documentation about [/core-libraries/inflector](core-libraries/inflector.md) for more
+> `Cake\\Utility\\Inflector` to define your custom inflection
+> rules. See the documentation about [Inflector](../core-libraries/inflector.md) for more
 > information.
 
 ## Plugins Conventions
@@ -227,7 +231,7 @@ the foreign key would be <code>menu_link_id</code>.</td>
 <td>In addition to using an auto-incrementing integer as
 primary keys, you can also use UUID columns.
 CakePHP will create UUID values automatically
-using (<code>Cake\Utility\Text::uuid()</code>)
+using (<code class="interpreted-text" role="php:meth">Cake\\Utility\\Text::uuid()</code>)
 whenever you save new records using the
 <code>Table::save()</code> method.</td>
 </tr>
@@ -243,5 +247,5 @@ a separate entity/table class for that table.</td>
 </table>
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [/tutorials-and-examples/cms/installation](cms/installation.md) to see how things fit
+through the [Content Management Tutorial](../tutorials-and-examples/cms/installation.md) to see how things fit
 together.
