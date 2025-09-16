@@ -41,7 +41,7 @@ foreach ($files as $file) {
 
 ## Folder API
 
-`class` Cake\\Filesystem\\**Folder(string**
+`class` Cake\\Filesystem\\**Folder**(string $path = false, boolean $create = false, string|boolean $mode = false)
 
 ``` php
 // Create a new folder with 0755 permissions
@@ -70,48 +70,48 @@ $element can also be an array::
     // $path equals /a/path/for/testing/another
 ```
 
-`method` Cake\\Filesystem\\Folder(string::**cd**( $path )
+`method` Cake\\Filesystem\\Folder::**cd**( $path )
 
-`method` Cake\\Filesystem\\Folder(string::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = [])
+`method` Cake\\Filesystem\\Folder::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = [])
 
-`method` Cake\\Filesystem\\Folder(string::**copy**(array|string $options = [])
+`method` Cake\\Filesystem\\Folder::**copy**(array|string $options = [])
 
-`method` Cake\\Filesystem\\Folder(string::**create**(string $pathname, integer $mode = false)
+`method` Cake\\Filesystem\\Folder::**create**(string $pathname, integer $mode = false)
 
-`method` Cake\\Filesystem\\Folder(string::**delete**(string $path = null)
+`method` Cake\\Filesystem\\Folder::**delete**(string $path = null)
 
-`method` Cake\\Filesystem\\Folder(string::**dirsize**()
+`method` Cake\\Filesystem\\Folder::**dirsize**()
 
-`method` Cake\\Filesystem\\Folder(string::**errors**()
+`method` Cake\\Filesystem\\Folder::**errors**()
 
-`method` Cake\\Filesystem\\Folder(string::**find**(string $regexpPattern = '.*', boolean $sort = false)
+`method` Cake\\Filesystem\\Folder::**find**(string $regexpPattern = '.*', boolean $sort = false)
 
 > [!NOTE]
 > The folder find and findRecursive methods will only find files. If you
 > would like to get folders and files see `Folder::read()` or
 > `Folder::tree()`
 
-`method` Cake\\Filesystem\\Folder(string::**findRecursive**(string $pattern = '.*', boolean $sort = false)
+`method` Cake\\Filesystem\\Folder::**findRecursive**(string $pattern = '.*', boolean $sort = false)
 
-`method` Cake\\Filesystem\\Folder(string::**inCakePath**(string $path = '')
+`method` Cake\\Filesystem\\Folder::**inCakePath**(string $path = '')
 
-`method` Cake\\Filesystem\\Folder(string::**inPath**(string $path = '', boolean $reverse = false)
+`method` Cake\\Filesystem\\Folder::**inPath**(string $path = '', boolean $reverse = false)
 
-`method` Cake\\Filesystem\\Folder(string::**messages**()
+`method` Cake\\Filesystem\\Folder::**messages**()
 
-`method` Cake\\Filesystem\\Folder(string::**move**(array $options)
+`method` Cake\\Filesystem\\Folder::**move**(array $options)
 
-`method` Cake\\Filesystem\\Folder(string::**pwd**()
+`method` Cake\\Filesystem\\Folder::**pwd**()
 
-`method` Cake\\Filesystem\\Folder(string::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
+`method` Cake\\Filesystem\\Folder::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
 
-`method` Cake\\Filesystem\\Folder(string::**realpath**(string $path)
+`method` Cake\\Filesystem\\Folder::**realpath**(string $path)
 
-`method` Cake\\Filesystem\\Folder(string::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
+`method` Cake\\Filesystem\\Folder::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
 
 ## File API
 
-`class` Cake\\Filesystem\\**File(string**
+`class` Cake\\Filesystem\\**File**(string $path, boolean $create = false, integer $mode = 755)
 
 ``` php
 // Create a new file with 0644 permissions
@@ -137,61 +137,61 @@ Enable locking for file reading and writing.
 The current file's absolute path.
 ```
 
-`method` Cake\\Filesystem\\File(string::**append**(string $data, boolean $force = false)
+`method` Cake\\Filesystem\\File::**append**(string $data, boolean $force = false)
 
-`method` Cake\\Filesystem\\File(string::**close**()
+`method` Cake\\Filesystem\\File::**close**()
 
-`method` Cake\\Filesystem\\File(string::**copy**(string $dest, boolean $overwrite = true)
+`method` Cake\\Filesystem\\File::**copy**(string $dest, boolean $overwrite = true)
 
-`method` Cake\\Filesystem\\File(string::**create**()
+`method` Cake\\Filesystem\\File::**create**()
 
-`method` Cake\\Filesystem\\File(string::**delete**()
+`method` Cake\\Filesystem\\File::**delete**()
 
-`method` Cake\\Filesystem\\File(string::**executable**()
+`method` Cake\\Filesystem\\File::**executable**()
 
-`method` Cake\\Filesystem\\File(string::**exists**()
+`method` Cake\\Filesystem\\File::**exists**()
 
-`method` Cake\\Filesystem\\File(string::**ext**()
+`method` Cake\\Filesystem\\File::**ext**()
 
-`method` Cake\\Filesystem\\File(string::**Folder**()
+`method` Cake\\Filesystem\\File::**Folder**()
 
-`method` Cake\\Filesystem\\File(string::**group**()
+`method` Cake\\Filesystem\\File::**group**()
 
-`method` Cake\\Filesystem\\File(string::**info**()
+`method` Cake\\Filesystem\\File::**info**()
 
-`method` Cake\\Filesystem\\File(string::**lastAccess**( )
+`method` Cake\\Filesystem\\File::**lastAccess**( )
 
-`method` Cake\\Filesystem\\File(string::**lastChange**()
+`method` Cake\\Filesystem\\File::**lastChange**()
 
-`method` Cake\\Filesystem\\File(string::**md5**(integer|boolean $maxsize = 5)
+`method` Cake\\Filesystem\\File::**md5**(integer|boolean $maxsize = 5)
 
-`method` Cake\\Filesystem\\File(string::**name**()
+`method` Cake\\Filesystem\\File::**name**()
 
-`method` Cake\\Filesystem\\File(string::**offset**(integer|boolean $offset = false, integer $seek = 0)
+`method` Cake\\Filesystem\\File::**offset**(integer|boolean $offset = false, integer $seek = 0)
 
-`method` Cake\\Filesystem\\File(string::**open**(string $mode = 'r', boolean $force = false)
+`method` Cake\\Filesystem\\File::**open**(string $mode = 'r', boolean $force = false)
 
-`method` Cake\\Filesystem\\File(string::**owner**()
+`method` Cake\\Filesystem\\File::**owner**()
 
-`method` Cake\\Filesystem\\File(string::**perms**()
+`method` Cake\\Filesystem\\File::**perms**()
 
-`method` Cake\\Filesystem\\File(string::**pwd**()
+`method` Cake\\Filesystem\\File::**pwd**()
 
-`method` Cake\\Filesystem\\File(string::**read**(string $bytes = false, string $mode = 'rb', boolean $force = false)
+`method` Cake\\Filesystem\\File::**read**(string $bytes = false, string $mode = 'rb', boolean $force = false)
 
-`method` Cake\\Filesystem\\File(string::**readable**()
+`method` Cake\\Filesystem\\File::**readable**()
 
-`method` Cake\\Filesystem\\File(string::**safe**(string $name = null, string $ext = null)
+`method` Cake\\Filesystem\\File::**safe**(string $name = null, string $ext = null)
 
-`method` Cake\\Filesystem\\File(string::**size**()
+`method` Cake\\Filesystem\\File::**size**()
 
-`method` Cake\\Filesystem\\File(string::**writable**()
+`method` Cake\\Filesystem\\File::**writable**()
 
-`method` Cake\\Filesystem\\File(string::**write**(string $data, string $mode = 'w', boolean$force = false)
+`method` Cake\\Filesystem\\File::**write**(string $data, string $mode = 'w', boolean$force = false)
 
-`method` Cake\\Filesystem\\File(string::**mime**()
+`method` Cake\\Filesystem\\File::**mime**()
 
-`method` Cake\\Filesystem\\File(string::**replaceText**( $search, $replace )
+`method` Cake\\Filesystem\\File::**replaceText**( $search, $replace )
 
 <div class="todo">
 

@@ -863,47 +863,47 @@ This asserts that the generated message IDs are valid and fit to the domain the 
 
 `class` **AppShell**
 
-`class` **Shell($stdout**
+`class` **Shell**($stdout = null, $stderr = null, $stdin = null)
 
-`method` Shell($stdout::**clear**()
+`method` Shell::**clear**()
 
-`method` Shell($stdout::**param**($name)
+`method` Shell::**param**($name)
 
-`method` Shell($stdout::**createFile**($path, $contents)
+`method` Shell::**createFile**($path, $contents)
 
-`method` Shell($stdout::**dispatchShell**()
+`method` Shell::**dispatchShell**()
 
-`method` Shell($stdout::**err**($message = null, $newlines = 1)
+`method` Shell::**err**($message = null, $newlines = 1)
 
-`method` Shell($stdout::**error**($title, $message = null)
+`method` Shell::**error**($title, $message = null)
 
-`method` Shell($stdout::**getOptionParser**()
+`method` Shell::**getOptionParser**()
 
-`method` Shell($stdout::**hasMethod**($name)
+`method` Shell::**hasMethod**($name)
 
-`method` Shell($stdout::**hasTask**($task)
+`method` Shell::**hasTask**($task)
 
-`method` Shell($stdout::**hr**($newlines = 0, $width = 63)
+`method` Shell::**hr**($newlines = 0, $width = 63)
 
-`method` Shell($stdout::**in**($prompt, $options = null, $default = null)
+`method` Shell::**in**($prompt, $options = null, $default = null)
 
-`method` Shell($stdout::**initialize**()
+`method` Shell::**initialize**()
 
-`method` Shell($stdout::**loadTasks**()
+`method` Shell::**loadTasks**()
 
-`method` Shell($stdout::**nl**($multiplier = 1)
+`method` Shell::**nl**($multiplier = 1)
 
-`method` Shell($stdout::**out**($message = null, $newlines = 1, $level = Shell::NORMAL)
+`method` Shell::**out**($message = null, $newlines = 1, $level = Shell::NORMAL)
 
-`method` Shell($stdout::**overwrite**($message = null, $newlines = 1, $size = null)
+`method` Shell::**overwrite**($message = null, $newlines = 1, $size = null)
 
-`method` Shell($stdout::**runCommand**($command, $argv)
+`method` Shell::**runCommand**($command, $argv)
 
-`method` Shell($stdout::**shortPath**($file)
+`method` Shell::**shortPath**($file)
 
-`method` Shell($stdout::**startup**()
+`method` Shell::**startup**()
 
-`method` Shell($stdout::**wrapText**($text, $options = array())
+`method` Shell::**wrapText**($text, $options = array())
 
 ## More topics
 
@@ -915,4 +915,4 @@ This asserts that the generated message IDs are valid and fit to the domain the 
 - [I18N shell](console-and-shells/i18n-shell.md)
 - [ACL Shell](console-and-shells/acl-shell.md)
 - [Test shell](console-and-shells/testsuite-shell.md)
-- [The upgrade shell will do most of the work to upgrade your CakePHP application](console-and-shells/upgrade-shell.md)
+- [Upgrade shell](console-and-shells/upgrade-shell.md)

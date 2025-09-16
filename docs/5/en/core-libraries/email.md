@@ -1,6 +1,6 @@
 # Mailer
 
-`class` Cake\\Mailer\\**Mailer(string|array|null**
+`class` Cake\\Mailer\\**Mailer**(string|array|null $profile = null)
 
 `Mailer` is a convenience class for sending email. With this class you can send
 email from any place inside of your application.
@@ -251,7 +251,7 @@ following path:
 
 ## Sending Attachments
 
-`method` Cake\\Mailer\\Mailer(string|array|null::**setAttachments**($attachments)
+`method` Cake\\Mailer\\Mailer::**setAttachments**($attachments)
 
 You can attach files to email messages as well. There are a few
 different formats depending on what kind of files you have, and how
@@ -294,7 +294,7 @@ you want the filenames to appear in the recipient's mail client:
 
 ### Relaxing Address Validation Rules
 
-`method` Cake\\Mailer\\Mailer(string|array|null::**setEmailPattern**($pattern)
+`method` Cake\\Mailer\\Mailer::**setEmailPattern**($pattern)
 
 If you are having validation issues when sending to non-compliant addresses, you
 can relax the pattern used to validate email addresses. This is sometimes

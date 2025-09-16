@@ -1,6 +1,6 @@
 # HttpSocket
 
-`class` **HttpSocket(mixed**
+`class` **HttpSocket**(mixed $config = array())
 
 CakePHP includes an HttpSocket class which can be used easily for
 making requests. It is a great way to communicate with external webservices, or
@@ -11,17 +11,17 @@ remote APIs.
 You can use HttpSocket to create most kinds of HTTP requests with the different
 HTTP methods.
 
-`method` HttpSocket(mixed::**get**($uri, $query, $request)
+`method` HttpSocket::**get**($uri, $query, $request)
 
-`method` HttpSocket(mixed::**post**($uri, $data, $request)
+`method` HttpSocket::**post**($uri, $data, $request)
 
-`method` HttpSocket(mixed::**put**($uri, $data, $request)
+`method` HttpSocket::**put**($uri, $data, $request)
 
-`method` HttpSocket(mixed::**delete**($uri, $query, $request)
+`method` HttpSocket::**delete**($uri, $query, $request)
 
-`method` HttpSocket(mixed::**patch**($uri, $data, $request)
+`method` HttpSocket::**patch**($uri, $data, $request)
 
-`method` HttpSocket(mixed::**request**($request)
+`method` HttpSocket::**request**($request)
 
 ## Handling the response
 
@@ -115,6 +115,8 @@ The *redirect* option can take the following values
 - **false** (default) : no consequent request will be fired
 
 The returned `$response` will be the final one, according to the settings.
+
+<a id="http-socket-ssl-options"></a>
 
 ### Handling SSL certificates
 

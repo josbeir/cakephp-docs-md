@@ -1,6 +1,6 @@
 # TextHelper
 
-`class` **TextHelper(View**
+`class` **TextHelper**(View $view, array $settings = array())
 
 The TextHelper contains methods to make text more usable and
 friendly in your views. It aids in enabling links, formatting URLs,
@@ -19,13 +19,13 @@ class. You can call one as you would call a normal helper method:
 
 </div>
 
-`method` TextHelper(View::**autoLinkEmails**(string $text, array $options=array())
+`method` TextHelper::**autoLinkEmails**(string $text, array $options=array())
 
-`method` TextHelper(View::**autoLinkUrls**(string $text, array $options=array())
+`method` TextHelper::**autoLinkUrls**(string $text, array $options=array())
 
-`method` TextHelper(View::**autoLink**(string $text, array $options=array())
+`method` TextHelper::**autoLink**(string $text, array $options=array())
 
-`method` TextHelper(View::**autoParagraph**(string $text)
+`method` TextHelper::**autoParagraph**(string $text)
 
 .. php:method:: highlight(string \$haystack, string \$needle, array \$options = array() )
 

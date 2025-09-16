@@ -125,8 +125,6 @@ object along. The listeners will handle all the extra logic around the
 possibly in separate objects and even delegating it to offline tasks if you have
 the need.
 
-<a id="tracking-events"></a>
-
 ### Tracking Events
 
 To keep a list of events that are fired on a particular `EventManager`, you
@@ -156,8 +154,6 @@ application.
 - [ORM/Model events](#table-callbacks)
 - [Controller events](#controller-life-cycle)
 - [View events](#view-events)
-
-<a id="registering-event-listeners"></a>
 
 ## Registering Listeners
 
@@ -290,8 +286,6 @@ if (!empty($events)) {
 > [!NOTE]
 > The pattern passed to the `matchingListeners` method is case sensitive.
 
-<a id="event-priorities"></a>
-
 ### Establishing Priorities
 
 In some cases you might want to control the order that listeners are invoked.
@@ -406,8 +400,6 @@ be an argument of any type, we recommend passing an associative array.
 
 The `~Cake\\Event\\EventManager::dispatch()` method accepts an event
 object as an argument and notifies all subscribed listeners.
-
-<a id="stopping-events"></a>
 
 ### Stopping Events
 

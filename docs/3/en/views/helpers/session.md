@@ -1,6 +1,6 @@
 # Session
 
-`class` Cake\\View\\Helper\\**SessionHelper(View**
+`class` Cake\\View\\Helper\\**SessionHelper**(View $view, array $config = [])
 
 <div class="deprecated">
 
@@ -31,6 +31,6 @@ Given the previous array structure, the node would be accessed by
 notation is used for all SessionHelper methods wherever a `$key` is
 used.
 
-`method` Cake\\View\\Helper\\SessionHelper(View::**read**(string $key)
+`method` Cake\\View\\Helper\\SessionHelper::**read**(string $key)
 
-`method` Cake\\View\\Helper\\SessionHelper(View::**check**(string $key)
+`method` Cake\\View\\Helper\\SessionHelper::**check**(string $key)

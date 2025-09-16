@@ -1,6 +1,6 @@
 # Request Handling
 
-`class` **RequestHandlerComponent(ComponentCollection**
+`class` **RequestHandlerComponent**(ComponentCollection $collection, array $config = [])
 
 The Request Handler component is used in CakePHP to obtain additional
 information about the HTTP requests that are made to your application. You can
@@ -36,19 +36,19 @@ class WidgetsController extends AppController
 Request Handler has several methods that provide information about
 the client and its request.
 
-`method` RequestHandlerComponent(ComponentCollection::**accepts**($type = null)
+`method` RequestHandlerComponent::**accepts**($type = null)
 
 Other request 'type' detection methods include:
 
-`method` RequestHandlerComponent(ComponentCollection::**isXml**()
+`method` RequestHandlerComponent::**isXml**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isRss**()
+`method` RequestHandlerComponent::**isRss**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isAtom**()
+`method` RequestHandlerComponent::**isAtom**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isMobile**()
+`method` RequestHandlerComponent::**isMobile**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isWap**()
+`method` RequestHandlerComponent::**isWap**()
 
 All of the above request detection methods can be used in a similar
 fashion to filter functionality intended for specific content
@@ -128,7 +128,7 @@ RequestHandlerComponent.
 
 ## Checking Content-Type Preferences
 
-`method` RequestHandlerComponent(ComponentCollection::**prefers**($type = null)
+`method` RequestHandlerComponent::**prefers**($type = null)
 
 Determines which content-types the client prefers. If no parameter
 is given the most likely content type is returned. If \$type is an
@@ -143,7 +143,7 @@ $this->RequestHandler->prefers('json');
 
 ## Responding To Requests
 
-`method` RequestHandlerComponent(ComponentCollection::**renderAs**($controller, $type)
+`method` RequestHandlerComponent::**renderAs**($controller, $type)
 
 Change the render mode of a controller to the specified type. Will
 also append the appropriate helper to the controller's helper array
@@ -157,7 +157,7 @@ $this->RequestHandler->renderAs($this, 'xml');
 This method will also attempt to add a helper that matches your current content
 type. For example if you render as `rss`, the `RssHelper` will be added.
 
-`method` RequestHandlerComponent(ComponentCollection::**respondAs**($type, $options)
+`method` RequestHandlerComponent::**respondAs**($type, $options)
 
 Sets the response header based on content-type map names. This method lets you
 set a number of response properties at once:
@@ -170,7 +170,7 @@ $this->RequestHandler->respondAs('xml', [
 ]);
 ```
 
-`method` RequestHandlerComponent(ComponentCollection::**responseType**()
+`method` RequestHandlerComponent::**responseType**()
 
 Returns the current response type Content-type header or null if one has yet to
 be set.

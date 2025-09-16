@@ -1,6 +1,6 @@
 # PaginatorHelper
 
-`class` **PaginatorHelper(View**
+`class` **PaginatorHelper**(View $view, array $settings = array())
 
 The Pagination helper is used to output pagination controls such as
 page numbers and next/previous links. It works in tandem with
@@ -11,7 +11,7 @@ create paginated datasets and do paginated queries.
 
 ## Creating sort links
 
-`method` PaginatorHelper(View::**sort**($key, $title = null, $options = array())
+`method` PaginatorHelper::**sort**($key, $title = null, $options = array())
 
 Generates a sorting link. Sets named or querystring parameters for the sort and
 direction. Links will default to sorting by asc. After the first click, links
@@ -99,13 +99,13 @@ The lock option can be used to lock sorting into the specified direction:
 echo $this->Paginator->sort('user_id', null, array('direction' => 'asc', 'lock' => true));
 ```
 
-`method` PaginatorHelper(View::**sortDir**(string $model = null, mixed $options = array())
+`method` PaginatorHelper::**sortDir**(string $model = null, mixed $options = array())
 
-`method` PaginatorHelper(View::**sortKey**(string $model = null, mixed $options = array())
+`method` PaginatorHelper::**sortKey**(string $model = null, mixed $options = array())
 
 ## Creating page number links
 
-`method` PaginatorHelper(View::**numbers**($options = array())
+`method` PaginatorHelper::**numbers**($options = array())
 
 Returns a set of numbers for the paged result set. Uses a modulus to
 decide how many numbers to show on each side of the current page By default
@@ -190,7 +190,7 @@ In addition to generating links that go directly to specific page numbers,
 you'll often want links that go to the previous and next links, first and last
 pages in the paged data set.
 
-`method` PaginatorHelper(View::**prev**($title = '<< Previous', $options = array(), $disabledTitle = null, $disabledOptions = array())
+`method` PaginatorHelper::**prev**($title = '<< Previous', $options = array(), $disabledTitle = null, $disabledOptions = array())
 
 <div class="versionchanged">
 
@@ -205,23 +205,23 @@ the same.
 
 </div>
 
-`method` PaginatorHelper(View::**next**($title = 'Next >>', $options = array(), $disabledTitle = null, $disabledOptions = array())
+`method` PaginatorHelper::**next**($title = 'Next >>', $options = array(), $disabledTitle = null, $disabledOptions = array())
 
-`method` PaginatorHelper(View::**first**($first = '<< first', $options = array())
+`method` PaginatorHelper::**first**($first = '<< first', $options = array())
 
-`method` PaginatorHelper(View::**last**($last = 'last >>', $options = array())
+`method` PaginatorHelper::**last**($last = 'last >>', $options = array())
 
-`method` PaginatorHelper(View::**current**(string $model = null)
+`method` PaginatorHelper::**current**(string $model = null)
 
-`method` PaginatorHelper(View::**hasNext**(string $model = null)
+`method` PaginatorHelper::**hasNext**(string $model = null)
 
-`method` PaginatorHelper(View::**hasPrev**(string $model = null)
+`method` PaginatorHelper::**hasPrev**(string $model = null)
 
-`method` PaginatorHelper(View::**hasPage**(string $model = null, integer $page = 1)
+`method` PaginatorHelper::**hasPage**(string $model = null, integer $page = 1)
 
 ## Creating a page counter
 
-`method` PaginatorHelper(View::**counter**($options = array())
+`method` PaginatorHelper::**counter**($options = array())
 
 Returns a counter string for the paged result set. Using a provided format
 string and a number of options you can create localized and application
@@ -278,7 +278,7 @@ There are a number of options for `counter()`. The supported ones are:
 
 ## Modifying the options PaginatorHelper uses
 
-`method` PaginatorHelper(View::**options**($options = array())
+`method` PaginatorHelper::**options**($options = array())
 
 Sets all the options for the Paginator Helper. Supported options are:
 
@@ -441,15 +441,15 @@ echo $this->Paginator->counter(array(
 
 ## Other Methods
 
-`method` PaginatorHelper(View::**link**($title, $url = array(), $options = array())
+`method` PaginatorHelper::**link**($title, $url = array(), $options = array())
 
-`method` PaginatorHelper(View::**url**($options = array(), $asArray = false, $model = null)
+`method` PaginatorHelper::**url**($options = array(), $asArray = false, $model = null)
 
-`method` PaginatorHelper(View::**defaultModel**()
+`method` PaginatorHelper::**defaultModel**()
 
-`method` PaginatorHelper(View::**params**(string $model = null)
+`method` PaginatorHelper::**params**(string $model = null)
 
-`method` PaginatorHelper(View::**param**(string $key, string $model = null)
+`method` PaginatorHelper::**param**(string $key, string $model = null)
 
 <div class="versionadded">
 
@@ -458,7 +458,7 @@ The `param()` method was added in 2.4.
 
 </div>
 
-`method` PaginatorHelper(View::**meta**(array $options = array())
+`method` PaginatorHelper::**meta**(array $options = array())
 
 <div class="versionadded">
 

@@ -1,6 +1,6 @@
 # Sessions
 
-`class` **SessionComponent(ComponentCollection**
+`class` **SessionComponent**(ComponentCollection $collection, array $settings = array())
 
 The CakePHP SessionComponent provides a way to persist client data
 between page requests. It acts as a wrapper for `$_SESSION` as
@@ -28,18 +28,18 @@ reference the following:
 Dots are used to indicate nested arrays. This notation is used for
 all Session component methods wherever a name/key is used.
 
-`method` SessionComponent(ComponentCollection::**write**($name, $value)
+`method` SessionComponent::**write**($name, $value)
 
-`method` SessionComponent(ComponentCollection::**read**($name)
+`method` SessionComponent::**read**($name)
 
-`method` SessionComponent(ComponentCollection::**consume**($name)
+`method` SessionComponent::**consume**($name)
 
-`method` SessionComponent(ComponentCollection::**check**($name)
+`method` SessionComponent::**check**($name)
 
-`method` SessionComponent(ComponentCollection::**delete**($name)
+`method` SessionComponent::**delete**($name)
 
-`method` SessionComponent(ComponentCollection::**destroy**()
+`method` SessionComponent::**destroy**()
 
 ## Creating notification messages
 
-`method` SessionComponent(ComponentCollection::**setFlash**(string $message, string $element = 'default', array $params = array(), string $key = 'flash')
+`method` SessionComponent::**setFlash**(string $message, string $element = 'default', array $params = array(), string $key = 'flash')

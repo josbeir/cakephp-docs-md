@@ -1,6 +1,6 @@
 # Pagination
 
-`class` **PaginatorComponent(ComponentCollection**
+`class` **PaginatorComponent**(ComponentCollection $collection, array $settings = array())
 
 One of the main obstacles of creating flexible and user-friendly
 web applications is designing an intuitive user interface. Many applications
@@ -293,6 +293,8 @@ public $paginate = array(
 
 If the request's limit param is greater than this value, it will be reduced to
 the `maxLimit` value.
+
+<a id="pagination-with-get"></a>
 
 ## Pagination with GET parameters
 

@@ -11,6 +11,8 @@ responses from your controllers.
 
 </div>
 
+<a id="cake-request"></a>
+
 ## Request
 
 `class` Cake\\Http\\**ServerRequest**
@@ -133,6 +135,8 @@ Any keys that do not exist will return `null`:
 $foo = $this->request->getData('Value.that.does.not.exist');
 // $foo == null
 ```
+
+<a id="request-file-uploads"></a>
 
 ### File Uploads
 
@@ -341,6 +345,8 @@ $webroot = $request->webroot;
 $base = $request->base;
 $here = $request->here();
 ```
+
+<a id="check-the-request"></a>
 
 ### Checking Request Conditions
 
@@ -638,6 +644,8 @@ Check whether a specific language is accepted:
 $acceptsSpanish = $this->request->acceptLanguage('es-es');
 ```
 
+<a id="request-cookies"></a>
+
 ### Cookies
 
 Request cookies can be read through a number of methods:
@@ -717,6 +725,8 @@ Usually, you'll want to map additional content types in your controller's
 `~Controller::beforeFilter()` callback, so you can leverage the
 automatic view switching features of `RequestHandlerComponent` if you
 are using it.
+
+<a id="cake-response-file"></a>
 
 ### Sending Files
 
@@ -970,6 +980,8 @@ The `withCache()` method sets the `Last-Modified` value to the first
 argument. `Expires` header and the `max-age` directive are set based on the
 second parameter. Cache-Control's `public` directive is set as well.
 
+<a id="cake-response-caching"></a>
+
 ### Fine Tuning HTTP Cache
 
 One of the best and easiest ways of speeding up your application is to use HTTP
@@ -1143,6 +1155,8 @@ if ($this->response->checkNotModified($this->request)) {
 }
 ```
 
+<a id="response-cookies"></a>
+
 ## Setting Cookies
 
 Cookies can be added to response using either an array or a `Cake\\Http\\Cookie\\Cookie`
@@ -1181,6 +1195,8 @@ will make the browser remove its local cookie:
 // As of 3.5.0
 $this->response = $this->response->withExpiredCookie('remember_me');
 ```
+
+<a id="cors-headers"></a>
 
 ## Setting Cross Origin Request Headers (CORS)
 
@@ -1241,6 +1257,8 @@ $this->response = $this->response->withHeader('X-CakePHP', 'yes!');
 `CookieCollection` objects are accessible from the request and response objects.
 They let you interact with groups of cookies using immutable patterns, which
 allow the immutability of the request and response to be preserved.
+
+<a id="creating-cookies"></a>
 
 ### Creating Cookies
 

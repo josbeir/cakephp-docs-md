@@ -21,6 +21,8 @@ helpers included in CakePHP, check out the chapter for each helper:
 - [Time](../views/helpers/time.md)
 - [Url](../views/helpers/url.md)
 
+<a id="configuring-helpers"></a>
+
 ## Configuring Helpers
 
 You configure helpers in CakePHP by declaring them in a view class. An `AppView`
@@ -162,6 +164,8 @@ class PostsController extends AppController
 }
 ```
 
+<a id="aliasing-helpers"></a>
+
 ### Aliasing Helpers
 
 One common setting to use is the `className` option, which allows you to
@@ -290,6 +294,8 @@ class LinkHelper extends Helper
 }
 ```
 
+<a id="using-helpers"></a>
+
 ### Using Your Helper
 
 Once you've created your helper and placed it in **src/View/Helper/**, you can
@@ -355,6 +361,8 @@ class AwesomeHelper extends Helper
     }
 }
 ```
+
+<a id="helper-api"></a>
 
 ## Helper Class
 

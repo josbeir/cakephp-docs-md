@@ -1,6 +1,6 @@
 # Flash
 
-`class` **FlashComponent(ComponentCollection**
+`class` **FlashComponent**(ComponentCollection $collection, array $config = array())
 
 FlashComponent provides a way to set one-time notification messages to be
 displayed after processing a form or acknowledging data. CakePHP refers to these

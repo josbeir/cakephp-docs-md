@@ -1,6 +1,6 @@
 # Http Client
 
-`class` Cake\\Http\\**Client(mixed**
+`class` Cake\\Http\\**Client**(mixed $config = [])
 
 CakePHP includes a PSR-18 compliant HTTP client which can be used for
 making requests. It is a great way to communicate with webservices, and

@@ -1,6 +1,6 @@
 # Flash
 
-`class` Cake\\View\\Helper\\**FlashHelper(View**
+`class` Cake\\View\\Helper\\**FlashHelper**(View $view, array $config = [])
 
 FlashHelper provides a way to render flash messages that were set in
 `$_SESSION` by [FlashComponent](../../controllers/components/flash.md).

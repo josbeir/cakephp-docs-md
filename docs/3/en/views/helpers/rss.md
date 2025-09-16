@@ -1,6 +1,6 @@
 # Rss
 
-`class` Cake\\View\\Helper\\**RssHelper(View**
+`class` Cake\\View\\Helper\\**RssHelper**(View $view, array $config = [])
 
 The RssHelper makes generating XML for [RSS feeds](https://en.wikipedia.org/wiki/RSS) easy.
 

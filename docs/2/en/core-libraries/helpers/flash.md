@@ -1,6 +1,6 @@
 # FlashHelper
 
-`class` **FlashHelper(View**
+`class` **FlashHelper**(View $view, array $config = array())
 
 <div class="versionadded">
 

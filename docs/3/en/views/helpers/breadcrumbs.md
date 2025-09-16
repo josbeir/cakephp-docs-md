@@ -1,6 +1,6 @@
 # Breadcrumbs
 
-`class` Cake\\View\\Helper\\**BreadcrumbsHelper(View**
+`class` Cake\\View\\Helper\\**BreadcrumbsHelper**(View $view, array $config = [])
 
 <div class="versionadded">
 

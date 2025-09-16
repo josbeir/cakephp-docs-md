@@ -1,6 +1,6 @@
 # Cookie
 
-`class` Cake\\Controller\\Component\\**CookieComponent(ComponentRegistry**
+`class` Cake\\Controller\\Component\\**CookieComponent**(ComponentRegistry $collection, array $config = [])
 
 The CookieComponent is a wrapper around the native PHP `setcookie()` method. It
 makes it easier to manipulate cookies, and automatically encrypt cookie data.
@@ -75,10 +75,10 @@ backwards compatibility.
 
 The CookieComponent offers a number of methods for working with Cookies.
 
-`method` Cake\\Controller\\Component\\CookieComponent(ComponentRegistry::**write**(mixed $key, mixed $value = null)
+`method` Cake\\Controller\\Component\\CookieComponent::**write**(mixed $key, mixed $value = null)
 
-`method` Cake\\Controller\\Component\\CookieComponent(ComponentRegistry::**read**(mixed $key = null)
+`method` Cake\\Controller\\Component\\CookieComponent::**read**(mixed $key = null)
 
-`method` Cake\\Controller\\Component\\CookieComponent(ComponentRegistry::**check**($key)
+`method` Cake\\Controller\\Component\\CookieComponent::**check**($key)
 
-`method` Cake\\Controller\\Component\\CookieComponent(ComponentRegistry::**delete**(mixed $key)
+`method` Cake\\Controller\\Component\\CookieComponent::**delete**(mixed $key)

@@ -58,8 +58,6 @@ is usually there, especially during the daylight hours for North and South
 America users. We'd love to hear from you, whether you need some help, want to
 find users in your area, or would like to donate your brand new sports car.
 
-<a id="cakephp-official-communities"></a>
-
 ## Official CakePHP Forum
 
 [CakePHP Official Forum](https://discourse.cakephp.org)

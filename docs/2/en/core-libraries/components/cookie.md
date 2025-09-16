@@ -1,6 +1,6 @@
 # Cookie
 
-`class` **CookieComponent(ComponentCollection**
+`class` **CookieComponent**(ComponentCollection $collection, array $settings = array())
 
 The CookieComponent is a wrapper around the native PHP `setcookie`
 method. It also includes a host of delicious icing to make coding
@@ -119,14 +119,14 @@ Component.
 
 The CookieComponent offers a number of methods for working with Cookies.
 
-`method` CookieComponent(ComponentCollection::**write**(mixed $key, mixed $value = null, boolean $encrypt = true, mixed $expires = null)
+`method` CookieComponent::**write**(mixed $key, mixed $value = null, boolean $encrypt = true, mixed $expires = null)
 
-`method` CookieComponent(ComponentCollection::**read**(mixed $key = null)
+`method` CookieComponent::**read**(mixed $key = null)
 
-`method` CookieComponent(ComponentCollection::**check**($key)
+`method` CookieComponent::**check**($key)
 
-`method` CookieComponent(ComponentCollection::**delete**(mixed $key)
+`method` CookieComponent::**delete**(mixed $key)
 
-`method` CookieComponent(ComponentCollection::**destroy**()
+`method` CookieComponent::**destroy**()
 
-`method` CookieComponent(ComponentCollection::**type**($type)
+`method` CookieComponent::**type**($type)

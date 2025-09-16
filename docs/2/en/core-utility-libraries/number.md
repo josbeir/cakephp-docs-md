@@ -1,6 +1,6 @@
 # CakeNumber
 
-`class` **CakeNumber()**
+`class` **CakeNumber**
 
 If you need `NumberHelper` functionalities outside of a `View`,
 use the `CakeNumber` class:
@@ -31,20 +31,20 @@ class UsersController extends AppController {
 All of these functions return the formatted number; They do not
 automatically echo the output into the view.
 
-`method` CakeNumber()::**currency**(float $number, string $currency = 'USD', array $options = array())
+`method` CakeNumber::**currency**(float $number, string $currency = 'USD', array $options = array())
 
-`method` CakeNumber()::**defaultCurrency**(string $currency)
+`method` CakeNumber::**defaultCurrency**(string $currency)
 
-`method` CakeNumber()::**addFormat**(string $formatName, array $options)
+`method` CakeNumber::**addFormat**(string $formatName, array $options)
 
-`method` CakeNumber()::**precision**(mixed $number, int $precision = 3)
+`method` CakeNumber::**precision**(mixed $number, int $precision = 3)
 
-`method` CakeNumber()::**toPercentage**(mixed $number, int $precision = 2, array $options = array())
+`method` CakeNumber::**toPercentage**(mixed $number, int $precision = 2, array $options = array())
 
-`method` CakeNumber()::**fromReadableSize**(string $size, $default)
+`method` CakeNumber::**fromReadableSize**(string $size, $default)
 
-`method` CakeNumber()::**toReadableSize**(string $dataSize)
+`method` CakeNumber::**toReadableSize**(string $dataSize)
 
-`method` CakeNumber()::**format**(mixed $number, mixed $options=false)
+`method` CakeNumber::**format**(mixed $number, mixed $options=false)
 
-`method` CakeNumber()::**formatDelta**(mixed $number, mixed $options=array())
+`method` CakeNumber::**formatDelta**(mixed $number, mixed $options=array())

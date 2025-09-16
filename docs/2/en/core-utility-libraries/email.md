@@ -1,6 +1,6 @@
 # CakeEmail
 
-`class` **CakeEmail(mixed**
+`class` **CakeEmail**(mixed $config = null)
 
 `CakeEmail` is a new class to send email. With this
 class you can send email from any place in your application. In addition to
@@ -159,8 +159,6 @@ Support for TLS delivery was added in 2.3
 
 </div>
 
-<a id="email-configurations"></a>
-
 ### Configurations
 
 The following configuration keys are used:
@@ -305,7 +303,7 @@ the Blog plugin. The template file needs to be created in the following path:
 
 ### Sending attachments
 
-`method` CakeEmail(mixed::**attachments**($attachments = null)
+`method` CakeEmail::**attachments**($attachments = null)
 
 You can attach files to email messages as well. There are a few
 different formats depending on what kind of files you have, and how
@@ -407,7 +405,7 @@ $Email->send();
 
 ### Relaxing address validation rules
 
-`method` CakeEmail(mixed::**emailPattern**($pattern = null)
+`method` CakeEmail::**emailPattern**($pattern = null)
 
 If you are having validation issues when sending to non-compliant addresses, you
 can relax the pattern used to validate email addresses. This is sometimes

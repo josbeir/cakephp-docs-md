@@ -1,6 +1,6 @@
 # Containable
 
-`class` **ContainableBehavior()**
+`class` **ContainableBehavior**
 
 A new addition to the CakePHP 1.2 core is the
 `ContainableBehavior`. This model behavior allows you to filter

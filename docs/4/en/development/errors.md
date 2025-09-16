@@ -83,7 +83,7 @@ The `Error.ignoredDeprecationPaths` option was added.
 
 </div>
 
-`class` **ExceptionRenderer(Exception**
+`class` **ExceptionRenderer**(Exception $exception)
 
 ## Changing Exception Handling
 
@@ -645,7 +645,7 @@ In addition, CakePHP uses the following exceptions:
 These exception classes all extend `Exception`.
 By extending Exception, you can create your own 'framework' errors.
 
-`method` Cake\\Core\\Exception\\ExceptionRenderer(Exception::**responseHeader**($header = null, $value = null)
+`method` Cake\\Core\\Exception\\ExceptionRenderer::**responseHeader**($header = null, $value = null)
 
 All Http and Cake exceptions extend the Exception class, which has a method
 to add headers to the response. For instance when throwing a 405

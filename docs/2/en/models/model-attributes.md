@@ -65,6 +65,8 @@ class Example extends AppModel {
 }
 ```
 
+<a id="model-primaryKey"></a>
+
 ## primaryKey
 
 Each table normally has a primary key, `id`. You may change which
@@ -79,6 +81,8 @@ class Example extends AppModel {
     public $primaryKey = 'example_id';
 }
 ```
+
+<a id="model-displayField"></a>
 
 ## displayField
 

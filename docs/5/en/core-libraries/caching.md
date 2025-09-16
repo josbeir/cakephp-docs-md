@@ -35,6 +35,8 @@ build your own backend. The built-in caching engines are:
 Regardless of the CacheEngine you choose to use, your application interacts with
 `Cake\\Cache\\Cache`.
 
+<a id="cache-configuration"></a>
+
 ## Configuring Cache Engines
 
 Your application can configure any number of 'engines' during its bootstrap
@@ -150,6 +152,8 @@ FileEngine uses the following engine specific options:
 - `mask` The mask used for created files
 - `path` Path to where cachefiles should be saved. Defaults to system's temp dir.
 
+<a id="caching-redisengine"></a>
+
 ### RedisEngine Options
 
 RedisEngine uses the following engine specific options:
@@ -189,6 +193,8 @@ TLS connections were added in 5.1
   Unix time value rather than an offset from current time.
 - `options` Additional options for the memcached client. Should be an array of option =\> value.
   Use the `\Memcached::OPT_*` constants as keys.
+
+<a id="cache-configuration-fallback"></a>
 
 ### Configuring Cache Fallbacks
 
@@ -469,6 +475,8 @@ A perfect example of this are the results from
 `Cake\\ORM\\Table::find()`. The Query object allows you to cache
 results using the `cache()` method. See the [Caching Query Results](#caching-query-results) section
 for more information.
+
+<a id="cache-groups"></a>
 
 ## Using Groups
 

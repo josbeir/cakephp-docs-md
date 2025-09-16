@@ -45,7 +45,7 @@ foreach ($files as $file) {
 
 ## Folder API
 
-`class` **Folder(string**
+`class` **Folder**(string $path = false, boolean $create = false, string|boolean $mode = false)
 
 ``` php
 <?php
@@ -80,48 +80,48 @@ $element can also be an array::
     $element parameter accepts an array as of 2.5
 ```
 
-`method` Folder(string::**cd**(string $path)
+`method` Folder::**cd**(string $path)
 
-`method` Folder(string::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = array())
+`method` Folder::**chmod**(string $path, integer $mode = false, boolean $recursive = true, array $exceptions = array())
 
-`method` Folder(string::**copy**(array|string $options = array())
+`method` Folder::**copy**(array|string $options = array())
 
-`method` Folder(string::**create**(string $pathname, integer $mode = false)
+`method` Folder::**create**(string $pathname, integer $mode = false)
 
-`method` Folder(string::**delete**(string $path = null)
+`method` Folder::**delete**(string $path = null)
 
-`method` Folder(string::**dirsize**()
+`method` Folder::**dirsize**()
 
-`method` Folder(string::**errors**()
+`method` Folder::**errors**()
 
-`method` Folder(string::**find**(string $regexpPattern = '.*', boolean $sort = false)
+`method` Folder::**find**(string $regexpPattern = '.*', boolean $sort = false)
 
 > [!NOTE]
 > The folder find and findRecursive methods will only find files. If you
 > would like to get folders and files see `Folder::read()` or
 > `Folder::tree()`
 
-`method` Folder(string::**findRecursive**(string $pattern = '.*', boolean $sort = false)
+`method` Folder::**findRecursive**(string $pattern = '.*', boolean $sort = false)
 
-`method` Folder(string::**inCakePath**(string $path = '')
+`method` Folder::**inCakePath**(string $path = '')
 
-`method` Folder(string::**inPath**(string $path = '', boolean $reverse = false)
+`method` Folder::**inPath**(string $path = '', boolean $reverse = false)
 
-`method` Folder(string::**messages**()
+`method` Folder::**messages**()
 
-`method` Folder(string::**move**(array $options)
+`method` Folder::**move**(array $options)
 
-`method` Folder(string::**pwd**()
+`method` Folder::**pwd**()
 
-`method` Folder(string::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
+`method` Folder::**read**(boolean $sort = true, array|boolean $exceptions = false, boolean $fullPath = false)
 
-`method` Folder(string::**realpath**(string $path)
+`method` Folder::**realpath**(string $path)
 
-`method` Folder(string::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
+`method` Folder::**tree**(null|string $path = null, array|boolean $exceptions = true, null|string $type = null)
 
 ## File API
 
-`class` **File(string**
+`class` **File**(string $path, boolean $create = false, integer $mode = 755)
 
 ``` php
 <?php
@@ -148,57 +148,57 @@ Enable locking for file reading and writing.
 The current file's absolute path.
 ```
 
-`method` File(string::**append**(string $data, boolean $force = false)
+`method` File::**append**(string $data, boolean $force = false)
 
-`method` File(string::**close**()
+`method` File::**close**()
 
-`method` File(string::**copy**(string $dest, boolean $overwrite = true)
+`method` File::**copy**(string $dest, boolean $overwrite = true)
 
-`method` File(string::**create**()
+`method` File::**create**()
 
-`method` File(string::**delete**()
+`method` File::**delete**()
 
-`method` File(string::**executable**()
+`method` File::**executable**()
 
-`method` File(string::**exists**()
+`method` File::**exists**()
 
-`method` File(string::**ext**()
+`method` File::**ext**()
 
-`method` File(string::**Folder**()
+`method` File::**Folder**()
 
-`method` File(string::**group**()
+`method` File::**group**()
 
-`method` File(string::**info**()
+`method` File::**info**()
 
-`method` File(string::**lastAccess**()
+`method` File::**lastAccess**()
 
-`method` File(string::**lastChange**()
+`method` File::**lastChange**()
 
-`method` File(string::**md5**(integer|boolean $maxsize = 5)
+`method` File::**md5**(integer|boolean $maxsize = 5)
 
-`method` File(string::**name**()
+`method` File::**name**()
 
-`method` File(string::**offset**(integer|boolean $offset = false, integer $seek = 0)
+`method` File::**offset**(integer|boolean $offset = false, integer $seek = 0)
 
-`method` File(string::**open**(string $mode = 'r', boolean $force = false)
+`method` File::**open**(string $mode = 'r', boolean $force = false)
 
-`method` File(string::**owner**()
+`method` File::**owner**()
 
-`method` File(string::**perms**()
+`method` File::**perms**()
 
-`method` File(string::**pwd**()
+`method` File::**pwd**()
 
-`method` File(string::**read**(string $bytes = false, string $mode = 'rb', boolean $force = false)
+`method` File::**read**(string $bytes = false, string $mode = 'rb', boolean $force = false)
 
-`method` File(string::**readable**()
+`method` File::**readable**()
 
-`method` File(string::**safe**(string $name = null, string $ext = null)
+`method` File::**safe**(string $name = null, string $ext = null)
 
-`method` File(string::**size**()
+`method` File::**size**()
 
-`method` File(string::**writable**()
+`method` File::**writable**()
 
-`method` File(string::**write**(string $data, string $mode = 'w', boolean$force = false)
+`method` File::**write**(string $data, string $mode = 'w', boolean$force = false)
 
 <div class="versionadded">
 
@@ -206,9 +206,9 @@ The current file's absolute path.
 
 </div>
 
-`method` File(string::**mime**()
+`method` File::**mime**()
 
-`method` File(string::**replaceText**( $search, $replace )
+`method` File::**replaceText**( $search, $replace )
 
 <div class="todo">
 

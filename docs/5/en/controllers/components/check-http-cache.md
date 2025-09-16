@@ -1,6 +1,6 @@
 # Checking HTTP Cache
 
-`class` **CheckHttpCacheComponent(ComponentCollection**
+`class` **CheckHttpCacheComponent**(ComponentCollection $collection, array $config = [])
 
 The HTTP cache validation model is one of the processes used for cache gateways,
 also known as reverse proxies, to determine if they can serve a stored copy of

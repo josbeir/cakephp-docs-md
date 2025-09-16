@@ -105,18 +105,39 @@ sys.stdout.write(fixed_content)
     
     # Capture class and format it
     /^.. php:class::/ {
-        class = $3
+        # Get everything after ".. php:class:: "
+        class_line = $0
+        gsub(/^.. php:class:: /, "", class_line)
+
+        # Parse class name and constructor parameters
+        if (match(class_line, /^([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*)\)\s*$/, arr)) {
+            class = arr[1]
+            params = arr[2]
+        } else {
+            # No constructor parameters, just the class name
+            class = class_line
+            params = ""
+        }
+
         if (namespace != "") {
             print ""
             print ".. raw:: html"
             print ""
-            print "   <code>class " namespace "\\<strong>" class "</strong></code>"
+            if (params != "") {
+                print "   <code>class " namespace "\\<strong>" class "</strong>(" params ")</code>"
+            } else {
+                print "   <code>class " namespace "\\<strong>" class "</strong></code>"
+            }
             print ""
         } else {
             print ""
             print ".. raw:: html"
             print ""
-            print "   <code>class <strong>" class "</strong></code>"
+            if (params != "") {
+                print "   <code>class <strong>" class "</strong>(" params ")</code>"
+            } else {
+                print "   <code>class <strong>" class "</strong></code>"
+            }
             print ""
         }
         next

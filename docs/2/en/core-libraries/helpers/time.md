@@ -1,6 +1,6 @@
 # TimeHelper
 
-`class` **TimeHelper(View**
+`class` **TimeHelper**(View $view, array $settings = array())
 
 The Time Helper does what it says on the tin: saves you time. It
 allows for the quick processing of time related information. The

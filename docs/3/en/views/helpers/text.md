@@ -1,6 +1,6 @@
 # Text
 
-`class` Cake\\View\\Helper\\**TextHelper(View**
+`class` Cake\\View\\Helper\\**TextHelper**(View $view, array $config = [])
 
 The TextHelper contains methods to make text more usable and
 friendly in your views. It aids in enabling links, formatting URLs,
@@ -10,7 +10,7 @@ truncating long stretches of text.
 
 ## Linking Email addresses
 
-`method` Cake\\View\\Helper\\TextHelper(View::**autoLinkEmails**(string $text, array $options = [])
+`method` Cake\\View\\Helper\\TextHelper::**autoLinkEmails**(string $text, array $options = [])
 
 Adds links to the well-formed email addresses in \$text, according
 to any options defined in `$options` (see
@@ -32,7 +32,7 @@ option to disable this if necessary.
 
 ## Linking URLs
 
-`method` Cake\\View\\Helper\\TextHelper(View::**autoLinkUrls**(string $text, array $options = [])
+`method` Cake\\View\\Helper\\TextHelper::**autoLinkUrls**(string $text, array $options = [])
 
 Same as `autoLinkEmails()`, only this method searches for
 strings that start with https, http, ftp, or nntp and links them
@@ -43,7 +43,7 @@ option to disable this if necessary.
 
 ## Linking Both URLs and Email Addresses
 
-`method` Cake\\View\\Helper\\TextHelper(View::**autoLink**(string $text, array $options = [])
+`method` Cake\\View\\Helper\\TextHelper::**autoLink**(string $text, array $options = [])
 
 Performs the functionality in both `autoLinkUrls()` and
 `autoLinkEmails()` on the supplied `$text`. All URLs and emails
@@ -54,7 +54,7 @@ option to disable this if necessary.
 
 ## Converting Text into Paragraphs
 
-`method` Cake\\View\\Helper\\TextHelper(View::**autoParagraph**(string $text)
+`method` Cake\\View\\Helper\\TextHelper::**autoParagraph**(string $text)
 
 Adds proper \<p\> around text where double-line returns are found, and \<br\> where
 single-line returns are found. :

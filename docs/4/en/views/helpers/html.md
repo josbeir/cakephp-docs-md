@@ -1,6 +1,6 @@
 # Html
 
-`class` Cake\\View\\Helper\\**HtmlHelper(View**
+`class` Cake\\View\\Helper\\**HtmlHelper**(View $view, array $config = [])
 
 The role of the HtmlHelper in CakePHP is to make HTML-related
 options easier, faster, and more resilient to change. Using this
@@ -28,7 +28,7 @@ methods of the HtmlHelper and how to use them.
 
 ### Creating Charset Tags
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**charset**($charset=null)
+`method` Cake\\View\\Helper\\HtmlHelper::**charset**($charset=null)
 
 Used to create a meta tag specifying the document's character. The default value
 is UTF-8. An example use:
@@ -57,7 +57,7 @@ Will output:
 
 ### Linking to CSS Files
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**css**(mixed $path, array $options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**css**(mixed $path, array $options = [])
 
 Creates a link(s) to a CSS style-sheet. If the `block` option is set to
 `true`, the link tags are added to the `css` block which you can print
@@ -113,7 +113,7 @@ echo $this->Html->css('Blog.common.css', ['plugin' => false]);
 
 ### Creating CSS Programatically
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**style**(array $data, boolean $oneline = true)
+`method` Cake\\View\\Helper\\HtmlHelper::**style**(array $data, boolean $oneline = true)
 
 Builds CSS style definitions based on the keys and values of the
 array passed to the method. Especially handy if your CSS file is
@@ -135,7 +135,7 @@ background:#633; border-bottom:1px solid #000; padding:10px;
 
 ### Creating meta Tags
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**meta**(string|array $type, string $url = null, array $options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**meta**(string|array $type, string $url = null, array $options = [])
 
 This method is handy for linking to external resources like RSS/Atom feeds
 and favicons. Like css(), you can specify whether or not you'd like this tag
@@ -227,7 +227,7 @@ generated link tag.
 
 ### Linking to Images
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**image**(string $path, array $options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**image**(string $path, array $options = [])
 
 Creates a formatted image tag. The path supplied should be relative
 to **webroot/img/**. :
@@ -303,7 +303,7 @@ Will output:
 
 ### Creating Links
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**link**($title, $url = null, array $options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**link**($title, $url = null, array $options = [])
 
 General purpose method for creating HTML links. Use `$options` to
 specify attributes for the element and whether or not the
@@ -420,7 +420,7 @@ Will output:
 Also check `Cake\\View\\Helper\\UrlHelper::build()` method
 for more examples of different types of URLs.
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**linkFromPath**(string $title, string $path, array $params = [], array $options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**linkFromPath**(string $title, string $path, array $params = [], array $options = [])
 
 If you want to use route path strings, you can do that using this method:
 
@@ -441,7 +441,7 @@ echo $this->Html->linkFromPath('View', 'MyBackend.Admin/Articles::view', [3]);
 
 ### Linking to Videos and Audio Files
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**media**(string|array $path, array $options)
+`method` Cake\\View\\Helper\\HtmlHelper::**media**(string|array $path, array $options)
 
 Options:
 
@@ -485,7 +485,7 @@ Returns a formatted audio/video tag:
 
 ### Linking to Javascript Files
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**script**(mixed $url, mixed $options)
+`method` Cake\\View\\Helper\\HtmlHelper::**script**(mixed $url, mixed $options)
 
 Include a script file(s), contained either locally or as a remote URL.
 
@@ -581,7 +581,7 @@ echo $this->Html->script('Blog.plugins.js', ['plugin' => false]);
 
 ### Creating Inline Javascript Blocks
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**scriptBlock**($code, $options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**scriptBlock**($code, $options = [])
 
 To generate Javascript blocks from PHP view code, you can use one of the script
 block methods. Scripts can either be output in place, or buffered into a block:
@@ -594,9 +594,9 @@ $this->Html->scriptBlock('alert("hi")', ['defer' => true]);
 $this->Html->scriptBlock('alert("hi")', ['block' => true]);
 ```
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**scriptStart**($options = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**scriptStart**($options = [])
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**scriptEnd**()
+`method` Cake\\View\\Helper\\HtmlHelper::**scriptEnd**()
 
 You can use the `scriptStart()` method to create a capturing block that will
 output into a `<script>` tag. Captured script snippets can be output inline,
@@ -619,7 +619,7 @@ echo $this->fetch('script');
 
 ### Creating Nested Lists
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**nestedList**(array $list, array $options = [], array $itemOptions = [])
+`method` Cake\\View\\Helper\\HtmlHelper::**nestedList**(array $list, array $options = [], array $itemOptions = [])
 
 Build a nested list (UL/OL) out of an associative array:
 
@@ -661,7 +661,7 @@ Output:
 
 ### Creating Table Headings
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**tableHeaders**(array $names, array $trOptions = null, array $thOptions = null)
+`method` Cake\\View\\Helper\\HtmlHelper::**tableHeaders**(array $names, array $trOptions = null, array $thOptions = null)
 
 Creates a row of table header cells to be placed inside of \<table\>
 tags. :
@@ -721,7 +721,7 @@ Output:
 
 ### Creating Table Cells
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**tableCells**(array $data, array $oddTrOptions = null, array $evenTrOptions = null, $useCount = false, $continueOddEven = true)
+`method` Cake\\View\\Helper\\HtmlHelper::**tableCells**(array $data, array $oddTrOptions = null, array $evenTrOptions = null, $useCount = false, $continueOddEven = true)
 
 Creates table cells, in rows, assigning \<tr\> attributes differently
 for odd- and even-numbered rows. Wrap a single table cell within an
@@ -810,7 +810,7 @@ Output:
 
 ## Changing the Tags Output by HtmlHelper
 
-`method` Cake\\View\\Helper\\HtmlHelper(View::**setTemplates**(array $templates)
+`method` Cake\\View\\Helper\\HtmlHelper::**setTemplates**(array $templates)
 
 Load an array of templates to add/replace templates:
 

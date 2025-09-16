@@ -8,7 +8,7 @@ for form tampering protection or [HTTPS Enforcer Middleware](../../security/http
 
 </div>
 
-`class` **SecurityComponent(ComponentCollection**
+`class` **SecurityComponent**(ComponentCollection $collection, array $config = [])
 
 The Security Component creates a way to integrate tighter
 security in your application. It provides methods for various tasks like:
@@ -49,7 +49,7 @@ components in your `initialize()` method.
 
 ## Handling Blackhole Callbacks
 
-`method` SecurityComponent(ComponentCollection::**blackHole**(Controller $controller, string $error = '', ?SecurityException $exception = null)
+`method` SecurityComponent::**blackHole**(Controller $controller, string $error = '', ?SecurityException $exception = null)
 
 If an action is restricted by the Security Component it is
 'black-holed' as an invalid request which will result in a 400 error
@@ -155,8 +155,6 @@ class WidgetsController extends AppController
 
 The above example would disable form tampering prevention for admin prefixed
 routes.
-
-<a id="security-csrf"></a>
 
 ## CSRF Protection
 

@@ -1,6 +1,6 @@
 # Breadcrumbs
 
-`class` Cake\\View\\Helper\\**BreadcrumbsHelper(View**
+`class` Cake\\View\\Helper\\**BreadcrumbsHelper**(View $view, array $config = [])
 
 BreadcrumbsHelper provides a way to easily deal with the creation and rendering
 of a breadcrumbs trail for your app.

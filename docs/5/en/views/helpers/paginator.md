@@ -1,6 +1,6 @@
 # Paginator
 
-`class` Cake\\View\\Helper\\**PaginatorHelper(View**
+`class` Cake\\View\\Helper\\**PaginatorHelper**(View $view, array $config = [])
 
 The PaginatorHelper is used to output pagination controls such as page numbers
 and next/previous links.
@@ -10,7 +10,7 @@ create paginated datasets and do paginated queries.
 
 ## Setting the paginated resultset
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**setPaginated**($paginated, $options)
+`method` Cake\\View\\Helper\\PaginatorHelper::**setPaginated**($paginated, $options)
 
 By default the helper uses the first instance of `Cake\Datasource\Paging\PaginatedInterface`
 it finds in the view variables. (Generally the result of `Controller::paginate()`).
@@ -64,7 +64,7 @@ templates file should look something like:
 
 ## Changing Templates at Run-time
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**setTemplates**($templates)
+`method` Cake\\View\\Helper\\PaginatorHelper::**setTemplates**($templates)
 
 This method allows you to change the templates used by PaginatorHelper at
 runtime. This can be useful when you want to customize templates for a
@@ -108,7 +108,7 @@ PaginatorHelper uses the following templates:
 
 ### Creating Sort Links
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**sort**($key, $title = null, $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**sort**($key, $title = null, $options = [])
 
 Generates a sorting link. Sets querystring parameters for the sort and
 direction. Links will default to sorting by asc. After the first click, links
@@ -183,13 +183,13 @@ The lock option can be used to lock sorting into the specified direction:
 echo $this->Paginator->sort('user_id', null, ['direction' => 'asc', 'lock' => true]);
 ```
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**sortDir**(string $model = null, mixed $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**sortDir**(string $model = null, mixed $options = [])
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**sortKey**(string $model = null, mixed $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**sortKey**(string $model = null, mixed $options = [])
 
 ### Creating Page Number Links
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**numbers**($options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**numbers**($options = [])
 
 Returns a set of numbers for the paged result set. Uses a modulus to
 decide how many numbers to show on each side of the current page By default
@@ -243,13 +243,13 @@ In addition to generating links that go directly to specific page numbers,
 you'll often want links that go to the previous and next links, first and last
 pages in the paged data set.
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**prev**($title = '<< Previous', $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**prev**($title = '<< Previous', $options = [])
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**next**($title = 'Next >>', $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**next**($title = 'Next >>', $options = [])
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**first**($first = '<< first', $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**first**($first = '<< first', $options = [])
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**last**($last = 'last >>', $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**last**($last = 'last >>', $options = [])
 
 ### Creating Header Link Tags
 
@@ -266,19 +266,19 @@ echo $this->Paginator->meta(['first' => true, 'last' => true]);
 
 ### Checking the Pagination State
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**current**()
+`method` Cake\\View\\Helper\\PaginatorHelper::**current**()
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**hasNext**(string $model = null)
+`method` Cake\\View\\Helper\\PaginatorHelper::**hasNext**(string $model = null)
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**hasPrev**()
+`method` Cake\\View\\Helper\\PaginatorHelper::**hasPrev**()
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**hasPage**(int $page = 1)
+`method` Cake\\View\\Helper\\PaginatorHelper::**hasPage**(int $page = 1)
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**total**()
+`method` Cake\\View\\Helper\\PaginatorHelper::**total**()
 
 ### Creating a Page Counter
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**counter**(string $format = 'pages', array $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**counter**(string $format = 'pages', array $options = [])
 
 Returns a counter string for the paged result set. Using a provided format
 string and a number of options you can create localized and application
@@ -316,7 +316,7 @@ echo $this->Paginator->counter('range');
 
 ### Generating Pagination URLs
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**generateUrl**(array $options = [], ?string $model = null, array $url = [], array $urlOptions = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**generateUrl**(array $options = [], ?string $model = null, array $url = [], array $urlOptions = [])
 
 By default returns a full pagination URL string for use in non-standard contexts
 (i.e. JavaScript). :
@@ -338,7 +338,7 @@ echo $this->Paginator->generateUrl(
 
 ### Creating a Limit Selectbox Control
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**limitControl**(array $limits = [], $default = null, array $options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**limitControl**(array $limits = [], $default = null, array $options = [])
 
 Create a dropdown control that changes the `limit` query parameter:
 
@@ -357,7 +357,7 @@ The generated form and control will automatically submit on change.
 
 ### Configuring Pagination Options
 
-`method` Cake\\View\\Helper\\PaginatorHelper(View::**options**($options = [])
+`method` Cake\\View\\Helper\\PaginatorHelper::**options**($options = [])
 
 Sets all the options for the PaginatorHelper. Supported options are:
 

@@ -1,6 +1,6 @@
 # SessionHelper
 
-`class` **SessionHelper(View**
+`class` **SessionHelper**(View $view, array $settings = array())
 
 As a natural counterpart to the Session Component, the Session
 Helper replicates most of the component's functionality and makes it
@@ -22,16 +22,16 @@ Given the previous array structure, the node would be accessed by
 notation is used for all Session helper methods wherever a `$key` is
 used.
 
-`method` SessionHelper(View::**read**(string $key)
+`method` SessionHelper::**read**(string $key)
 
-`method` SessionHelper(View::**consume**($name)
+`method` SessionHelper::**consume**($name)
 
-`method` SessionHelper(View::**check**(string $key)
+`method` SessionHelper::**check**(string $key)
 
-`method` SessionHelper(View::**error**()
+`method` SessionHelper::**error**()
 
-`method` SessionHelper(View::**valid**()
+`method` SessionHelper::**valid**()
 
 ## Displaying notifications or flash messages
 
-`method` SessionHelper(View::**flash**(string $key = 'flash', array $params = array())
+`method` SessionHelper::**flash**(string $key = 'flash', array $params = array())

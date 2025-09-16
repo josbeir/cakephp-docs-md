@@ -14,6 +14,8 @@ purpose.
 
 </div>
 
+<a id="cake-request"></a>
+
 # CakeRequest
 
 `CakeRequest` is the default request object used in CakePHP. It centralizes
@@ -160,6 +162,8 @@ $data = $this->request->input('Xml::build', array('return' => 'domdocument'));
 application. `CakeRequest::$base` and
 `CakeRequest::$webroot` are useful for generating URLs, and
 determining whether or not your application is in a subdirectory.
+
+<a id="check-the-request"></a>
 
 ## Inspecting the request
 
@@ -356,6 +360,8 @@ Usually, you'll want to map additional content types in your controller's
 `~Controller::beforeFilter()` callback, so you can leverage the automatic view switching
 features of `RequestHandlerComponent` if you are using it.
 
+<a id="cake-response-file"></a>
+
 ## Sending files
 
 There are times when you want to send files as responses for your requests.
@@ -474,6 +480,8 @@ hopefully speeding up your visitors' experience. `CakeResponse::cache()` sets th
 `Last-Modified` value to the first argument.
 `Expires` header and the `max-age` directive are set based on the second parameter.
 Cache-Control's `public` directive is set as well.
+
+<a id="cake-response-caching"></a>
 
 ## Fine tuning HTTP cache
 
@@ -627,6 +635,8 @@ $this->response->vary('User-Agent');
 $this->response->vary('Accept-Encoding', 'User-Agent');
 $this->response->vary('Accept-Language');
 ```
+
+<a id="cakeresponse-testing"></a>
 
 ## CakeResponse and testing
 

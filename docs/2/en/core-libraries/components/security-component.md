@@ -1,6 +1,6 @@
 # Security
 
-`class` **SecurityComponent(ComponentCollection**
+`class` **SecurityComponent**(ComponentCollection $collection, array $settings = array())
 
 The Security Component creates an easy way to integrate tighter
 security in your application. It provides methods for various tasks like:
@@ -44,23 +44,23 @@ by default. You can configure this behavior by setting the
 `$this->Security->blackHoleCallback` property to a callback function
 in the controller.
 
-`method` SecurityComponent(ComponentCollection::**blackHole**(object $controller, string $error)
+`method` SecurityComponent::**blackHole**(object $controller, string $error)
 
 ## Restricting HTTP methods
 
-`method` SecurityComponent(ComponentCollection::**requirePost**()
+`method` SecurityComponent::**requirePost**()
 
-`method` SecurityComponent(ComponentCollection::**requireGet**()
+`method` SecurityComponent::**requireGet**()
 
-`method` SecurityComponent(ComponentCollection::**requirePut**()
+`method` SecurityComponent::**requirePut**()
 
-`method` SecurityComponent(ComponentCollection::**requireDelete**()
+`method` SecurityComponent::**requireDelete**()
 
 ## Restrict actions to SSL
 
-`method` SecurityComponent(ComponentCollection::**requireSecure**()
+`method` SecurityComponent::**requireSecure**()
 
-`method` SecurityComponent(ComponentCollection::**requireAuth**()
+`method` SecurityComponent::**requireAuth**()
 
 ## Restricting cross controller communication
 

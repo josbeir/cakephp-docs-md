@@ -1,6 +1,6 @@
 # Time
 
-`class` Cake\\View\\Helper\\**TimeHelper(View**
+`class` Cake\\View\\Helper\\**TimeHelper**(View $view, array $config = [])
 
 The TimeHelper allows for the quick processing of time related information.
 The TimeHelper has two main tasks that it can perform:

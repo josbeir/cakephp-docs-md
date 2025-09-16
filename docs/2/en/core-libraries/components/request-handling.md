@@ -1,6 +1,6 @@
 # Request Handling
 
-`class` **RequestHandlerComponent(ComponentCollection**
+`class` **RequestHandlerComponent**(ComponentCollection $collection, array $settings = array())
 
 The Request Handler component is used in CakePHP to obtain
 additional information about the HTTP requests that are made to
@@ -35,19 +35,19 @@ class WidgetController extends AppController {
 Request Handler has several methods that provide information about
 the client and its request.
 
-`method` RequestHandlerComponent(ComponentCollection::**accepts**($type = null)
+`method` RequestHandlerComponent::**accepts**($type = null)
 
 Other request 'type' detection methods include:
 
-`method` RequestHandlerComponent(ComponentCollection::**isXml**()
+`method` RequestHandlerComponent::**isXml**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isRss**()
+`method` RequestHandlerComponent::**isRss**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isAtom**()
+`method` RequestHandlerComponent::**isAtom**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isMobile**()
+`method` RequestHandlerComponent::**isMobile**()
 
-`method` RequestHandlerComponent(ComponentCollection::**isWap**()
+`method` RequestHandlerComponent::**isWap**()
 
 All of the above request detection methods can be used in a similar
 fashion to filter functionality intended for specific content
@@ -65,11 +65,11 @@ if ($this->request->is('ajax')) {
 
 ## Obtaining Additional Client Information
 
-`method` RequestHandlerComponent(ComponentCollection::**getAjaxVersion**()
+`method` RequestHandlerComponent::**getAjaxVersion**()
 
 ## Automatically decoding request data
 
-`method` RequestHandlerComponent(ComponentCollection::**addInputType**($type, $handler)
+`method` RequestHandlerComponent::**addInputType**($type, $handler)
 
 ## Responding To Requests
 
@@ -77,15 +77,15 @@ In addition to request detection RequestHandler also provides easy
 access to altering the output and content type mappings for your
 application.
 
-`method` RequestHandlerComponent(ComponentCollection::**setContent**($name, $type = null)
+`method` RequestHandlerComponent::**setContent**($name, $type = null)
 
-`method` RequestHandlerComponent(ComponentCollection::**prefers**($type = null)
+`method` RequestHandlerComponent::**prefers**($type = null)
 
-`method` RequestHandlerComponent(ComponentCollection::**renderAs**($controller, $type)
+`method` RequestHandlerComponent::**renderAs**($controller, $type)
 
-`method` RequestHandlerComponent(ComponentCollection::**respondAs**($type, $options)
+`method` RequestHandlerComponent::**respondAs**($type, $options)
 
-`method` RequestHandlerComponent(ComponentCollection::**responseType**()
+`method` RequestHandlerComponent::**responseType**()
 
 ## Taking advantage of HTTP cache validation
 
@@ -133,7 +133,7 @@ with a custom View class, or add View classes for other types.
 
 You can map existing and new types to your custom classes.
 
-`method` RequestHandlerComponent(ComponentCollection::**viewClassMap**($type, $viewClass)
+`method` RequestHandlerComponent::**viewClassMap**($type, $viewClass)
 
 You can also set this automatically by using the `viewClassMap` setting:
 

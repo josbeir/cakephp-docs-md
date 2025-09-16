@@ -1,6 +1,6 @@
 # JsHelper
 
-`class` **JsHelper(View**
+`class` **JsHelper**(View $view, array $settings = array())
 
 > [!WARNING]
 > The JsHelper is currently deprecated and completely removed in 3.x.
@@ -188,7 +188,7 @@ allow all scripts generated in layout elements to be output in one
 place. It should be noted that buffered scripts are handled
 separately from included script files.
 
-`method` JsHelper(View::**writeBuffer**($options = array())
+`method` JsHelper::**writeBuffer**($options = array())
 
 Writes all JavaScript generated so far to a code block or caches
 them to a file and returns a linked script.
@@ -211,11 +211,11 @@ Creating a cache file with `writeBuffer()` requires that
 `webroot/js` be world writable and allows a browser to cache
 generated script resources for any page.
 
-`method` JsHelper(View::**buffer**($content)
+`method` JsHelper::**buffer**($content)
 
 Add `$content` to the internal script buffer.
 
-`method` JsHelper(View::**getBuffer**($clear = true)
+`method` JsHelper::**getBuffer**($clear = true)
 
 Get the contents of the current buffer. Pass in false to not clear
 the buffer at the same time.
@@ -262,47 +262,45 @@ CakePHP core. Whenever you see separate lists for `Options` and
 `Event Options` both sets of parameters are supplied in the
 `$options` array for the method.
 
-`method` JsHelper(View::**object**($data, $options = array())
+`method` JsHelper::**object**($data, $options = array())
 
-`method` JsHelper(View::**sortable**($options = array())
+`method` JsHelper::**sortable**($options = array())
 
-`method` JsHelper(View::**request**($url, $options = array())
+`method` JsHelper::**request**($url, $options = array())
 
-`method` JsHelper(View::**get**($selector)
+`method` JsHelper::**get**($selector)
 
-`method` JsHelper(View::**set**(mixed $one, mixed $two = null)
+`method` JsHelper::**set**(mixed $one, mixed $two = null)
 
-`method` JsHelper(View::**drag**($options = array())
+`method` JsHelper::**drag**($options = array())
 
-`method` JsHelper(View::**drop**($options = array())
+`method` JsHelper::**drop**($options = array())
 
-`method` JsHelper(View::**slider**($options = array())
+`method` JsHelper::**slider**($options = array())
 
-`method` JsHelper(View::**effect**($name, $options = array())
+`method` JsHelper::**effect**($name, $options = array())
 
-`method` JsHelper(View::**event**($type, $content, $options = array())
+`method` JsHelper::**event**($type, $content, $options = array())
 
-`method` JsHelper(View::**domReady**($callback)
+`method` JsHelper::**domReady**($callback)
 
-`method` JsHelper(View::**each**($callback)
+`method` JsHelper::**each**($callback)
 
-`method` JsHelper(View::**alert**($message)
+`method` JsHelper::**alert**($message)
 
-`method` JsHelper(View::**confirm**($message)
+`method` JsHelper::**confirm**($message)
 
-`method` JsHelper(View::**prompt**($message, $default)
+`method` JsHelper::**prompt**($message, $default)
 
-`method` JsHelper(View::**submit**($caption = null, $options = array())
+`method` JsHelper::**submit**($caption = null, $options = array())
 
-`method` JsHelper(View::**link**($title, $url = null, $options = array())
+`method` JsHelper::**link**($title, $url = null, $options = array())
 
-`method` JsHelper(View::**serializeForm**($options = array())
+`method` JsHelper::**serializeForm**($options = array())
 
-`method` JsHelper(View::**redirect**($url)
+`method` JsHelper::**redirect**($url)
 
-`method` JsHelper(View::**value**($value)
-
-<a id="ajax-pagination"></a>
+`method` JsHelper::**value**($value)
 
 ## AJAX Pagination
 

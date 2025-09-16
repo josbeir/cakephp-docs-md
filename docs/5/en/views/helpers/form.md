@@ -1,6 +1,6 @@
 # Form
 
-`class` Cake\\View\\Helper\\**FormHelper(View**
+`class` Cake\\View\\Helper\\**FormHelper**(View $view, array $config = [])
 
 The FormHelper does most of the heavy lifting in form creation. The FormHelper
 focuses on creating forms quickly, in a way that will streamline validation,
@@ -10,7 +10,7 @@ only what you need.
 
 ## Starting a Form
 
-`method` Cake\\View\\Helper\\FormHelper(View::**create**(mixed $context = null, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**create**(mixed $context = null, array $options = [])
 
 - `$context` - The context for which the form is being defined. Can be an ORM
   entity, ORM resultset, `Form` instance, array of metadata or `null` (to make a
@@ -145,8 +145,6 @@ Valid values:
 > Besides the above options you can provide, in the `$options` argument,
 > any valid HTML attributes that you want to pass to the created `form`
 > element.
-
-<a id="form-values-from-query-string"></a>
 
 ### Getting form values from other values sources
 
@@ -346,11 +344,9 @@ Context factory functions are where you can add logic for checking the form
 options for the correct type of entity. If matching input data is found you can
 return an object. If there is no match return null.
 
-<a id="automagic-form-elements"></a>
-
 ## Creating Form Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**control**(string $fieldName, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**control**(string $fieldName, array $options = [])
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array that can include both
@@ -570,8 +566,6 @@ You may notice additional fields named `year`, `month`, `day`, `hour`,
 `minute`, or `meridian` being added. These fields will be automatically
 converted into `DateTime` objects when entities are marshalled.
 
-<a id="control-specific-options"></a>
-
 ### Options for Control
 
 `FormHelper::control()` supports a large number of options via its `$options`
@@ -752,8 +746,6 @@ to generate just the control widget itself, and combined with other methods like
 `~Cake\\View\\Helper\\FormHelper::error()` to generate fully custom
 form layouts.
 
-<a id="general-control-options"></a>
-
 ### Common Options For Specific Controls
 
 Many of the various control element methods support a common set of options which,
@@ -817,7 +809,7 @@ however, this parameter is used primarily to specify HTML tag attributes
 
 ### Creating Text Inputs
 
-`method` Cake\\View\\Helper\\FormHelper(View::**text**(string $name, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**text**(string $name, array $options)
 
 - `$name` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
@@ -839,7 +831,7 @@ Will output:
 
 ### Creating Password Inputs
 
-`method` Cake\\View\\Helper\\FormHelper(View::**password**(string $fieldName, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**password**(string $fieldName, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
@@ -861,7 +853,7 @@ Will output:
 
 ### Creating Hidden Inputs
 
-`method` Cake\\View\\Helper\\FormHelper(View::**hidden**(string $fieldName, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**hidden**(string $fieldName, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
@@ -883,7 +875,7 @@ Will output:
 
 ### Creating Textareas
 
-`method` Cake\\View\\Helper\\FormHelper(View::**textarea**(string $fieldName, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**textarea**(string $fieldName, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
@@ -955,8 +947,6 @@ couple of specific options:
 
 These controls share some commonalities and a few options and thus, they are
 all grouped in this subsection for easier reference.
-
-<a id="checkbox-radio-select-options"></a>
 
 #### Options for Select, Checkbox and Radio Controls
 
@@ -1139,7 +1129,7 @@ $options = $examples->map(function ($value, $key) {
 
 #### Creating Checkboxes
 
-`method` Cake\\View\\Helper\\FormHelper(View::**checkbox**(string $fieldName, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**checkbox**(string $fieldName, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
@@ -1205,11 +1195,9 @@ Will output:
 <input type="checkbox" name="done" value="1">
 ```
 
-<a id="create-radio-button"></a>
-
 #### Creating Radio Buttons
 
-`method` Cake\\View\\Helper\\FormHelper(View::**radio**(string $fieldName, array $options, array $attributes)
+`method` Cake\\View\\Helper\\FormHelper::**radio**(string $fieldName, array $options, array $attributes)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array containing at minimum the labels for the
@@ -1330,11 +1318,9 @@ Will output:
 If the `label` key is used on an option, the attributes in
 `$attributes['label']` will be ignored.
 
-<a id="create-select-picker"></a>
-
 #### Creating Select Pickers
 
-`method` Cake\\View\\Helper\\FormHelper(View::**select**(string $fieldName, array $options, array $attributes)
+`method` Cake\\View\\Helper\\FormHelper::**select**(string $fieldName, array $options, array $attributes)
 
 - `$fieldName` - A field name in the form `'fieldname'` or `'related_entity.fieldname'`. This
   will provide the `name` attribute of the `select` element.
@@ -1612,7 +1598,7 @@ certain behaviors of the `select()` method.
 
 ### Creating File Inputs
 
-`method` Cake\\View\\Helper\\FormHelper(View::**file**(string $fieldName, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**file**(string $fieldName, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$options` - An optional array including any of the
@@ -1681,11 +1667,9 @@ $fileobject->moveTo($destination);
 > encoding-type, by setting the `'type'` option to `'file'` in
 > `$this->Form->create()`.
 
-<a id="create-datetime-controls"></a>
-
 ### Creating Date & Time Related Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**dateTime**(string $fieldName, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**dateTime**(string $fieldName, array $options = [])
 
 - `$fieldName` - A string that will be used as a prefix for the HTML `name`
   attribute of the `select` elements.
@@ -1722,7 +1706,7 @@ Output:
 
 #### Creating Date Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**date**(string $fieldName, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**date**(string $fieldName, array $options = [])
 
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` elements.
@@ -1745,7 +1729,7 @@ Output:
 
 #### Creating Time Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**time**(string $fieldName, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**time**(string $fieldName, array $options = [])
 
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` elements.
@@ -1768,7 +1752,7 @@ Output:
 
 #### Creating Month Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**month**(string $fieldName, array $attributes)
+`method` Cake\\View\\Helper\\FormHelper::**month**(string $fieldName, array $attributes)
 
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` element.
@@ -1791,7 +1775,7 @@ Will output:
 
 #### Creating Year Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**year**(string $fieldName, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**year**(string $fieldName, array $options = [])
 
 - `$fieldName` - A field name that will be used as a prefix for the HTML
   `name` attribute of the `select` element.
@@ -1837,11 +1821,9 @@ If it was 2009, you would get the following:
 </select>
 ```
 
-<a id="create-label"></a>
-
 ## Creating Labels
 
-`method` Cake\\View\\Helper\\FormHelper(View::**label**(string $fieldName, string $text, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**label**(string $fieldName, string $text, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$text` - An optional string providing the label caption text.
@@ -1887,7 +1869,7 @@ field errors and when necessary display customized error messages.
 
 ### Displaying Errors
 
-`method` Cake\\View\\Helper\\FormHelper(View::**error**(string $fieldName, mixed $text, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**error**(string $fieldName, mixed $text, array $options)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 - `$text` - Optional. A string or array providing the error message(s). If an
@@ -1950,7 +1932,7 @@ for the *Ticket* field, your form would output:
 
 ### Checking for Errors
 
-`method` Cake\\View\\Helper\\FormHelper(View::**isFieldError**(string $fieldName)
+`method` Cake\\View\\Helper\\FormHelper::**isFieldError**(string $fieldName)
 
 - `$fieldName` - A field name in the form `'Modelname.fieldname'`.
 
@@ -1964,8 +1946,6 @@ if ($this->Form->isFieldError('gender')) {
     echo $this->Form->error('gender');
 }
 ```
-
-<a id="html5-validity-messages"></a>
 
 ### Displaying validation messages in HTML5 validity messages
 
@@ -1996,7 +1976,7 @@ You could then use JavaScript to set the `onvalid` and `oninvalid` events as you
 
 ### Creating Submit Elements
 
-`method` Cake\\View\\Helper\\FormHelper(View::**submit**(string $caption, array $options)
+`method` Cake\\View\\Helper\\FormHelper::**submit**(string $caption, array $options)
 
 - `$caption` - An optional string providing the button's text caption or a
   path to an image. Defaults to `'Submit'`.
@@ -2055,7 +2035,7 @@ more complex button content you should use `button()`.
 
 ### Creating Button Elements
 
-`method` Cake\\View\\Helper\\FormHelper(View::**button**(string $title, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**button**(string $title, array $options = [])
 
 - `$title` - Mandatory string providing the button's text caption.
 - `$options` - An optional array including any of the
@@ -2111,7 +2091,7 @@ echo $this->Form->button('<em>Submit Form</em>', [
 
 ## Closing the Form
 
-`method` Cake\\View\\Helper\\FormHelper(View::**end**($secureAttributes = [])
+`method` Cake\\View\\Helper\\FormHelper::**end**($secureAttributes = [])
 
 - `$secureAttributes` - Optional. Allows you to provide secure attributes
   which will be passed as HTML attributes into the hidden input elements
@@ -2159,7 +2139,7 @@ Will output:
 
 ### Creating POST Buttons
 
-`method` Cake\\View\\Helper\\FormHelper(View::**postButton**(string $title, mixed $url, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**postButton**(string $title, mixed $url, array $options = [])
 
 - `$title` - Mandatory string providing the button's text caption. By default
   not HTML encoded.
@@ -2212,7 +2192,7 @@ inside opened forms.
 
 ### Creating POST Links
 
-`method` Cake\\View\\Helper\\FormHelper(View::**postLink**(string $title, array|string|null $url = null, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**postLink**(string $title, array|string|null $url = null, array $options = [])
 
 - `$title` - Mandatory string providing the text to be wrapped in `<a>`
   tags.
@@ -2259,11 +2239,9 @@ use `Cake\\View\\Helper\\FormHelper::button()` or
 > Be careful to not put a postLink inside an open form. Instead use the
 > `block` option to buffer the form into a [view block](#view-blocks)
 
-<a id="customizing-templates"></a>
-
 ### Creating DELETE Links
 
-`method` Cake\\View\\Helper\\FormHelper(View::**deleteLink**(string $title, array|string|null $url = null, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**deleteLink**(string $title, array|string|null $url = null, array $options = [])
 
 - `$title` - Mandatory string providing the text to be wrapped in `<a>`
   tags.
@@ -2432,7 +2410,7 @@ This will make radio buttons and checkboxes render outside of their labels.
 
 ### Creating Multiple Controls
 
-`method` Cake\\View\\Helper\\FormHelper(View::**controls**(array $fields = [], array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**controls**(array $fields = [], array $options = [])
 
 - `$fields` - An array of fields to generate. Allows setting
   custom types, labels and other options for each specified field.
@@ -2488,7 +2466,7 @@ If you disable the `fieldset`, the `legend` will not print.
 
 ### Creating Controls for a Whole Entity
 
-`method` Cake\\View\\Helper\\FormHelper(View::**allControls**(array $fields, array $options = [])
+`method` Cake\\View\\Helper\\FormHelper::**allControls**(array $fields, array $options = [])
 
 - `$fields` - Optional. An array of customizations for the fields that will
   be generated. Allows setting custom types, labels and other options.
@@ -2507,8 +2485,6 @@ specific fields from the generated controls, set them to `false` in the
 ``` php
 echo $this->Form->allControls(['password' => false]);
 ```
-
-<a id="associated-form-inputs"></a>
 
 ## Creating Inputs for Associated Data
 
@@ -2747,7 +2723,7 @@ As mentioned previously when using FormProtectionComponent, you should always cl
 your forms using `~Cake\\View\\Helper\\FormHelper::end()`. This will
 ensure that the special `_Token` inputs are generated.
 
-`method` Cake\\View\\Helper\\FormHelper(View::**unlockField**($name)
+`method` Cake\\View\\Helper\\FormHelper::**unlockField**($name)
 
 - `$name` - Optional. The dot-separated name for the field.
 
@@ -2759,7 +2735,7 @@ The `$name` parameter should be the entity property name for the field:
 $this->Form->unlockField('id');
 ```
 
-`method` Cake\\View\\Helper\\FormHelper(View::**secure**(array $fields = [], array $secureAttributes = [])
+`method` Cake\\View\\Helper\\FormHelper::**secure**(array $fields = [], array $secureAttributes = [])
 
 - `$fields` - Optional. An array containing the list of fields to use when
   generating the hash. If not provided, then `$this->fields` will be used.

@@ -1,6 +1,6 @@
 # Breadcrumbs
 
-`class` Cake\\View\\Helper\\**BreadcrumbsHelper(View**
+`class` Cake\\View\\Helper\\**BreadcrumbsHelper**(View $view, array $config = [])
 
 BreadcrumbsHelper provides a way to easily deal with the creation and rendering
 of a breadcrumbs trail for your app.
@@ -152,8 +152,6 @@ $this->Breadcrumbs->add(
     ]
 );
 ```
-
-<a id="defining_attributes_item"></a>
 
 ### Defining Attributes for the Item
 

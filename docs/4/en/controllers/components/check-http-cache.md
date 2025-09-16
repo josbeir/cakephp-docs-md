@@ -1,6 +1,6 @@
 # Checking HTTP Cache
 
-`class` **CheckHttpCacheComponent(ComponentCollection**
+`class` **CheckHttpCacheComponent**(ComponentCollection $collection, array $config = [])
 
 <div class="versionadded">
 

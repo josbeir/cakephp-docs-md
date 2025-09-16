@@ -1,6 +1,6 @@
 # FormHelper
 
-`class` **FormHelper(View**
+`class` **FormHelper**(View $view, array $settings = array())
 
 The FormHelper does most of the heavy lifting in form creation.
 The FormHelper focuses on creating forms quickly, in a way that
@@ -15,7 +15,7 @@ The first method you'll need to use in order to take advantage of
 the FormHelper is `create()`. This special method outputs an
 opening form tag.
 
-`method` FormHelper(View::**create**(string $model = null, array $options = array())
+`method` FormHelper::**create**(string $model = null, array $options = array())
 
 ### Options for create()
 
@@ -161,7 +161,7 @@ There are a number of options for create():
 
 ## Closing the Form
 
-`method` FormHelper(View::**end**($options = null, $secureAttributes = array())
+`method` FormHelper::**end**($options = null, $secureAttributes = array())
 
 ## Creating form elements
 
@@ -170,9 +170,9 @@ looking at `input()`. This method will automatically inspect the model field it
 has been supplied in order to create an appropriate input for that
 field. Internally `input()` delegates to other methods in FormHelper.
 
-`method` FormHelper(View::**input**(string $fieldName, array $options = array())
+`method` FormHelper::**input**(string $fieldName, array $options = array())
 
-`method` FormHelper(View::**inputs**(mixed $fields = null, array $blacklist = null, $options = array())
+`method` FormHelper::**inputs**(mixed $fields = null, array $blacklist = null, $options = array())
 
 ### Field naming conventions
 
@@ -817,23 +817,23 @@ All elements are created under a form for the `User` model as in the examples ab
 For this reason, the HTML code generated will contain attributes that reference to the User model.
 Ex: name=data\[User\]\[username\], id=UserUsername
 
-`method` FormHelper(View::**label**(string $fieldName, string $text, array $options)
+`method` FormHelper::**label**(string $fieldName, string $text, array $options)
 
-`method` FormHelper(View::**text**(string $name, array $options)
+`method` FormHelper::**text**(string $name, array $options)
 
-`method` FormHelper(View::**password**(string $fieldName, array $options)
+`method` FormHelper::**password**(string $fieldName, array $options)
 
-`method` FormHelper(View::**hidden**(string $fieldName, array $options)
+`method` FormHelper::**hidden**(string $fieldName, array $options)
 
-`method` FormHelper(View::**textarea**(string $fieldName, array $options)
+`method` FormHelper::**textarea**(string $fieldName, array $options)
 
-`method` FormHelper(View::**checkbox**(string $fieldName, array $options)
+`method` FormHelper::**checkbox**(string $fieldName, array $options)
 
-`method` FormHelper(View::**radio**(string $fieldName, array $options, array $attributes)
+`method` FormHelper::**radio**(string $fieldName, array $options, array $attributes)
 
-`method` FormHelper(View::**select**(string $fieldName, array $options, array $attributes)
+`method` FormHelper::**select**(string $fieldName, array $options, array $attributes)
 
-`method` FormHelper(View::**file**(string $fieldName, array $options)
+`method` FormHelper::**file**(string $fieldName, array $options)
 
 ### Validating Uploads
 
@@ -873,37 +873,37 @@ Will output:
 
 ## Creating buttons and submit elements
 
-`method` FormHelper(View::**submit**(string $caption, array $options)
+`method` FormHelper::**submit**(string $caption, array $options)
 
-`method` FormHelper(View::**button**(string $title, array $options = array())
+`method` FormHelper::**button**(string $title, array $options = array())
 
-`method` FormHelper(View::**postButton**(string $title, mixed $url, array $options = array ())
+`method` FormHelper::**postButton**(string $title, mixed $url, array $options = array ())
 
-`method` FormHelper(View::**postLink**(string $title, mixed $url = null, array $options = array ())
+`method` FormHelper::**postLink**(string $title, mixed $url = null, array $options = array ())
 
 ## Creating date and time inputs
 
-`method` FormHelper(View::**dateTime**($fieldName, $dateFormat = 'DMY', $timeFormat = '12', $attributes = array())
+`method` FormHelper::**dateTime**($fieldName, $dateFormat = 'DMY', $timeFormat = '12', $attributes = array())
 
-`method` FormHelper(View::**year**(string $fieldName, int $minYear, int $maxYear, array $attributes)
+`method` FormHelper::**year**(string $fieldName, int $minYear, int $maxYear, array $attributes)
 
-`method` FormHelper(View::**month**(string $fieldName, array $attributes)
+`method` FormHelper::**month**(string $fieldName, array $attributes)
 
-`method` FormHelper(View::**day**(string $fieldName, array $attributes)
+`method` FormHelper::**day**(string $fieldName, array $attributes)
 
-`method` FormHelper(View::**hour**(string $fieldName, boolean $format24Hours, array $attributes)
+`method` FormHelper::**hour**(string $fieldName, boolean $format24Hours, array $attributes)
 
-`method` FormHelper(View::**minute**(string $fieldName, array $attributes)
+`method` FormHelper::**minute**(string $fieldName, array $attributes)
 
-`method` FormHelper(View::**meridian**(string $fieldName, array $attributes)
+`method` FormHelper::**meridian**(string $fieldName, array $attributes)
 
 ## Displaying and checking errors
 
-`method` FormHelper(View::**error**(string $fieldName, mixed $text, array $options)
+`method` FormHelper::**error**(string $fieldName, mixed $text, array $options)
 
-`method` FormHelper(View::**isFieldError**(string $fieldName)
+`method` FormHelper::**isFieldError**(string $fieldName)
 
-`method` FormHelper(View::**tagIsInvalid**()
+`method` FormHelper::**tagIsInvalid**()
 
 ## Setting Defaults for all fields
 
@@ -949,9 +949,9 @@ As mentioned previously when using SecurityComponent, you should always close
 your forms using `FormHelper::end()`. This will ensure that the
 special `_Token` inputs are generated.
 
-`method` FormHelper(View::**unlockField**($name)
+`method` FormHelper::**unlockField**($name)
 
-`method` FormHelper(View::**secure**(array $fields = array())
+`method` FormHelper::**secure**(array $fields = array())
 
 ## 2.0 updates
 

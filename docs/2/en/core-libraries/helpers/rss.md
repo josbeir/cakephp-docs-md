@@ -1,6 +1,6 @@
 # RssHelper
 
-`class` **RssHelper(View**
+`class` **RssHelper**(View $view, array $settings = array())
 
 The RSS helper makes generating XML for RSS feeds easy.
 
@@ -219,14 +219,14 @@ site at <https://validator.w3.org/feed/>.
 >
 > Default spec version of generated RSS.
 
-`method` RssHelper(View::**channel**(array $attrib = array (), array $elements = array (), mixed $content = null)
+`method` RssHelper::**channel**(array $attrib = array (), array $elements = array (), mixed $content = null)
 
-`method` RssHelper(View::**document**(array $attrib = array (), string $content = null)
+`method` RssHelper::**document**(array $attrib = array (), string $content = null)
 
-`method` RssHelper(View::**elem**(string $name, array $attrib = array (), mixed $content = null, boolean $endTag = true)
+`method` RssHelper::**elem**(string $name, array $attrib = array (), mixed $content = null, boolean $endTag = true)
 
-`method` RssHelper(View::**item**(array $att = array (), array $elements = array ())
+`method` RssHelper::**item**(array $att = array (), array $elements = array ())
 
-`method` RssHelper(View::**items**(array $items, mixed $callback = null)
+`method` RssHelper::**items**(array $items, mixed $callback = null)
 
-`method` RssHelper(View::**time**(mixed $time)
+`method` RssHelper::**time**(mixed $time)

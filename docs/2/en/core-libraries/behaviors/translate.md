@@ -1,6 +1,6 @@
 # Translate
 
-`class` **TranslateBehavior()**
+`class` **TranslateBehavior**
 
 TranslateBehavior is actually quite easy to setup and works out of
 the box with very little configuration. In this section, you will
@@ -202,7 +202,7 @@ currently not supported.
 You can also retrieve all translations, only when you need them,
 using the bindTranslation method
 
-`method` TranslateBehavior()::**bindTranslation**($fields, $reset)
+`method` TranslateBehavior::**bindTranslation**($fields, $reset)
 
 `$fields` is a named-key array of field and association name,
 where the key is the translatable field and the value is the fake

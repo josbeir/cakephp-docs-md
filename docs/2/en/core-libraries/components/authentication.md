@@ -1,6 +1,6 @@
 # Authentication
 
-`class` **AuthComponent(ComponentCollection**
+`class` **AuthComponent**(ComponentCollection $collection, array $settings = array())
 
 Identifying, authenticating and authorizing users is a common part of almost
 every web application. In CakePHP AuthComponent provides a pluggable way to do
@@ -889,27 +889,27 @@ and authentication mechanics in CakePHP.
 > The session key name where the record of the current user is stored. If
 > unspecified, it will be "Auth.User".
 
-`method` AuthComponent(ComponentCollection::**allow**($action, [$action, ...])
+`method` AuthComponent::**allow**($action, [$action, ...])
 
-`method` AuthComponent(ComponentCollection::**constructAuthenticate**()
+`method` AuthComponent::**constructAuthenticate**()
 
-`method` AuthComponent(ComponentCollection::**constructAuthorize**()
+`method` AuthComponent::**constructAuthorize**()
 
-`method` AuthComponent(ComponentCollection::**deny**($action, [$action, ...])
+`method` AuthComponent::**deny**($action, [$action, ...])
 
-`method` AuthComponent(ComponentCollection::**identify**($request, $response)
+`method` AuthComponent::**identify**($request, $response)
 
-`method` AuthComponent(ComponentCollection::**initialize**($Controller)
+`method` AuthComponent::**initialize**($Controller)
 
-`method` AuthComponent(ComponentCollection::**isAuthorized**($user = null, $request = null)
+`method` AuthComponent::**isAuthorized**($user = null, $request = null)
 
-`method` AuthComponent(ComponentCollection::**loggedIn**()
+`method` AuthComponent::**loggedIn**()
 
-`method` AuthComponent(ComponentCollection::**login**($user)
+`method` AuthComponent::**login**($user)
 
-`method` AuthComponent(ComponentCollection::**logout**()
+`method` AuthComponent::**logout**()
 
-`method` AuthComponent(ComponentCollection::**mapActions**($map = array())
+`method` AuthComponent::**mapActions**($map = array())
 
 <div class="deprecated">
 
@@ -917,7 +917,7 @@ and authentication mechanics in CakePHP.
 
 </div>
 
-`method` AuthComponent(ComponentCollection::**redirect**($url = null)
+`method` AuthComponent::**redirect**($url = null)
 
 <div class="deprecated">
 
@@ -925,7 +925,7 @@ and authentication mechanics in CakePHP.
 
 </div>
 
-`method` AuthComponent(ComponentCollection::**redirectUrl**($url = null)
+`method` AuthComponent::**redirectUrl**($url = null)
 
 <div class="versionadded">
 
@@ -933,6 +933,6 @@ and authentication mechanics in CakePHP.
 
 </div>
 
-`method` AuthComponent(ComponentCollection::**shutdown**($Controller)
+`method` AuthComponent::**shutdown**($Controller)
 
-`method` AuthComponent(ComponentCollection::**startup**($Controller)
+`method` AuthComponent::**startup**($Controller)

@@ -5,7 +5,7 @@
 > the `Cake\Network\Email` namespace instead of the `Cake\Mailer`
 > namespace.
 
-`class` Cake\\Mailer\\**Email(mixed**
+`class` Cake\\Mailer\\**Email**(mixed $profile = null)
 
 `Email` is a new class to send email. With this
 class you can send email from any place inside of your application.
@@ -371,7 +371,7 @@ Use `viewBuilder()->setTemplate()` instead of `template()`. Use
 
 ## Sending Attachments
 
-`method` Cake\\Mailer\\Email(mixed::**attachments**($attachments)
+`method` Cake\\Mailer\\Email::**attachments**($attachments)
 
 You can attach files to email messages as well. There are a few
 different formats depending on what kind of files you have, and how
@@ -487,7 +487,7 @@ $email->send();
 
 ### Relaxing Address Validation Rules
 
-`method` Cake\\Mailer\\Email(mixed::**emailPattern**($pattern)
+`method` Cake\\Mailer\\Email::**emailPattern**($pattern)
 
 If you are having validation issues when sending to non-compliant addresses, you
 can relax the pattern used to validate email addresses. This is sometimes

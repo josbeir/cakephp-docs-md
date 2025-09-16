@@ -1,6 +1,6 @@
 # FormProtection
 
-`class` **FormProtection(ComponentCollection**
+`class` **FormProtection**(ComponentCollection $collection, array $config = [])
 
 The FormProtection Component provides protection against form data tampering.
 

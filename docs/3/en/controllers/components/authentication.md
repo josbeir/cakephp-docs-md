@@ -1,6 +1,6 @@
 # AuthComponent
 
-`class` **AuthComponent(ComponentCollection**
+`class` **AuthComponent**(ComponentCollection $collection, array $config = [])
 
 Identifying, authenticating, and authorizing users is a common part of
 almost every web application. In CakePHP AuthComponent provides a
@@ -225,7 +225,7 @@ public function findAuth(\Cake\ORM\Query $query, array $options)
 
 ### Identifying Users and Logging Them In
 
-`method` AuthComponent(ComponentCollection::**identify**()
+`method` AuthComponent::**identify**()
 
 You need to manually call `$this->Auth->identify()` to identify the user using
 credentials provided in request. Then use `$this->Auth->setUser()`
@@ -263,7 +263,7 @@ and then redirect to either the last page they were visiting or a URL specified 
 
 ### Redirecting Users After Login
 
-`method` AuthComponent(ComponentCollection::**redirectUrl**()
+`method` AuthComponent::**redirectUrl**()
 
 After logging a user in, you'll generally want to redirect them back to where
 they came from. Pass a URL in to set the destination a user should be redirected
@@ -743,7 +743,7 @@ then save the entity.
 
 ### Manually Logging Users In
 
-`method` AuthComponent(ComponentCollection::**setUser**(array $user)
+`method` AuthComponent::**setUser**(array $user)
 
 Sometimes the need arises where you need to manually log a user in, such
 as just after they registered for your application. You can do this by
@@ -769,7 +769,7 @@ public function register()
 
 ### Accessing the Logged In User
 
-`method` AuthComponent(ComponentCollection::**user**($key = null)
+`method` AuthComponent::**user**($key = null)
 
 Once a user is logged in, you will often need some particular
 information about the current user. You can access the currently logged
@@ -785,7 +785,7 @@ be returned.
 
 ### Logging Users Out
 
-`method` AuthComponent(ComponentCollection::**logout**()
+`method` AuthComponent::**logout**()
 
 Eventually, you'll want a quick way to de-authenticate someone and
 redirect them to where they need to go. This method is also useful if
@@ -946,7 +946,7 @@ controller's `beforeFilter()` or with another component.
 
 ### Making Actions Public
 
-`method` AuthComponent(ComponentCollection::**allow**($actions = null)
+`method` AuthComponent::**allow**($actions = null)
 
 There are often times controller actions that you wish to remain
 entirely public or that don't require users to be logged in.
@@ -975,7 +975,7 @@ For a single action, you can provide the action name as a string. Otherwise, use
 
 ### Making Actions Require Authorization
 
-`method` AuthComponent(ComponentCollection::**deny**($actions = null)
+`method` AuthComponent::**deny**($actions = null)
 
 By default all actions require authorization. However, after making actions
 public you want to revoke the public access. You can do so using

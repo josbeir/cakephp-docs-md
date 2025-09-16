@@ -1,6 +1,6 @@
 # Request Handling
 
-`class` **RequestHandlerComponent(ComponentCollection**
+`class` **RequestHandlerComponent**(ComponentCollection $collection, array $config = [])
 
 <div class="deprecated">
 
@@ -44,7 +44,7 @@ class WidgetsController extends AppController
 Request Handler has several methods that provide information about
 the client and its request.
 
-`method` RequestHandlerComponent(ComponentCollection::**accepts**($type = null)
+`method` RequestHandlerComponent::**accepts**($type = null)
 
 ## Automatically Decoding Request Data
 
@@ -53,7 +53,7 @@ should use [Body Parser Middleware](#body-parser-middleware) instead.
 
 ## Checking Content-Type Preferences
 
-`method` RequestHandlerComponent(ComponentCollection::**prefers**($type = null)
+`method` RequestHandlerComponent::**prefers**($type = null)
 
 Determines which content-types the client prefers. If no parameter
 is given the most likely content type is returned. If \$type is an
@@ -68,7 +68,7 @@ $this->RequestHandler->prefers('json');
 
 ## Responding To Requests
 
-`method` RequestHandlerComponent(ComponentCollection::**renderAs**($controller, $type)
+`method` RequestHandlerComponent::**renderAs**($controller, $type)
 
 Change the render mode of a controller to the specified type. Will
 also append the appropriate helper to the controller's helper array
@@ -82,7 +82,7 @@ $this->RequestHandler->renderAs($this, 'xml');
 This method will also attempt to add a helper that matches your current content
 type. For example if you render as `rss`, the `RssHelper` will be added.
 
-`method` RequestHandlerComponent(ComponentCollection::**respondAs**($type, $options)
+`method` RequestHandlerComponent::**respondAs**($type, $options)
 
 Sets the response header based on content-type map names. This method lets you
 set a number of response properties at once:
@@ -95,7 +95,7 @@ $this->RequestHandler->respondAs('xml', [
 ]);
 ```
 
-`method` RequestHandlerComponent(ComponentCollection::**responseType**()
+`method` RequestHandlerComponent::**responseType**()
 
 Returns the current response type Content-type header or null if one has yet to
 be set.

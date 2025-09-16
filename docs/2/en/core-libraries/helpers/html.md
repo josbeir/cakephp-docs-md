@@ -1,6 +1,6 @@
 # HtmlHelper
 
-`class` **HtmlHelper(View**
+`class` **HtmlHelper**(View $view, array $settings = array())
 
 The role of the HtmlHelper in CakePHP is to make HTML-related
 options easier, faster, and more resilient to change. Using this
@@ -34,54 +34,54 @@ views in CakePHP in order to save some CPU cycles when views are
 being rendered and delivered. This section will cover some of the
 methods of the HtmlHelper and how to use them.
 
-`method` HtmlHelper(View::**charset**($charset=null)
+`method` HtmlHelper::**charset**($charset=null)
 
-`method` HtmlHelper(View::**css**(mixed $path, array $options = array())
+`method` HtmlHelper::**css**(mixed $path, array $options = array())
 
-`method` HtmlHelper(View::**meta**(string $type, string $url = null, array $options = array())
+`method` HtmlHelper::**meta**(string $type, string $url = null, array $options = array())
 
-`method` HtmlHelper(View::**docType**(string $type = 'xhtml-strict')
+`method` HtmlHelper::**docType**(string $type = 'xhtml-strict')
 
-`method` HtmlHelper(View::**style**(array $data, boolean $oneline = true)
+`method` HtmlHelper::**style**(array $data, boolean $oneline = true)
 
-`method` HtmlHelper(View::**image**(string $path, array $options = array())
+`method` HtmlHelper::**image**(string $path, array $options = array())
 
-`method` HtmlHelper(View::**link**(string $title, mixed $url = null, array $options = array())
+`method` HtmlHelper::**link**(string $title, mixed $url = null, array $options = array())
 
-`method` HtmlHelper(View::**media**(string|array $path, array $options)
+`method` HtmlHelper::**media**(string|array $path, array $options)
 
-`method` HtmlHelper(View::**tag**(string $tag, string $text, array $options)
+`method` HtmlHelper::**tag**(string $tag, string $text, array $options)
 
-`method` HtmlHelper(View::**div**(string $class, string $text, array $options)
+`method` HtmlHelper::**div**(string $class, string $text, array $options)
 
-`method` HtmlHelper(View::** para(string $class, string $text, array $options)**()
+`method` HtmlHelper::** para(string $class, string $text, array $options)**()
 
-`method` HtmlHelper(View::**script**(mixed $url, mixed $options)
+`method` HtmlHelper::**script**(mixed $url, mixed $options)
 
-`method` HtmlHelper(View::** scriptBlock($code, $options = array())**()
+`method` HtmlHelper::** scriptBlock($code, $options = array())**()
 
-`method` HtmlHelper(View::**scriptStart**($options = array())
+`method` HtmlHelper::**scriptStart**($options = array())
 
-`method` HtmlHelper(View::**scriptEnd**()
+`method` HtmlHelper::**scriptEnd**()
 
-`method` HtmlHelper(View::**nestedList**(array $list, array $options = array(), array $itemOptions = array(), string $tag = 'ul')
+`method` HtmlHelper::**nestedList**(array $list, array $options = array(), array $itemOptions = array(), string $tag = 'ul')
 
-`method` HtmlHelper(View::**tableHeaders**(array $names, array $trOptions = null, array $thOptions = null)
+`method` HtmlHelper::**tableHeaders**(array $names, array $trOptions = null, array $thOptions = null)
 
-`method` HtmlHelper(View::**tableCells**(array $data, array $oddTrOptions = null, array $evenTrOptions = null, $useCount = false, $continueOddEven = true)
+`method` HtmlHelper::**tableCells**(array $data, array $oddTrOptions = null, array $evenTrOptions = null, $useCount = false, $continueOddEven = true)
 
-`method` HtmlHelper(View::**url**(mixed $url = NULL, boolean $full = false)
+`method` HtmlHelper::**url**(mixed $url = NULL, boolean $full = false)
 
-`method` HtmlHelper(View::**useTag**(string $tag)
+`method` HtmlHelper::**useTag**(string $tag)
 
 ## Changing the tags output by HtmlHelper
 
-`method` HtmlHelper(View::**loadConfig**(mixed $configFile, string $path = null)
+`method` HtmlHelper::**loadConfig**(mixed $configFile, string $path = null)
 
 ## Creating breadcrumb trails with HtmlHelper
 
-`method` HtmlHelper(View::**getCrumbs**(string $separator = '&raquo;', string|array|bool $startText = false)
+`method` HtmlHelper::**getCrumbs**(string $separator = '&raquo;', string|array|bool $startText = false)
 
-`method` HtmlHelper(View::**addCrumb**(string $name, string $link = null, mixed $options = null)
+`method` HtmlHelper::**addCrumb**(string $name, string $link = null, mixed $options = null)
 
-`method` HtmlHelper(View::**getCrumbList**(array $options = array(), mixed $startText)
+`method` HtmlHelper::**getCrumbList**(array $options = array(), mixed $startText)

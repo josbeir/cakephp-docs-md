@@ -1,6 +1,6 @@
 # Number
 
-`class` Cake\\View\\Helper\\**NumberHelper(View**
+`class` Cake\\View\\Helper\\**NumberHelper**(View $view, array $config = [])
 
 The NumberHelper contains convenient methods that enable display
 numbers in common formats in your views. These methods include ways
