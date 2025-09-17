@@ -38,6 +38,8 @@ your auto-increment values will no longer start at `1` with each test.
 The following documentation applies only to the listener-based fixtures that are
 the default prior to 4.3.0.
 
+<a id="fixture-schema"></a>
+
 ### Fixture Schema
 
 We use `$fields` to specify which fields will be part of this table, and how

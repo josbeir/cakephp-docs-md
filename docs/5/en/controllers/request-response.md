@@ -11,6 +11,8 @@ responses from your controllers.
 
 </div>
 
+<a id="cake-request"></a>
+
 ## Request
 
 `class` Cake\\Http\\**ServerRequest**
@@ -44,6 +46,8 @@ Some of the duties `ServerRequest` performs include:
 CakePHP's request object implements the [PSR-7
 ServerRequestInterface](https://www.php-fig.org/psr/psr-7/) making it easier to
 use libraries from outside of CakePHP.
+
+<a id="request-parameters"></a>
 
 ### Request Parameters
 
@@ -178,6 +182,8 @@ If you want to access all the data parameters you can use
 ``` php
 $data = $this->request->getParsedBody();
 ```
+
+<a id="request-file-uploads"></a>
 
 ### File Uploads
 
@@ -370,6 +376,8 @@ $base = $request->getAttribute('base');
 // Holds /subdir/
 $base = $request->getAttribute('webroot');
 ```
+
+<a id="check-the-request"></a>
 
 ### Checking Request Conditions
 
@@ -647,6 +655,8 @@ Check whether a specific language is accepted:
 $acceptsSpanish = $this->request->acceptLanguage('es-es');
 ```
 
+<a id="request-cookies"></a>
+
 ### Reading Cookies
 
 Request cookies can be read through a number of methods:
@@ -744,6 +754,8 @@ $this->response = $this->response->withType('vcf');
 Usually, you'll want to map additional content types in your controller's
 `~Controller::beforeFilter()` callback, so you can benefit from
 automatic view switching provided by [Controller Viewclasses](#controller-viewclasses).
+
+<a id="cake-response-file"></a>
 
 ### Sending Files
 
@@ -945,6 +957,8 @@ The `withCache()` method sets the `Last-Modified` value to the first
 argument. `Expires` header and the `max-age` directive are set based on the
 second parameter. Cache-Control's `public` directive is set as well.
 
+<a id="cake-response-caching"></a>
+
 ### Fine Tuning HTTP Cache
 
 One of the best and easiest ways of speeding up your application is to use HTTP
@@ -1118,6 +1132,8 @@ if ($this->response->isNotModified($this->request)) {
 }
 ```
 
+<a id="response-cookies"></a>
+
 ### Setting Cookies
 
 Cookies can be added to response using either an array or a `Cake\\Http\\Cookie\\Cookie`
@@ -1150,6 +1166,8 @@ will make the browser remove its local cookie:
 ``` php
 $this->response = $this->response->withExpiredCookie(new Cookie('remember_me'));
 ```
+
+<a id="cors-headers"></a>
 
 ### Setting Cross Origin Request Headers (CORS)
 
@@ -1355,6 +1373,8 @@ $this->response = $this->response->withHeader('X-CakePHP', 'yes!');
 They let you interact with groups of cookies using immutable patterns, which
 allow the immutability of the request and response to be preserved.
 
+<a id="creating-cookies"></a>
+
 ### Creating Cookies
 
 `class` Cake\\Http\\Cookie\\**Cookie**
@@ -1418,6 +1438,8 @@ $response = $this->response->withCookieCollection($cookies);
 
 Cookies set to responses can be encrypted using the
 [Encrypted Cookie Middleware](#encrypted-cookie-middleware).
+
+<a id="request-cookies"></a>
 
 ### Reading Cookies
 

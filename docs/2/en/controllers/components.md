@@ -11,6 +11,8 @@ Each of the core components is detailed in its own chapter. See [Components](../
 This section describes how to configure and use components, and how to create
 your own components.
 
+<a id="configuring-components"></a>
+
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of
@@ -147,6 +149,8 @@ Components also offer a few request life-cycle callbacks that allow them
 to augment the request cycle. See the base [Component Api](#component-api) for
 more information on the callbacks components offer.
 
+<a id="creating-a-component"></a>
+
 ## Creating a Component
 
 Suppose our online application needs to perform a complex
@@ -247,6 +251,8 @@ class ExistingComponent extends Component {
 > [!NOTE]
 > In contrast to a component included in a controller
 > no callbacks will be triggered on a component's component.
+
+<a id="component-api"></a>
 
 ## Component API
 

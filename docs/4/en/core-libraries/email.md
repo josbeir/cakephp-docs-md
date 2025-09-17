@@ -55,6 +55,8 @@ $mailer->setSender('app@example.com', 'MyApp emailer');
 > person's behalf. This prevents them from getting any messages about
 > deliverability.
 
+<a id="email-configuration"></a>
+
 ## Configuration
 
 Mailer profiles and email transport settings are defined in your application's
@@ -87,6 +89,8 @@ $mailer->setProfile(['from' => 'me@example.org', 'transport' => 'my_custom']);
 // Or in constructor
 $mailer = new Mailer(['from' => 'me@example.org', 'transport' => 'my_custom']);
 ```
+
+<a id="email-configurations"></a>
 
 ### Configuration Profiles
 
@@ -460,6 +464,8 @@ $this->Users->getEventManager()->on($this->getMailer('User'));
 > For information on how to register event listener objects,
 > please refer to the [Registering Event Listeners](#registering-event-listeners) documentation.
 
+<a id="email-transport"></a>
+
 ## Configuring Transports
 
 Email messages are delivered by transports. Different transports allow you to
@@ -612,6 +618,8 @@ $result = $transport->send($message);
 
 You can even skip using the `Renderer` and set the message body directly
 using `Message::setBodyText()` and `Message::setBodyHtml()` methods.
+
+<a id="email-testing"></a>
 
 ## Testing Mailers
 

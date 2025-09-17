@@ -193,6 +193,8 @@ $query->disableHydration();
 $data = $query->all();
 ```
 
+<a id="table-find-first"></a>
+
 ## Getting the First Result
 
 The `first()` method allows you to fetch only the first row from a query. If
@@ -223,6 +225,8 @@ $number = $query->count();
 ```
 
 See [Query Count](#query-count) for additional usage of the `count()` method.
+
+<a id="table-find-list"></a>
 
 ## Finding Key/Value Pairs
 
@@ -341,6 +345,8 @@ $this->setDisplayField('label'); // Will utilize Author::_getLabel()
 $query = $authors->find('list'); // Will utilize AuthorsTable::getDisplayField()
 ```
 
+<a id="finding-threaded-data"></a>
+
 ## Finding Threaded Data
 
 The `find('threaded')` finder returns nested entities that are threaded
@@ -370,6 +376,8 @@ threading will occur on.
 > [!TIP]
 > If you need to manage more advanced trees of data, consider using
 > [Tree](../orm/behaviors/tree.md) instead.
+
+<a id="custom-find-methods"></a>
 
 ## Custom Finder Methods
 
@@ -413,6 +421,8 @@ methods can also be defined on [Behaviors](../orm/behaviors.md).
 If you need to modify the results after they have been fetched you should use
 a [Map Reduce](#map-reduce) function to modify the results. The map reduce features
 replace the 'afterFind' callback found in previous versions of CakePHP.
+
+<a id="dynamic-finders"></a>
 
 ## Dynamic Finders
 
@@ -484,6 +494,8 @@ a specific tag on them. For more details on the `matching()`, look at
 
 If you prefer to use join functions, you can look at
 [Adding Joins](#adding-joins) for more information.
+
+<a id="eager-loading-associations"></a>
 
 ## Eager Loading Associations Via Contain
 
@@ -702,6 +714,8 @@ $query->contain([
     ]
 ]);
 ```
+
+<a id="filtering-by-associated-data"></a>
 
 ## Filtering by Associated Data Via Matching And Joins
 
@@ -1079,6 +1093,8 @@ $results = $query->all();
 $results->isEmpty();
 ```
 
+<a id="loading-additional-associations"></a>
+
 ### Loading Additional Associations
 
 Once you've created a result set, you may need to load
@@ -1103,6 +1119,8 @@ $withMore = $this->Users->loadInto($user, ['Posts' => function (Query $query) {
 
 You can eager load additional data into a single entity, or a collection of
 entities.
+
+<a id="map-reduce"></a>
 
 ## Modifying Results with Map/Reduce
 

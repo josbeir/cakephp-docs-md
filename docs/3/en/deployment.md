@@ -84,6 +84,8 @@ In all cases you will want to set the virtual host/domain's document to be
 `webroot/`. This removes the possibility of files outside of the webroot
 directory being executed.
 
+<a id="symlink-assets"></a>
+
 ## Improve Your Application's Performance
 
 Class loading can take a big share of your application's processing time.

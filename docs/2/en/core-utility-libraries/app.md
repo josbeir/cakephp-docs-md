@@ -173,6 +173,8 @@ from:
 >
 > </div>
 
+<a id="app-build-register"></a>
+
 ### Add new packages to an application
 
 `App::build()` can be used to add new package locations. This is useful
@@ -249,6 +251,8 @@ Registering packages was added in 2.1
 >
 > Themes can be found `App::themePath('purple');`, would give the full path to the
 > <span class="title-ref">purple</span> theme.
+
+<a id="app-import"></a>
 
 ## Including files with App::import()
 

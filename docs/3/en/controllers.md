@@ -29,6 +29,8 @@ for interpreting the request and creating the response. Usually responses are
 in the form of a rendered view, but there are other ways to create responses as
 well.
 
+<a id="app-controller"></a>
+
 ## The App Controller
 
 As stated in the introduction, the `AppController` class is the parent class
@@ -145,6 +147,8 @@ Controllers interact with views in a number of ways. First, they
 are able to pass data to the views, using `Controller::set()`. You can also
 decide which view class to use, and which view file should be
 rendered from the controller.
+
+<a id="setting-view_variables"></a>
 
 ### Setting View Variables
 
@@ -486,6 +490,8 @@ Loading Helpers from the controller is provided for backwards compatibility
 reasons. You should see [Configuring Helpers](views/helpers.md#configuring-helpers) for how to load helpers.
 
 </div>
+
+<a id="controller-life-cycle"></a>
 
 ## Request Life-cycle Callbacks
 

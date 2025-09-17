@@ -281,6 +281,8 @@ The following is a list of methods that are deprecated and replaced with
 - `className()`
 - `autoLayout()` (now `enableAutoLayout()`/`isAutoLayoutEnabled()`)
 
+<a id="adopting-immutable-responses"></a>
+
 ## Adopting Immutable Responses
 
 Before you migrate your code to use the new response methods you should be aware

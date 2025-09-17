@@ -135,6 +135,8 @@ $response = $http->get(
 );
 ```
 
+<a id="http_client_request_options"></a>
+
 ## Request Method Options
 
 Each HTTP method takes an `$options` parameter which is used to provide
@@ -259,6 +261,8 @@ protocol. The username and password information will be passed through the
 request headers, while the proxy string will be passed through
 [stream_context_create()](https://php.net/manual/en/function.stream-context-create.php).
 
+<a id="http_client_scoped_client"></a>
+
 ## Creating Scoped Clients
 
 Having to re-type the domain name, authentication and proxy settings can become
@@ -354,6 +358,8 @@ $http->addCookie(new Cookie('session', 'abc123'));
 
 </div>
 
+<a id="httpclient-response-objects"></a>
+
 ## Response Objects
 
 `class` Cake\\Http\\Client\\**Response**
@@ -393,6 +399,8 @@ while (!$stream->eof()) {
     echo $stream->read(100);
 }
 ```
+
+<a id="http-client-xml-json"></a>
 
 ### Reading JSON and XML Response Bodies
 

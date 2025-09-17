@@ -218,6 +218,8 @@ Router::resourceMap(array(
 By overwriting the default resource map, future calls to `mapResources()` will
 use the new values.
 
+<a id="custom-rest-routing"></a>
+
 ## Custom REST Routing
 
 If the default routes created by `Router::mapResources()` don't work

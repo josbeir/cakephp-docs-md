@@ -16,6 +16,8 @@ routes.php
 
 </div>
 
+<a id="routes-configuration"></a>
+
 ## Routes Configuration
 
 Routes in an application are configured in `app/Config/routes.php`.
@@ -68,6 +70,8 @@ disable the default routing by removing them from your application's
 :controller, :action, :plugin
 
 </div>
+
+<a id="connecting-routes"></a>
 
 ## Connecting Routes
 
@@ -196,6 +200,8 @@ first match found.
 By default all named and passed arguments are extracted from URLs matching
 greedy templates. However, you can configure how and which named arguments are
 parsed using `Router::connectNamed()` if you need to.
+
+<a id="route-elements"></a>
 
 ### Route Elements
 
@@ -386,6 +392,8 @@ admin routing, prefix routing
 
 </div>
 
+<a id="prefix-routing"></a>
+
 ### Prefix Routing
 
 Many applications require an administration section where
@@ -507,6 +515,8 @@ file extensions
 
 </div>
 
+<a id="file-extensions"></a>
+
 ### File Extensions
 
 To handle different file extensions with your routes, you need one
@@ -550,6 +560,8 @@ File extensions are used by `RequestHandlerComponent` to do automatic
 view switching based on content types. See the RequestHandlerComponent for
 more information.
 
+<a id="route-conditions"></a>
+
 ### Using Additional Conditions When Matching Routes
 
 When creating routes you might want to restrict certain URL's based on specific
@@ -582,6 +594,8 @@ you can create custom REST routing, or other request data dependent information.
 passed arguments
 
 </div>
+
+<a id="passed-arguments"></a>
 
 ## Passed Arguments
 
@@ -651,6 +665,8 @@ Since `5` has a numeric key, it is treated as a passed argument.
 named parameters
 
 </div>
+
+<a id="named-parameters"></a>
 
 ## Named Parameters
 
@@ -801,6 +817,8 @@ $this->passedArgs['models'] = array(
 );
 ```
 
+<a id="controlling-named-parameters"></a>
+
 ### Controlling Named Parameters
 
 You can control named parameter configuration at the per-route-level
@@ -908,6 +926,8 @@ Router::url(array(
 /posts/index?page=1#top
 ```
 
+<a id="redirect-routing"></a>
+
 ## Redirect Routing
 
 Redirect routing allows you to issue HTTP status 30x redirects for
@@ -942,6 +962,8 @@ Router::redirect('/posts/*', 'https://google.com', array('status' => 302));
 This would redirect `/posts/*` to `https://google.com` with a
 HTTP status of 302.
 
+<a id="disabling-default-routes"></a>
+
 ## Disabling the Default Routes
 
 If you have fully customized all your routes, and want to avoid any
@@ -952,6 +974,8 @@ application's routes.php file.
 This will cause CakePHP to serve errors, when users try to visit
 URLs that would normally be provided by CakePHP but have not
 been connected explicitly.
+
+<a id="custom-route-classes"></a>
 
 ## Custom Route Classes
 

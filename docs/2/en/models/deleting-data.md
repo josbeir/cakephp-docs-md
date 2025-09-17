@@ -2,6 +2,8 @@
 
 CakePHP's Model class offers a few ways to delete records from your database.
 
+<a id="model-delete"></a>
+
 ## delete
 
 `delete(integer $id = null, boolean $cascade = true);`
@@ -35,6 +37,8 @@ You can hook custom logic into the delete process using the `beforeDelete` and
 > callbacks, e.g. `beforeDelete` returns `false`, it will not stop the
 > further event propagation nor does it change the return value of the initial
 > `delete`.
+
+<a id="model-deleteall"></a>
 
 ## deleteAll
 

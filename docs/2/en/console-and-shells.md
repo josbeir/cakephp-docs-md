@@ -11,6 +11,8 @@ Some of these applications are used in concert with other CakePHP
 features (like ACL or i18n), and others are for general use in
 getting you working faster.
 
+<a id="the-cakephp-console"></a>
+
 ## The CakePHP console
 
 This section provides an introduction into CakePHP at the
@@ -99,6 +101,8 @@ $ cake -app /path/to/cakephp/app
 
 The path supplied can be relative to the current working directory
 or supplied as an absolute path.
+
+<a id="adding-cake-to-your-path"></a>
 
 ### Adding cake to your system path
 
@@ -288,6 +292,8 @@ Would load and return a ProjectTask instance. You can load tasks from plugins us
 $ProgressBar = $this->Tasks->load('ProgressBar.ProgressBar');
 ```
 
+<a id="invoking-other-shells-from-your-shell"></a>
+
 ## Invoking other shells from your shell
 
 Shells no longer have direct access to the ShellDispatcher any more through <span class="title-ref">\$this-\>Dispatch</span>.
@@ -306,6 +312,8 @@ $this->dispatchShell('schema', 'create', 'Blog', '--plugin', 'Blog');
 
 The above shows how you can call the schema shell to create the schema for a plugin
 from inside your plugin's shell.
+
+<a id="shell-output-level"></a>
 
 ## Console output levels
 

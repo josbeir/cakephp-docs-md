@@ -57,6 +57,8 @@ find users in your area, or would like to donate your brand new sports car.
 
 You can also join us on Discord.
 
+<a id="cakephp-official-communities"></a>
+
 ## Official CakePHP Forum
 
 [CakePHP Official Forum](https://discourse.cakephp.org)

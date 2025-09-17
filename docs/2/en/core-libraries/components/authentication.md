@@ -8,6 +8,8 @@ these tasks. AuthComponent allows you to combine authentication objects, and
 authorization objects to create flexible ways of identifying and checking user
 authorization.
 
+<a id="authentication-objects"></a>
+
 ## Suggested Reading Before Continuing
 
 Configuring authentication requires several steps including defining a users
@@ -382,6 +384,8 @@ if (!$this->Auth->loggedIn()) {
 }
 ```
 
+<a id="hashing-passwords"></a>
+
 ### Hashing passwords
 
 AuthComponent no longer automatically hashes every password it can find.
@@ -577,6 +581,8 @@ accomplish for all clients. Most browsers will retain credentials for the
 duration they are still open. Some clients can be forced to logout by sending a
 401 status code. Changing the authentication realm is another solution that
 works for some clients.
+
+<a id="authorization-objects"></a>
 
 ## Authorization
 

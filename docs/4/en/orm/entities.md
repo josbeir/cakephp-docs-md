@@ -250,6 +250,8 @@ $user->set('title', 'foo'); // sets slug field and stores FOO instead of foo
 > If you want to transform fields but not persist that transformation,
 > we recommend using virtual fields as those are not persisted.
 
+<a id="entities-virtual-fields"></a>
+
 ### Creating Virtual Fields
 
 By defining accessors you can provide access to fields that do not
@@ -367,6 +369,8 @@ $user->setErrors([
 ]);
 ```
 
+<a id="entities-mass-assignment"></a>
+
 ## Mass Assignment
 
 While setting fields to entities in bulk is simple and convenient, it can
@@ -478,6 +482,8 @@ $article->setNew(false);
 $article->setNew(true);
 ```
 
+<a id="lazy-load-associations"></a>
+
 ## Lazy Loading Associations
 
 While eager loading associations is generally the most efficient way to access
@@ -574,6 +580,8 @@ When converting an entity to an JSON, the virtual & hidden field lists are
 applied. Entities are recursively converted to JSON as well. This means that if you
 eager loaded entities and their associations CakePHP will correctly handle
 converting the associated data into the correct format.
+
+<a id="exposing-virtual-fields"></a>
 
 ### Exposing Virtual Fields
 

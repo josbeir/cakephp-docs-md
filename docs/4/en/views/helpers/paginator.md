@@ -9,6 +9,8 @@ and next/previous links. It works in tandem with
 See also [Pagination](../../controllers/components/pagination.md) for information on how to
 create paginated datasets and do paginated queries.
 
+<a id="paginator-templates"></a>
+
 ## PaginatorHelper Templates
 
 Internally PaginatorHelper uses a series of simple HTML templates to generate
@@ -476,6 +478,8 @@ markers:
              {{count}} total, starting on record {{start}}, ending on {{end}}'
 ]) ?>
 ```
+
+<a id="paginator-helper-multiple"></a>
 
 ## Paginating Multiple Results
 

@@ -253,6 +253,8 @@ $this->executeCommand($command, ['--verbose', 'deploy']);
 > parent command's `ConsoleIo` instance as the optional 3rd argument to
 > avoid a potential "open files" limit that could occur in some environments.
 
+<a id="console-command-description"></a>
+
 ## Setting Command Description
 
 You may want to set a command description via:
@@ -286,6 +288,8 @@ My custom description
 Usage:
 cake user [-h] [-q] [-v]
 ```
+
+<a id="console-integration-testing"></a>
 
 ## Testing Commands
 

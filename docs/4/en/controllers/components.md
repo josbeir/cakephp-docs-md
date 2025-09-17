@@ -19,6 +19,8 @@ chapter for each component:
 - [FormProtection](../controllers/components/form-protection.md)
 - [Checking HTTP Cache](../controllers/components/check-http-cache.md)
 
+<a id="configuring-components"></a>
+
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
@@ -157,6 +159,8 @@ class PostsController extends AppController
 > like Controller actions have. Use a service class inside your controller actions
 > instead of a component if you need this functionality.
 
+<a id="creating-a-component"></a>
+
 ## Creating a Component
 
 Suppose our application needs to perform a complex mathematical operation in
@@ -294,6 +298,8 @@ augment the request cycle.
 `method` Class::**shutdown**(EventInterface $event)
 
 `method` Class::**beforeRedirect**(EventInterface $event, $url, Response $response)
+
+<a id="redirect-component-events"></a>
 
 ## Using Redirects in Component Events
 

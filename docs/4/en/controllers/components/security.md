@@ -4,7 +4,7 @@
 
 4.0.0
 `SecurityComponent` has been deprecated. Use [FormProtection](../../controllers/components/form-protection.md) instead
-for form tampering protection or [HTTPS Enforcer Middleware](../../security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
+for form tampering protection or [Https Enforcer](../../security/https-enforcer.md) to enforce use of HTTPS (TLS) for requests.
 
 </div>
 
@@ -155,6 +155,8 @@ class WidgetsController extends AppController
 
 The above example would disable form tampering prevention for admin prefixed
 routes.
+
+<a id="security-csrf"></a>
 
 ## CSRF Protection
 

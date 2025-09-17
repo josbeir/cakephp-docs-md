@@ -1,3 +1,5 @@
+<a id="plugin-shell"></a>
+
 # Plugin Shell
 
 The plugin shell allows you to load and unload plugins via the command prompt.

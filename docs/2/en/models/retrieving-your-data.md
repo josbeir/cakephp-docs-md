@@ -4,6 +4,8 @@ As stated before, one of the roles of the Model layer is to get data from multip
 The CakePHP Model class comes with some functions that will help you search for this data, sort it,
 paginate it, and filter it. The most common function you will use in models is `Model::find()`
 
+<a id="model-find"></a>
+
 ## find
 
 `find(string $type = 'first', array $params = array())`
@@ -45,6 +47,8 @@ If your `find()` operation fails to match any records, you will get an empty arr
 The `having` and `lock` options were added.
 
 </div>
+
+<a id="model-find-first"></a>
 
 ## find('first')
 
@@ -89,6 +93,8 @@ returned from `find('first')` call is of the form:
             )
     )
 
+<a id="model-find-count"></a>
+
 ## find('count')
 
 `find('count', $params)` returns an integer value. Below are a
@@ -114,6 +120,8 @@ public function some_function() {
 > Don't pass `fields` as an array to `find('count')`. You would
 > only need to specify fields for a DISTINCT count (since otherwise,
 > the count is always the same, dictated by the conditions).
+
+<a id="model-find-all"></a>
 
 ## find('all')
 
@@ -167,6 +175,8 @@ form:
 
             )
     )
+
+<a id="model-find-list"></a>
 
 ## find('list')
 
@@ -276,6 +286,8 @@ $usernameGroups = Array
 )
 ```
 
+<a id="model-find-threaded"></a>
+
 ## find('threaded')
 
 `find('threaded', $params)` returns a nested array, and is
@@ -374,6 +386,8 @@ returned first.
 >
 > Otherwise, the returned array will not be of the expected nested structure from above.
 
+<a id="model-find-neighbors"></a>
+
 ## find('neighbors')
 
 `find('neighbors', $params)` will perform a find similar to 'first', but will
@@ -438,6 +452,8 @@ result returned from a `find('neighbors')` call is in the form:
 > and next. This function does not honor a model's default recursive
 > var. The recursive setting must be passed in the parameters on each
 > call.
+
+<a id="model-custom-find"></a>
 
 ## Creating custom find types
 
@@ -1095,6 +1111,8 @@ WHERE
 Also, if you need to pass just part of your query as raw SQL as
 above, datasource **expressions** with raw SQL work for any part of
 the find query.
+
+<a id="prepared-statements"></a>
 
 ### Prepared Statements
 

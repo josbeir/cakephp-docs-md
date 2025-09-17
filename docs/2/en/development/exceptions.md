@@ -52,6 +52,8 @@ in exception handling will capture any uncaught exceptions and render a useful
 page. Exceptions that do not specifically use a 400 range code, will be
 treated as an Internal Server Error.
 
+<a id="built-in-exceptions"></a>
+
 ## Built-in Exceptions for CakePHP
 
 There are several built-in exceptions inside CakePHP, outside of the
@@ -166,6 +168,8 @@ public function view($id) {
 The above would cause the configured `Exception.handler` to catch and
 process the `NotFoundException`. By default this will create an error page,
 and log the exception.
+
+<a id="error-views"></a>
 
 ## Exception Renderer
 

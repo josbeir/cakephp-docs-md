@@ -163,6 +163,8 @@ There are a number of options for create():
 
 `method` FormHelper::**end**($options = null, $secureAttributes = array())
 
+<a id="automagic-form-elements"></a>
+
 ## Creating form elements
 
 There are a few ways to create form inputs with the FormHelper. We'll start by
@@ -551,6 +553,8 @@ methods for generating a number of different types of inputs. These can be used
 to generate just the input widget itself, and combined with other methods like
 `~FormHelper::label()` and `~FormHelper::error()` to
 generate fully custom form layouts.
+
+<a id="general-input-options"></a>
 
 ### Common options
 
@@ -952,6 +956,8 @@ special `_Token` inputs are generated.
 `method` FormHelper::**unlockField**($name)
 
 `method` FormHelper::**secure**(array $fields = array())
+
+<a id="form-improvements-1-3"></a>
 
 ## 2.0 updates
 

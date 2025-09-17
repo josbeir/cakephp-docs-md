@@ -19,6 +19,8 @@ chapter for each component:
 - [Pagination](../controllers/components/pagination.md)
 - [Request Handling](../controllers/components/request-handling.md)
 
+<a id="configuring-components"></a>
+
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
@@ -154,6 +156,8 @@ class PostsController extends AppController
 > Since both Models and Components are added to Controllers as
 > properties they share the same 'namespace'. Be sure to not give a
 > component and a model the same name.
+
+<a id="creating-a-component"></a>
 
 ## Creating a Component
 

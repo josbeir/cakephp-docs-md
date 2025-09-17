@@ -798,6 +798,8 @@ $this->Acl->deny(
 The next section will help us validate our setup by using the
 AclComponent to check the permissions we've just set up.
 
+<a id="checking-permissions"></a>
+
 ### Checking Permissions: The ACL Component
 
 Let's use the AclComponent to make sure dwarves and elves can't

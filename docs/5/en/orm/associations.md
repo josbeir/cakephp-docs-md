@@ -136,6 +136,8 @@ Each association type accepts multiple associations where the keys are the
 aliases, and the values are association config data. If numeric keys are used
 the values will be treated as association aliases.
 
+<a id="has-one-associations"></a>
+
 ## HasOne Associations
 
 Let's set up a Users table with a hasOne relationship to the Addresses table.
@@ -265,6 +267,8 @@ The above would emit SQL that is similar to:
 SELECT * FROM users INNER JOIN addresses ON addresses.user_id = users.id;
 ```
 
+<a id="belongs-to-associations"></a>
+
 ## BelongsTo Associations
 
 Now that we have Address data access from the User table, let's define
@@ -353,6 +357,8 @@ The above would output SQL similar to:
 ``` sql
 SELECT * FROM addresses LEFT JOIN users ON addresses.user_id = users.id;
 ```
+
+<a id="has-many-associations"></a>
 
 ## HasMany Associations
 
@@ -504,6 +510,8 @@ You should make sure that your database tables do not contain columns that match
 association property names. If for example you have counter fields that conflict
 with association properties, you must either rename the association property, or
 the column name.
+
+<a id="belongs-to-many-associations"></a>
 
 ## BelongsToMany Associations
 
@@ -657,6 +665,8 @@ INNER JOIN articles_tags ON (
 );
 ```
 
+<a id="using-the-through-option"></a>
+
 ### Using the 'through' Option
 
 If you plan on adding extra information to the join/pivot table, or if you need
@@ -734,6 +744,8 @@ $query = $this->find(
     ->matching('Courses')
     ->where(['CoursesMemberships.grade' => 'B']);
 ```
+
+<a id="association-finder"></a>
 
 ### Using Association Finders
 

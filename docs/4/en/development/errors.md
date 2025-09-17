@@ -4,6 +4,8 @@ CakePHP applications come with error and exception handling setup for you. PHP
 errors are trapped and displayed or logged. Uncaught exceptions are rendered
 into error pages automatically.
 
+<a id="error-configuration"></a>
+
 ## Error & Exception Configuration
 
 Error configuration is done in your application's **config/app.php** file. By
@@ -47,6 +49,8 @@ message, file and line (`debug` enabled).
 > [!NOTE]
 > If you use a custom error handler, the supported options will
 > depend on your handler.
+
+<a id="deprecation-warnings"></a>
 
 ### Deprecation Warnings
 
@@ -146,6 +150,8 @@ The `beforeRender` events can now replace exceptions and replace rendering.
 
 </div>
 
+<a id="error-views"></a>
+
 ## Custom Error Templates
 
 The default error handler renders all uncaught exceptions your application
@@ -220,6 +226,8 @@ class ErrorController extends AppController
 
 This controller would only be used when an error is encountered in a prefixed
 controller, and allows you to define prefix specific logic/templates as needed.
+
+<a id="custom-exceptionrenderer"></a>
 
 ## Custom ExceptionRenderer
 
@@ -502,6 +510,8 @@ dealt with by ErrorTrap by setting the `log` option to `true` in your
 > [!NOTE]
 > If you are using a custom exception handler this setting will have
 > no effect. Unless you reference it inside your implementation.
+
+<a id="built-in-exceptions"></a>
 
 ## Built in Exceptions for CakePHP
 

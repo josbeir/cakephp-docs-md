@@ -159,6 +159,8 @@ Support for TLS delivery was added in 2.3
 
 </div>
 
+<a id="email-configurations"></a>
+
 ### Configurations
 
 The following configuration keys are used:

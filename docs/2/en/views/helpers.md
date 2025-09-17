@@ -12,6 +12,8 @@ in formatting text, times and numbers, and can even speed up AJAX
 functionality. For more information on the helpers included in CakePHP,
 check out the chapter for each helper:
 
+<a id="configuring-helpers"></a>
+
 ## Using and Configuring Helpers
 
 You enable helpers in CakePHP by making a controller aware of them. Each
@@ -202,6 +204,8 @@ class LinkHelper extends AppHelper {
 }
 ```
 
+<a id="using-helpers"></a>
+
 ### Using your Helper
 
 Once you've created your helper and placed it in
@@ -238,6 +242,8 @@ class AppHelper extends Helper {
     }
 }
 ```
+
+<a id="helper-api"></a>
 
 ## Helper API
 

@@ -153,6 +153,8 @@ $this->Breadcrumbs->add(
 );
 ```
 
+<a id="defining_attributes_item"></a>
+
 ### Defining Attributes for the Item
 
 If you want to apply specific HTML attributes to both the item and its sub-item

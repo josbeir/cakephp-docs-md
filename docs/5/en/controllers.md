@@ -29,6 +29,8 @@ for interpreting the request and creating the response. Usually responses are
 in the form of a rendered view, but there are other ways to create responses as
 well.
 
+<a id="app-controller"></a>
+
 ## The App Controller
 
 As stated in the introduction, the `AppController` class is the parent class
@@ -138,6 +140,8 @@ Controllers interact with views in a number of ways. First, they
 are able to pass data to the views, using `Controller::set()`. You can also
 decide which view class to use, and which view file should be
 rendered from the controller.
+
+<a id="setting-view_variables"></a>
 
 ### Setting View Variables
 
@@ -279,6 +283,8 @@ class PostsController extends AppController
 ```
 
 This would render **plugins/Users/templates/UserDetails/custom_file.php**
+
+<a id="controller-viewclasses"></a>
 
 ## Content Type Negotiation
 
@@ -532,6 +538,8 @@ public function initialize(): void
 }
 ```
 
+<a id="controller-life-cycle"></a>
+
 ## Request Life-cycle Callbacks
 
 CakePHP controllers trigger several events/callbacks that you can use to insert
@@ -569,6 +577,8 @@ public function beforeFilter(EventInterface $event): void
     parent::beforeFilter($event);
 }
 ```
+
+<a id="controller-middleware"></a>
 
 ## Using Redirects in Controller Events
 

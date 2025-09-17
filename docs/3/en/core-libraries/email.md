@@ -75,6 +75,8 @@ Use `setSender()` instead.
 
 </div>
 
+<a id="email-configuration"></a>
+
 ## Configuration
 
 Configuration for `Email` defaults is created using `config()` and
@@ -205,6 +207,8 @@ query string arguments.
 
 Once configured, transports cannot be modified. In order to modify a transport
 you must first drop it and then reconfigure it.
+
+<a id="email-configurations"></a>
 
 ### Configuration Profiles
 
@@ -670,6 +674,8 @@ $this->Users->getEventManager()->on($this->getMailer('User'));
 > [!NOTE]
 > For information on how to register event listener objects,
 > please refer to the [Registering Event Listeners](#registering-event-listeners) documentation.
+
+<a id="email-testing"></a>
 
 ## Testing Email
 

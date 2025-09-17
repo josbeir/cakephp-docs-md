@@ -50,6 +50,8 @@ $result = Security::decrypt($cipher, $key);
 If the value cannot be decrypted due to changes in the key or HMAC salt
 `false` will be returned.
 
+<a id="force-mcrypt"></a>
+
 ### Choosing a Specific Crypto Implementation
 
 If you are upgrading an application from CakePHP 2.x, data encrypted in 2.x is

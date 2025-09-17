@@ -1,3 +1,5 @@
+<a id="https-enforcer-middleware"></a>
+
 # HTTPS Enforcer Middleware
 
 If you want your application to only be available via HTTPS connections you can

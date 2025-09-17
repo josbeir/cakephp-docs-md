@@ -51,6 +51,8 @@ chapter:
   CakePHP can help you build forms, build AJAX functionality,
   paginate model data, or serve RSS feeds.
 
+<a id="extending-views"></a>
+
 ### Extending Views
 
 <div class="versionadded">
@@ -131,6 +133,8 @@ as the `content` block.
 > [!NOTE]
 > You should avoid using `content` as a block name in your application.
 > CakePHP uses this for uncaptured content in extended views.
+
+<a id="view-blocks"></a>
 
 ## Using view blocks
 
@@ -307,6 +311,8 @@ $this->Html->script('carousel', array('block' => 'scriptBottom'));
 echo $this->fetch('scriptBottom');
 ```
 
+<a id="view-layouts"></a>
+
 ## Layouts
 
 A layout contains presentation code that wraps around a view.
@@ -445,6 +451,8 @@ class UsersController extends AppController {
     }
 }
 ```
+
+<a id="view-elements"></a>
 
 ## Elements
 

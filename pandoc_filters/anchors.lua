@@ -16,11 +16,24 @@ local function extract_anchors_from_rst()
     end
 
     -- Try to read the original RST file to extract anchors
+    -- The convert script runs from legacy/en directory, so we need to account for that
     local rst_file = destination_context:gsub("%.md$", ".rst")
+
+    -- Extract just the relative path from the output structure
+    local folder_basename = destination_folder:match("([^/]+/[^/]+/[^/]+)$")
+    local relative_rst_file = rst_file
+
+    if folder_basename then
+        local escaped_basename = folder_basename:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%1")
+        if relative_rst_file:match("^" .. escaped_basename .. "/") then
+            relative_rst_file = relative_rst_file:gsub("^" .. escaped_basename .. "/", "")
+        end
+    end
 
     -- The convert script copies temp files, so we need to find the actual RST
     local possible_paths = {
-        rst_file,
+        relative_rst_file,          -- Direct file (when running from legacy/en)
+        rst_file,                   -- Full path
         rst_file:gsub("^[^/]+/", "legacy/en/"),
         "../" .. rst_file,
         "../../" .. rst_file
@@ -37,18 +50,15 @@ local function extract_anchors_from_rst()
     end
 
     if not content then
-        -- Try to find any .rst file in current directory (for temp files)
-        local handle = io.popen("find . -name '*.rst' -type f 2>/dev/null")
-        if handle then
-            for file_path in handle:lines() do
-                local file = io.open(file_path, "r")
-                if file then
-                    content = file:read("*all")
-                    file:close()
-                    break
-                end
+        -- Try to find the specific RST file in current directory (avoid temp files)
+        -- The convert script creates temp files, so only look for the exact file we need
+        local base_name = relative_rst_file:match("([^/]+)$")
+        if base_name then
+            local file = io.open(base_name, "r")
+            if file then
+                content = file:read("*all")
+                file:close()
             end
-            handle:close()
         end
     end
 

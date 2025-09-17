@@ -17,6 +17,8 @@ the context is a CakePHP class (Controller, Component, View,...),
 you can log your data. You can also use `Log::write()` directly.
 See [Writing To Logs](#writing-to-logs).
 
+<a id="log-configuration"></a>
+
 ## Logging Configuration
 
 Configuring `Log` should be done during your application's bootstrap phase.
@@ -200,6 +202,8 @@ Log::config('custom_path', [
 > [!WARNING]
 > If you do not configure a logging adapter, log messages will not be stored.
 
+<a id="syslog-log"></a>
+
 ## Logging to Syslog
 
 In production environments it is highly recommended that you setup your system to
@@ -235,6 +239,8 @@ following keys:
 - `facility`: The logging slot to use in syslog. By default `LOG_USER` is
   used. See `syslog` documentation for more options
 
+<a id="writing-to-logs"></a>
+
 ## Writing to Logs
 
 Writing to the log files can be done in 2 different ways. The first
@@ -257,6 +263,8 @@ All configured log streams are written to sequentially each time
 `Cake\\Log\\Log::write()` is called. If you have not configured any
 logging adapters `log()` will return `false` and no log messages will be
 written.
+
+<a id="logging-levels"></a>
 
 ### Using Levels
 
@@ -281,6 +289,8 @@ exception.
 > [!NOTE]
 > When `levels` is set to an empty value in a logger's configuration, it
 > will take messages of any level.
+
+<a id="logging-scopes"></a>
 
 ### Logging Scopes
 

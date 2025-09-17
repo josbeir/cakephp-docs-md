@@ -17,6 +17,8 @@ and [authentication](https://book.cakephp.org/authentication/) plugins.
 
 </div>
 
+<a id="authentication-objects"></a>
+
 ## Suggested Reading Before Continuing
 
 Configuring authentication requires several steps including defining
@@ -337,6 +339,8 @@ The above is how you could implement the getUser method for HTTP basic
 authentication. The `_findUser()` method is part of `BaseAuthenticate`
 and identifies a user based on a username and password.
 
+<a id="basic-authentication"></a>
+
 ### Using Basic Authentication
 
 Basic authentication allows you to create a stateless authentication that can be
@@ -597,6 +601,8 @@ if (!$this->Auth->user()) {
 }
 ```
 
+<a id="hashing-passwords"></a>
+
 ### Hashing Passwords
 
 You are responsible for hashing the passwords before they are persisted to the
@@ -820,6 +826,8 @@ $this->Auth->config('checkAuthIn', 'Controller.initialize');
 Default value for `checkAuthIn` is `'Controller.startup'` - but by using
 `'Controller.initialize'` initial authentication is done before `beforeFilter()`
 method.
+
+<a id="authorization-objects"></a>
 
 ## Authorization
 

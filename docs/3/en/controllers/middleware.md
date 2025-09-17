@@ -50,6 +50,8 @@ CakePHP provides several middleware to handle common tasks in web applications:
 - `Cake\Http\Middleware\CspMiddleware` makes it simpler to add
   Content-Security-Policy headers to your application.
 
+<a id="using-middleware"></a>
+
 ## Using Middleware
 
 Middleware can be applied to your application globally, or to individual
@@ -306,6 +308,8 @@ class Application
 }
 ```
 
+<a id="routing-middleware"></a>
+
 ## Routing Middleware
 
 Routing middleware is responsible for applying your application's routes and
@@ -368,6 +372,8 @@ CspMiddleware was added.
 
 </div>
 
+<a id="security-header-middleware"></a>
+
 ## Security Header Middleware
 
 The `SecurityHeaderMiddleware` layer makes it easy to apply security related
@@ -405,6 +411,8 @@ The `SecurityHeadersMiddleware` was added in 3.5.0
 
 </div>
 
+<a id="encrypted-cookie-middleware"></a>
+
 ## Encrypted Cookie Middleware
 
 If your application has cookies that contain data you want to obfuscate and
@@ -437,6 +445,8 @@ backwards compatible with `CookieComponent` from earlier versions of CakePHP.
 The `EncryptedCookieMiddleware` was added in 3.5.0
 
 </div>
+
+<a id="csrf-middleware"></a>
 
 ## Cross Site Request Forgery (CSRF) Middleware
 
@@ -560,6 +570,8 @@ integrate a CSRF token with JavaScript heavy applications, or XML/JSON based API
 endpoints.
 
 The CSRF Token can be obtained via the Cookie `csrfToken`.
+
+<a id="body-parser-middleware"></a>
 
 ## Body Parser Middleware
 

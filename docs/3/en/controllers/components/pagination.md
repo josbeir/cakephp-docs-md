@@ -188,6 +188,8 @@ settings to use for pagination. This array should have the same structure as the
 `finder` option will be ignored. It is assumed that you are passing in
 the query you want paginated.
 
+<a id="paginating-multiple-queries"></a>
+
 ## Paginating Multiple Queries
 
 You can paginate multiple models in a single controller action, using the
@@ -267,6 +269,8 @@ $unpublishedArticles = $this->paginate(
     ])->where(['published' => false])
 );
 ```
+
+<a id="control-which-fields-used-for-ordering"></a>
 
 ## Control which Fields Used for Ordering
 

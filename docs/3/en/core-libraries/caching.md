@@ -44,6 +44,8 @@ The `Array` engine was added.
 
 </div>
 
+<a id="cache-configuration"></a>
+
 ## Configuring Cache Engines
 
 Your application can configure any number of 'engines' during its bootstrap
@@ -185,6 +187,8 @@ RedisEngine uses the following engine specific options:
   them as a pool.
 - `options` Additional options for the memcached client. Should be an array of option =\> value.
   Use the `\Memcached::OPT_*` constants as keys.
+
+<a id="cache-configuration-fallback"></a>
 
 ### Configuring Cache Fallbacks
 

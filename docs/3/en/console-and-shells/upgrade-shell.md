@@ -1,3 +1,5 @@
+<a id="upgrade-shell"></a>
+
 # Upgrade Shell
 
 The upgrade shell will do most of the work to upgrade your CakePHP application

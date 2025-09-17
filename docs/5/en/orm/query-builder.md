@@ -312,6 +312,8 @@ $query->selectAllExcept($articlesTable, ['published']);
 You can also pass an `Association` object when working with contained
 associations.
 
+<a id="using-sql-functions"></a>
+
 ### Using SQL Functions
 
 CakePHP's ORM offers abstraction for some commonly used SQL functions. Using the
@@ -719,6 +721,8 @@ After executing those lines, your result should look similar to this:
         ...
     ]
 
+<a id="format-results"></a>
+
 ### Adding Calculated Fields
 
 After your queries, you may need to do some post-processing. If you need to add
@@ -799,6 +803,8 @@ The `preserveKeys` option can be set as a contain option as well.
 The `preserveKeys` option was added.
 
 </div>
+
+<a id="advanced-query-conditions"></a>
 
 ## Advanced Conditions
 
@@ -1457,6 +1463,8 @@ $row = $query->first();
 $row = $query->firstOrFail();
 ```
 
+<a id="query-count"></a>
+
 ### Returning the Total Count of Records
 
 Using a single query object, it is possible to obtain the total number of rows
@@ -1513,6 +1521,8 @@ $query->count(); // Returns 100000
 
 In the example above, when the pagination component calls the count method, it
 will receive the estimated hard-coded number of rows.
+
+<a id="caching-query-results"></a>
 
 ### Caching Loaded Results
 
@@ -1995,6 +2005,8 @@ $query = $authorsTable
 This function will not load any columns from the specified associations into the
 result set.
 
+<a id="adding-joins"></a>
+
 ### Adding Joins
 
 In addition to loading related data with `contain()`, you can also add
@@ -2147,6 +2159,8 @@ $query = $articles->insertQuery()
 > Inserting records with the query builder will not trigger events such as
 > `Model.afterSave`. Instead you should use the [ORM to save
 > data](../orm/saving-data.md).
+
+<a id="query-builder-updating-data"></a>
 
 ## Updating Data
 

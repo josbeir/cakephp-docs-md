@@ -11,6 +11,8 @@ CakePHP.
 
 - [General Purpose](core-libraries/toc-general-purpose.md)
 
+<a id="core-behaviors"></a>
+
 ## Behaviors
 
 Behaviors add extra functionality to your models. CakePHP comes
@@ -22,6 +24,8 @@ on [Behaviors](models/behaviors.md).
 
 - [Behaviors](core-libraries/toc-behaviors.md)
 
+<a id="core-components"></a>
+
 ## Components
 
 CakePHP has a selection of components to help take care of basic tasks in your
@@ -29,6 +33,8 @@ controllers. See the section on [Components](controllers/components.md) for how 
 configure and use components.
 
 - [Components](core-libraries/toc-components.md)
+
+<a id="core-helpers"></a>
 
 ## Helpers
 

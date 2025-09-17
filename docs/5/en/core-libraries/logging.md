@@ -16,6 +16,8 @@ Logging data in CakePHP is done with the `log()` function. It is provided by the
 context is a CakePHP class (Controller, Component, View,...), you can log your
 data. You can also use `Log::write()` directly. See [Writing To Logs](#writing-to-logs).
 
+<a id="log-configuration"></a>
+
 ## Logging Configuration
 
 Configuring `Log` should be done during your application's bootstrap phase.
@@ -92,6 +94,8 @@ values in your **config/app.php** file. Errors will be displayed when debug is
 `log` option to `true`. See [Configuration](../development/configuration.md) for more
 information.
 
+<a id="writing-to-logs"></a>
+
 ## Writing to Logs
 
 Writing to the log files can be done in two different ways. The first
@@ -137,6 +141,8 @@ one of the following methods:
 - `toArray()`
 - `__debugInfo()`
 
+<a id="logging-levels"></a>
+
 ### Using Levels
 
 CakePHP supports the standard POSIX set of logging levels. Each level represents
@@ -160,6 +166,8 @@ exception.
 > [!NOTE]
 > When `levels` is set to an empty value in a logger's configuration, it
 > will take messages of any level.
+
+<a id="logging-scopes"></a>
 
 ### Logging Scopes
 
@@ -212,6 +220,8 @@ Log::warning('This is a warning', 'payments');
 > configuration, it will take messages of any scope. Setting it to `false`
 > will only match messages without scope.
 
+<a id="file-log"></a>
+
 ## Logging to Files
 
 As its name implies `FileLog` writes log messages to files. The level of log
@@ -255,6 +265,8 @@ Log::setConfig('custom_path', [
 > [!NOTE]
 > Missing directories will be automatically created to avoid
 > unnecessary errors thrown when using the FileEngine.
+
+<a id="syslog-log"></a>
 
 ## Logging to Syslog
 
@@ -343,6 +355,8 @@ CakePHP requires that all logging engine implement `Psr\Log\LoggerInterface`.
 The class `Cake\Log\Engine\BaseLog` is an easy way to satisfy the
 interface as it only requires you to implement the `log()` method.
 
+<a id="logging-formatters"></a>
+
 ## Logging Formatters
 
 Logging formatters allow you to control how log messages are formatted
@@ -375,6 +389,8 @@ To implement your own logging formatter you need to extend
 `Cake\Log\Format\AbstractFormatter` or one of its subclasses. The primary
 method you need to implement is `format($level, $message, $context)` which is
 responsible for formatting log messages.
+
+<a id="log-testing"></a>
 
 ## Testing Logs
 

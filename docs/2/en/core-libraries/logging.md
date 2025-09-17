@@ -175,6 +175,8 @@ CakeLog::config('custom_path', array(
 ));
 ```
 
+<a id="syslog-log"></a>
+
 ## Logging to Syslog
 
 <div class="versionadded">
@@ -216,6 +218,8 @@ following keys:
 - \`facility\`: The logging slot to use in syslog. By default <span class="title-ref">LOG_USER</span> is
   used. See <span class="title-ref">syslog</span> documentation for more options
 
+<a id="writing-to-logs"></a>
+
 ## Writing to logs
 
 Writing to the log files can be done in 2 different ways. The first
@@ -254,6 +258,8 @@ CakeLog::config('default', array(
     'engine' => 'File'
 ));
 ```
+
+<a id="logging-scopes"></a>
 
 ## Logging Scopes
 

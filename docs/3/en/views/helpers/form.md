@@ -149,6 +149,8 @@ Valid values:
 > any valid HTML attributes that you want to pass to the created `form`
 > element.
 
+<a id="form-values-from-query-string"></a>
+
 ### Getting form values from the query string
 
 <div class="versionadded">
@@ -339,6 +341,8 @@ $this->Form->addContextProvider('myprovider', function ($request, $data) {
 Context factory functions are where you can add logic for checking the form
 options for the correct type of entity. If matching input data is found you can
 return an object. If there is no match return null.
+
+<a id="automagic-form-elements"></a>
 
 ## Creating Form Controls
 
@@ -551,6 +555,8 @@ You may notice additional fields named `year`, `month`, `day`, `hour`,
 `minute`, or `meridian` being added. These fields will be automatically
 converted into `DateTime` objects when entities are marshalled.
 
+<a id="control-specific-options"></a>
+
 ### Options for Control
 
 `FormHelper::control()` supports a large number of options via its `$options`
@@ -719,6 +725,8 @@ to generate just the control widget itself, and combined with other methods like
 `~Cake\\View\\Helper\\FormHelper::label()` and
 `~Cake\\View\\Helper\\FormHelper::error()` to generate fully custom
 form layouts.
+
+<a id="general-control-options"></a>
 
 ### Common Options For Specific Controls
 
@@ -930,6 +938,8 @@ couple of specific options:
 
 These controls share some commonalities and a few options and thus, they are
 all grouped in this subsection for easier reference.
+
+<a id="checkbox-radio-select-options"></a>
 
 #### Options for Select, Checkbox and Radio Controls
 
@@ -1178,6 +1188,8 @@ Will output:
 <input type="checkbox" name="done" value="1">
 ```
 
+<a id="create-radio-button"></a>
+
 #### Creating Radio Buttons
 
 `method` Cake\\View\\Helper\\FormHelper::**radio**(string $fieldName, array $options, array $attributes)
@@ -1307,6 +1319,8 @@ If the `label` key is used on an option, the attributes in
 The `label` key in complex options was added.
 
 </div>
+
+<a id="create-select-picker"></a>
 
 #### Creating Select Pickers
 
@@ -1662,6 +1676,8 @@ way PHP handles data passed via file fields
 The date and time related methods share a number of common traits and options
 and hence are grouped together into this subsection.
 
+<a id="datetime-options"></a>
+
 #### Common Options for Date & Time Controls
 
 These options are common for the date and time related controls:
@@ -1680,6 +1696,8 @@ These options are common for the date and time related controls:
   the used method). In addition each option allows you to pass HTML attributes
   to that specific `select` element.
 
+<a id="date-options"></a>
+
 #### Options for Date-Related Controls
 
 These options are concerning the date-related methods - i.e. `year()`,
@@ -1697,6 +1715,8 @@ These options are concerning the date-related methods - i.e. `year()`,
   you can disable the generation of that specific that select picker (if by
   default it would be rendered in the used method). In addition each option
   allows you to pass HTML attributes to that specific `select` element.
+
+<a id="time-options"></a>
 
 #### Options for Time-Related Controls
 
@@ -2137,6 +2157,8 @@ Creates a `select` element populated with 'am' and 'pm'. This is useful when
 the hour format is set to `12` instead of `24`, as it allows to specify the
 period of the day to which the hour belongs.
 
+<a id="create-label"></a>
+
 ## Creating Labels
 
 `method` Cake\\View\\Helper\\FormHelper::**label**(string $fieldName, string $text, array $options)
@@ -2262,6 +2284,8 @@ if ($this->Form->isFieldError('gender')) {
     echo $this->Form->error('gender');
 }
 ```
+
+<a id="html5-validity-messages"></a>
 
 ### Displaying validation messages in HTML5 validity messages
 
@@ -2557,6 +2581,8 @@ use `Cake\\View\\Helper\\FormHelper::button()` or
 > Be careful to not put a postLink inside an open form. Instead use the
 > `block` option to buffer the form into a [view block](#view-blocks)
 
+<a id="customizing-templates"></a>
+
 ## Customizing the Templates FormHelper Uses
 
 Like many helpers in CakePHP, FormHelper uses string templates to format the
@@ -2781,6 +2807,8 @@ echo $this->Form->allControls(['password' => false]);
 // Or prior to 3.4.0:
 echo $this->Form->allInputs(['password' => false]);
 ```
+
+<a id="associated-form-inputs"></a>
 
 ## Creating Inputs for Associated Data
 

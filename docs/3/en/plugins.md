@@ -40,6 +40,8 @@ directory. Assuming you want to install a plugin named 'ContactManager', you
 should have a folder in **plugins** named 'ContactManager'. In this directory
 are the plugin's src, tests and any other directories.
 
+<a id="autoloading-plugin-classes"></a>
+
 ### Manually Autoloading Plugin Classes
 
 If you install your plugins via `composer` or `bake` you shouldn't need to
@@ -166,6 +168,8 @@ This would update your application's bootstrap method, or put the
 The `addOptionalPlugin()` method was added.
 
 </div>
+
+<a id="plugin-configuration"></a>
 
 ## Plugin Hook Configuration
 
@@ -337,6 +341,8 @@ $this->loadComponent('AppFlash');
 $this->addBehavior('OtherPlugin.AuditLog');
 ```
 
+<a id="plugin-create-your-own"></a>
+
 ## Creating Your Own Plugins
 
 As a working example, let's begin to create the ContactManager
@@ -402,6 +408,8 @@ autoloader once you've created your plugin:
 php composer.phar dumpautoload
 ```
 
+<a id="plugin-objects"></a>
+
 ## Plugin Objects
 
 Plugin Objects allow a plugin author to define set-up logic, define default
@@ -457,6 +465,8 @@ class Plugin extends BasePlugin
 Plugin Objects were added in 3.6.0
 
 </div>
+
+<a id="plugin-routes"></a>
 
 ## Plugin Routes
 
@@ -581,6 +591,8 @@ plugin specific route files.
 For plugins you did not create with bake, you will also need to edit the
 **composer.json** file to add your plugin to the autoload classes, this can be
 done as per the documentation [Autoloading Plugin Classes](#autoloading-plugin-classes).
+
+<a id="plugin-models"></a>
 
 ## Plugin Models
 
@@ -716,6 +728,8 @@ plugin implemented an 'admin' prefix the overridng path would be:
 
     src/Template/Plugin/Company/ContactManager/Admin/Contact/index.ctp
 
+<a id="plugin-assets"></a>
+
 ## Plugin Assets
 
 A plugin's web assets (but not PHP files) can be served through the plugin's
@@ -792,6 +806,8 @@ public function initialize()
 ```
 
 The same technique applies to Helpers and Behaviors.
+
+<a id="plugin-commands"></a>
 
 ## Commands
 

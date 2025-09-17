@@ -342,6 +342,8 @@ $data = array(
 );
 ```
 
+<a id="Model-saveAssociated"></a>
+
 ## Model::saveAssociated(array \$data = null, array \$options = array())
 
 Method used to save multiple model associations at once. The following
@@ -743,6 +745,8 @@ And the resultant POST:
 
 Again CakePHP is good to us and pulls the Student id and Course id
 into the CourseMembership with the <span class="title-ref">saveAssociated</span>.
+
+<a id="saving-habtm"></a>
 
 ### Saving Related Model Data (HABTM)
 

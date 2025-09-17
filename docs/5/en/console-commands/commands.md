@@ -291,6 +291,8 @@ Usage:
 cake user [-h] [-q] [-v]
 ```
 
+<a id="console-integration-testing"></a>
+
 ## Testing Commands
 
 To make testing console applications easier, CakePHP comes with a

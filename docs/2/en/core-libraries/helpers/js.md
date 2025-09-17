@@ -302,6 +302,8 @@ CakePHP core. Whenever you see separate lists for `Options` and
 
 `method` JsHelper::**value**($value)
 
+<a id="ajax-pagination"></a>
+
 ## AJAX Pagination
 
 Much like AJAX Pagination in 1.2, you can use the JsHelper to

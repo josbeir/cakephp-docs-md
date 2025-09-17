@@ -146,6 +146,8 @@ Valid values:
 > any valid HTML attributes that you want to pass to the created `form`
 > element.
 
+<a id="form-values-from-query-string"></a>
+
 ### Getting form values from other values sources
 
 A FormHelper's values sources define where its rendered elements, such as
@@ -343,6 +345,8 @@ $this->Form->addContextProvider('myprovider', function ($request, $data) {
 Context factory functions are where you can add logic for checking the form
 options for the correct type of entity. If matching input data is found you can
 return an object. If there is no match return null.
+
+<a id="automagic-form-elements"></a>
 
 ## Creating Form Controls
 
@@ -566,6 +570,8 @@ You may notice additional fields named `year`, `month`, `day`, `hour`,
 `minute`, or `meridian` being added. These fields will be automatically
 converted into `DateTime` objects when entities are marshalled.
 
+<a id="control-specific-options"></a>
+
 ### Options for Control
 
 `FormHelper::control()` supports a large number of options via its `$options`
@@ -745,6 +751,8 @@ to generate just the control widget itself, and combined with other methods like
 `~Cake\\View\\Helper\\FormHelper::label()` and
 `~Cake\\View\\Helper\\FormHelper::error()` to generate fully custom
 form layouts.
+
+<a id="general-control-options"></a>
 
 ### Common Options For Specific Controls
 
@@ -947,6 +955,8 @@ couple of specific options:
 
 These controls share some commonalities and a few options and thus, they are
 all grouped in this subsection for easier reference.
+
+<a id="checkbox-radio-select-options"></a>
 
 #### Options for Select, Checkbox and Radio Controls
 
@@ -1195,6 +1205,8 @@ Will output:
 <input type="checkbox" name="done" value="1">
 ```
 
+<a id="create-radio-button"></a>
+
 #### Creating Radio Buttons
 
 `method` Cake\\View\\Helper\\FormHelper::**radio**(string $fieldName, array $options, array $attributes)
@@ -1317,6 +1329,8 @@ Will output:
 
 If the `label` key is used on an option, the attributes in
 `$attributes['label']` will be ignored.
+
+<a id="create-select-picker"></a>
 
 #### Creating Select Pickers
 
@@ -1667,6 +1681,8 @@ $fileobject->moveTo($destination);
 > encoding-type, by setting the `'type'` option to `'file'` in
 > `$this->Form->create()`.
 
+<a id="create-datetime-controls"></a>
+
 ### Creating Date & Time Related Controls
 
 `method` Cake\\View\\Helper\\FormHelper::**dateTime**(string $fieldName, array $options = [])
@@ -1821,6 +1837,8 @@ If it was 2009, you would get the following:
 </select>
 ```
 
+<a id="create-label"></a>
+
 ## Creating Labels
 
 `method` Cake\\View\\Helper\\FormHelper::**label**(string $fieldName, string $text, array $options)
@@ -1946,6 +1964,8 @@ if ($this->Form->isFieldError('gender')) {
     echo $this->Form->error('gender');
 }
 ```
+
+<a id="html5-validity-messages"></a>
 
 ### Displaying validation messages in HTML5 validity messages
 
@@ -2239,6 +2259,8 @@ use `Cake\\View\\Helper\\FormHelper::button()` or
 > Be careful to not put a postLink inside an open form. Instead use the
 > `block` option to buffer the form into a [view block](#view-blocks)
 
+<a id="customizing-templates"></a>
+
 ### Creating DELETE Links
 
 `method` Cake\\View\\Helper\\FormHelper::**deleteLink**(string $title, array|string|null $url = null, array $options = [])
@@ -2485,6 +2507,8 @@ specific fields from the generated controls, set them to `false` in the
 ``` php
 echo $this->Form->allControls(['password' => false]);
 ```
+
+<a id="associated-form-inputs"></a>
 
 ## Creating Inputs for Associated Data
 

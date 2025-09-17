@@ -27,6 +27,8 @@ for interpreting the request and creating the response. Usually responses are
 in the form of a rendered view, but there are other ways to create responses as
 well.
 
+<a id="app-controller"></a>
+
 ## The App Controller
 
 As stated in the introduction, the `AppController` class is the
@@ -155,6 +157,8 @@ section on `~Controller::requestAction()` for more tips on using
 In order for you to use a controller effectively in your own application, we'll
 cover some of the core attributes and methods provided by CakePHP's controllers.
 
+<a id="controller-life-cycle"></a>
+
 ## Request Life-cycle callbacks
 
 `class` **Controller**
@@ -170,6 +174,8 @@ insert logic around the request life-cycle:
 
 In addition to controller life-cycle callbacks, [Components](controllers/components.md)
 also provide a similar set of callbacks.
+
+<a id="controller-methods"></a>
 
 ## Controller Methods
 

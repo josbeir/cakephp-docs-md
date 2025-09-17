@@ -5,6 +5,8 @@
 CakePHP provides the `ConsoleIo` object to commands so that they can
 interactively read user input and output information to the user.
 
+<a id="command-helpers"></a>
+
 ## Command Helpers
 
 Command Helpers can be accessed and used from any command, shell or task:
@@ -239,6 +241,8 @@ for ($i = 9; $i > 0; $i--) {
 > [!NOTE]
 > It is important to remember, that you cannot overwrite text
 > once a new line has been output.
+
+<a id="shell-output-level"></a>
 
 ## Output Levels
 

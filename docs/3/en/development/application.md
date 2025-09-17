@@ -19,6 +19,8 @@ methods:
   application. By default this will automatically discover shells & commands in
   your application and all plugins.
 
+<a id="adding-http-stack"></a>
+
 ## Adding the new HTTP Stack to an Existing Application
 
 Using the Application class and HTTP Middleware in an existing application

@@ -119,6 +119,8 @@ $articlesTable = $this->getTableLocator()->get('PluginName.Articles');
 $articlesTable = $this->getTableLocator()->get('VendorName/PluginName.Articles');
 ```
 
+<a id="table-callbacks"></a>
+
 ## Lifecycle Callbacks
 
 As you have seen above table objects trigger a number of events. Events are
@@ -463,6 +465,8 @@ class ArticlesTable extends Table
 You can find out more about behaviors, including the behaviors provided by
 CakePHP in the chapter on [Behaviors](../orm/behaviors.md).
 
+<a id="configuring-table-connections"></a>
+
 ## Configuring Connections
 
 By default all table instances use the `default` database connection. If your
@@ -484,6 +488,8 @@ class ArticlesTable extends Table
 
 > [!NOTE]
 > The `defaultConnectionName()` method **must** be static.
+
+<a id="table-locator-usage"></a>
 
 ## Using the TableLocator<span id="table-registry-usage"></span>
 

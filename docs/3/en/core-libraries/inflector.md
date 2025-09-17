@@ -9,6 +9,8 @@ statically. Example:
 
 You can try out the inflections online at [inflector.cakephp.org](https://inflector.cakephp.org/).
 
+<a id="inflector-methods-summary"></a>
+
 ## Summary of Inflector Methods and Their Output
 
 Quick summary of the Inflector built-in methods and the results they output
@@ -112,6 +114,8 @@ characters and spaces to dashes. The slug method expects UTF-8 encoding:
 > [!NOTE]
 > `Inflector::slug()` has been deprecated since 3.2.7. Use `Text::slug()`
 > instead.
+
+<a id="inflection-configuration"></a>
 
 ## Inflection Configuration
 

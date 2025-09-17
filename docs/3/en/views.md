@@ -15,6 +15,8 @@ rendering scenarios:
   [Cake Response File](controllers/request-response.md#cake-response-file).
 - To create multiple themed views, you can use [Themes](views/themes.md).
 
+<a id="app-view"></a>
+
 ## The App View
 
 `AppView` is your application’s default View class. `AppView` itself extends
@@ -51,6 +53,8 @@ class AppView extends View
     }
 }
 ```
+
+<a id="view-templates"></a>
 
 ## View Templates
 
@@ -170,6 +174,8 @@ $this->set('activeMenuButton', 'posts');
 Then, in your layout, the `$activeMenuButton` variable will be available and
 contain the value 'posts'.
 
+<a id="extending-views"></a>
+
 ### Extending Views
 
 View extending allows you to wrap one view in another. Combining this with
@@ -250,6 +256,8 @@ You can get the list of all populated blocks using the `blocks()` method:
 ``` php
 $list = $this->blocks();
 ```
+
+<a id="view-blocks"></a>
 
 ## Using View Blocks
 
@@ -390,6 +398,8 @@ $this->Html->script('carousel', ['block' => 'scriptBottom']);
 // In your layout
 <?= $this->fetch('scriptBottom') ?>
 ```
+
+<a id="view-layouts"></a>
 
 ## Layouts
 
@@ -536,6 +546,8 @@ class UsersController extends AppController
     }
 }
 ```
+
+<a id="view-elements"></a>
 
 ## Elements
 
@@ -718,6 +730,8 @@ echo $this->cache(function () use ($user, $article) {
 
 By default cached view content will go into the `View::$elementCache` cache
 config, but you can use the `config` option to change this.
+
+<a id="view-events"></a>
 
 ## View Events
 

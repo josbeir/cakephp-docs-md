@@ -142,6 +142,8 @@ class ArticlesController extends AppController
 When using the `SimplePaginator` you will not be able to generate page
 numbers, counter data, links to the last page, or total record count controls.
 
+<a id="paginating-multiple-queries"></a>
+
 ## Paginating Multiple Queries
 
 You can paginate multiple models in a single controller action, using the
@@ -213,6 +215,8 @@ $unpublishedArticles = $this->paginate(
     ])->where(['published' => false])
 );
 ```
+
+<a id="control-which-fields-used-for-ordering"></a>
 
 ## Control which Fields Used for Ordering
 

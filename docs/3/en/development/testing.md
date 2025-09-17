@@ -234,6 +234,8 @@ the creation of new bugs.
 > multiple tests at once, you will lose your event listeners that were
 > registered in config/bootstrap.php as the bootstrap is only executed once.
 
+<a id="running-tests"></a>
+
 ## Running Tests
 
 Once you have PHPUnit installed and some test cases written, you'll want to run
@@ -369,6 +371,8 @@ Test cases have a number of lifecycle callbacks you can use when doing testing:
 - `tearDownAfterClass` is called once after test methods in a case are started.
   This method must be *static*.
 
+<a id="test-fixtures"></a>
+
 ## Fixtures
 
 When testing code that depends on models and the database, one can use
@@ -400,6 +404,8 @@ Connection aliasing is transparent to the rest of your application. For example
 if you use the `default` connection, instead you will get the `test`
 connection in test cases. If you use the `replica` connection, the test suite
 will attempt to use `test_replica`.
+
+<a id="fixture-phpunit-configuration"></a>
 
 ### PHPUnit Configuration
 
@@ -935,6 +941,8 @@ In your `tearDown()` method be sure to remove the mock with:
 TableRegistry::clear();
 ```
 
+<a id="integration-testing"></a>
+
 ## Controller Integration Testing
 
 While you can test controller classes in a similar fashion to Helpers, Models,
@@ -1098,6 +1106,8 @@ $this->configRequest([
 ```
 
 The state set by these helper methods is reset in the `tearDown()` method.
+
+<a id="testing-authentication"></a>
 
 ### Testing Actions That Require Authentication
 
@@ -1777,6 +1787,8 @@ indicating 1 pass and 4 assertions.
 
 When you are testing a Helper which uses other helpers, be sure to mock the
 View clases `loadHelpers` method.
+
+<a id="testing-events"></a>
 
 ## Testing Events
 

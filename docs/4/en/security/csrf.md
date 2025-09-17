@@ -20,6 +20,8 @@ CakePHP offers two forms of CSRF protection:
 > only one. If you use both approaches together, a CSRF token mismatch error
 > will occur on every <span class="title-ref">PUT</span> and <span class="title-ref">POST</span> request
 
+<a id="csrf-middleware"></a>
+
 ## Cross Site Request Forgery (CSRF) Middleware
 
 CSRF protection can be applied to your entire application, or to specific

@@ -38,6 +38,8 @@ It might be tempting to place formatting functions there in order to use them in
 your controllers. As you'll see in the [Controllers](../controllers.md) and [Views](../views.md)
 sections there are better ways you add custom logic to your application.
 
+<a id="application-bootstrap"></a>
+
 ### Application::bootstrap()
 
 In addition to the **config/bootstrap.php** file which should be used to

@@ -211,6 +211,8 @@ expectations and assertions your tests make. Additionally because tests are
 code, they are easy to re-run whenever you make a change. This helps prevent
 the creation of new bugs.
 
+<a id="running-tests"></a>
+
 ## Running Tests
 
 Once you have PHPUnit installed and some test cases written, you'll want to run
@@ -243,6 +245,8 @@ The inline code coverage uses green lines to indicate lines that have been run.
 If you hover over a green line a tooltip will indicate which tests covered the
 line. Lines in red did not run, and have not been exercised by your tests. Grey
 lines are considered unexecutable code by Xdebug.
+
+<a id="run-tests-from-command-line"></a>
 
 ### Running tests from command line
 

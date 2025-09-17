@@ -354,6 +354,8 @@ This assumes that `Categories` has the TranslateBehavior attached to it. It
 simply uses the query builder function for the `contain` clause to use the
 `translations` custom finder in the association.
 
+<a id="retrieving-one-language-without-using-i18n-locale"></a>
+
 ### Retrieving one language without using I18n::setLocale
 
 calling `I18n::setLocale('es');` changes the default locale for all translated
@@ -472,6 +474,8 @@ $this->Articles->save($article);
 Setting the language directly in the table is useful when you need to both
 retrieve and save entities for the same language or when you need to save
 multiple entities at once.
+
+<a id="saving-multiple-translations"></a>
 
 ## Saving Multiple Translations
 

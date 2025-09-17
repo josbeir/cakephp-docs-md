@@ -44,6 +44,8 @@ The Oracle database is supported through the
 [Driver for Oracle Database](https://github.com/CakeDC/cakephp-oracle-driver)
 community plugin.
 
+<a id="running-select-statements"></a>
+
 ### Running Select Statements
 
 Running raw SQL queries is a breeze:
@@ -128,6 +130,8 @@ use Cake\Datasource\ConnectionManager;
 $connection = ConnectionManager::get('default');
 $connection->delete('articles', ['id' => 10]);
 ```
+
+<a id="database-configuration"></a>
 
 ## Configuration
 
@@ -431,6 +435,8 @@ The `binaryuuid` type was added.
 
 </div>
 
+<a id="adding-custom-database-types"></a>
+
 ### Adding Custom Types
 
 If you need to use vendor specific types that are not built into CakePHP you can
@@ -523,6 +529,8 @@ class WidgetsTable extends Table
     }
 }
 ```
+
+<a id="mapping-custom-datatypes-to-sql-expressions"></a>
 
 ### Mapping Custom Datatypes to SQL Expressions
 
@@ -639,6 +647,8 @@ The above class does a few interesting things:
 Once we've built our custom type, we'll need to [connect our type
 to our table class](#saving-complex-types).
 
+<a id="immutable-datetime-mapping"></a>
+
 ### Enabling Immutable DateTime Objects
 
 <div class="versionadded">
@@ -670,6 +680,8 @@ Connection classes provide a simple interface to interact with database
 connections in a consistent way. They are intended as a more abstract interface to
 the driver layer and provide features for executing queries, logging queries, and doing
 transactional operations.
+
+<a id="database-queries"></a>
 
 ### Executing Queries
 
@@ -810,6 +822,8 @@ $statement = $connection->prepare('SELECT * FROM articles WHERE published = ?');
 
 Once you've prepared a statement you can bind additional data and execute it.
 
+<a id="database-basics-binding-values"></a>
+
 ### Binding Values
 
 Once you've created a prepared statement, you may need to bind additional data.
@@ -906,6 +920,8 @@ Possibly document CallbackStatement and BufferedStatement
 
 </div>
 
+<a id="database-query-logging"></a>
+
 ## Query Logging
 
 Query logging can be enabled when configuring your connection by setting the
@@ -951,6 +967,8 @@ Log::config('queries', [
 > never leave query logging on in production as it will negatively impact the
 > performance of your application.
 
+<a id="identifier-quoting"></a>
+
 ## Identifier Quoting
 
 By default CakePHP does **not** quote identifiers in generated SQL queries. The
@@ -973,6 +991,8 @@ converts all identifiers into `IdentifierExpression` objects.
 
 > [!NOTE]
 > SQL snippets contained in QueryExpression objects will not be modified.
+
+<a id="database-metadata-cache"></a>
 
 ## Metadata Caching
 

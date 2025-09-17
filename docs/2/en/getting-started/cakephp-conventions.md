@@ -80,6 +80,8 @@ For more information on CakePHP URLs and parameter handling, see
 directory that share a name with one of your routes/controllers, you will be
 directed to the file/directory and, not to your controller.
 
+<a id="file-and-classname-conventions"></a>
+
 ## File and Class Name Conventions
 
 In general, filenames match the class names, which are

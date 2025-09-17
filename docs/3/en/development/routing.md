@@ -136,6 +136,8 @@ greedy star, trailing star
 
 </div>
 
+<a id="routes-configuration"></a>
+
 ## Connecting Routes<span id="connecting-routes"></span>
 
 To keep your code `DRY` you should use 'routing scopes'. Routing
@@ -326,6 +328,8 @@ The HTTP verb helper methods were added.
 
 </div>
 
+<a id="route-elements"></a>
+
 ### Route Elements
 
 You can specify your own route elements and doing so gives you the
@@ -488,6 +492,8 @@ CakePHP, and should not be used unless you want the special meaning
 - `_name` Name of route. If you have setup named routes, you can use this key
   to specify it.
 
+<a id="route-fluent-methods"></a>
+
 ### Configuring Route Options
 
 There are a number of route options that can be set on each route. After
@@ -582,6 +588,8 @@ echo $this->Html->link('CakePHP Rocks', [
 ]);
 ```
 
+<a id="named-routes"></a>
+
 ### Using Named Routes
 
 Sometimes you'll find typing out all the URL parameters for a route too verbose,
@@ -673,6 +681,8 @@ The `_namePrefix` option was added in 3.1
 admin routing, prefix routing
 
 </div>
+
+<a id="prefix-routing"></a>
 
 ### Prefix Routing
 
@@ -990,6 +1000,8 @@ file extensions
 
 </div>
 
+<a id="file-extensions"></a>
+
 ### Routing File Extensions
 
 To handle different file extensions with your routes, you can define extensions
@@ -1053,6 +1065,8 @@ $this->Html->link(
 
 File extensions are used by [Request Handling](../controllers/components/request-handling.md)
 to do automatic view switching based on content types.
+
+<a id="connecting-scoped-middleware"></a>
 
 ## Connecting Scoped Middleware
 
@@ -1143,6 +1157,8 @@ $routes->applyMiddleware('web');
 Scoped middleware & middleware groups were added in 3.5.0
 
 </div>
+
+<a id="resource-routes"></a>
 
 ## RESTful Routing
 
@@ -1322,6 +1338,8 @@ $routes->resources('Articles', [
 ]);
 ```
 
+<a id="custom-rest-routing"></a>
+
 ### Custom Route Classes for Resource Routes
 
 You can provide `connectOptions` key in the `$options` array for
@@ -1383,6 +1401,8 @@ The `path` option was added in 3.5.0
 passed arguments
 
 </div>
+
+<a id="passed-arguments"></a>
 
 ## Passed Arguments
 
@@ -1508,6 +1528,8 @@ You can also use any of the special route elements when generating URLs:
 - `_name` Name of route. If you have setup named routes, you can use this key
   to specify it.
 
+<a id="redirect-routing"></a>
+
 ## Redirect Routing
 
 Redirect routing allows you to issue HTTP status 30x redirects for
@@ -1545,6 +1567,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
 This would redirect `/articles/*` to `https://google.com` with a
 HTTP status of 302.
+
+<a id="entity-routing"></a>
 
 ## Entity Routing
 
@@ -1601,6 +1625,8 @@ provided entity.
 Entity routing was added in 3.6.0
 
 </div>
+
+<a id="custom-route-classes"></a>
 
 ## Custom Route Classes
 

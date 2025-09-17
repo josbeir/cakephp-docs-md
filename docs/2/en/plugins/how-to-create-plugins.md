@@ -112,6 +112,8 @@ If you want to access what we've got going thus far, visit
 /contact_manager/contacts. You should get a "Missing Model" error
 because we don't have a Contact model defined yet.
 
+<a id="plugin-models"></a>
+
 ## Plugin Models
 
 Models for the plugin are stored in /app/Plugin/ContactManager/Model.
@@ -186,6 +188,8 @@ Contacts controller you could make the following file:
 
 Creating this file, would allow you to override
 "/app/Plugin/ContactManager/View/Contacts/index.ctp".
+
+<a id="plugin-assets"></a>
 
 ## Plugin Assets
 

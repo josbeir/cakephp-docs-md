@@ -263,6 +263,8 @@ $this->executeCommand($command, ['--verbose', 'deploy']);
 > parent command's `ConsoleIo` instance as the optional 3rd argument to
 > avoid a potential "open files" limit that could occur in some environments.
 
+<a id="console-integration-testing"></a>
+
 ## Testing Commands
 
 To make testing console applications easier, CakePHP comes with a

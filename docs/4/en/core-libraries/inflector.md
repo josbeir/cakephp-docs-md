@@ -9,6 +9,8 @@ statically. Example:
 
 You can try out the inflections online at [inflector.cakephp.org](https://inflector.cakephp.org/) or [sandbox.dereuromark.de](https://sandbox.dereuromark.de/sandbox/inflector).
 
+<a id="inflector-methods-summary"></a>
+
 ## Summary of Inflector Methods and Their Output
 
 Quick summary of the Inflector built-in methods and the results they output
@@ -98,6 +100,8 @@ generating code or doing work based on conventions:
 
     // applePie
     Inflector::variable('apple_pie');
+
+<a id="inflection-configuration"></a>
 
 ## Inflection Configuration
 

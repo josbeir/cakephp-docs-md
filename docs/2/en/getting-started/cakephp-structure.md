@@ -8,6 +8,8 @@ to quickly add functionality to the base MVC classes in your
 applications. Right now we'll stay at a higher level, so look for
 the details on how to use these tools later on.
 
+<a id="application-extensions"></a>
+
 ## Application Extensions
 
 Controllers, helpers and models each have a parent class you can use to define

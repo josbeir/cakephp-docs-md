@@ -259,6 +259,8 @@ foreach ($events as $callable) {
 }
 ```
 
+<a id="event-priorities"></a>
+
 ### Establishing Priorities
 
 In some cases you might want to control the order that listeners are invoked.

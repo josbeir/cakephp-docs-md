@@ -6,6 +6,8 @@ requests and store persistent data for specific users. Unlike Cookies, session
 data is not available on the client side. Usage of `$_SESSION` is generally
 avoided in CakePHP, and instead usage of the Session classes is preferred.
 
+<a id="session-configuration"></a>
+
 ## Session Configuration
 
 Session configuration is generally defined in **/config/app.php**. The available
@@ -195,6 +197,8 @@ The above will tell Session to use the built-in 'database' defaults, and
 specify that a Table called `CustomSessions` will be the delegate for saving
 session information to the database.
 
+<a id="sessions-cache-sessions"></a>
+
 ### Cache Sessions
 
 The Cache class can be used to store sessions as well. This allows you to store
@@ -348,6 +352,8 @@ Now our application will start using our custom session handler for reading and
 writing session data.
 
 `class` **Session**
+
+<a id="accessing-session-object"></a>
 
 ## Accessing the Session Object
 

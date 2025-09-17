@@ -120,6 +120,8 @@ validation happens, which is a problem when accepting form data. The following
 sections will demonstrate how to efficiently convert form data into entities so
 that they can be validated and saved.
 
+<a id="converting-request-data"></a>
+
 ## Converting Request Data into Entities
 
 Before editing and saving data back to your database, you'll need to convert
@@ -388,6 +390,8 @@ $articles->saveMany($entities);
 $articles->saveManyOrFail($entities);
 ```
 
+<a id="changing-accessible-fields"></a>
+
 ### Changing Accessible Fields
 
 It's also possible to allow `newEntity()` to write into non accessible fields.
@@ -623,6 +627,8 @@ $patched = $articles->patchEntities(
 );
 ```
 
+<a id="before-marshal"></a>
+
 ### Modifying Request Data Before Building Entities
 
 If you need to modify request data before it is converted into entities, you can
@@ -714,8 +720,6 @@ public function afterMarshal(
 
 </div>
 
-<a id="validating-request-data"></a>
-
 ### Validating Data Before Building Entities
 
 The [Validating Data](../orm/validation.md) chapter has more information on how to use the
@@ -768,6 +772,8 @@ $this->save($entity);
 Using this feature is handy when you have many different functions your users
 can access and you want to let your users edit different data based on their
 privileges.
+
+<a id="saving-entities"></a>
 
 ## Saving Entities
 
@@ -1157,6 +1163,8 @@ $student = $this->Students->newEntity($data, [
 
 See the [Associated Form Inputs](#associated-form-inputs) documentation for how to build inputs with
 `FormHelper` correctly.
+
+<a id="saving-complex-types"></a>
 
 ### Saving Complex Types
 

@@ -40,6 +40,8 @@ all Session component methods wherever a name/key is used.
 
 `method` SessionComponent::**destroy**()
 
+<a id="creating-notification-messages"></a>
+
 ## Creating notification messages
 
 `method` SessionComponent::**setFlash**(string $message, string $element = 'default', array $params = array(), string $key = 'flash')

@@ -56,6 +56,8 @@ CakePHP provides several middleware to handle common tasks in web applications:
   makes it possible to add security related headers like `X-Frame-Options` to
   responses.
 
+<a id="using-middleware"></a>
+
 ## Using Middleware
 
 Middleware can be applied to your application globally, to individual
@@ -229,6 +231,8 @@ class Application
 }
 ```
 
+<a id="routing-middleware"></a>
+
 ## Routing Middleware
 
 Routing middleware is responsible for applying your application's routes and
@@ -242,6 +246,8 @@ public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     $middlewareQueue->add(new RoutingMiddleware($this));
 }
 ```
+
+<a id="encrypted-cookie-middleware"></a>
 
 ## Encrypted Cookie Middleware
 
@@ -268,6 +274,8 @@ $middlewareQueue->add($cookies);
 
 The encryption algorithms and padding style used by the cookie middleware are
 backwards compatible with `CookieComponent` from earlier versions of CakePHP.
+
+<a id="body-parser-middleware"></a>
 
 ## Body Parser Middleware
 

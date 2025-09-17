@@ -175,6 +175,8 @@ require SSL requests. When the request is black holed, it
 will call the nominated `forceSSL()` callback which will redirect
 non-secure requests to secure requests automatically.
 
+<a id="security-csrf"></a>
+
 ## CSRF protection
 
 CSRF or Cross Site Request Forgery is a common vulnerability in web

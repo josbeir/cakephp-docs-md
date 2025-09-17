@@ -125,6 +125,8 @@ greedy star, trailing star
 
 </div>
 
+<a id="routes-configuration"></a>
+
 ## Connecting Routes<span id="connecting-routes"></span>
 
 To keep your code `DRY` you should use 'routing scopes'. Routing
@@ -300,6 +302,8 @@ will go to the 'update' action. There are HTTP helper methods for:
 All of these methods return the route instance allowing you to leverage the
 [fluent setters](#route-fluent-methods) to further configure your route.
 
+<a id="route-elements"></a>
+
 ### Route Elements
 
 You can specify your own route elements and doing so gives you the
@@ -442,6 +446,8 @@ CakePHP, and should not be used unless you want the special meaning
 - `_name` Name of route. If you have setup named routes, you can use this key
   to specify it.
 
+<a id="route-fluent-methods"></a>
+
 ### Configuring Route Options
 
 There are a number of route options that can be set on each route. After
@@ -531,6 +537,8 @@ echo $this->Html->link('CakePHP Rocks', [
 ]);
 ```
 
+<a id="path-routing"></a>
+
 ### Using Path Routing
 
 We talked about string targets above. The same also works for URL generation using
@@ -544,6 +552,8 @@ We talked about string targets above. The same also works for URL generation usi
 
 > [!TIP]
 > IDE support for Path Routing autocomplete can be enabled with [CakePHP IdeHelper Plugin](https://github.com/dereuromark/cakephp-ide-helper).
+
+<a id="named-routes"></a>
 
 ### Using Named Routes
 
@@ -629,6 +639,8 @@ named. Nameless routes will not have the `_namePrefix` applied to them.
 admin routing, prefix routing
 
 </div>
+
+<a id="prefix-routing"></a>
 
 ### Prefix Routing
 
@@ -938,6 +950,8 @@ file extensions
 
 </div>
 
+<a id="file-extensions"></a>
+
 ### Routing File Extensions
 
 To handle different file extensions in your URLs, you can define the extensions
@@ -986,6 +1000,8 @@ $this->Html->link(
 
 File extensions are used by [Request Handling](../controllers/components/request-handling.md)
 to do automatic view switching based on content types.
+
+<a id="route-scoped-middleware"></a>
 
 ## Route Scoped Middleware
 
@@ -1067,6 +1083,8 @@ $routes->middlewareGroup('web', ['cookie', 'auth', 'csrf']);
 // Apply the group
 $routes->applyMiddleware('web');
 ```
+
+<a id="resource-routes"></a>
 
 ## RESTful Routing
 
@@ -1257,6 +1275,8 @@ $routes->resources('Articles', [
 ]);
 ```
 
+<a id="custom-rest-routing"></a>
+
 ### Custom Route Classes for Resource Routes
 
 You can provide `connectOptions` key in the `$options` array for
@@ -1306,6 +1326,8 @@ $routes->scope('/', function (RouteBuilder $routes) {
 passed arguments
 
 </div>
+
+<a id="passed-arguments"></a>
 
 ## Passed Arguments
 
@@ -1542,6 +1564,8 @@ $url = [
 So it is possible, if you wish, to convert the request parameters into
 a routing array or vice versa.
 
+<a id="asset-routing"></a>
+
 ## Generating Asset URLs
 
 The `Asset` class provides methods for generating URLs to your application's
@@ -1590,6 +1614,8 @@ To generate asset URLs for files in plugins use `plugin syntax`:
 $img = Asset::imageUrl('DebugKit.cake.png');
 ```
 
+<a id="redirect-routing"></a>
+
 ## Redirect Routing
 
 Redirect routing allows you to issue HTTP status 30x redirects for
@@ -1627,6 +1653,8 @@ $routes->scope('/', function (RouteBuilder $routes) {
 
 This would redirect `/articles/*` to `https://google.com` with a
 HTTP status of 302.
+
+<a id="entity-routing"></a>
 
 ## Entity Routing
 
@@ -1676,6 +1704,8 @@ Router::url(['_name' => 'articles:view', '_entity' => $article]);
 
 This will extract both the `id` property and the `slug` property out of the
 provided entity.
+
+<a id="custom-route-classes"></a>
 
 ## Custom Route Classes
 

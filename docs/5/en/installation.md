@@ -277,6 +277,8 @@ tells you the status of your current database connection.
 
 Congratulations! You are ready to [create your first CakePHP application](quickstart.md).
 
+<a id="url-rewriting"></a>
+
 ## URL Rewriting
 
 ### Apache

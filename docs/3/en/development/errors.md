@@ -4,6 +4,8 @@ CakePHP applications come with error and exception handling setup for you. PHP
 errors are trapped and displayed or logged. Uncaught exceptions are rendered
 into error pages automatically.
 
+<a id="error-configuration"></a>
+
 ## Error & Exception Configuration
 
 Error configuration is done in your application's **config/app.php** file. By
@@ -57,6 +59,8 @@ process.
     pages and logging are performed.
 4.  *Create & register your own error handler* This gives you complete
     control over how errors & exceptions are handled, logged and rendered.
+
+<a id="error-views"></a>
 
 ## Customize Error Templates
 
@@ -360,6 +364,8 @@ dealt with by ErrorHandler by setting the `log` option to `true` in your
 > [!NOTE]
 > If you are using a custom exception handler this setting will have
 > no effect. Unless you reference it inside your implementation.
+
+<a id="built-in-exceptions"></a>
 
 ## Built in Exceptions for CakePHP
 

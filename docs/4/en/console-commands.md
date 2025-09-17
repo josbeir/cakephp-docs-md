@@ -132,7 +132,7 @@ command. Then learn more about commands:
 - [Cache Tool](console-commands/cache.md)
 - [Completion Tool](console-commands/completion.md)
 - [I18N Tool](console-commands/i18n.md)
-- [Plugin Tool](console-commands/plugin.md)
+- [The plugin tool allows you to load and unload plugins via the command prompt.](console-commands/plugin.md)
 - [Schema Cache Tool](console-commands/schema-cache.md)
 - [Routes Tool](console-commands/routes.md)
 - [Server Tool](console-commands/server.md)

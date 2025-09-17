@@ -425,6 +425,8 @@ class ImageComment extends AppModel {
 }
 ```
 
+<a id="multiple-counterCache"></a>
+
 ### Multiple counterCache
 
 Since 2.0, CakePHP has supported having multiple `counterCache` in a single model
@@ -772,6 +774,8 @@ like to fetch Recipe data when using the Ingredient model.
 > [!TIP]
 > For more information on saving HABTM objects, see [Saving Habtm](#saving-habtm)
 
+<a id="hasMany-through"></a>
+
 ## hasMany through (The Join Model)
 
 It is sometimes desirable to store additional data with a many-to-many
@@ -845,6 +849,8 @@ meta-information.
 Join models are pretty useful things to be able to use, and CakePHP
 makes it easy to do so with its built-in hasMany and belongsTo
 associations and saveAll feature.
+
+<a id="dynamic-associations"></a>
 
 ## Creating and Destroying Associations on the Fly
 
@@ -1058,6 +1064,8 @@ class Post extends AppModel {
 If your table has a `parent_id` field, you can also use [Model Find Threaded](#model-find-threaded)
 to fetch a nested array of records using a single query without
 setting up any associations.
+
+<a id="joining-tables"></a>
 
 ## Joining tables
 

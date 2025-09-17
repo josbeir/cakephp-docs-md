@@ -3,6 +3,8 @@
 CakePHP 2.2 is a fully API compatible upgrade from 2.0/2.1. This page outlines the
 changes and improvements made for 2.2.
 
+<a id="required-steps-to-upgrade-2-2"></a>
+
 ## Required steps to upgrade
 
 When upgrading to CakePHP 2.2 its important to add a few new configuration

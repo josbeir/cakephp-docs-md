@@ -30,6 +30,8 @@ $connection = ConnectionManager::get('default');
 > [!NOTE]
 > For supported databases, see [installation notes](../installation.md).
 
+<a id="running-select-statements"></a>
+
 ### Running Select Statements
 
 Running raw SQL queries is a breeze:
@@ -113,6 +115,8 @@ use Cake\Datasource\ConnectionManager;
 $connection = ConnectionManager::get('default');
 $connection->delete('articles', ['id' => 10]);
 ```
+
+<a id="database-configuration"></a>
 
 ## Configuration
 
@@ -288,6 +292,8 @@ pastry_stores, and savory_cakes.
 >
 >     'flags' => [\PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']
 
+<a id="read-and-write-connections"></a>
+
 ## Read and Write Connections
 
 Connections can have separate read and write roles. Read
@@ -455,6 +461,8 @@ automatically convert input parameters from `DateTime` instances into a
 timestamp or formatted datestrings. Likewise, 'binary' columns will accept file
 handles, and generate file handles when reading data.
 
+<a id="datetime-type"></a>
+
 ### DateTime Type
 
 `class` Cake\\Database\\**DateTimeType**
@@ -498,6 +506,8 @@ use Cake\Database\Type\DateTimeTimezoneType;
 // Overwrite the default datetime type with a more precise one.
 TypeFactory::map('datetime', DateTimeTimezoneType::class);
 ```
+
+<a id="adding-custom-database-types"></a>
 
 ### Adding Custom Types
 
@@ -671,6 +681,8 @@ no value for the current database driver:
 
 </div>
 
+<a id="mapping-custom-datatypes-to-sql-expressions"></a>
+
 ### Mapping Custom Datatypes to SQL Expressions
 
 The previous example maps a custom datatype for a 'json' column type which is
@@ -789,6 +801,8 @@ The above class does a few interesting things:
 Once we've built our custom type, we'll need to [connect our type
 to our table class](#saving-complex-types).
 
+<a id="immutable-datetime-mapping"></a>
+
 ### Enabling Immutable DateTime Objects
 
 Because Date/Time objects are easily mutated in place, CakePHP allows you to
@@ -813,6 +827,8 @@ Connection classes provide a simple interface to interact with database
 connections in a consistent way. They are intended as a more abstract interface to
 the driver layer and provide features for executing queries, logging queries, and doing
 transactional operations.
+
+<a id="database-queries"></a>
 
 ### Executing Queries
 
@@ -959,6 +975,8 @@ $statement = $connection->prepare('SELECT * FROM articles WHERE published = ?');
 
 Once you've prepared a statement you can bind additional data and execute it.
 
+<a id="database-basics-binding-values"></a>
+
 ### Binding Values
 
 Once you've created a prepared statement, you may need to bind additional data.
@@ -1055,6 +1073,8 @@ Possibly document CallbackStatement and BufferedStatement
 
 </div>
 
+<a id="database-query-logging"></a>
+
 ## Query Logging
 
 Query logging can be enabled when configuring your connection by setting the
@@ -1099,6 +1119,8 @@ Log::setConfig('queries', [
 > never leave query logging on in production as it will negatively impact the
 > performance of your application.
 
+<a id="identifier-quoting"></a>
+
 ## Identifier Quoting
 
 By default CakePHP does **not** quote identifiers in generated SQL queries. The
@@ -1121,6 +1143,8 @@ converts all identifiers into `IdentifierExpression` objects.
 
 > [!NOTE]
 > SQL snippets contained in QueryExpression objects will not be modified.
+
+<a id="database-metadata-cache"></a>
 
 ## Metadata Caching
 

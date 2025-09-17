@@ -18,6 +18,8 @@ it finds in the view variables. (Generally the result of `Controller::paginate()
 You can use `PaginatorHelper::setPaginated()` to explicitly set the paginated
 resultset that the helper should use.
 
+<a id="paginator-templates"></a>
+
 ### PaginatorHelper Templates
 
 Internally PaginatorHelper uses a series of simple HTML templates to generate
@@ -478,6 +480,8 @@ markers:
              {{count}} total, starting on record {{start}}, ending on {{end}}'
 ]) ?>
 ```
+
+<a id="paginator-helper-multiple"></a>
 
 ### Paginating Multiple Results
 

@@ -484,6 +484,8 @@ And finally, configure the translation loader for the domain and locale:
         'fr_FR'
     );
 
+<a id="creating-generic-translators"></a>
+
 ### Creating Generic Translators
 
 Configuring translators by calling `I18n::setTranslator()` for each domain and
@@ -605,6 +607,8 @@ By default dates returned for the ORM results use the `Cake\I18n\DateTime` class
 so displaying them directly in you application will be affected by changing the
 current locale.
 
+<a id="parsing-localized-dates"></a>
+
 ### Parsing Localized Datetime Data
 
 When accepting localized data from the request, it is nice to accept datetime
@@ -627,6 +631,8 @@ TypeFactory::build('datetime')->useLocaleParser()
 ```
 
 The default parsing format is the same as the default string format.
+
+<a id="converting-request-data-from-user-timezone"></a>
 
 ### Converting Request Data from the User's Timezone
 

@@ -1,3 +1,5 @@
+<a id="plugin-shell"></a>
+
 # Plugin Tool
 
 The plugin tool allows you to load and unload plugins via the command prompt.
