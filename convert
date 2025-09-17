@@ -62,8 +62,10 @@ find "$INPUT_DIR" -name "*.rst" -type f | while read -r rst_file; do
     temp_file=$(mktemp)
     
     # Pre-process the RST file to handle substitutions, PHP directives, and fix include paths
-    sed -e "s/|phpversion|/${PHPVERSION:-8.4}/g" \
-        -e "s/|minphpversion|/${MINPHPVERSION:-8.1}/g" \
+    # Preserve version variables as literal text for markdown-it processing
+    # Note: Order matters - process minphpversion first to avoid partial matches
+    sed -e "s/|minphpversion|/MINPHPVERSION_MARKER/g" \
+        -e "s/|phpversion|/PHPVERSION_MARKER/g" \
         "$rst_file" | \
     python3 -c "
 import re
@@ -202,13 +204,17 @@ sys.stdout.write(fixed_content)
     md_file_abs="$(cd "$(dirname "$md_file")" && pwd)/$(basename "$md_file")"
 
     # Set destination context and folder for the Lua filter (use absolute paths)
-    export DESTINATION_CONTEXT="$md_file"
+    export DESTINATION_CONTEXT="$md_file_abs"
     export DESTINATION_FOLDER="$(cd "$OUTPUT_DIR" && pwd)"
+    export SOURCE_FOLDER="$(cd "$INPUT_DIR" && pwd)"
+    export CURRENT_SOURCE_FILE="$rst_file"
 
     # Change to RST directory and run pandoc for proper include resolution
     (cd "$rst_dir" && \
     DESTINATION_CONTEXT="$DESTINATION_CONTEXT" \
     DESTINATION_FOLDER="$DESTINATION_FOLDER" \
+    SOURCE_FOLDER="$SOURCE_FOLDER" \
+    CURRENT_SOURCE_FILE="$CURRENT_SOURCE_FILE" \
     pandoc \
         --from=rst \
         --to=gfm \
@@ -226,7 +232,12 @@ sys.stdout.write(fixed_content)
         --lua-filter="$FILTERS_DIR/codeblocks.lua" \
         --output="$md_file_abs" \
         "$(basename "$temp_in_rst_dir")")
-    
+
+    # Post-process the markdown file to restore version variables
+    sed -i -e "s/MINPHPVERSION_MARKER/|minphpversion|/g" \
+           -e "s/PHPVERSION_MARKER/|phpversion|/g" \
+           "$md_file_abs"
+
     # Clean up temp file in RST directory
     rm -f "$temp_in_rst_dir"
     

@@ -1,9 +1,11 @@
 -- Improved Ref filter: Convert Sphinx :ref: expressions to markdown links
 -- Handles both cross-file and self-file references properly
 
--- Get destination context and folder from environment
+-- Get destination context, folder, and source folder from environment
 local destination_context = os.getenv("DESTINATION_CONTEXT") or ""
 local destination_folder = os.getenv("DESTINATION_FOLDER") or ""
+local source_folder = os.getenv("SOURCE_FOLDER") or ""
+local current_source_file = os.getenv("CURRENT_SOURCE_FILE") or ""
 
 -- Caches
 local anchor_cache = nil
@@ -91,20 +93,34 @@ local function build_anchor_index()
                 end
             end
 
-            -- Remove the legacy directory path prefix to get just the relative path within docs
-            -- Handle different path patterns that could appear depending on working directory
-            if md_path:match("^%./") then
-                -- Remove leading "./" (when run from legacy/en/)
-                md_path = md_path:gsub("^%./", "")
-            elseif md_path:match("^%.%./") then
-                -- Remove leading "../" (when run from legacy/en/subdir/)
-                md_path = md_path:gsub("^%.%./", "")
-            elseif md_path:match("^legacy/en/") then
-                -- Remove "legacy/en/" prefix (when run from project root)
-                md_path = md_path:gsub("^legacy/en/", "")
-            elseif md_path:match("legacy/en/") then
-                -- Remove any "legacy/en/" portion from anywhere in path
-                md_path = md_path:gsub("^.*/legacy/en/", "")
+            -- Remove the source directory path prefix to get just the relative path within docs
+            if source_folder and source_folder ~= "" then
+                -- Use the actual source folder to determine what to strip
+                local source_basename = source_folder:match("([^/]+)$") or ""
+
+                -- Handle absolute paths by making them relative to source folder
+                if md_path:find(source_folder, 1, true) == 1 then
+                    -- Remove the full source folder path
+                    md_path = md_path:sub(#source_folder + 2) -- +2 to remove the trailing slash too
+                elseif md_path:match("^%./") then
+                    -- Remove leading "./"
+                    md_path = md_path:gsub("^%./", "")
+                elseif md_path:match("^%.%./") then
+                    -- Remove leading "../"
+                    md_path = md_path:gsub("^%.%./", "")
+                elseif source_basename ~= "" then
+                    -- Remove any occurrence of the source folder basename from the path
+                    local pattern = source_basename .. "/"
+                    md_path = md_path:gsub("^.*/" .. pattern, "")
+                    md_path = md_path:gsub("^" .. pattern, "")
+                end
+            else
+                -- Fallback behavior when SOURCE_FOLDER is not available
+                if md_path:match("^%./") then
+                    md_path = md_path:gsub("^%./", "")
+                elseif md_path:match("^%.%./") then
+                    md_path = md_path:gsub("^%.%./", "")
+                end
             end
 
             anchor_cache[anchor] = md_path
@@ -121,30 +137,13 @@ local function build_anchor_index()
         end
     end
 
-    -- The convert script runs from the RST file directory (like legacy/en/intro/)
-    -- We need to scan the legacy/en directory, which could be at different relative paths
-    -- depending on how deep we are in the directory structure
-
-    local possible_legacy_paths = {
-        ".",         -- When run from legacy/en/ directory
-        "../",       -- When run from legacy/en/subdirectory/ (like intro/, development/, etc)
-        "../../",    -- When run from legacy/en/subdir/subdir/
-        "legacy/en", -- When run from project root
-        "../../legacy/en"  -- Fallback for other contexts
-    }
-
-    local legacy_dir = nil
-    for _, path in ipairs(possible_legacy_paths) do
-        local test_file = io.open(path .. "/index.rst", "r")
-        if test_file then
-            test_file:close()
-            legacy_dir = path
-            break
-        end
-    end
-
-    if legacy_dir then
-        scan_directory(legacy_dir)
+    -- Use the SOURCE_FOLDER passed from the convert script
+    -- This ensures we always scan the correct source directory regardless of working directory
+    if source_folder and source_folder ~= "" then
+        scan_directory(source_folder)
+    else
+        -- Fallback to current directory if SOURCE_FOLDER is not set (for backward compatibility)
+        scan_directory(".")
     end
     return anchor_cache
 end
@@ -157,32 +156,26 @@ local function get_current_file_anchors()
 
     current_file_anchors = {}
 
-    -- Find the current RST file being processed
-    -- The convert script creates temp files with random names in the RST directory
-    -- We need to find the .rst file, but exclude temporary files (which have tmp. prefix)
-    local handle = io.popen("find . -maxdepth 1 -name '*.rst' -type f ! -name 'tmp.*' 2>/dev/null")
-    if handle then
-        for file_path in handle:lines() do
-            local file = io.open(file_path, "r")
-            if file then
-                local content = file:read("*all")
-                file:close()
+    -- Use the specific current source file if provided
+    if current_source_file and current_source_file ~= "" then
+        local file = io.open(current_source_file, "r")
+        if file then
+            local content = file:read("*all")
+            file:close()
 
-                -- Extract anchors from this specific file
-                for anchor in content:gmatch("%.%. _([^:]+):") do
-                    current_file_anchors[anchor] = true
-                end
-                break -- Only process the first (and should be only) .rst file found
+            -- Extract anchors from this specific file
+            for anchor in content:gmatch("%.%. _([^:]+):") do
+                current_file_anchors[anchor] = true
             end
         end
-        handle:close()
-    end
-
-    -- If no non-temp files found, fallback to temp files but extract the actual content
-    if not next(current_file_anchors) then
-        local temp_handle = io.popen("find . -maxdepth 1 -name 'tmp.*.rst' -type f 2>/dev/null")
-        if temp_handle then
-            for file_path in temp_handle:lines() do
+    else
+        -- Fallback to original logic when CURRENT_SOURCE_FILE is not available
+        -- Find the current RST file being processed
+        -- The convert script creates temp files with random names in the RST directory
+        -- We need to find the .rst file, but exclude temporary files (which have tmp. prefix)
+        local handle = io.popen("find . -maxdepth 1 -name '*.rst' -type f ! -name 'tmp.*' 2>/dev/null")
+        if handle then
+            for file_path in handle:lines() do
                 local file = io.open(file_path, "r")
                 if file then
                     local content = file:read("*all")
@@ -192,10 +185,31 @@ local function get_current_file_anchors()
                     for anchor in content:gmatch("%.%. _([^:]+):") do
                         current_file_anchors[anchor] = true
                     end
-                    break -- Only process the first temp file found
+                    break -- Only process the first (and should be only) .rst file found
                 end
             end
-            temp_handle:close()
+            handle:close()
+        end
+
+        -- If no non-temp files found, fallback to temp files but extract the actual content
+        if not next(current_file_anchors) then
+            local temp_handle = io.popen("find . -maxdepth 1 -name 'tmp.*.rst' -type f 2>/dev/null")
+            if temp_handle then
+                for file_path in temp_handle:lines() do
+                    local file = io.open(file_path, "r")
+                    if file then
+                        local content = file:read("*all")
+                        file:close()
+
+                        -- Extract anchors from this specific file
+                        for anchor in content:gmatch("%.%. _([^:]+):") do
+                            current_file_anchors[anchor] = true
+                        end
+                        break -- Only process the first temp file found
+                    end
+                end
+                temp_handle:close()
+            end
         end
     end
 
@@ -224,14 +238,11 @@ local function resolve_ref_link(ref_content)
             -- Calculate relative path from current file to target
             local current_file = destination_context
 
-            -- Extract the base name of the destination folder (e.g., "docs/5/en")
-            local folder_basename = destination_folder:match("([^/]+/[^/]+/[^/]+)$")
-
-            if folder_basename then
-                -- Escape special regex characters and remove folder basename prefix
-                local escaped_basename = folder_basename:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%1")
-                if current_file:match("^" .. escaped_basename .. "/") then
-                    current_file = current_file:gsub("^" .. escaped_basename .. "/", "")
+            -- Normalize current_file to be relative to destination_folder
+            if destination_folder and destination_folder ~= "" then
+                -- If current_file starts with destination_folder, make it relative
+                if current_file:find(destination_folder, 1, true) == 1 then
+                    current_file = current_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
                 end
             end
 
@@ -263,14 +274,11 @@ local function resolve_ref_link(ref_content)
         -- Calculate relative path from current file to target
         local current_file = destination_context
 
-        -- Extract the base name of the destination folder (e.g., "docs/5/en")
-        local folder_basename = destination_folder:match("([^/]+/[^/]+/[^/]+)$")
-
-        if folder_basename then
-            -- Escape special regex characters and remove folder basename prefix
-            local escaped_basename = folder_basename:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%1")
-            if current_file:match("^" .. escaped_basename .. "/") then
-                current_file = current_file:gsub("^" .. escaped_basename .. "/", "")
+        -- Normalize current_file to be relative to destination_folder
+        if destination_folder and destination_folder ~= "" then
+            -- If current_file starts with destination_folder, make it relative
+            if current_file:find(destination_folder, 1, true) == 1 then
+                current_file = current_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
             end
         end
 

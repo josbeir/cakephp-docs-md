@@ -154,17 +154,13 @@ local function create_markdown_link(file_path)
     end
 
     -- Calculate relative path from current file to target
-    -- Extract the relative path from destination context using destination folder
+    -- Normalize current_file to be relative to destination_folder
     local current_file = destination_context
 
-    -- Extract the base name of the destination folder (e.g., "docs/5/en")
-    local folder_basename = destination_folder:match("([^/]+/[^/]+/[^/]+)$")
-
-    if folder_basename then
-        -- Escape special regex characters and remove folder basename prefix
-        local escaped_basename = folder_basename:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%1")
-        if current_file:match("^" .. escaped_basename .. "/") then
-            current_file = current_file:gsub("^" .. escaped_basename .. "/", "")
+    if destination_folder and destination_folder ~= "" then
+        -- If current_file starts with destination_folder, make it relative
+        if current_file:find(destination_folder, 1, true) == 1 then
+            current_file = current_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
         end
     end
 

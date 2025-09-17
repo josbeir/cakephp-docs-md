@@ -19,14 +19,13 @@ local function extract_anchors_from_rst()
     -- The convert script runs from legacy/en directory, so we need to account for that
     local rst_file = destination_context:gsub("%.md$", ".rst")
 
-    -- Extract just the relative path from the output structure
-    local folder_basename = destination_folder:match("([^/]+/[^/]+/[^/]+)$")
+    -- Normalize rst_file to be relative to destination_folder
     local relative_rst_file = rst_file
 
-    if folder_basename then
-        local escaped_basename = folder_basename:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%1")
-        if relative_rst_file:match("^" .. escaped_basename .. "/") then
-            relative_rst_file = relative_rst_file:gsub("^" .. escaped_basename .. "/", "")
+    if destination_folder and destination_folder ~= "" then
+        -- If rst_file starts with destination_folder, make it relative
+        if relative_rst_file:find(destination_folder, 1, true) == 1 then
+            relative_rst_file = relative_rst_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
         end
     end
 
