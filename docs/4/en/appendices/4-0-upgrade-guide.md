@@ -95,7 +95,7 @@ method signatures as those found in cakephp/app.
 5.  `config/routes.php` at [routes.php](https://github.com/cakephp/app/blob/4.x/config/routes.php) on GitHub.
 
 If you are providing some kind of REST API, don't forget to include the
-[Body Parser Middleware](#body-parser-middleware). Finally, you should consider upgrading to the new
+[Body Parser Middleware](../controllers/middleware#body-parser-middleware). Finally, you should consider upgrading to the new
 [AuthenticationMiddleware](/authentication/2/en/index.html)
 and [AuthorizationMiddleware](/authorization/2/en/index.html), if you are still
 using `AuthComponent`.

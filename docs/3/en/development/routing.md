@@ -172,7 +172,7 @@ $routes->connect(
 
 The first parameter is used to tell the router what sort of URL you're trying to
 control. The URL is a normal slash delimited string, but can also contain
-a wildcard (\*) or [Route Elements](#route-elements). Using a wildcard tells the router
+a wildcard (\*) or [Route Elements](../development/tmp.aeRFFTBjlD#route-elements). Using a wildcard tells the router
 that you are willing to accept any additional arguments supplied. Routes without
 a \* only match the exact template pattern supplied.
 
@@ -274,11 +274,11 @@ $routes->connect(
 
 This is telling the Router that any URL beginning with `/cooks/` should be
 sent to the `UsersController`. The action called will depend on the value of
-the `:action` parameter. By using [Route Elements](#route-elements), you can create
+the `:action` parameter. By using [Route Elements](../development/tmp.aeRFFTBjlD#route-elements), you can create
 variable routes, that accept user input or variables. The above route also uses
 the greedy star. The greedy star indicates that this route should accept any
 additional positional arguments given. These arguments will be made available in
-the [Passed Arguments](#passed-arguments) array.
+the [Passed Arguments](../development/tmp.aeRFFTBjlD#passed-arguments) array.
 
 When generating URLs, routes are used too. Using
 `['controller' => 'Users', 'action' => 'some_action', 5]` as
@@ -319,7 +319,7 @@ will go to the 'update' action. There are HTTP helper methods for:
 - HEAD
 
 All of these methods return the route instance allowing you to leverage the
-[fluent setters](#route-fluent-methods) to further configure your route.
+[fluent setters](../development/tmp.aeRFFTBjlD#route-fluent-methods) to further configure your route.
 
 <div class="versionadded">
 
@@ -473,8 +473,8 @@ CakePHP, and should not be used unless you want the special meaning
 - `controller` Used to name the controller for a route.
 - `action` Used to name the controller action for a route.
 - `plugin` Used to name the plugin a controller is located in.
-- `prefix` Used for [Prefix Routing](#prefix-routing)
-- `_ext` Used for [File extentions routing](#file-extensions).
+- `prefix` Used for [Prefix Routing](../development/tmp.aeRFFTBjlD#prefix-routing)
+- `_ext` Used for [File extentions routing](../development/tmp.aeRFFTBjlD#file-extensions).
 - `_base` Set to `false` to remove the base path from the generated URL. If
   your application is not in the root directory, this can be used to generate
   URLs that are 'cake relative'.
@@ -488,7 +488,7 @@ CakePHP, and should not be used unless you want the special meaning
 - `_ssl` Set to `true` to convert the generated URL to https or `false`
   to force http.
 - `_method` Define the HTTP verb/method to use. Useful when working with
-  [Resource Routes](#resource-routes).
+  [Resource Routes](../development/tmp.aeRFFTBjlD#resource-routes).
 - `_name` Name of route. If you have setup named routes, you can use this key
   to specify it.
 
@@ -537,7 +537,7 @@ Fluent builder methods were added in 3.5.0
 
 ### Passing Parameters to Action
 
-When connecting routes using [Route Elements](#route-elements) you may want to have routed
+When connecting routes using [Route Elements](../development/tmp.aeRFFTBjlD#route-elements) you may want to have routed
 elements be passed arguments instead. The `pass` option whitelists which route
 elements should also be made available as arguments passed into the controller
 functions:
@@ -705,7 +705,7 @@ Prefixes are mapped to sub-namespaces in your application's `Controller`
 namespace. By having prefixes as separate controllers you can create smaller and
 simpler controllers. Behavior that is common to the prefixed and non-prefixed
 controllers can be encapsulated using inheritance,
-[Components](../controllers/components.md), or traits. Using our users example, accessing
+[Components](../controllers/components), or traits. Using our users example, accessing
 the URL `/admin/users/edit/5` would call the `edit()` method of our
 **src/Controller/Admin/UsersController.php** passing 5 as the first parameter.
 The view file used would be **src/Template/Admin/Users/edit.ctp**
@@ -828,7 +828,7 @@ This would link to a controller with the namespace `App\\Controller\\Admin\\MyPr
 
 ### Plugin Routing
 
-Routes for [Plugins](../plugins.md) should be created using the `plugin()`
+Routes for [Plugins](../plugins) should be created using the `plugin()`
 method. This method creates a new routing scope for the plugin's routes:
 
 ``` php
@@ -862,7 +862,7 @@ Router::prefix('admin', function (RouteBuilder $routes) {
 
 The above would create a route that looks like `/admin/debug-kit/:controller`.
 It would have the `prefix`, and `plugin` route elements set. The
-[Plugin Routes](#plugin-routes) section has more information on building plugin routes.
+[Plugin Routes](../plugins#plugin-routes) section has more information on building plugin routes.
 
 ### Creating Links to Plugin Routes
 
@@ -1063,7 +1063,7 @@ $this->Html->link(
 );
 ```
 
-File extensions are used by [Request Handling](../controllers/components/request-handling.md)
+File extensions are used by [Request Handling](../controllers/components/request-handling)
 to do automatic view switching based on content types.
 
 <a id="connecting-scoped-middleware"></a>
@@ -1076,7 +1076,7 @@ only where it is needed allowing your middleware to not concern itself with
 how/where it is being applied.
 
 > [!NOTE]
-> Applied scoped middleware will be run by [RoutingMiddleware](#routing-middleware),
+> Applied scoped middleware will be run by [RoutingMiddleware](../controllers/middleware#routing-middleware),
 > normally at the end of your application's middleware queue.
 
 Before middleware can be applied to a scope, it needs to be
@@ -1248,7 +1248,7 @@ Router::scope('/api', function (RouteBuilder $routes) {
 The above would map the 'Comments' resource to the
 `App\Controller\Articles\CommentsController`. Having separate controllers lets
 you keep your controller logic simpler. The prefixes created this way are
-compatible with [Prefix Routing](#prefix-routing).
+compatible with [Prefix Routing](../development/tmp.aeRFFTBjlD#prefix-routing).
 
 > [!NOTE]
 > While you can nest resources as deeply as you require, it is not recommended
@@ -1512,7 +1512,7 @@ older versions of CakePHP.
 
 You can also use any of the special route elements when generating URLs:
 
-- `_ext` Used for [File Extensions](#file-extensions) routing.
+- `_ext` Used for [File Extensions](../development/tmp.aeRFFTBjlD#file-extensions) routing.
 - `_base` Set to `false` to remove the base path from the generated URL. If
   your application is not in the root directory, this can be used to generate
   URLs that are 'cake relative'.
@@ -1774,7 +1774,7 @@ Router::url(['plugin' => 'MyPlugin', 'controller' => 'Locations', 'action' => 'i
 ```
 
 > [!WARNING]
-> If you are using the caching features of [Routing Middleware](#routing-middleware) you must
+> If you are using the caching features of [Routing Middleware](../controllers/middleware#routing-middleware) you must
 > define the URL filters in your application `bootstrap()` as filters are
 > not part of the cached data.
 
@@ -1800,4 +1800,4 @@ This will populate `$this->request->getParam('named')` with any named parameters
 found in the passed arguments. Any passed argument that was interpreted as a
 named parameter, will be removed from the list of passed arguments.
 
-- [Dispatcher Filters](../development/dispatch-filters.md)
+- [Dispatcher Filters](../development/dispatch-filters)

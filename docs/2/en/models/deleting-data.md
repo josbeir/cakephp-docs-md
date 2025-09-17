@@ -30,7 +30,7 @@ $this->Comment->delete($this->request->data('Comment.id'));
 
 You can hook custom logic into the delete process using the `beforeDelete` and
 `afterDelete` callbacks present in both Models and Behaviors. See
-[Callback Methods](../models/callback-methods.md) for more information.
+[Callback Methods](../models/callback-methods) for more information.
 
 > [!NOTE]
 > If you delete a record with dependent records and one of their delete

@@ -154,7 +154,7 @@ following files.
 
 - /app/webroot/index.php
 - /app/webroot/test.php (if you use the
-  [Testing](../development/testing.md) feature.)
+  [Testing](../development/testing) feature.)
 
 There are three constants that you'll need to edit: `ROOT`, `APP_DIR`, and
 `CAKE_CORE_INCLUDE_PATH`.
@@ -197,4 +197,4 @@ the wrong delimiter, and it makes your code more portable.
 
 ## Apache and mod_rewrite (and .htaccess)
 
-This section was moved to [URL rewriting](../installation/url-rewriting.md).
+This section was moved to [URL rewriting](../installation/url-rewriting).

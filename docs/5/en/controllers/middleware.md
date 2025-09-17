@@ -31,7 +31,7 @@ CakePHP provides several middleware to handle common tasks in web applications:
 
 - `Cake\Error\Middleware\ErrorHandlerMiddleware` traps exceptions from the
   wrapped middleware and renders an error page using the
-  [Error & Exception Handling](../development/errors.md) Exception handler.
+  [Error & Exception Handling](../development/errors) Exception handler.
 - `Cake\Routing\AssetMiddleware` checks whether the request is referring to a
   theme or plugin asset file, such as a CSS, JavaScript or image file stored in
   either a plugin's webroot folder or the corresponding one for a Theme.
@@ -44,15 +44,15 @@ CakePHP provides several middleware to handle common tasks in web applications:
   obfuscated data.
 - `Cake\Http\Middleware\BodyParserMiddleware` allows you to decode JSON, XML
   and other encoded request bodies based on `Content-Type` header.
-- [Cake\Http\Middleware\HttpsEnforcerMiddleware](../security/https-enforcer.md)
+- [Cake\Http\Middleware\HttpsEnforcerMiddleware](../security/https-enforcer)
   requires HTTPS to be used.
-- [Cake\Http\Middleware\CsrfProtectionMiddleware](../security/csrf.md) adds
+- [Cake\Http\Middleware\CsrfProtectionMiddleware](../security/csrf) adds
   double-submit cookie based CSRF protection to your application.
-- [Cake\Http\Middleware\SessionCsrfProtectionMiddleware](../security/csrf.md)
+- [Cake\Http\Middleware\SessionCsrfProtectionMiddleware](../security/csrf)
   adds session based CSRF protection to your application.
-- [Cake\Http\Middleware\CspMiddleware](../security/content-security-policy.md)
+- [Cake\Http\Middleware\CspMiddleware](../security/content-security-policy)
   makes it simpler to add Content-Security-Policy headers to your application.
-- [Cake\Http\Middleware\SecurityHeadersMiddleware](../security/security-headers.md)
+- [Cake\Http\Middleware\SecurityHeadersMiddleware](../security/security-headers)
   makes it possible to add security related headers like `X-Frame-Options` to
   responses.
 
@@ -128,8 +128,8 @@ $middlewareQueue->insertAfter(
 ```
 
 If your middleware is only applicable to a subset of routes or individual
-controllers you can use [Route scoped middleware](#route-scoped-middleware),
-or [Controller middleware](#controller-middleware).
+controllers you can use [Route scoped middleware](../development/routing#route-scoped-middleware),
+or [Controller middleware](../controllers#controller-middleware).
 
 ### Adding Middleware from Plugins
 

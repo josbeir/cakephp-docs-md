@@ -472,7 +472,7 @@ Possible keys for hasMany association arrays include:
   records not in the current set will be removed. If the foreign key is a nullable
   column or if `dependent` is true records will be orphaned.
 - **finder**: The finder method to use when loading associated records. See the
-  [Association Finder](#association-finder) section for more information.
+  [Association Finder](../orm/tmp.rNDQ1yBPcX#association-finder) section for more information.
 
 Once this association has been defined, find operations on the Articles table
 can contain the Comment records if they exist:
@@ -504,7 +504,7 @@ You may want to cache the counts for your hasMany associations. This is useful
 when you often need to show the number of associated records, but don't want to
 load all the records just to count them. For example, the comment count on any
 given article is often cached to make generating lists of articles more
-efficient. You can use the [CounterCacheBehavior](../orm/behaviors/counter-cache.md) to cache counts of associated records.
+efficient. You can use the [CounterCacheBehavior](../orm/behaviors/counter-cache) to cache counts of associated records.
 
 You should make sure that your database tables do not contain columns that match
 association property names. If for example you have counter fields that conflict
@@ -629,7 +629,7 @@ Possible keys for belongsToMany association arrays include:
   do a wipe and replace to create the links between the passed entities when
   saving.
 - **finder**: The finder method to use when loading associated records. See the
-  [Association Finder](#association-finder) section for more information.
+  [Association Finder](../orm/tmp.rNDQ1yBPcX#association-finder) section for more information.
 
 Once this association has been defined, find operations on the Articles table can
 contain the Tag records if they exist:
@@ -752,7 +752,7 @@ $query = $this->find(
 By default associations will load records based on the foreign key columns. If
 you want to define additional conditions for associations, you can use
 a `finder`. When an association is loaded the ORM will use your [custom
-finder](#custom-find-methods) to load, update, or delete associated records.
+finder](../orm/retrieving-data-and-resultsets#custom-find-methods) to load, update, or delete associated records.
 Using finders lets you encapsulate your queries and make them more reusable.
 There are some limitations when using finders to load data in associations that
 are loaded using joins (belongsTo/hasOne). Only the following aspects of the
@@ -792,4 +792,4 @@ $users = $role->users;
 
 ## Loading Associations
 
-Once you've defined your associations you can [eager load associations](#eager-loading-associations) when fetching results.
+Once you've defined your associations you can [eager load associations](../orm/retrieving-data-and-resultsets#eager-loading-associations) when fetching results.

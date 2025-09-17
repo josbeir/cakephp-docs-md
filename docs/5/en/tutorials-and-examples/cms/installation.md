@@ -58,7 +58,7 @@ important set up tasks, such as setting the correct file permissions and
 creating your **config/app.php** file for you.
 
 There are other ways to install CakePHP. If you cannot or don't want to use
-Composer, check out the [Installation](../../installation.md) section.
+Composer, check out the [Installation](../../installation) section.
 
 Regardless of how you downloaded and installed CakePHP, once your set up is
 completed, your directory setup should look like the following, though other
@@ -80,7 +80,7 @@ files may also be present:
       README.md
 
 Now might be a good time to learn a bit about how CakePHP's directory structure
-works: check out the [CakePHP Folder Structure](../../intro/cakephp-folder-structure.md) section.
+works: check out the [CakePHP Folder Structure](../../intro/cakephp-folder-structure) section.
 
 If you get lost during this tutorial, you can see the finished result [on GitHub](https://github.com/cakephp/cms-tutorial).
 
@@ -110,4 +110,4 @@ bullet points should be green chef hats other than CakePHP being able to connect
 your database. If not, you may need to install additional PHP extensions, or set
 directory permissions.
 
-Next, we will build our [Database](../../tutorials-and-examples/cms/database.md).
+Next, we will build our [Database](../../tutorials-and-examples/cms/database).

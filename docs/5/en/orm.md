@@ -20,12 +20,12 @@ patterns. It aims to create a hybrid implementation that combines aspects of
 both patterns to create a fast, simple to use ORM.
 
 Before we get started exploring the ORM, make sure you [configure your
-database connections](orm/database-basics.md#database-configuration).
+database connections](orm/database-basics#database-configuration).
 
 ## Quick Example
 
 To get started you don't have to write any code. If you've followed the
-[CakePHP conventions for your database tables](intro/conventions.md#model-and-database-conventions) you can just start using the ORM. For example
+[CakePHP conventions for your database tables](intro/conventions#model-and-database-conventions) you can just start using the ORM. For example
 if we wanted to load some data from our `articles` table we would start off
 creating our `Articles` table class. Create
 **src/Model/Table/ArticlesTable.php** with the following code:
@@ -109,20 +109,20 @@ CakePHP uses naming conventions to link the Table and Entity class together. If
 you need to customize which entity a table uses you can use the
 `entityClass()` method to set a specific classname.
 
-See the chapters on [Table Objects](orm/table-objects.md) and [Entities](orm/entities.md) for more
+See the chapters on [Table Objects](orm/table-objects) and [Entities](orm/entities) for more
 information on how to use table objects and entities in your application.
 
 ## More Information
 
-- [Database Basics](orm/database-basics.md)
-- [Query Builder](orm/query-builder.md)
-- [Table Objects](orm/table-objects.md)
-- [Entities](orm/entities.md)
-- [Associations - Linking Tables Together](orm/associations.md)
-- [Retrieving Data & Results Sets](orm/retrieving-data-and-resultsets.md)
-- [Validating Data](orm/validation.md)
-- [Saving Data](orm/saving-data.md)
-- [Deleting Data](orm/deleting-data.md)
-- [Behaviors](orm/behaviors.md)
-- [Schema System](orm/schema-system.md)
-- [Schema Cache Tool](console-commands/schema-cache.md)
+- [Database Basics](orm/database-basics)
+- [Query Builder](orm/query-builder)
+- [Table Objects](orm/table-objects)
+- [Entities](orm/entities)
+- [Associations - Linking Tables Together](orm/associations)
+- [Retrieving Data & Results Sets](orm/retrieving-data-and-resultsets)
+- [Validating Data](orm/validation)
+- [Saving Data](orm/saving-data)
+- [Deleting Data](orm/deleting-data)
+- [Behaviors](orm/behaviors)
+- [Schema System](orm/schema-system)
+- [Schema Cache Tool](console-commands/schema-cache)

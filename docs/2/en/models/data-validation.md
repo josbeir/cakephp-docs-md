@@ -12,7 +12,7 @@ we'll cover in this section is the model side of things.
 Essentially: what happens when you call the save() method of your
 model. For more information about how to handle the displaying of
 validation errors, check out
-[FormHelper](../core-libraries/helpers/form.md).
+[FormHelper](../core-libraries/helpers/form).
 
 The first step to data validation is creating the validation rules
 in the Model. To do that, use the Model::validate array in the
@@ -1019,4 +1019,4 @@ ability to pass off to another validator has been added.
 > <https://github.com/cakephp/localized>
 > Also feel free to contribute with your localized validation rules.
 
-- [Validating Data From The Controller](../data-validation/validating-data-from-the-controller.md)
+- [Validating Data From The Controller](../data-validation/validating-data-from-the-controller)

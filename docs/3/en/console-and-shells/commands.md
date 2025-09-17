@@ -133,13 +133,13 @@ public function execute(Arguments $args, ConsoleIo $io)
 }
 ```
 
-See the [Option Parsers](../console-and-shells/option-parsers.md) section for more information.
+See the [Option Parsers](../console-and-shells/option-parsers) section for more information.
 
 ## Creating Output
 
 Commands are provided a `ConsoleIo` instance when executed. This object allows
 you to interact with `stdout`, `stderr` and create files. See the
-[Command Input/Output](../console-and-shells/input-output.md) section for more information.
+[Command Input/Output](../console-and-shells/input-output) section for more information.
 
 ## Using Models in Commands
 

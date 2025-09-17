@@ -23,7 +23,7 @@ releases can have as many breaking changes as required.
 
 For each major and minor release, the CakePHP team will provide a migration
 guide. These guides explain the new features and any breaking changes that are
-in each release. They can be found in the [Appendices](../appendices.md) section of the
+in each release. They can be found in the [Appendices](../appendices) section of the
 cookbook.
 
 ## Using CakePHP

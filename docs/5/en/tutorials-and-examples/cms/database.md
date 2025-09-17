@@ -113,7 +113,7 @@ key. CakePHP supports composite primary keys almost everywhere, allowing you to
 have simpler schemas that don't require additional `id` columns.
 
 The table and column names we used were not arbitrary. By using CakePHP's
-[naming conventions](../../intro/conventions.md), we can leverage CakePHP more
+[naming conventions](../../intro/conventions), we can leverage CakePHP more
 effectively and avoid needing to configure the framework. While CakePHP is
 flexible enough to accommodate almost any database schema, adhering to the
 conventions will save you time as you can leverage the convention-based defaults
@@ -206,4 +206,4 @@ classes, then:
 
 Read more about building migrations and data seeding: [Migrations](https://book.cakephp.org/migrations/4/)
 
-With the database built, we can now build [Models](../../tutorials-and-examples/cms/articles-model.md).
+With the database built, we can now build [Models](../../tutorials-and-examples/cms/articles-model).

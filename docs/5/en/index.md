@@ -1,7 +1,7 @@
 # Welcome
 
 CakePHP 5 is a web development framework running on PHP 8.4 (min. PHP
-8.1). Read [CakePHP at a Glance](intro.md) to get an
+8.1). Read [CakePHP at a Glance](intro) to get an
 introduction to the fundamentals of CakePHP.
 
 The CakePHP book is an openly developed and community editable documentation
@@ -26,26 +26,26 @@ EPUB, you can now read it on more devices, as well as offline.
 
 ## Getting Help
 
-If you're stuck, there are a number of places [you can get help](intro/where-to-get-help.md).
+If you're stuck, there are a number of places [you can get help](intro/where-to-get-help).
 
 ## First Steps
 
 Learning a new framework can be intimidating and exciting at the same time. To
 help you along, we have created a cookbook packed with examples and recipes to
 get the common tasks completed. If you are new, you should start off with the
-[Quick Start Guide](quickstart.md) as it will give you a quick tour of what
+[Quick Start Guide](quickstart) as it will give you a quick tour of what
 CakePHP has to offer and how it works.
 
 After you've finished the Quickstart tutorial, you can brush up on the key
 elements in a CakePHP application:
 
-- The [CakePHP request cycle](intro.md#request-cycle)
-- The [conventions](intro/conventions.md) that CakePHP
+- The [CakePHP request cycle](intro#request-cycle)
+- The [conventions](intro/conventions) that CakePHP
   uses.
-- [Controllers](controllers.md) handle requests and co-ordinate your models
+- [Controllers](controllers) handle requests and co-ordinate your models
   and the responses your application creates.
-- [Views](views.md) are the presentation layer in your application. They
+- [Views](views) are the presentation layer in your application. They
   give you powerful tools to create HTML, JSON and the other outputs your
   application needs.
-- [Models](orm.md) are the key ingredient in any application. They handle
+- [Models](orm) are the key ingredient in any application. They handle
   validation, and domain logic within your application.

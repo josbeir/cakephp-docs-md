@@ -878,7 +878,7 @@ creating an instance of our `ArticlesTable` class, and then run our
 `find('published')` method. In `$expected` we set what we expect should be
 the proper result (that we know since we have defined which records are
 initially populated to the article table.) We test that the result equals our
-expectation by using the `assertEquals()` method. See the [Running Tests](#running-tests)
+expectation by using the `assertEquals()` method. See the [Running Tests](../development/testing#running-tests)
 section for more information on how to run your test case.
 
 Using the fixture factories, the test would now look like this:
@@ -1154,7 +1154,7 @@ simulate actual authentication request headers.
 When testing Basic or Digest Authentication, you can add the environment
 variables that [PHP creates](https://php.net/manual/en/features.http-auth.php)
 automatically. These environment variables used in the authentication adapter
-outlined in [Basic Authentication](#basic-authentication):
+outlined in [Basic Authentication](../controllers/components/authentication#basic-authentication):
 
 ``` php
 public function testBasicAuthentication()
@@ -1243,7 +1243,7 @@ The `setUnlockedFields()` method was added.
 ### Integration Testing PSR-7 Middleware
 
 Integration testing can also be used to test your entire PSR-7 application and
-[Middleware](../controllers/middleware.md). By default `IntegrationTestTrait` will
+[Middleware](../controllers/middleware). By default `IntegrationTestTrait` will
 auto-detect the presence of an `App\Application` class and automatically
 enable integration testing of your Application. You can toggle this behavior
 with the `useHttpServer()` method:
@@ -1597,7 +1597,7 @@ git status
 
 ## Console Integration Testing
 
-See [Console Integration Testing](#console-integration-testing) for information on testing shells and
+See [Console Integration Testing](../console-and-shells/commands#console-integration-testing) for information on testing shells and
 commands.
 
 ## Testing Views
@@ -1792,7 +1792,7 @@ View clases `loadHelpers` method.
 
 ## Testing Events
 
-The [Events System](../core-libraries/events.md) is a great way to decouple your application
+The [Events System](../core-libraries/events) is a great way to decouple your application
 code, but sometimes when testing, you tend to test the results of events in the
 test cases that execute those events. This is an additional form of coupling
 that can be removed by using `assertEventFired` and `assertEventFiredWith`
@@ -1836,7 +1836,7 @@ class CartsTable extends Table
 
 > [!NOTE]
 > To assert that events are fired, you must first enable
-> [Tracking Events](#tracking-events) on the event manager you wish to assert against.
+> [Tracking Events](../core-libraries/events#tracking-events) on the event manager you wish to assert against.
 
 To test the `OrdersTable` above, we enable tracking in `setUp()` then assert
 that the event was fired, and assert that the `$order` entity was passed in
@@ -1897,7 +1897,7 @@ added.
 
 ## Testing Email
 
-See [Email Testing](#email-testing) for information on testing email.
+See [Email Testing](../core-libraries/email#email-testing) for information on testing email.
 
 ## Creating Test Suites
 
@@ -1958,7 +1958,7 @@ reference them using `plugin.pluginName.fixtureName` syntax in the
 directories you can use the following: `plugin.vendorName/pluginName.folderName/fixtureName`.
 
 Before you can use fixtures you should ensure you have the [fixture
-listener](#fixture-phpunit-configuration) configured in your `phpunit.xml`
+listener](../development/testing#fixture-phpunit-configuration) configured in your `phpunit.xml`
 file. You should also ensure that your fixtures are loadable. Ensure the
 following is present in your **composer.json** file:
 
@@ -1976,7 +1976,7 @@ following is present in your **composer.json** file:
 
 ## Generating Tests with Bake
 
-If you use [bake](../bake/usage.md) to
+If you use [bake](../bake/usage) to
 generate scaffolding, it will also generate test stubs. If you need to
 re-generate test case skeletons, or if you want to generate test skeletons for
 code you wrote, you can use `bake`:

@@ -19,7 +19,7 @@ features will continue to function until 4.0.0 after which they will be removed.
 - `Cake\View\Helper\RssHelper` is deprecated. Due to infrequent use the
   RssHelper is deprecated.
 - `Cake\Controller\Component\CsrfComponent` is deprecated. Use
-  [Csrf Middleware](#csrf-middleware) instead.
+  [Csrf Middleware](../controllers/middleware#csrf-middleware) instead.
 - `Cake\Datasource\TableSchemaInterface` is deprecated. Use
   `Cake\Database\TableSchemaAwareInterface` instead.
 - `Cake\Console\ShellDispatcher` is deprecated. Applications should update to
@@ -166,7 +166,7 @@ behavior that may affect your application:
   `$this` to assist in defining table objects in a fluent fashion.
 - Cache engines no longer throw an exception when they fail or are misconfigured,
   but instead fall back to the noop `NullEngine`. Fallbacks can also be
-  [configured](#cache-configuration-fallback) on a per-engine basis.
+  [configured](../core-libraries/caching#cache-configuration-fallback) on a per-engine basis.
 - `Cake\Database\Type\DateTimeType` will now marshal ISO-8859-1 formatted
   datetime strings (e.g. 2017-07-09T12:33:00+00:02) in addition to the
   previously accepted format. If you have a subclass of DateTimeType you may
@@ -179,7 +179,7 @@ behavior that may affect your application:
 Middleware can now be conditionally applied to routes in specific URL
 scopes. This allows you to build specific stacks of middleware for different
 parts of your application without having to write URL checking code in your
-middleware. See the [Connecting Scoped Middleware](#connecting-scoped-middleware) section for more
+middleware. See the [Connecting Scoped Middleware](../development/routing#connecting-scoped-middleware) section for more
 information.
 
 ### New Console Runner
@@ -196,20 +196,20 @@ class requires replacing the contents of your `bin/cake.php` file with the
 
 Cache engines can now be configured with a `fallback` key that defines a
 cache configuration to fall back to if the engine is misconfigured (or
-unavailable). See [Cache Configuration Fallback](#cache-configuration-fallback) for more information on
+unavailable). See [Cache Configuration Fallback](../core-libraries/caching#cache-configuration-fallback) for more information on
 configuring fallbacks.
 
 ### dotenv Support added to Application Skeleton
 
 The application skeleton now features a 'dotenv' integration making it easier to
 use environment variables to configure your application. See the
-[Environment Variables](#environment-variables) section for more information.
+[Environment Variables](../development/configuration#environment-variables) section for more information.
 
 ### Console Integration Testing
 
 The `Cake\TestSuite\ConsoleIntegrationTestCase` class was added to make
 integration testing console applications easier. For more information, visit
-the [Console Integration Testing](#console-integration-testing) section. This test class is fully
+the [Console Integration Testing](../console-and-shells/commands#console-integration-testing) section. This test class is fully
 compatible with the current `Cake\Console\ShellDispatcher` as well as the new
 `Cake\Console\CommandRunner`.
 
@@ -263,14 +263,14 @@ compatible with the current `Cake\Console\ShellDispatcher` as well as the new
 - New `Cookie` & `CookieCollection` classes have been added. These classes allow you
   to work with cookies in an object-orientated way, and are available on
   `Cake\Http\ServerRequest`, `Cake\Http\Response`, and
-  `Cake\Http\Client\Response`. See the [Request Cookies](#request-cookies) and
-  [Response Cookies](#response-cookies) for more information.
+  `Cake\Http\Client\Response`. See the [Request Cookies](../controllers/request-response#request-cookies) and
+  [Response Cookies](../controllers/request-response#response-cookies) for more information.
 - New middleware has been added to make applying security headers easier. See
-  [Security Header Middleware](#security-header-middleware) for more information.
+  [Security Header Middleware](../controllers/middleware#security-header-middleware) for more information.
 - New middleware has been added to transparently encrypt cookie data. See
-  [Encrypted Cookie Middleware](#encrypted-cookie-middleware) for more information.
+  [Encrypted Cookie Middleware](../controllers/middleware#encrypted-cookie-middleware) for more information.
 - New middleware has been added to make protecting against CSRF easier. See
-  [Csrf Middleware](#csrf-middleware) for more information.
+  [Csrf Middleware](../controllers/middleware#csrf-middleware) for more information.
 - `Cake\Http\Client::addCookie()` was added to make it easy to add cookies to
   a client instance.
 

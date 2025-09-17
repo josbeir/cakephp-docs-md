@@ -11,16 +11,16 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [Flash](../controllers/components/flash.md)
-- [Form Protection Component](../controllers/components/form-protection.md)
-- [Checking HTTP Cache](../controllers/components/check-http-cache.md)
+- [Flash](../controllers/components/flash)
+- [Form Protection Component](../controllers/components/form-protection)
+- [Checking HTTP Cache](../controllers/components/check-http-cache)
 
 <a id="configuring-components"></a>
 
 ## Configuring Components
 
 Many of the core components require configuration. One example would be
-the [Form Protection Component](../controllers/components/form-protection.md). Configuration for these components,
+the [Form Protection Component](../controllers/components/form-protection). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 
@@ -151,7 +151,7 @@ class PostsController extends AppController
 <div class="versionchanged">
 
 5.1.0
-Components are able to use [Dependency Injection](../development/dependency-injection.md) to receive services.
+Components are able to use [Dependency Injection](../development/dependency-injection) to receive services.
 
 </div>
 
@@ -185,7 +185,7 @@ class MathComponent extends Component
 > All components must extend `Cake\\Controller\\Component`. Failing
 > to do this will trigger an exception.
 
-Components can use [Dependency Injection](../development/dependency-injection.md) to receive services
+Components can use [Dependency Injection](../development/dependency-injection) to receive services
 as constructor parameters:
 
 ``` php

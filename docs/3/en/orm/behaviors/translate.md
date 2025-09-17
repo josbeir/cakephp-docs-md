@@ -119,7 +119,7 @@ language abbreviation with area code [UN M.49](https://en.wikipedia.org/wiki/UN_
 
 > [!TIP]
 > It's wise to use the same language abbreviations as required for
-> [Internationalization and Localization](../../core-libraries/internationalization-and-localization.md). Thus you are
+> [Internationalization and Localization](../../core-libraries/internationalization-and-localization). Thus you are
 > consistent and switching the language works identical for both, the
 > `Translate Behaviour` and `Internationalization and Localization`.
 

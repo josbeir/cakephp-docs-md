@@ -5,7 +5,7 @@
 <div class="deprecated">
 
 2.3
-Use [Cake Response File](#cake-response-file) instead.
+Use [Cake Response File](../controllers/request-response#cake-response-file) instead.
 
 </div>
 

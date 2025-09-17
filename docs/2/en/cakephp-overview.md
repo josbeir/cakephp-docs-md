@@ -10,6 +10,6 @@ technologies – such as SQL, JavaScript, and XML – and this manual
 does not attempt to explain those technologies, only how they are
 used in context.
 
-- [What is CakePHP? Why use it?](cakephp-overview/what-is-cakephp-why-use-it.md)
-- [Understanding Model-View-Controller](cakephp-overview/understanding-model-view-controller.md)
-- [Where to Get Help](cakephp-overview/where-to-get-help.md)
+- [What is CakePHP? Why use it?](cakephp-overview/what-is-cakephp-why-use-it)
+- [Understanding Model-View-Controller](cakephp-overview/understanding-model-view-controller)
+- [Where to Get Help](cakephp-overview/where-to-get-help)

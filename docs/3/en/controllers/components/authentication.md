@@ -25,7 +25,7 @@ Configuring authentication requires several steps including defining
 a users table, creating a model, controller & views, etc.
 
 This is all covered step by step in the
-[CMS Tutorial](../../tutorials-and-examples/cms/authentication.md).
+[CMS Tutorial](../../tutorials-and-examples/cms/authentication).
 
 If you are looking for existing authentication and/or authorization solutions
 for CakePHP, have a look at the
@@ -1134,5 +1134,5 @@ Without a parameter, the full configuration will be returned.
 
 ## Testing Actions Protected By AuthComponent
 
-See the [Testing Authentication](#testing-authentication) section for tips on how to test controller
+See the [Testing Authentication](../../../development/testing#testing-authentication) section for tips on how to test controller
 actions that are protected by `AuthComponent`.

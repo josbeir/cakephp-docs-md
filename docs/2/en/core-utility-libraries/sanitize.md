@@ -7,7 +7,7 @@ other parts of CakePHP, native PHP functions, or other libraries.
 ## Input filtering
 
 Instead of using the destructive input filtering features of Sanitize class you
-should instead apply more thorough [Data Validation](../models/data-validation.md) to the user
+should instead apply more thorough [Data Validation](../models/data-validation) to the user
 data your application accepts. By rejecting invalid input you can often remove the
 need to destructively modify user data. You might also want to look at
 [PHP's filter extension](https://www.php.net/filter) in situations you need to
@@ -23,4 +23,4 @@ situations it is best to use a dedicated library like [HTML Purifier](https://ht
 CakePHP handles SQL escaping on associated array values provided to
 `Model::find()` and `Model::save()`. In the rare case you
 need to construct SQL by hand using user input you should use
-[Prepared Statements](#prepared-statements).
+[Prepared Statements](../models/retrieving-your-data#prepared-statements).

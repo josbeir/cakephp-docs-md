@@ -1,20 +1,20 @@
 # Security
 
 CakePHP provides you some tools to secure your application. In addition to the
-[Form Protection Component](controllers/components/form-protection.md), the following sections cover
+[Form Protection Component](controllers/components/form-protection), the following sections cover
 additional security features:
 
-- [Security Utility](core-libraries/security.md)
-- [Csrf](CSRF.md)
-- [Protection](Protection.md)
+- [Security Utility](core-libraries/security)
+- [Csrf](CSRF)
+- [Protection](Protection)
 - [](security/csrf)
-- [Content](Content.md)
-- [Security](Security.md)
-- [Policy](Policy.md)
+- [Content](Content)
+- [Security](Security)
+- [Policy](Policy)
 - [](security/content-security-policy)
-- [Security](Security.md)
-- [Headers](Headers.md)
+- [Security](Security)
+- [Headers](Headers)
 - [](security/security-headers)
-- [Https](HTTPS.md)
-- [Enforcer](Enforcer.md)
+- [Https](HTTPS)
+- [Enforcer](Enforcer)
 - [](security/https-enforcer)

@@ -266,7 +266,7 @@ regex values allowing the model to try to make matches.
 > It is not necessary to call validate() before save() as save() will
 > automatically validate your data before actually saving.
 
-For more information on validation, see the [Data Validation](../models/data-validation.md)
+For more information on validation, see the [Data Validation](../models/data-validation)
 later on in this manual.
 
 ## virtualFields
@@ -290,7 +290,7 @@ on the database, this can cause SQL errors.
 
 For more information on the `virtualFields` property, its proper
 usage, as well as limitations, see
-[Virtual fields](../models/virtual-fields.md).
+[Virtual fields](../models/virtual-fields).
 
 ## name
 

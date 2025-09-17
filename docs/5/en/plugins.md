@@ -284,7 +284,7 @@ bin/cake bake controller --plugin ContactManager Contacts
 ```
 
 Please refer to the chapter
-[Code Generation with Bake](bake/usage.md) if you
+[Code Generation with Bake](bake/usage) if you
 have any problems with using the command line. Be sure to re-generate your
 autoloader once you've created your plugin:
 
@@ -474,7 +474,7 @@ also connect routes that use the following pattern:
     /{prefix}/{plugin}/{controller}
     /{prefix}/{plugin}/{controller}/{action}
 
-See the section on [Plugin Configuration](#plugin-configuration) for information on how to load
+See the section on [Plugin Configuration](tmp.0WrRSiZBcj#plugin-configuration) for information on how to load
 plugin specific route files.
 
 <a id="plugin-models"></a>
@@ -608,7 +608,7 @@ echo $this->element('Contacts.sidebar/helpbox');
 ```
 
 > [!NOTE]
-> See [View Elements](views.md#view-elements) for more information on rendering elements.
+> See [View Elements](views#view-elements) for more information on rendering elements.
 
 ### Overriding Plugin Templates from Inside Your Application
 
@@ -662,7 +662,7 @@ You may put any type of file in any directory, just like a regular webroot.
 
 > [!WARNING]
 > Handling static assets (such as images, JavaScript and CSS files)
-> through the Dispatcher is very inefficient. See [Symlink Assets](deployment.md#symlink-assets)
+> through the Dispatcher is very inefficient. See [Symlink Assets](deployment#symlink-assets)
 > for more information.
 
 ### Linking to Assets in Plugins
@@ -683,7 +683,7 @@ echo $this->Html->image('ContactManager.logo');
 
 Plugin assets are served using the `AssetMiddleware` middleware by default.
 This is only recommended for development. In production you should
-[symlink plugin assets](deployment.md#symlink-assets) to improve performance.
+[symlink plugin assets](deployment#symlink-assets) to improve performance.
 
 If you are not using the helpers, you can prepend /plugin-name/ to the beginning
 of the URL for an asset within that plugin to serve it. Linking to
@@ -753,7 +753,7 @@ public function console($commands)
 If you are testing controllers or generating URLs, make sure your
 plugin connects routes `tests/bootstrap.php`.
 
-For more information see [testing plugins](development/testing.md) page.
+For more information see [testing plugins](development/testing) page.
 
 ## Publishing your Plugin
 

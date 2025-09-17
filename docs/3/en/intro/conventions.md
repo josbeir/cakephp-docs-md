@@ -41,7 +41,7 @@ $this->Html->link('link-title', [
 ```
 
 For more information on CakePHP URLs and parameter handling, see
-[Routes Configuration](#routes-configuration).
+[Routes Configuration](../development/routing#routes-configuration).
 
 <a id="file-and-classname-conventions"></a>
 
@@ -122,7 +122,7 @@ The basic pattern is
 > tables/columns that use another language, you will need to add inflection
 > rules (from singular to plural and vice-versa). You can use
 > `Cake\\Utility\\Inflector` to define your custom inflection
-> rules. See the documentation about [Inflector](../core-libraries/inflector.md) for more
+> rules. See the documentation about [Inflector](../core-libraries/inflector) for more
 > information.
 
 ## Plugins Conventions
@@ -161,7 +161,7 @@ file. None of these relationships have been configured by any means other than
 by creating classes and files that you'd need to create anyway.
 
 Now that you've been introduced to CakePHP's fundamentals, you might try a run
-through the [Content Management Tutorial](../tutorials-and-examples/cms/installation.md) to see how things fit
+through the [Content Management Tutorial](../tutorials-and-examples/cms/installation) to see how things fit
 together.
 
 See [awesome list recommendations](https://github.com/FriendsOfCake/awesome-cakephp/blob/master/CONTRIBUTING.md#tips-for-creating-cakephp-plugins) for details.

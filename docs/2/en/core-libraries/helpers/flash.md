@@ -9,8 +9,8 @@
 </div>
 
 FlashHelper provides a way to render flash messages that were set in
-`$_SESSION` by [FlashComponent](../../core-libraries/components/flash.md).
-[FlashComponent](../../core-libraries/components/flash.md) and FlashHelper
+`$_SESSION` by [FlashComponent](../../core-libraries/components/flash).
+[FlashComponent](../../core-libraries/components/flash) and FlashHelper
 primarily use elements to render flash messages. Flash elements are found under
 the `app/View/Elements/Flash` directory. You'll notice that CakePHP's App
 template comes with two flash elements: `success.ctp` and `error.ctp`.
@@ -29,7 +29,7 @@ method:
 
 By default, CakePHP uses a "flash" key for flash messages in a session. But, if
 you've specified a key when setting the flash message in
-[FlashComponent](../../core-libraries/components/flash.md), you can specify which
+[FlashComponent](../../core-libraries/components/flash), you can specify which
 flash key to render:
 
 ``` php
@@ -59,11 +59,11 @@ $this->Flash->set('The user has been saved.', array(
 
 2.10.0
 
-[Flash](../../core-libraries/components/flash.md) stacks messages as of 2.10.0. If you set
+[Flash](../../core-libraries/components/flash) stacks messages as of 2.10.0. If you set
 multiple flash messages, when you call `render()`, each message will be
 rendered in its own element, in the order the messages were set.
 
 </div>
 
 For more information about the available array options, please refer to the
-[FlashComponent](../../core-libraries/components/flash.md) section.
+[FlashComponent](../../core-libraries/components/flash) section.

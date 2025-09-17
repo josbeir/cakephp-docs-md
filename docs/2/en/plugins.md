@@ -12,6 +12,6 @@ installed into, is the application's configuration (database
 connection, etc.). Otherwise, it operates in its own little space,
 behaving much like it would if it were an application on its own.
 
-- [How To Install Plugins](plugins/how-to-install-plugins.md)
-- [How To Use Plugins](plugins/how-to-use-plugins.md)
-- [How To Create Plugins](plugins/how-to-create-plugins.md)
+- [How To Install Plugins](plugins/how-to-install-plugins)
+- [How To Use Plugins](plugins/how-to-use-plugins)
+- [How To Create Plugins](plugins/how-to-create-plugins)

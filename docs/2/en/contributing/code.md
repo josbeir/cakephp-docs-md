@@ -43,8 +43,8 @@ to date with CakePHP:
     git remote add upstream git://github.com/cakephp/cakephp.git
 
 Now that you have CakePHP setup you should be able to define a `$test`
-[database connection](#database-configuration), and
-[run all the tests](#running-tests).
+[database connection](../development/configuration#database-configuration), and
+[run all the tests](../development/testing#running-tests).
 
 ## Working on a patch
 
@@ -69,7 +69,7 @@ The above will create a local branch based on the upstream (CakePHP) 2.3 branch.
 Work on your fix, and make as many commits as you need; but keep in mind the
 following:
 
-- Follow the [Coding Standards](../contributing/cakephp-coding-conventions.md).
+- Follow the [Coding Standards](../contributing/cakephp-coding-conventions).
 - Add a test case to show the bug is fixed, or that the new feature works.
 - Keep your commits logical, and write good clear and concise commit messages.
 

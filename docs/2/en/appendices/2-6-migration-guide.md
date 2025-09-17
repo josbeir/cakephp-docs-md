@@ -68,7 +68,7 @@ the changes and improvements made in 2.6.
 
 ### CakeRequest
 
-- `CakeRequest::param()` can now read values using [Hash Path Syntax](#hash-path-syntax)
+- `CakeRequest::param()` can now read values using [Hash Path Syntax](../core-utility-libraries/hash#hash-path-syntax)
   like `data()`.
 - `CakeRequest:setInput()` was added.
 

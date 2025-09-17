@@ -60,7 +60,7 @@ features will continue to function until 4.0.0 after which they will be removed.
 - Passing `$className` as object to `Cake\Database\Type::map()` is deprecated. Use
   `set()` instead.
 - `Cake\Routing\Dispatcher` is deprecated. You should upgrade to [new
-  HTTP stack](#adding-http-stack).
+  HTTP stack](../development/application#adding-http-stack).
 
 Several classes were *renamed*. Their old names will continue to work until 4.0,
 but will emit deprecation warnings:
@@ -176,7 +176,7 @@ behavior that may affect your application:
 A new way to build CLI tools has been added. Shells & Tasks have several
 shortcomings that are hard to correct without breaking compatibility.
 `Cake\Console\Command` will replace `Shell` long term as the recommended way
-to build console applications. See the [Console Commands](../console-and-shells/commands.md)
+to build console applications. See the [Console Commands](../console-and-shells/commands)
 section for more information.
 
 - `ConsoleOptionParse::enableSubcommandSort()` was added. This method allows
@@ -184,7 +184,7 @@ section for more information.
 
 ## Core
 
-- Plugins can now define [Plugin Objects](#plugin-objects). These classes are optional and
+- Plugins can now define [Plugin Objects](../plugins#plugin-objects). These classes are optional and
   allow a plugin to add middleware and console commands to the host application.
   They are a class based way to configure and define a plugin.
 - `getTypeName()` was added to assist in getting correct class/type name when
@@ -262,7 +262,7 @@ section for more information.
 ## Routing
 
 - `Cake\Routing\Route\EntityRoute` was added. This route class makes building
-  routes that need data from entities easier. See the [Entity Routing](#entity-routing)
+  routes that need data from entities easier. See the [Entity Routing](../development/routing#entity-routing)
   section for more information.
 - Routing variables can now use `{var}` style placeholders. This style allows
   mid-word variables to be defined. You cannot combine `{var}` placeholders
@@ -270,7 +270,7 @@ section for more information.
 - `Router::routeExists()` was added. This method lets you check if a route
   array can be resolved into a valid route.
 - Route connection can now use compact 'string targets' e.g
-  `Bookmarks::index`. See [Routes Configuration](#routes-configuration) for more information.
+  `Bookmarks::index`. See [Routes Configuration](../development/routing#routes-configuration) for more information.
 - `RoutingMiddleware` can now cache the route collection created by your
   routes. Caching routes greatly improves application startup times.
   It now also requires to be instantiated and the current object (`$this`) passed for plugin routing.

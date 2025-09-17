@@ -5,11 +5,11 @@ level folders you should see:
 
 - The *bin* folder holds the Cake console executables.
 
-- The *config* folder holds the [Configuration](../development/configuration.md) files
+- The *config* folder holds the [Configuration](../development/configuration) files
   CakePHP uses. Database connection details, bootstrapping, core configuration files
   and more should be stored here.
 
-- The *plugins* folder is where the [Plugins](../plugins.md) your application uses are stored.
+- The *plugins* folder is where the [Plugins](../plugins) your application uses are stored.
 
 - The *logs* folder normally contains your log files, depending on your log
   configuration.
@@ -43,26 +43,26 @@ development. Let's look a little closer at the folders inside
 
 Command  
 Contains your application's console commands. See
-[Console Commands](../console-and-shells/commands.md) to learn more.
+[Console Commands](../console-and-shells/commands) to learn more.
 
 Console  
 Contains the installation script executed by Composer.
 
 Controller  
-Contains your application's [Controllers](../controllers.md) and their components.
+Contains your application's [Controllers](../controllers) and their components.
 
 Locale  
 Stores language files for internationalization.
 
 Middleware  
-Stores any [Middleware](../controllers/middleware.md) for your application.
+Stores any [Middleware](../controllers/middleware) for your application.
 
 Model  
 Contains your application's tables, entities and behaviors.
 
 Shell  
 Contains shell tasks for your application.
-For more information see [Console Tools, Shells & Tasks](../console-and-shells.md).
+For more information see [Console Tools, Shells & Tasks](../console-and-shells).
 
 Template  
 Presentational files are placed here: elements, error pages,

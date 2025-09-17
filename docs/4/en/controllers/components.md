@@ -11,21 +11,21 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [AuthComponent](../controllers/components/authentication.md)
-- [Flash](../controllers/components/flash.md)
-- [Security](../controllers/components/security.md)
-- [Pagination](../controllers/components/pagination.md)
-- [Request Handling](../controllers/components/request-handling.md)
-- [FormProtection](../controllers/components/form-protection.md)
-- [Checking HTTP Cache](../controllers/components/check-http-cache.md)
+- [AuthComponent](../controllers/components/authentication)
+- [Flash](../controllers/components/flash)
+- [Security](../controllers/components/security)
+- [Pagination](../controllers/components/pagination)
+- [Request Handling](../controllers/components/request-handling)
+- [FormProtection](../controllers/components/form-protection)
+- [Checking HTTP Cache](../controllers/components/check-http-cache)
 
 <a id="configuring-components"></a>
 
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
-requiring configuration are [Security](../controllers/components/security.md) and
-[FormProtection](../controllers/components/form-protection.md). Configuration for these components,
+requiring configuration are [Security](../controllers/components/security) and
+[FormProtection](../controllers/components/form-protection). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 
@@ -155,7 +155,7 @@ class PostsController extends AppController
 > component and a model the same name.
 
 > [!WARNING]
-> Component methods **don't** have access to [Dependency Injection](../development/dependency-injection.md)
+> Component methods **don't** have access to [Dependency Injection](../development/dependency-injection)
 > like Controller actions have. Use a service class inside your controller actions
 > instead of a component if you need this functionality.
 

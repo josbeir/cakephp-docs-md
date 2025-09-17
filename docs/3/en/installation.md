@@ -284,7 +284,7 @@ should point your browser to <http://example.com/> or <http://localhost:8765/>. 
 this point, you'll be presented with CakePHP's default home, and a message that
 tells you the status of your current database connection.
 
-Congratulations! You are ready to [create your first CakePHP application](quickstart.md).
+Congratulations! You are ready to [create your first CakePHP application](quickstart).
 
 <a id="url-rewriting"></a>
 

@@ -47,7 +47,7 @@ class User extends Entity
 
 Now, point your browser to **http://localhost:8765/users** to see a list of users.
 You can edit the default user that was created during
-[Installation](../../installation.md). If you change that user's password,
+[Installation](../../installation). If you change that user's password,
 you should see a hashed password instead of the original value on the list or
 view pages. CakePHP hashes passwords with [bcrypt](https://codahale.com/how-to-safely-store-a-password/) by default. You can also
 use SHA-1 or MD5 if you're working with an existing database, but we recommend
@@ -59,11 +59,11 @@ bcrypt for all new applications.
 
 ### Adding Login
 
-In CakePHP, authentication is handled by [Components](../../controllers/components.md).
+In CakePHP, authentication is handled by [Components](../../controllers/components).
 Components can be thought of as ways to create reusable chunks of controller
 code related to a specific feature or concept. Components can hook into the
 controller's event life-cycle and interact with your application that way. To
-get started, we'll add the [AuthComponent](../../controllers/components/authentication.md) to our application. We'll want the
+get started, we'll add the [AuthComponent](../../controllers/components/authentication) to our application. We'll want the
 create, update and delete methods to require authentication, so we'll add
 AuthComponent in our AppController:
 
@@ -354,7 +354,7 @@ public function edit($slug)
 ```
 
 Here we're modifying which properties can be mass-assigned, via the options
-for `patchEntity()`. See the [Changing Accessible Fields](#changing-accessible-fields) section for
+for `patchEntity()`. See the [Changing Accessible Fields](../../../orm/saving-data#changing-accessible-fields) section for
 more information. Remember to remove the `user_id` control from
 **src/Template/Articles/edit.ctp** as we no longer need it.
 
@@ -366,4 +366,4 @@ articles. We've also added some nice UX improvements by leveraging the
 FormHelper and ORM capabilities.
 
 Thank you for taking the time to explore CakePHP. Next, you should learn more about
-the [Database Access & ORM](../../orm.md), or you peruse the [Using CakePHP](../../topics.md).
+the [Database Access & ORM](../../orm), or you peruse the [Using CakePHP](../../topics).

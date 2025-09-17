@@ -9,7 +9,7 @@ the behavior of a given table CakePHP will generate a Table instance for you to
 use.
 
 Before trying to use Table objects and the ORM, you should ensure that you have
-configured your [database connection](#database-configuration).
+configured your [database connection](../orm/database-basics#database-configuration).
 
 ## Basic Usage
 
@@ -115,7 +115,7 @@ $articles = TableRegistry::getTableLocator()->get('Articles');
 `TableLocator` provides the various dependencies for constructing
 a table, and maintains a registry of all the constructed table instances making
 it easier to build relations and configure the ORM. See
-[Table Locator Usage](#table-locator-usage) for more information.
+[Table Locator Usage](../orm/table-objects#table-locator-usage) for more information.
 
 If your table class is in a plugin, be sure to use the correct name for your
 table class. Failing to do so can result in validation rules, or callbacks not
@@ -156,7 +156,7 @@ callback methods are triggered. This follows the same sequencing as controllers
 & components.
 
 To add an event listener to a Table class or Behavior simply implement the
-method signatures as described below. See the [Events System](../core-libraries/events.md) for
+method signatures as described below. See the [Events System](../core-libraries/events) for
 more detail on how to use the events subsystem.
 
 ### Event List
@@ -220,7 +220,7 @@ This will call the `initializeEvent` when any `Table` class is constructed.
 `method` Cake\\ORM\\Table::**beforeMarshal**(Event $event, ArrayObject $data, ArrayObject $options)
 
 The `Model.beforeMarshal` event is fired before request data is converted
-into entities. See the [Before Marshal](#before-marshal) documentation for more information.
+into entities. See the [Before Marshal](../orm/saving-data#before-marshal) documentation for more information.
 
 ### beforeFind
 
@@ -240,7 +240,7 @@ You might use this callback to restrict find operations based on a user's role,
 or make caching decisions based on the current load.
 
 In previous versions of CakePHP there was an `afterFind` callback, this has
-been replaced with the [Map Reduce](#map-reduce) features and entity constructors.
+been replaced with the [Map Reduce](../orm/retrieving-data-and-resultsets#map-reduce) features and entity constructors.
 
 ### buildValidator
 
@@ -434,7 +434,7 @@ class ArticlesTable extends Table
 ```
 
 You can find out more about behaviors, including the behaviors provided by
-CakePHP in the chapter on [Behaviors](../orm/behaviors.md).
+CakePHP in the chapter on [Behaviors](../orm/behaviors).
 
 <a id="configuring-table-connections"></a>
 

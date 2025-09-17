@@ -30,7 +30,7 @@ CakePHP provides several middleware to handle common tasks in web applications:
 
 - `Cake\Error\Middleware\ErrorHandlerMiddleware` traps exceptions from the
   wrapped middleware and renders an error page using the
-  [Error & Exception Handling](../development/errors.md) Exception handler.
+  [Error & Exception Handling](../development/errors) Exception handler.
 - `Cake\Routing\AssetMiddleware` checks whether the request is referring to a
   theme or plugin asset file, such as a CSS, JavaScript or image file stored in
   either a plugin's webroot folder or the corresponding one for a Theme.
@@ -59,7 +59,7 @@ routing scopes.
 
 To apply middleware to all requests, use the `middleware` method of your
 `App\Application` class. If you don't have an `App\Application` class, see
-the section on [Adding Http Stack](#adding-http-stack) for more information. Your application's
+the section on [Adding Http Stack](../development/application#adding-http-stack) for more information. Your application's
 `middleware` hook method will be called at the beginning of the request
 process, you can use the `MiddlewareQueue` object to attach middleware:
 
@@ -115,7 +115,7 @@ $middlewareQueue->insertAfter(
 
 In addition to applying middleware to your entire application, you can apply
 middleware to specific sets of routes using
-[Scoped Middleware](#connecting-scoped-middleware).
+[Scoped Middleware](../development/routing#connecting-scoped-middleware).
 
 ### Adding Middleware from Plugins
 
@@ -198,13 +198,13 @@ important attributes in any request handled by CakePHP:
 - `params` contains the results of route matching once routing rules have been
   processed.
 - `session` contains an instance of CakePHP's `Session` object. See
-  [Accessing Session Object](#accessing-session-object) for more information on how to use the session
+  [Accessing Session Object](../development/sessions#accessing-session-object) for more information on how to use the session
   object.
 
 ### Interacting with Responses
 
 The methods available to create a server response are the same as those
-available when interacting with [Httpclient Response Objects](#httpclient-response-objects). While the
+available when interacting with [Httpclient Response Objects](../core-libraries/httpclient#httpclient-response-objects). While the
 interface is the same the usage scenarios are different.
 
 When modifying the response, it is important to remember that responses are
@@ -315,7 +315,7 @@ class Application
 Routing middleware is responsible for applying your application's routes and
 resolving the plugin, controller, and action a request is going to. It can cache
 the route collection used in your application to increase startup time. To
-enable cached routes, provide the desired [cache configuration](#cache-configuration) as a parameter:
+enable cached routes, provide the desired [cache configuration](../core-libraries/caching#cache-configuration) as a parameter:
 
 ``` php
 // In Application.php

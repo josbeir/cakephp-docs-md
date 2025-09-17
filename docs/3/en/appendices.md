@@ -5,7 +5,7 @@ introduced in each version and the migration path between versions.
 
 ## 3.x Migration Guide
 
-- [3.x Migration Guide](appendices/3-x-migration-guide.md)
+- [3.x Migration Guide](appendices/3-x-migration-guide)
 
 ## Forwards Compatibility Shimming
 
@@ -17,5 +17,5 @@ The closer your 3.x app is to 4.x, the smaller will be the diff of changes, and 
 
 ## General Information
 
-- [CakePHP Development Process](appendices/cakephp-development-process.md)
-- [Glossary](appendices/glossary.md)
+- [CakePHP Development Process](appendices/cakephp-development-process)
+- [Glossary](appendices/glossary)

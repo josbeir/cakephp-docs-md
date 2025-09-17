@@ -15,7 +15,7 @@ The easiest way to create a `SelectQuery` object is to use `find()` from a
 `Table` object. This method will return an incomplete query ready to be
 modified. You can also use a table's connection object to access the lower level
 query builder that does not include ORM features, if necessary. See the
-[Database Queries](#database-queries) section for more information:
+[Database Queries](../orm/database-basics#database-queries) section for more information:
 
 ``` php
 use Cake\ORM\Locator\LocatorAwareTrait;
@@ -156,12 +156,12 @@ foreach ($list as $id => $title) {
 ```
 
 For more information on how to customize the fields used for populating the list
-refer to [Table Find List](#table-find-list) section.
+refer to [Table Find List](../orm/retrieving-data-and-resultsets#table-find-list) section.
 
 ### ResultSet Is A Collection Object
 
 Once you get familiar with the Query object methods, it is strongly encouraged
-that you visit the [Collection](../core-libraries/collections.md) section to
+that you visit the [Collection](../core-libraries/collections) section to
 improve your skills in efficiently traversing the results. The ResultSet (returned
 by calling the `SelectQuery`'s `all()` method) implements the collection interface:
 
@@ -208,7 +208,7 @@ evaluated, no SQL is ever sent to the database. Once executed, modifying and
 re-evaluating a query will result in additional SQL being run. Calling the same query without modification multiple times will return same reference.
 
 If you want to take a look at what SQL CakePHP is generating, you can turn
-database [query logging](#database-query-logging) on.
+database [query logging](../orm/database-basics#database-query-logging) on.
 
 ## Selecting Data
 
@@ -265,7 +265,7 @@ $query->where(function (QueryExpression $exp, SelectQuery $q) {
 });
 ```
 
-See the [Advanced Query Conditions](#advanced-query-conditions) section to find out how to construct
+See the [Advanced Query Conditions](../orm/tmp.EtBI5HiKVr#advanced-query-conditions) section to find out how to construct
 more complex `WHERE` conditions.
 
 ### Selecting Specific Fields
@@ -729,7 +729,7 @@ After your queries, you may need to do some post-processing. If you need to add
 a few calculated fields or derived data, you can use the `formatResults()`
 method. This is a lightweight way to map over the result sets. If you need more
 control over the process, or want to reduce results you should use
-the [Map/Reduce](#map-reduce) feature instead. If you were querying a list
+the [Map/Reduce](../orm/retrieving-data-and-resultsets#map-reduce) feature instead. If you were querying a list
 of people, you could calculate their age with a result formatter:
 
 ``` php
@@ -1190,7 +1190,7 @@ $query->where(['Categories.parent_id != Parents.id']);
 > [!WARNING]
 > The field names used in expressions, and SQL snippets should **never**
 > contain untrusted content as you will create SQL Injection vectors. See the
-> [Using Sql Functions](#using-sql-functions) section for how to safely include unsafe data
+> [Using Sql Functions](../orm/tmp.EtBI5HiKVr#using-sql-functions) section for how to safely include unsafe data
 > into function calls.
 
 ### Using Identifiers in Expressions
@@ -1261,7 +1261,7 @@ can be useful when you do not know whether you will get a scalar or array of
 parameters. The `[]` suffix on any data type name indicates to the query
 builder that you want the data handled as an array. If the data is not an array,
 it will first be cast to an array. After that, each value in the array will
-be cast using the [type system](#database-data-types). This works with
+be cast using the [type system](../orm/database-basics#database-data-types). This works with
 complex types as well. For example, you could take a list of DateTime objects
 using:
 
@@ -1316,7 +1316,7 @@ $query->select(['two' => $expr]);
 
 ### Using Connection Roles
 
-If you have configured [Read And Write Connections](#read-and-write-connections) in your application,
+If you have configured [Read And Write Connections](../orm/database-basics#read-and-write-connections) in your application,
 you can have a query run on the `read` connection using one of the role
 methods:
 
@@ -1438,7 +1438,7 @@ foreach ($query as $row) {
 $results = $query->all();
 ```
 
-You can use [any of the collection](../core-libraries/collections.md) methods
+You can use [any of the collection](../core-libraries/collections) methods
 on your query objects to pre-process or transform the results:
 
 ``` php
@@ -1578,7 +1578,7 @@ When the results for a cached query are fetched the following happens:
 The builder can help you retrieve data from multiple tables at the same time
 with the minimum amount of queries possible. To be able to fetch associated
 data, you first need to setup associations between the tables as described in
-the [Associations - Linking Tables Together](../orm/associations.md) section. This technique of combining queries
+the [Associations - Linking Tables Together](../orm/associations) section. This technique of combining queries
 to fetch associated data from other tables is called **eager loading**.
 
 Eager loading helps avoid many of the potential performance problems
@@ -1722,7 +1722,7 @@ $query = $articles->find()->contain([
 
 In the above example, you'll still get authors even if they don't have
 a published profile. To only get authors with a published profile use
-[matching()](#filtering-by-associated-data). If you have defined custom
+[matching()](../orm/retrieving-data-and-resultsets#filtering-by-associated-data). If you have defined custom
 finders in your associations, you can use them inside `contain()`:
 
 ``` php
@@ -1740,7 +1740,7 @@ $query = $articles->find()->contain('Comments', function (SelectQuery $q) {
 
 You can control more than just the query clauses used by `contain()`. If you pass an array
 with the association, you can override the `foreignKey`, `joinType` and `strategy`.
-See [Associations - Linking Tables Together](../orm/associations.md) for details on the default value and options for each association
+See [Associations - Linking Tables Together](../orm/associations) for details on the default value and options for each association
 type.
 
 You can pass `false` as the new `foreignKey` to disable foreign key constraints entirely.
@@ -2158,7 +2158,7 @@ $query = $articles->insertQuery()
 > [!NOTE]
 > Inserting records with the query builder will not trigger events such as
 > `Model.afterSave`. Instead you should use the [ORM to save
-> data](../orm/saving-data.md).
+> data](../orm/saving-data).
 
 <a id="query-builder-updating-data"></a>
 
@@ -2180,7 +2180,7 @@ Generally, it is easier to update data using entities and
 > [!NOTE]
 > Updating records with the query builder will not trigger events such as
 > `Model.afterSave`. Instead you should use the [ORM to save
-> data](../orm/saving-data.md).
+> data](../orm/saving-data).
 
 ## Deleting Data
 
@@ -2539,7 +2539,7 @@ If you need to build a recursive query (`WITH RECURSIVE …`), chain `->recursiv
 
 While the query builder makes most queries possible through builder methods,
 very complex queries can be tedious and complicated to build. You may want to
-[execute the desired SQL directly](#running-select-statements).
+[execute the desired SQL directly](../orm/database-basics#running-select-statements).
 
 Executing SQL directly allows you to fine tune the query that will be run.
 However, doing so doesn't let you use `contain` or other higher level ORM

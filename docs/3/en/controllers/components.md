@@ -11,21 +11,21 @@ different controllers.
 For more information on the components included in CakePHP, check out the
 chapter for each component:
 
-- [AuthComponent](../controllers/components/authentication.md)
-- [Cookie](../controllers/components/cookie.md)
-- [Cross Site Request Forgery](../controllers/components/csrf.md)
-- [Flash](../controllers/components/flash.md)
-- [Security](../controllers/components/security.md)
-- [Pagination](../controllers/components/pagination.md)
-- [Request Handling](../controllers/components/request-handling.md)
+- [AuthComponent](../controllers/components/authentication)
+- [Cookie](../controllers/components/cookie)
+- [Cross Site Request Forgery](../controllers/components/csrf)
+- [Flash](../controllers/components/flash)
+- [Security](../controllers/components/security)
+- [Pagination](../controllers/components/pagination)
+- [Request Handling](../controllers/components/request-handling)
 
 <a id="configuring-components"></a>
 
 ## Configuring Components
 
 Many of the core components require configuration. Some examples of components
-requiring configuration are [AuthComponent](../controllers/components/authentication.md) and
-[Cookie](../controllers/components/cookie.md). Configuration for these components,
+requiring configuration are [AuthComponent](../controllers/components/authentication) and
+[Cookie](../controllers/components/cookie). Configuration for these components,
 and for components in general, is usually done via `loadComponent()` in your
 Controller's `initialize()` method or via the `$components` array:
 

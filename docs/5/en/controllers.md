@@ -77,10 +77,10 @@ class AppController extends Controller
 
 When a request is made to a CakePHP application, CakePHP's
 `Cake\\Routing\\Router` and `Cake\\Routing\\Dispatcher`
-classes use [Routes Configuration](development/routing.md#routes-configuration) to find and create the correct
+classes use [Routes Configuration](development/routing#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [Cake Request](controllers/request-response.md#cake-request) for more information on the
+property. See the section on [Cake Request](controllers/request-response#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -292,7 +292,7 @@ This would render **plugins/Users/templates/UserDetails/custom_file.php**
 
 Controllers can define a list of view classes they support. After the
 controller's action is complete CakePHP will use the view list to perform
-content-type negotiation with either [File Extensions](development/routing.md#file-extensions) or `Accept`
+content-type negotiation with either [File Extensions](development/routing#file-extensions) or `Accept`
 headers. This enables your application to re-use the same controller action to
 render an HTML view or render a JSON or XML response. To define the list of
 supported view classes for a controller is done with the `addViewClasses()`
@@ -332,7 +332,7 @@ public function export(): void
 
 If within your controller actions you need to process the request or load data
 differently based on the content type you can use
-[Check The Request](controllers/request-response.md#check-the-request):
+[Check The Request](controllers/request-response#check-the-request):
 
 ``` php
 // In a controller action
@@ -455,7 +455,7 @@ return $this->redirect('/order/confirm', 301);
 return $this->redirect('/order/confirm', 303);
 ```
 
-See the [Redirect Component Events](controllers/components.md#redirect-component-events) section for how to redirect out of
+See the [Redirect Component Events](controllers/components#redirect-component-events) section for how to redirect out of
 a life-cycle handler.
 
 ## Loading Additional Tables/Models
@@ -505,7 +505,7 @@ $authors = $this->fetchModel('Authors');
 
 This method is used for paginating results fetched by your models.
 You can specify page sizes, model find conditions and more. See the
-[pagination](controllers/pagination.md) section for more details on
+[pagination](controllers/pagination) section for more details on
 how to use `paginate()`.
 
 The `$paginate` attribute gives you a way to customize how `paginate()`
@@ -564,7 +564,7 @@ methods are implemented by your controllers
 
 `method` Cake\\Controller\\Controller::**afterFilter**(EventInterface $event)
 
-In addition to controller life-cycle callbacks, [Components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components)
 also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks
@@ -607,7 +607,7 @@ As of 4.1.0 you can also raise a `RedirectException` to signal a redirect.
 
 `method` Cake\\Controller\\Controller::**middleware**($middleware, array $options = [])
 
-[Middleware](controllers/middleware.md) can be defined globally, in
+[Middleware](controllers/middleware) can be defined globally, in
 a routing scope or within a controller. To define middleware for a specific
 controller use the `middleware()` method from your controller's
 `initialize()` method:
@@ -630,5 +630,5 @@ Middleware defined by a controller will be called **before** `beforeFilter()` an
 
 ## More on Controllers
 
-- [The Pages Controller](controllers/pages-controller.md)
-- [Components](controllers/components.md)
+- [The Pages Controller](controllers/pages-controller)
+- [Components](controllers/components)

@@ -60,11 +60,11 @@ return [
 If you're throwing your application out into the wild, it's a good idea to make
 sure it doesn't have any obvious leaks:
 
-- Ensure you are using the [Cross Site Request Forgery](controllers/components/csrf.md) component or middleware.
-- You may want to enable the [Security](controllers/components/security.md) component.
+- Ensure you are using the [Cross Site Request Forgery](controllers/components/csrf) component or middleware.
+- You may want to enable the [Security](controllers/components/security) component.
   It can help prevent several types of form tampering and reduce the possibility
   of mass-assignment issues.
-- Ensure your models have the correct [Validation](core-libraries/validation.md) rules
+- Ensure your models have the correct [Validation](core-libraries/validation) rules
   enabled.
 - Check that only your `webroot` directory is publicly visible, and that your
   secrets (such as your app salt, and any security keys) are private and unique
@@ -77,7 +77,7 @@ keeping your code secure and your application safer. CakePHP applications
 should have the document root set to the application's `webroot`. This
 makes the application and configuration files inaccessible through a URL.
 Setting the document root is different for different webservers. See the
-[Url Rewriting](installation.md#url-rewriting) documentation for webserver specific
+[Url Rewriting](installation#url-rewriting) documentation for webserver specific
 information.
 
 In all cases you will want to set the virtual host/domain's document to be
@@ -118,4 +118,4 @@ using:
 
 ## Deploying an update
 
-After deployment of an update you might also want to run `bin/cake schema_cache clear`, part of the [Schema Cache Shell](console-and-shells/schema-cache.md) shell.
+After deployment of an update you might also want to run `bin/cake schema_cache clear`, part of the [Schema Cache Shell](console-and-shells/schema-cache) shell.

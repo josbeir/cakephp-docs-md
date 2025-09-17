@@ -9,10 +9,10 @@ Layer.
 CakePHP comes with a few built-in View classes for handling the most
 common rendering scenarios:
 
-- To create XML or JSON webservices you can use the [JSON and XML views](views/json-and-xml-views.md).
+- To create XML or JSON webservices you can use the [JSON and XML views](views/json-and-xml-views).
 - To serve protected files, or dynamically generated files, you can use
-  [Cake Response File](controllers/request-response.md#cake-response-file).
-- To create multiple themed views, you can use [Themes](views/themes.md).
+  [Cake Response File](controllers/request-response#cake-response-file).
+- To create multiple themed views, you can use [Themes](views/themes).
 
 ## View Templates
 
@@ -62,7 +62,7 @@ chapter:
 </div>
 
 View extending allows you to wrap one view in another. Combining this with
-[view blocks](#view-blocks) gives you a powerful way to keep your views
+[view blocks](views#view-blocks) gives you a powerful way to keep your views
 `DRY`. For example, your application has a sidebar that needs to change
 depending on the specific view being rendered. By extending a common view file,
 you can avoid repeating the common markup for your sidebar, and only define the
@@ -574,7 +574,7 @@ like the following:
 You can take advantage of CakePHP view caching if you supply a
 cache parameter. If set to true, it will cache the element in the
 'default' Cache configuration. Otherwise, you can set which cache configuration
-should be used. See [Caching](core-libraries/caching.md) for more information on
+should be used. See [Caching](core-libraries/caching) for more information on
 configuring `Cache`. A simple example of caching an element would
 be:
 
@@ -719,7 +719,7 @@ To call any view method use `$this->method()`
 
 ## More about Views
 
-- [Themes](views/themes.md)
-- [Media Views](views/media-view.md)
-- [JSON and XML views](views/json-and-xml-views.md)
-- [Helpers](views/helpers.md)
+- [Themes](views/themes)
+- [Media Views](views/media-view)
+- [JSON and XML views](views/json-and-xml-views)
+- [Helpers](views/helpers)

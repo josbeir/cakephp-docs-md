@@ -11,17 +11,17 @@ creating well-formed markup (including forms), aid in formatting text, times and
 numbers, and can even speed up AJAX functionality. For more information on the
 helpers included in CakePHP, check out the chapter for each helper:
 
-- [Breadcrumbs](../views/helpers/breadcrumbs.md)
-- [Flash](../views/helpers/flash.md)
-- [Form](../views/helpers/form.md)
-- [Html](../views/helpers/html.md)
-- [Number](../views/helpers/number.md)
-- [Paginator](../views/helpers/paginator.md)
-- [Rss](../views/helpers/rss.md)
-- [Session](../views/helpers/session.md)
-- [Text](../views/helpers/text.md)
-- [Time](../views/helpers/time.md)
-- [Url](../views/helpers/url.md)
+- [Breadcrumbs](../views/helpers/breadcrumbs)
+- [Flash](../views/helpers/flash)
+- [Form](../views/helpers/form)
+- [Html](../views/helpers/html)
+- [Number](../views/helpers/number)
+- [Paginator](../views/helpers/paginator)
+- [Rss](../views/helpers/rss)
+- [Session](../views/helpers/session)
+- [Text](../views/helpers/text)
+- [Time](../views/helpers/time)
+- [Url](../views/helpers/url)
 
 <a id="configuring-helpers"></a>
 
@@ -243,14 +243,14 @@ $mediaHelper = $this->loadHelper('Media', $mediaConfig);
 $mediaHelper = $this->helpers()->load('Media', $mediaConfig);
 ```
 
-The HelperRegistry is a [registry](../core-libraries/registry-objects.md) and
+The HelperRegistry is a [registry](../core-libraries/registry-objects) and
 supports the registry API used elsewhere in CakePHP.
 
 ## Callback Methods
 
 Helpers feature several callbacks that allow you to augment the view rendering
-process. See the [Helper Api](#helper-api) and the
-[Events System](../core-libraries/events.md) documentation for more information.
+process. See the [Helper Api](../views/helpers#helper-api) and the
+[Events System](../core-libraries/events) documentation for more information.
 
 ## Creating Helpers
 

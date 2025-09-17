@@ -126,7 +126,7 @@ was added in 2.4.
 > 'prefix\_'.
 
 At this point, you might want to take a look at the
-[CakePHP Conventions](../getting-started/cakephp-conventions.md). The correct
+[CakePHP Conventions](../getting-started/cakephp-conventions). The correct
 naming for your tables (and the addition of some columns) can score
 you some free functionality and help you avoid configuration. For
 example, if you name your database table big_boxes, your model
@@ -284,7 +284,7 @@ ErrorHandler::handleException() is used. It will display a HTML page for
 the exception, and while debug \> 0, framework errors like
 Missing Controller will be displayed. When debug = 0,
 framework errors will be coerced into generic HTTP errors.
-For more information on Exception handling, see the [Exceptions](../exceptions.md)
+For more information on Exception handling, see the [Exceptions](../exceptions)
 section.
 
 <div id="core-configuration-baseurl">
@@ -311,7 +311,7 @@ than www.example.com/controllername/actionname/param.
 
 If you are installing CakePHP on a webserver besides Apache, you
 can find instructions for getting URL rewriting working for other
-servers under the [URL Rewriting](../installation/url-rewriting.md) section.
+servers under the [URL Rewriting](../installation/url-rewriting) section.
 
 App.fullBaseUrl  
 The fully qualified domain name (including protocol) to your application’s root.

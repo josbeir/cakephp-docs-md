@@ -50,10 +50,10 @@ define functionality that should be made available to all models within your
 application. To do so, you need to create your own `AppModel.php` file that
 resides in the Model folder, as do all other models in your application.
 Creating a project using
-[Bake](console-and-shells/code-generation-with-bake.md) will automatically
+[Bake](console-and-shells/code-generation-with-bake) will automatically
 generate this file for you.
 
-See also [Behaviors](models/behaviors.md) for more information on how to
+See also [Behaviors](models/behaviors) for more information on how to
 apply similar logic to multiple models.
 
 Back to our Ingredient model. In order to work on it, create the PHP file in the
@@ -76,7 +76,7 @@ class, which for this example will be `Ingredient.php`.
 > be used, since "File" is a class that already exists in the CakePHP core.
 
 When your model is defined, it can be accessed from within your
-[Controller](controllers.md). CakePHP will automatically make the model
+[Controller](controllers). CakePHP will automatically make the model
 available for access when its name matches that of the controller. For example,
 a controller named IngredientsController will automatically initialize the
 Ingredient model and attach it to the controller at `$this->Ingredient`:
@@ -106,19 +106,19 @@ class Recipe extends AppModel {
 
 This shows how to use models that are already linked. To understand how
 associations are defined, take a look at the
-[Associations section](models/associations-linking-models-together.md)
+[Associations section](models/associations-linking-models-together)
 
 ## More on models
 
-- [Associations: Linking Models Together](models/associations-linking-models-together.md)
-- [Retrieving Your Data](models/retrieving-your-data.md)
-- [Saving Your Data](models/saving-your-data.md)
-- [Deleting Data](models/deleting-data.md)
-- [Data Validation](models/data-validation.md)
-- [Callback Methods](models/callback-methods.md)
-- [Behaviors](models/behaviors.md)
-- [DataSources](models/datasources.md)
-- [Model Attributes](models/model-attributes.md)
-- [Additional Methods and Properties](models/additional-methods-and-properties.md)
-- [Virtual fields](models/virtual-fields.md)
-- [Transactions](models/transactions.md)
+- [Associations: Linking Models Together](models/associations-linking-models-together)
+- [Retrieving Your Data](models/retrieving-your-data)
+- [Saving Your Data](models/saving-your-data)
+- [Deleting Data](models/deleting-data)
+- [Data Validation](models/data-validation)
+- [Callback Methods](models/callback-methods)
+- [Behaviors](models/behaviors)
+- [DataSources](models/datasources)
+- [Model Attributes](models/model-attributes)
+- [Additional Methods and Properties](models/additional-methods-and-properties)
+- [Virtual fields](models/virtual-fields)
+- [Transactions](models/transactions)

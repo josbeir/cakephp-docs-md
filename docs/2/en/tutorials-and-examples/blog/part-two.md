@@ -29,7 +29,7 @@ in the PostsController, and will be tied to a database table called
 > any of your settings and will use the defaults instead.
 
 For more on models, such as table prefixes, callbacks, and
-validation, check out the [Models](../../models.md) chapter of the
+validation, check out the [Models](../../models) chapter of the
 Manual.
 
 ## Create a Posts Controller
@@ -84,7 +84,7 @@ automatically available at `$this->Post` because we've followed
 CakePHP's naming conventions.
 
 To learn more about CakePHP's controllers, check out the
-[Controllers](../../controllers.md) chapter.
+[Controllers](../../controllers) chapter.
 
 ## Creating Post Views
 
@@ -179,7 +179,7 @@ You might have noticed the use of an object called `$this->Html`.
 This is an instance of the CakePHP `HtmlHelper` class. CakePHP
 comes with a set of view helpers that make things like linking,
 form output, JavaScript and AJAX a snap. You can learn more about
-how to use them in [Helpers](../../views/helpers.md), but
+how to use them in [Helpers](../../views/helpers), but
 what's important to note here is that the `link()` method will
 generate an HTML link with the given title (the first parameter)
 and URL (the second parameter).
@@ -395,7 +395,7 @@ The `$this->Form->end()` call generates a submit button and ends
 the form. If a string is supplied as the first parameter to
 `end()`, the FormHelper outputs a submit button named accordingly
 along with the closing form tag. Again, refer to
-[Helpers](../../views/helpers.md) for more on helpers.
+[Helpers](../../views/helpers) for more on helpers.
 
 Now let's go back and update our `/app/View/Posts/index.ctp`
 view to include a new "Add Post" link. Before the `<table>`, add
@@ -431,7 +431,7 @@ both the body and title fields must not be empty. CakePHP's
 validation engine is strong, with a number of pre-built rules
 (credit card numbers, email addresses, etc.) and flexibility for
 adding your own validation rules. For more information,
-check the [Data Validation](../../models/data-validation.md).
+check the [Data Validation](../../models/data-validation).
 
 Now that you have your validation rules in place, use the app to
 try to add a post with an empty title or body to see how it works.
@@ -582,7 +582,7 @@ This logic deletes the post specified by \$id, and uses
 message after redirecting them on to `/posts`. If the user attempts to
 do a delete using a GET request, we throw an Exception. Uncaught exceptions
 are captured by CakePHP's exception handler, and a nice error page is
-displayed. There are many built-in [Exceptions](../../development/exceptions.md) that can
+displayed. There are many built-in [Exceptions](../../development/exceptions) that can
 be used to indicate the various HTTP errors your application might need
 to generate.
 
@@ -658,7 +658,7 @@ specific actions. So we'll just make a quick change to routes in
 this tutorial.
 
 For more information on advanced routing techniques, see
-[Routes Configuration](#routes-configuration).
+[Routes Configuration](../../../development/routing#routes-configuration).
 
 By default, CakePHP responds to a request for the root of your site
 (e.g., <http://www.example.com>) using its PagesController, rendering
@@ -707,17 +707,17 @@ for building more feature-rich applications.
 
 Now that you've created a basic CakePHP application, you're ready for
 the real thing. Start your own project and read the rest of the
-[Cookbook](../../index.md) and [API](https://api.cakephp.org).
+[Cookbook](../../index) and [API](https://api.cakephp.org).
 
-If you need help, there are many ways to get the help you need - please see the [Where to Get Help](../../cakephp-overview/where-to-get-help.md) page.
+If you need help, there are many ways to get the help you need - please see the [Where to Get Help](../../cakephp-overview/where-to-get-help) page.
 Welcome to CakePHP!
 
 ### Suggested Follow-up Reading
 
 These are common tasks people learning CakePHP usually want to study next:
 
-1.  [View Layouts](#view-layouts): Customizing your website layout
-2.  [View Elements](#view-elements): Including and reusing view snippets
-3.  [Scaffolding](../../controllers/scaffolding.md): Prototyping before creating code
-4.  [Code Generation with Bake](../../console-and-shells/code-generation-with-bake.md): Generating basic CRUD code
-5.  [Simple Authentication and Authorization Application](../../tutorials-and-examples/blog-auth-example/auth.md): User authentication and authorization tutorial
+1.  [View Layouts](../../../views#view-layouts): Customizing your website layout
+2.  [View Elements](../../../views#view-elements): Including and reusing view snippets
+3.  [Scaffolding](../../controllers/scaffolding): Prototyping before creating code
+4.  [Code Generation with Bake](../../console-and-shells/code-generation-with-bake): Generating basic CRUD code
+5.  [Simple Authentication and Authorization Application](../../tutorials-and-examples/blog-auth-example/auth): User authentication and authorization tutorial

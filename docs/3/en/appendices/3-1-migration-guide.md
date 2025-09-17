@@ -9,7 +9,7 @@ the changes and improvements made in 3.1.
   `cakephp/app` repo. Your current code base is not affected by this, but it is
   recommended to use this route class from now on.
 - Name prefix options were added to the various route builder methods. See the
-  [Named Routes](#named-routes) section for more information.
+  [Named Routes](../development/routing#named-routes) section for more information.
 
 ## Console
 
@@ -25,14 +25,14 @@ the changes and improvements made in 3.1.
 ### Shell Helpers Added
 
 - Console applications can now create helper classes that encapsulate re-usable
-  blocks of output logic. See the [Shell Helpers](../console-and-shells/helpers.md) section
+  blocks of output logic. See the [Shell Helpers](../console-and-shells/helpers) section
   for more information.
 
 ### RoutesShell
 
 - RoutesShell has been added and now provides you a simple to use CLI
   interface for testing and debugging routes. See the
-  [Routes Shell](../console-and-shells/routes-shell.md) section for more information.
+  [Routes Shell](../console-and-shells/routes-shell) section for more information.
 
 ## Controller
 
@@ -116,7 +116,7 @@ used by a controller/action.
 
 ## ORM
 
-You can now [Lazily Eager Load Associations](#loading-additional-associations). This feature allows you to conditionally
+You can now [Lazily Eager Load Associations](../orm/retrieving-data-and-resultsets#loading-additional-associations). This feature allows you to conditionally
 load additional associations into a result set, entity or collection of
 entities.
 

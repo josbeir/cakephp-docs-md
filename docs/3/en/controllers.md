@@ -84,10 +84,10 @@ class will always override those in `AppController`.
 
 When a request is made to a CakePHP application, CakePHP's
 `Cake\\Routing\\Router` and `Cake\\Routing\\Dispatcher`
-classes use [Routes Configuration](development/routing.md#routes-configuration) to find and create the correct
+classes use [Routes Configuration](development/routing#routes-configuration) to find and create the correct
 controller instance. The request data is encapsulated in a request object.
 CakePHP puts all of the important request information into the `$this->request`
-property. See the section on [Cake Request](controllers/request-response.md#cake-request) for more information on the
+property. See the section on [Cake Request](controllers/request-response#cake-request) for more information on the
 CakePHP request object.
 
 ## Controller Actions
@@ -428,7 +428,7 @@ $this->loadModel('Locations', 'ElasticIndex');
 
 This method is used for paginating results fetched by your models.
 You can specify page sizes, model find conditions and more. See the
-[pagination](controllers/components/pagination.md) section for more details on
+[pagination](controllers/components/pagination) section for more details on
 how to use `paginate()`.
 
 The `$paginate` attribute gives you an easy way to customize how `paginate()`
@@ -463,7 +463,7 @@ public function initialize()
 
 The `$components` property on your controllers allows you to configure
 components. Configured components and their dependencies will be created by
-CakePHP for you. Read the [Configuring Components](controllers/components.md#configuring-components) section for more
+CakePHP for you. Read the [Configuring Components](controllers/components#configuring-components) section for more
 information. As mentioned earlier the `$components` property will be merged
 with the property defined in each of your controller's parent classes.
 
@@ -487,7 +487,7 @@ therefore it is not necessary (for example) to redeclare the
 
 3.0
 Loading Helpers from the controller is provided for backwards compatibility
-reasons. You should see [Configuring Helpers](views/helpers.md#configuring-helpers) for how to load helpers.
+reasons. You should see [Configuring Helpers](views/helpers#configuring-helpers) for how to load helpers.
 
 </div>
 
@@ -517,7 +517,7 @@ methods are implemented by your controllers
 
 `method` Cake\\Controller\\Controller::**afterFilter**(Event $event)
 
-In addition to controller life-cycle callbacks, [Components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components)
 also provide a similar set of callbacks.
 
 Remember to call `AppController`'s callbacks within child controller callbacks
@@ -533,5 +533,5 @@ public function beforeFilter(Event $event)
 
 ## More on Controllers
 
-- [The Pages Controller](controllers/pages-controller.md)
-- [Components](controllers/components.md)
+- [The Pages Controller](controllers/pages-controller)
+- [Components](controllers/components)

@@ -225,7 +225,7 @@ determine what should be used as the array key and value, and
 optionally what to group the results by. By default, the primary key
 for the model is used for the key, and the display field (which can
 be configured using the model attribute
-[Model Displayfield](#model-displayField)) is used for the value.
+[Model Displayfield](../models/model-attributes#model-displayField)) is used for the value.
 Some further examples to clarify:
 
 ``` php
@@ -307,7 +307,7 @@ public function some_function() {
 ```
 
 > [!TIP]
-> A better way to deal with nested data is using the [Tree](../core-libraries/behaviors/tree.md)
+> A better way to deal with nested data is using the [Tree](../core-libraries/behaviors/tree)
 > behavior
 
 In the above code example, `$allCategories` will contain a nested

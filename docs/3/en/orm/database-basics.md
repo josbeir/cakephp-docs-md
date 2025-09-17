@@ -9,8 +9,8 @@ and with debugging and profiling queries sent to the database.
 
 The functions described in this chapter illustrate what is possible to do with
 the lower-level database access API. If instead you want to learn more about the
-complete ORM, you can read the [Query Builder](../orm/query-builder.md) and
-[Table Objects](../orm/table-objects.md) sections.
+complete ORM, you can read the [Query Builder](../orm/query-builder) and
+[Table Objects](../orm/table-objects) sections.
 
 The easiest way to create a database connection is using a `DSN` string:
 
@@ -193,7 +193,7 @@ When using a DSN string you can define any additional parameters/options as
 query string arguments.
 
 By default, all Table objects will use the `default` connection. To
-use a non-default connection, see [Configuring Table Connections](#configuring-table-connections).
+use a non-default connection, see [Configuring Table Connections](../orm/table-objects#configuring-table-connections).
 
 There are a number of keys supported in database configuration. A full list is
 as follows:
@@ -268,7 +268,7 @@ at a `debug` level with the `queriesLog` scope.
 quoteIdentifiers  
 Set to `true` if you are using reserved words or special characters in
 your table or column names. Enabling this setting will result in queries
-built using the [Query Builder](../orm/query-builder.md) having identifiers quoted when
+built using the [Query Builder](../orm/query-builder) having identifiers quoted when
 creating SQL. It should be noted that this decreases performance because
 each query needs to be traversed and manipulated before being executed.
 
@@ -281,13 +281,13 @@ cacheMetadata
 Either boolean `true`, or a string containing the cache configuration to
 store meta data in. Having metadata caching disabled by setting it to `false`
 is not advised and can result in very poor performance. See the
-[Database Metadata Cache](#database-metadata-cache) section for more information.
+[Database Metadata Cache](../orm/database-basics#database-metadata-cache) section for more information.
 
 mask  
 Set the permissions on the generated database file. (Only supported by SQLite)
 
 At this point, you might want to take a look at the
-[CakePHP Conventions](../intro/conventions.md). The correct naming for your tables (and the addition
+[CakePHP Conventions](../intro/conventions). The correct naming for your tables (and the addition
 of some columns) can score you some free functionality and help you avoid
 configuration. For example, if you name your database table big_boxes, your
 table BigBoxesTable, and your controller BigBoxesController, everything will
@@ -328,7 +328,7 @@ ConnectionManager::config('my_connection', $config);
 $connection = ConnectionManager::get('my_connection');
 ```
 
-See the [Database Configuration](#database-configuration) for more information on the configuration
+See the [Database Configuration](../orm/database-basics#database-configuration) for more information on the configuration
 data used when creating connections.
 
 ## Data Types
@@ -514,7 +514,7 @@ The JsonType described in this example was added to the core.
 We can then overload the reflected schema data to use our new type, and
 CakePHP's database layer will automatically convert our JSON data when creating
 queries. You can use the custom types you've created by mapping the types in
-your Table's [\_initializeSchema() method](#saving-complex-types):
+your Table's [\_initializeSchema() method](../orm/saving-data#saving-complex-types):
 
 ``` php
 use Cake\Database\Schema\TableSchema;
@@ -645,7 +645,7 @@ The above class does a few interesting things:
   something like `POINT(10.24, 12.34)`.
 
 Once we've built our custom type, we'll need to [connect our type
-to our table class](#saving-complex-types).
+to our table class](../orm/saving-data#saving-complex-types).
 
 <a id="immutable-datetime-mapping"></a>
 
@@ -727,7 +727,7 @@ $statement = $connection->execute(
 
 This allows you to use rich data types in your applications and properly convert
 them into SQL statements. The last and most flexible way of creating queries is
-to use the [Query Builder](../orm/query-builder.md). This approach allows you to build complex and
+to use the [Query Builder](../orm/query-builder). This approach allows you to build complex and
 expressive queries without having to use platform specific SQL:
 
 ``` php
@@ -784,7 +784,7 @@ $connection->transactional(function ($connection) {
 ```
 
 In addition to basic queries, you can execute more complex queries using either
-the [Query Builder](../orm/query-builder.md) or [Table Objects](../orm/table-objects.md). The transactional method will
+the [Query Builder](../orm/query-builder) or [Table Objects](../orm/table-objects). The transactional method will
 do the following:
 
 - Call `begin`.
@@ -980,7 +980,7 @@ reason for this is identifier quoting has a few drawbacks:
 
 If you are using a legacy schema that requires identifier quoting you can enable
 it using the `quoteIdentifiers` setting in your
-[Database Configuration](#database-configuration). You can also enable this feature at runtime:
+[Database Configuration](../orm/database-basics#database-configuration). You can also enable this feature at runtime:
 
 ``` php
 $connection->getDriver()->enableAutoQuoting();
@@ -1027,7 +1027,7 @@ $connection->cacheMetadata('orm_metadata');
 ```
 
 CakePHP also includes a CLI tool for managing metadata caches. See the
-[Schema Cache Shell](../console-and-shells/schema-cache.md) chapter for more information.
+[Schema Cache Shell](../console-and-shells/schema-cache) chapter for more information.
 
 ## Creating Databases
 

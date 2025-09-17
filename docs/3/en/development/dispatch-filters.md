@@ -4,7 +4,7 @@
 
 3.3.0
 As of 3.3.0 Dispatcher Filters are deprecated. You should use
-[Middleware](../controllers/middleware.md) instead now.
+[Middleware](../controllers/middleware) instead now.
 
 </div>
 

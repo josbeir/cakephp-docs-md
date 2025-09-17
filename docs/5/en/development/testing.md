@@ -459,7 +459,7 @@ The migrations plugin will only run unapplied migrations, and will reset
 migrations if your current migration head differs from the applied migrations.
 
 You can also configure how migrations should be run in tests in your datasources
-configuration. See the [migrations docs](../migrations.md) for more information.
+configuration. See the [migrations docs](../migrations) for more information.
 
 ### Creating Schema with Abstract Schema
 
@@ -965,7 +965,7 @@ creating an instance of our `ArticlesTable` class, and then run our
 `find('published')` method. In `$expected` we set what we expect should be
 the proper result (that we know since we have defined which records are
 initially populated to the article table.) We test that the result equals our
-expectation by using the `assertEquals()` method. See the [Running Tests](#running-tests)
+expectation by using the `assertEquals()` method. See the [Running Tests](../development/testing#running-tests)
 section for more information on how to run your test case.
 
 Using the fixture factories, the test would now look like this:
@@ -1221,7 +1221,7 @@ $this->setUnlockedFields(['dynamic_field']);
 ### Integration Testing PSR-7 Middleware
 
 Integration testing can also be used to test your entire PSR-7 application and
-[Middleware](../controllers/middleware.md). By default `IntegrationTestTrait` will
+[Middleware](../controllers/middleware). By default `IntegrationTestTrait` will
 auto-detect the presence of an `App\Application` class and automatically
 enable integration testing of your Application.
 
@@ -1235,14 +1235,14 @@ public function setUp(): void
 }
 ```
 
-You should also take care to try and use [Application Bootstrap](#application-bootstrap) to load
+You should also take care to try and use [Application Bootstrap](../development/application#application-bootstrap) to load
 any plugins containing events/routes. Doing so will ensure that your
 events/routes are connected for each test case. Alternatively if you wish to
 load plugins manually in a test you can use the `loadPlugins()` method.
 
 ### Testing with Encrypted Cookies
 
-If you use the [Encrypted Cookie Middleware](#encrypted-cookie-middleware) in your
+If you use the [Encrypted Cookie Middleware](../controllers/middleware#encrypted-cookie-middleware) in your
 application, there are helper methods for setting encrypted cookies in your
 test cases:
 
@@ -1343,7 +1343,7 @@ that option when `debug` is enabled.
 ### Testing with file uploads
 
 Simulating file uploads is straightforward when you use the default
-"[uploaded files as objects](#request-file-uploads)" mode. You can simply
+"[uploaded files as objects](../controllers/request-response#request-file-uploads)" mode. You can simply
 create instances that implement
 [\Psr\Http\Message\UploadedFileInterface](https://www.php-fig.org/psr/psr-7/#16-uploaded-files)
 (the default implementation currently used by CakePHP is
@@ -1686,16 +1686,16 @@ git status
 
 ## Console Integration Testing
 
-See [Console Integration Testing](#console-integration-testing) for how to test console commands.
+See [Console Integration Testing](../console-commands/commands#console-integration-testing) for how to test console commands.
 
 ## Mocking Injected Dependencies
 
-See [Mocking Services In Tests](#mocking-services-in-tests) for how to replace services injected with
+See [Mocking Services In Tests](../development/dependency-injection#mocking-services-in-tests) for how to replace services injected with
 the dependency injection container in your integration tests.
 
 ## Mocking HTTP Client Responses
 
-See [Httpclient Testing](#httpclient-testing) to know how to create mock responses to external APIs.
+See [Httpclient Testing](../core-libraries/httpclient#httpclient-testing) to know how to create mock responses to external APIs.
 
 ## Testing Views
 
@@ -1888,7 +1888,7 @@ View clases `loadHelpers` method.
 
 ## Testing Events
 
-The [Events System](../core-libraries/events.md) is a great way to decouple your application
+The [Events System](../core-libraries/events) is a great way to decouple your application
 code, but sometimes when testing, you tend to test the results of events in the
 test cases that execute those events. This is an additional form of coupling
 that can be removed by using `assertEventFired` and `assertEventFiredWith`
@@ -1938,7 +1938,7 @@ class CartsTable extends Table
 
 > [!NOTE]
 > To assert that events are fired, you must first enable
-> [Tracking Events](#tracking-events) on the event manager you wish to assert against.
+> [Tracking Events](../core-libraries/events#tracking-events) on the event manager you wish to assert against.
 
 To test the `OrdersTable` above, we enable tracking in `setUp()` then assert
 that the event was fired, and assert that the `$order` entity was passed in
@@ -1989,11 +1989,11 @@ $this->assertEventFiredWith('My.Global.Event', 'user', 1);
 
 ## Testing Email
 
-See [Email Testing](#email-testing) for information on testing email.
+See [Email Testing](../core-libraries/email#email-testing) for information on testing email.
 
 ## Testing Logging
 
-See [Log Testing](#log-testing) for information on testing log messages.
+See [Log Testing](../core-libraries/logging#log-testing) for information on testing log messages.
 
 ## Creating Test Suites
 
@@ -2054,7 +2054,7 @@ reference them using `plugin.pluginName.fixtureName` syntax in the
 directories you can use the following: `plugin.vendorName/pluginName.folderName/fixtureName`.
 
 Before you can use fixtures you should ensure you have the [fixture
-listener](#fixture-phpunit-configuration) configured in your `phpunit.xml`
+listener](../development/testing#fixture-phpunit-configuration) configured in your `phpunit.xml`
 file. You should also ensure that your fixtures are loadable. Ensure the
 following is present in your **composer.json** file:
 
@@ -2072,7 +2072,7 @@ following is present in your **composer.json** file:
 
 ## Generating Tests with Bake
 
-If you use [bake](../bake/usage.md) to
+If you use [bake](../bake/usage) to
 generate scaffolding, it will also generate test stubs. If you need to
 re-generate test case skeletons, or if you want to generate test skeletons for
 code you wrote, you can use `bake`:

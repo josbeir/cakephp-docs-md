@@ -5,7 +5,7 @@ introduced in each version and the migration path between versions.
 
 ## Migration Guides
 
-[Migration Guides](appendices/migration-guides.md)
+[Migration Guides](appendices/migration-guides)
 
 ## Backwards Compatibility Shimming
 
@@ -24,5 +24,5 @@ changes, and the smoother will be the final upgrade.
 
 ## General Information
 
-- [CakePHP Development Process](appendices/cakephp-development-process.md)
-- [Glossary](appendices/glossary.md)
+- [CakePHP Development Process](appendices/cakephp-development-process)
+- [Glossary](appendices/glossary)

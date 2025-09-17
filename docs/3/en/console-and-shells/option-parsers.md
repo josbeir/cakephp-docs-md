@@ -400,7 +400,7 @@ $parser->getEpilog();
 <div class="deprecated">
 
 3.6.0
-Subcommands are deprecated. Instead use [nested commands](#renaming-commands).
+Subcommands are deprecated. Instead use [nested commands](../console-and-shells#renaming-commands).
 
 </div>
 

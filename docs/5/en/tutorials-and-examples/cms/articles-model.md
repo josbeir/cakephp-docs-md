@@ -30,7 +30,7 @@ class ArticlesTable extends Table
 }
 ```
 
-We've attached the [Timestamp](../../orm/behaviors/timestamp.md) behavior, which will
+We've attached the [Timestamp](../../orm/behaviors/timestamp) behavior, which will
 automatically populate the `created` and `modified` columns of our table.
 By naming our Table object `ArticlesTable`, CakePHP can use naming conventions
 to know that our model uses the `articles` table. CakePHP also uses
@@ -75,7 +75,7 @@ class Article extends Entity
 
 Right now, our entity is quite slim; we've only set up the `_accessible`
 property, which controls how properties can be modified by
-[Entities Mass Assignment](#entities-mass-assignment).
+[Entities Mass Assignment](../../../orm/entities#entities-mass-assignment).
 
 > [!TIP]
 > The `ArticlesTable` and `Article` Entity classes can be generated from a
@@ -86,5 +86,5 @@ property, which controls how properties can be modified by
 > ```
 
 We can't do much with this model yet. Next, we'll create our first
-[Controller and Template](../../tutorials-and-examples/cms/articles-controller.md)
+[Controller and Template](../../tutorials-and-examples/cms/articles-controller)
 to allow us to interact with our model.

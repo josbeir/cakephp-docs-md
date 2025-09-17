@@ -15,7 +15,7 @@ Logging data in CakePHP is easy - the log() function is provided by the
 `LogTrait`, which is the common ancestor for many CakePHP classes. If
 the context is a CakePHP class (Controller, Component, View,...),
 you can log your data. You can also use `Log::write()` directly.
-See [Writing To Logs](#writing-to-logs).
+See [Writing To Logs](../core-libraries/tmp.171IYkF1KC#writing-to-logs).
 
 <a id="log-configuration"></a>
 
@@ -49,7 +49,7 @@ Log::config('error', [
 The above creates two loggers. One named `debug` the other named `error`.
 Each is configured to handle different levels of messages. They also store their
 log messages in separate files, so it's easy to separate debug/notice/info logs
-from more serious errors. See the section on [Logging Levels](#logging-levels) for more
+from more serious errors. See the section on [Logging Levels](../core-libraries/tmp.171IYkF1KC#logging-levels) for more
 information on the different levels and what they mean.
 
 Once a configuration is created you cannot change it. Instead you should drop
@@ -160,7 +160,7 @@ interface as it only requires you to implement the `log()` method.
 Errors and Exceptions can also be logged. By configuring the corresponding
 values in your app.php file. Errors will be displayed when debug is `true`
 and logged when debug is `false`. To log uncaught exceptions, set the `log`
-option to `true`. See [Configuration](../development/configuration.md) for more information.
+option to `true`. See [Configuration](../development/configuration) for more information.
 
 ## Interacting with Log Streams
 

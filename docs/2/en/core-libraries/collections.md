@@ -126,7 +126,7 @@ $enabled = $this->Helpers->enabled();
 
 You can prioritize the triggering object callbacks similar to event callbacks.
 The handling of priority values and order of triggering is the same as
-explained [here](#event-priorities).
+explained [here](../core-libraries/events#event-priorities).
 Here's how you can specify priority at declaration time:
 
 ``` php

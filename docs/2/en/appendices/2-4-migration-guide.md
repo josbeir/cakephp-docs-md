@@ -54,7 +54,7 @@ the changes and improvements made in 2.4.
 ### PasswordHasher
 
 - Authenticating objects now use new password hasher objects for password hash
-  generation and checking. See [Hashing Passwords](#hashing-passwords) for more info.
+  generation and checking. See [Hashing Passwords](../core-libraries/components/authentication#hashing-passwords) for more info.
 
 ### DbAcl
 
@@ -175,12 +175,12 @@ the changes and improvements made in 2.4.
 
 ### FileLog
 
-- Two new config options `size` and `rotate` have been added for [FileLog](#file-log) engine.
+- Two new config options `size` and `rotate` have been added for [FileLog](../core-libraries/logging#file-log) engine.
 - In debug mode missing directories will now be automatically created to avoid unnecessary errors thrown.
 
 ### SyslogLog
 
-- The new logging engine [SyslogLog](#syslog-log) was added to stream messages to syslog.
+- The new logging engine [SyslogLog](../core-libraries/logging#syslog-log) was added to stream messages to syslog.
 
 ## Cache
 

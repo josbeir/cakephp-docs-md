@@ -6,7 +6,7 @@ The Pagination helper is used to output pagination controls such as
 page numbers and next/previous links. It works in tandem with
 `PaginatorComponent`.
 
-See also [Pagination](../../core-libraries/components/pagination.md) for information on how to
+See also [Pagination](../../core-libraries/components/pagination) for information on how to
 create paginated datasets and do paginated queries.
 
 ## Creating sort links
@@ -316,7 +316,7 @@ Sets all the options for the Paginator Helper. Supported options are:
   $this->Paginator->options(array('update' => '#content'));
   ```
 
-  This is useful when doing [Ajax Pagination](#ajax-pagination). Keep in mind that the value
+  This is useful when doing [Ajax Pagination](../../../core-libraries/helpers/js#ajax-pagination). Keep in mind that the value
   of update can be any valid CSS selector, but most often is simpler to use an
   id selector.
 
@@ -325,7 +325,7 @@ Sets all the options for the Paginator Helper. Supported options are:
 
 ### Using GET parameters for pagination
 
-Normally Pagination in CakePHP uses [Named Parameters](#named-parameters). There are times
+Normally Pagination in CakePHP uses [Named Parameters](../../../development/routing#named-parameters). There are times
 you want to use GET parameters instead. While the main configuration option for
 this feature is in `PaginatorComponent`, you have some additional
 control in the view. You can use `options()` to indicate that you want other

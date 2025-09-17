@@ -38,7 +38,7 @@ $this->Flash->error(); // Actually using MyCustomFlash::error();
 ## Triggering Callbacks
 
 Callbacks are not provided by registry objects. You should use the
-[events system](../core-libraries/events.md) to dispatch any events/callbacks
+[events system](../core-libraries/events) to dispatch any events/callbacks
 for your application.
 
 ## Disabling Callbacks

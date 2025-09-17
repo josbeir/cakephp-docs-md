@@ -63,10 +63,10 @@ To get all routing parameters as an array use `getAttribute()`:
 $parameters = $this->request->getAttribute('params');
 ```
 
-All [Route Elements](#route-elements) are accessed through this interface.
+All [Route Elements](../development/routing#route-elements) are accessed through this interface.
 
-In addition to [Route Elements](#route-elements), you also often need access to
-[Passed Arguments](#passed-arguments). These are both available on the request object as
+In addition to [Route Elements](../development/routing#route-elements), you also often need access to
+[Passed Arguments](../development/routing#passed-arguments). These are both available on the request object as
 well:
 
 ``` php
@@ -82,7 +82,7 @@ are also all found in the routing parameters:
   plugin.
 - `controller` The controller handling the current request.
 - `action` The action handling the current request.
-- `prefix` The prefix for the current action. See [Prefix Routing](#prefix-routing) for
+- `prefix` The prefix for the current action. See [Prefix Routing](../development/routing#prefix-routing) for
   more information.
 
 ### Query String Parameters
@@ -173,7 +173,7 @@ $foo = $this->request->getData('value.that.does.not.exist');
 // $foo == null
 ```
 
-You can also use [Body Parser Middleware](#body-parser-middleware) to parse request body of different
+You can also use [Body Parser Middleware](../controllers/middleware#body-parser-middleware) to parse request body of different
 content types into an array, so that it's accessible through `ServerRequest::getData()`.
 
 If you want to access all the data parameters you can use
@@ -303,7 +303,7 @@ $bodyString = (string)$request->getBody();
 ```
 
 If your requests contain XML or JSON request content, you should consider using
-[Body Parser Middleware](#body-parser-middleware) to have CakePHP automatically parse those content
+[Body Parser Middleware](../controllers/middleware#body-parser-middleware) to have CakePHP automatically parse those content
 types making the parsed data available in `$request->getData()` and
 `$request->getParsedBody()`.
 
@@ -337,7 +337,7 @@ $this->request->withEnv('REQUEST_METHOD', 'POST');
 
 ### XML or JSON Data
 
-Applications employing [REST](../development/rest.md) often exchange data in
+Applications employing [REST](../development/rest) often exchange data in
 non-URL-encoded post bodies. You can read input data in any format using
 `~Cake\\Http\\ServerRequest::input()`. By providing a decoding function,
 you can receive the content in a deserialized format:
@@ -500,7 +500,7 @@ $session = $this->request->getAttribute('session');
 $data = $session->read('sessionKey');
 ```
 
-For more information, see the [Sessions](../development/sessions.md) documentation for how
+For more information, see the [Sessions](../development/sessions) documentation for how
 to use the session object.
 
 ### Host and Domain Name
@@ -753,7 +753,7 @@ $this->response = $this->response->withType('vcf');
 
 Usually, you'll want to map additional content types in your controller's
 `~Controller::beforeFilter()` callback, so you can benefit from
-automatic view switching provided by [Controller Viewclasses](#controller-viewclasses).
+automatic view switching provided by [Controller Viewclasses](../controllers#controller-viewclasses).
 
 <a id="cake-response-file"></a>
 
@@ -1050,7 +1050,7 @@ in order to determine whether it matches a cached resource.
 
 To take advantage of this header, you must either call the
 `isNotModified()` method manually or include the
-[Checking HTTP Cache](../controllers/components/check-http-cache.md) in your controller:
+[Checking HTTP Cache](../controllers/components/check-http-cache) in your controller:
 
 ``` php
 public function index()
@@ -1087,7 +1087,7 @@ response was modified or not based on their cache.
 
 To take advantage of this header, you must either call the
 `isNotModified()` method manually or include the
-[Checking HTTP Cache](../controllers/components/check-http-cache.md) in your controller:
+[Checking HTTP Cache](../controllers/components/check-http-cache) in your controller:
 
 ``` php
 public function view()
@@ -1159,7 +1159,7 @@ $this->response = $this->response->withCookie(Cookie::create(
 ));
 ```
 
-See the [Creating Cookies](#creating-cookies) section for how to use the cookie object. You
+See the [Creating Cookies](../controllers/tmp.RAuPskVP2X#creating-cookies) section for how to use the cookie object. You
 can use `withExpiredCookie()` to send an expired cookie in the response. This
 will make the browser remove its local cookie:
 
@@ -1437,7 +1437,7 @@ $response = $this->response->withCookieCollection($cookies);
 ```
 
 Cookies set to responses can be encrypted using the
-[Encrypted Cookie Middleware](#encrypted-cookie-middleware).
+[Encrypted Cookie Middleware](../controllers/middleware#encrypted-cookie-middleware).
 
 <a id="request-cookies"></a>
 

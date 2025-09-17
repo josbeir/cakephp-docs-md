@@ -3,7 +3,7 @@
 `class` **App**
 
 The app class is responsible for path management, class location and class loading.
-Make sure you follow the [File And Classname Conventions](#file-and-classname-conventions).
+Make sure you follow the [File And Classname Conventions](../getting-started/cakephp-conventions#file-and-classname-conventions).
 
 ## Packages
 

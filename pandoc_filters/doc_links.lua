@@ -115,9 +115,9 @@ local function calculate_relative_path(from_file, to_file)
     end
 
     if #relative_parts == 0 then
-        return to_file .. ".md"
+        return to_file
     else
-        return table.concat(relative_parts, "/") .. ".md"
+        return table.concat(relative_parts, "/")
     end
 end
 
@@ -130,9 +130,9 @@ local function resolve_doc_link(target_path, custom_label)
 
     -- Check if this is a same-directory link (starts with ./)
     if target_path:match("^%./") then
-        -- Same directory link - just remove ./ and add .md
+        -- Same directory link - just remove ./
         local clean_target = target_path:gsub("^%./", "")
-        local link_path = clean_target .. ".md"
+        local link_path = clean_target
 
         -- Get title - use custom label if provided, otherwise extract from file
         local title = custom_label

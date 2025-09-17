@@ -65,11 +65,11 @@ variables.
 If you're throwing your application out into the wild, it's a good idea to make
 sure it doesn't have any obvious leaks:
 
-- Ensure you are using the [Csrf Middleware](security/csrf.md#csrf-middleware) component or middleware.
-- You may want to enable the [Form Protection Component](controllers/components/form-protection.md) component.
+- Ensure you are using the [Csrf Middleware](security/csrf#csrf-middleware) component or middleware.
+- You may want to enable the [Form Protection Component](controllers/components/form-protection) component.
   It can help prevent several types of form tampering and reduce the possibility
   of mass-assignment issues.
-- Ensure your models have the correct [Validation](core-libraries/validation.md) rules
+- Ensure your models have the correct [Validation](core-libraries/validation) rules
   enabled.
 - Check that only your `webroot` directory is publicly visible, and that your
   secrets (such as your app salt, and any security keys) are private and unique
@@ -82,7 +82,7 @@ keeping your code secure and your application safer. CakePHP applications
 should have the document root set to the application's `webroot`. This
 makes the application and configuration files inaccessible through a URL.
 Setting the document root is different for different webservers. See the
-[Url Rewriting](installation.md#url-rewriting) documentation for webserver specific
+[Url Rewriting](installation#url-rewriting) documentation for webserver specific
 information.
 
 In all cases you will want to set the virtual host/domain's document to be
@@ -136,5 +136,5 @@ are:
 1.  Install dependencies with `composer install`. Avoid using `composer update` when doing deploys as you could get unexpected versions of packages.
 2.  Run database [migrations](/migrations/) with either the Migrations plugin
     or another tool.
-3.  Clear model schema cache with `bin/cake schema_cache clear`. The [Schema Cache Tool](console-commands/schema-cache.md)
+3.  Clear model schema cache with `bin/cake schema_cache clear`. The [Schema Cache Tool](console-commands/schema-cache)
     has more information on this command.

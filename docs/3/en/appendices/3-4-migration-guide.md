@@ -418,7 +418,7 @@ your `use` statement to look like:
 ## I18n
 
 - You can now customize the behavior of the fallback message loader. See
-  [Creating Generic Translators](#creating-generic-translators) for more information.
+  [Creating Generic Translators](../core-libraries/internationalization-and-localization#creating-generic-translators) for more information.
 
 ## Routing
 
@@ -455,7 +455,7 @@ your `use` statement to look like:
 ## FormHelper
 
 - You can now configure the sources which FormHelper reads from. This makes
-  creating GET forms simpler. See [Form Values From Query String](#form-values-from-query-string) for more
+  creating GET forms simpler. See [Form Values From Query String](../views/helpers/form#form-values-from-query-string) for more
   information.
 - `FormHelper::control()` was added.
 - `FormHelper::controls()` was added.

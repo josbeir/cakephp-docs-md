@@ -36,7 +36,7 @@ can manipulate the order of routes using `Router::promote()`.
 
 CakePHP also comes with a few default routes to get you started. These
 can be disabled later on once you are sure you don't need them.
-See [Disabling Default Routes](#disabling-default-routes) on how to disable the default routing.
+See [Disabling Default Routes](../development/tmp.6T7zIKxR7F#disabling-default-routes) on how to disable the default routing.
 
 ## Default Routing
 
@@ -97,7 +97,7 @@ Router::connect(
 
 The first parameter is used to tell the router what sort of URL
 you're trying to control. The URL is a normal slash delimited
-string, but can also contain a wildcard (\*) or [Route Elements](#route-elements).
+string, but can also contain a wildcard (\*) or [Route Elements](../development/tmp.6T7zIKxR7F#route-elements).
 Using a wildcard tells the router that you are willing to accept
 any additional arguments supplied. Routes without a \* only match
 the exact template pattern supplied.
@@ -167,7 +167,7 @@ might consider creating a route. This allows you link to
 > [!NOTE]
 > Although you can connect alternate routes, the default routes
 > will continue to work. In this setting, you can access a single piece of
-> content from 2 different URLs. See [Disabling Default Routes](#disabling-default-routes) to
+> content from 2 different URLs. See [Disabling Default Routes](../development/tmp.6T7zIKxR7F#disabling-default-routes) to
 > disable default routes, and only provide the URLs you define.
 
 Another common use for the Router is to define an "alias" for a
@@ -185,11 +185,11 @@ Router::connect(
 This is telling the Router that any url beginning with `/cooks/`
 should be sent to the users controller. The action called will
 depend on the value of the `:action` parameter. By using
-[Route Elements](#route-elements), you can create variable routes, that accept
+[Route Elements](../development/tmp.6T7zIKxR7F#route-elements), you can create variable routes, that accept
 user input or variables. The above route also uses the greedy star.
 The greedy star indicates to `Router` that this route
 should accept any additional positional arguments given. These
-arguments will be made available in the [Passed Arguments](#passed-arguments)
+arguments will be made available in the [Passed Arguments](../development/tmp.6T7zIKxR7F#passed-arguments)
 array.
 
 When generating URLs, routes are used too. Using
@@ -303,12 +303,12 @@ CakePHP, and should not be used unless you want the special meaning
 - `controller` Used to name the controller for a route.
 - `action` Used to name the controller action for a route.
 - `plugin` Used to name the plugin a controller is located in.
-- `prefix` Used for [Prefix Routing](#prefix-routing)
-- `ext` Used for [File Extensions](#file-extensions) routing.
+- `prefix` Used for [Prefix Routing](../development/tmp.6T7zIKxR7F#prefix-routing)
+- `ext` Used for [File Extensions](../development/tmp.6T7zIKxR7F#file-extensions) routing.
 
 ### Passing Parameters to Action
 
-When connecting routes using [Route Elements](#route-elements) you may want
+When connecting routes using [Route Elements](../development/tmp.6T7zIKxR7F#route-elements) you may want
 to have routed elements be passed arguments instead. By using the 3rd
 argument of `Router::connect()` you can define which route
 elements should also be made available as passed arguments:
@@ -565,10 +565,10 @@ more information.
 ### Using Additional Conditions When Matching Routes
 
 When creating routes you might want to restrict certain URL's based on specific
-request/environment settings. A good example of this is [Rest](../rest.md)
+request/environment settings. A good example of this is [Rest](../rest)
 routing. You can specify additional conditions in the `$defaults` argument for
 `Router::connect()`. By default CakePHP exposes 3 environment
-conditions, but you can add more using [Custom Route Classes](#custom-route-classes). The built-in
+conditions, but you can add more using [Custom Route Classes](../development/tmp.6T7zIKxR7F#custom-route-classes). The built-in
 options are:
 
 - `[type]` Only match requests for specific content types.

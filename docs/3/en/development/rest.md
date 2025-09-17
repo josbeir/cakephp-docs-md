@@ -13,7 +13,7 @@ for direction. Exposing an API via REST in CakePHP is simple.
 ## The Simple Setup
 
 The fastest way to get up and running with REST is to add a few lines to setup
-[resource routes](#resource-routes) in your config/routes.php file.
+[resource routes](../development/routing#resource-routes) in your config/routes.php file.
 
 Once the router has been set up to map REST requests to certain controller
 actions, we can move on to creating the logic in our controller actions. A basic
@@ -98,7 +98,7 @@ class RecipesController extends AppController
 RESTful controllers often use parsed extensions to serve up different views
 based on different kinds of requests. Since we're dealing with REST requests,
 we'll be making XML views. You can make JSON views using CakePHP's
-built-in [JSON and XML views](../views/json-and-xml-views.md). By using the built in
+built-in [JSON and XML views](../views/json-and-xml-views). By using the built in
 `XmlView` we can define a `_serialize` view variable. This special
 view variable is used to define which view variables `XmlView` should
 serialize into XML.
@@ -169,4 +169,4 @@ need them, using `RequestHandler::addInputType()`.
 ## RESTful Routing
 
 CakePHP's Router makes connecting RESTful resource routes easy. See the section
-on [Resource Routes](#resource-routes) for more information.
+on [Resource Routes](../development/routing#resource-routes) for more information.

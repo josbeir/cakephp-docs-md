@@ -174,7 +174,7 @@ of paths for plugins, view templates and locale files respectively.
 App.uploadedFilesAsObjects  
 Defines whether uploaded files are being represented as objects (`true`),
 or arrays (`false`). This option is being treated as disabled by default.
-See the [File Uploads section](#request-file-uploads) in the Request &
+See the [File Uploads section](../controllers/request-response#request-file-uploads) in the Request &
 Response Objects chapter for more information.
 
 <div class="versionadded">
@@ -234,37 +234,37 @@ If you set `App.imageBaseUrl` to `https://mycdn.example.com/`:
 
 ### Database Configuration
 
-See the [Database Configuration](#database-configuration) for information
+See the [Database Configuration](../orm/database-basics#database-configuration) for information
 on configuring your database connections.
 
 ### Caching Configuration
 
-See the [Caching Configuration](#cache-configuration) for information on
+See the [Caching Configuration](../core-libraries/caching#cache-configuration) for information on
 configuring caching in CakePHP.
 
 ### Error and Exception Handling Configuration
 
-See the [Error and Exception Configuration](#error-configuration) for
+See the [Error and Exception Configuration](../development/errors#error-configuration) for
 information on configuring error and exception handlers.
 
 ### Logging Configuration
 
-See the [Log Configuration](#log-configuration) for information on configuring logging in
+See the [Log Configuration](../core-libraries/logging#log-configuration) for information on configuring logging in
 CakePHP.
 
 ### Email Configuration
 
-See the [Email Configuration](#email-configuration) for information on
+See the [Email Configuration](../core-libraries/email#email-configuration) for information on
 configuring email presets in CakePHP.
 
 ### Session Configuration
 
-See the [Session Configuration](#session-configuration) for information on configuring session
+See the [Session Configuration](../development/sessions#session-configuration) for information on configuring session
 handling in CakePHP.
 
 ### Routing configuration
 
-See the [Routes Configuration](#routes-configuration) for more information
+See the [Routes Configuration](../development/routing#routes-configuration) for more information
 on configuring routing and creating routes for your application.
 
 <a id="additional-class-paths"></a>
@@ -326,7 +326,7 @@ Paths should end with a directory separator, or they will not work properly.
 
 ## Inflection Configuration
 
-See the [Inflection Configuration](#inflection-configuration) docs for more information.
+See the [Inflection Configuration](../core-libraries/inflector#inflection-configuration) docs for more information.
 
 ## Configure Class
 
@@ -548,7 +548,7 @@ use it in subsequent requests:
     Configure::store('user_1234', 'default');
 
 Stored configuration data is persisted in the named cache configuration. See the
-[Caching](../core-libraries/caching.md) documentation for more information on caching.
+[Caching](../core-libraries/caching) documentation for more information on caching.
 
 ### Restoring Runtime Configuration
 
@@ -591,7 +591,7 @@ This file is ideal for a number of common bootstrapping tasks:
 - Loading configuration files.
 
 It might be tempting to place formatting functions there in order to use them in
-your controllers. As you'll see in the [Controllers](../controllers.md) and [Views](../views.md)
+your controllers. As you'll see in the [Controllers](../controllers) and [Views](../views)
 sections there are better ways you add custom logic to your application.
 
 <a id="application-bootstrap"></a>
@@ -623,7 +623,7 @@ class Application extends BaseApplication
 ```
 
 Loading plugins/events in `Application::bootstrap()` makes
-[Integration Testing](#integration-testing) easier as events and routes will be re-processed on
+[Integration Testing](../development/testing#integration-testing) easier as events and routes will be re-processed on
 each test method.
 
 ## Disabling Generic Tables

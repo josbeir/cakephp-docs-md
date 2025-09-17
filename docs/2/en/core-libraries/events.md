@@ -500,7 +500,7 @@ events can make debugging harder and require additional integration testing.
 
 ## Additional Reading
 
-- [Collections](../core-libraries/collections.md)
-- [Behaviors](../models/behaviors.md)
-- [Components](../controllers/components.md)
-- [Helpers](../views/helpers.md)
+- [Collections](../core-libraries/collections)
+- [Behaviors](../models/behaviors)
+- [Components](../controllers/components)
+- [Helpers](../views/helpers)

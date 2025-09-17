@@ -145,7 +145,7 @@ as they are conditionally defined by CakePHP now.
 - `HttpSocket` now verifies SSL certificates by default. If you are
   using self-signed certificates or connecting through proxies you may need to
   use some of the new options to augment this behavior. See
-  [Http Socket Ssl Options](#http-socket-ssl-options) for more information.
+  [Http Socket Ssl Options](../core-utility-libraries/httpsocket#http-socket-ssl-options) for more information.
 - `HttpResponse` was renamed to `HttpSocketResponse`. This
   avoids a common issue with the HTTP PECL extension. There is an
   `HttpResponse` class provided as well for compatibility reasons.

@@ -32,11 +32,11 @@ switching on content types. You can also set the component up with the
 data types.
 
 You can optionally enable the json and/or xml extensions with
-[File Extensions](#file-extensions). This will allow you to access the `JSON`, `XML` or
+[File Extensions](../development/routing#file-extensions). This will allow you to access the `JSON`, `XML` or
 any other special format views by using a custom URL ending with the name of the
 response type as a file extension such as `http://example.com/articles.json`.
 
-By default, when not enabling [File Extensions](#file-extensions), the request, the `Accept`
+By default, when not enabling [File Extensions](../development/routing#file-extensions), the request, the `Accept`
 header is used for, selecting which type of format should be rendered to the
 user. An example `Accept` format that is used to render `JSON` responses is
 `application/json`.
@@ -210,7 +210,7 @@ parameter name instead of "callback" set `_jsonp` to required name instead of
 
 ## Example Usage
 
-While the [RequestHandlerComponent](../controllers/components/request-handling.md) can automatically set the view based
+While the [RequestHandlerComponent](../controllers/components/request-handling) can automatically set the view based
 on the request content-type or extension, you could also handle view
 mappings in your controller:
 

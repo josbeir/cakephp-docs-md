@@ -6,16 +6,16 @@ commands and routes are included.
 
 You can find your `Application` class at **src/Application.php**. By default
 it will be pretty slim and only define a few default
-[Middleware](../controllers/middleware.md). Applications can define the following hook
+[Middleware](../controllers/middleware). Applications can define the following hook
 methods:
 
-- `bootstrap` Used to load [configuration files](../development/configuration.md), define constants and other global functions.
+- `bootstrap` Used to load [configuration files](../development/configuration), define constants and other global functions.
   By default this will include **config/bootstrap.php**. This is the ideal place
-  to load [Plugins](../plugins.md) and global [event listeners](../core-libraries/events.md).
-- `routes` Used to load [routes](../development/routing.md). By default this
+  to load [Plugins](../plugins) and global [event listeners](../core-libraries/events).
+- `routes` Used to load [routes](../development/routing). By default this
   will include **config/routes.php**.
-- `middleware` Used to add [middleware](../controllers/middleware.md) to your application.
-- `console` Used to add [console commands](../console-and-shells.md) to your
+- `middleware` Used to add [middleware](../controllers/middleware) to your application.
+- `console` Used to add [console commands](../console-and-shells) to your
   application. By default this will automatically discover shells & commands in
   your application and all plugins.
 
@@ -28,7 +28,7 @@ requires a few changes to your code.
 
 1.  First update your **webroot/index.php**. Copy the file contents from the [app
     skeleton](https://github.com/cakephp/app/tree/3.x/webroot/index.php).
-2.  Create an `Application` class. See the [Using Middleware](#using-middleware) section
+2.  Create an `Application` class. See the [Using Middleware](../controllers/middleware#using-middleware) section
     above for how to do that. Or copy the example in the [app skeleton](https://github.com/cakephp/app/tree/3.x/src/Application.php).
 3.  Create **config/requirements.php** if it doesn't exist and add the contents
     from the [app skeleton](https://github.com/cakephp/app/blob/3.x/config/requirements.php).

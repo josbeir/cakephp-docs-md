@@ -2,8 +2,8 @@
 
 `class` Cake\\Form\\**Form**
 
-Most of the time you will have forms backed by [ORM entities](../orm/entities.md)
-and [ORM tables](../orm/table-objects.md) or other persistent stores,
+Most of the time you will have forms backed by [ORM entities](../orm/entities)
+and [ORM tables](../orm/table-objects) or other persistent stores,
 but there are times when you'll need to validate user input and then perform an
 action if the data is valid. The most common example of this is a contact form.
 

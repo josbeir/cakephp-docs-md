@@ -57,7 +57,7 @@ class ArticlesController extends AppController
 While you can include any of the options supported by
 `~Cake\\ORM\\Table::find()` such as `fields` in your pagination
 settings. It is cleaner and simpler to bundle your pagination options into
-a [Custom Find Methods](#custom-find-methods). You can use your finder in pagination by using the
+a [Custom Find Methods](../orm/retrieving-data-and-resultsets#custom-find-methods). You can use your finder in pagination by using the
 `finder` option:
 
 ``` php
@@ -169,7 +169,7 @@ paginate both tags and articles at the same time:
 
     /dashboard?article[page]=1&tag[page]=3
 
-See the [Paginator Helper Multiple](#paginator-helper-multiple) section for how to generate scoped HTML
+See the [Paginator Helper Multiple](../views/helpers/paginator#paginator-helper-multiple) section for how to generate scoped HTML
 elements and URLs for pagination.
 
 ### Paginating the Same Model multiple Times

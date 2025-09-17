@@ -54,10 +54,10 @@ To get all routing parameters as an array use `getAttribute()`:
 $parameters = $this->request->getAttribute('params');
 ```
 
-All [Route Elements](#route-elements) are accessed through this interface.
+All [Route Elements](../development/routing#route-elements) are accessed through this interface.
 
-In addition to [Route Elements](#route-elements), you also often need access to
-[Passed Arguments](#passed-arguments). These are both available on the request object as
+In addition to [Route Elements](../development/routing#route-elements), you also often need access to
+[Passed Arguments](../development/routing#passed-arguments). These are both available on the request object as
 well:
 
 ``` php
@@ -73,7 +73,7 @@ are also all found in the routing parameters:
   plugin.
 - `controller` The controller handling the current request.
 - `action` The action handling the current request.
-- `prefix` The prefix for the current action. See [Prefix Routing](#prefix-routing) for
+- `prefix` The prefix for the current action. See [Prefix Routing](../development/routing#prefix-routing) for
   more information.
 
 ### Query String Parameters
@@ -301,7 +301,7 @@ $env = $this->request->getServerParams();
 
 ### XML or JSON Data
 
-Applications employing [REST](../development/rest.md) often exchange data in
+Applications employing [REST](../development/rest) often exchange data in
 non-URL-encoded post bodies. You can read input data in any format using
 `~Cake\\Http\\ServerRequest::input()`. By providing a decoding function,
 you can receive the content in a deserialized format:
@@ -476,7 +476,7 @@ To access the session for a given request use the `session()` method:
 $userName = $this->request->session()->read('Auth.User.name');
 ```
 
-For more information, see the [Sessions](../development/sessions.md) documentation for how
+For more information, see the [Sessions](../development/sessions) documentation for how
 to use the session object.
 
 ### Host and Domain Name
@@ -1073,7 +1073,7 @@ in order to determine whether it matches a cached resource.
 
 To take advantage of this header, you must either call the
 `checkNotModified()` method manually or include the
-[Request Handling](../controllers/components/request-handling.md) in your controller:
+[Request Handling](../controllers/components/request-handling) in your controller:
 
 ``` php
 public function index()
@@ -1110,7 +1110,7 @@ response was modified or not based on their cache.
 
 To take advantage of this header, you must either call the
 `checkNotModified()` method manually or include the
-[Request Handling](../controllers/components/request-handling.md) in your controller:
+[Request Handling](../controllers/components/request-handling) in your controller:
 
 ``` php
 public function view()
@@ -1187,7 +1187,7 @@ $this->response->cookie('remember', [
 ]);
 ```
 
-See the [Creating Cookies](#creating-cookies) section for how to use the cookie object. You
+See the [Creating Cookies](../controllers/tmp.ZBmMmj5324#creating-cookies) section for how to use the cookie object. You
 can use `withExpiredCookie()` to send an expired cookie in the response. This
 will make the browser remove its local cookie:
 
@@ -1322,7 +1322,7 @@ $response = $this->response->withCookieCollection($cookies);
 ```
 
 Cookies set to responses can be encrypted using the
-[Encrypted Cookie Middleware](#encrypted-cookie-middleware).
+[Encrypted Cookie Middleware](../controllers/middleware#encrypted-cookie-middleware).
 
 <div class="versionadded">
 

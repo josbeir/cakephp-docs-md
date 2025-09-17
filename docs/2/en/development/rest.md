@@ -130,7 +130,7 @@ Since we've added a call to `Router::parseExtensions()`,
 the CakePHP router is already primed to serve up different views based on
 different kinds of requests. Since we're dealing with REST
 requests, we'll be making XML views. You can also easily make JSON views using
-CakePHP's built-in [JSON and XML views](../views/json-and-xml-views.md). By using the built in
+CakePHP's built-in [JSON and XML views](../views/json-and-xml-views). By using the built in
 `XmlView` we can define a `_serialize` view variable. This special
 view variable is used to define which view variables `XmlView` should
 serialize into XML.
@@ -225,7 +225,7 @@ use the new values.
 If the default routes created by `Router::mapResources()` don't work
 for you, use the `Router::connect()` method to define a custom set of
 REST routes. The `connect()` method allows you to define a number of different
-options for a given URL. See the section on [Route Conditions](#route-conditions) for more information.
+options for a given URL. See the section on [Route Conditions](../development/routing#route-conditions) for more information.
 
 <div class="versionadded">
 

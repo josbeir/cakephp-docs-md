@@ -427,5 +427,5 @@ Flash messages are small messages displayed to end users once. They are often
 used to present error messages, or confirm that actions took place successfully.
 
 To set and display flash messages you should use
-[Flash](../controllers/components/flash.md) and
-[Flash](../views/helpers/flash.md)
+[Flash](../controllers/components/flash) and
+[Flash](../views/helpers/flash)

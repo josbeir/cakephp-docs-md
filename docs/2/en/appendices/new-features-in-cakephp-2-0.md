@@ -119,14 +119,14 @@ The above would create a link with <http://test.localhost/posts/add> as the url.
 ### Xml
 
 `Xml` has had a number of changes. Read more about
-[Xml](../core-utility-libraries/xml.md) class.
+[Xml](../core-utility-libraries/xml) class.
 
 ## New Lib features
 
 ### Configure readers
 
 `Configure` can now be configured to load configuration files from a
-variety of sources and formats. The [Configuration](../development/configuration.md) section
+variety of sources and formats. The [Configuration](../development/configuration) section
 contains more information about the changes made to configure.
 
 `Configure::read()` without any arguments allows you to read all
@@ -134,7 +134,7 @@ values from configure, instead of just the debug value.
 
 ### Error and exception handling
 
-CakePHP 2.0 has had [Exceptions](../development/exceptions.md) and [Error Handling](../development/errors.md)
+CakePHP 2.0 has had [Exceptions](../development/exceptions) and [Error Handling](../development/errors)
 handling rebuilt, to be more flexible and give more power to developers.
 
 ### String::wrap()
@@ -198,7 +198,7 @@ validatePost in order to do dynamic forms, disabling the CSRF protection at the
 same time. For 2.0 CSRF checking has been separated from form tampering giving
 you greater control.
 
-For more information see [Security Csrf](#security-csrf)
+For more information see [Security Csrf](../core-libraries/components/security-component#security-csrf)
 
 ## Controller
 

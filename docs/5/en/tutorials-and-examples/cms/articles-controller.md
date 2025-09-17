@@ -46,9 +46,9 @@ access the logic there by requesting **www.example.com/articles/index**.
 Similarly, if we were to define a function called `foobar()`, users would be
 able to access that at **www.example.com/articles/foobar**. You may be tempted
 to name your controllers and actions in a way that allows you to obtain specific
-URLs. Resist that temptation. Instead, follow the [CakePHP Conventions](../../intro/conventions.md)
+URLs. Resist that temptation. Instead, follow the [CakePHP Conventions](../../intro/conventions)
 creating readable, meaningful action names. You can then use
-[Routing](../../development/routing.md) to connect the URLs you want to the actions you've
+[Routing](../../development/routing) to connect the URLs you want to the actions you've
 created.
 
 Our controller action is very simple. It fetches a paginated set of articles
@@ -106,15 +106,15 @@ In the last section we assigned the 'articles' variable to the view using
 local variables which we used in the above code.
 
 You might have noticed the use of an object called `$this->Html`. This is an
-instance of the CakePHP [HtmlHelper](../../views/helpers/html.md). CakePHP comes
+instance of the CakePHP [HtmlHelper](../../views/helpers/html). CakePHP comes
 with a set of view helpers that make tasks like creating links, forms, and
-pagination buttons. You can learn more about [Helpers](../../views/helpers.md) in their
+pagination buttons. You can learn more about [Helpers](../../views/helpers) in their
 chapter, but what's important to note here is that the `link()` method will
 generate an HTML link with the given link text (the first parameter) and URL
 (the second parameter).
 
 When specifying URLs in CakePHP, it is recommended that you use arrays or
-[named routes](#named-routes). These syntaxes allow you to
+[named routes](../../../development/routing#named-routes). These syntaxes allow you to
 leverage the reverse routing features CakePHP offers.
 
 At this point, you should be able to point your browser to
@@ -138,7 +138,7 @@ public function view($slug = null)
 
 While this is a simple action, we've used some powerful CakePHP features. We
 start our action off by using `findBySlug()` which is
-a [Dynamic Finder](#dynamic-finders). This method allows us to create a basic query that
+a [Dynamic Finder](../../../orm/retrieving-data-and-resultsets#dynamic-finders). This method allows us to create a basic query that
 finds articles by a given slug. We then use `firstOrFail()` to either fetch
 the first record, or throw a `\Cake\Datasource\Exception\RecordNotFoundException`.
 
@@ -216,7 +216,7 @@ class ArticlesController extends AppController
 ```
 
 > [!NOTE]
-> You need to include the [Flash](../../controllers/components/flash.md) component in
+> You need to include the [Flash](../../controllers/components/flash) component in
 > any controller where you will use it. Often it makes sense to include it in
 > your `AppController`, which is there already for this tutorial.
 
@@ -302,7 +302,7 @@ the following line:
 If we were to save an Article right now, saving would fail as we are not
 creating a slug attribute, and the column is `NOT NULL`. Slug values are
 typically a URL-safe version of an article's title. We can use the
-[beforeSave() callback](#table-callbacks) of the ORM to populate our slug:
+[beforeSave() callback](../../../orm/table-objects#table-callbacks) of the ORM to populate our slug:
 
 ``` php
 <?php
@@ -428,7 +428,7 @@ articles:
 ## Update Validation Rules for Articles
 
 Up until this point our Articles had no input validation done. Lets fix that by
-using [a validator](#validating-request-data):
+using [a validator](../../../orm/validation#validating-request-data):
 
 ``` php
 // src/Model/Table/ArticlesTable.php
@@ -459,7 +459,7 @@ body fields must not be empty, and have certain length constraints.
 CakePHP's validation engine is powerful and flexible. It provides a suite of
 frequently used rules for tasks like email addresses, IP addresses etc. and the
 flexibility for adding your own validation rules. For more information on that
-setup, check the [Validation](../../core-libraries/validation.md) documentation.
+setup, check the [Validation](../../core-libraries/validation) documentation.
 
 Now that your validation rules are in place, use the app to try to add
 an article with an empty title or body to see how it works. Since we've used the
@@ -496,7 +496,7 @@ message after redirecting them to `/articles`. If the user attempts to
 delete an article using a GET request, `allowMethod()` will throw an exception.
 Uncaught exceptions are captured by CakePHP's exception handler, and a nice
 error page is displayed. There are many built-in
-[Exceptions](../../development/errors.md) that can be used to indicate the various
+[Exceptions](../../development/errors) that can be used to indicate the various
 HTTP errors your application might need to generate.
 
 > [!WARNING]
@@ -563,4 +563,4 @@ Prior to CakePHP 5.2 you need to use `postLink()` instead.
 > However, this does not build the **templates/Articles/\*.php** files.
 
 With a basic articles management setup, we'll create the [basic actions
-for our Tags and Users tables](../../tutorials-and-examples/cms/tags-and-users.md).
+for our Tags and Users tables](../../tutorials-and-examples/cms/tags-and-users).

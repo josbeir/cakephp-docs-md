@@ -126,10 +126,10 @@ following configuration keys are used:
   variables to be used in the view. See `Mailer::setViewVars()`.
 - `'attachments'`: List of files to attach. See `Mailer::setAttachments()`.
 - `'emailFormat'`: Format of email (html, text or both). See `Mailer::setEmailFormat()`.
-- `'transport'`: Transport configuration name. See [Email Transport](#email-transport).
+- `'transport'`: Transport configuration name. See [Email Transport](../core-libraries/tmp.rXvDLoKuTX#email-transport).
 - `'log'`: Log level to log the email headers and message. `true` will use
-  LOG_DEBUG. See [Logging Levels](#logging-levels). Note that logs will be emitted under the scope named `email`.
-  See also [Logging Scopes](#logging-scopes).
+  LOG_DEBUG. See [Logging Levels](../core-libraries/logging#logging-levels). Note that logs will be emitted under the scope named `email`.
+  See also [Logging Scopes](../core-libraries/logging#logging-scopes).
 - `'helpers'`: Array of helpers used in the email template.
   `ViewBuilder::setHelpers()`/`ViewBuilder::addHelpers()`.
 
@@ -150,7 +150,7 @@ See `Mailer::setHeaders()` and `Mailer::addHeaders()`
 
 Emails are often much more than just a simple text message. In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
-[view layer](../views.md).
+[view layer](../views).
 
 The templates for emails reside in a special folder `templates/email` of your
 application. Mailer views can also use layouts and elements just like normal views:
@@ -429,7 +429,7 @@ $this->Users->getEventManager()->on($this->getMailer('User'));
 
 > [!NOTE]
 > For information on how to register event listener objects,
-> please refer to the [Registering Event Listeners](#registering-event-listeners) documentation.
+> please refer to the [Registering Event Listeners](../core-libraries/events#registering-event-listeners) documentation.
 
 <a id="email-transport"></a>
 

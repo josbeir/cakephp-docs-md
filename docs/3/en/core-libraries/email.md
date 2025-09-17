@@ -246,7 +246,7 @@ following configuration keys are used:
 - `'transport'`: Transport configuration name. See
   `~Cake\\Mailer\\Email::configTransport()`.
 - `'log'`: Log level to log the email headers and message. `true` will use
-  LOG_DEBUG. See also [Logging Levels](#logging-levels).
+  LOG_DEBUG. See also [Logging Levels](../core-libraries/logging#logging-levels).
 - `'helpers'`: Array of helpers used in the email template. `Email::helpers()`.
 
 All these configurations are optional, except `'from'`.
@@ -275,7 +275,7 @@ Use `setHeaders()` instead of `headers()`.
 
 Emails are often much more than just a simple text message. In order
 to facilitate that, CakePHP provides a way to send emails using CakePHP's
-[view layer](../views.md).
+[view layer](../views).
 
 The templates for emails reside in a special folder in your application's
 `Template` directory called `Email`. Email views can also use layouts
@@ -543,7 +543,7 @@ name of configuration in `Configure`.
 
 If you want, you can pass the to, subject and message as null and do all
 configurations in the 4th parameter (as array or using `Configure`).
-Check the list of [configurations](#email-configurations) to see all accepted configs.
+Check the list of [configurations](../core-libraries/email#email-configurations) to see all accepted configs.
 
 ## Sending Emails from CLI
 
@@ -673,7 +673,7 @@ $this->Users->getEventManager()->on($this->getMailer('User'));
 
 > [!NOTE]
 > For information on how to register event listener objects,
-> please refer to the [Registering Event Listeners](#registering-event-listeners) documentation.
+> please refer to the [Registering Event Listeners](../core-libraries/events#registering-event-listeners) documentation.
 
 <a id="email-testing"></a>
 

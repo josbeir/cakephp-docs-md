@@ -28,7 +28,7 @@ translating content.
 >
 > > [!NOTE]
 > > Check out the
-> > [Internationalization & Localization](../core-libraries/internationalization-and-localization.md) section for
+> > [Internationalization & Localization](../core-libraries/internationalization-and-localization) section for
 > > more information.
 >
 > Allows you to override the current domain for a single message lookup.
@@ -81,12 +81,12 @@ translating content.
 > If `$showHTML` is `true` or left as `null`, the data is rendered to be
 > browser-friendly. If `$showFrom` is not set to `false`, the debug output
 > will start with the line from which it was called. Also see
-> [Debugging](../development/debugging.md)
+> [Debugging](../development/debugging)
 >
 > It behaves like `debug()`, but execution is also halted.
 > If the core `$debug` variable is `true`, `$var` is printed.
 > If `$showHTML` is `true` or left as `null`, the data is rendered to be
-> browser-friendly. Also see [Debugging](../development/debugging.md)
+> browser-friendly. Also see [Debugging](../development/debugging)
 >
 > Convenience wrapper for `print_r()`, with the addition of
 > wrapping `<pre>` tags around the output.

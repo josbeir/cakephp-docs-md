@@ -497,7 +497,7 @@ You may want to cache the counts for your hasMany associations. This is useful
 when you often need to show the number of associated records, but don't want to
 load all the records just to count them. For example, the comment count on any
 given article is often cached to make generating lists of articles more
-efficient. You can use the [CounterCacheBehavior](../orm/behaviors/counter-cache.md) to cache counts of associated records.
+efficient. You can use the [CounterCacheBehavior](../orm/behaviors/counter-cache) to cache counts of associated records.
 
 You should make sure that your database tables do not contain columns that match
 association property names. If for example you have counter fields that conflict
@@ -725,7 +725,7 @@ participation on a Course in addition to extra meta-information.
 
 ## Default Association Conditions
 
-The `finder` option allows you to use a [custom finder](#custom-find-methods) to load associated record data. Using a finder method
+The `finder` option allows you to use a [custom finder](../orm/retrieving-data-and-resultsets#custom-find-methods) to load associated record data. Using a finder method
 lets you encapsulate and reuse your query logic:
 
 ``` php
@@ -756,4 +756,4 @@ above restrictions and can also use result formatters or map/reduce functions.
 
 ## Loading Associations
 
-Once you've defined your associations you can [eager load associations](#eager-loading-associations) when fetching results.
+Once you've defined your associations you can [eager load associations](../orm/retrieving-data-and-resultsets#eager-loading-associations) when fetching results.

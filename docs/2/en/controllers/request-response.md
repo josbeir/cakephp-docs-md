@@ -47,10 +47,10 @@ $this->request->params['controller'];
 
 All of the above will access the same value. Multiple ways of accessing the
 parameters have been provided to ease migration for existing applications. All
-[Route Elements](#route-elements) are accessed through this interface.
+[Route Elements](../development/routing#route-elements) are accessed through this interface.
 
-In addition to [Route Elements](#route-elements), you also often need access to
-[Passed Arguments](#passed-arguments) and [Named Parameters](#named-parameters). These are both available
+In addition to [Route Elements](../development/routing#route-elements), you also often need access to
+[Passed Arguments](../development/routing#passed-arguments) and [Named Parameters](../development/routing#named-parameters). These are both available
 on the request object as well:
 
 ``` php
@@ -72,7 +72,7 @@ are also all found in the request parameters:
 - `plugin` The plugin handling the request. Will be null when there is no plugin.
 - `controller` The controller handling the current request.
 - `action` The action handling the current request.
-- `prefix` The prefix for the current action. See [Prefix Routing](#prefix-routing) for
+- `prefix` The prefix for the current action. See [Prefix Routing](../development/routing#prefix-routing) for
   more information.
 - `bare` Present when the request came from `~Controller::requestAction()` and included the
   bare option. Bare requests do not have layouts rendered.
@@ -136,7 +136,7 @@ below for how you can access those request bodies.
 
 ## Accessing XML or JSON data
 
-Applications employing [REST](../development/rest.md) often exchange data in non-URL-encoded
+Applications employing [REST](../development/rest) often exchange data in non-URL-encoded
 post bodies. You can read input data in any format using
 `CakeRequest::input()`. By providing a decoding function, you can
 receive the content in a deserialized format:
@@ -339,7 +339,7 @@ instead of `CakeResponse`. You can also replace the response
 instance by setting `$this->response` in your controllers. Overriding the
 response object is handy during testing, as it allows you to stub
 out the methods that interact with `~CakeResponse::header()`. See the section on
-[Cakeresponse Testing](#cakeresponse-testing) for more information.
+[Cakeresponse Testing](../controllers/tmp.KRru5QqL3e#cakeresponse-testing) for more information.
 
 ## Dealing with content types
 

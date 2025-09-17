@@ -78,11 +78,11 @@ public function beforeFilter() {
 ## Request parameters
 
 When a request is made to a CakePHP application, CakePHP's `Router` and
-`Dispatcher` classes use [Routes Configuration](development/routing.md#routes-configuration) to find and
+`Dispatcher` classes use [Routes Configuration](development/routing#routes-configuration) to find and
 create the correct controller. The request data is encapsulated in a request
 object. CakePHP puts all of the important request information into the
 `$this->request` property. See the section on
-[Cake Request](controllers/request-response.md#cake-request) for more information on the CakePHP request object.
+[Cake Request](controllers/request-response#cake-request) for more information on the CakePHP request object.
 
 ## Controller actions
 
@@ -172,7 +172,7 @@ insert logic around the request life-cycle:
 
 `method` Controller::**afterFilter**()
 
-In addition to controller life-cycle callbacks, [Components](controllers/components.md)
+In addition to controller life-cycle callbacks, [Components](controllers/components)
 also provide a similar set of callbacks.
 
 <a id="controller-methods"></a>
@@ -234,7 +234,7 @@ This would render `app/Plugin/Users/View/UserDetails/custom_file.ctp`
 
 ### Callbacks
 
-In addition to the [Controller Life Cycle](#controller-life-cycle),
+In addition to the [Controller Life Cycle](tmp.Ku58ZY7U9q#controller-life-cycle),
 CakePHP also supports callbacks related to scaffolding.
 
 `method` Controller::**beforeScaffold**($method)
@@ -337,12 +337,12 @@ given by `~Controller::$helpers` to the view as an object reference variable
 > therefore it is not necessary (for example) to redeclare the
 > `FormHelper`, or anything that is declared in your `AppController`.
 >
-> The components array allows you to set which [Components](controllers/components.md)
+> The components array allows you to set which [Components](controllers/components)
 > a controller will use. Like `~Controller::$helpers` and
 > `~Controller::$uses` components in your controllers are
 > merged with those in `AppController`. As with
 > `~Controller::$helpers` you can pass settings
-> into `~Controller::$components`. See [Configuring Components](controllers/components.md#configuring-components) for more information.
+> into `~Controller::$components`. See [Configuring Components](controllers/components#configuring-components) for more information.
 
 ### Other Attributes
 
@@ -381,7 +381,7 @@ and what they do.
 
 ## More on controllers
 
-- [Request and Response objects](controllers/request-response.md)
-- [Scaffolding](controllers/scaffolding.md)
-- [The Pages Controller](controllers/pages-controller.md)
-- [Components](controllers/components.md)
+- [Request and Response objects](controllers/request-response)
+- [Scaffolding](controllers/scaffolding)
+- [The Pages Controller](controllers/pages-controller)
+- [Components](controllers/components)

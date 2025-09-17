@@ -152,9 +152,9 @@ There are a number of core events within the framework which your application
 can listen to. Each layer of CakePHP emits events that you can use in your
 application.
 
-- [ORM/Model events](#table-callbacks)
-- [Controller events](#controller-life-cycle)
-- [View events](#view-events)
+- [ORM/Model events](../orm/table-objects#table-callbacks)
+- [Controller events](../controllers#controller-life-cycle)
+- [View events](../views#view-events)
 
 ### `Server.terminate`
 
@@ -666,8 +666,8 @@ events can make debugging harder and require additional integration testing.
 
 ## Additional Reading
 
-- [Behaviors](../orm/behaviors.md)
-- [Command Objects](../console-commands/commands.md)
-- [Components](../controllers/components.md)
-- [Helpers](../views/helpers.md)
-- [Testing Events](#testing-events)
+- [Behaviors](../orm/behaviors)
+- [Command Objects](../console-commands/commands)
+- [Components](../controllers/components)
+- [Helpers](../views/helpers)
+- [Testing Events](../development/testing#testing-events)

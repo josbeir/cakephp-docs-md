@@ -297,4 +297,4 @@ UrlToolkit {
 ## I don't / can't use URL rewriting
 
 If you don't want to or can't use URL rewriting on your webserver,
-refer to the [core configuration](#core-configuration-baseurl).
+refer to the [core configuration](../development/configuration#core-configuration-baseurl).

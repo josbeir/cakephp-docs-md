@@ -26,7 +26,7 @@ improved.
 
 Here's a quick list of features you'll enjoy when using CakePHP:
 
-- Active, friendly [Cakephp Official Communities](#cakephp-official-communities)
+- Active, friendly [Cakephp Official Communities](../cakephp-overview/where-to-get-help#cakephp-official-communities)
 - Flexible [licensing](https://en.wikipedia.org/wiki/MIT_License)
 - Compatible with versions PHP 5.2.8 and greater
 - Integrated

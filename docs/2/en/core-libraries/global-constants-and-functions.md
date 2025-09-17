@@ -28,7 +28,7 @@ such as debugging and translating content.
 >
 > > [!NOTE]
 > > Check out the
-> > [Internationalization & Localization](../core-libraries/internationalization-and-localization.md)
+> > [Internationalization & Localization](../core-libraries/internationalization-and-localization)
 > > section for more information.
 >
 > Note that the category must be specified with an I18n class constant, instead of
@@ -177,7 +177,7 @@ such as debugging and translating content.
 > browser-friendly.
 > If \$showFrom is not set to false, the debug output will start with the line from
 > which it was called.
-> Also see [Debugging](../development/debugging.md)
+> Also see [Debugging](../development/debugging)
 >
 > noindex  
 >

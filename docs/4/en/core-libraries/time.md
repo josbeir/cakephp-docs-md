@@ -537,7 +537,7 @@ $article->updated = $article->updated->modify('+1 hour');
 ## Accepting Localized Request Data
 
 When creating text inputs that manipulate dates, you'll probably want to accept
-and parse localized datetime strings. See the [Parsing Localized Dates](#parsing-localized-dates).
+and parse localized datetime strings. See the [Parsing Localized Dates](../core-libraries/internationalization-and-localization#parsing-localized-dates).
 
 ## Supported Timezones
 

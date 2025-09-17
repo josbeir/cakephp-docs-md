@@ -6,7 +6,7 @@ the changes made to the core since the CakePHP 1.3 branch. Be sure to read the
 other pages in this guide for all the new features and API changes.
 
 > [!TIP]
-> Be sure to checkout the [Upgrade Shell](#upgrade-shell) included in the 2.0 core to help you
+> Be sure to checkout the [Upgrade Shell](../console-and-shells/upgrade-shell#upgrade-shell) included in the 2.0 core to help you
 > migrate your 1.3 code to 2.0.
 
 ## PHP Version Support
@@ -306,12 +306,12 @@ all types of authentication and to streamline the roles of each component.
 The AuthComponent was entirely re-factored for 2.0, this was done to help reduce
 developer confusion and frustration. In addition, AuthComponent was made more
 flexible and extensible. You can find out more in
-the [Authentication](../core-libraries/components/authentication.md) guide.
+the [Authentication](../core-libraries/components/authentication) guide.
 
 ### EmailComponent
 
 The EmailComponent has been deprecated and has created a new library class to
-send e-mails. See [CakeEmail](../core-utility-libraries/email.md) Email changes for more details.
+send e-mails. See [CakeEmail](../core-utility-libraries/email) Email changes for more details.
 
 ### SessionComponent
 
@@ -333,7 +333,7 @@ CakePHP 2.0.
 The error handling implementation has dramatically changed in 2.0. Exceptions
 have been introduced throughout the framework, and error handling has been
 updated to offer more control and flexibility. You can read more in the
-[Exceptions](../development/exceptions.md) and [Error Handling](../development/errors.md) section.
+[Exceptions](../development/exceptions) and [Error Handling](../development/errors) section.
 
 ## Lib classes
 
@@ -574,9 +574,9 @@ or want to implement your own standard you can include your own file with custom
   'debug' instead it returns all values in Configure. Use
   `Configure::read('debug');` if you want the value of debug.
 - `Configure::load()` now requires a ConfigReader to be setup. Read
-  [Loading Configuration Files](#loading-configuration-files) for more information.
+  [Loading Configuration Files](../development/configuration#loading-configuration-files) for more information.
 - `Configure::store()` now writes values to a given Cache configuration. Read
-  [Loading Configuration Files](#loading-configuration-files) for more information.
+  [Loading Configuration Files](../development/configuration#loading-configuration-files) for more information.
 
 ### Scaffold
 
@@ -614,7 +614,7 @@ CakeSession is now a fully static class, both `SessionHelper` and
 in models or other contexts. All of its methods are called statically.
 
 Session configuration has also changed [see the session section for more
-information](../development/sessions.md)
+information](../development/sessions)
 
 ### HttpSocket
 
@@ -663,7 +663,7 @@ The motivations for refactoring this functionality came from a few issues.
   manually construct several other objects in order to get a functioning object.
 
 You can read more about HelperCollection in the
-[Collections](../core-libraries/collections.md) documentation.
+[Collections](../core-libraries/collections) documentation.
 
 ### Deprecated properties
 
@@ -791,7 +791,7 @@ Note that `checked` have a numeric key.
 - `Controller::$data` is deprecated, use the request object's data property.
 - `Controller::$params` is deprecated, use the `$this->request` instead.
 - `Controller::$Component` has been moved to `Controller::$Components`. See
-  the [Collections](../core-libraries/collections.md) documentation for more information.
+  the [Collections](../core-libraries/collections) documentation for more information.
 - `Controller::$view` has been renamed to `Controller::$viewClass`.
   `Controller::$view` is now used to change which view file is rendered.
 - `Controller::render()` now returns a CakeResponse object.
@@ -812,7 +812,7 @@ exists, and serves as a convenience method for loading and using the
 `PaginatorComponent`.
 
 For more information on the new features offered by pagination in 2.0, see the
-[Pagination](../core-libraries/components/pagination.md) documentation.
+[Pagination](../core-libraries/components/pagination) documentation.
 
 ## View
 
@@ -911,7 +911,7 @@ public function afterLayout($layoutFile) {
 
 Element caching, and view callbacks have been changed in 2.0 to help provide you
 with more flexibility and consistency. [Read more about those
-changes](../views.md).
+changes](../views).
 
 ### CacheHelper decoupled
 

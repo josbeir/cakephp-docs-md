@@ -6,7 +6,7 @@
 
 3.6.0
 Shells are deprecated as of 3.6.0, but will not be removed until 5.x.
-Use [Command Objects](../console-commands/commands.md) instead.
+Use [Command Objects](../console-commands/commands) instead.
 
 </div>
 
@@ -125,7 +125,7 @@ class FileGeneratorTask extends Shell
 
 A shell can also access its tasks as properties, which makes tasks great for
 making re-usable chunks of functionality similar to
-[Components](../controllers/components.md):
+[Components](../controllers/components):
 
 ``` php
 // Found in src/Shell/SeaShell.php
@@ -219,7 +219,7 @@ stored in the database.
 ## Shell Helpers
 
 If you have complex output generation logic, you can use
-[Command Helpers](#command-helpers) to encapsulate this logic in a re-usable way.
+[Command Helpers](../console-commands/input-output#command-helpers) to encapsulate this logic in a re-usable way.
 
 <a id="invoking-other-shells-from-your-shell"></a>
 
@@ -276,13 +276,13 @@ the CakePHP console welcome message from being displayed on dispatched shells.
 
 ## Parsing CLI Options
 
-Shells use [Option Parsers](../console-commands/option-parsers.md) to define their options,
+Shells use [Option Parsers](../console-commands/option-parsers) to define their options,
 arguments and automate help generation.
 
 ## Interacting with Input/Output
 
 Shells allow you to access a `ConsoleIo` instance via the `getIo()` method.
-See the [Command Input/Output](../console-commands/input-output.md) section for more information.
+See the [Command Input/Output](../console-commands/input-output) section for more information.
 
 In addition to the `ConsoleIo` object, Shell classes offer a suite of shortcut
 methods. These methods are shortcuts and aliases to those found on `ConsoleIo`:

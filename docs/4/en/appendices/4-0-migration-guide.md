@@ -4,7 +4,7 @@ CakePHP 4.0 contains breaking changes, and is not backwards compatible with 3.x
 releases. Before attempting to upgrade to 4.0, first upgrade to 3.8 and resolve
 all deprecation warnings.
 
-Refer to the [4.0 Upgrade Guide](../appendices/4-0-upgrade-guide.md) for step by step instructions
+Refer to the [4.0 Upgrade Guide](../appendices/4-0-upgrade-guide) for step by step instructions
 on how to upgrade to 4.0.
 
 ## Deprecated Features Removed
@@ -28,7 +28,7 @@ features will continue to function in 4.x and will be removed in 5.0.0.
   in 5.0.0. You should use the authentication and authorization libs mentioned
   above instead.
 - `SecurityComponent` is deprecated. Instead use the `FormProtectionComponent`
-  for form tampering protection and the [Https Enforcer Middleware](#https-enforcer-middleware) for
+  for form tampering protection and the [Https Enforcer Middleware](../security/https-enforcer#https-enforcer-middleware) for
   `requireSecure` feature.
 
 ### Filesystem
@@ -99,7 +99,7 @@ changes made:
   request attribute instead of request param. Hence you should now use
   `$request->getAttribute('isAjax')` instead of `$request->getParam('isAjax')`.
 - The request body parsing features of `RequestHandlerComponent` have been
-  removed. You should use the [Body Parser Middleware](#body-parser-middleware) instead.
+  removed. You should use the [Body Parser Middleware](../controllers/middleware#body-parser-middleware) instead.
 - `Cake\Controller\Component\PaginatorComponent` now sets paging params info as
   request attribute instead of request param. Hence you should now use
   `$request->getAttribute('paging')` instead of `$request->getParam('paging')`.
@@ -213,7 +213,7 @@ changes made:
   the default cookie name defined in your `php.ini` file is used. You can use
   the `Session.cookie` configuration option to set the cookie name.
 - Session cookies now have `SameSite` attribute set to `Lax` by default.
-  Check [Session Configuration](#session-configuration) section for more info.
+  Check [Session Configuration](../development/sessions#session-configuration) section for more info.
 
 ### I18n
 
@@ -370,7 +370,7 @@ changes made:
 ### Database
 
 - If your database's timezone does not match PHP timezone then you can use
-  `DateTime::setDatabaseTimezone()`. See [Datetime Type](#datetime-type) for details.
+  `DateTime::setDatabaseTimezone()`. See [Datetime Type](../orm/database-basics#datetime-type) for details.
 - `DateTime::setKeepDatabaseTimezone()` allows you to keep the database time zone
   in the DateTime objects created by queries.
 - `Cake\Database\Log\LoggedQuery` now implements `JsonSerializable`.
@@ -454,7 +454,7 @@ changes made:
 ### Routing
 
 - `Cake\Routing\Asset` was added. This class exposes asset URL generation in
-  a static interface similar to `Router::url()`. See [Asset Routing](#asset-routing) for
+  a static interface similar to `Router::url()`. See [Asset Routing](../development/routing#asset-routing) for
   more information.
 
 ### TestSuite
@@ -476,7 +476,7 @@ changes made:
   "notEmpty" in an entity's ORM table class. This feature can be toggled with the
   `autoSetCustomValidity` class configuration option.
 - `FormHelper` now generates native HTML5 input tags for datetime fields.
-  Check the [Form Helper](#create-datetime-controls) page for more details.
+  Check the [Form Helper](../views/helpers/form#create-datetime-controls) page for more details.
   If you need to retain the former markup, a shimmed FormHelper can be found in
   [Shim plugin](https://github.com/dereuromark/cakephp-shim) with the old
   behavior/generation (4.x branch).

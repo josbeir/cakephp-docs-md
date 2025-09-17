@@ -159,7 +159,7 @@ You might need to update your test cases to reflect this change.
 
 The `Hash` class was added in 2.2. It replaced Set providing a more
 consistent, reliable and performant API to doing many of the same tasks Set
-does. See the [Hash](../core-utility-libraries/hash.md) page for more detail.
+does. See the [Hash](../core-utility-libraries/hash) page for more detail.
 
 ### CakeTime
 
@@ -205,10 +205,10 @@ does. See the [Hash](../core-utility-libraries/hash.md) page for more detail.
 - Event listeners can now be attached to the dispatcher calls, those will have
   the ability to change the request information or the response before it is
   sent to the client. Check the full documentation for this new features in
-  [Dispatcher Filters](../development/dispatch-filters.md)
-- With the addition of [Dispatcher Filters](../development/dispatch-filters.md) you'll need to
+  [Dispatcher Filters](../development/dispatch-filters)
+- With the addition of [Dispatcher Filters](../development/dispatch-filters) you'll need to
   update `app/Config/bootstrap.php`. See
-  [Required Steps To Upgrade 2 2](#required-steps-to-upgrade-2-2).
+  [Required Steps To Upgrade 2 2](../appendices/2-2-migration-guide#required-steps-to-upgrade-2-2).
 
 ### Router
 
@@ -245,8 +245,8 @@ name and deletes all entries labeled with the same string.
 ## Log
 
 Changes in `CakeLog` now require, some additional configuration in
-your `app/Config/bootstrap.php`. See [Required Steps To Upgrade 2 2](#required-steps-to-upgrade-2-2),
-and [Logging](../core-libraries/logging.md).
+your `app/Config/bootstrap.php`. See [Required Steps To Upgrade 2 2](../appendices/2-2-migration-guide#required-steps-to-upgrade-2-2),
+and [Logging](../core-libraries/logging).
 
 - The `CakeLog` class now accepts the same log levels as defined in
   [RFC 5424](https://tools.ietf.org/html/rfc5424). Several convenience
@@ -260,7 +260,7 @@ and [Logging](../core-libraries/logging.md).
   - `CakeLog::info($message, $scope = array())`
   - `CakeLog::debug($message, $scope = array())`
 - A third argument `$scope` has been added to `CakeLog::write`.
-  See [Logging Scopes](#logging-scopes).
+  See [Logging Scopes](../core-libraries/logging#logging-scopes).
 - A new log engine: `ConsoleLog` has been added.
 
 ## Model Validation
@@ -268,7 +268,7 @@ and [Logging](../core-libraries/logging.md).
 - A new object `ModelValidator` was added to delegate the work of validating
   model data, it should be transparent to the application and fully backwards
   compatible. It also exposes a rich API to add, modify and remove validation
-  rules. Check docs for this object in [Data Validation](../models/data-validation.md).
+  rules. Check docs for this object in [Data Validation](../models/data-validation).
 - Custom validation functions in your models need to have "public" visibility
   so that they are accessible by `ModelValidator`.
 - New validation rules added:

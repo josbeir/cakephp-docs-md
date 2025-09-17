@@ -1,6 +1,6 @@
 # Simple Authentication and Authorization Application
 
-Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog.md) example, imagine we wanted to
+Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog) example, imagine we wanted to
 secure the access to certain URLs, based on the logged in
 user. We also have another requirement, to allow our blog to have multiple authors
 so each one of them can create their own posts, edit and delete them at will
@@ -448,10 +448,10 @@ You could also be more creative and code something more general in AppController
 on your own rules.
 
 Should you need more control, we suggest you read the complete Auth guide in the
-[Authentication](../../core-libraries/components/authentication.md) section where you will find more
+[Authentication](../../core-libraries/components/authentication) section where you will find more
 about configuring the component, creating custom Authorization classes, and much more.
 
 ### Suggested Follow-up Reading
 
-1.  [Code Generation with Bake](../../console-and-shells/code-generation-with-bake.md) Generating basic CRUD code
-2.  [Authentication](../../core-libraries/components/authentication.md): User registration and login
+1.  [Code Generation with Bake](../../console-and-shells/code-generation-with-bake) Generating basic CRUD code
+2.  [Authentication](../../core-libraries/components/authentication): User registration and login

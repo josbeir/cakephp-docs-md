@@ -4,7 +4,7 @@ CakePHP 5.0 contains breaking changes, and is not backwards compatible with 4.x
 releases. Before attempting to upgrade to 5.0, first upgrade to 4.5 and resolve
 all deprecation warnings.
 
-Refer to the [5.0 Upgrade Guide](../appendices/5-0-upgrade-guide.md) for step by step instructions
+Refer to the [5.0 Upgrade Guide](../appendices/5-0-upgrade-guide) for step by step instructions
 on how to upgrade to 5.0.
 
 ## Deprecated Features Removed
@@ -221,7 +221,7 @@ changes made:
 - `TestSuite` was removed. Users should use environment variables to customize
   unit test settings instead.
 - `TestListenerTrait` was removed. PHPUnit dropped support for these listeners.
-  See [PHPUnit 10 Upgrade](../appendices/phpunit10.md)
+  See [PHPUnit 10 Upgrade](../appendices/phpunit10)
 - `IntegrationTestTrait::configRequest()` now merges config when called multiple times
   instead of replacing the currently present config.
 
@@ -277,7 +277,7 @@ CakePHP 5 leverages the expanded type system feature available in PHP 8.1+.
 CakePHP also uses `assert()` to provide improved error messages and additional
 type soundness. In production mode, you can configure PHP to not generate
 code for `assert()` yielding improved application performance. See the
-[Symlink Assets](#symlink-assets) for how to do this.
+[Symlink Assets](../deployment#symlink-assets) for how to do this.
 
 ### Collection
 
@@ -288,7 +288,7 @@ code for `assert()` yielding improved application performance. See the
 ### Core
 
 - The `services()` method was added to `PluginInterface`.
-- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](#loading-a-plugin).
+- `PluginCollection::addFromConfig()` has been added to [simplify plugin loading](../plugins#loading-a-plugin).
 
 ### Database
 

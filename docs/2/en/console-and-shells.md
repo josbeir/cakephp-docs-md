@@ -49,7 +49,7 @@ $ Console/cake
 
 It's often wise to add the core cake executable to your system path
 so you can use the cake command anywhere. This comes in handy when you are
-creating new projects. See [Adding Cake To Your Path](#adding-cake-to-your-path) for how to make `cake`
+creating new projects. See [Adding Cake To Your Path](tmp.llFgE73Dd2#adding-cake-to-your-path) for how to make `cake`
 available systemwide.
 
 Running the Console with no arguments produces this help message:
@@ -169,7 +169,7 @@ You should see the following output:
 
 As mentioned before, the `main()` method in shells is a special method called
 whenever there are no other commands or arguments given to a shell. You may have also
-noticed that HelloShell is extending `AppShell`. Much like [App Controller](controllers.md#app-controller), AppShell
+noticed that HelloShell is extending `AppShell`. Much like [App Controller](controllers#app-controller), AppShell
 gives you a base class to contain all your common functions or logic. You can define an AppShell,
 by creating `app/Console/Command/AppShell.php`. If you don't have one, CakePHP will use the
 built-in one. Since our main method wasn't very interesting let's add another command
@@ -252,7 +252,7 @@ class FileGeneratorTask extends Shell {
 ```
 
 A shell can also access its tasks as properties, which makes tasks great for
-making re-usable chunks of functionality similar to [Components](controllers/components.md):
+making re-usable chunks of functionality similar to [Components](controllers/components):
 
 ``` php
 // found in Console/Command/SeaShell.php
@@ -915,12 +915,12 @@ This asserts that the generated message IDs are valid and fit to the domain the 
 
 ## More topics
 
-- [Shell Helpers](console-and-shells/helpers.md)
-- [Running Shells as cronjobs](console-and-shells/cron-jobs.md)
-- [Completion Shell](console-and-shells/completion-shell.md)
-- [Code Generation with Bake](console-and-shells/code-generation-with-bake.md)
-- [Schema management and migrations](console-and-shells/schema-management-and-migrations.md)
-- [I18N shell](console-and-shells/i18n-shell.md)
-- [ACL Shell](console-and-shells/acl-shell.md)
-- [Test shell](console-and-shells/testsuite-shell.md)
-- [Upgrade shell](console-and-shells/upgrade-shell.md)
+- [Shell Helpers](console-and-shells/helpers)
+- [Running Shells as cronjobs](console-and-shells/cron-jobs)
+- [Completion Shell](console-and-shells/completion-shell)
+- [Code Generation with Bake](console-and-shells/code-generation-with-bake)
+- [Schema management and migrations](console-and-shells/schema-management-and-migrations)
+- [I18N shell](console-and-shells/i18n-shell)
+- [ACL Shell](console-and-shells/acl-shell)
+- [Test shell](console-and-shells/testsuite-shell)
+- [The upgrade shell will do most of the work to upgrade your CakePHP application](console-and-shells/upgrade-shell)

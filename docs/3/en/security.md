@@ -3,8 +3,8 @@
 CakePHP provides you some tools to secure your application.
 The following sections cover those tools:
 
-- [Security Utility](core-libraries/security.md)
-- [Cross Site Request Forgery](controllers/components/csrf.md)
-- [Security](Security.md)
-- [Component](Component.md)
+- [Security Utility](core-libraries/security)
+- [Cross Site Request Forgery](controllers/components/csrf)
+- [Security](Security)
+- [Component](Component)
 - [](controllers/components/security)

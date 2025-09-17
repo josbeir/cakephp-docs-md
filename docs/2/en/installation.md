@@ -12,7 +12,7 @@ run on a variety of web servers such as lighttpd or Microsoft IIS.
 - PHP 5.3.0 or greater (CakePHP version 2.6 and below support PHP 5.2.8 and
   above). CakePHP version 2.8.0 and above support PHP 7. To use PHP above 7.1
   you may need to install mcrypt via PECL. See
-  [Security](core-utility-libraries/security.md) for more information.
+  [Security](core-utility-libraries/security) for more information.
 
 Technically a database engine isn't required, but we imagine that most
 applications will utilize one. CakePHP supports a variety of database storage
@@ -180,8 +180,8 @@ application accessible at <http://www.example.com>.
 
 ## Advanced Installation and URL Rewriting
 
-- [Advanced Installation](installation/advanced-installation.md)
-- [URL Rewriting](installation/url-rewriting.md)
+- [Advanced Installation](installation/advanced-installation)
+- [URL Rewriting](installation/url-rewriting)
 
 ## Fire It Up
 
@@ -191,7 +191,7 @@ should point your browser to <http://example.com/> or
 CakePHP's default home, and a message that tells you the status of your current
 database connection.
 
-Congratulations! You are ready to [create your first CakePHP application](getting-started.md).
+Congratulations! You are ready to [create your first CakePHP application](getting-started).
 
 Not working? If you're getting timezone related errors from PHP uncomment one
 line in `app/Config/core.php`:

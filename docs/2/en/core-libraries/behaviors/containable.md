@@ -16,7 +16,7 @@ altering the associations of your models. It does this by using
 the supplied containments to generate a series of `bindModel` and
 `unbindModel` calls. Since Containable only modifies existing relationships it
 will not allow you to restrict results by distant associations. Instead
-you should refer to [Joining Tables](#joining-tables).
+you should refer to [Joining Tables](../../../models/associations-linking-models-together#joining-tables).
 
 To use the new behavior, you can add it to the \$actsAs property of
 your model:
@@ -341,7 +341,7 @@ $this->Comment->find('all', array(
 ));
 ```
 
-Additional filtering can be performed by supplying the standard [Model Find](#model-find) options:
+Additional filtering can be performed by supplying the standard [Model Find](../../../models/retrieving-your-data#model-find) options:
 
 ``` php
 $this->Post->find('all', array('contain' => array(
@@ -436,7 +436,7 @@ $this->User->find('all', array(
 
 You can change ContainableBehavior settings at run time by
 reattaching the behavior as seen in
-[Behaviors](../../models/behaviors.md) (Using Behaviors).
+[Behaviors](../../models/behaviors) (Using Behaviors).
 
 ContainableBehavior can sometimes cause issues with other behaviors
 or queries that use aggregate functions and/or GROUP BY statements.

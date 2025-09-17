@@ -54,7 +54,7 @@ important set up tasks, such as setting the correct file permissions and
 creating your **config/app.php** file for you.
 
 There are other ways to install CakePHP. If you cannot or don't want to use
-Composer, check out the [Installation](../../installation.md) section.
+Composer, check out the [Installation](../../installation) section.
 
 Regardless of how you downloaded and installed CakePHP, once your set up is
 completed, your directory setup should look something like the following:
@@ -79,7 +79,7 @@ completed, your directory setup should look something like the following:
         README.md
 
 Now might be a good time to learn a bit about how CakePHP's directory structure
-works: check out the [CakePHP Folder Structure](../../intro/cakephp-folder-structure.md) section.
+works: check out the [CakePHP Folder Structure](../../intro/cakephp-folder-structure) section.
 
 ## Checking our Installation
 
@@ -146,7 +146,7 @@ key. CakePHP supports composite primary keys almost everywhere, making it easier
 to build multi-tenanted applications.
 
 The table and column names we used were not arbitrary. By using CakePHP's
-[naming conventions](../../intro/conventions.md), we can leverage CakePHP better
+[naming conventions](../../intro/conventions), we can leverage CakePHP better
 and avoid having to configure the framework. CakePHP is flexible enough to
 accommodate even inconsistent legacy database schemas, but adhering to the
 conventions will save you time.
@@ -191,7 +191,7 @@ able to connect to the database' section have a checkmark.
 ## Generating Scaffold Code
 
 Because our database is following the CakePHP conventions, we can use the
-[bake console](../../bake/usage.md) application to quickly generate a basic
+[bake console](../../bake/usage) application to quickly generate a basic
 application. In your command line run the following commands:
 
     // On Windows you'll need to use bin\cake instead.
@@ -329,7 +329,7 @@ public function tags()
 }
 ```
 
-To access other parts of the request data, consult the [Cake Request](#cake-request)
+To access other parts of the request data, consult the [Cake Request](../../../controllers/request-response#cake-request)
 section.
 
 ### Creating the Finder Method
@@ -363,9 +363,9 @@ public function findTagged(Query $query, array $options)
 }
 ```
 
-We just implemented a [custom finder method](#custom-find-methods). This is
+We just implemented a [custom finder method](../../../orm/retrieving-data-and-resultsets#custom-find-methods). This is
 a very powerful concept in CakePHP that allows you to package up re-usable
-queries. Finder methods always get a [Query Builder](../../orm/query-builder.md) object and an
+queries. Finder methods always get a [Query Builder](../../orm/query-builder) object and an
 array of options as parameters. Finders can manipulate the query and add any
 required conditions or criteria. When complete, finder methods must return
 a modified query object. In our finder we've leveraged the `innerJoinWith()`,
@@ -401,8 +401,8 @@ put the following content:
 </section>
 ```
 
-In the above code we use the [Html](../../views/helpers/html.md) and
-[Text](../../views/helpers/text.md) helpers to assist in generating our view output. We
+In the above code we use the [Html](../../views/helpers/html) and
+[Text](../../views/helpers/text) helpers to assist in generating our view output. We
 also use the `h` shortcut function to HTML encode output. You should
 remember to always use `h()` when outputting user data to prevent HTML
 injection issues.
@@ -424,5 +424,5 @@ However, everyone can see everyone else's tags. In the next chapter, we'll
 implement authentication and restrict the visible bookmarks to only those that
 belong to the current user.
 
-Now continue to [Bookmarker Tutorial Part 2](../../tutorials-and-examples/bookmarks/part-two.md) to
-continue building your application or [dive into the documentation](../../topics.md) to learn more about what CakePHP can do for you.
+Now continue to [Bookmarker Tutorial Part 2](../../tutorials-and-examples/bookmarks/part-two) to
+continue building your application or [dive into the documentation](../../topics) to learn more about what CakePHP can do for you.

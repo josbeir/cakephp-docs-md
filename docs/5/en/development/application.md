@@ -6,16 +6,16 @@ commands and routes are included.
 
 You can find your `Application` class at **src/Application.php**. By default
 it will be pretty slim and only define a few default
-[Middleware](../controllers/middleware.md). Applications can define the following hook
+[Middleware](../controllers/middleware). Applications can define the following hook
 methods:
 
-- `bootstrap` Used to load [configuration files](../development/configuration.md), define constants and other global functions.
+- `bootstrap` Used to load [configuration files](../development/configuration), define constants and other global functions.
   By default this will include **config/bootstrap.php**. This is the ideal place
-  to load [Plugins](../plugins.md) and global [event listeners](../core-libraries/events.md).
-- `routes` Used to load [routes](../development/routing.md). By default this
+  to load [Plugins](../plugins) and global [event listeners](../core-libraries/events).
+- `routes` Used to load [routes](../development/routing). By default this
   will include **config/routes.php**.
-- `middleware` Used to add [middleware](../controllers/middleware.md) to your application.
-- `console` Used to add [console commands](../console-commands.md) to your
+- `middleware` Used to add [middleware](../controllers/middleware) to your application.
+- `console` Used to add [console commands](../console-commands) to your
   application. By default this will automatically discover console commands in
   your application and all plugins.
 
@@ -35,7 +35,7 @@ This file is ideal for a number of common bootstrapping tasks:
 - Loading configuration files.
 
 It might be tempting to place formatting functions there in order to use them in
-your controllers. As you'll see in the [Controllers](../controllers.md) and [Views](../views.md)
+your controllers. As you'll see in the [Controllers](../controllers) and [Views](../views)
 sections there are better ways you add custom logic to your application.
 
 <a id="application-bootstrap"></a>
@@ -80,5 +80,5 @@ class Application extends BaseApplication
 ```
 
 Loading plugins and events in `Application::bootstrap()` makes
-[Integration Testing](#integration-testing) easier as events and routes will be re-processed on
+[Integration Testing](../development/testing#integration-testing) easier as events and routes will be re-processed on
 each test method.

@@ -1,6 +1,6 @@
 # Validating Data
 
-Before you [save your data](../orm/saving-data.md) you
+Before you [save your data](../orm/saving-data) you
 will probably want to ensure the data is correct and consistent. In CakePHP we
 have two stages of validation:
 
@@ -88,7 +88,7 @@ class ArticlesTable extends Table
 ```
 
 The available validation methods and rules come from the `Validator` class and
-are documented in the [Creating Validators](#creating-validators) section.
+are documented in the [Creating Validators](../core-libraries/validation#creating-validators) section.
 
 > [!NOTE]
 > Validation objects are intended primarily for validating user input, i.e.
@@ -125,7 +125,7 @@ class ArticlesTable extends Table
 ```
 
 You can have as many validation sets as necessary. See the [validation
-chapter](../core-libraries/validation.md) for more information on building
+chapter](../core-libraries/validation) for more information on building
 validation rule-sets.
 
 <a id="using-different-validators-per-association"></a>

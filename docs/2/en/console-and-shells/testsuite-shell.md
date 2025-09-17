@@ -1,10 +1,10 @@
 # Test shell
 
-Once you've started writing [Tests](../development/testing.md) you can run them
+Once you've started writing [Tests](../development/testing) you can run them
 using the test shell.
 
 For more information on basic usage of the test shell see
-[Run Tests From Command Line](#run-tests-from-command-line).
+[Run Tests From Command Line](../development/testing#run-tests-from-command-line).
 
 <div class="versionchanged">
 

@@ -91,4 +91,4 @@ first application using CakePHP, you won't want to do it any other
 way.
 
 To get started on your first CakePHP application,
-[try the blog tutorial now](../tutorials-and-examples/blog/blog.md)
+[try the blog tutorial now](../tutorials-and-examples/blog/blog)

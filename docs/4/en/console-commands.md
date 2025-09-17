@@ -80,7 +80,7 @@ class Application extends BaseApplication
 ```
 
 In the above example, the only commands available would be `help`, `version`
-and `user`. See the [Plugin Commands](plugins.md#plugin-commands) section for how to add commands in
+and `user`. See the [Plugin Commands](plugins#plugin-commands) section for how to add commands in
 your plugins.
 
 > [!NOTE]
@@ -119,25 +119,25 @@ available commands.
 
 ## Commands
 
-See the [Command Objects](console-commands/commands.md) chapter on how to create your first
+See the [Command Objects](console-commands/commands) chapter on how to create your first
 command. Then learn more about commands:
 
-- [Command Objects](console-commands/commands.md)
-- [Command Input/Output](console-commands/input-output.md)
-- [Option Parsers](console-commands/option-parsers.md)
-- [Running Shells as Cron Jobs](console-commands/cron-jobs.md)
+- [Command Objects](console-commands/commands)
+- [Command Input/Output](console-commands/input-output)
+- [Option Parsers](console-commands/option-parsers)
+- [Running Shells as Cron Jobs](console-commands/cron-jobs)
 
 ## CakePHP Provided Commands
 
-- [Cache Tool](console-commands/cache.md)
-- [Completion Tool](console-commands/completion.md)
-- [I18N Tool](console-commands/i18n.md)
-- [The plugin tool allows you to load and unload plugins via the command prompt.](console-commands/plugin.md)
-- [Schema Cache Tool](console-commands/schema-cache.md)
-- [Routes Tool](console-commands/routes.md)
-- [Server Tool](console-commands/server.md)
-- [Interactive Console (REPL)](console-commands/repl.md)
-- [Shells](console-commands/shells.md)
+- [Cache Tool](console-commands/cache)
+- [Completion Tool](console-commands/completion)
+- [I18N Tool](console-commands/i18n)
+- [The plugin tool allows you to load and unload plugins via the command prompt.](console-commands/plugin)
+- [Schema Cache Tool](console-commands/schema-cache)
+- [Routes Tool](console-commands/routes)
+- [Server Tool](console-commands/server)
+- [Interactive Console (REPL)](console-commands/repl)
+- [Shells](console-commands/shells)
 
 ## Routing in the Console Environment
 

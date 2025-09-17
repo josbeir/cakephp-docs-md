@@ -56,12 +56,12 @@ The following deprecated constants have been removed:
 ## Configuration
 
 Configuration in CakePHP 3.0 is significantly different than in previous
-versions. You should read the [Configuration](../development/configuration.md) documentation
+versions. You should read the [Configuration](../development/configuration) documentation
 for how configuration is done in 3.0.
 
 You can no longer use `App::build()` to configure additional class paths.
 Instead you should map additional paths using your application's autoloader. See
-the section on [Additional Class Paths](#additional-class-paths) for more information.
+the section on [Additional Class Paths](../development/configuration#additional-class-paths) for more information.
 
 Three new configure variables provide the path configuration for plugins,
 views and locale files. You can add multiple paths to `App.paths.templates`,
@@ -76,7 +76,7 @@ your **app.php** config file as well as any usage of `Configure::read('App.wwwRo
 CakePHP 3.0 features a new ORM that has been re-built from the ground up. The
 new ORM is significantly different and incompatible with the previous one.
 Upgrading to the new ORM will require extensive changes in any application that
-is being upgraded. See the new [Database Access & ORM](../orm.md) documentation for information on how
+is being upgraded. See the new [Database Access & ORM](../orm) documentation for information on how
 to use the new ORM.
 
 ## Basics
@@ -180,7 +180,7 @@ console with `bin/cake`.
 ### TaskCollection Replaced
 
 This class has been renamed to `Cake\\Console\\TaskRegistry`.
-See the section on [Registry Objects](../core-libraries/registry-objects.md) for more information
+See the section on [Registry Objects](../core-libraries/registry-objects) for more information
 on the features provided by the new class. You can use the `cake upgrade rename_collections` to assist in upgrading your code. Tasks no longer have
 access to callbacks, as there were never any callbacks to use.
 
@@ -352,7 +352,7 @@ means if your application used `Dispatcher.filters`, you should now use
 
 In addition to configuration changes, dispatcher filters have had some
 conventions updated, and features added. See the
-[Dispatcher Filters](../development/dispatch-filters.md) documentation for more information.
+[Dispatcher Filters](../development/dispatch-filters) documentation for more information.
 
 ### FilterAssetFilter
 
@@ -393,7 +393,7 @@ conventions updated, and features added. See the
 ## Sessions
 
 The session class is no longer static, instead the session can be accessed
-through the request object. See the [Sessions](../development/sessions.md) documentation
+through the request object. See the [Sessions](../development/sessions) documentation
 for using the session object.
 
 - `Cake\\Network\\Session` and related session classes have been
@@ -421,7 +421,7 @@ for using the session object.
 - HttpClient has been re-written from the ground up. It has a simpler/easier to
   use API, support for new authentication systems like OAuth, and file uploads.
   It uses PHP's stream APIs so there is no requirement for cURL. See the
-  [Http Client](../core-libraries/httpclient.md) documentation for more information.
+  [Http Client](../core-libraries/httpclient) documentation for more information.
 
 ## Network\Email
 
@@ -494,7 +494,7 @@ scaffolding plugin, named CRUD, can be found here:
 ### ComponentCollection Replaced
 
 This class has been renamed to `Cake\\Controller\\ComponentRegistry`.
-See the section on [Registry Objects](../core-libraries/registry-objects.md) for more information
+See the section on [Registry Objects](../core-libraries/registry-objects) for more information
 on the features provided by the new class. You can use the `cake upgrade rename_collections` to assist in upgrading your code.
 
 ### Component
@@ -526,7 +526,7 @@ on the features provided by the new class. You can use the `cake upgrade rename_
   data accessed through `config()`.
 - `write()` no longer takes `encryption` or `expires` parameters. Both of
   these are now managed through config data. See
-  [Cookie](../controllers/components/cookie.md) for more information.
+  [Cookie](../controllers/components/cookie) for more information.
 - The path for cookies now defaults to app's base path instead of "/".
 
 ### AuthComponent
@@ -591,7 +591,7 @@ well.
 ### SessionComponent
 
 - `SessionComponent::setFlash()` is deprecated. You should use
-  [Flash](../controllers/components/flash.md) instead.
+  [Flash](../controllers/components/flash) instead.
 
 ### Error
 
@@ -603,7 +603,7 @@ value.
 ## Model
 
 The Model layer in 2.x has been entirely re-written and replaced. You should
-review the [New ORM Upgrade Guide](../appendices/orm-migration.md) for information on how to use the
+review the [New ORM Upgrade Guide](../appendices/orm-migration) for information on how to use the
 new ORM.
 
 - The `Model` class has been removed.
@@ -710,7 +710,7 @@ The following View folders have been renamed to avoid naming collisions with con
 ### HelperCollection Replaced
 
 This class has been renamed to `Cake\\View\\HelperRegistry`.
-See the section on [Registry Objects](../core-libraries/registry-objects.md) for more information
+See the section on [Registry Objects](../core-libraries/registry-objects) for more information
 on the features provided by the new class. You can use the `cake upgrade rename_collections` to assist in upgrading your code.
 
 ### View Class
@@ -720,7 +720,7 @@ on the features provided by the new class. You can use the `cake upgrade rename_
 - `View::getVar()` has been removed, use `Cake\\View\\View::get()` instead.
 - `View::$ext` has been removed and instead a protected property `View::$_ext`
   has been added.
-- `View::addScript()` has been removed. Use [View Blocks](#view-blocks) instead.
+- `View::addScript()` has been removed. Use [View Blocks](../views#view-blocks) instead.
 - The `base`, `webroot`, `here`, `data`, `action`, and `params`
   magic properties have been removed. You should access all of these properties
   on `$this->request` instead.
@@ -873,7 +873,7 @@ and reduce the problems people had in the past:
   and `inputsubmit` are now `formStart`, `formEnd`, `hiddenBlock` and `inputSubmit`.
   Make sure you change them if they are customized in your app.
 
-It is recommended that you review the [Form](../views/helpers/form.md)
+It is recommended that you review the [Form](../views/helpers/form)
 documentation for more details on how to use the FormHelper in 3.0.
 
 ### HtmlHelper
@@ -915,7 +915,7 @@ helps make CSS easier to write, and improves compatibility with popular CSS
 frameworks.
 
 Instead of the various options in each method, you should use the templates
-feature. See the [Paginator Templates](#paginator-templates) documentation for
+feature. See the [Paginator Templates](../views/helpers/paginator#paginator-templates) documentation for
 information on how to use templates.
 
 ### TimeHelper
@@ -932,7 +932,7 @@ information on how to use templates.
 ### SessionHelper
 
 - The `SessionHelper` has been deprecated. You can use `$this->request->session()` directly,
-  and the flash message functionality has been moved into [Flash](../views/helpers/flash.md) instead.
+  and the flash message functionality has been moved into [Flash](../views/helpers/flash) instead.
 
 ### JsHelper
 
@@ -1034,7 +1034,7 @@ the `I18n` class:
   offers many additional features over the old webrunner.
 
 - `ControllerTestCase` is deprecated and will be removed for CakePHP 3.0.0.
-  You should use the new [Integration Testing](#integration-testing) features instead.
+  You should use the new [Integration Testing](../development/testing#integration-testing) features instead.
 
 - Fixtures should now be referenced using their plural form:
 
@@ -1120,7 +1120,7 @@ The folder and file classes have been renamed:
 > [!WARNING]
 > Data encrypted with Security::encrypt() in previous versions is not
 > compatible with the openssl implementation. You should [set the
-> implementation to mcrypt](#force-mcrypt) when upgrading.
+> implementation to mcrypt](../core-libraries/security#force-mcrypt) when upgrading.
 
 ### Time
 
@@ -1178,4 +1178,4 @@ class.
 
 - `Xml::build()` now requires `$options` to be an array.
 - `Xml::build()` no longer accepts a URL. If you need to create an XML
-  document from a URL, use [Http\\Client](#http-client-xml-json).
+  document from a URL, use [Http\\Client](../core-libraries/httpclient#http-client-xml-json).

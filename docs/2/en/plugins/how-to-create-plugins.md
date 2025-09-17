@@ -1,6 +1,6 @@
 # How To Create Plugins
 
-As a working example from the [How To Use Plugins](../plugins/how-to-use-plugins.md) section, let's
+As a working example from the [How To Use Plugins](../plugins/how-to-use-plugins) section, let's
 begin to create a ContactManager plugin. To start out, we'll set up our plugin's
 basic directory structure. It should look like this:
 
@@ -60,7 +60,7 @@ of your app. For example - baking controllers:
     user@host$ cake bake controller Contacts --plugin ContactManager
 
 Please refer to the chapter
-[Code Generation with Bake](../console-and-shells/code-generation-with-bake.md) if you
+[Code Generation with Bake](../console-and-shells/code-generation-with-bake) if you
 have any problems with using the command line.
 
 > [!WARNING]
@@ -173,7 +173,7 @@ well:
 
 > [!NOTE]
 > For information on how to use elements from a plugin, look up
-> [View Elements](#view-elements)
+> [View Elements](../views#view-elements)
 
 ### Overriding Plugin Views From Inside Your Application
 

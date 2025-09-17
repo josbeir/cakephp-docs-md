@@ -42,7 +42,7 @@ Here's what you'll need:
     done, the better: but fear not if you're a procedural fan.
 4.  Finally, you'll need a basic knowledge of the MVC programming pattern.
     A quick overview can be found in
-    [Understanding Model-View-Controller](cakephp-overview/understanding-model-view-controller.md). Don't worry,
+    [Understanding Model-View-Controller](cakephp-overview/understanding-model-view-controller). Don't worry,
     it's only half a page or so.
 
 Let's get started!
@@ -75,7 +75,7 @@ something like the following:
 
 Now might be a good time to learn a bit about how CakePHP's directory
 structure works: check out the
-[CakePHP Folder Structure](getting-started/cakephp-folder-structure.md) section.
+[CakePHP Folder Structure](getting-started/cakephp-folder-structure) section.
 
 #### Tmp directory permissions
 
@@ -122,12 +122,12 @@ statements into your database:
 The choices on table and column names are not arbitrary. If you
 follow CakePHP's database naming conventions, and CakePHP's class naming
 conventions (both outlined in
-[CakePHP Conventions](getting-started/cakephp-conventions.md)), you'll be able to take
+[CakePHP Conventions](getting-started/cakephp-conventions)), you'll be able to take
 advantage of a lot of free functionality and avoid configuration.
 CakePHP is flexible enough to accommodate even the worst legacy
 database schema, but adhering to convention will save you time.
 
-Check out [CakePHP Conventions](getting-started/cakephp-conventions.md) for more
+Check out [CakePHP Conventions](getting-started/cakephp-conventions) for more
 information, but suffice it to say that naming our table 'posts'
 automatically hooks it to our Post model, and having fields called
 'modified' and 'created' will be automagically managed by CakePHP.
@@ -205,9 +205,9 @@ it probably means mod_rewrite is not functioning on your system. Please refer
 to one of the sections below about URL rewriting for your webserver to get
 you up and running:
 
-- [URL Rewriting](installation/url-rewriting.md)
+- [URL Rewriting](installation/url-rewriting)
 
-Now continue to [Blog Tutorial - Adding a layer](tutorials-and-examples/blog/part-two.md) to start building your first CakePHP application.
+Now continue to [Blog Tutorial - Adding a layer](tutorials-and-examples/blog/part-two) to start building your first CakePHP application.
 
 ## Blog Tutorial - Adding a layer
 
@@ -240,7 +240,7 @@ in the PostsController, and will be tied to a database table called
 > any of your settings and will use the defaults instead.
 
 For more on models, such as table prefixes, callbacks, and
-validation, check out the [Models](models.md) chapter of the
+validation, check out the [Models](models) chapter of the
 Manual.
 
 ### Create a Posts Controller
@@ -295,7 +295,7 @@ automatically available at `$this->Post` because we've followed
 CakePHP's naming conventions.
 
 To learn more about CakePHP's controllers, check out the
-[Controllers](controllers.md) chapter.
+[Controllers](controllers) chapter.
 
 ### Creating Post Views
 
@@ -390,7 +390,7 @@ You might have noticed the use of an object called `$this->Html`.
 This is an instance of the CakePHP `HtmlHelper` class. CakePHP
 comes with a set of view helpers that make things like linking,
 form output, JavaScript and AJAX a snap. You can learn more about
-how to use them in [Helpers](views/helpers.md), but
+how to use them in [Helpers](views/helpers), but
 what's important to note here is that the `link()` method will
 generate an HTML link with the given title (the first parameter)
 and URL (the second parameter).
@@ -606,7 +606,7 @@ The `$this->Form->end()` call generates a submit button and ends
 the form. If a string is supplied as the first parameter to
 `end()`, the FormHelper outputs a submit button named accordingly
 along with the closing form tag. Again, refer to
-[Helpers](views/helpers.md) for more on helpers.
+[Helpers](views/helpers) for more on helpers.
 
 Now let's go back and update our `/app/View/Posts/index.ctp`
 view to include a new "Add Post" link. Before the `<table>`, add
@@ -642,7 +642,7 @@ both the body and title fields must not be empty. CakePHP's
 validation engine is strong, with a number of pre-built rules
 (credit card numbers, email addresses, etc.) and flexibility for
 adding your own validation rules. For more information,
-check the [Data Validation](models/data-validation.md).
+check the [Data Validation](models/data-validation).
 
 Now that you have your validation rules in place, use the app to
 try to add a post with an empty title or body to see how it works.
@@ -793,7 +793,7 @@ This logic deletes the post specified by \$id, and uses
 message after redirecting them on to `/posts`. If the user attempts to
 do a delete using a GET request, we throw an Exception. Uncaught exceptions
 are captured by CakePHP's exception handler, and a nice error page is
-displayed. There are many built-in [Exceptions](development/exceptions.md) that can
+displayed. There are many built-in [Exceptions](development/exceptions) that can
 be used to indicate the various HTTP errors your application might need
 to generate.
 
@@ -869,7 +869,7 @@ specific actions. So we'll just make a quick change to routes in
 this tutorial.
 
 For more information on advanced routing techniques, see
-[Routes Configuration](development/routing.md#routes-configuration).
+[Routes Configuration](development/routing#routes-configuration).
 
 By default, CakePHP responds to a request for the root of your site
 (e.g., <http://www.example.com>) using its PagesController, rendering
@@ -918,24 +918,24 @@ for building more feature-rich applications.
 
 Now that you've created a basic CakePHP application, you're ready for
 the real thing. Start your own project and read the rest of the
-[Cookbook](index.md) and [API](https://api.cakephp.org).
+[Cookbook](index) and [API](https://api.cakephp.org).
 
-If you need help, there are many ways to get the help you need - please see the [Where to Get Help](cakephp-overview/where-to-get-help.md) page.
+If you need help, there are many ways to get the help you need - please see the [Where to Get Help](cakephp-overview/where-to-get-help) page.
 Welcome to CakePHP!
 
 #### Suggested Follow-up Reading
 
 These are common tasks people learning CakePHP usually want to study next:
 
-1.  [View Layouts](views.md#view-layouts): Customizing your website layout
-2.  [View Elements](views.md#view-elements): Including and reusing view snippets
-3.  [Scaffolding](controllers/scaffolding.md): Prototyping before creating code
-4.  [Code Generation with Bake](console-and-shells/code-generation-with-bake.md): Generating basic CRUD code
-5.  [Simple Authentication and Authorization Application](tutorials-and-examples/blog-auth-example/auth.md): User authentication and authorization tutorial
+1.  [View Layouts](views#view-layouts): Customizing your website layout
+2.  [View Elements](views#view-elements): Including and reusing view snippets
+3.  [Scaffolding](controllers/scaffolding): Prototyping before creating code
+4.  [Code Generation with Bake](console-and-shells/code-generation-with-bake): Generating basic CRUD code
+5.  [Simple Authentication and Authorization Application](tutorials-and-examples/blog-auth-example/auth): User authentication and authorization tutorial
 
 ### Additional Reading
 
-- [A Typical CakePHP Request](getting-started/a-typical-cakephp-request.md)
-- [CakePHP Conventions](getting-started/cakephp-conventions.md)
-- [CakePHP Folder Structure](getting-started/cakephp-folder-structure.md)
-- [CakePHP Structure](getting-started/cakephp-structure.md)
+- [A Typical CakePHP Request](getting-started/a-typical-cakephp-request)
+- [CakePHP Conventions](getting-started/cakephp-conventions)
+- [CakePHP Folder Structure](getting-started/cakephp-folder-structure)
+- [CakePHP Structure](getting-started/cakephp-structure)

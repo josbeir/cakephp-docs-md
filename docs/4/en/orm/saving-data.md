@@ -2,7 +2,7 @@
 
 `class` Cake\\ORM\\**Table**
 
-After you have [loaded your data](../orm/retrieving-data-and-resultsets.md) you
+After you have [loaded your data](../orm/retrieving-data-and-resultsets) you
 will probably want to update and save the changes.
 
 ## A Glance Over Saving Data
@@ -141,7 +141,7 @@ $entity = $articles->newEntity($this->request->getData());
 > [!NOTE]
 > If you are using newEntity() and the resulting entities are missing some or
 > all of the data they were passed, double check that the columns you want to
-> set are listed in the `$_accessible` property of your entity. See [Entities Mass Assignment](#entities-mass-assignment).
+> set are listed in the `$_accessible` property of your entity. See [Entities Mass Assignment](../orm/entities#entities-mass-assignment).
 
 The request data should follow the structure of your entities. For example if
 you have an article, which belonged to a user, and had many comments, your
@@ -423,7 +423,7 @@ concerned entity.
 > If you are using newEntity() and the resulting entities are missing some or
 > all of the data they were passed, double check that the columns you want to
 > set are listed in the `$_accessible` property of your entity. See
-> [Entities Mass Assignment](#entities-mass-assignment).
+> [Entities Mass Assignment](../orm/entities#entities-mass-assignment).
 
 ### Merging Request Data Into Entities
 
@@ -722,7 +722,7 @@ public function afterMarshal(
 
 ### Validating Data Before Building Entities
 
-The [Validating Data](../orm/validation.md) chapter has more information on how to use the
+The [Validating Data](../orm/validation) chapter has more information on how to use the
 validation features of CakePHP to ensure your data stays correct and consistent.
 
 ### Avoiding Property Mass Assignment Attacks
@@ -741,7 +741,7 @@ $this->save($entity);
 
 There are two ways of protecting you against this problem. The first one is by
 setting the default columns that can be safely set from a request using the
-[Entities Mass Assignment](#entities-mass-assignment) feature in the entities.
+[Entities Mass Assignment](../orm/entities#entities-mass-assignment) feature in the entities.
 
 The second way is by using the `fields` option when creating or merging
 data into an entity:
@@ -907,7 +907,7 @@ $companies->save($entity, [
 
 Your entities should be structured in the same way as they are when loaded from
 the database. See the form helper documentation for [how to build inputs
-for associations](#associated-form-inputs).
+for associations](../views/helpers/form#associated-form-inputs).
 
 If you are building or modifying association data after building your entities
 you will have to mark the association property as modified with `setDirty()`:
@@ -920,7 +920,7 @@ $company->setDirty('author', true);
 ### Saving BelongsTo Associations
 
 When saving belongsTo associations, the ORM expects a single nested entity named with
-the singular, [underscored](#inflector-methods-summary) version of the association name. For example:
+the singular, [underscored](../core-libraries/inflector#inflector-methods-summary) version of the association name. For example:
 
 ``` php
 // In a controller.
@@ -943,7 +943,7 @@ $articles->save($article);
 ### Saving HasOne Associations
 
 When saving hasOne associations, the ORM expects a single nested entity named with the
-singular, [underscored](#inflector-methods-summary) version of the association name. For example:
+singular, [underscored](../core-libraries/inflector#inflector-methods-summary) version of the association name. For example:
 
 ``` php
 // In a controller.
@@ -965,7 +965,7 @@ $users->save($user);
 ### Saving HasMany Associations
 
 When saving hasMany associations, the ORM expects an array of entities named with the
-plural, [underscored](#inflector-methods-summary) version of the association name. For example:
+plural, [underscored](../core-libraries/inflector#inflector-methods-summary) version of the association name. For example:
 
 ``` php
 // In a controller.
@@ -997,7 +997,7 @@ Any existing records that do not match the records provided will be deleted
 from the database. Only provided records will remain (or be inserted).
 
 By default the `append` saving strategy is used.
-See [Has Many Associations](#has-many-associations) for details on defining the `saveStrategy`.
+See [Has Many Associations](../orm/associations#has-many-associations) for details on defining the `saveStrategy`.
 
 Whenever you add new records to an existing association you should always mark
 the association property as 'dirty'. This lets the ORM know that the association
@@ -1021,7 +1021,7 @@ Without initialization calling `$article->comments[] = $comment;` will have no e
 ### Saving BelongsToMany Associations
 
 When saving belongsToMany associations, the ORM expects an array of entities named with
-the plural, [underscored](#inflector-methods-summary) version of the association name. For example:
+the plural, [underscored](../core-libraries/inflector#inflector-methods-summary) version of the association name. For example:
 
 ``` php
 // In a controller.
@@ -1044,7 +1044,7 @@ When converting request data into entities, the `newEntity()` and
 `newEntities()` methods will handle both arrays of properties, as well as a
 list of ids at the `_ids` key. Using the `_ids` key makes it possible to building a
 select box or checkbox based form controls for belongs to many associations. See
-the [Converting Request Data](#converting-request-data) section for more information.
+the [Converting Request Data](../orm/saving-data#converting-request-data) section for more information.
 
 When saving belongsToMany associations, you have the choice between two saving
 strategies:
@@ -1060,7 +1060,7 @@ the junction table. If there are existing link in the database to some of
 the entities intended to be saved, those links will be updated, not deleted
 and then re-saved.
 
-See [Belongs To Many Associations](#belongs-to-many-associations) for details on defining the `saveStrategy`.
+See [Belongs To Many Associations](../orm/associations#belongs-to-many-associations) for details on defining the `saveStrategy`.
 
 By default the `replace` strategy is used. Whenever you add new records into
 an existing association you should always mark the association property as
@@ -1161,7 +1161,7 @@ $student = $this->Students->newEntity($data, [
 ]);
 ```
 
-See the [Associated Form Inputs](#associated-form-inputs) documentation for how to build inputs with
+See the [Associated Form Inputs](../views/helpers/form#associated-form-inputs) documentation for how to build inputs with
 `FormHelper` correctly.
 
 <a id="saving-complex-types"></a>
@@ -1174,7 +1174,7 @@ complex types such as arrays or objects and serialize this data into simpler
 types that can be saved in the database.
 
 This functionality is achieved by using the custom types system. See the
-[Adding Custom Database Types](#adding-custom-database-types) section to find out how to build custom
+[Adding Custom Database Types](../orm/database-basics#adding-custom-database-types) section to find out how to build custom
 column Types:
 
 ``` php
@@ -1381,4 +1381,4 @@ function publishAllUnpublished()
 }
 ```
 
-Also see: [Query Builder Updating Data](#query-builder-updating-data).
+Also see: [Query Builder Updating Data](../orm/query-builder#query-builder-updating-data).

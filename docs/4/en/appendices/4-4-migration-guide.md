@@ -27,7 +27,7 @@ features:
 > This only updates CakePHP 4.4 changes. Make sure you apply CakePHP 4.3 changes first.
 
 A new configuration option has been added to disable deprecations on a path by
-path basis. See [Deprecation Warnings](#deprecation-warnings) for more information.
+path basis. See [Deprecation Warnings](../development/errors#deprecation-warnings) for more information.
 
 ### Controller
 
@@ -62,7 +62,7 @@ use Cake\Error\ExceptionTrap;
 If you have defined the `Error.errorLogger` configure value, you will need to
 use `Error.logger` instead.
 
-See the [Error & Exception Handling](../development/errors.md) for more detailed documentation. Additionally
+See the [Error & Exception Handling](../development/errors) for more detailed documentation. Additionally
 the following methods related to the deprecated error handling system are
 deprecated:
 
@@ -83,11 +83,11 @@ be removed in 5.0.
 - Replace `accepts()` with `$this->request->accepts()`.
 - Replace `requestedWith()` with a custom request detector (for example,
   `$this->request->is('json')`).
-- Replace `prefers()` with `ContentTypeNegotiation`. See [Controller Viewclasses](#controller-viewclasses).
+- Replace `prefers()` with `ContentTypeNegotiation`. See [Controller Viewclasses](../controllers#controller-viewclasses).
 - Replace `renderAs()` with controller content negotiation features on
   `Controller`.
-- Replace `checkHttpCache` option with [Checking HTTP Cache](../controllers/components/check-http-cache.md).
-- Use [Controller Viewclasses](#controller-viewclasses) instead of defining view class mappings in
+- Replace `checkHttpCache` option with [Checking HTTP Cache](../controllers/components/check-http-cache).
+- Use [Controller Viewclasses](../controllers#controller-viewclasses) instead of defining view class mappings in
   `RequestHandlerComponent`.
 
 The automatic view switching for 'ajax' requests offered by
@@ -174,7 +174,7 @@ change the semantics or behavior of methods.
 ### Command
 
 - `bin/cake routes` now highlights collisions in route templates.
-- `Command::getDescription()` allows you to set a custom description. See [Console Command Description](#console-command-description)
+- `Command::getDescription()` allows you to set a custom description. See [Console Command Description](../console-commands/commands#console-command-description)
 
 ### Controller
 
@@ -185,7 +185,7 @@ change the semantics or behavior of methods.
 
 ### Core
 
-- The previously experimental API for the [Dependency Injection](../development/dependency-injection.md) container,
+- The previously experimental API for the [Dependency Injection](../development/dependency-injection) container,
   introduced in CakePHP 4.2, is now considered stable.
 
 ### Database
@@ -200,7 +200,7 @@ change the semantics or behavior of methods.
 
 - `ErrorTrap` and `ExceptionTrap` were added. These classes form the
   foundation of an updated error handling system for applications. Read more
-  about these classes in [Error & Exception Handling](../development/errors.md).
+  about these classes in [Error & Exception Handling](../development/errors).
 
 ### Http
 

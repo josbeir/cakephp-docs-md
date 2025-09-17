@@ -495,7 +495,7 @@ There are a few methods that are common to all classes, defined through the
 
 </div>
 
-When validating [Modelless Forms](../core-libraries/form.md) with nested data, or when working
+When validating [Modelless Forms](../core-libraries/form) with nested data, or when working
 with models that contain array data types, it is necessary to validate the
 nested data you have. CakePHP makes it simple to add validators to specific
 attributes. For example, assume you are working with a non-relational database
@@ -681,7 +681,7 @@ $valid = $this->Articles->newEntity($article, [
 Apart from validating user provided data maintaining integrity of data regardless
 where it came from is important. To solve this problem CakePHP offers a second
 level of validation which is called "application rules". You can read more about
-them in the [Applying Application Rules](#application-rules) section.
+them in the [Applying Application Rules](../orm/validation#application-rules) section.
 
 ## Core Validation Rules
 

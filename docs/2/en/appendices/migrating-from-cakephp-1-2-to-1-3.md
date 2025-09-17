@@ -368,7 +368,7 @@ This feature was also undocumented, and untested.
 **Object**
 
 - `Object::$_log` has been removed. `CakeLog::write` is now
-  called statically. See [Logging](../core-libraries/logging.md)
+  called statically. See [Logging](../core-libraries/logging)
   for more information on changes made to logging.
 
 **Sanitize**
@@ -417,7 +417,7 @@ addition `Cache::isInitialized()` now checks cache
 *configuration names*, not cache *engine names*. You can still use
 `Cache::set()` or `Cache::engine()` to modify cache
 configurations. Also checkout the
-[New features in CakePHP 1.3](../appendices/new-features-in-cakephp-1-3.md) for
+[New features in CakePHP 1.3](../appendices/new-features-in-cakephp-1-3) for
 more information on the additional methods added to `Cache`.
 
 It should be noted that using an app/libs or plugin cache engine
@@ -582,7 +582,7 @@ being sorted, either asc or desc.
   create hidden fieldset elements. Instead they create hidden div
   elements. This improves validation with HTML4.
 
-Also be sure to check the [Form Improvements 1 3](#form-improvements-1-3) for additional changes and
+Also be sure to check the [Form Improvements 1 3](../core-libraries/helpers/form#form-improvements-1-3) for additional changes and
 new features in the FormHelper.
 
 **HtmlHelper**

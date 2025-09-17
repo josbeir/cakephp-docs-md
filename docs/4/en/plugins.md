@@ -150,7 +150,7 @@ appropriate parts of your application. The hooks are:
   collection.
 
 When loading plugins you can configure which hooks are enabled. By default
-plugins without a [Plugin Objects](#plugin-objects) have all hooks disabled. New style plugins
+plugins without a [Plugin Objects](tmp.E6bvm2uYrI#plugin-objects) have all hooks disabled. New style plugins
 allow plugin authors to set defaults, which can be configured by you in your
 application:
 
@@ -285,7 +285,7 @@ bin/cake bake controller --plugin ContactManager Contacts
 ```
 
 Please refer to the chapter
-[Code Generation with Bake](bake/usage.md) if you
+[Code Generation with Bake](bake/usage) if you
 have any problems with using the command line. Be sure to re-generate your
 autoloader once you've created your plugin:
 
@@ -470,12 +470,12 @@ also connect routes that use the following pattern:
     /{prefix}/{plugin}/{controller}
     /{prefix}/{plugin}/{controller}/{action}
 
-See the section on [Plugin Configuration](#plugin-configuration) for information on how to load
+See the section on [Plugin Configuration](tmp.E6bvm2uYrI#plugin-configuration) for information on how to load
 plugin specific route files.
 
 For plugins you did not create with bake, you will also need to edit the
 **composer.json** file to add your plugin to the autoload classes, this can be
-done as per the documentation [Autoloading Plugin Classes](#autoloading-plugin-classes).
+done as per the documentation [Autoloading Plugin Classes](tmp.E6bvm2uYrI#autoloading-plugin-classes).
 
 <a id="plugin-models"></a>
 
@@ -578,7 +578,7 @@ If the plugin prefix is omitted, the layout/view file will be located normally.
 
 > [!NOTE]
 > For information on how to use elements from a plugin, look up
-> [View Elements](views.md#view-elements)
+> [View Elements](views#view-elements)
 
 ### Overriding Plugin Templates from Inside Your Application
 
@@ -625,7 +625,7 @@ You may put any type of file in any directory, just like a regular webroot.
 
 > [!WARNING]
 > Handling static assets (such as images, JavaScript and CSS files)
-> through the Dispatcher is very inefficient. See [Symlink Assets](deployment.md#symlink-assets)
+> through the Dispatcher is very inefficient. See [Symlink Assets](deployment#symlink-assets)
 > for more information.
 
 ### Linking to Assets in Plugins
@@ -646,7 +646,7 @@ echo $this->Html->image('ContactManager.logo');
 
 Plugin assets are served using the `AssetMiddleware` middleware by default.
 This is only recommended for development. In production you should
-[symlink plugin assets](deployment.md#symlink-assets) to improve performance.
+[symlink plugin assets](deployment#symlink-assets) to improve performance.
 
 If you are not using the helpers, you can prepend /plugin-name/ to the beginning
 of the URL for an asset within that plugin to serve it. Linking to
@@ -716,7 +716,7 @@ public function console($commands)
 If you are testing controllers or generating URLs, make sure your
 plugin connects routes `tests/bootstrap.php`.
 
-For more information see [testing plugins](development/testing.md) page.
+For more information see [testing plugins](development/testing) page.
 
 ## Publishing your Plugin
 

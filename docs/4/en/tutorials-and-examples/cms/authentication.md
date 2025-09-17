@@ -67,7 +67,7 @@ Remember you'll need to have your local server running. Start a standalone PHP
 server using `bin/cake server`.
 
 You can edit the default user that was created during
-[Installation](../../installation.md). If you change that user's password,
+[Installation](../../installation). If you change that user's password,
 you should see a hashed password instead of the original value on the list or
 view pages. CakePHP hashes passwords with [bcrypt](https://codahale.com/how-to-safely-store-a-password/) by default. We recommend
 bcrypt for all new applications to keep your security standards high. This
@@ -93,7 +93,7 @@ The Plugin will handle the authentication process using 3 different classes:
   this is before your Controllers are processed by the framework, and will pick the
   credentials and process them to check if the user is authenticated.
 
-If you remember, we used [AuthComponent](../../controllers/components/authentication.md)
+If you remember, we used [AuthComponent](../../controllers/components/authentication)
 before to handle all these steps. Now the logic is divided into specific classes and
 the authentication process happens before your controller layer. First it checks if the user
 is authenticated (based on the configuration you provided) and injects the user and
@@ -195,7 +195,7 @@ If you visit your site, you'll get an "infinite redirect loop" so let's fix that
 > If your application serves from both SSL and non-SSL protocols, then you might have problems
 > with sessions being lost, in case your application is on non-SSL protocol. You need to enable
 > access by setting session.cookie_secure to false in your config config/app.php or config/app_local.php.
-> (See [CakePHP’s defaults on session.cookie_secure](../../development/sessions.md))
+> (See [CakePHP’s defaults on session.cookie_secure](../../development/sessions))
 
 In your `UsersController`, add the following code:
 
@@ -321,4 +321,4 @@ user editing, viewing or listing in this tutorial, but that is an exercise you
 can complete on your own.
 
 Now that users can log in, we'll want to limit users to only edit articles that
-they created by [applying authorization policies](authorization.md).
+they created by [applying authorization policies](authorization).

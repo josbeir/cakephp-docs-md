@@ -1,6 +1,6 @@
 # Blog Tutorial - Authentication
 
-Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog.md) example, imagine we
+Following our [Blog Tutorial](../../tutorials-and-examples/blog/blog) example, imagine we
 wanted to disallow unauthenticated users to create articles.
 
 ## Creating Users Table and Controller
@@ -390,5 +390,5 @@ blog that:
 
 ### Suggested Follow-up Reading
 
-1.  [Code Generation with Bake](../../bake/usage.md) Generating basic CRUD code
+1.  [Code Generation with Bake](../../bake/usage) Generating basic CRUD code
 2.  [Authentication Plugin](/authentication/) documentation.

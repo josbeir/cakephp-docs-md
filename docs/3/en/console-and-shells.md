@@ -47,7 +47,7 @@ $ bin/cake
 
 3.6.0
 Shells are deprecated as of 3.6.0, but will not be removed until 5.x.
-Use [Console Commands](console-and-shells/commands.md) instead.
+Use [Console Commands](console-and-shells/commands) instead.
 
 </div>
 
@@ -141,7 +141,7 @@ class Application extends BaseApplication
 ```
 
 In the above example, the only commands available would be `help`, `version`
-and `user`. See the [Plugin Commands](plugins.md#plugin-commands) section for how to add commands in
+and `user`. See the [Plugin Commands](plugins#plugin-commands) section for how to add commands in
 your plugins.
 
 > [!NOTE]
@@ -187,27 +187,27 @@ available commands.
 
 ## Commands
 
-See the [Console Commands](console-and-shells/commands.md) chapter on how to create your first
+See the [Console Commands](console-and-shells/commands) chapter on how to create your first
 command. Then learn more about commands:
 
-- [Console Commands](console-and-shells/commands.md)
-- [Command Input/Output](console-and-shells/input-output.md)
-- [Option Parsers](console-and-shells/option-parsers.md)
-- [Shell Helpers](console-and-shells/helpers.md)
-- [Running Shells as Cron Jobs](console-and-shells/cron-jobs.md)
+- [Console Commands](console-and-shells/commands)
+- [Command Input/Output](console-and-shells/input-output)
+- [Option Parsers](console-and-shells/option-parsers)
+- [Shell Helpers](console-and-shells/helpers)
+- [Running Shells as Cron Jobs](console-and-shells/cron-jobs)
 
 ## CakePHP Provided Commands
 
-- [Cache Shell](console-and-shells/cache.md)
-- [I18N Shell](console-and-shells/i18n-shell.md)
-- [Completion Shell](console-and-shells/completion-shell.md)
-- [Plugin Shell](console-and-shells/plugin-shell.md)
-- [Routes Shell](console-and-shells/routes-shell.md)
-- [Schema Cache Shell](console-and-shells/schema-cache.md)
-- [Server Shell](console-and-shells/server-shell.md)
-- [Upgrade Shell](console-and-shells/upgrade-shell.md)
-- [Shells](console-and-shells/shells.md)
-- [Interactive Console (REPL)](console-and-shells/repl.md)
+- [Cache Shell](console-and-shells/cache)
+- [I18N Shell](console-and-shells/i18n-shell)
+- [Completion Shell](console-and-shells/completion-shell)
+- [The plugin shell allows you to load and unload plugins via the command prompt.](console-and-shells/plugin-shell)
+- [Routes Shell](console-and-shells/routes-shell)
+- [Schema Cache Shell](console-and-shells/schema-cache)
+- [Server Shell](console-and-shells/server-shell)
+- [The upgrade shell will do most of the work to upgrade your CakePHP application](console-and-shells/upgrade-shell)
+- [Shells](console-and-shells/shells)
+- [Interactive Console (REPL)](console-and-shells/repl)
 
 ## Routing in the Console Environment
 

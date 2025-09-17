@@ -2,20 +2,20 @@ orphan
 
 # Contents
 
-- [Getting Started](getting-started.md)
-- [Installation](installation.md)
-- [CakePHP Overview](cakephp-overview.md)
-- [Controllers](controllers.md)
-- [Views](views.md)
-- [Models](models.md)
-- [Core Libraries](core-libraries.md)
-- [Plugins](plugins.md)
-- [Shells, Tasks & Console Tools](console-and-shells.md)
-- [Development](development.md)
-- [Deployment](deployment.md)
-- [Tutorials & Examples](tutorials-and-examples.md)
-- [Contributing](contributing.md)
-- [Appendices](appendices.md)
+- [Getting Started](getting-started)
+- [Installation](installation)
+- [CakePHP Overview](cakephp-overview)
+- [Controllers](controllers)
+- [Views](views)
+- [Models](models)
+- [Core Libraries](core-libraries)
+- [Plugins](plugins)
+- [Shells, Tasks & Console Tools](console-and-shells)
+- [Development](development)
+- [Deployment](deployment)
+- [Tutorials & Examples](tutorials-and-examples)
+- [Contributing](contributing)
+- [Appendices](appendices)
 
 ## Indices and tables
 

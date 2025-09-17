@@ -6,7 +6,7 @@ The PaginatorHelper is used to output pagination controls such as page numbers
 and next/previous links. It works in tandem with
 `PaginatorComponent`.
 
-See also [Pagination](../../controllers/components/pagination.md) for information on how to
+See also [Pagination](../../controllers/components/pagination) for information on how to
 create paginated datasets and do paginated queries.
 
 <a id="paginator-templates"></a>
@@ -467,7 +467,7 @@ It is also possible to sort a column based on associations:
 > ```
 >
 > For more information on using the `sortWhitelist` option, please see
-> [Control Which Fields Used For Ordering](#control-which-fields-used-for-ordering).
+> [Control Which Fields Used For Ordering](../../../controllers/components/pagination#control-which-fields-used-for-ordering).
 
 The final ingredient to pagination display in views is the addition of page
 navigation, also supplied by the PaginationHelper:
@@ -498,7 +498,7 @@ markers:
 
 ## Paginating Multiple Results
 
-If you are [paginating multiple queries](#paginating-multiple-queries)
+If you are [paginating multiple queries](../../../controllers/components/pagination#paginating-multiple-queries)
 you'll need to set the `model` option when generating pagination related
 elements. You can either use the `model` option on every method call you make
 to `PaginatorHelper`, or use `options()` to set the default model:

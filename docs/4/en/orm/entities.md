@@ -2,7 +2,7 @@
 
 `class` Cake\\ORM\\**Entity**
 
-While [Table Objects](../orm/table-objects.md) represent and provide access to a collection of
+While [Table Objects](../orm/table-objects) represent and provide access to a collection of
 objects, entities represent individual rows or domain objects in your
 application. Entities contain methods to manipulate and
 access the data they contain. Fields can also be accessed as properties on the object.
@@ -282,7 +282,7 @@ echo $user->get('full_name');
 
 Do bear in mind that virtual fields cannot be used in finds. If you want
 them to be part of JSON or array representations of your entities,
-see [Exposing Virtual Fields](#exposing-virtual-fields).
+see [Exposing Virtual Fields](../orm/tmp.L8OmOv4Hc2#exposing-virtual-fields).
 
 ## Checking if an Entity Has Been Modified
 
@@ -340,7 +340,7 @@ $dirtyFields = $entity->getDirty();
 
 ## Validation Errors
 
-After you [save an entity](#saving-entities) any validation errors will be
+After you [save an entity](../orm/saving-data#saving-entities) any validation errors will be
 stored on the entity itself. You can access any validation errors using the
 `getErrors()`, `getError()` or `hasErrors()` methods:
 
@@ -376,7 +376,7 @@ $user->setErrors([
 While setting fields to entities in bulk is simple and convenient, it can
 create significant security issues. Bulk assigning user data from the request
 into an entity allows the user to modify any and all columns. When using
-anonymous entity classes or creating the entity class with the [Bake Console](../bake.md)
+anonymous entity classes or creating the entity class with the [Bake Console](../bake)
 CakePHP does not protect against mass-assignment.
 
 The `_accessible` property allows you to provide a map of fields and
@@ -448,7 +448,7 @@ $article->setAccess('title', false);
 
 When using the `newEntity()` and `patchEntity()` methods in the `Table`
 objects you can customize mass assignment protection with options. Please refer
-to the [Changing Accessible Fields](#changing-accessible-fields) section for more information.
+to the [Changing Accessible Fields](../orm/saving-data#changing-accessible-fields) section for more information.
 
 ### Bypassing Field Guarding
 
@@ -635,5 +635,5 @@ $user->setHidden(['password', 'recovery_question']);
 
 Accessor & Mutator methods on entities are not intended to contain the logic for
 serializing and unserializing complex data coming from the database. Refer to
-the [Saving Complex Types](#saving-complex-types) section to understand how your application can
+the [Saving Complex Types](../orm/saving-data#saving-complex-types) section to understand how your application can
 store more complex data types like arrays and objects.

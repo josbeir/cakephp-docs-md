@@ -95,7 +95,7 @@ msgstr "J'ai {0,number} ans"
 
 To create the pot files from <span class="title-ref">\_\_()</span> and other internationalized types of
 messages that can be found in the application code, you can use the i18n shell.
-Please read the [following chapter](../console-and-shells/i18n-shell.md) to
+Please read the [following chapter](../console-and-shells/i18n-shell) to
 learn more.
 
 ### Setting the Default Locale
@@ -593,7 +593,7 @@ echo $date; // Displays 05/04/2015 23:00
 echo Number::format(524.23); // Displays 524,23
 ```
 
-Make sure you read the [Date & Time](../core-libraries/time.md) and [Number](../core-libraries/number.md)
+Make sure you read the [Date & Time](../core-libraries/time) and [Number](../core-libraries/number)
 sections to learn more about formatting options.
 
 By default dates returned for the ORM results use the `Cake\I18n\Time` class,
@@ -606,7 +606,7 @@ current locale.
 
 When accepting localized data from the request, it is nice to accept datetime
 information in a user's localized format. In a controller, or
-[Dispatcher Filters](../development/dispatch-filters.md) you can configure the Date, Time, and
+[Dispatcher Filters](../development/dispatch-filters) you can configure the Date, Time, and
 DateTime types to parse localized formats:
 
 ``` php

@@ -7,45 +7,45 @@ relevant upgrade guides.
 
 ## 3.10 Migration Guide
 
-- [3 10 Migration Guide](../3-10-migration-guide.md)
+- [3 10 Migration Guide](../3-10-migration-guide)
 
 ## 3.9 Migration Guide
 
-- [3 9 Migration Guide](../3-9-migration-guide.md)
+- [3 9 Migration Guide](../3-9-migration-guide)
 
 ## 3.8 Migration Guide
 
-- [3 8 Migration Guide](../3-8-migration-guide.md)
+- [3 8 Migration Guide](../3-8-migration-guide)
 
 ## 3.7 Migration Guide
 
-- [3 7 Migration Guide](../3-7-migration-guide.md)
+- [3 7 Migration Guide](../3-7-migration-guide)
 
 ## 3.6 Migration Guide
 
-- [3 6 Migration Guide](../3-6-migration-guide.md)
+- [3 6 Migration Guide](../3-6-migration-guide)
 
 ## 3.5 Migration Guide
 
-- [3 5 Migration Guide](../3-5-migration-guide.md)
+- [3 5 Migration Guide](../3-5-migration-guide)
 
 ## 3.4 Migration Guide
 
-- [3 4 Migration Guide](../3-4-migration-guide.md)
+- [3 4 Migration Guide](../3-4-migration-guide)
 
 ## 3.3 Migration Guide
 
-- [3 3 Migration Guide](../3-3-migration-guide.md)
+- [3 3 Migration Guide](../3-3-migration-guide)
 
 ## 3.2 Migration Guide
 
-- [3 2 Migration Guide](../3-2-migration-guide.md)
+- [3 2 Migration Guide](../3-2-migration-guide)
 
 ## 3.1 Migration Guide
 
-- [3 1 Migration Guide](../3-1-migration-guide.md)
+- [3 1 Migration Guide](../3-1-migration-guide)
 
 ## 3.0 Migration Guide
 
-- [3 0 Migration Guide](../3-0-migration-guide.md)
-- [Orm Migration](../orm-migration.md)
+- [3 0 Migration Guide](../3-0-migration-guide)
+- [Orm Migration](../orm-migration)
