@@ -217,6 +217,7 @@ sys.stdout.write(fixed_content)
         --lua-filter="$FILTERS_DIR/doc_links.lua" \
         --lua-filter="$FILTERS_DIR/ref.lua" \
         --lua-filter="$FILTERS_DIR/php_domain.lua" \
+        --lua-filter="$FILTERS_DIR/fqdn_cleanup.lua" \
         --lua-filter="$FILTERS_DIR/containers.lua" \
         --lua-filter="$FILTERS_DIR/language.lua" \
         --lua-filter="$FILTERS_DIR/images.lua" \

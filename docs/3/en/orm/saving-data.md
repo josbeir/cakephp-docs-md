@@ -1233,7 +1233,7 @@ would not normally be able to.
 `method` Cake\\ORM\\Table::**saveOrFail**($entity, $options = [])
 
 Using this method will throw an
-`Cake\\ORM\\Exception\\PersistenceFailedException` if:
+`Cake\ORM\Exception\PersistenceFailedException` if:
 
 - the application rules checks failed
 - the entity contains errors
@@ -1247,7 +1247,7 @@ operations without human monitoring, for example, inside a Shell task.
 > `PersistenceFailedException` that could be raised.
 
 If you want to track down the entity that failed to save, you can use the
-`Cake\\ORM\Exception\\PersistenceFailedException::getEntity()` method:
+`Cake\ORM\Exception\PersistenceFailedException::getEntity()` method:
 
 ``` php
 try {
@@ -1257,7 +1257,7 @@ try {
 }
 ```
 
-As this internally perfoms a `Cake\\ORM\\Table::save()` call, all
+As this internally perfoms a `Cake\ORM\Table::save()` call, all
 corresponding save events will be triggered.
 
 <div class="versionadded">
