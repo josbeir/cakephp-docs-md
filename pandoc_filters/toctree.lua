@@ -205,58 +205,73 @@ function Div(elem)
                     local inline = block.content[i]
 
                     if inline.t == "Str" and inline.text then
-                        -- Look ahead to see if this might be an external link
-                        local label_parts = {inline.text}
-                        local j = i + 1
-                        local found_link_pattern = false
+                        -- Start collecting text elements to look for external link pattern
+                        local text_elements = {}
+                        local j = i
+                        local found_external_link = false
 
-                        -- Collect consecutive Str and Space elements that might form a label
+                        -- Scan ahead to see if this forms an external link pattern: "Label <URL>"
                         while j <= #block.content do
-                            local next_elem = block.content[j]
+                            local elem = block.content[j]
 
-                            if next_elem.t == "Space" then
-                                -- Add a space to the label
-                                j = j + 1
-                                if j <= #block.content and block.content[j].t == "Str" then
-                                    if block.content[j].text == "<" then
-                                        -- Found the start of the link pattern
-                                        if j + 2 <= #block.content and
-                                           block.content[j + 1].t == "Link" and
-                                           block.content[j + 2].t == "Str" and block.content[j + 2].text == ">" then
-                                            found_link_pattern = true
+                            if elem.t == "Str" then
+                                table.insert(text_elements, {type = "str", text = elem.text})
+                            elseif elem.t == "Space" then
+                                table.insert(text_elements, {type = "space"})
+                            elseif elem.t == "Link" then
+                                table.insert(text_elements, {type = "link", target = elem.target})
+                            else
+                                -- Other element types break the pattern
+                                break
+                            end
+                            j = j + 1
+                        end
 
-                                            -- Create external link format
-                                            local label = table.concat(label_parts, " ")
-                                            local link_elem = block.content[j + 1]
-                                            local url = link_elem.target or ""
-                                            local external_link_format = label .. " <" .. url .. ">"
-                                            table.insert(file_list, external_link_format)
+                        -- Now analyze the collected elements to see if they form "Label <URL>" pattern
+                        local full_text = ""
+                        for k, elem in ipairs(text_elements) do
+                            if elem.type == "str" then
+                                full_text = full_text .. elem.text
+                            elseif elem.type == "space" then
+                                full_text = full_text .. " "
+                            elseif elem.type == "link" then
+                                -- Check if the previous text ends with "<" and we have a ">" after the link
+                                if full_text:match("%s*<$") and
+                                   k < #text_elements and
+                                   text_elements[k + 1] and
+                                   text_elements[k + 1].type == "str" and
+                                   text_elements[k + 1].text == ">" then
 
-                                            -- Skip to after the ">" element
-                                            i = j + 3
-                                            break
-                                        else
-                                            -- Not a link pattern, add this as part of label
-                                            table.insert(label_parts, block.content[j].text)
-                                            j = j + 1
-                                        end
-                                    else
-                                        -- Regular word, add to label
-                                        table.insert(label_parts, block.content[j].text)
-                                        j = j + 1
-                                    end
-                                else
-                                    -- Space not followed by Str, break
+                                    -- This is an external link pattern
+                                    local label = full_text:gsub("%s*<$", ""):gsub("^%s+", ""):gsub("%s+$", "")
+                                    local url = elem.target
+                                    local external_link_format = label .. " <" .. url .. ">"
+                                    table.insert(file_list, external_link_format)
+                                    found_external_link = true
+
+                                    -- Skip past all the elements we've processed
+                                    i = j
                                     break
                                 end
-                            else
-                                -- Not a space, end of potential label
-                                break
                             end
                         end
 
-                        if not found_link_pattern then
-                            -- Regular file path (single word)
+                        -- Also check if the full text matches the "Label <URL>" pattern directly
+                        if not found_external_link then
+                            local label, url = full_text:match("^(.-)%s*<%s*([^>]+)%s*>$")
+                            if label and url then
+                                label = label:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
+                                url = url:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
+                                local external_link_format = label .. " <" .. url .. ">"
+                                table.insert(file_list, external_link_format)
+                                found_external_link = true
+                                -- Skip past all the elements we've processed
+                                i = j
+                            end
+                        end
+
+                        if not found_external_link then
+                            -- This is a regular file path (single word)
                             local file_path = inline.text
                             if file_path and file_path ~= "" then
                                 table.insert(file_list, file_path)

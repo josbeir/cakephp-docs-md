@@ -48,10 +48,10 @@ mkdir -p "$DOCS_DIR"
 for branch in "${!BRANCHES[@]}"; do
     version="${BRANCHES[$branch]}"
     branch_dir="$TEMP_DIR/$branch"
-    dest_dir="$DOCS_DIR/$version/en"
+    dest_dir="$DOCS_DIR/$version.x"
     
     echo ""
-    echo -e "${GREEN}Processing branch: $branch (version $version)${NC}"
+    echo -e "${GREEN}Processing branch: $branch (version $version.x)${NC}"
     echo "----------------------------------------"
     
     # Clone the specific branch with minimal depth and no history

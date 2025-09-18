@@ -5,6 +5,4 @@ The following sections cover those tools:
 
 - [Security Utility](core-libraries/security)
 - [Cross Site Request Forgery](controllers/components/csrf)
-- [Security](Security)
-- [Component](Component)
-- [](controllers/components/security)
+- [Security Component](controllers/components/security)
