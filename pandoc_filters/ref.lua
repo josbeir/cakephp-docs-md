@@ -123,17 +123,42 @@ local function build_anchor_index()
                 end
             end
 
-            anchor_cache[anchor] = md_path
+            -- Check for duplicate anchors and handle them consistently
+            if anchor_cache[anchor] then
+                -- Duplicate found - use a consistent priority strategy
+                -- Prefer shorter paths (more specific) and alphabetically earlier paths
+                local existing_path = anchor_cache[anchor]
+                local existing_priority = #existing_path .. existing_path
+                local new_priority = #md_path .. md_path
+
+                if new_priority < existing_priority then
+                    -- io.stderr:write("Warning: Duplicate anchor '" .. anchor .. "' found in '" .. md_path .. "' and '" .. existing_path .. "', choosing '" .. md_path .. "'\n")
+                    anchor_cache[anchor] = md_path
+                -- else keep the existing one
+                end
+            else
+                anchor_cache[anchor] = md_path
+            end
         end
     end
 
     local function scan_directory(dir)
+        -- Collect all files first, then sort them for deterministic processing
+        local files = {}
         local handle = io.popen("find " .. dir .. " -name '*.rst' 2>/dev/null")
         if handle then
             for file in handle:lines() do
-                scan_file(file)
+                table.insert(files, file)
             end
             handle:close()
+        end
+
+        -- Sort files to ensure deterministic processing order
+        table.sort(files)
+
+        -- Process files in sorted order
+        for _, file in ipairs(files) do
+            scan_file(file)
         end
     end
 
@@ -158,7 +183,16 @@ local function get_current_file_anchors()
 
     -- Use the specific current source file if provided
     if current_source_file and current_source_file ~= "" then
+        -- Try to open the file as-is first
         local file = io.open(current_source_file, "r")
+        if not file then
+            -- If that fails, try just the basename (pandoc runs from rst_dir)
+            local basename = current_source_file:match("([^/]+)$")
+            if basename then
+                file = io.open(basename, "r")
+            end
+        end
+
         if file then
             local content = file:read("*all")
             file:close()
@@ -169,14 +203,16 @@ local function get_current_file_anchors()
             end
         end
     else
-        -- Fallback to original logic when CURRENT_SOURCE_FILE is not available
-        -- Find the current RST file being processed
+        -- Fallback: try to find the temp file with the current content
         -- The convert script creates temp files with random names in the RST directory
-        -- We need to find the .rst file, but exclude temporary files (which have tmp. prefix)
-        local handle = io.popen("find . -maxdepth 1 -name '*.rst' -type f ! -name 'tmp.*' 2>/dev/null")
-        if handle then
-            for file_path in handle:lines() do
-                local file = io.open(file_path, "r")
+        -- First try to find the temp file being processed
+        local temp_handle = io.popen("find . -maxdepth 1 -name 'tmp.*.rst' -type f -newer /dev/null 2>/dev/null | head -1")
+        if temp_handle then
+            local temp_file = temp_handle:read("*line")
+            temp_handle:close()
+
+            if temp_file then
+                local file = io.open(temp_file, "r")
                 if file then
                     local content = file:read("*all")
                     file:close()
@@ -185,18 +221,19 @@ local function get_current_file_anchors()
                     for anchor in content:gmatch("%.%. _([^:]+):") do
                         current_file_anchors[anchor] = true
                     end
-                    break -- Only process the first (and should be only) .rst file found
                 end
             end
-            handle:close()
         end
 
-        -- If no non-temp files found, fallback to temp files but extract the actual content
+        -- If still no anchors found, try the original RST file (if one exists)
         if not next(current_file_anchors) then
-            local temp_handle = io.popen("find . -maxdepth 1 -name 'tmp.*.rst' -type f 2>/dev/null")
-            if temp_handle then
-                for file_path in temp_handle:lines() do
-                    local file = io.open(file_path, "r")
+            local rst_handle = io.popen("find . -maxdepth 1 -name '*.rst' -type f ! -name 'tmp.*' 2>/dev/null | head -1")
+            if rst_handle then
+                local rst_file = rst_handle:read("*line")
+                rst_handle:close()
+
+                if rst_file then
+                    local file = io.open(rst_file, "r")
                     if file then
                         local content = file:read("*all")
                         file:close()
@@ -205,10 +242,8 @@ local function get_current_file_anchors()
                         for anchor in content:gmatch("%.%. _([^:]+):") do
                             current_file_anchors[anchor] = true
                         end
-                        break -- Only process the first temp file found
                     end
                 end
-                temp_handle:close()
             end
         end
     end
