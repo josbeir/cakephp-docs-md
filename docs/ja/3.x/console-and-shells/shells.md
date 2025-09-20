@@ -2,13 +2,9 @@
 
 `class` Cake\\Console\\**Shell**
 
-<div class="deprecated">
-
-3.6.0
-Shell は 3.6.0 で非推奨ですが、 5.x までは削除されません。
-代わりに [コンソールコマンド](../console-and-shells/commands) を使用してください。
-
-</div>
+::: info Deprecated in version 3.6.0
+Shell は 3.6.0 で非推奨ですが、 5.x までは削除されません。 代わりに [コンソールコマンド](../console-and-shells/commands) を使用してください。
+:::
 
 ## シェルの作成
 
@@ -342,7 +338,7 @@ if (!$user) {
 ```
 
 ::: info Added in version 3.2
-abort() メソッドは、3.2 で追加されました。以前のバージョンでは、`error()` メソッドを使用して、メッセージを出力し、実行を停止することができます。
+abort() メソッドは、3.2 で追加されました。以前のバージョンでは、 `error()` メソッドを使用して、メッセージを出力し、実行を停止することができます。
 :::
 
 ## ステータスとエラーコード

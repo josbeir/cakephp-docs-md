@@ -111,7 +111,7 @@ An array of key/value pairs that should be sent to the database server as
 supported by the Mysql, Postgres, and Sqlserver datasources at this time.
 
 ::: info Changed in version 2.4
-The `settings`, `ssl_key`, `ssl_cert` and `ssl_ca` keyswas added in 2.4.
+The `settings`, `ssl_key`, `ssl_cert` and `ssl_ca` keys was added in 2.4.
 :::
 
 > [!NOTE]
@@ -755,7 +755,7 @@ that the resource named `$key` contains.
 `method` Configure::**dump**($key, $data)
 
 ::: info Added in version 2.3
-`ConfigReaderInterface::dump()` was added in 2.3.Thrown when errors occur when loading/storing/restoring configuration data.`ConfigReaderInterface` implementations should throw thisexception when they encounter an error.
+`ConfigReaderInterface::dump()` was added in 2.3.Thrown when errors occur when loading/storing/restoring configuration data. `ConfigReaderInterface` implementations should throw this exception when they encounter an error.
 :::
 
 ### Built-in Configuration readers
@@ -786,7 +786,7 @@ special cases.
 You can use `Inflector::rules()` in the file
 `app/Config/bootstrap.php` to load custom inflections:
 
-``` css
+``` php
 Inflector::rules('singular', array(
     'rules' => array(
         '/^(bil)er$/i' => '\1',
@@ -799,7 +799,7 @@ Inflector::rules('singular', array(
 
 or:
 
-``` css
+``` php
 Inflector::rules('plural', array('irregular' => array('phylum' => 'phyla')));
 ```
 

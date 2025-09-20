@@ -343,7 +343,7 @@ Sphinx は関数が複数のファイルから参照されていると警告を�
 > グローバル定数、またはクラス定数のどちらかを参照します。
 > クラス定数はそのクラスが先に付けられる必要があります。 :
 >
-> ``` text
+> ``` php
 > DateTimeは :php:const:`DateTime::ATOM` 定数を持ちます。
 > ```
 
@@ -354,7 +354,7 @@ Sphinx は関数が複数のファイルから参照されていると警告を�
 > クラスのメソッドを参照します。
 > このロールは両方の種類のメソッドをサポートします。 :
 >
-> ``` text
+> ``` php
 > :php:meth:`DateTime::setDate`
 > :php:meth:`Classname::staticMethod`
 > ```
@@ -429,10 +429,6 @@ sphinx の勧告 (*Admonitions*) は、まさにそのために使われます�
 すごい機能がバージョン 4.0.0 で追加されました。
 :::
 
-<div class="deprecated">
-
-4.0.1
-
+::: info Deprecated in version 4.0.1
 この古い機能はバージョン 4.0.1 で撤廃されます。
-
-</div>
+:::

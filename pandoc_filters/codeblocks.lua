@@ -19,7 +19,24 @@ local function detect_language(code_text)
        trimmed:match("Cache::") or
        trimmed:match("Log::") or
        trimmed:match("Hash::") or
-       trimmed:match("Plugin::") then
+       trimmed:match("Plugin::") or
+       -- CakePHP utility classes
+       trimmed:match("Inflector::") or
+       trimmed:match("Number::") or
+       trimmed:match("Text::") or
+       trimmed:match("Time::") or
+       trimmed:match("Security::") or
+       trimmed:match("Xml::") or
+       trimmed:match("Collection::") or
+       -- Database and ORM classes
+       trimmed:match("TableRegistry::") or
+       trimmed:match("Query::") or
+       -- Event system
+       trimmed:match("EventManager::") or
+       -- I18n classes
+       trimmed:match("I18n::") or
+       trimmed:match("FrozenTime::") or
+       trimmed:match("FrozenDate::") then
         return "php"
     end
 

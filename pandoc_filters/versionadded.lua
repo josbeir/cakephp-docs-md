@@ -1,12 +1,12 @@
--- Version directives filter: Handle Sphinx versionadded and versionchanged directives
--- Converts versionadded and versionchanged divs to VitePress custom containers
+-- Version directives filter: Handle Sphinx versionadded, versionchanged, and deprecated directives
+-- Converts versionadded, versionchanged, and deprecated divs to VitePress custom containers
 
 function Div(div)
     local classes = div.attr.classes
 
-    -- Check if this is a versionadded or versionchanged directive
+    -- Check if this is a versionadded, versionchanged, or deprecated directive
     for _, class in ipairs(classes) do
-        if class == "versionadded" or class == "versionchanged" then
+        if class == "versionadded" or class == "versionchanged" or class == "deprecated" then
             -- Extract version and message from the div content
             local version = ""
             local message_parts = {}
@@ -28,6 +28,23 @@ function Div(div)
                             table.insert(message_parts, " ")
                         elseif inline.tag == "Code" then
                             table.insert(message_parts, "`" .. inline.text .. "`")
+                        elseif inline.tag == "Link" then
+                            -- Handle links: [text](url)
+                            local link_text = pandoc.utils.stringify(inline.content)
+                            local link_url = inline.target
+                            table.insert(message_parts, "[" .. link_text .. "](" .. link_url .. ")")
+                        elseif inline.tag == "Strong" then
+                            -- Handle bold text: **text**
+                            local strong_text = pandoc.utils.stringify(inline.content)
+                            table.insert(message_parts, "**" .. strong_text .. "**")
+                        elseif inline.tag == "Emph" then
+                            -- Handle italic text: *text*
+                            local emph_text = pandoc.utils.stringify(inline.content)
+                            table.insert(message_parts, "*" .. emph_text .. "*")
+                        else
+                            -- Fallback for any other inline elements
+                            local fallback_text = pandoc.utils.stringify({inline})
+                            table.insert(message_parts, fallback_text)
                         end
                     end
                 end
@@ -37,7 +54,14 @@ function Div(div)
 
             -- Create the VitePress container with appropriate title
             local container_lines = {}
-            local title = class == "versionadded" and "Added in version " or "Changed in version "
+            local title
+            if class == "versionadded" then
+                title = "Added in version "
+            elseif class == "versionchanged" then
+                title = "Changed in version "
+            elseif class == "deprecated" then
+                title = "Deprecated in version "
+            end
             table.insert(container_lines, "::: info " .. title .. version)
 
             if message ~= "" then

@@ -338,7 +338,7 @@ CakePHP のドキュメントは [phpdomain](https://pypi.python.org/pypi/sphinx
 > グローバル定数、またはクラス定数のどちらかを参照します。
 > クラス定数はそのクラスが先に付けられる必要があります:
 >
-> ``` text
+> ``` php
 > DateTimeは :php:const:`DateTime::ATOM` 定数を持ちます。
 > ```
 
@@ -349,7 +349,7 @@ CakePHP のドキュメントは [phpdomain](https://pypi.python.org/pypi/sphinx
 > クラスのメソッドを参照します。
 > このロールは両方の種類のメソッドをサポートします:
 >
-> ``` text
+> ``` php
 > :php:meth:`DateTime::setDate`
 > :php:meth:`Classname::staticMethod`
 > ```
@@ -422,10 +422,6 @@ sphinx の警告 (*Admonitions*) は、まさにそのために使われます�
 バージョン 2.6.3 で素晴らしい機能が追加されました。
 :::
 
-<div class="deprecated">
-
-2.6.3
-
+::: info Deprecated in version 2.6.3
 バージョン 2.6.3 で古い機能は非推奨になりました。
-
-</div>
+:::

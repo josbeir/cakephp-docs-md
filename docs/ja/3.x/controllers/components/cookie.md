@@ -6,13 +6,9 @@ CookieComponent は PHP に組み込まれている `setcookie()` メソッド�
 このコンポーネントは、 Cookie の扱いを容易にし、 Cookie のデータを暗号化します。
 CookieComponent で追加されたクッキーは、コントローラーのアクションが完了した場合にのみ送られます。
 
-<div class="deprecated">
-
-3.5.0
-クッキーは、 `ServerRequest` で利用できます。 [Request Cookies](../../controllers/request-response#request-cookies) をご覧ください。
-クッキーの暗号化は [Encrypted Cookie Middleware](../../controllers/middleware#encrypted-cookie-middleware) をご覧ください。
-
-</div>
+::: info Deprecated in version 3.5.0
+クッキーは、 `ServerRequest` で利用できます。 [Request Cookies](../../controllers/request-response#request-cookies) をご覧ください。 クッキーの暗号化は [Encrypted Cookie Middleware](../../controllers/middleware#encrypted-cookie-middleware) をご覧ください。
+:::
 
 ## Cookie の設定
 

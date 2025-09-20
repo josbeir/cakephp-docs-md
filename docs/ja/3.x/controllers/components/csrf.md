@@ -19,15 +19,12 @@ hidden フィールドに CSRF トークンが追加されます。 `Controller.
 > を使用してください。
 
 ::: info Added in version 3.1
-例外の型が `Cake\Network\Exception\ForbiddenException` から`Cake\Network\Exception\InvalidCsrfTokenException` に変更されました。
+例外の型が `Cake\Network\Exception\ForbiddenException` から `Cake\Network\Exception\InvalidCsrfTokenException` に変更されました。
 :::
 
-<div class="deprecated">
-
-3.5.0
+::: info Deprecated in version 3.5.0
 `CsrfComponent` の代わりに [Csrf Middleware](../../controllers/middleware#csrf-middleware) を使用してください。
-
-</div>
+:::
 
 ## CsrfComponent を使用する
 

@@ -71,13 +71,9 @@ create() には多くのオプションがあります:
   <form id="UserLoginForm" method="post" action="/users/login">
   ```
 
-  <div class="deprecated">
-
-  2.8.0
-  `$options['action']` オプションは、 2.8.0 で非推奨になりました。
-  代わりに `$options['url']` と `$options['id']` オプションを使用してください。
-
-  </div>
+  ::: info Deprecated in version 2.8.0
+  `$options['action']` オプションは、 2.8.0 で非推奨になりました。 代わりに `$options['url']` と `$options['id']` オプションを使用してください。
+  :::
 
 - `$options['url']` 現在のコントローラー以外にフォームデータを渡したい
   場合、\$options 配列の 'url' キーを使ってフォームアクションの URL
@@ -116,7 +112,7 @@ create() には多くのオプションがあります:
   メソッドを参照してみてください。
 
   ::: info Changed in version 2.8.0
-  form action として URL を出力させたくない場合、`'url' => false` を使用してください。
+  form action として URL を出力させたくない場合、 `'url' => false` を使用してください。
   :::
 
 - `$options['default']` 'default' がブール値の false に設定されている場合、

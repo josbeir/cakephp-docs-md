@@ -71,12 +71,9 @@ class OrdersTable extends Table
 }
 ```
 
-<div class="deprecated">
-
-3.5.0
+::: info Deprecated in version 3.5.0
 Use `getEventManager()` instead.
-
-</div>
+:::
 
 The above code allows you to notify the other parts of the application
 that an order has been created. You can then do tasks like send email
@@ -299,7 +296,7 @@ if (!empty($events)) {
 > The pattern passed to the `matchingListeners` method is case sensitive.
 
 ::: info Added in version 3.2.3
-The `matchingListeners` method returns an array of events matchinga search pattern.
+The `matchingListeners` method returns an array of events matching a search pattern.
 :::
 
 <a id="event-priorities"></a>

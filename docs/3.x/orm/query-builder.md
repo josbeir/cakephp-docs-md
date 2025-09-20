@@ -714,14 +714,9 @@ The above would generate SQL like:
 SELECT * FROM articles WHERE author_id = 3 AND (view_count = 2 OR view_count = 3)
 ```
 
-<div class="deprecated">
-
-3.5.0
-`Query::orWhere()` creates hard to predict SQL based on the current query state.
-Use `Query::where()` instead as it has more predictable and easier
-to understand behavior.
-
-</div>
+::: info Deprecated in version 3.5.0
+`Query::orWhere()` creates hard to predict SQL based on the current query state. Use `Query::where()` instead as it has more predictable and easier to understand behavior.
+:::
 
 If you'd prefer to avoid deeply nested arrays, you can use the callback form of
 `where()` to build your queries. The callback accepts a QueryExpression which allows
@@ -1657,7 +1652,7 @@ $query = $articles->find()
 > expected.
 
 ::: info Added in version 3.1
-() was added in 3.1
+[Query::innerJoinWith](Query::innerJoinWith)() was added in 3.1
 :::
 
 ### Using notMatching
@@ -1724,7 +1719,7 @@ Keep in mind that contrary to the `matching()` function, `notMatching()`
 will not add any data to the `_matchingData` property in the results.
 
 ::: info Added in version 3.1
-() was added in 3.1
+[Query::notMatching](Query::notMatching)() was added in 3.1
 :::
 
 ### Using leftJoinWith
@@ -1764,7 +1759,7 @@ This function will not load any columns from the specified associations into the
 result set.
 
 ::: info Added in version 3.1
-() was added in 3.1
+[Query::leftJoinWith](Query::leftJoinWith)() was added in 3.1
 :::
 
 <a id="adding-joins"></a>
