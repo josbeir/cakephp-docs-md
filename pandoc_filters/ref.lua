@@ -1,58 +1,18 @@
 -- Improved Ref filter: Convert Sphinx :ref: expressions to markdown links
 -- Handles both cross-file and self-file references properly
 
--- Get destination context, folder, and source folder from environment
-local destination_context = os.getenv("DESTINATION_CONTEXT") or ""
-local destination_folder = os.getenv("DESTINATION_FOLDER") or ""
-local source_folder = os.getenv("SOURCE_FOLDER") or ""
-local current_source_file = os.getenv("CURRENT_SOURCE_FILE") or ""
+-- Import shared utilities
+-- Get the directory where this filter is located
+local filter_dir = debug.getinfo(1, "S").source:match("@(.*/)") or ""
+-- Add the filter directory to the package path
+package.path = package.path .. ";" .. filter_dir .. "?.lua"
+-- Now require utils from the same directory
+local utils = require('utils')
 
 -- Caches
 local anchor_cache = nil
 local current_file_anchors = nil
 
--- Helper function to calculate relative path between two files
-local function calculate_relative_path(from_file, to_file)
-    -- Remove .md extension and split paths into parts
-    from_file = from_file:gsub("%.md$", "")
-    to_file = to_file:gsub("%.md$", "")
-
-    local from_parts = {}
-    local to_parts = {}
-
-    -- Split from_file path into parts (excluding filename)
-    local from_dir = from_file:match("(.+)/[^/]+$") or ""
-    if from_dir ~= "" then
-        for part in from_dir:gmatch("[^/]+") do
-            table.insert(from_parts, part)
-        end
-    end
-
-    -- Split to_file path into parts
-    for part in to_file:gmatch("[^/]+") do
-        table.insert(to_parts, part)
-    end
-
-    -- Calculate how many directories to go up
-    local up_count = #from_parts
-
-    -- Build relative path
-    local relative_parts = {}
-    for i = 1, up_count do
-        table.insert(relative_parts, "..")
-    end
-
-    -- Add the target path parts
-    for _, part in ipairs(to_parts) do
-        table.insert(relative_parts, part)
-    end
-
-    if #relative_parts == 0 then
-        return to_file
-    else
-        return table.concat(relative_parts, "/")
-    end
-end
 
 -- Helper function to build anchor index from all RST files
 local function build_anchor_index()
@@ -94,14 +54,14 @@ local function build_anchor_index()
             end
 
             -- Remove the source directory path prefix to get just the relative path within docs
-            if source_folder and source_folder ~= "" then
+            if utils.source_folder and utils.source_folder ~= "" then
                 -- Use the actual source folder to determine what to strip
-                local source_basename = source_folder:match("([^/]+)$") or ""
+                local source_basename = utils.source_folder:match("([^/]+)$") or ""
 
                 -- Handle absolute paths by making them relative to source folder
-                if md_path:find(source_folder, 1, true) == 1 then
+                if md_path:find(utils.source_folder, 1, true) == 1 then
                     -- Remove the full source folder path
-                    md_path = md_path:sub(#source_folder + 2) -- +2 to remove the trailing slash too
+                    md_path = md_path:sub(#utils.source_folder + 2) -- +2 to remove the trailing slash too
                 elseif md_path:match("^%./") then
                     -- Remove leading "./"
                     md_path = md_path:gsub("^%./", "")
@@ -164,8 +124,8 @@ local function build_anchor_index()
 
     -- Use the SOURCE_FOLDER passed from the convert script
     -- This ensures we always scan the correct source directory regardless of working directory
-    if source_folder and source_folder ~= "" then
-        scan_directory(source_folder)
+    if utils.source_folder and utils.source_folder ~= "" then
+        scan_directory(utils.source_folder)
     else
         -- Fallback to current directory if SOURCE_FOLDER is not set (for backward compatibility)
         scan_directory(".")
@@ -182,12 +142,12 @@ local function get_current_file_anchors()
     current_file_anchors = {}
 
     -- Use the specific current source file if provided
-    if current_source_file and current_source_file ~= "" then
+    if utils.current_source_file and utils.current_source_file ~= "" then
         -- Try to open the file as-is first
-        local file = io.open(current_source_file, "r")
+        local file = io.open(utils.current_source_file, "r")
         if not file then
             -- If that fails, try just the basename (pandoc runs from rst_dir)
-            local basename = current_source_file:match("([^/]+)$")
+            local basename = utils.current_source_file:match("([^/]+)$")
             if basename then
                 file = io.open(basename, "r")
             end
@@ -271,17 +231,8 @@ local function resolve_ref_link(ref_content)
 
         if target_file then
             -- Calculate relative path from current file to target
-            local current_file = destination_context
-
-            -- Normalize current_file to be relative to destination_folder
-            if destination_folder and destination_folder ~= "" then
-                -- If current_file starts with destination_folder, make it relative
-                if current_file:find(destination_folder, 1, true) == 1 then
-                    current_file = current_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
-                end
-            end
-
-            local link_path = calculate_relative_path(current_file, target_file)
+            local current_file = utils.get_current_file_relative()
+            local link_path = utils.calculate_relative_path(current_file, target_file)
             return pandoc.Link(label, link_path .. "#" .. target)
         else
             -- io.stderr:write("Warning: Anchor '" .. target .. "' not found for ref '" .. ref_content .. "'\n")
@@ -307,17 +258,8 @@ local function resolve_ref_link(ref_content)
 
     if target_file then
         -- Calculate relative path from current file to target
-        local current_file = destination_context
-
-        -- Normalize current_file to be relative to destination_folder
-        if destination_folder and destination_folder ~= "" then
-            -- If current_file starts with destination_folder, make it relative
-            if current_file:find(destination_folder, 1, true) == 1 then
-                current_file = current_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
-            end
-        end
-
-        local link_path = calculate_relative_path(current_file, target_file)
+        local current_file = utils.get_current_file_relative()
+        local link_path = utils.calculate_relative_path(current_file, target_file)
 
         local label = target:gsub("[-_]", " "):gsub("(%w)(%w*)", function(first, rest)
             return first:upper() .. rest:lower()

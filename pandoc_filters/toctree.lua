@@ -2,141 +2,13 @@
 -- Handles :caption:, :hidden:, and :maxdepth: options
 -- Uses page titles as link labels
 
--- Get destination context and folder from environment
-local destination_context = os.getenv("DESTINATION_CONTEXT") or ""
-local destination_folder = os.getenv("DESTINATION_FOLDER") or ""
-
--- Cache for file titles to avoid re-reading
-local title_cache = {}
-
--- Helper function to extract title from a markdown or RST file
-local function get_file_title(file_path)
-    if title_cache[file_path] then
-        return title_cache[file_path]
-    end
-
-    -- Clean the file path
-    local clean_path = file_path:gsub("^/", "")
-
-    -- Try both .md and .rst extensions in destination folder first
-    local possible_paths = {
-        destination_folder .. "/" .. clean_path .. ".md",
-        destination_folder .. "/" .. clean_path .. ".rst"
-    }
-
-    -- Detect language from destination folder and add appropriate legacy path
-    local language = "en" -- default to English
-    if destination_folder:match("/ja/?$") then
-        language = "ja"
-    elseif destination_folder:match("/fr/?$") then
-        language = "fr"
-    elseif destination_folder:match("/es/?$") then
-        language = "es"
-    elseif destination_folder:match("/pt/?$") then
-        language = "pt"
-    elseif destination_folder:match("/de/?$") then
-        language = "de"
-    end
-
-    -- Add legacy path for the detected language
-    table.insert(possible_paths, "legacy/" .. language .. "/" .. clean_path .. ".rst")
-
-    for _, path in ipairs(possible_paths) do
-        local file = io.open(path, "r")
-        if file then
-            local content = file:read("*all")
-            file:close()
-
-            -- Check if content was read successfully
-            if not content then
-                goto continue
-            end
-
-            -- Try to extract title from various formats
-            local title = nil
-
-            -- Look for markdown # header
-            title = content:match("^#%s+([^\n]+)")
-            if title then
-                title_cache[file_path] = title
-                return title
-            end
-
-            -- Look for RST title (underlined with various characters)
-            title = content:match("([^\n]+)\n[=#*+-~^'\"`:;<>.,?!@$%%&()_]+")
-            if title then
-                title = title:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
-                title_cache[file_path] = title
-                return title
-            end
-
-            -- Look for RST title (overlined and underlined)
-            title = content:match("[=#*+-~^'\"`:;<>.,?!@$%%&()_]+\n([^\n]+)\n[=#*+-~^'\"`:;<>.,?!@$%%&()_]+")
-            if title then
-                title = title:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
-                title_cache[file_path] = title
-                return title
-            end
-
-            break -- Found the file, stop looking
-        end
-        ::continue::
-    end
-
-    -- Fallback: use filename as title
-    local filename = file_path:match("([^/]+)$") or file_path
-    filename = filename:gsub("%.md$", ""):gsub("%.rst$", ""):gsub("%-", " "):gsub("_", " ")
-    -- Capitalize first letter of each word
-    filename = filename:gsub("(%w)(%w*)", function(first, rest)
-        return first:upper() .. rest:lower()
-    end)
-
-    title_cache[file_path] = filename
-    return filename
-end
-
--- Helper function to calculate relative path between two files
-local function calculate_relative_path(from_file, to_file)
-    -- Remove .md extension and split paths into parts
-    from_file = from_file:gsub("%.md$", "")
-    to_file = to_file:gsub("%.md$", "")
-
-    local from_parts = {}
-    local to_parts = {}
-
-    -- Split from_file path into parts (excluding filename)
-    local from_dir = from_file:match("(.+)/[^/]+$") or ""
-    if from_dir ~= "" then
-        for part in from_dir:gmatch("[^/]+") do
-            table.insert(from_parts, part)
-        end
-    end
-
-    -- Split to_file path into parts
-    for part in to_file:gmatch("[^/]+") do
-        table.insert(to_parts, part)
-    end
-
-    -- Calculate how many directories to go up
-    local up_count = #from_parts
-
-    -- Build relative path
-    local relative_parts = {}
-    for i = 1, up_count do
-        table.insert(relative_parts, "..")
-    end
-
-    -- Add the target path parts
-    for _, part in ipairs(to_parts) do
-        table.insert(relative_parts, part)
-    end
-
-    if #relative_parts == 0 then
-        return to_file
-    else
-        return table.concat(relative_parts, "/")
-    end
-end
+-- Import shared utilities
+-- Get the directory where this filter is located
+local filter_dir = debug.getinfo(1, "S").source:match("@(.*/)") or ""
+-- Add the filter directory to the package path
+package.path = package.path .. ";" .. filter_dir .. "?.lua"
+-- Now require utils from the same directory
+local utils = require('utils')
 
 -- Helper function to create a markdown link with proper relative path
 local function create_markdown_link(file_path)
@@ -158,7 +30,7 @@ local function create_markdown_link(file_path)
 
     -- Regular internal file link
     local target_path = file_path
-    local title = get_file_title(file_path)
+    local title = utils.get_file_title(file_path)
 
     -- Check if this is a same-directory link (starts with ./)
     if target_path:match("^%./") then
@@ -169,20 +41,12 @@ local function create_markdown_link(file_path)
     end
 
     -- Calculate relative path from current file to target
-    -- Normalize current_file to be relative to destination_folder
-    local current_file = destination_context
-
-    if destination_folder and destination_folder ~= "" then
-        -- If current_file starts with destination_folder, make it relative
-        if current_file:find(destination_folder, 1, true) == 1 then
-            current_file = current_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
-        end
-    end
+    local current_file = utils.get_current_file_relative()
 
     -- Clean target path - remove leading slash
-    local clean_target = target_path:gsub("^/", "")
+    local clean_target = utils.normalize_path(target_path)
 
-    local link_path = calculate_relative_path(current_file, clean_target)
+    local link_path = utils.calculate_relative_path(current_file, clean_target)
 
     return pandoc.Link(title, link_path)
 end
@@ -258,7 +122,7 @@ function Div(elem)
                                    text_elements[k + 1].text == ">" then
 
                                     -- This is an external link pattern
-                                    local label = full_text:gsub("%s*<$", ""):gsub("^%s+", ""):gsub("%s+$", "")
+                                    local label = utils.trim(full_text:gsub("%s*<$", ""))
                                     local url = elem.target
                                     local external_link_format = label .. " <" .. url .. ">"
                                     table.insert(file_list, external_link_format)
@@ -275,8 +139,8 @@ function Div(elem)
                         if not found_external_link then
                             local label, url = full_text:match("^(.-)%s*<%s*([^>]+)%s*>$")
                             if label and url then
-                                label = label:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
-                                url = url:gsub("^%s+", ""):gsub("%s+$", "") -- trim whitespace
+                                label = utils.trim(label)
+                                url = utils.trim(url)
                                 local external_link_format = label .. " <" .. url .. ">"
                                 table.insert(file_list, external_link_format)
                                 found_external_link = true

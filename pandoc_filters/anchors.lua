@@ -1,9 +1,13 @@
 -- Anchors filter: Convert RST anchor definitions to HTML anchor tags
 -- Handles .. _anchor-name: patterns and inserts HTML anchors after headers
 
--- Get destination context and folder from environment
-local destination_context = os.getenv("DESTINATION_CONTEXT") or ""
-local destination_folder = os.getenv("DESTINATION_FOLDER") or ""
+-- Import shared utilities
+-- Get the directory where this filter is located
+local filter_dir = debug.getinfo(1, "S").source:match("@(.*/)") or ""
+-- Add the filter directory to the package path
+package.path = package.path .. ";" .. filter_dir .. "?.lua"
+-- Now require utils from the same directory
+local utils = require('utils')
 
 -- Cache to store anchors found in the current document
 local document_anchors = {}
@@ -17,15 +21,15 @@ local function extract_anchors_from_rst()
 
     -- Try to read the original RST file to extract anchors
     -- The convert script runs from legacy/en directory, so we need to account for that
-    local rst_file = destination_context:gsub("%.md$", ".rst")
+    local rst_file = utils.destination_context:gsub("%.md$", ".rst")
 
     -- Normalize rst_file to be relative to destination_folder
     local relative_rst_file = rst_file
 
-    if destination_folder and destination_folder ~= "" then
+    if utils.destination_folder and utils.destination_folder ~= "" then
         -- If rst_file starts with destination_folder, make it relative
-        if relative_rst_file:find(destination_folder, 1, true) == 1 then
-            relative_rst_file = relative_rst_file:sub(#destination_folder + 2) -- +2 to remove trailing slash
+        if relative_rst_file:find(utils.destination_folder, 1, true) == 1 then
+            relative_rst_file = relative_rst_file:sub(#utils.destination_folder + 2) -- +2 to remove trailing slash
         end
     end
 
@@ -53,11 +57,7 @@ local function extract_anchors_from_rst()
         -- The convert script creates temp files, so only look for the exact file we need
         local base_name = relative_rst_file:match("([^/]+)$")
         if base_name then
-            local file = io.open(base_name, "r")
-            if file then
-                content = file:read("*all")
-                file:close()
-            end
+            content = utils.read_file(base_name)
         end
     end
 
