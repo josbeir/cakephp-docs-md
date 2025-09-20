@@ -5,20 +5,47 @@ local function detect_language(code_text)
     -- Remove leading/trailing whitespace for analysis
     local trimmed = code_text:gsub("^%s+", ""):gsub("%s+$", "")
     
-    -- PHP detection
-    if trimmed:match("^<%?php") or 
+    -- PHP detection (order matters - most specific first)
+    -- CakePHP-specific patterns (highest priority)
+    if trimmed:match("App::") or                    -- App:: static calls
+       trimmed:match("Cake\\") or                   -- CakePHP namespace
+       trimmed:match("use%s+Cake\\") or             -- CakePHP use statements
+       trimmed:match("new%s+Cake\\") or             -- CakePHP class instantiation
+       trimmed:match("extends%s+Cake\\") or         -- Extending CakePHP classes
+       trimmed:match("implements%s+Cake\\") or      -- Implementing CakePHP interfaces
+       -- Router and other CakePHP class static calls
+       trimmed:match("Router::") or
+       trimmed:match("Configure::") or
+       trimmed:match("Cache::") or
+       trimmed:match("Log::") or
+       trimmed:match("Hash::") or
+       trimmed:match("Plugin::") then
+        return "php"
+    end
+
+    -- General PHP patterns
+    if trimmed:match("^<%?php") or
        trimmed:match("^<%?=") or
        trimmed:match("^<%?") or
-       trimmed:match("^class%s+%w+") or
-       trimmed:match("^public%s+function") or
-       trimmed:match("^private%s+function") or
-       trimmed:match("^protected%s+function") or
-       trimmed:match("^function%s+%w+") or
        trimmed:match("%$this%->") or
        trimmed:match("%$[%w_]+%s*=") or
        trimmed:match("use%s+[%w\\]+;") or
        trimmed:match("namespace%s+[%w\\]+") or
-       trimmed:match("->%w+%(") then
+       trimmed:match("->%w+%(") or
+       trimmed:match("^class%s+%w+") or
+       trimmed:match("\nclass%s+%w+") or  -- class at beginning of any line
+       trimmed:match("^public%s+function") or
+       trimmed:match("\npublic%s+function") or  -- public function at beginning of any line
+       trimmed:match("^private%s+function") or
+       trimmed:match("\nprivate%s+function") or  -- private function at beginning of any line
+       trimmed:match("^protected%s+function") or
+       trimmed:match("\nprotected%s+function") or  -- protected function at beginning of any line
+       (trimmed:match("^function%s+%w+") and (trimmed:match("%$") or trimmed:match("->"))) or  -- PHP function only if contains PHP syntax
+       (trimmed:match("\nfunction%s+%w+") and (trimmed:match("%$") or trimmed:match("->"))) or  -- function at beginning of any line with PHP syntax
+       -- PHP array detection
+       (trimmed:match("^%s*%[") and (trimmed:match("'[^']*'%s*=>") or trimmed:match('"[^"]*"%s*=>') or trimmed:match('%$[%w_]+'))) or  -- array with string keys or variables
+       (trimmed:match("^%s*%[") and trimmed:match("object%(")) or  -- array containing objects
+       (trimmed:match("=>%s*object%(")) then  -- object assignment
         return "php"
     end
     
@@ -153,7 +180,12 @@ local function is_likely_code(text)
        trimmed:match("^[%$#]") or           -- Shell variables or comments
        trimmed:match("^//") or              -- Comments
        trimmed:match("^/%*") or             -- Block comments
-       trimmed:match("%w+%(.*%)") then      -- Function calls
+       trimmed:match("%w+%(.*%)") or        -- Function calls
+       -- Array/object patterns
+       (trimmed:match("^%s*%[") and trimmed:match("%]%s*$")) or  -- Starts with [ and ends with ]
+       trimmed:match("'[^']*'%s*=>") or     -- String keys with =>
+       trimmed:match('"[^"]*"%s*=>') or     -- Double-quoted string keys with =>
+       trimmed:match("=>") then             -- Any => operator (common in PHP, also in JS object literals)
         return true
     end
     
@@ -173,11 +205,15 @@ function CodeBlock(elem)
     
     -- Detect language
     local language = detect_language(elem.text)
-    
-    -- Create new code block with detected language
+
+    -- Create new code block with detected language, or fallback to generic code block
     if language then
         elem.classes = {language}
+    else
+        -- Fallback: if it looks like code but we can't detect the language,
+        -- still make it a fenced code block (this forces fenced output in GFM)
+        elem.classes = {"text"}  -- Generic fallback
     end
-    
+
     return elem
 end
