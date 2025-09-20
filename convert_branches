@@ -12,10 +12,13 @@ DOCS_DIR="docs"
 # Define branches and their numeric versions
 declare -A BRANCHES=(
     ["5.x"]="5"
-    ["4.x"]="4" 
+    ["4.x"]="4"
     ["3.x"]="3"
     ["2.x"]="2"
 )
+
+# Define languages to process
+LANGUAGES=("en" "ja")
 
 # Colors for output
 RED='\033[0;31m'
@@ -48,12 +51,11 @@ mkdir -p "$DOCS_DIR"
 for branch in "${!BRANCHES[@]}"; do
     version="${BRANCHES[$branch]}"
     branch_dir="$TEMP_DIR/$branch"
-    dest_dir="$DOCS_DIR/$version.x"
-    
+
     echo ""
     echo -e "${GREEN}Processing branch: $branch (version $version.x)${NC}"
     echo "----------------------------------------"
-    
+
     # Clone the specific branch with minimal depth and no history
     echo -e "${YELLOW}Fetching branch $branch...${NC}"
     git clone \
@@ -64,25 +66,41 @@ for branch in "${!BRANCHES[@]}"; do
         "$REPO_URL" \
         "$branch_dir" \
         --quiet
-    
-    # Check if en/ directory exists in the branch
-    if [ ! -d "$branch_dir/en" ]; then
-        echo -e "${RED}Warning: No 'en/' directory found in branch $branch, skipping...${NC}"
-        continue
-    fi
-    
-    # Create destination directory
-    mkdir -p "$dest_dir"
-    
-    # Run the convert script
-    echo -e "${YELLOW}Converting RST files to Markdown...${NC}"
-    if ./convert "$branch_dir/en" "$dest_dir"; then
-        echo -e "${GREEN}✓ Successfully converted branch $branch to $dest_dir${NC}"
-    else
-        echo -e "${RED}✗ Failed to convert branch $branch${NC}"
-        continue
-    fi
-    
+
+    # Process each language
+    for lang in "${LANGUAGES[@]}"; do
+        lang_source_dir="$branch_dir/$lang"
+
+        # Set destination directory based on language
+        if [ "$lang" = "en" ]; then
+            # English goes to root docs folder
+            lang_dest_dir="$DOCS_DIR/$version.x"
+        else
+            # Other languages go to language-specific subfolder
+            lang_dest_dir="$DOCS_DIR/$lang/$version.x"
+        fi
+
+        # Check if language directory exists in the branch
+        if [ ! -d "$lang_source_dir" ]; then
+            echo -e "${YELLOW}Warning: No '$lang/' directory found in branch $branch, skipping $lang...${NC}"
+            continue
+        fi
+
+        echo -e "${YELLOW}Processing language: $lang${NC}"
+
+        # Create destination directory
+        mkdir -p "$lang_dest_dir"
+
+        # Run the convert script
+        echo -e "${YELLOW}Converting $lang RST files to Markdown...${NC}"
+        if ./convert "$lang_source_dir" "$lang_dest_dir"; then
+            echo -e "${GREEN}✓ Successfully converted $lang from branch $branch to $lang_dest_dir${NC}"
+        else
+            echo -e "${RED}✗ Failed to convert $lang from branch $branch${NC}"
+            continue
+        fi
+    done
+
     # Clean up this branch directory to save space
     echo -e "${YELLOW}Cleaning up branch directory...${NC}"
     rm -rf "$branch_dir"
@@ -98,7 +116,19 @@ echo -e "${GREEN}Conversion completed!${NC}"
 echo "Converted documentation is available in:"
 for branch in "${!BRANCHES[@]}"; do
     version="${BRANCHES[$branch]}"
-    echo "  - Branch $branch → ./docs/$version/en/"
+    for lang in "${LANGUAGES[@]}"; do
+        if [ "$lang" = "en" ]; then
+            lang_dest_dir="$DOCS_DIR/$version.x"
+            display_path="./docs/$version.x/"
+        else
+            lang_dest_dir="$DOCS_DIR/$lang/$version.x"
+            display_path="./docs/$lang/$version.x/"
+        fi
+
+        if [ -d "$lang_dest_dir" ]; then
+            echo "  - Branch $branch ($lang) → $display_path"
+        fi
+    done
 done
 
 echo ""

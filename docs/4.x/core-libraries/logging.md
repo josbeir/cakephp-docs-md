@@ -141,12 +141,9 @@ one of the following methods:
 - `toArray()`
 - `__debugInfo()`
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 Logging placeholders were added.
-
-</div>
+:::
 
 <a id="logging-levels"></a>
 
@@ -397,12 +394,9 @@ To implement your own logging formatter you need to extend
 method you need to implement is `format($level, $message, $context)` which is
 responsible for formatting log messages.
 
-<div class="versionadded">
-
-4.3.0
+::: info Added in version 4.3.0
 Logging formatters were added in 4.3.0
-
-</div>
+:::
 
 ## Log API
 

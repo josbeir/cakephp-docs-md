@@ -112,13 +112,9 @@ $email->profile(['from' => 'me@example.org', 'transport' => 'my_custom']);
 $email = new Email(['from' => 'me@example.org', 'transport' => 'my_custom']);
 ```
 
-<div class="versionchanged">
-
-3.1
-The `default` email profile is automatically set when an `Email`
-instance is created.
-
-</div>
+::: info Changed in version 3.1
+The `default` email profile is automatically set when an `Email`instance is created.
+:::
 
 <div class="deprecated">
 
@@ -568,11 +564,8 @@ Use `setDomain()` instead of `domain()`.
 
 ## Creating Reusable Emails
 
-<div class="versionadded">
-
-3.1.0
-
-</div>
+::: info Added in version 3.1.0
+:::
 
 Mailers allow you to create reusable emails throughout your application. They
 can also be used to contain multiple email configurations in one location. This
@@ -700,13 +693,9 @@ class MyTestCase extends TestCase
 }
 ```
 
-<div class="versionadded">
-
-3.7.0
-
+::: info Added in version 3.7.0
 `Cake\TestSuite\EmailTrait` was added.
-
-</div>
+:::
 
 ### Assertion methods
 

@@ -224,12 +224,9 @@ Some example string targets are:
     // Prefixed plugin controller
     Vendor/Cms.Management/Admin/Articles::view
 
-<div class="versionadded">
-
-3.6.0
+::: info Added in version 3.6.0
 String based route targets were added.
-
-</div>
+:::
 
 Earlier we used the greedy star (`/*`) to capture additional path segments,
 there is also the trailing star (`/**`). Using a trailing double star,
@@ -321,12 +318,9 @@ will go to the 'update' action. There are HTTP helper methods for:
 All of these methods return the route instance allowing you to leverage the
 [fluent setters](#route-fluent-methods) to further configure your route.
 
-<div class="versionadded">
-
-3.5.0
+::: info Added in version 3.5.0
 The HTTP verb helper methods were added.
-
-</div>
+:::
 
 <a id="route-elements"></a>
 
@@ -528,12 +522,9 @@ $routes->connect(
 ->setPersist(['lang']);
 ```
 
-<div class="versionadded">
-
-3.5.0
+::: info Added in version 3.5.0
 Fluent builder methods were added in 3.5.0
-
-</div>
+:::
 
 ### Passing Parameters to Action
 
@@ -669,12 +660,9 @@ Router::url(['_name' => 'contacts:api:ping']);
 Routes connected in named scopes will only have names added if the route is also
 named. Nameless routes will not have the `_namePrefix` applied to them.
 
-<div class="versionadded">
-
-3.1
+::: info Added in version 3.1
 The `_namePrefix` option was added in 3.1
-
-</div>
+:::
 
 <div class="index">
 
@@ -987,12 +975,9 @@ echo Router::url([
 ]);
 ```
 
-<div class="versionadded">
-
-3.4.0
+::: info Added in version 3.4.0
 The `_host` option was added in 3.4.0
-
-</div>
+:::
 
 <div class="index">
 
@@ -1151,12 +1136,9 @@ $routes->middlewareGroup('web', ['cookie', 'auth', 'csrf']);
 $routes->applyMiddleware('web');
 ```
 
-<div class="versionadded">
-
-3.5.0
+::: info Added in version 3.5.0
 Scoped middleware & middleware groups were added in 3.5.0
-
-</div>
+:::
 
 <a id="resource-routes"></a>
 
@@ -1254,12 +1236,9 @@ compatible with [Prefix Routing](#prefix-routing).
 > While you can nest resources as deeply as you require, it is not recommended
 > to nest more than 2 resources together.
 
-<div class="versionadded">
-
-3.3
+::: info Added in version 3.3
 The `prefix` option was added to `resources()` in 3.3.
-
-</div>
+:::
 
 ### Limiting the Routes Created
 
@@ -1389,12 +1368,9 @@ Router::scope('/', function (RouteBuilder $routes) {
 });
 ```
 
-<div class="versionadded">
-
-3.5.0
+::: info Added in version 3.5.0
 The `path` option was added in 3.5.0
-
-</div>
+:::
 
 <div class="index">
 
@@ -1619,12 +1595,9 @@ Router::url(['_name' => 'articles:view', '_entity' => $article]);
 This will extract both the `id` property and the `slug` property out of the
 provided entity.
 
-<div class="versionadded">
-
-3.6.0
+::: info Added in version 3.6.0
 Entity routing was added in 3.6.0
-
-</div>
+:::
 
 <a id="custom-route-classes"></a>
 

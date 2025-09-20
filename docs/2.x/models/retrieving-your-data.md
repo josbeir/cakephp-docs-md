@@ -41,12 +41,9 @@ and behaviors make use of this ability, and your own model methods can, too.
 
 If your `find()` operation fails to match any records, you will get an empty array.
 
-<div class="versionadded">
-
-2.10.0
+::: info Added in version 2.10.0
 The `having` and `lock` options were added.
-
-</div>
+:::
 
 <a id="model-find-first"></a>
 
@@ -608,11 +605,8 @@ class AppModel extends Model {
 ?>
 ```
 
-<div class="versionchanged">
-
-2.2
-
-</div>
+::: info Changed in version 2.2
+:::
 
 You no longer need to override `_findCount` for fixing incorrect count results.
 The `'before'` state of your custom finder will now be called again with
@@ -677,12 +671,9 @@ $this->Article->find('published', array(
 ));
 ```
 
-<div class="versionadded">
-
-2.8.0
+::: info Added in version 2.8.0
 Custom magic finders were added in 2.8.0.
-
-</div>
+:::
 
 ### findBy
 

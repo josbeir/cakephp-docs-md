@@ -147,12 +147,9 @@ $socket = new HttpSocket(array(
 Would allow self-signed certificates for all requests made with the created
 socket.
 
-<div class="versionadded">
-
-2.3
+::: info Added in version 2.3
 SSL certificate validation was added in 2.3.
-
-</div>
+:::
 
 ### Creating a custom response class
 
@@ -180,13 +177,9 @@ $http = new HttpSocket();
 $http->responseClass = 'YourResponse';
 ```
 
-<div class="versionchanged">
-
-2.3
-As of 2.3.0 you should extend `HttpSocketResponse` instead. This
-avoids a common issue with the HTTP PECL extension.
-
-</div>
+::: info Changed in version 2.3
+As of 2.3.0 you should extend `HttpSocketResponse` instead. Thisavoids a common issue with the HTTP PECL extension.
+:::
 
 ### Downloading the results
 

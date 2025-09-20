@@ -1,10 +1,7 @@
 # Events System
 
-<div class="versionadded">
-
-2.1
-
-</div>
+::: info Added in version 2.1
+:::
 
 Creating maintainable applications is both a science and an art. It is
 well-known that a key for having good quality code is making your objects
@@ -115,15 +112,9 @@ event object is usually required in any function that gets attached globally in
 order to prevent some bugs. Remember that with the flexibility of using the
 global manager, some additional complexity is incurred.
 
-<div class="versionchanged">
-
-2.5
-
-Prior to 2.5, listeners on the global manager were kept in a separate list
-and fired **before** instance listeners are. After 2.5, global and instance
-listeners are fired in priority order.
-
-</div>
+::: info Changed in version 2.5
+Prior to 2.5, listeners on the global manager were kept in a separate listand fired  instance listeners are. After 2.5, global and instancelisteners are fired in priority order.
+:::
 
 ## Dispatching Events
 

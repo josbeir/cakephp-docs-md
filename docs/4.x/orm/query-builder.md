@@ -312,13 +312,9 @@ $query->selectAllExcept($articlesTable, ['published']);
 You can also pass an `Association` object when working with contained
 associations.
 
-<div class="versionadded">
-
-4.5.0
-
+::: info Added in version 4.5.0
 `Query::selectAlso()` was added.
-
-</div>
+:::
 
 <a id="using-sql-functions"></a>
 
@@ -403,12 +399,9 @@ Returns an Aggregate expression for the `LAG()` SQL function.
 `lead()`  
 Returns an Aggregate expression for the `LEAD()` SQL function.
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 Window functions were added in 4.1.0
-
-</div>
+:::
 
 When providing arguments for SQL functions, there are two kinds of parameters
 you can use, literal arguments and bound parameters. Identifier/Literal parameters allow
@@ -671,12 +664,9 @@ $published = $query->newExpr()
 # CASE published WHEN true THEN 'Y' ELSE 'N' END;
 ```
 
-<div class="versionchanged">
-
-4.3.0
+::: info Changed in version 4.3.0
 The fluent `case()` builder method was added.
-
-</div>
+:::
 
 Prior to 4.3.0, you would need to use:
 
@@ -1347,12 +1337,9 @@ $query->useReadRole();
 $query->useWriteRole();
 ```
 
-<div class="versionadded">
-
-4.5.0
+::: info Added in version 4.5.0
 Query role methods were added in 4.5.0
-
-</div>
+:::
 
 ### Expression Conjuction
 
@@ -2367,12 +2354,9 @@ $query = $articles->find()
     ->where(['id IN' => $matchingComment]);
 ```
 
-<div class="versionadded">
-
-4.2.0
+::: info Added in version 4.2.0
 `Table::subquery()` and `Query::subquery()` were added.
-
-</div>
+:::
 
 ### Adding Locking Statements
 
@@ -2466,12 +2450,9 @@ $query->select([
 ]);
 ```
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 Window function support was added.
-
-</div>
+:::
 
 ### Common Table Expressions
 
@@ -2535,12 +2516,9 @@ $query->select([
 
 If you need to build a recursive query (`WITH RECURSIVE …`), chain `->recursive()` onto `return $cte`.
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 Common table expression support was added.
-
-</div>
+:::
 
 ### Executing Complex Queries
 

@@ -9,16 +9,9 @@ Time Helper has two main tasks that it can perform:
 1.  It can format time strings.
 2.  It can test time (but cannot bend time, sorry).
 
-<div class="versionchanged">
-
-2.1
-`TimeHelper` has been refactored into the `CakeTime` class to allow
-easier use outside of the `View` layer.
-Within a view, these methods are accessible via the <span class="title-ref">TimeHelper</span>
-class and you can call it as you would call a normal helper method:
-`$this->Time->method($args);`.
-
-</div>
+::: info Changed in version 2.1
+`TimeHelper` has been refactored into the `CakeTime` class to alloweasier use outside of the `View` layer.Within a view, these methods are accessible via the class and you can call it as you would call a normal helper method:`$this->Time->method($args);`.
+:::
 
 ## Using the Helper
 
@@ -68,12 +61,9 @@ Formatting
 > echo CakeTime::convert(time(), new DateTimeZone('Asia/Jakarta'));
 > ```
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
->
-> </div>
+> :::
 
 > rtype  
 > string
@@ -98,19 +88,13 @@ Formatting
 > echo CakeTime::dayAsSql('Aug 22, 2011', 'modified');
 > ```
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > string
@@ -131,19 +115,13 @@ Formatting
 > echo CakeTime::daysAsSql('Aug 22, 2011', 'Aug 25, 2011', 'created');
 > ```
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > string
@@ -179,21 +157,13 @@ Formatting
 > echo CakeTime::format('2011-08-22', '%d-%m-%Y');
 > ```
 >
-> <div class="versionchanged">
+> ::: info Changed in version 2.2
+> `$format` and `$date` parameters are in opposite order as used in 2.1 and below.`$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.`$default` parameter replaces `$invalid` parameter used in 2.1 and below.
+> :::
 >
-> 2.2
-> `$format` and `$date` parameters are in opposite order as used in 2.1 and below.
-> `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
-> `$default` parameter replaces `$invalid` parameter used in 2.1 and below.
->
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$date` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > string
@@ -215,19 +185,13 @@ Formatting
 > echo CakeTime::fromString('+1 days');
 > ```
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > integer
@@ -252,12 +216,9 @@ Formatting
 > format for the current language if a LC_TIME file is used. For more info
 > about LC_TIME file check [here](../../core-libraries/internationalization-and-localization#lc-time).
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
->
-> </div>
+> :::
 
 > rtype  
 > string
@@ -293,19 +254,13 @@ Formatting
 > echo CakeTime::niceShort('2011-08-22 11:53:00');
 > ```
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > integer
@@ -368,38 +323,26 @@ Formatting
 >     ));
 >     // Outputs '1 month ago'
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > The `accuracy` option was added.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > string
 >
 > Will return a date string in the Atom format "2008-01-12T00:00:00Z"
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > mixed
@@ -429,19 +372,13 @@ Formatting
 > $arr = CakeTime::toQuarter('Aug 22, 2011', true);
 > ```
 >
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.4
+> ::: info Added in version 2.4
 > The new option parameters `relativeString` (defaults to `%s ago`) and
->
-> </div>
+> :::
 >
 > > > > `absoluteString` (defaults to `on %s`) to allow customization of the resulting
 > >
@@ -453,105 +390,67 @@ Formatting
 > Will return a date string in the RSS format "Sat, 12 Jan 2008
 > 00:00:00 -0500"
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > integer
 >
 > A wrapper for fromString.
 >
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 
 > rtype  
 > mixed
 >
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > Returns a formatted date in server's timezone.
->
-> </div>
+> :::
 
 > rtype  
 > DateTimeZone
 >
-> <div class="versionadded">
->
-> 2.2
-> Returns a timezone object from a string or the user's timezone object. If the function is called
-> without a parameter it tries to get timezone from 'Config.timezone' configuration variable.
->
-> </div>
+> ::: info Added in version 2.2
+> Returns a timezone object from a string or the user's timezone object. If the function is calledwithout a parameter it tries to get timezone from 'Config.timezone' configuration variable.
+> :::
 
 > rtype  
 > array
 >
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > Returns a list of timezone identifiers.
+> :::
 >
-> </div>
->
-> <div class="versionchanged">
->
-> 2.8
-> `$options` now accepts array with `group`, `abbr`, `before`, and `after` keys.
-> Specify `abbr => true` will append the timezone abbreviation in the `<option>` text.
->
-> </div>
+> ::: info Changed in version 2.8
+> `$options` now accepts array with `group`, `abbr`, `before`, and `after` keys.Specify `abbr => true` will append the timezone abbreviation in the `<option>` text.
+> :::
 
 ## Testing Time
 
-> <div class="versionadded">
->
-> 2.4
->
-> </div>
+> ::: info Added in version 2.4
+> :::
 
-> <div class="versionadded">
->
-> 2.4
->
-> </div>
+> ::: info Added in version 2.4
+> :::
 
-> <div class="versionchanged">
->
-> 2.2
+> ::: info Changed in version 2.2
 > `$timezone` parameter replaces `$userOffset` parameter used in 2.1 and below.
+> :::
 >
-> </div>
->
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `$dateString` parameter now also accepts a DateTime object.
->
-> </div>
+> :::
 >
 > All of the above functions return true or false when passed a date
 > string. `wasWithinLast` takes an additional `$timeInterval`

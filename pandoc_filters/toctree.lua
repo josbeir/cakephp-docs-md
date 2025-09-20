@@ -21,10 +21,25 @@ local function get_file_title(file_path)
     -- Try both .md and .rst extensions in destination folder first
     local possible_paths = {
         destination_folder .. "/" .. clean_path .. ".md",
-        destination_folder .. "/" .. clean_path .. ".rst",
-        -- Also try in legacy folder for RST files
-        "legacy/en/" .. clean_path .. ".rst"
+        destination_folder .. "/" .. clean_path .. ".rst"
     }
+
+    -- Detect language from destination folder and add appropriate legacy path
+    local language = "en" -- default to English
+    if destination_folder:match("/ja/?$") then
+        language = "ja"
+    elseif destination_folder:match("/fr/?$") then
+        language = "fr"
+    elseif destination_folder:match("/es/?$") then
+        language = "es"
+    elseif destination_folder:match("/pt/?$") then
+        language = "pt"
+    elseif destination_folder:match("/de/?$") then
+        language = "de"
+    end
+
+    -- Add legacy path for the detected language
+    table.insert(possible_paths, "legacy/" .. language .. "/" .. clean_path .. ".rst")
 
     for _, path in ipairs(possible_paths) do
         local file = io.open(path, "r")

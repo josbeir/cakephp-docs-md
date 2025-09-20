@@ -117,12 +117,9 @@ Values should only be defined if the request method is GET, otherwise
 you will overwrite your previous POST Data which might have validation errors
 that need corrections.
 
-<div class="versionadded">
-
-3.7.0
+::: info Added in version 3.7.0
 `Form::setData()` was added.
-
-</div>
+:::
 
 ## Getting Form Values
 
@@ -162,12 +159,9 @@ class ContactController extends AppController
 }
 ```
 
-<div class="versionadded">
-
-3.7.0
+::: info Added in version 3.7.0
 `Form::getData()` was added.
-
-</div>
+:::
 
 ## Processing Request Data
 
@@ -220,12 +214,9 @@ $errors = $form->getErrors(); // $form->errors(); // prior to 3.7.0
 */
 ```
 
-<div class="versionadded">
-
-3.7.0
+::: info Added in version 3.7.0
 `errors()` has been deprecated in favor of `getErrors()`
-
-</div>
+:::
 
 ## Invalidating Individual Form Fields from Controller
 
@@ -242,13 +233,9 @@ public function setErrors($errors)
 }
 ```
 
-<div class="versionchanged">
-
-3.5.1
-You are not required to specify `setErrors` anymore as this has
-already been included in the `Form` class for your convenience.
-
-</div>
+::: info Changed in version 3.5.1
+You are not required to specify `setErrors` anymore as this hasalready been included in the `Form` class for your convenience.
+:::
 
 According to how the validator class would have returned the errors, `$errors`
 must be in this format:

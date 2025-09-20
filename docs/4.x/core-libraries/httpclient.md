@@ -333,19 +333,13 @@ continue using all the other options defined when the scoped client was created.
 See [Http Client Request Options](#http_client_request_options) for more information on the options
 supported.
 
-<div class="versionadded">
-
-4.2.0
+::: info Added in version 4.2.0
 `Client::createFromUrl()` was added.
+:::
 
-</div>
-
-<div class="versionchanged">
-
-4.2.0
+::: info Changed in version 4.2.0
 The `basePath` option was added.
-
-</div>
+:::
 
 ## Setting and Managing Cookies
 
@@ -559,8 +553,5 @@ $headers = [
 $response = $this->newClientResponse(200, $headers, $body)
 ```
 
-<div class="versionadded">
-
-4.3.0
-
-</div>
+::: info Added in version 4.3.0
+:::

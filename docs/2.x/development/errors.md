@@ -48,21 +48,13 @@ configuration, but the result will be different based on `debug` level.
 > If you use a custom error handler, the trace setting will have no effect,
 > unless you refer to it in your error handling function.
 
-<div class="versionadded">
-
-2.2
+::: info Added in version 2.2
 The `Error.consoleHandler` option was added in 2.2.
+:::
 
-</div>
-
-<div class="versionchanged">
-
-2.2
-The `Error.handler` and `Error.consoleHandler` will receive the fatal error
-codes as well. The default behavior is show a page to internal server error
-(`debug` disabled) or a page with the message, file and line (`debug` enabled).
-
-</div>
+::: info Changed in version 2.2
+The `Error.handler` and `Error.consoleHandler` will receive the fatal errorcodes as well. The default behavior is show a page to internal server error(`debug` disabled) or a page with the message, file and line (`debug` enabled).
+:::
 
 ## Creating your own error handler
 

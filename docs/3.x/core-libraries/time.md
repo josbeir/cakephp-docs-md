@@ -142,12 +142,9 @@ FrozenDate::setJsonEncodeFormat(static function($time) {
 > [!NOTE]
 > This method must be called statically.
 
-<div class="versionchanged">
-
-3.9.0
+::: info Changed in version 3.9.0
 The `callable` parameter type was added.
-
-</div>
+:::
 
 `method` Cake\\I18n\\Time::**i18nFormat**($format = null, $timezone = null, $locale = null)
 
@@ -198,12 +195,9 @@ The following calendar types are supported:
 - coptic
 - ethiopic
 
-<div class="versionadded">
-
-3.1
+::: info Added in version 3.1
 Non-gregorian calendar support was added in 3.1
-
-</div>
+:::
 
 > [!NOTE]
 > For constant strings i.e. IntlDateFormatter::FULL Intl uses ICU library
@@ -388,11 +382,8 @@ echo $time->wasWithinLast('2 weeks');
 
 ## Dates
 
-<div class="versionadded">
-
-3.2
-
-</div>
+::: info Added in version 3.2
+:::
 
 The `Date` class in CakePHP implements the same API and methods as
 `Cake\I18n\Time` does. The main difference between `Time` and

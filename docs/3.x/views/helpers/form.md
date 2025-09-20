@@ -153,11 +153,8 @@ Valid values:
 
 ### Getting form values from the query string
 
-<div class="versionadded">
-
-3.4.0
-
-</div>
+::: info Added in version 3.4.0
+:::
 
 A FormHelper's values sources define where its rendered elements, such as
 input-tags, receive their values from.
@@ -781,14 +778,9 @@ In addition to the above options, you can mixin any HTML attribute you wish to
 use. Any non-special option name will be treated as an HTML attribute, and
 applied to the generated HTML control element.
 
-<div class="versionchanged">
-
-3.3.0
-As of 3.3.0, FormHelper will automatically use any default values defined
-in your database schema. You can disable this behavior by setting
-the `schemaDefault` option to `false`.
-
-</div>
+::: info Changed in version 3.3.0
+As of 3.3.0, FormHelper will automatically use any default values definedin your database schema. You can disable this behavior by settingthe `schemaDefault` option to `false`.
+:::
 
 ## Creating Input Elements
 
@@ -1313,12 +1305,9 @@ Will output:
 If the `label` key is used on an option, the attributes in
 `$attributes['label']` will be ignored.
 
-<div class="versionchanged">
-
-3.8.0
+::: info Changed in version 3.8.0
 The `label` key in complex options was added.
-
-</div>
+:::
 
 <a id="create-select-picker"></a>
 
@@ -2289,11 +2278,8 @@ if ($this->Form->isFieldError('gender')) {
 
 ### Displaying validation messages in HTML5 validity messages
 
-<div class="versionadded">
-
-3.7.0
-
-</div>
+::: info Added in version 3.7.0
+:::
 
 If the `autoSetCustomValidity` FormHelper option is set to `true`, error messages for
 the field's required and notBlank validation rules will be used instead of the default
@@ -2704,12 +2690,9 @@ Output:
 </div>
 ```
 
-<div class="versionadded">
-
-3.1
+::: info Added in version 3.1
 The templateVars option was added in 3.1.0
-
-</div>
+:::
 
 ### Moving Checkboxes & Radios Outside of a Label
 

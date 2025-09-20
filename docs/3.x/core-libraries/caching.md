@@ -37,12 +37,9 @@ build your own backend. The built-in caching engines are:
 Regardless of the CacheEngine you choose to use, your application interacts with
 `Cake\Cache\Cache`.
 
-<div class="versionadded">
-
-3.7.0
+::: info Added in version 3.7.0
 The `Array` engine was added.
-
-</div>
+:::
 
 <a id="cache-configuration"></a>
 
@@ -233,19 +230,13 @@ Cache::config('redis', [
 
 When there is no fallback cache failures will be raised as exceptions.
 
-<div class="versionadded">
-
-3.5.0
+::: info Added in version 3.5.0
 Cache engine fallbacks were added.
+:::
 
-</div>
-
-<div class="versionchanged">
-
-3.6.0
+::: info Changed in version 3.6.0
 Fallbacks can now be disabled via `false`
-
-</div>
+:::
 
 ### Removing Configured Cache Engines
 

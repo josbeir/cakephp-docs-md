@@ -390,12 +390,9 @@ compatible syntax:
 $session->read('Config.language', 'en');
 ```
 
-<div class="versionchanged">
-
-4.1.0
+::: info Changed in version 4.1.0
 The `default` parameter was added.
-
-</div>
+:::
 
 `method` Session::**readOrFail**($key)
 
@@ -408,12 +405,9 @@ $session->readOrFail('Config.language');
 This is useful, when you know this key has to be set and you don't want to have to check
 for the existence in code itself.
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 The `readOrFail()` was added.
-
-</div>
+:::
 
 `method` Session::**write**($key, $value)
 

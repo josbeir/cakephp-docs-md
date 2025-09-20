@@ -80,12 +80,9 @@ You can temporarily disable deprecation warnings in one of a few ways:
     Would ignore all deprecations from your `Models` directory and the
     `Contacts` plugin in your application.
 
-<div class="versionadded">
-
-4.2.0
+::: info Added in version 4.2.0
 The `Error.ignoredDeprecationPaths` option was added.
-
-</div>
+:::
 
 `class` **ExceptionRenderer**(Exception $exception)
 
@@ -136,19 +133,13 @@ Within an `Exception.beforeRender` handler you have a few options:
 - Return a response from the event listener to skip rendering and use
   the provided response instead.
 
-<div class="versionadded">
-
-4.4.0
+::: info Added in version 4.4.0
 Error and Exception events were added.
+:::
 
-</div>
-
-<div class="versionchanged">
-
-4.5.0
+::: info Changed in version 4.5.0
 The `beforeRender` events can now replace exceptions and replace rendering.
-
-</div>
+:::
 
 <a id="error-views"></a>
 
@@ -392,19 +383,13 @@ class ErrorLogger implements ErrorLoggerInterface
 }
 ```
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 ErrorLoggerInterface was added.
+:::
 
-</div>
-
-<div class="versionchanged">
-
-4.4.0
+::: info Changed in version 4.4.0
 `ErrorLoggerInterface::logException()` and `ErrorLoggerInterface::logError()` were added.
-
-</div>
+:::
 
 ## Custom Error Rendering
 
@@ -436,12 +421,9 @@ class CustomErrorRenderer implements ErrorRendererInterface
 The constructor of your renderer will be passed an array of all the Error
 configuration.
 
-<div class="versionadded">
-
-4.4.0
+::: info Added in version 4.4.0
 ErrorRendererInterface was added.
-
-</div>
+:::
 
 <div class="index">
 

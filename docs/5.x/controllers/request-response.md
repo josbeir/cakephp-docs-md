@@ -25,13 +25,9 @@ is assigned to `$this->request`, and is available in Controllers, Cells, Views
 and Helpers. You can also access it in Components using the controller
 reference.
 
-<div class="versionchanged">
-
-4.4.0
-The `ServerRequest` is available via DI.
-So you can get it from container or use it as a dependency for your service.
-
-</div>
+::: info Changed in version 4.4.0
+The `ServerRequest` is available via DI.So you can get it from container or use it as a dependency for your service.
+:::
 
 Some of the duties `ServerRequest` performs include:
 
@@ -141,12 +137,9 @@ $date = toDate($this->request->getQuery('date'), 'Y-m-d');
 $date = toDateTime($this->request->getQuery('datetime'), 'Y-m-d H:i:s');
 ```
 
-<div class="versionadded">
-
-5.1.0
+::: info Added in version 5.1.0
 Casting functions were added.
-
-</div>
+:::
 
 ### Request Body Data
 
@@ -1336,11 +1329,8 @@ to run logic **after** the response has been sent to the client. The
 > In non fastcgi environments the `Server.terminate` event is fired before
 > the response is sent.
 
-<div class="versionadded">
-
-5.1.0
-
-</div>
+::: info Added in version 5.1.0
+:::
 
 ## Common Mistakes with Immutable Responses
 

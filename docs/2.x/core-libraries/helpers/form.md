@@ -119,13 +119,9 @@ There are a number of options for create():
   Also check `HtmlHelper::url()` method for more examples of
   different types of URLs.
 
-  <div class="versionchanged">
-
-  2.8.0
-
+  ::: info Changed in version 2.8.0
   Use `'url' => false` if you don’t want to output a URL as the form action.
-
-  </div>
+  :::
 
 - `$options['default']` If 'default' has been set to boolean false, the form's
   submit action is changed so that pressing the submit button does not submit
@@ -419,12 +415,9 @@ HTML attributes. The following will cover the options specific to
   rule you have in your models. In addition you can provide i18n
   messages for your forms.
 
-  <div class="versionadded">
-
-  2.3
+  ::: info Added in version 2.3
   Support for the `errorMessage` option was added in 2.3
-
-  </div>
+  :::
 
 - `$options['before']`, `$options['between']`, `$options['separator']`,
   and `$options['after']`
@@ -809,11 +802,8 @@ applied to the generated HTML input element.
 - `$options['round']` Can be set to <span class="title-ref">up</span> or <span class="title-ref">down</span> to force rounding in either direction.
   Defaults to null which rounds half up according to <span class="title-ref">interval</span>.
 
-  <div class="versionadded">
-
-  2.4
-
-  </div>
+  ::: info Added in version 2.4
+  :::
 
 ## Form Element-Specific Methods
 
@@ -911,11 +901,8 @@ Will output:
 
 ## Setting Defaults for all fields
 
-<div class="versionadded">
-
-2.2
-
-</div>
+::: info Added in version 2.2
+:::
 
 You can declare a set of default options for `input()` using
 `FormHelper::inputDefaults()`. Changing the default options allows

@@ -88,19 +88,13 @@ $debug = env('APP_DEBUG', false);
 The second value passed to the env function is the default value. This value
 will be used if no environment variable exists for the given key.
 
-<div class="versionchanged">
-
-3.5.0
+::: info Changed in version 3.5.0
 dotenv library support was added to the application skeleton.
+:::
 
-</div>
-
-<div class="versionchanged">
-
-3.5.1
+::: info Changed in version 3.5.1
 dotenv library support is now opt in. You must uncomment the appropriate block of code in `config/bootstrap.php`
-
-</div>
+:::
 
 ### General Configuration
 
@@ -177,13 +171,9 @@ or arrays (`false`). This option is being treated as disabled by default.
 See the [File Uploads section](../controllers/request-response#request-file-uploads) in the Request &
 Response Objects chapter for more information.
 
-<div class="versionadded">
-
-3.9.0
-Support for uploaded files as objects in the request data was added in
-version 3.9.0
-
-</div>
+::: info Added in version 3.9.0
+Support for uploaded files as objects in the request data was added inversion 3.9.0
+:::
 
 Security.salt  
 A random string used in hashing. This value is also used as the
@@ -198,13 +188,9 @@ using proper helpers. Valid values:
 - (bool) `true` - Appends the timestamp when debug is `true`
 - (string) 'force' - Always appends the timestamp.
 
-<div class="versionchanged">
-
-3.6.0
-As of 3.6.0, you can override this global setting when linking assets
-using the `timestamp` option.
-
-</div>
+::: info Changed in version 3.6.0
+As of 3.6.0, you can override this global setting when linking assetsusing the `timestamp` option.
+:::
 
 Asset.cacheTime  
 Sets the asset cache time. This determines the http header `Cache-Control`'s
@@ -388,12 +374,9 @@ back:
 
 If `$key` is left null, all values in Configure will be returned.
 
-<div class="versionchanged">
-
-3.5.0
+::: info Changed in version 3.5.0
 The `$default` parameter was added in 3.5.0
-
-</div>
+:::
 
 Reads configuration data just like `Cake\Core\Configure::read`
 but expects to find a key/value pair. In case the requested pair does not
@@ -409,12 +392,9 @@ Configure::readOrFail('Company');
 ['name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul'];
 ```
 
-<div class="versionadded">
-
-3.1.7
+::: info Added in version 3.1.7
 `Configure::readOrFail()` was added in 3.1.7
-
-</div>
+:::
 
 ### Checking to see if Configuration Data is Defined
 
@@ -451,12 +431,9 @@ Configure::consumeOrFail('Company');
 ['name' => 'Pizza, Inc.', 'slogan' => 'Pizza for your body and soul'];
 ```
 
-<div class="versionadded">
-
-3.6.0
+::: info Added in version 3.6.0
 `Configure::readOrFail()` was added in 3.6.0
-
-</div>
+:::
 
 ## Reading and writing configuration files
 

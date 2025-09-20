@@ -126,12 +126,9 @@ bin/cake plugin load ContactManager
 This would update your application's bootstrap method, or put the
 `$this->addPlugin('ContactManager');` snippet in the bootstrap for you.
 
-<div class="versionadded">
-
-4.1.0
+::: info Added in version 4.1.0
 The `addOptionalPlugin()` method was added.
-
-</div>
+:::
 
 <a id="plugin-configuration"></a>
 
@@ -255,7 +252,7 @@ basic directory structure. It should look like this:
                 /Fixture
             /webroot
 
-Note the name of the plugin folder, '**ContactManager**'. It is important
+Note the name of the plugin folder, '\*\*ContactManager\*\*'. It is important
 that this folder has the same name as the plugin.
 
 Inside the plugin folder, you'll notice it looks a lot like a CakePHP

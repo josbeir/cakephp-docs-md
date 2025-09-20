@@ -109,29 +109,20 @@ support the following configuration keys.
   If you want to use this option, you'll need to make sure your model has the
   containable behavior attached.
 
-  <div class="versionadded">
-
-  2.2
-
-  </div>
+  ::: info Added in version 2.2
+  :::
 
 - `passwordHasher` Password hasher class. Defaults to `Simple`.
 
-  <div class="versionadded">
-
-  2.4
-
-  </div>
+  ::: info Added in version 2.4
+  :::
 
 - `userFields` The list of fields to fetch from the `userModel`. This option
   is helpful when you have a wide user table and do not need all the columns in
   the session. By default all fields are fetched.
 
-  <div class="versionadded">
-
-  2.6
-
-  </div>
+  ::: info Added in version 2.6
+  :::
 
 To configure different fields for user in `$components` array:
 
@@ -367,14 +358,9 @@ $this->Auth->authError = "This error shows up with the user tries to access" .
                             "a part of the website that is protected.";
 ```
 
-<div class="versionchanged">
-
-2.4
-Sometimes, you want to display the authorization error only after the user
-has already logged-in. You can suppress this message by setting its value to
-boolean <span class="title-ref">false</span>
-
-</div>
+::: info Changed in version 2.4
+Sometimes, you want to display the authorization error only after the userhas already logged-in. You can suppress this message by setting its value toboolean
+:::
 
 In your controller's beforeFilter(), or component settings:
 
@@ -850,13 +836,9 @@ and authentication mechanics in CakePHP.
 > Error to display when user attempts to access an object or action to which
 > they do not have access.
 >
-> <div class="versionchanged">
->
-> 2.4
-> You can suppress authError message from being displayed by setting this
-> value to boolean <span class="title-ref">false</span>.
->
-> </div>
+> ::: info Changed in version 2.4
+> You can suppress authError message from being displayed by setting thisvalue to boolean .
+> :::
 >
 > Set to an array of Authorization objects you want to use when
 > authorizing users on each request, see the section on
@@ -933,11 +915,8 @@ and authentication mechanics in CakePHP.
 
 `method` AuthComponent::**redirectUrl**($url = null)
 
-<div class="versionadded">
-
-2.3
-
-</div>
+::: info Added in version 2.3
+:::
 
 `method` AuthComponent::**shutdown**($Controller)
 

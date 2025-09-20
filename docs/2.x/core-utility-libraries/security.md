@@ -58,12 +58,9 @@ hashing and encrypting data.
 > Instead you should use the one way hashing methods provided by
 > `~Security::hash()`
 >
-> <div class="versionadded">
->
-> 2.2
+> ::: info Added in version 2.2
 > `Security::rijndael()` was added in 2.2.
->
-> </div>
+> :::
 >
 > param string \$plain  
 > The value to encrypt.
@@ -91,18 +88,12 @@ hashing and encrypting data.
 >
 > Encrypted values can be decrypted using `Security::decrypt()`.
 >
-> <div class="versionadded">
+> ::: info Added in version 2.5
+> :::
 >
-> 2.5
->
-> </div>
->
-> <div class="versionadded">
->
-> 2.10.8
+> ::: info Added in version 2.10.8
 > Set `Security.useOpenSsl` to use OpenSSL instead of the deprecated `mcrypt` extension.
->
-> </div>
+> :::
 >
 > param string \$cipher  
 > The ciphertext to decrypt.
@@ -129,18 +120,12 @@ hashing and encrypting data.
 > If the value cannot be decrypted due to changes in the key or HMAC salt
 > `false` will be returned.
 >
-> <div class="versionadded">
+> ::: info Added in version 2.5
+> :::
 >
-> 2.5
->
-> </div>
->
-> <div class="versionadded">
->
-> 2.10.8
+> ::: info Added in version 2.10.8
 > Set `Security.useOpenSsl` to use OpenSSL instead of the deprecated `mcrypt` extension.
->
-> </div>
+> :::
 >
 > rtype  
 > string
@@ -183,12 +168,9 @@ hashing and encrypting data.
 > cost and salt values, allowing the generated hash to return the same
 > resulting hash, given the same input value.
 >
-> <div class="versionchanged">
->
-> 2.3
+> ::: info Changed in version 2.3
 > Support for bcrypt was added in 2.3
->
-> </div>
+> :::
 >
 > rtype  
 > void

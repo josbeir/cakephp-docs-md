@@ -15,7 +15,7 @@ basic directory structure. It should look like this:
                     /Helper
                     /Layouts
 
-Note the name of the plugin folder, '**ContactManager**'. It is important
+Note the name of the plugin folder, '\*\*ContactManager\*\*'. It is important
 that this folder has the same name as the plugin.
 
 Inside the plugin folder, you'll notice it looks a lot like a CakePHP
@@ -227,17 +227,9 @@ would serve the asset
 > It is important to note the **/your_plugin/** prefix before the
 > asset path. That makes the magic happen!
 
-<div class="versionchanged">
-
-2.1
-
+::: info Changed in version 2.1
 Use `plugin syntax` to request assets. For example in your View:
-
-``` php
-<?php echo $this->Html->css("ContactManager.style"); ?>
-```
-
-</div>
+:::
 
 ## Components, Helpers and Behaviors
 
