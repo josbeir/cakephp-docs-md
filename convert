@@ -229,6 +229,7 @@ sys.stdout.write(fixed_content)
         --lua-filter="$FILTERS_DIR/language.lua" \
         --lua-filter="$FILTERS_DIR/images.lua" \
         --lua-filter="$FILTERS_DIR/toctree.lua" \
+        --lua-filter="$FILTERS_DIR/table_cleanup.lua" \
         --lua-filter="$FILTERS_DIR/anchors.lua" \
         --lua-filter="$FILTERS_DIR/codeblocks.lua" \
         --output="$md_file_abs" \
