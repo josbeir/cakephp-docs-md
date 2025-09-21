@@ -21,7 +21,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
           echo "No changes detected in docs/ folder"
         fi
 
-    - name: Commit and push changes
+    - name: Commit and push changes to source repo
       if: steps.check_changes.outputs.changes == 'true'
       run: |
         git add docs/
@@ -78,6 +78,50 @@ jobs:
 
         Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
         git push
+
+    - name: Checkout CakePHP docs repository
+      if: steps.check_changes.outputs.changes == 'true'
+      uses: actions/checkout@v5
+      with:
+        repository: cakephp/docs
+        ref: 5.x-vitepress
+        path: cakephp-docs
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Sync docs to CakePHP repository
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        # Use rsync to sync only changed folders from /docs to /docs in the target repo
+        # --archive preserves permissions, timestamps, etc.
+        # --update only copies files that are newer in the source
+        # --exclude protects files we don't want to touch
+        rsync -av --update \
+          --exclude='.git*' \
+          --exclude='README.md' \
+          --exclude='*.log' \
+          --exclude='public/' \
+          docs/ cakephp-docs/docs/
+
+    - name: Commit and push to CakePHP docs repository
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        cd cakephp-docs
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+        # Check if there are any changes to commit
+        if [ -n "$(git status --porcelain)" ]; then
+          git add .
+          git commit -m "Sync documentation updates from cakephp-docs-md
+
+          🤖 Generated with GitHub Actions from $(date -u +'%Y-%m-%d %H:%M:%S UTC')
+
+          Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+          git push origin 5.x-vitepress
+          echo "✅ Successfully synced changes to CakePHP docs repository"
+        else
+          echo "ℹ️ No changes to sync to CakePHP docs repository"
+        fi
 
     - name: Create summary
       run: |
