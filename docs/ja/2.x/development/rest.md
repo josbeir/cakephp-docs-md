@@ -31,19 +31,14 @@ Router::parseExtensions();
 `parseExtensions()` メソッドで、最終的に受け取りたいフォーマット (例えば xml, json, rss) の
 指定が必要です。これらのルーティングは、HTTP リクエストメソッドに対応しています。
 
-| HTTP format | URL format            | 対応するコントローラアクション |
-|-------------|-----------------------|--------------------------------|
-| GET         | /recipes.format       | RecipesController::index()     |
-| ----------- | --------------------- | ------------------------------ |
-| GET         | /recipes/123.format   | RecipesController::view(123)   |
-| ----------- | --------------------- | ------------------------------ |
-| POST        | /recipes.format       | RecipesController::add()       |
-| ----------- | --------------------- | ------------------------------ |
-| POST        | /recipes/123.format   | RecipesController::edit(123)   |
-| ----------- | --------------------- | ------------------------------ |
-| PUT         | /recipes/123.format   | RecipesController::edit(123)   |
-| ----------- | --------------------- | ------------------------------ |
-| DELETE      | /recipes/123.format   | RecipesController::delete(123) |
+| HTTP format | URL format          | 対応するコントローラアクション |
+|-------------|---------------------|--------------------------------|
+| GET         | /recipes.format     | RecipesController::index()     |
+| GET         | /recipes/123.format | RecipesController::view(123)   |
+| POST        | /recipes.format     | RecipesController::add()       |
+| POST        | /recipes/123.format | RecipesController::edit(123)   |
+| PUT         | /recipes/123.format | RecipesController::edit(123)   |
+| DELETE      | /recipes/123.format | RecipesController::delete(123) |
 
 CakePHP のルータクラスは、いくつかの異なる方法で HTTP リクエストメソッドを判定します。
 下記がその判定順序です。
