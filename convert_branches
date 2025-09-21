@@ -8,17 +8,18 @@ set -e
 REPO_URL="https://github.com/cakephp/docs.git"
 TEMP_DIR="temp"
 DOCS_DIR="docs"
+CONFIG_FILE="branches.conf"
 
-# Define branches and their numeric versions
-declare -A BRANCHES=(
-    ["5.x"]="5"
-    ["4.x"]="4"
-    ["3.x"]="3"
-    ["2.x"]="2"
-)
+# Default options
+USE_PARALLEL=true
+VERBOSE=false
+PARALLEL_JOBS=""  # Empty means use GNU parallel's default (number of CPU cores)
 
 # Define languages to process
 LANGUAGES=("en" "ja")
+
+# Define branches and their numeric versions (will be loaded from config)
+declare -A BRANCHES
 
 # Colors for output
 RED='\033[0;31m'
@@ -26,13 +27,172 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# Function to load branches from config file
+load_branches_config() {
+    if [ ! -f "$CONFIG_FILE" ]; then
+        echo -e "${RED}Error: Config file '$CONFIG_FILE' not found.${NC}"
+        exit 1
+    fi
+
+    while IFS='=' read -r branch version || [[ -n "$branch" ]]; do
+        # Skip empty lines and comments
+        [[ -z "$branch" || "$branch" =~ ^[[:space:]]*# ]] && continue
+
+        # Remove whitespace
+        branch=$(echo "$branch" | xargs)
+        version=$(echo "$version" | xargs)
+
+        if [[ -n "$branch" && -n "$version" ]]; then
+            BRANCHES["$branch"]="$version"
+        fi
+    done < "$CONFIG_FILE"
+
+    if [ ${#BRANCHES[@]} -eq 0 ]; then
+        echo -e "${RED}Error: No valid branches found in config file '$CONFIG_FILE'.${NC}"
+        exit 1
+    fi
+}
+
+# Function to show usage
+show_usage() {
+    echo "Usage: $0 [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  -s, --sequential       Disable parallel processing (run jobs sequentially)"
+    echo "  -v, --verbose          Show verbose output from parallel jobs"
+    echo "  -j, --jobs N           Number of parallel jobs to run (default: auto-detect CPU cores)"
+    echo "  -c, --config FILE      Use custom config file (default: branches.conf)"
+    echo "  -h, --help             Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0                     # Run with parallel processing (auto-detect cores)"
+    echo "  $0 --jobs 4            # Run with 4 parallel jobs"
+    echo "  $0 --verbose           # Run with parallel processing and show job output"
+    echo "  $0 --sequential        # Run jobs sequentially"
+    echo "  $0 --config my.conf    # Use custom config file"
+    echo ""
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -s|--sequential)
+            USE_PARALLEL=false
+            shift
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -j|--jobs)
+            if [[ "$2" =~ ^[1-9][0-9]*$ ]]; then
+                PARALLEL_JOBS="$2"
+            else
+                echo -e "${RED}Error: --jobs requires a positive integer${NC}"
+                exit 1
+            fi
+            shift 2
+            ;;
+        -c|--config)
+            CONFIG_FILE="$2"
+            shift 2
+            ;;
+        -h|--help)
+            show_usage
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Error: Unknown option '$1'${NC}"
+            show_usage
+            exit 1
+            ;;
+    esac
+done
+
+# Load branch configuration
+load_branches_config
+
+# Record start time
+START_TIME=$(date +%s)
+
 echo -e "${GREEN}CakePHP Documentation Branch Converter${NC}"
 echo "======================================"
+
+# Show loaded configuration
+echo -e "${YELLOW}Config file: $CONFIG_FILE${NC}"
+echo -e "${YELLOW}Branches to process: ${!BRANCHES[@]}${NC}"
+
+if [ "$USE_PARALLEL" = true ]; then
+    if [ -n "$PARALLEL_JOBS" ]; then
+        job_info=" ($PARALLEL_JOBS jobs)"
+    else
+        job_info=" (auto-detect cores)"
+    fi
+
+    if [ "$VERBOSE" = true ]; then
+        echo -e "${YELLOW}Mode: Parallel processing${job_info} (verbose)${NC}"
+    else
+        echo -e "${YELLOW}Mode: Parallel processing${job_info}${NC}"
+    fi
+else
+    echo -e "${YELLOW}Mode: Sequential processing${NC}"
+fi
+echo ""
+
+# Function to show loading indicator
+show_loading() {
+    local message="$1"
+    local pid="$2"
+    local delay=0.1
+    local spinstr='|/-\'
+
+    while ps -p "$pid" > /dev/null 2>&1; do
+        local temp=${spinstr#?}
+        printf "\r${YELLOW}%s %c${NC}" "$message" "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+    done
+    printf "\r%s\n" "$message"
+}
+
+# Function to get commit info for a branch
+get_commit_info() {
+    local branch_dir="$1"
+    local commit_ref=$(git -C "$branch_dir" rev-parse --short HEAD 2>/dev/null || echo "unknown")
+    local commit_message=$(git -C "$branch_dir" log -1 --pretty=format:"%s" 2>/dev/null || echo "No commit message")
+    echo "$commit_ref: $commit_message"
+}
+
+# Function to format duration in human-readable format
+format_duration() {
+    local duration=$1
+    local hours=$((duration / 3600))
+    local minutes=$(((duration % 3600) / 60))
+    local seconds=$((duration % 60))
+
+    if [ $hours -gt 0 ]; then
+        echo "${hours}h ${minutes}m ${seconds}s"
+    elif [ $minutes -gt 0 ]; then
+        echo "${minutes}m ${seconds}s"
+    else
+        echo "${seconds}s"
+    fi
+}
 
 # Check if git is installed
 if ! command -v git &> /dev/null; then
     echo -e "${RED}Error: git is required but not installed.${NC}"
     exit 1
+fi
+
+# Check if GNU parallel is installed when needed
+if [ "$USE_PARALLEL" = true ]; then
+    if ! command -v parallel &> /dev/null; then
+        echo -e "${RED}Error: GNU parallel is required for parallel processing but not installed.${NC}"
+        echo -e "${YELLOW}Install with: sudo apt-get install parallel (Ubuntu/Debian) or brew install parallel (macOS)${NC}"
+        echo -e "${YELLOW}Or use --sequential to run without parallel processing.${NC}"
+        exit 1
+    fi
 fi
 
 # Clean up temp directory if it exists
@@ -47,17 +207,80 @@ mkdir -p "$TEMP_DIR"
 # Create docs directory if it doesn't exist
 mkdir -p "$DOCS_DIR"
 
-# Process each branch
+# Function to get version from branch name
+get_version_from_branch() {
+    case "$1" in
+        "5.x") echo "5" ;;
+        "4.x") echo "4" ;;
+        "3.x") echo "3" ;;
+        "2.x") echo "2" ;;
+        *) echo "" ;;
+    esac
+}
+
+# Function to process a single branch-language combination
+process_branch_lang() {
+    local branch="$1"
+    local lang="$2"
+    local version=$(get_version_from_branch "$branch")
+    local branch_dir="$TEMP_DIR/$branch"
+    local lang_source_dir="$branch_dir/$lang"
+
+    # Set destination directory based on language
+    if [ "$lang" = "en" ]; then
+        # English goes to root docs folder
+        local lang_dest_dir="$DOCS_DIR/$version.x"
+    else
+        # Other languages go to language-specific subfolder
+        local lang_dest_dir="$DOCS_DIR/$lang/$version.x"
+    fi
+
+    # Check if language directory exists in the branch
+    if [ ! -d "$lang_source_dir" ]; then
+        echo -e "${YELLOW}Warning: No '$lang/' directory found in branch $branch, skipping $lang...${NC}"
+        return 1
+    fi
+
+    echo -e "${YELLOW}Processing $branch/$lang...${NC}"
+
+    # Create destination directory
+    mkdir -p "$lang_dest_dir"
+
+    # Run the convert script with appropriate output handling
+    if [ "$VERBOSE" = "true" ]; then
+        # Show full output in verbose mode
+        if ./convert "$lang_source_dir" "$lang_dest_dir"; then
+            echo -e "${GREEN}✓ Successfully converted $lang from branch $branch to $lang_dest_dir${NC}"
+            return 0
+        else
+            echo -e "${RED}✗ Failed to convert $lang from branch $branch${NC}"
+            return 1
+        fi
+    else
+        # Hide all output in non-verbose mode
+        if ./convert "$lang_source_dir" "$lang_dest_dir" >/dev/null 2>&1; then
+            echo -e "${GREEN}✓ Successfully converted $lang from branch $branch to $lang_dest_dir${NC}"
+            return 0
+        else
+            echo -e "${RED}✗ Failed to convert $lang from branch $branch${NC}"
+            return 1
+        fi
+    fi
+}
+
+# Export functions for parallel to use
+export -f process_branch_lang get_version_from_branch
+export TEMP_DIR DOCS_DIR YELLOW GREEN RED NC VERBOSE
+
+# First, clone all branches
+echo -e "${GREEN}Fetching all branches...${NC}"
 for branch in "${!BRANCHES[@]}"; do
     version="${BRANCHES[$branch]}"
     branch_dir="$TEMP_DIR/$branch"
 
-    echo ""
-    echo -e "${GREEN}Processing branch: $branch (version $version.x)${NC}"
-    echo "----------------------------------------"
-
-    # Clone the specific branch with minimal depth and no history
     echo -e "${YELLOW}Fetching branch $branch...${NC}"
+
+    # Clone in background and show loading indicator
     git clone \
         --depth 1 \
         --single-branch \
@@ -65,44 +288,72 @@ for branch in "${!BRANCHES[@]}"; do
         --no-tags \
         "$REPO_URL" \
         "$branch_dir" \
-        --quiet
+        --quiet &
 
-    # Process each language
-    for lang in "${LANGUAGES[@]}"; do
-        lang_source_dir="$branch_dir/$lang"
+    show_loading "Fetching branch $branch" $!
+    wait
 
-        # Set destination directory based on language
-        if [ "$lang" = "en" ]; then
-            # English goes to root docs folder
-            lang_dest_dir="$DOCS_DIR/$version.x"
-        else
-            # Other languages go to language-specific subfolder
-            lang_dest_dir="$DOCS_DIR/$lang/$version.x"
-        fi
+    # Show commit information
+    if [ -d "$branch_dir" ]; then
+        commit_info=$(get_commit_info "$branch_dir")
+        echo -e "${GREEN}✓ Branch $branch (v$version.x): $commit_info${NC}"
+    else
+        echo -e "${RED}✗ Failed to fetch branch $branch${NC}"
+    fi
+done
 
-        # Check if language directory exists in the branch
-        if [ ! -d "$lang_source_dir" ]; then
-            echo -e "${YELLOW}Warning: No '$lang/' directory found in branch $branch, skipping $lang...${NC}"
-            continue
-        fi
+echo ""
+echo -e "${GREEN}Starting conversion process...${NC}"
 
-        echo -e "${YELLOW}Processing language: $lang${NC}"
-
-        # Create destination directory
-        mkdir -p "$lang_dest_dir"
-
-        # Run the convert script with 4 parallel jobs
-        echo -e "${YELLOW}Converting $lang RST files to Markdown (using 4 parallel jobs)...${NC}"
-        if ./convert "$lang_source_dir" "$lang_dest_dir" 4; then
-            echo -e "${GREEN}✓ Successfully converted $lang from branch $branch to $lang_dest_dir${NC}"
-        else
-            echo -e "${RED}✗ Failed to convert $lang from branch $branch${NC}"
-            continue
-        fi
+if [ "$USE_PARALLEL" = true ]; then
+    # Build job list for parallel processing
+    job_list=()
+    for branch in "${!BRANCHES[@]}"; do
+        for lang in "${LANGUAGES[@]}"; do
+            job_list+=("$branch $lang")
+        done
     done
 
-    # Clean up this branch directory to save space
-    echo -e "${YELLOW}Cleaning up branch directory...${NC}"
+    echo -e "${YELLOW}Running ${#job_list[@]} conversion jobs in parallel...${NC}"
+
+    # Build parallel command arguments as array
+    parallel_args=(--colsep ' ')
+    if [ -n "$PARALLEL_JOBS" ]; then
+        parallel_args+=(--jobs "$PARALLEL_JOBS")
+    fi
+
+    if [ "$VERBOSE" = true ]; then
+        # Show real-time output from parallel jobs
+        printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" --line-buffer process_branch_lang {1} {2}
+        echo -e "${GREEN}✓ Parallel conversion completed${NC}"
+    else
+        # Run jobs in parallel in background and show loading indicator
+        printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" process_branch_lang {1} {2} &
+        show_loading "Converting documentation" $!
+        wait
+        echo -e "${GREEN}✓ Parallel conversion completed${NC}"
+    fi
+else
+    # Sequential processing (original logic)
+    for branch in "${!BRANCHES[@]}"; do
+        version="${BRANCHES[$branch]}"
+
+        echo ""
+        echo -e "${GREEN}Processing branch: $branch (version $version.x)${NC}"
+        echo "----------------------------------------"
+
+        # Process each language
+        for lang in "${LANGUAGES[@]}"; do
+            process_branch_lang "$branch" "$lang"
+        done
+    done
+fi
+
+# Clean up all branch directories
+echo ""
+echo -e "${YELLOW}Cleaning up branch directories...${NC}"
+for branch in "${!BRANCHES[@]}"; do
+    branch_dir="$TEMP_DIR/$branch"
     rm -rf "$branch_dir"
 done
 
@@ -111,8 +362,13 @@ echo ""
 echo -e "${YELLOW}Cleaning up temp directory...${NC}"
 rm -rf "$TEMP_DIR"
 
+# Calculate and display total duration
+END_TIME=$(date +%s)
+TOTAL_DURATION=$((END_TIME - START_TIME))
+FORMATTED_DURATION=$(format_duration $TOTAL_DURATION)
+
 echo ""
-echo -e "${GREEN}Conversion completed!${NC}"
+echo -e "${GREEN}Conversion completed in $FORMATTED_DURATION!${NC}"
 echo "Converted documentation is available in:"
 for branch in "${!BRANCHES[@]}"; do
     version="${BRANCHES[$branch]}"
