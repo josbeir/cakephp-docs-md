@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      CI: true
 
     steps:
     - name: Checkout repository
@@ -44,9 +46,13 @@ jobs:
     - name: Run documentation conversion
       run: ./convert_branches
 
-    - name: Check for changes
+    - name: Clean up temp files and check for changes
       id: check_changes
       run: |
+        # Remove any temp directories that might have been created
+        find docs/ -name "temp" -type d -exec rm -rf {} + 2>/dev/null || true
+        find docs/ -name "*.tmp" -type f -delete 2>/dev/null || true
+
         if [ -n "$(git status --porcelain docs/)" ]; then
           echo "changes=true" >> $GITHUB_OUTPUT
           echo "Changes detected in docs/ folder"

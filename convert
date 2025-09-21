@@ -277,9 +277,18 @@ export -f convert_file
 
 # Find all .rst files and process them in parallel
 if [ "$USE_PARALLEL" = true ]; then
-    # Use GNU parallel for better progress reporting and job management
-    find "$INPUT_DIR" -name "*.rst" -type f | \
-        parallel --progress --bar -j "$JOBS" convert_file {}
+    # Check if we're in an interactive terminal for progress display
+    if [ -t 1 ] && [ -z "$CI" ]; then
+        # Interactive terminal - show progress bar
+        find "$INPUT_DIR" -name "*.rst" -type f | \
+            parallel --progress --bar -j "$JOBS" convert_file {}
+    else
+        # Non-interactive (CI/pipe) - silent mode with job count only
+        TOTAL_FILES=$(find "$INPUT_DIR" -name "*.rst" -type f | wc -l)
+        echo "Processing $TOTAL_FILES files with $JOBS parallel jobs..."
+        find "$INPUT_DIR" -name "*.rst" -type f | \
+            parallel --silent -j "$JOBS" convert_file {}
+    fi
 else
     # Fallback to xargs for systems without GNU parallel
     find "$INPUT_DIR" -name "*.rst" -type f -print0 | \
