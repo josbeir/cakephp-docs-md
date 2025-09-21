@@ -1,0 +1,77 @@
+name: Convert CakePHP Documentation
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  convert-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y rsync python3
+
+        # Install latest pandoc (Ubuntu's version might be too old)
+        PANDOC_VERSION=$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+        wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
+        tar xzf pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
+        sudo cp pandoc-${PANDOC_VERSION}/bin/pandoc /usr/local/bin/
+
+        # Verify installations
+        pandoc --version
+        python3 --version
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Make convert_branches executable
+      run: chmod +x ./convert_branches
+
+    - name: Run documentation conversion
+      run: ./convert_branches
+
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if [ -n "$(git status --porcelain docs/)" ]; then
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "Changes detected in docs/ folder"
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "No changes detected in docs/ folder"
+        fi
+
+    - name: Commit and push changes
+      if: steps.check_changes.outputs.changes == 'true'
+      run: |
+        git add docs/
+        git commit -m "Update documentation from CakePHP docs branches
+
+        🤖 Generated with GitHub Actions
+
+        Co-Authored-By: github-actions[bot] <github-actions[bot]@users.noreply.github.com>"
+        git push
+
+    - name: Create summary
+      run: |
+        echo "## Documentation Conversion Summary" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.check_changes.outputs.changes }}" == "true" ]; then
+          echo "✅ Documentation updated successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Changes made:" >> $GITHUB_STEP_SUMMARY
+          git show --stat HEAD >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ No changes detected - documentation is up to date" >> $GITHUB_STEP_SUMMARY
+        fi

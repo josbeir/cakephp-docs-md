@@ -1,27 +1,60 @@
-# CakePHP Documentation Project Agent Guidelines
+# CakePHP Documentation Conversion Project Agent Guidelines
 
-## Build Commands
-- **Build HTML docs**: `make html` (all languages) or `make html-en` (English only)
-- **Build EPUB**: `make epub` or `make epub-en`
-- **Build PDF**: `make latex-en` then `make pdf-en`
-- **Clean builds**: `make clean`
-- **Single language build**: Navigate to language dir (e.g., `en/`) and run `make html`
+## Project Overview
+This project converts CakePHP's RST documentation to Markdown using Pandoc with custom Lua filters. The converted docs are available at: **[CakePHP (new) book](https://newbook.cakephp.org/)**
+
+## Main Conversion Commands
+- **Convert single directory**: `./convert <input_dir> <output_dir>`
+  - Example: `./convert legacy/en docs/5/en`
+- **Convert all branches**: `./convert_branches` (fetches and converts 5.x, 4.x, 3.x, 2.x branches)
+- **Test single file**: Use environment variables with pandoc directly (see convert script)
+
+## GitHub Actions
+- **Automated conversion**: `.github/workflows/convert-docs.yml`
+- **Triggers**: Daily at 2 AM UTC, or manual dispatch
+- **Process**: Fetches latest docs, converts, commits changes if any
 
 ## Dependencies
-- Python 3 with pip
-- Install requirements: `pip install -r requirements.txt`
-- For PDF: LaTeX package required
+- **Pandoc 3.x** with Lua 5.4 support
+- **Python 3** (for RST preprocessing)
+- **Standard Unix tools**: bash, sed, awk, find, mktemp
+- **Git** (for branch fetching and commits)
 
 ## Project Structure
-- **Documentation source**: `legacy/{lang}/` (RST format)
-- **Config**: `legacy/config/conf.py` (Sphinx configuration)
-- **Build output**: `build/` directory
-- **Experimental Markdown**: `convert_all.sh` converts RST to Markdown in `markdown/en/`
+- **Source docs**: Fetched from `https://github.com/cakephp/docs.git` branches
+- **Legacy source**: `legacy/{lang}/` (RST format, if present locally)
+- **Converted output**: `docs/{version}/{lang}/` (Markdown format)
+- **Conversion script**: `convert` (main converter)
+- **Branch converter**: `convert_branches` (multi-branch automation)
+- **Pandoc filters**: `pandoc_filters/*.lua` (custom conversion logic)
+
+## Conversion Pipeline
+1. **Preprocessing**: Python script fixes include paths, handles PHP directives
+2. **AWK processing**: Formats PHP namespaces, classes, methods
+3. **Pandoc conversion**: RST → GFM with Lua filters
+4. **Post-processing**: Restores version variables
+
+## Key Pandoc Filters
+- `meta.lua` - Handles frontmatter and metadata
+- `doc_links.lua` - Converts RST cross-references
+- `ref.lua` - Handles Sphinx references
+- `php_domain.lua` - Processes PHP-specific directives
+- `codeblocks.lua` - Improves code block detection and language assignment
+- `toctree.lua` - Converts Sphinx toctrees to navigation
+- `versionadded.lua` - Handles version directive blocks
+- `containers.lua` - Processes note/warning/tip containers
+- `images.lua` - Handles image references and paths
+- `table_cleanup.lua` - Improves table formatting
+
+## Environment Variables (for filters)
+- `DESTINATION_CONTEXT` - Target markdown file path
+- `DESTINATION_FOLDER` - Output directory root
+- `SOURCE_FOLDER` - Input directory root
+- `CURRENT_SOURCE_FILE` - Current RST file being processed
 
 ## Content Guidelines
-- Format: reStructuredText (RST) with Sphinx
-- Follow PSR-12 coding standards for PHP examples
-- Use 4 spaces for indentation in code examples
-- Include `.. todo::` for outstanding issues
-- Use proper Sphinx directives for code blocks, notes, warnings
-- Keep documentation practical and example-driven
+- **Input format**: reStructuredText (RST) with Sphinx
+- **Output format**: GitHub Flavored Markdown (GFM)
+- **Code standards**: PSR-12 for PHP examples, 4-space indentation
+- **Conversion quality**: Preserves semantic structure, cross-references, code blocks
+- **Multi-language**: Supports EN, JA languages across multiple CakePHP versions
