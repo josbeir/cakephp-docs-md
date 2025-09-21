@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# CakePHP Documentation RST to Markdown Converter
-# Usage: ./convert <input_dir> <output_dir>
+# CakePHP Documentation RST to Markdown Converter (Parallel Version)
+# Usage: ./convert <input_dir> <output_dir> [jobs]
 
 set -e
 
@@ -12,15 +12,23 @@ if ! command -v pandoc &> /dev/null; then
     exit 1
 fi
 
+# Check if parallel is installed, fallback to xargs if not
+USE_PARALLEL=false
+if command -v parallel &> /dev/null; then
+    USE_PARALLEL=true
+fi
+
 # Check arguments
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <input_dir> <output_dir>"
-    echo "Example: $0 legacy/en docs/en"
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+    echo "Usage: $0 <input_dir> <output_dir> [jobs]"
+    echo "Example: $0 legacy/en docs/en 4"
+    echo "Default jobs: number of CPU cores"
     exit 1
 fi
 
 INPUT_DIR="$1"
 OUTPUT_DIR="$2"
+JOBS="${3:-$(nproc)}"
 
 # Validate input directory
 if [ ! -d "$INPUT_DIR" ]; then
@@ -42,25 +50,42 @@ mkdir -p "$FILTERS_DIR"
 export PHPVERSION="8.4"
 export MINPHPVERSION="8.1"
 
+# Export paths for the conversion function
+export INPUT_DIR_ABS="$(cd "$INPUT_DIR" && pwd)"
+export OUTPUT_DIR_ABS="$(cd "$OUTPUT_DIR" && pwd)"
+export FILTERS_DIR_ABS="$(cd "$FILTERS_DIR" && pwd)"
+export USE_PARALLEL
+
 echo "Converting RST documentation from $INPUT_DIR to $OUTPUT_DIR..."
 echo "Using filters from: $FILTERS_DIR"
 
-# Find all .rst files and convert them
-find "$INPUT_DIR" -name "*.rst" -type f | while read -r rst_file; do
+if [ "$USE_PARALLEL" = true ]; then
+    echo "Running with $JOBS parallel jobs using GNU parallel..."
+else
+    echo "Running with $JOBS parallel jobs using xargs (install 'parallel' for better progress reporting)..."
+fi
+
+# Define the conversion function that will be exported and run in parallel
+convert_file() {
+    local rst_file="$1"
+
     # Get relative path from input directory
-    rel_path="${rst_file#$INPUT_DIR/}"
-    
+    local rel_path="${rst_file#$INPUT_DIR_ABS/}"
+
     # Create output path with .md extension
-    md_file="$OUTPUT_DIR/${rel_path%.rst}.md"
-    
+    local md_file="$OUTPUT_DIR_ABS/${rel_path%.rst}.md"
+
     # Create output directory structure
     mkdir -p "$(dirname "$md_file")"
-    
-    echo "Converting: $rel_path"
-    
+
+    # Only show progress when not using GNU parallel (to avoid interfering with progress bar)
+    if [ "$USE_PARALLEL" != true ]; then
+        echo "Converting: $rel_path"
+    fi
+
     # Create a temporary file with substitutions and include path fixes applied
-    temp_file=$(mktemp)
-    
+    local temp_file=$(mktemp)
+
     # Pre-process the RST file to handle substitutions, PHP directives, and fix include paths
     # Preserve version variables as literal text for markdown-it processing
     # Note: Order matters - process minphpversion first to avoid partial matches
@@ -74,7 +99,7 @@ import sys
 def fix_include_paths(content):
     lines = content.split('\n')
     result_lines = []
-    
+
     for line in lines:
         # Check if this is an include directive with absolute path
         include_match = re.match(r'^(\s*\.\. include::\s*)(/.*)', line)
@@ -84,9 +109,9 @@ def fix_include_paths(content):
             # Convert absolute path to relative path (remove leading slash)
             relative_path = absolute_path[1:]
             line = indent + relative_path
-            
+
         result_lines.append(line)
-    
+
     return '\n'.join(result_lines)
 
 # Read from stdin
@@ -98,13 +123,13 @@ sys.stdout.write(fixed_content)
 " | \
     awk '
     BEGIN { namespace = ""; class = "" }
-    
+
     # Capture namespace
     /^.. php:namespace::/ {
         namespace = $3
         next
     }
-    
+
     # Capture class and format it
     /^.. php:class::/ {
         # Get everything after ".. php:class:: "
@@ -144,13 +169,13 @@ sys.stdout.write(fixed_content)
         }
         next
     }
-    
+
     # Handle method directives
     /^.. php:method::/ {
         # Get everything after ".. php:method:: "
         method_line = $0
         gsub(/^.. php:method:: /, "", method_line)
-        
+
         # Parse method name and parameters
         if (match(method_line, /^([a-zA-Z_][a-zA-Z0-9_]*)\s*\((.*)\)\s*$/, arr)) {
             method_name = arr[1]
@@ -163,7 +188,7 @@ sys.stdout.write(fixed_content)
             method_name = method_line
             params = ""
         }
-        
+
         # Build full class name
         if (namespace != "" && class != "") {
             full_class = namespace "\\" class
@@ -172,7 +197,7 @@ sys.stdout.write(fixed_content)
         } else {
             full_class = "Class"
         }
-        
+
         # Format method using raw HTML
         print ""
         print ".. raw:: html"
@@ -185,29 +210,29 @@ sys.stdout.write(fixed_content)
         print ""
         next
     }
-    
+
     # Remove other PHP directives we do not handle
     /^.. php:/ { next }
-    
+
     # Print all other lines
     { print }
     ' > "$temp_file"
-    
+
     # Get the directory of the input file for include resolution
-    rst_dir=$(dirname "$rst_file")
-    
+    local rst_dir=$(dirname "$rst_file")
+
     # Copy temp file to the RST directory for include resolution
-    temp_in_rst_dir="$rst_dir/$(basename "$temp_file").rst"
+    local temp_in_rst_dir="$rst_dir/$(basename "$temp_file").rst"
     cp "$temp_file" "$temp_in_rst_dir"
-    
+
     # Get absolute path for output
-    md_file_abs="$(cd "$(dirname "$md_file")" && pwd)/$(basename "$md_file")"
+    local md_file_abs="$(cd "$(dirname "$md_file")" && pwd)/$(basename "$md_file")"
 
     # Set destination context and folder for the Lua filter (use absolute paths)
-    export DESTINATION_CONTEXT="$md_file_abs"
-    export DESTINATION_FOLDER="$(cd "$OUTPUT_DIR" && pwd)"
-    export SOURCE_FOLDER="$(cd "$INPUT_DIR" && pwd)"
-    export CURRENT_SOURCE_FILE="$rst_file"
+    local DESTINATION_CONTEXT="$md_file_abs"
+    local DESTINATION_FOLDER="$OUTPUT_DIR_ABS"
+    local SOURCE_FOLDER="$INPUT_DIR_ABS"
+    local CURRENT_SOURCE_FILE="$rst_file"
 
     # Change to RST directory and run pandoc for proper include resolution
     (cd "$rst_dir" && \
@@ -219,19 +244,19 @@ sys.stdout.write(fixed_content)
         --from=rst \
         --to=gfm \
         --wrap=preserve \
-        --lua-filter="$FILTERS_DIR/meta.lua" \
-        --lua-filter="$FILTERS_DIR/doc_links.lua" \
-        --lua-filter="$FILTERS_DIR/ref.lua" \
-        --lua-filter="$FILTERS_DIR/php_domain.lua" \
-        --lua-filter="$FILTERS_DIR/fqdn_cleanup.lua" \
-        --lua-filter="$FILTERS_DIR/containers.lua" \
-        --lua-filter="$FILTERS_DIR/versionadded.lua" \
-        --lua-filter="$FILTERS_DIR/language.lua" \
-        --lua-filter="$FILTERS_DIR/images.lua" \
-        --lua-filter="$FILTERS_DIR/toctree.lua" \
-        --lua-filter="$FILTERS_DIR/table_cleanup.lua" \
-        --lua-filter="$FILTERS_DIR/anchors.lua" \
-        --lua-filter="$FILTERS_DIR/codeblocks.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/meta.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/doc_links.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/ref.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/php_domain.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/fqdn_cleanup.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/containers.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/versionadded.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/language.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/images.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/toctree.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/table_cleanup.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/anchors.lua" \
+        --lua-filter="$FILTERS_DIR_ABS/codeblocks.lua" \
         --output="$md_file_abs" \
         "$(basename "$temp_in_rst_dir")")
 
@@ -242,10 +267,24 @@ sys.stdout.write(fixed_content)
 
     # Clean up temp file in RST directory
     rm -f "$temp_in_rst_dir"
-    
+
     # Clean up temp file
     rm "$temp_file"
-done
+}
+
+# Export the function so it can be used by parallel processes
+export -f convert_file
+
+# Find all .rst files and process them in parallel
+if [ "$USE_PARALLEL" = true ]; then
+    # Use GNU parallel for better progress reporting and job management
+    find "$INPUT_DIR" -name "*.rst" -type f | \
+        parallel --progress --bar -j "$JOBS" convert_file {}
+else
+    # Fallback to xargs for systems without GNU parallel
+    find "$INPUT_DIR" -name "*.rst" -type f -print0 | \
+        xargs -0 -P "$JOBS" -I {} bash -c 'convert_file "$@"' _ {}
+fi
 
 echo "Conversion completed!"
 echo "Converted files are in: $OUTPUT_DIR"

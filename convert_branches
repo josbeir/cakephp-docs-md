@@ -91,9 +91,9 @@ for branch in "${!BRANCHES[@]}"; do
         # Create destination directory
         mkdir -p "$lang_dest_dir"
 
-        # Run the convert script
-        echo -e "${YELLOW}Converting $lang RST files to Markdown...${NC}"
-        if ./convert "$lang_source_dir" "$lang_dest_dir"; then
+        # Run the convert script with 4 parallel jobs
+        echo -e "${YELLOW}Converting $lang RST files to Markdown (using 4 parallel jobs)...${NC}"
+        if ./convert "$lang_source_dir" "$lang_dest_dir" 4; then
             echo -e "${GREEN}✓ Successfully converted $lang from branch $branch to $lang_dest_dir${NC}"
         else
             echo -e "${RED}✗ Failed to convert $lang from branch $branch${NC}"

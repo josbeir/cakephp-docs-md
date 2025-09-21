@@ -8,6 +8,8 @@ on:
 jobs:
   convert-docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout repository
@@ -19,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y rsync python3
+        sudo apt-get install -y rsync python3 parallel
 
         # Install latest pandoc (Ubuntu's version might be too old)
         PANDOC_VERSION=$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
