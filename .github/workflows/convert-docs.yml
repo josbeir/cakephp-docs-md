@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
+    inputs:
+      pandoc_version:
+        description: 'Pandoc version to use (e.g., 3.3, 3.8, latest)'
+        required: false
+        default: '3.3' # Seems like < 3.3 is not working for us, especially for tables.
+        type: string
 
 jobs:
   convert-docs:
@@ -25,8 +31,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y rsync python3 parallel
 
-        # Install latest pandoc (Ubuntu's version might be too old)
-        PANDOC_VERSION=$(curl -s https://api.github.com/repos/jgm/pandoc/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+        # Install pandoc (configurable version)
+        PANDOC_VERSION="${{ github.event.inputs.pandoc_version || '3.3' }}"
+        echo "Installing Pandoc version: $PANDOC_VERSION"
         wget https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
         tar xzf pandoc-${PANDOC_VERSION}-linux-amd64.tar.gz
         sudo cp pandoc-${PANDOC_VERSION}/bin/pandoc /usr/local/bin/
@@ -44,7 +51,7 @@ jobs:
       run: chmod +x ./convert_branches
 
     - name: Run documentation conversion
-      run: ./convert_branches
+      run: ./convert_branches --quiet
 
     - name: Clean up temp files and check for changes
       id: check_changes

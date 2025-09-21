@@ -13,6 +13,7 @@ CONFIG_FILE="branches.conf"
 # Default options
 USE_PARALLEL=true
 VERBOSE=false
+QUIET=false
 PARALLEL_JOBS=""  # Empty means use GNU parallel's default (number of CPU cores)
 
 # Define languages to process
@@ -60,6 +61,7 @@ show_usage() {
     echo "Options:"
     echo "  -s, --sequential       Disable parallel processing (run jobs sequentially)"
     echo "  -v, --verbose          Show verbose output from parallel jobs"
+    echo "  -q, --quiet            Suppress progress indicators (ideal for CI/logs)"
     echo "  -j, --jobs N           Number of parallel jobs to run (default: auto-detect CPU cores)"
     echo "  -c, --config FILE      Use custom config file (default: branches.conf)"
     echo "  -h, --help             Show this help message"
@@ -68,6 +70,7 @@ show_usage() {
     echo "  $0                     # Run with parallel processing (auto-detect cores)"
     echo "  $0 --jobs 4            # Run with 4 parallel jobs"
     echo "  $0 --verbose           # Run with parallel processing and show job output"
+    echo "  $0 --quiet             # Run quietly without progress indicators (for CI)"
     echo "  $0 --sequential        # Run jobs sequentially"
     echo "  $0 --config my.conf    # Use custom config file"
     echo ""
@@ -82,6 +85,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         -v|--verbose)
             VERBOSE=true
+            shift
+            ;;
+        -q|--quiet)
+            QUIET=true
             shift
             ;;
         -j|--jobs)
@@ -129,13 +136,20 @@ if [ "$USE_PARALLEL" = true ]; then
         job_info=" (auto-detect cores)"
     fi
 
+    mode_info="Mode: Parallel processing${job_info}"
     if [ "$VERBOSE" = true ]; then
-        echo -e "${YELLOW}Mode: Parallel processing${job_info} (verbose)${NC}"
-    else
-        echo -e "${YELLOW}Mode: Parallel processing${job_info}${NC}"
+        mode_info="$mode_info (verbose)"
     fi
+    if [ "$QUIET" = true ]; then
+        mode_info="$mode_info (quiet)"
+    fi
+    echo -e "${YELLOW}$mode_info${NC}"
 else
-    echo -e "${YELLOW}Mode: Sequential processing${NC}"
+    mode_info="Mode: Sequential processing"
+    if [ "$QUIET" = true ]; then
+        mode_info="$mode_info (quiet)"
+    fi
+    echo -e "${YELLOW}$mode_info${NC}"
 fi
 echo ""
 
@@ -270,7 +284,7 @@ process_branch_lang() {
 
 # Export functions for parallel to use
 export -f process_branch_lang get_version_from_branch
-export TEMP_DIR DOCS_DIR YELLOW GREEN RED NC VERBOSE
+export TEMP_DIR DOCS_DIR YELLOW GREEN RED NC VERBOSE QUIET
 
 # First, clone all branches
 echo -e "${GREEN}Fetching all branches...${NC}"
@@ -280,7 +294,7 @@ for branch in "${!BRANCHES[@]}"; do
 
     echo -e "${YELLOW}Fetching branch $branch...${NC}"
 
-    # Clone in background and show loading indicator
+    # Clone in background and show loading indicator (if not quiet)
     git clone \
         --depth 1 \
         --single-branch \
@@ -290,7 +304,9 @@ for branch in "${!BRANCHES[@]}"; do
         "$branch_dir" \
         --quiet &
 
-    show_loading "Fetching branch $branch" $!
+    if [ "$QUIET" = false ]; then
+        show_loading "Fetching branch $branch" $!
+    fi
     wait
 
     # Show commit information
@@ -327,9 +343,11 @@ if [ "$USE_PARALLEL" = true ]; then
         printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" --line-buffer process_branch_lang {1} {2}
         echo -e "${GREEN}✓ Parallel conversion completed${NC}"
     else
-        # Run jobs in parallel in background and show loading indicator
+        # Run jobs in parallel in background and show loading indicator (if not quiet)
         printf '%s\n' "${job_list[@]}" | parallel "${parallel_args[@]}" process_branch_lang {1} {2} &
-        show_loading "Converting documentation" $!
+        if [ "$QUIET" = false ]; then
+            show_loading "Converting documentation" $!
+        fi
         wait
         echo -e "${GREEN}✓ Parallel conversion completed${NC}"
     fi

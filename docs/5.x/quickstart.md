@@ -24,8 +24,8 @@ Before starting you should make sure that you're using a supported PHP version:
 php -v
 ```
 
-You should at least have got installed PHP [\|minphpversion\|](##SUBST##|minphpversion|) (CLI) or higher.
-Your webserver's PHP version must also be of [\|minphpversion\|](##SUBST##|minphpversion|) or higher, and
+You should at least have got installed PHP (CLI) or higher.
+Your webserver's PHP version must also be of or higher, and
 should be the same version your command line interface (CLI) PHP is.
 
 ### Getting CakePHP
