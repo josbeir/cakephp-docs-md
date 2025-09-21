@@ -6,10 +6,15 @@ on:
   workflow_dispatch:
     inputs:
       pandoc_version:
-        description: 'Pandoc version to use (e.g., 3.3, 3.8, latest)'
+        description: 'Pandoc version'
         required: false
         default: '3.3' # Seems like < 3.3 is not working for us, especially for tables.
         type: string
+      force_sync:
+        description: 'Force sync to CakePHP docs repo'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   convert-docs:
@@ -80,30 +85,28 @@ jobs:
         git push
 
     - name: Checkout CakePHP docs repository
-      if: steps.check_changes.outputs.changes == 'true'
+      if: steps.check_changes.outputs.changes == 'true' || github.event.inputs.force_sync == 'true'
       uses: actions/checkout@v5
       with:
         repository: cakephp/docs
         ref: 5.x-vitepress
         path: cakephp-docs
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.CAKEPHP_DOCS_TOKEN }}
 
     - name: Sync docs to CakePHP repository
-      if: steps.check_changes.outputs.changes == 'true'
+      if: steps.check_changes.outputs.changes == 'true' || github.event.inputs.force_sync == 'true'
       run: |
         # Use rsync to sync only changed folders from /docs to /docs in the target repo
         # --archive preserves permissions, timestamps, etc.
         # --update only copies files that are newer in the source
         # --exclude protects files we don't want to touch
-        rsync -av --update \
+        rsync -avz \
           --exclude='.git*' \
-          --exclude='README.md' \
-          --exclude='*.log' \
           --exclude='public/' \
           docs/ cakephp-docs/docs/
 
     - name: Commit and push to CakePHP docs repository
-      if: steps.check_changes.outputs.changes == 'true'
+      if: steps.check_changes.outputs.changes == 'true' || github.event.inputs.force_sync == 'true'
       run: |
         cd cakephp-docs
         git config user.name "github-actions[bot]"
