@@ -477,10 +477,10 @@ The wording output by the counter() method can also be customized using special
 markers:
 
 ``` php
-<?= $this->Paginator->counter([
-    'format' => 'Page {{page}} of {{pages}}, showing {{current}} records out of
-             {{count}} total, starting on record {{start}}, ending on {{end}}'
-]) ?>
+<?= $this->Paginator->counter(
+    'Page {{page}} of {{pages}}, showing {{current}} records out of
+    {{count}} total, starting on record {{start}}, ending on {{end}}'
+) ?>
 ```
 
 <a id="paginator-helper-multiple"></a>
