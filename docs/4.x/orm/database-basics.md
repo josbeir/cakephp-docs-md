@@ -604,7 +604,10 @@ class WidgetsTable extends Table
 {
     public function getSchema(): TableSchemaInterface
     {
-        $this->getSchema()->setColumnType('widget_prefs', 'json');
+        $schema = parent::getSchema();
+        $schema->columnType('widget_prefs', 'json');
+
+        return $schema;
     }
 }
 ```
