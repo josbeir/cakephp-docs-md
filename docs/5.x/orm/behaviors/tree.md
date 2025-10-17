@@ -28,6 +28,15 @@ More information on the meaning of the fields and how they are used can be found
 in this article describing the [MPTT logic](https://www.sitepoint.com/hierarchical-data-database-2/)
 
 > [!WARNING]
+> The TreeBehavior is not safe for concurrent write operations.
+> Simultaneous requests that modify tree-structured data
+> (e.g., insertions, deletions, or moves) can lead to corruption of the
+> `lft` and `rght` values.
+>
+> To prevent this, a locking mechanism like a
+> [Semaphore](https://www.php.net/manual/en/book.sem.php) should be used.
+
+> [!WARNING]
 > The TreeBehavior does not support composite primary keys at this point in
 > time.
 
