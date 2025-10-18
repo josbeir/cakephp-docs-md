@@ -39,7 +39,7 @@ curl -s https://getcomposer.org/installer | php
 **cms** ディレクトリーに CakePHP アプリケーションのスケルトンをインストールすることができます。
 
 ``` bash
-php composer.phar create-project --prefer-dist cakephp/app:5 cms
+php composer.phar create-project cakephp/app:5 cms
 ```
 
 [Composer Windows Installer](https://getcomposer.org/Composer-Setup.exe)
@@ -47,7 +47,7 @@ php composer.phar create-project --prefer-dist cakephp/app:5 cms
 からターミナルに次の行を入力してください。
 
 ``` bash
-composer self-update && composer create-project --prefer-dist cakephp/app:5.* cms
+composer self-update && composer create-project cakephp/app:5.* cms
 ```
 
 Composer を使うメリットは、 正しいファイルパーミッションの設定や、 **config/app.php**
