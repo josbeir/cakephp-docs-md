@@ -1059,6 +1059,40 @@ The [Collections](../core-libraries/collections) chapter has more detail on what
 done with result sets using the collections features. The [Format Results](../orm/query-builder#format-results)
 section show how you can add calculated fields, or replace the result set.
 
+> [!WARNING]
+> When working with large datasets, `extract()` may materialize the entire
+> result set into memory. If you encounter memory issues with large queries,
+> consider these alternatives:
+>
+> **Option 1: Use disableHydration() with manual extraction**:
+>
+> ``` php
+> $query = $articles->find()
+>     ->select(['id'])
+>     ->disableHydration();
+>
+> foreach ($query as $row) {
+>     $id = $row['id'];
+>     // Process individual values
+> }
+> ```
+>
+> **Option 2: Select only the fields you need**:
+>
+> ``` php
+> $query = $articles->find()
+>     ->select(['id', 'title'])
+>     ->disableHydration();
+>
+> $ids = [];
+> foreach ($query as $row) {
+>     $ids[] = $row['id'];
+> }
+> ```
+>
+> These approaches avoid loading unnecessary data and provide better memory
+> efficiency for large result sets.
+
 ### Getting the First & Last Record From a ResultSet
 
 You can use the `first()` and `last()` methods to get the respective records
