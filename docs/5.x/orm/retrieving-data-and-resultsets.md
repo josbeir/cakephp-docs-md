@@ -1060,38 +1060,27 @@ done with result sets using the collections features. The [Format Results](../or
 section show how you can add calculated fields, or replace the result set.
 
 > [!WARNING]
-> When working with large datasets, `extract()` may materialize the entire
-> result set into memory. If you encounter memory issues with large queries,
-> consider these alternatives:
+> When working with large data sets (especially when calling collection methods
+> like `extract()` on the result set), you may encounter high memory usage
+> due to the entire result set being buffered in memory.
 >
-> **Option 1: Use disableHydration() with manual extraction**:
->
-> ``` php
-> $query = $articles->find()
->     ->select(['id'])
->     ->disableHydration();
->
-> foreach ($query as $row) {
->     $id = $row['id'];
->     // Process individual values
-> }
-> ```
->
-> **Option 2: Select only the fields you need**:
+> You can work around this issue by disabling results buffering for the query:
 >
 > ``` php
-> $query = $articles->find()
->     ->select(['id', 'title'])
->     ->disableHydration();
->
-> $ids = [];
-> foreach ($query as $row) {
->     $ids[] = $row['id'];
-> }
+> $results = $articles->find()
+>     ->disableBufferedResults()
+>     ->all();
 > ```
 >
-> These approaches avoid loading unnecessary data and provide better memory
-> efficiency for large result sets.
+> Depending on your use case, you may also consider using disabling hydration:
+>
+> ``` php
+> $results = $articles->find()
+>     ->disableHydration()
+>     ->all();
+> ```
+>
+> The above will disable creation of entity objects and return rows as arrays instead.
 
 ### Getting the First & Last Record From a ResultSet
 
